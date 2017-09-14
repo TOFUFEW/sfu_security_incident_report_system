@@ -1,0 +1,187 @@
+body {
+  min-height: 100vh;
+  min-width: 100vh;
+  margin: 0; }
+
+.main-container {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden; }
+
+#main-navbar {
+  height: 50px;
+  width: 100%;
+  background-color: #A6192E;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  border: none;
+  border-radius: 0px !important;
+  margin: 0px; }
+  #main-navbar .navbar-brand {
+    font-weight: 700;
+    color: #ffffff; }
+
+.max-height-width {
+  height: 100%;
+  width: 100%; }
+
+#main-content {
+  height: calc(100% - 50px);
+  display: flex; }
+
+.sidebar {
+  height: 100%;
+  width: 250px; }
+
+.content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow: auto; }
+  .content.column {
+    flex-direction: column; }
+
+div#new-report-form .container-title, div#irs-dashboard .container-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #54585A; }
+  div#new-report-form .container-title.light, div#irs-dashboard .container-title.light {
+    color: #ffffff !important; }
+div#new-report-form .form-control, div#irs-dashboard .form-control {
+  width: auto; }
+div#new-report-form .field-title, div#new-report-form .form-control, div#irs-dashboard .field-title, div#irs-dashboard .form-control {
+  margin-left: 8px;
+  margin-right: 8px; }
+div#new-report-form .field-container, div#irs-dashboard .field-container {
+  height: auto;
+  width: 100%;
+  padding-top: 12px; }
+
+div#new-report-form {
+  padding: 20px 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
+  div#new-report-form .box {
+    padding: 20px 100px 20px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.2); }
+  div#new-report-form .horizontal-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    height: auto; }
+  div#new-report-form #submit-btn {
+    background-color: #54585A;
+    margin-left: 200px; }
+    div#new-report-form #submit-btn :hover {
+      cursor: pointer; }
+    div#new-report-form #submit-btn span {
+      color: #ffffff; }
+
+div#irs-dashboard div#incident-dashboard div#top-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+  div#irs-dashboard div#incident-dashboard div#top-panel #count-container {
+    display: flex; }
+    div#irs-dashboard div#incident-dashboard div#top-panel #count-container span {
+      font-weight: 600; }
+      div#irs-dashboard div#incident-dashboard div#top-panel #count-container span.field-title {
+        font-weight: 400; }
+div#irs-dashboard div#incident-dashboard div#incident-table-container {
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 4px; }
+div#irs-dashboard div#incident-dashboard div#incident-table {
+  width: 100%; }
+  div#irs-dashboard div#incident-dashboard div#incident-table .table-row {
+    width: 100%;
+    padding: 10px; }
+    div#irs-dashboard div#incident-dashboard div#incident-table .table-row.border-top {
+      border-top: 1px solid rgba(0, 0, 0, 0.16); }
+  div#irs-dashboard div#incident-dashboard div#incident-table #headers, div#irs-dashboard div#incident-dashboard div#incident-table #data {
+    display: flex;
+    justify-content: space-around;
+    align-items: center; }
+  div#irs-dashboard div#incident-dashboard div#incident-table span {
+    width: 15%; }
+    div#irs-dashboard div#incident-dashboard div#incident-table span.sm {
+      width: 10%; }
+  div#irs-dashboard div#incident-dashboard div#incident-table #headers span {
+    color: #696969;
+    font-weight: 500; }
+  div#irs-dashboard div#incident-dashboard div#incident-table div.description-section {
+    padding: 8px 24px 0px 24px; }
+div#irs-dashboard .content-panel {
+  height: 100%;
+  padding: 16px; }
+div#irs-dashboard div#active-dispatches-box {
+  width: 70%;
+  overflow: auto; }
+div#irs-dashboard div#users-box {
+  width: 30%;
+  background-color: #54585A;
+  padding: 32px 16px 16px 16px;
+  overflow: hidden; }
+  div#irs-dashboard div#users-box div#user-list {
+    margin-top: 12px;
+    height: 70%;
+    border-radius: 2px;
+    background-color: white;
+    overflow: auto; }
+    div#irs-dashboard div#users-box div#user-list div.user {
+      height: auto;
+      width: 100%;
+      padding: 16px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+      display: flex;
+      justify-content: space-between;
+      align-items: center; }
+      div#irs-dashboard div#users-box div#user-list div.user #left-content {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center; }
+      div#irs-dashboard div#users-box div#user-list div.user #text-area {
+        height: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column; }
+      div#irs-dashboard div#users-box div#user-list div.user #assign-btn {
+        font-size: 1rem; }
+
+.field-title {
+  width: auto;
+  color: #696969;
+  font-size: 14px; }
+
+.status-circle {
+  height: 12px;
+  width: 12px;
+  border-radius: 99px; }
+  .status-circle.margin-right {
+    margin-right: 16px; }
+  .status-circle.available {
+    background-color: green; }
+  .status-circle.in-progress {
+    background-color: #ff8000; }
+  .status-circle.new {
+    background-color: #cc0000; }
+  .status-circle.offline {
+    background-color: #696969; }
+
+.card-text-primary {
+  color: #54585A;
+  font-size: 15px; }
+
+.card-text-secondary {
+  color: #696969;
+  font-size: 12px; }
+
+.btn-default {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.16) !important; }
+
+/*# sourceMappingURL=demo.css.map */

@@ -1,0 +1,256 @@
+$sfu-red: #A6192E;
+$sfu-black: #54585A;
+$color-danger: #cc0000;
+$color-in-progress: #ff8000;
+$color-complete: green;
+$white: #ffffff;
+$padding-sm: 12px;
+$padding-md: 16px;
+$padding-lg: 20px;
+$padding-xl: 24px;
+$text-lg: 24px;
+$text-md: 18px;
+$text-sm: 14px;
+$field-title-color: #696969;
+$navbar-height: 50px;
+$border-default: 1px solid rgba(0,0,0,0.16);
+@mixin flex($x, $y) {
+    display: flex;
+    justify-content: $x;
+    align-items: $y;
+}
+
+body {
+    min-height: 100vh;
+    min-width: 100vh;
+    margin: 0;
+}
+
+
+.main-container {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+#main-navbar {
+    height: $navbar-height;
+    width: 100%;
+    background-color: $sfu-red;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    border: none;
+    border-radius: 0px !important;
+    margin: 0px;
+    .navbar-brand {
+        font-weight: 700;
+        color: $white;
+    }
+}
+
+.max-height-width {
+    height: 100%;
+    width: 100%;
+}
+#main-content {
+    height: calc(100% - 50px);
+    display: flex;
+}
+
+.sidebar {
+    height: 100%;
+    width: 250px;
+}
+
+.content {
+    @include flex(flex-start, flex-start);
+    
+    
+    overflow: auto;
+
+    &.column {
+        flex-direction: column;
+    }
+}
+
+div#new-report-form, div#irs-dashboard {
+    .container-title {
+        font-size: $text-lg;
+        font-weight: 700;
+        color: $sfu-black;
+         &.light {
+             color: $white !important;
+         }
+    }
+
+    .form-control {
+        width: auto;
+    }
+
+    .field-title, .form-control {
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+
+    .field-container {
+        height: auto;
+        width: 100%;
+        padding-top: $padding-sm;
+    }
+
+    
+}
+div#new-report-form {
+    padding: $padding-lg 50px;
+    @include flex(flex-start, center);
+    .box {
+        padding: 20px 100px 20px 20px;
+        border: $border-default;
+        box-shadow: 1px 3px 8px rgba(0,0,0,.2);
+    }
+    .horizontal-container {
+        @include flex(flex-start, flex-start);
+        width: 100%;
+        height: auto;
+    }
+
+    #submit-btn {
+        background-color: $sfu-black;
+        margin-left: 200px;
+        :hover {cursor: pointer;}
+        span {
+            color: $white;
+        }
+        
+    }
+}
+
+div#irs-dashboard {
+    div#incident-dashboard {
+        //border: $border-default;
+
+        div#top-panel {
+            @include flex(space-between, center);
+
+            #count-container {
+                display: flex;
+                span {
+                    font-weight: 600;
+                    &.field-title {font-weight: 400;}
+                }
+            }
+        }
+        div#incident-table-container {
+            margin-top: $padding-md;
+            padding: $padding-sm;
+            border: $border-default;
+            border-radius: 4px;
+        }
+
+        div#incident-table {
+            width: 100%;
+            .table-row {
+                width: 100%;
+                padding: 10px;
+                &.border-top{
+                    border-top: $border-default;
+                }
+            }
+            #headers, #data {
+                @include flex(space-around, center);
+            }
+            
+            span {
+                width: 15%;
+                &.sm { width: 10%; }
+            }
+
+            #headers span {
+                color: $field-title-color;
+                font-weight: 500;
+            }
+
+            div.description-section {
+                padding: 8px 24px 0px 24px;
+            }
+
+        }
+    }
+    .content-panel {
+        height: 100%;
+        //border: $border-default;
+        padding: $padding-md;
+    }
+
+    div#active-dispatches-box {
+        width: 70%;
+        overflow: auto;
+    }
+
+    div#users-box {
+        width: 30%;
+        background-color: $sfu-black;
+        padding: 32px $padding-md $padding-md $padding-md;
+        overflow: hidden;
+        div#user-list {
+            margin-top: $padding-sm;
+            height: 70%;
+            border-radius: 2px;
+            background-color: white;
+            overflow: auto;
+            div.user {
+                height: auto;
+                width: 100%;
+                padding: $padding-md;
+                border-bottom: $border-default;
+                @include flex(space-between, center);
+                
+                #left-content{
+                    @include flex(flex-start, center);
+                }
+                
+                #text-area {
+                    height: 100%;
+                    @include flex(flex-start, flex-start);
+                    flex-direction: column;
+                }
+
+                #assign-btn {
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+}
+
+.field-title {
+    width: auto;
+    color: $field-title-color;
+    font-size: $text-sm;
+}
+
+.status-circle {
+    height: 12px;
+    width: 12px;
+    
+    border-radius: 99px;
+    &.margin-right { margin-right: 16px; }
+    &.available { background-color: $color-complete; }
+    &.in-progress { background-color: $color-in-progress; }
+    &.new { background-color: $color-danger; }
+    &.offline { background-color: $field-title-color; }
+}
+
+.card-text-primary {
+    color: $sfu-black;
+    font-size: 15px;
+}
+
+.card-text-secondary {
+    color: $field-title-color;
+    font-size: 12px;
+}
+
+.btn-default {
+    background-color: white;
+    border: $border-default !important;
+}

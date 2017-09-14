@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home - SFU IRS</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="demo.css">
+        <!-- <link rel="stylesheet" type="text/css" href="bootstrap-4.0.0-beta-dist/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="bootstrap-4.0.0-beta-dist/js/bootstrap.min.js"></script> -->
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="knockout-3.4.2.js"></script>
+        
+    </head>
+
+    <body>
+        <div class="main-container">
+            <div id="main-navbar" class="nav navbar">
+                <a class="navbar-brand" href="#">SFU Incident Reporting System</a>
+            </div>
+
+            <div id="main-content" class="max-height-width">
+                <!-- <div class="sidebar">
+                    <span>Sidebar</span>
+                </div> -->
+                <div id="irs-dashboard" class="content max-height-width">
+                    <div id="active-dispatches-box" class="content-panel">
+                        <!-- <span class="container-title">Active Dispatches</span> -->
+
+                        <div id="incident-dashboard" class="content-panel">
+                            <div id="top-panel">
+                                <span class="container-title">IRS Dashboard</span>
+                                <div id="count-container">
+                                    <div class="count-box"><span class="field-title">New: </span><span id="new" data-bind="text: newCount"></span></div>
+                                    <div class="count-box"><span class="field-title">In Progress: </span><span id="in-progress" data-bind="text: inProgressCount"></span></div>
+                                    <div class="count-box"><span class="field-title">Complete: </span><span id="complete" data-bind="text: completedCount"></span></div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div id="incident-table-container" class="tab-pane fade in active">
+                                <div id="incident-table">
+                                    <div id="headers" class="table-row">
+                                        <div></div>
+                                        <span class="sm">Status</span>
+                                        <span>Type</span>
+                                        <!-- <span>Description</span> -->
+                                        <span>Location</span>
+                                        <span>Staff Attending</span>
+                                        <span>Caller</span>
+                                        <span>Time Reported</span>
+                                    </div>
+                                    <!-- ko foreach: incidents -->
+                                    <div class="table-row border-top">
+                                        <div id="data">
+                                            <div class="status-circle" 
+                                                data-bind="css: (status == 'New') ? 'new' 
+                                                : ((status == 'Complete') ? 'available' : 'in-progress')">
+                                            </div>
+                                            <span class="sm" data-bind="text: status"></span>
+                                            <span data-bind="text: type"></span>
+                                            <span data-bind="text: location"></span>
+                                            <span data-bind="text: staff"></span>
+                                            <span data-bind="text: caller"></span>
+                                            <span data-bind="text: dateTime"></span>
+                                        </div>
+                                        <div class="description-section">
+                                            <span class="field-title">Description: </span>
+                                            <span data-bind="text: description"></span>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <!-- /ko -->
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div id="users-box" class="content-panel">
+                        <span class="container-title light">On Duty Staff</span>
+                        <div id="user-list">
+                            <!-- ko foreach: staff -->
+                            <div class="user">
+                                <div id="left-content">
+                                    <div class="status-circle margin-right" 
+                                        data-bind="css: (statusCode == 1) ? 'available' 
+                                        : ((statusCode == 2) ? 'in-progress' : 'offline')">
+                                    </div>
+                                    <div id="text-area">
+                                        <span class="card-text-primary" data-bind="text: name"></span>
+                                        <span class="card-text-secondary" data-bind="text: 'Location: ' + location"></span>
+                                        <span class="card-text-secondary" data-bind="text: 'Status: ' + status"></span>
+                                    </div>
+                                </div>
+                                <!-- ko if: status == 'Available' --> 
+                                <button id="assign-btn" class="btn btn-default"><span>Dispatch</span></button>
+                                <!-- /ko -->
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </body>
+    <script src="demo-knockout.js"></script>
+</html>

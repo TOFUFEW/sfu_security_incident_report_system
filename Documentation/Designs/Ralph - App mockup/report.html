@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>New Incident Report</title>
+        <link rel="stylesheet" type="text/css" href="demo.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+        <div class="main-container">
+            <div id="main-navbar" class="nav navbar">
+                <a class="navbar-brand" href="#">SFU Incident Reporting System</a>
+            </div>
+
+            <div id="main-content" class="max-height-width">
+                <!-- <div class="sidebar">
+                    <span>Sidebar</span>
+                </div> -->
+                <div id="new-report-form" class="content column max-height-width ">
+                    <div class="box">
+
+                        <span class="container-title">New Report (mobile view)</span>
+                            
+                        <div class="field-container">
+                            
+                            <span class="field-title">Date of Incident</span>
+                            <input type="date" class="form-control"/>
+                        </div>
+    
+                        <div class="field-container">
+                            <span class="field-title">Time of Incident</span>
+                            <input type="time" class="form-control"/>
+                        </div>
+    
+                        <div class="field-container">
+                            <span class="field-title">Location of Incident</span>
+                            <input type="text"  class="form-control"/>
+                        </div>
+                        <div class="field-container">
+                            <span class="field-title">Incident Type</span>
+                            <select  class="form-control" >
+                                <option value="1">Type1</option>
+                                <option value="2">Type2</option>
+                                <option value="3">Other</option>
+                            </select>
+                        </div>
+                        <div class="field-container">
+                            <span class="field-title">Incident Description</span>
+                            <textarea class="form-control" rows="4" cols="30"></textarea>
+                        </div>
+                        <div class="field-container">
+                            <span class="field-title">Executive Summary (Optional)</span>
+                            <textarea class="form-control" rows="4" cols="30"></textarea>
+                        </div>
+                        <div class="field-container">
+                            <span class="field-title">Name of Caller</span>
+                            <input type="text"  class="form-control"/>
+                        </div>
+                        <div class="field-container">
+                            <span class="field-title">Phone Number</span>
+                            <input type="tel"  class="form-control"/>
+                        </div>
+                        <div class="field-container">
+                            <span class="field-title">Email</span>
+                            <input type="email"  class="form-control"/>
+                        </div>
+                        <div class="field-container">
+                            <button id="submit-btn" class="btn btn-default"><span>Create</span></button>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            
+        </div>
+    </body>
+
+</html>
