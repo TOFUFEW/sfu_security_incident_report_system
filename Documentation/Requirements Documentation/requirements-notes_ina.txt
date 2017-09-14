@@ -1,0 +1,46 @@
+Incident Reporting System
+Clients: Jason & Jennifer
+
+CSSS - Campus Safety & Security Services
+EHRS - Environmental Health ....
+
+Need an application for managing incidents, to say when someone is on scene and to send someone to the scene
+- Dispatcher desktop application
+- Security guards have a mobile and desktop interface with standard data entry capabilities
+- Ability to build queries and export data
+- Also standard administrative screens? 
+- A student app for reports incidents would be a nice-to-have
+
+Needs:
+- Tag files to give permissions for who can view incident reports so that sensitive reports aren't seen by everyone
+- Track history of who has edited a file
+- Must have the ability to have many concurrent users sharing access to one database
+- * Currently use MS SQL (?) but open to other solutions?
+- The application will be used on all 3 campuses
+- Use any platform
+- Don't store offline content - guards can write down info on paper and enter it later
+- Encryption: yes, including on local device
+- Videos/Images: it would be valuable (not necessary ) to be able to attach these to a report
+- Authentication: SFU user ID and/or create local user since not all staff will have an SFU ID
+- Other options: plugins for weather cameras, IP cameras, hyperbaric chamber alarm, etc.
+- EHRS list items: things they will want down the line
+
+Dispatcher interface (use 27" monitor):
+- Dispatcher sends activity number and location
+- Staff: give identifiers like last name, first name, etc.
+- Staff & Resources: show who is currently on duty; they log out when they're off shift
+- Pie chart shows incident stats to date
+- Hot work: welding on campus & fire watch
+- Lone workers: if working alone on campus, need to check in on them
+- Unresolved: an event was attended to, but not completely resolved
+
+Guards' interface:
+- A drop-down menu for all rooms and a narrative for what happened
+- Bidirectional communication would be nice
+- Executive summary: short description
+- Persons: database of everyone they've ever dealt with, so can see the history of other incidents related to them
+- Involvements: anyone involved in the event (who called it in)
+- Organizations: RCMP, VPD, etc.
+- Vehicles: make & model (e.g. if impounding)
+- Items: theft - what was stolen
+- Caller's name: have it up front since it's the first thing entered
