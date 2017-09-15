@@ -1,7 +1,8 @@
 body {
   min-height: 100vh;
   min-width: 100vh;
-  margin: 0; }
+  margin: 0;
+  font-size: 12px !important; }
 
 .main-container {
   height: 100vh;
@@ -41,7 +42,7 @@ body {
     flex-direction: column; }
 
 div#new-report-form .container-title, div#irs-dashboard .container-title {
-  font-size: 24px;
+  font-size: 150%;
   font-weight: 700;
   color: #54585A; }
   div#new-report-form .container-title.light, div#irs-dashboard .container-title.light {
@@ -150,12 +151,12 @@ div#irs-dashboard div#users-box {
         align-items: flex-start;
         flex-direction: column; }
       div#irs-dashboard div#users-box div#user-list div.user #assign-btn {
-        font-size: 1rem; }
+        font-size: 100%; }
 
 .field-title {
   width: auto;
   color: #696969;
-  font-size: 14px; }
+  font-size: 116%; }
 
 .status-circle {
   height: 12px;
@@ -174,11 +175,11 @@ div#irs-dashboard div#users-box {
 
 .card-text-primary {
   color: #54585A;
-  font-size: 15px; }
+  font-size: 115%; }
 
 .card-text-secondary {
   color: #696969;
-  font-size: 12px; }
+  font-size: 100%; }
 
 .btn-default {
   background-color: white;
