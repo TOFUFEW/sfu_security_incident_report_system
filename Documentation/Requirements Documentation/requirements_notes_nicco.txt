@@ -1,0 +1,76 @@
+CMPT 373: Tutorial 1
+Wednesday, September 13th, 2017
+Niccolo Pucci
+Project: Incident Reporting System
+
+
+	Purpose: 
+	- system that allows security guards and students to report incidents/hazards (or requests) to the 
+	local campus security dispatcher
+	- all reported incidents are received by the dispatcher, allowing the dispatcher to 
+	send guards to each reported incident/request
+	- the system must collect all reported data and aid the dispatcher in efficiently evaluating and 
+	extracting important information needed to optimize management of security resources
+
+
+	Types of Users:
+	- Campus Dispatchers (one on each of the three campuses)
+	- Security Guards
+	- Students & Other SFU Community
+
+
+	System Components:
+	- Campus Dispatcher Program
+	- Security Guard Mobile App
+	- Student/SFU Comunity Mobile App
+
+
+	Campus Dispatcher Program:
+	- each campus will have its own dispatcher program
+	- each dispatcher program will have access to the same main database
+	- each dispatcher program will allow the dispatcher to 
+		- process reported incidents, hot work + projects, and Lone Worker requests 
+		- assign/page available security guards to specified tasks
+		- track history to all incident report edits (who and when)
+
+
+	Security Guard Mobile App:
+	- all on-duty security guards will be signed in and using their own app at same time
+	- must be used in internet zone
+	- allows security guards to
+		- write Incident Reports
+		- view + self-assign to available to-do tasks
+			- assignable tasks include:
+				1) Lone Worker Program Requests
+				2) Hot Work + Other Project Supervision
+				3) FS/Contractor
+
+
+	Student/SFU Community Mobile App:
+	- allows students to 
+		- create Incident Reports
+		- request Lone Worker Program supervision
+
+
+	Incident Reports:
+	- each report includes the following fields:
+		1) Name
+		2) Contact (Phone Number)
+		3) Campus (Burnaby, Surrey, or Vancouver)
+		4) Location or Building + Room Number
+		5) Incident Type
+		6) Description
+		7) Executive Summary (Optional)
+		8) Time + Date
+
+
+	Confidentiality:
+	- ALL data must be "TLS v1.2" encrypted 
+	- ALL data must never be locally stored to a device, but submitted directly to the server
+	- multi-security levels: data is viewed/accessed according to permission level
+
+
+	Database:
+	- Microsoft SQL Server
+	- globally accessed
+	- data inserted/retrieved according to level of user permission
