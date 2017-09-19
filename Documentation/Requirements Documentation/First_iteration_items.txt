@@ -1,0 +1,26 @@
+First iteration items
+
+- Set up database (MS Sql)
+      -  Tables: 
+-  Staff, 
+- Incident (file #, activity #, caller’s name, description, executive summary…) - Incident editing history
+- Persons
+- Spaces (campus, building#, room#, space type, department) 
+
+- Backend (Java), connects to database and to front-end server 
+      -  Login authentication
+      -  Insert, modify, delete incident data
+      -  Send data to server
+
+- Server (nodeJS or do we need to use a Java-based one?)
+      -  Delivers data and page content to desktop client
+      -  (Keep in mind later addition of mobile client)
+
+- Client 
+      -  For this iteration, just concentrate on the desktop client
+      -  Web-based application (html, css, javascript)
+      -  Display a list of incident reports
+      -  Click on a report and display all the associated data, in the same page
+
+* Keep in mind or implement encryption?
+
