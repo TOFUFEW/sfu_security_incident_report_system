@@ -19,6 +19,12 @@ Main: Tyler
         * ->> Yes, maybe there could be one button to click for all additional details about an incident, and just the main details are listed on the front screen or given their own button
     o ->> How to display past resolved events - as a list or searchable?
     o ** Are guards signing in and out to ensure accurate availability?
+	
+	o ** What are the most common types of incidents
+	o ** Do certain types of incidents require more paper work to be filled? Such as an incident that involves a vehicle
+	o ** Can you give us a brief workflow of a daily incident
+	o ** Is searching through past incidents a daily occurence
+	o ** What are timers/event timers for incidents
 
 * Database
     o People
