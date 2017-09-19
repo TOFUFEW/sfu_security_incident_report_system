@@ -23,18 +23,24 @@ Main: Tyler
 	o ** What are the most common types of incidents
 	o ** Do certain types of incidents require more paper work to be filled? Such as an incident that involves a vehicle
 	o ** Can you give us a brief workflow of a daily incident
-	o ** Is searching through past incidents a daily occurence
+	o ** Is searching through past incidents a daily occurrence
 	o ** What are timers/event timers for incidents
+
+
+	Questions re: right panel (on the design wireframe)
+	o ** Can you clarify the functions of the text box and the event log from the mockup?
+	o ** Can you define each of these terms: “Staff”, “Organizations”, “Resources”? What is the function of each?
+
 
 * Database
     o People
         * What information should be stored about a person
         * Staff?
-            o ->> Are staff stored in an already existing database? ** Is there an API that can be used for authentizating staff logins?
+            o ->> Are staff stored in an already existing database? ** Is there an API that can be used for authenticating staff logins?
         * Previous incidents
             o Involved
             o Reported
         * Security Clearance Level
     o Are there any other databases that we are getting data from, or all will be located in this dedicated one? 
     o ** Is there a dedicated server for the database?
-    o ** Do we want to have the ability to delente an incident report (such as in the case of a duplicate report)
+    o ** Do we want to have the ability to delete an incident report (such as in the case of a duplicate report)
