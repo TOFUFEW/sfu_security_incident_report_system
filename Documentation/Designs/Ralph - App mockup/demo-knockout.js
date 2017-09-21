@@ -15,13 +15,7 @@ function Incident(id, type, location, status, description, caller, staff) {
     self.staff = staff;
     self.status = status;
     self.caller = caller;
-    var currentdate = new Date();
-    self.dateTime = currentdate.getDate() + "/"
-        + (currentdate.getMonth()+1)  + "/" 
-        + currentdate.getFullYear() + " "  
-        + currentdate.getHours() + ":"  
-        + currentdate.getMinutes() + ":" 
-        + currentdate.getSeconds();
+    self.dateTime = formatDate(new Date());
 };
 
 function IncidentViewModel() {
@@ -85,3 +79,15 @@ function IncidentViewModel() {
 
 
 ko.applyBindings(new IncidentViewModel());
+
+
+function formatDate (currentdate) {
+    var date = currentdate.getDate() + "/"
+    + (currentdate.getMonth()+1)  + "/" 
+    + currentdate.getFullYear() + " "  
+    + currentdate.getHours() + ":"  
+    + currentdate.getMinutes() + ":" 
+    + currentdate.getSeconds();
+
+    return date;
+}

@@ -24,6 +24,7 @@ body {
     min-height: 100vh;
     min-width: 100vh;
     margin: 0;
+    font-size: 12px !important;
 }
 
 
@@ -74,7 +75,7 @@ body {
 
 div#new-report-form, div#irs-dashboard {
     .container-title {
-        font-size: $text-lg;
+        font-size: 150%;
         font-weight: 700;
         color: $sfu-black;
          &.light {
@@ -215,7 +216,7 @@ div#irs-dashboard {
                 }
 
                 #assign-btn {
-                    font-size: 1rem;
+                    font-size: 100%;
                 }
             }
         }
@@ -225,7 +226,7 @@ div#irs-dashboard {
 .field-title {
     width: auto;
     color: $field-title-color;
-    font-size: $text-sm;
+    font-size: 116%;
 }
 
 .status-circle {
@@ -242,12 +243,12 @@ div#irs-dashboard {
 
 .card-text-primary {
     color: $sfu-black;
-    font-size: 15px;
+    font-size: 115%;
 }
 
 .card-text-secondary {
     color: $field-title-color;
-    font-size: 12px;
+    font-size: 100%;
 }
 
 .btn-default {
