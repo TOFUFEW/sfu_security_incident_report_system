@@ -1,0 +1,9 @@
+DROP TABLE dbo.HappensAt;
+DROP TABLE dbo.Involves;
+DROP TABLE dbo.AssignedTo;
+DROP TABLE dbo.Incident;
+DROP TABLE dbo.Location;
+DROP TABLE dbo.IncidentCategory;
+DROP TABLE dbo.Person;
+DROP TABLE dbo.Staff;
+DROP TABLE dbo.Account;
