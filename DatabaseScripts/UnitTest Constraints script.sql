@@ -15,6 +15,11 @@ BEGIN
 	PRINT N'Failed checking Staff primary key (ACCOUNT_ID)';
 END
 
+IF ( dbo.CheckConstraints ( 'Staff' , 'Foreign Key' , 'CAMPUS_ID' ) ) = 0
+BEGIN
+	PRINT N'Failed checking Staff foreign key (CAMPUS_ID)';
+END
+
 --Checking all constraints in IncidentCateogry Table
 IF ( dbo.CheckConstraints ( 'IncidentCategory' , 'Primary Key' , 'CATEGORY_ID' ) ) = 0
 BEGIN
@@ -25,6 +30,11 @@ END
 IF ( dbo.CheckConstraints ( 'Location' , 'Primary Key' , 'LOCATION_ID' ) ) = 0
 BEGIN
 	PRINT N'Failed checking Location primary key (LOCATION_ID)';
+END
+
+IF ( dbo.CheckConstraints ( 'Location' , 'Foreign Key' , 'CAMPUS_ID' ) ) = 0
+BEGIN
+	PRINT N'Failed checking Location foreign key (CAMPUS_ID)';
 END
 
 --Checking all constraints in Person Table

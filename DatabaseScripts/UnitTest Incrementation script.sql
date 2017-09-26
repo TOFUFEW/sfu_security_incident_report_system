@@ -288,3 +288,53 @@ IF (
 BEGIN
 	PRINT N'REPORT_ID incrementation failure';
 END
+
+--Checks CAMPUS_ID auto incrementation
+INSERT INTO Campus (
+	CITY,
+	ADDRESS
+) VALUES (
+	'Vancouver',
+	'12345 104 Ave'
+);
+
+INSERT INTO Campus (
+	CITY,
+	ADDRESS
+) VALUES (
+	'Vancouver',
+	'12345 100 Ave'
+);
+
+IF (
+	SELECT CAMPUS_ID
+	FROM Campus
+	WHERE ADDRESS LIKE '100' ) <> 2 
+BEGIN
+	PRINT N'CAMPUS_ID incrementation failure';
+END
+
+IF (
+	SELECT COUNT(*)
+	FROM Campus ) <> 2
+BEGIN
+	PRINT N'Campus insertion failure';
+END
+
+DELETE FROM Campus;
+
+INSERT INTO Campus (
+	CITY,
+	ADDRESS
+) VALUES (
+	'Vancouver',
+	'12345 100 Ave'
+);
+
+IF (
+	SELECT CAMPUS_ID
+	FROM Campus
+	WHERE ADDRESS LIKE '100' ) <> 3 
+BEGIN
+	PRINT N'CAMPUS_ID incrementation failure';
+END
