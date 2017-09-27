@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   constructor(private locationService: LocationService) { }
 
   getLocations(): void {
-    this.locations = this.locationService.getLocations();
+    this.locationService.getLocations().then(locations => this.locations = locations);
   }
 
   ngOnInit() : void {

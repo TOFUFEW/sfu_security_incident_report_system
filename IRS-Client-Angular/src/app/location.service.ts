@@ -4,7 +4,7 @@ import { LOCATIONS } from './mock-locations';
 
 @Injectable()
 export class LocationService {
-    getLocations(): Location[] {
-        return LOCATIONS;
+    getLocations(): Promise<Location[]> {
+        return Promise.resolve(LOCATIONS);
     };
 }
