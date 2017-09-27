@@ -12,12 +12,12 @@ import { HttpClient } from '@angular/common/http';
 
 export class DashboardComponent implements OnInit {
   title = 'SFU Incident Reporting System';
-  locations: Location[];
+  locationsList: Location[];
 
   //constructor(private locationService: LocationService) { }
   constructor(private http: HttpClient, private locationService: LocationService){}
   getLocations(): void {
-    this.locationService.getLocations().then(locations => this.locations = locations);
+    this.locationService.getLocations().then(locations => this.locationsList = locations);
   }
 
   ngOnInit() : void {
