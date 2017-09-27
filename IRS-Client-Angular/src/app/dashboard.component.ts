@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from './location';
 import { LocationService } from './location.service';
-
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'dashboard',
@@ -14,10 +14,10 @@ export class DashboardComponent implements OnInit {
   title = 'SFU Incident Reporting System';
   locations: Location[];
 
-  constructor(private locationService: LocationService) { }
-
+  //constructor(private locationService: LocationService) { }
+  constructor(private http: HttpClient, private locationService: LocationService){}
   getLocations(): void {
-    this.locationService.getLocationsSlowly().then(locations => this.locations = locations);
+    this.locationService.getLocations().then(locations => this.locations = locations);
   }
 
   ngOnInit() : void {
