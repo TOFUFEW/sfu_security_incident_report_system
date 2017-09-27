@@ -54,3 +54,6 @@ I. Components
         ex. <location-component [locations]="locationsArray"></location-component>,
         where 'locations' is the variable name from LocationComponent, and
             'locationsArray' is the variable name from AppComponent
+    
+    4. Follow this guide on how to display data in Angular:
+        https://angular.io/tutorial/toh-pt1
