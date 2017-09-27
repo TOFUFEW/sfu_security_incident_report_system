@@ -2,29 +2,22 @@
 <div class="main-container">
   <div id="main-content" class="max-height-width">
     <div class="row-container">
-      <div class="panel panel-default test-panel">
-        <div class="panel-heading"><h4>Incidents</h4></div>
-        <div class="panel-body">Display data here...</div>
-      </div>
-
-      <div class="panel panel-default test-panel">
-        <div class="panel-heading"><h4>Staff</h4></div>
-        <div class="panel-body">Display data here...</div>
-      </div>
-
-      <div class="panel panel-default test-panel">
-        <div class="panel-heading"><h4>Locations</h4></div>
-        <div class="panel-body">
-
-          <ul>
-            <li *ngFor="let location of locations">
-              <span>{{location.campus}}</span> {{location.building_num}}
-            </li>
-          </ul>
+      <div class="container-fluid">
+        <div class="panel panel-default test-panel">
+          <div class="panel-heading"><h4>Incidents</h4></div>
+          <div class="panel-body">Display data here...</div>
         </div>
       </div>
 
-      <!-- Copy and paste the panel template if you want to add more -->
+      <div class="container-fluid">
+        <div class="panel panel-default test-panel">
+          <div class="panel-heading"><h4>Staff</h4></div>
+          <div class="panel-body">Display data here...</div>
+        </div>
+      </div>
+
+      <location-component class="container-fluid" [locations]="locations"></location-component>
+
     </div>
 
   </div>

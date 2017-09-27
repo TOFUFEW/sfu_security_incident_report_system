@@ -1,0 +1,37 @@
+
+I. Components
+    - Components are like 'Controllers' -- they have their own class, variables, methods, 
+        their own view (template)
+    - Naming: name.component.ts, location.component.ts
+    - app.component.ts is the PARENT COMPONENT
+    - Child components can be added to the AppComponent
+
+    How to add a Child Component:
+    1. Create a new file, ex. location.component.ts
+    2. In location.component.ts, 
+        - Import component from angular/core 
+            import { Component } from '@angular/core';
+        - Declare it as a component, with the following properties: selector, and template or templateUrl
+            (there are more, only if necessary)
+            - selector - the html DOM name where the template will be inserted
+                ex. selector: 'location-component';
+                where in the html of the parent component, we can insert the view of this component
+                by inserting <location-component></location-component> somewhere
+            - templateUrl - the external html file of the component
+                ex. templateUrl: 'location.component.html';
+        - Create a class called LocationComponent
+            export class LocationComponent { }
+    3. In app.module.ts, we need to have a reference for this new component
+        - Import the child component
+            import { LocationComponent } from './location.component';
+        - Add LocationComponent to the declarations
+            declarations: [
+                AppComponent,
+                LocationComponent
+            ]
+    4. Create the view for LocationComponent
+        - Add a new file in src/app, called location.component.html
+            - The file name must match the templateUrl in location.component.ts
+
+    5. Add a DOM for LocationComponent in app.component.html
+        - Somewhere in app.component.html, add: <location-component></location-component>

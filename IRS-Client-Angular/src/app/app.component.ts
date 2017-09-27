@@ -1,26 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from './location';
-import { LocationService } from './locations.service';
+
+/* Dummy data */
+const Locations: Location[] = [
+  {
+    campus: 'Vancouver',
+    building_num: 'HC',
+    room_num: 1,
+    department: 'SOSY'
+  },
+  {
+    campus: 'Vancouver',
+    building_num: 'HC',
+    room_num: 2,
+    department: 'SOSY'
+  },
+  {
+    campus: 'Vancouver',
+    building_num: 'HC',
+    room_num: 3,
+    department: 'SOSY'
+  }
+
+];
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  providers: [LocationService]
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+
+
+export class AppComponent {
   title = 'SFU Incident Reporting System';
-
-  // --- Added to test location.service.ts
-  locations: Location[];
-
-  constructor(private locationService: LocationService) {}
-
-  getLocations(): void {
-    this.locationService.getLocations().then(locations => this.locations = locations);
-  }
-
-  ngOnInit(): void {
-    this.getLocations();
-  }
-  // -----
+  locations = Locations;
 }
