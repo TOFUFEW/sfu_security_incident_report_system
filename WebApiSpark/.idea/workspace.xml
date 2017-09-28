@@ -1,51 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="24b9e4f7-cd32-429c-8827-99e3159920e1" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/.angular-cli.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/.editorconfig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/e2e/app.e2e-spec.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/e2e/app.po.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/e2e/tsconfig.e2e.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/karma.conf.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/package-lock.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/protractor.conf.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/.sass-cache/65529176465140dca9ac7f9689b1c5debd5ddd3b/styles.scssc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/.sass-cache/c79efe34910410f148e0ad919dfd126300d8aad5/styles.scssc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/NOTES.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/WORKFLOW.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/app.component.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/app.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/app.component.spec.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/app.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/app.module.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/dashboard.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/dashboard.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/location.component.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/location.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/location.service.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/location.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/mock-locations.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/assets/.gitkeep" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/environments/environment.prod.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/environments/environment.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/favicon.ico" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/main.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/polyfills.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/styles.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/styles.css.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/styles.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/test.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/tsconfig.app.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/tsconfig.spec.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/typings.d.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/tsconfig.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/tslint.json" afterPath="" />
-    </list>
+    <list default="true" id="24b9e4f7-cd32-429c-8827-99e3159920e1" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -60,7 +16,7 @@
       <file leaf-file-name="Application.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/app/Application.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
+            <state relative-caret-position="-15">
               <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -405,7 +361,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="712" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -426,7 +381,7 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -743,7 +698,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/app/Application.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
+        <state relative-caret-position="-15">
           <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
