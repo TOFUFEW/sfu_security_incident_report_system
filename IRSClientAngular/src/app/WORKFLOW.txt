@@ -8,7 +8,7 @@ We need the following things:
 - MODEL (.ts)
 - VIEW (.component.html) // aka TEMPLATE
 - PARENT COMPONENT and PARENT HTML (in this case, dashboard)
-
+//
 1. Create a new directory under src/app, name it pizza (or whatever the component name is)
 
 MODEL
