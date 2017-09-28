@@ -6,5 +6,19 @@
           {{location.campus}} , {{location.building_num}} , {{location.room_num}} , {{location.department}}
         </li>
       </ul>
+
+      <h4>Add a Location: </h4>
+      <span class="field-title">Campus</span>
+      <input type="text" [(ngModel)]="newLocation.campus" /> <br><br>
+      <span class="field-title">Building Number</span>
+      <input type="text" [(ngModel)]="newLocation.building_num" /> <br><br>
+      <span class="field-title">Room Number</span>
+      <input type="text" [(ngModel)]="newLocation.room_num" /> <br><br>
+      <span class="field-title">Department</span>
+      <input type="text" [(ngModel)]="newLocation.department" /> <br> <br>
+      <button class="btn btn-default"
+              (click)="addLocation();">
+        Submit
+      </button>
   </div>
 </div>

@@ -40,7 +40,7 @@ COMPONENT
     - Import PizzaComponent in the module
         import { PizzaComponent } from './pizza/pizza.component';
     - Add PizzaComponent to the declarations array in @NgModule 
-
+    
 SERVICE
 1. Create a SERVICE called pizza.service.ts (app/pizza/pizza.service.ts)
 2. Copy this code:

@@ -4,4 +4,5 @@ export class Location {
   building_num: string;
   room_num: number;
   department: string;
+  
 }
