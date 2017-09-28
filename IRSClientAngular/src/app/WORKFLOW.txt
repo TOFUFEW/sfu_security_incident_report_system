@@ -1,0 +1,91 @@
+WORKFLOW FOR GETTING DATA FROM SERVER AND DISPLAYING ON THE PAGE
+
+Suppose we want to get PIZZAS from the server and display that as a list inside Dashboard component
+
+We need the following things:
+- COMPONENT (.component.ts)
+- SERVICE (.service.ts)
+- MODEL (.ts)
+- VIEW (.component.html) // aka TEMPLATE
+- PARENT COMPONENT and PARENT HTML (in this case, dashboard)
+
+1. Create a new directory under src/app, name it pizza (or whatever the component name is)
+
+MODEL
+1. Create a MODEL for Pizza called pizza.ts in app (app/pizza/pizza.ts)
+    import { Component } from '@angular/core';
+
+    export class Pizza {
+        id: number;
+
+        field1: type1;
+        field2: type2;
+        fieldn: typen;
+    }
+
+COMPONENT
+1. Create a COMPONENT called pizza.component.ts (app/pizza/pizza.component.ts)
+2. Open pizza.component.ts
+    Copy this code:
+        import { Component, Input } from '@angular/core';
+        @Component({
+            selector: 'pizza-component',
+            templateUrl: 'pizza.component.html'
+        })
+
+        export class PizzaComponent {
+            @Input() pizzas: Pizza[];
+        }
+3. Open app.module.ts
+    - Import PizzaComponent in the module
+        import { PizzaComponent } from './pizza/pizza.component';
+    - Add PizzaComponent to the declarations array in @NgModule 
+
+SERVICE
+1. Create a SERVICE called pizza.service.ts (app/pizza/pizza.service.ts)
+2. Copy this code:
+    import { Injectable } from '@angular/core';
+    import { Pizza } from './pizza';
+    import { HttpClient } from '@angular/common/http';
+    import 'rxjs/add/operator/toPromise';
+
+    @Injectable()
+    export class PizzaService {
+        constructor(private http: HttpClient) {}
+        getPizzas(): Promise<Pizza[]> {
+            const pizzasUrl = // PASTE URL HERE
+            var pizzas = this.http.get(pizzasUrl)
+                .toPromise()
+                .then(response => response as Pizza[]);
+            return Promise.resolve(pizzas);
+        };
+    }
+
+3. In dashboard.component.ts
+    - Add to the top of the file:
+        import { Pizza } from '../pizza/pizza';
+        import { PizzaService } from '../pizza/pizza.service';
+    - Define a Variable called pizzaArray
+        pizzaArray: Pizza[];
+    - In the constructor, add:
+        private pizzaService: PizzaService
+    - Below the constructor, call the function to fetch from the server:
+        getPizzas(): void {
+            this.pizzaService.getPizzas().then(pizzas => this.pizzaArray = pizzas);
+        }
+    - Inside the ngOnInit function, call getPizzas
+        this.getPizzas();
+
+4. In dashboard.component.html, create a DOM for pizza component
+    <pizza-component [pizzas]="pizzaArray"></pizza-component> <---- THIS SHOULD MATCH THE SELECTOR
+    - where [pizzas] is from pizza component
+        and pizzaArray is from dashboard component
+
+VIEW
+This markup gets displayed in wherever <pizza-component></pizza-component> is
+1. Create a VIEW for Pizza called pizza.component.html in app (app/Pizza.component.html)
+2. Copy and paste the code from location.component.html, but change the list item (<li>) to:
+    <li *ngFor="let pizza of pizzaArray">
+        {{pizza.id}} , {{pizza.field1}} ... etc
+    </li>
+
