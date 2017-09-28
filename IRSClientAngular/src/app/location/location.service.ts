@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Location } from './location';
-import { LOCATIONS } from './mock-locations';
+//import { LOCATIONS } from '../mock-locations';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 

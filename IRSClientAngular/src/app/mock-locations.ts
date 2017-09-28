@@ -1,5 +1,5 @@
 /* Dummy data */
-import { Location } from './location';
+import { Location } from './location/location';
 
 export const LOCATIONS: Location[] = [
     {

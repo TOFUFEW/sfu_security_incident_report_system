@@ -2,12 +2,49 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="24b9e4f7-cd32-429c-8827-99e3159920e1" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/locations.service.ts" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/app.component.html" afterPath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/app.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/app.component.ts" afterPath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/app.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/app.module.ts" afterPath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/app.module.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/location.ts" afterPath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/location.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/.angular-cli.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/.editorconfig" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/e2e/app.e2e-spec.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/e2e/app.po.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/e2e/tsconfig.e2e.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/karma.conf.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/package-lock.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/package.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/protractor.conf.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/.sass-cache/65529176465140dca9ac7f9689b1c5debd5ddd3b/styles.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/.sass-cache/c79efe34910410f148e0ad919dfd126300d8aad5/styles.scssc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/NOTES.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/WORKFLOW.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/app.component.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/app.component.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/app.component.spec.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/app.component.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/app.module.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/dashboard.component.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/dashboard.component.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/location.component.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/location.component.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/location.service.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/location.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/app/mock-locations.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/assets/.gitkeep" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/environments/environment.prod.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/environments/environment.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/favicon.ico" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/main.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/polyfills.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/styles.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/styles.css.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/styles.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/test.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/tsconfig.app.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/tsconfig.spec.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/src/typings.d.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/tsconfig.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IRS-Client-Angular/tslint.json" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -24,7 +61,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/app/Application.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="230">
-              <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+              <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#enableCORS#0;class#Application#0" expanded="false" />
@@ -137,10 +174,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
-      <pane id="AndroidView" />
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -201,6 +236,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -378,8 +415,8 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -388,8 +425,8 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -665,14 +702,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebApiSpark.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="14" lean-forward="false" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/public/Methods.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-226">
@@ -715,11 +744,19 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/app/Application.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
-          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#enableCORS#0;class#Application#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebApiSpark.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="14" lean-forward="false" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>

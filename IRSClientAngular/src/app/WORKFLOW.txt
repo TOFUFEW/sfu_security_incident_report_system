@@ -5,12 +5,14 @@ Suppose we want to get PIZZAS from the server and display that as a list inside 
 We need the following things:
 - COMPONENT (.component.ts)
 - SERVICE (.service.ts)
-- VIEW MODEL (.ts)
+- MODEL (.ts)
 - VIEW (.component.html)
 - PARENT COMPONENT and PARENT HTML (in this case, dashboard)
 
-VIEW MODEL
-1. Create an VIEW MODEL for Pizza called Pizza.ts in app (app/Pizza.ts)
+1. Create a new directory under src/app, name it pizza (or whatever the component name is)
+
+MODEL
+1. Create a MODEL for Pizza called Pizza.ts in app (app/pizza/Pizza.ts)
     import { Component } from '@angular/core';
 
     export class Pizza {
@@ -22,7 +24,7 @@ VIEW MODEL
     }
 
 COMPONENT
-1. Create a COMPONENT called pizza.component.ts in app (app/pizza.component.ts)
+1. Create a COMPONENT called pizza.component.ts (app/pizza/pizza.component.ts)
 2. Open pizza.component.ts
     Copy this code:
         import { Component, Input } from '@angular/core';
@@ -36,7 +38,7 @@ COMPONENT
         }
 
 SERVICE
-1. Create a SERVICE called pizza.service.ts in app (app/pizza.service.ts)
+1. Create a SERVICE called pizza.service.ts (app/pizza/pizza.service.ts)
 2. Copy this code:
     import { Injectable } from '@angular/core';
     import { Pizza } from './pizza';
@@ -48,7 +50,7 @@ SERVICE
         constructor(private http: HttpClient) {}
         getPizzas(): Promise<Pizza[]> {
             const pizzasUrl = // PASTE URL HERE
-            var pizzas = this.http.get(PizzasUrl)
+            var pizzas = this.http.get(pizzasUrl)
                 .toPromise()
                 .then(response => response as Pizza[]);
             return Promise.resolve(pizzas);
@@ -57,8 +59,8 @@ SERVICE
 
 3. In dashboard.component.ts
     - Add to the list of imports: 
-        import { Pizza } from './pizza';
-        import { PizzaService } from './pizza.service';
+        import { Pizza } from '../pizza/pizza';
+        import { PizzaService } from '../pizza/pizza.service';
     - Define a Variable called pizzaArray
         pizzaArray: Pizza[];
     - In the constructor, add:
@@ -70,7 +72,7 @@ SERVICE
     - Inside the ngOnInit function, call getPizzas
         this.getPizzas();
 
-4. In dashboard.component.html (or whatever parent component you want), create a DOM for pizza component
+4. In dashboard.component.html, create a DOM for pizza component
     <pizza-component [pizzas]="pizzaArray"></pizza-component> <---- THIS SHOULD MATCH THE SELECTOR
     - where [pizzas] is from pizza component
         and pizzaArray is from dashboard component
