@@ -20,18 +20,21 @@ export class LocationService {
     };
 
     saveLocation(location: Location) : Promise<string> {
+        var response;
         var promise = this.http
                 .post(this.locationsUrl, 
                     JSON.stringify({campus: location.campus, building_num: location.building_num, room_num: location.room_num, department: location.department}), 
                     { headers: this.headers })
                 .toPromise()
-                .then(response => response.json() as string)
+                .then(response => {
+                    alert(response.json() as string);
+                })
                 .catch(this.handleError);
-        this.getLocations();
         return promise;
     };
 
     private handleError(error: any): Promise<any> {
+        alert("An error occurred.");
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
     }

@@ -16,5 +16,7 @@ export class LocationComponent {
     if (this.newLocation.campus != null && this.newLocation.campus.length == 0)
       return;
     this.locationService.saveLocation(this.newLocation);
+    delete this.newLocation;
+    this.newLocation = new Location();
   }
 }
