@@ -2,60 +2,49 @@ package Controller;
 
 import DBConnector.Connector;
 import Model.Location;
-import Parser.JsonUtil;
-import com.google.gson.Gson;
+import Util.*;
+
 import java.sql.ResultSet;
 import java.util.*;
-import static Parser.JsonUtil.json;
+import static Util.JsonUtil.json;
 import static spark.Spark.*;
 
 public class LocationController {
     JsonUtil parser = new JsonUtil();
+    DBHelper dbHelper = new DBHelper();
+    public List<Location> locationList = new ArrayList<>();
+
     public LocationController(){
         setupEndPoints();
     }
 
-    public List<Location> locationList = new ArrayList<>();
-
     private void setupEndPoints() {
-        get("/locations", (request, response) -> {
+        get ( "/locations" , ( request , response ) -> {
             return locationList;
-        }, json());
+        } , json() );
 
-        post("/locations", (request, response) -> {
-            Location loc = parser.fromJson(request.body());
-            int id = new Random().nextInt(1000000+1); // for testing only
-            loc.setId(id);
-            locationList.add(loc);
-            return "Location successfully added!";
-        }, json());
+        post ("/locations" , ( request , response ) -> {
+            Location loc = parser.jsonToLocation( request.body() );
+            int i = dbHelper.addLocation( loc , locationList ); // This code touches the database
+            if ( i > 0 ) return "Location successfully added!";
+            return "Add failed.";
+        } , json());
 
-        put("/locations", (request, response) -> {
-            Location loc = parser.fromJson(request.body());
-            
-            for (int i = 0; i < locationList.size(); i+=1) {
-                if (locationList.get(i).getId() == loc.getId()) {
-                    locationList.set(i, loc);
-                    return "Location successfully updated!";
-                }
-            }
+        put ( "/locations" , ( request , response ) -> {
+            Location loc = parser.jsonToLocation( request.body() );
+            int i = dbHelper.editLocation( loc , locationList ); // This code touches the database
+            if ( i > 0 ) return "Location successfully edited!";
             return "Edit failed.";
-        }, json());
+        } , json() );
 
-        delete("/locations/:id", (request, response) -> {
-            int id = Integer.parseInt(request.params(":id"));
-            int listLength = locationList.size();
+        delete ( "/locations/:id" , ( request , response ) -> {
+            int id = Integer.parseInt( request.params( ":id" ) );
+            int i = dbHelper.deleteLocation(id, locationList);
+            if ( i > 0 ) return "Location successfully deleted!";
+            return "Delete failed.";
+        } , json() );
 
-            for (int i = 0; i < listLength; i+=1) {
-                if (locationList.get(i).getId() == id) {
-                    locationList.remove(i);
-                    return "Location successfully deleted!";
-                }
-            }
-            return "Location not found.";
-        }, json());
-
-        get("/test", (request, response) -> getClichedMessage());
+        get ( "/test" , ( request , response ) -> getClichedMessage() );
     }
 
     public String getClichedMessage() {
