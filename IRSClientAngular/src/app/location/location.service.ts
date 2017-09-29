@@ -28,6 +28,7 @@ export class LocationService {
                 .toPromise()
                 .then(response => {
                     alert(response.json() as string);
+                    window.location.reload(); // temporary
                 })
                 .catch(this.handleError);
         return promise;
