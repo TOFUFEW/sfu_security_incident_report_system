@@ -20,12 +20,6 @@ export class LocationService {
     };
 
     saveLocation(location: Location) : Promise<string> {
-        var location: Location = {
-                campus: location.campus, 
-                building_num: location.building_num, 
-                room_num: location.room_num, 
-                department: location.department
-        };
         var promise = this.http
                 .post(this.locationsUrl, JSON.stringify(location), { headers: this.headers })
                 .toPromise()
@@ -34,7 +28,19 @@ export class LocationService {
                     window.location.reload(); // temporary
                 })
                 .catch(this.handleError);
-        return promise;
+        return Promise.resolve(promise);
+    };
+
+    updateLocation(location: Location) : Promise<string> {
+        var promise = this.http
+                .put(this.locationsUrl, JSON.stringify(location), { headers: this.headers })
+                .toPromise()
+                .then(response => {
+                    alert(response.json() as string);
+                    window.location.reload(); // temporary
+                })
+                .catch(this.handleError);
+        return Promise.resolve(promise);
     };
 
     private handleError(error: any): Promise<any> {

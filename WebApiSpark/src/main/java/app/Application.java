@@ -17,8 +17,8 @@ public class Application {
         LocationController locationController = new LocationController();
 
         // TEST CODE WITHOUT DATABASE
-        Location location1 = new Location("Surrey", "SURR-301", 3200, "Cmpt");
-        Location location2 = new Location("Burnaby", "BUR-800", 9808, "Ensc");
+        Location location1 = new Location(1, "Surrey", "SURR-301", 3200, "Cmpt");
+        Location location2 = new Location(2, "Burnaby", "BUR-800", 9808, "Ensc");
         locationController.locationList.add(location1);
         locationController.locationList.add(location2);
         // END TEST CODE

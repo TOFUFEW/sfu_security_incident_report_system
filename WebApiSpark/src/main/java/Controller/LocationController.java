@@ -25,7 +25,14 @@ public class LocationController {
         post("/locations", (request, response) -> {
             Location loc = parser.fromJson(request.body());
             locationList.add(loc);
+            return "Success!";
+        }, json());
 
+        put("/locations", (request, response) -> {
+            Location loc = parser.fromJson(request.body());
+            int index = loc.getId() - 1;
+            locationList.remove(index);
+            locationList.add(index, loc);
             return "Success!";
         }, json());
 
