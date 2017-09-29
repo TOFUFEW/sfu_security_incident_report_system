@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Location } from './location';
-//import { LOCATIONS } from '../mock-locations';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
@@ -19,7 +18,7 @@ export class LocationService {
         return Promise.resolve(locations);
     };
 
-    saveLocation(location: Location) : Promise<string> {
+    create(location: Location) : Promise<string> {
         var promise = this.http
                 .post(this.locationsUrl, JSON.stringify(location), { headers: this.headers })
                 .toPromise()
@@ -31,9 +30,22 @@ export class LocationService {
         return Promise.resolve(promise);
     };
 
-    updateLocation(location: Location) : Promise<string> {
+    update(location: Location) : Promise<string> {
         var promise = this.http
                 .put(this.locationsUrl, JSON.stringify(location), { headers: this.headers })
+                .toPromise()
+                .then(response => {
+                    alert(response.json() as string);
+                    window.location.reload(); // temporary
+                })
+                .catch(this.handleError);
+        return Promise.resolve(promise);
+    };
+
+    delete(id: number) : Promise<string> {
+        var url = `${this.locationsUrl}/${id}`;
+        var promise = this.http
+                .delete(url, { headers: this.headers })
                 .toPromise()
                 .then(response => {
                     alert(response.json() as string);

@@ -24,16 +24,35 @@ public class LocationController {
 
         post("/locations", (request, response) -> {
             Location loc = parser.fromJson(request.body());
+            int id = new Random().nextInt(1000000+1); // for testing only
+            loc.setId(id);
             locationList.add(loc);
-            return "Success!";
+            return "Location successfully added!";
         }, json());
 
         put("/locations", (request, response) -> {
             Location loc = parser.fromJson(request.body());
-            int index = loc.getId() - 1;
-            locationList.remove(index);
-            locationList.add(index, loc);
-            return "Success!";
+            
+            for (int i = 0; i < locationList.size(); i+=1) {
+                if (locationList.get(i).getId() == loc.getId()) {
+                    locationList.set(i, loc);
+                    return "Location successfully updated!";
+                }
+            }
+            return "Edit failed.";
+        }, json());
+
+        delete("/locations/:id", (request, response) -> {
+            int id = Integer.parseInt(request.params(":id"));
+            int listLength = locationList.size();
+
+            for (int i = 0; i < listLength; i+=1) {
+                if (locationList.get(i).getId() == id) {
+                    locationList.remove(i);
+                    return "Location successfully deleted!";
+                }
+            }
+            return "Location not found.";
         }, json());
 
         get("/test", (request, response) -> getClichedMessage());

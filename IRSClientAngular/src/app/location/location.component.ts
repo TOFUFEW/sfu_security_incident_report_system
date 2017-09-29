@@ -15,7 +15,7 @@ export class LocationComponent {
   addLocation(): void {
     if (this.newLocation.campus != null && this.newLocation.campus.length == 0)
       return;
-    this.locationService.saveLocation(this.newLocation);
+    this.locationService.create(this.newLocation);
     delete this.newLocation;
     this.newLocation = new Location();
   }
@@ -23,7 +23,10 @@ export class LocationComponent {
   updateLocation(location: Location): void {
     if (this.newLocation.campus != null && this.newLocation.campus.length == 0)
       return;
-    console.log(location);
-    this.locationService.updateLocation(location);
+    this.locationService.update(location);
+  }
+
+  deleteLocation(id: number): void {
+    this.locationService.delete(id);
   }
 }

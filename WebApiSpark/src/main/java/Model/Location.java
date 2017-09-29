@@ -20,5 +20,7 @@ public class Location {
     private int room_num;
     private String department;
 
+    // for testing purposes only
     public int getId(){ return this.id; }
+    public void setId(int id) { this.id = id; }
 }

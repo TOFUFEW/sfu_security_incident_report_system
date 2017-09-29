@@ -11,7 +11,7 @@
           <input type="text" [(ngModel)]="location.room_num"/>
           <input type="text" [(ngModel)]="location.department"/>
           <a href="#" (click)="updateLocation(location);">Save</a>
-          <a href="#">Delete</a>
+          <a href="#" (click)="deleteLocation(location.id)">Delete</a>
         </li>
       </ul>
 
