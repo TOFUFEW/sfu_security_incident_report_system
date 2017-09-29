@@ -20,11 +20,14 @@ export class LocationService {
     };
 
     saveLocation(location: Location) : Promise<string> {
-        var response;
+        var location: Location = {
+                campus: location.campus, 
+                building_num: location.building_num, 
+                room_num: location.room_num, 
+                department: location.department
+        };
         var promise = this.http
-                .post(this.locationsUrl, 
-                    JSON.stringify({campus: location.campus, building_num: location.building_num, room_num: location.room_num, department: location.department}), 
-                    { headers: this.headers })
+                .post(this.locationsUrl, JSON.stringify(location), { headers: this.headers })
                 .toPromise()
                 .then(response => {
                     alert(response.json() as string);
