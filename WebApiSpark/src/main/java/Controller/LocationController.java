@@ -2,14 +2,15 @@ package Controller;
 
 import DBConnector.Connector;
 import Model.Location;
-
+import Parser.JsonUtil;
+import com.google.gson.Gson;
 import java.sql.ResultSet;
 import java.util.*;
 import static Parser.JsonUtil.json;
 import static spark.Spark.*;
 
 public class LocationController {
-
+    JsonUtil parser = new JsonUtil();
     public LocationController(){
         setupEndPoints();
     }
@@ -22,13 +23,9 @@ public class LocationController {
         }, json());
 
         post("/locations", (request, response) -> {
-            String campus = request.queryParams("campus");
-            String building_num = request.queryParams("building_num");
-            int room_num = Integer.parseInt(request.queryParams("room_num"));
-            String department = request.queryParams("department");
-
-            Location loc = new Location(campus, building_num, room_num, department);
+            Location loc = parser.fromJson(request.body());
             locationList.add(loc);
+
             return "Success!";
         }, json());
 
