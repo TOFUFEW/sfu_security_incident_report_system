@@ -20,23 +20,10 @@ public class LocationController
 
     private void setupEndPoints ()
     {
-        get (
-            "/locations",
-            (
-                request,
-                response
-            ) -> {
-                return locationList;
-            },
-            json()
-        );
+        get ( "/locations" , ( request , response ) -> { return locationList; } , json () );
 
-        post (
-            "/locations",
-            (
-                request,
-                response
-            ) -> {
+        post ( "/locations" , ( request , response ) ->
+            {
                 String campus = request.queryParams ( "campus" );
                 String building_num = request.queryParams ( "building_num" );
                 String room_num = request.queryParams ( "room_num" );
@@ -48,20 +35,13 @@ public class LocationController
                         room_num,
                         department
                 );
-                locationList.add( loc );
+                locationList.add ( loc );
                 return "Success!";
             },
-            json()
+            json ()
         );
 
-        get (
-            "/test",
-            (
-                request,
-                response
-            ) -> getClichedMessage(),
-            json()
-        );
+        get ( "/test" , ( request , response ) -> getClichedMessage () , json () );
     }
 
     public String getClichedMessage ()
@@ -80,7 +60,7 @@ public class LocationController
         }
         catch ( Exception e )
         {
-            e.printStackTrace();
+            e.printStackTrace ();
         }
         return "Hello World";
     }
