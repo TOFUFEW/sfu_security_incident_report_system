@@ -11,14 +11,13 @@ public class JsonUtil {
         return gson.toJson(object);
     }
 
-    public static Location jsonToLocation(String json) {
-        return gson.fromJson(json, Location.class);
-    }
-    public static Object fromJson(String json, Class classOfT) {
+    public static Object fromJson( String json , Class classOfT ) {
         if ( classOfT == Location.class )
             return gson.fromJson( json , classOfT );
+        // add more classes here
         return null;
     }
+
     public static ResponseTransformer json() {
         return JsonUtil::toJson;
     }
