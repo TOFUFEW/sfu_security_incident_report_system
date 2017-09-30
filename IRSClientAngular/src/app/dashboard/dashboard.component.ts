@@ -15,11 +15,7 @@ export class DashboardComponent implements OnInit {
   locationsList: Location[];
 
   constructor( private http: HttpClient , private locationService: LocationService ){}
-  getLocations(): void {
-    this.locationService.getLocations().then( locations => this.locationsList = locations );
-  }
-
+  
   ngOnInit() : void {
-    this.getLocations();
   }
 }

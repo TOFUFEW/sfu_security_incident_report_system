@@ -26,22 +26,18 @@ public class LocationController {
         post ("/locations" , ( request , response ) -> {
             Location loc = parser.jsonToLocation( request.body() );
             int i = dbHelper.addLocation( loc , locationList ); // This code touches the database
-            if ( i > 0 ) return "Location successfully added!";
-            return "Add failed.";
+            return i >= 0 ? locationList.get( i ) : null;
         } , json());
 
         put ( "/locations" , ( request , response ) -> {
             Location loc = parser.jsonToLocation( request.body() );
             int i = dbHelper.editLocation( loc , locationList ); // This code touches the database
-            if ( i > 0 ) return "Location successfully edited!";
-            return "Edit failed.";
+            return i >= 0 ? locationList.get( i ) : null;
         } , json() );
 
         delete ( "/locations/:id" , ( request , response ) -> {
             int id = Integer.parseInt( request.params( ":id" ) );
-            int i = dbHelper.deleteLocation(id, locationList);
-            if ( i > 0 ) return "Location successfully deleted!";
-            return "Delete failed.";
+            return dbHelper.deleteLocation(id, locationList);
         } , json() );
 
         get ( "/test" , ( request , response ) -> getClichedMessage() );

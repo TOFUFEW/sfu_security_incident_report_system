@@ -18,39 +18,30 @@ export class LocationService {
         return Promise.resolve( locations );
     };
 
-    create( location: Location ) : Promise<string> {
+    create( location: Location ) : Promise<Location> {
         var promise = this.http
                 .post( this.locationsUrl, JSON.stringify( location ), { headers: this.headers } )
                 .toPromise()
-                .then( response => {
-                    alert( response.json() as string );
-                    window.location.reload(); // temporary
-                })
+                .then( response => response.json() as Location )
                 .catch( this.handleError );
         return Promise.resolve( promise );
     };
 
-    update( location: Location ) : Promise<string> {
+    update( location: Location ) : Promise<Location> {
         var promise = this.http
                 .put( this.locationsUrl, JSON.stringify( location ), { headers: this.headers } )
                 .toPromise()
-                .then( response => {
-                    alert( response.json() as string );
-                    window.location.reload(); // temporary
-                })
+                .then( response => response.json() as Location )
                 .catch( this.handleError );
         return Promise.resolve( promise );
     };
 
-    delete( id: number ) : Promise<string> {
+    delete( id: number ) : Promise<boolean> {
         var url = `${this.locationsUrl}/${id}`;
         var promise = this.http
                 .delete( url, { headers: this.headers } )
                 .toPromise()
-                .then( response => {
-                    alert( response.json() as string );
-                    window.location.reload(); // temporary
-                })
+                .then( response => response.json() as boolean )
                 .catch( this.handleError );
         return Promise.resolve( promise );
     };

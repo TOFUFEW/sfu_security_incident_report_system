@@ -13,12 +13,10 @@ public class DBHelper {
     ) {
         /* For testing purposes only. Replace this with code that does some database query */
         int currentSize = locationList.size();
-        int id = new Random().nextInt(1000000+1); // for testing only
-        location.setId(id);
-        locationList.add(location);
-        if (locationList.size() > currentSize)
-            return currentSize;
-        return -1;
+        int id = new Random().nextInt( 1000000+1 ); // for testing only
+        location.setId( id );
+        locationList.add( location );
+        return locationList.size() > currentSize ? locationList.size() - 1 : -1; // return the index of the new location
     }
 
     public static int editLocation (
@@ -30,13 +28,13 @@ public class DBHelper {
         for ( int i = 0 ; i < currentSize ; i += 1 ) {
             if ( locationList.get( i ).getId() == location.getId() ) {
                 locationList.set( i , location );
-                return locationList.size();
+                return i; // return the index of the edited location
             }
         }
         return -1;
     }
 
-    public static int deleteLocation (
+    public static boolean deleteLocation (
             int id,
             List<Location> locationList /* remove this param when working with real db */
     ) {
@@ -45,9 +43,9 @@ public class DBHelper {
         for ( int i = 0 ; i < currentSize ; i += 1 ) {
             if ( locationList.get( i ).getId() == id ) {
                 locationList.remove( i );
-                return currentSize > locationList.size() ? locationList.size() : -1;
+                return currentSize > locationList.size();
             }
         }
-        return -1;
+        return false;
     }
 }
