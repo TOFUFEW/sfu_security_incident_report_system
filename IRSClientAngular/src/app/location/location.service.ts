@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class LocationService {
-    constructor(private http: HttpClient) {}
+    constructor ( private http: HttpClient ) {}
     getLocations(): Promise<Location[]> {
         const locationsUrl = "http://localhost:4567/locations";
         var locations = this.http.get(locationsUrl)

@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit
   {
     this.incidentsService.getIncidents().then ( incidents => this.incidentsList = incidents );    
   }
-  
+
   getLocations () : void 
   {
     this.locationService.getLocations().then ( locations => this.locationsList = locations );

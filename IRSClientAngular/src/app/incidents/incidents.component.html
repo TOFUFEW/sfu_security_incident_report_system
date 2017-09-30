@@ -3,8 +3,8 @@
   <div class="panel-body">
     <ul>
       <li *ngFor="let incident of incidents">
-        {{incident.activityID}} , {{incident.date}}<br>
-        {{incident, description}}
+        {{incident.accountID}} , {{incident.execSummary}}<br>
+        {{incident.description}}
       </li>
     </ul>
   </div>

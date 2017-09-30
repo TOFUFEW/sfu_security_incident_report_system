@@ -5,6 +5,6 @@ import { Incidents } from './incidents';
   templateUrl: 'incidents.component.html'
 })
 
-export class IncidentComponent {
+export class IncidentsComponent {
   @Input() incidents: Incidents[];
 }
