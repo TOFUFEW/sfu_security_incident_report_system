@@ -4,11 +4,11 @@
       <ul>
         <li *ngFor="let location of locations">
           Id: {{location.id}}
-          {{location.campus}} , {{location.building_num}} , {{location.room_num}} , {{location.department}}
+          {{location.campus}} , {{location.buildingNumber}} , {{location.roomNumber}} , {{location.department}}
           <br>
           <input type="text" [(ngModel)]="location.campus"/>
-          <input type="text" [(ngModel)]="location.building_num"/>
-          <input type="text" [(ngModel)]="location.room_num"/>
+          <input type="text" [(ngModel)]="location.buildingNumber"/>
+          <input type="text" [(ngModel)]="location.roomNumber"/>
           <input type="text" [(ngModel)]="location.department"/>
           <a href="#" (click)="updateLocation(location);">Save</a>
           <a href="#" (click)="deleteLocation(location.id)">Delete</a>
@@ -19,9 +19,9 @@
       <span class="field-title">Campus</span>
       <input type="text" [(ngModel)]="newLocation.campus" /> <br><br>
       <span class="field-title">Building Number</span>
-      <input type="text" [(ngModel)]="newLocation.building_num" /> <br><br>
+      <input type="text" [(ngModel)]="newLocation.buildingNumber" /> <br><br>
       <span class="field-title">Room Number</span>
-      <input type="text" [(ngModel)]="newLocation.room_num" /> <br><br>
+      <input type="text" [(ngModel)]="newLocation.roomNumber" /> <br><br>
       <span class="field-title">Department</span>
       <input type="text" [(ngModel)]="newLocation.department" /> <br> <br>
       <button class="btn btn-primary"

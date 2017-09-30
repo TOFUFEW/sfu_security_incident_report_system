@@ -14,47 +14,55 @@ public class LocationController {
     DBHelper dbHelper = new DBHelper();
     public List<Location> locationList = new ArrayList<>();
 
-    public LocationController(){
+    public LocationController ()
+    {
         setupEndPoints();
     }
 
     private void setupEndPoints() {
-        get ( "/locations" , ( request , response ) -> {
+        get("/locations", (request, response) -> {
             return locationList;
-        } , json() );
+        }, json());
 
-        post ("/locations" , ( request , response ) -> {
-            Location loc = parser.jsonToLocation( request.body() );
-            int i = dbHelper.addLocation( loc , locationList ); // This code touches the database
-            return i >= 0 ? locationList.get( i ) : null;
-        } , json());
+        post("/locations", (request, response) -> {
+            Location loc = parser.jsonToLocation(request.body());
+            int i = dbHelper.addLocation(loc, locationList); // This code touches the database
+            return i >= 0 ? locationList.get(i) : null;
+        }, json());
 
-        put ( "/locations" , ( request , response ) -> {
-            Location loc = parser.jsonToLocation( request.body() );
-            int i = dbHelper.editLocation( loc , locationList ); // This code touches the database
-            return i >= 0 ? locationList.get( i ) : null;
-        } , json() );
+        put("/locations", (request, response) -> {
+            Location loc = parser.jsonToLocation(request.body());
+            int i = dbHelper.editLocation(loc, locationList); // This code touches the database
+            return i >= 0 ? locationList.get(i) : null;
+        }, json());
 
-        delete ( "/locations/:id" , ( request , response ) -> {
-            int id = Integer.parseInt( request.params( ":id" ) );
+        delete("/locations/:id", (request, response) -> {
+            int id = Integer.parseInt(request.params(":id"));
             return dbHelper.deleteLocation(id, locationList);
-        } , json() );
+        }, json());
 
-        get ( "/test" , ( request , response ) -> getClichedMessage() );
+        get("/test", (request, response) -> getClichedMessage());
     }
 
-    public String getClichedMessage() {
-        try {
+    public String getClichedMessage ()
+    {
+        try
+        {
             String query = "select * from employee";
-            ResultSet myRs = Connector.executeQuery(query);
-            while(myRs.next()){
-                String fname = myRs.getString("fname");
-                String lname = myRs.getString("lname");
-                System.out.println(fname + ' ' + lname);
-                return fname + ' ' + lname;
+            ResultSet myRs = Connector.executeQuery ( query );
+
+            while( myRs.next () )
+            {
+                String fname = myRs.getString ( "fname" );
+                String lname = myRs.getString ( "lname" );
+                System.out.println ( fname + ' ' + lname );
+                String namePair = fname + ' ' + lname;
+                return namePair;
             }
-        } catch (Exception e){
-            e.printStackTrace();
+        }
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
         }
         return "Hello World";
     }
