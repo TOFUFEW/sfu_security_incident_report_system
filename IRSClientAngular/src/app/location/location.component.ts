@@ -41,7 +41,7 @@ export class LocationComponent implements OnInit {
             if ( returnedLocation != null  ) {
               var i = this.locations.findIndex( loc => loc.id === returnedLocation.id );
               // remove 1 object at index i, replace it with returnedLocation
-              this.locations.splice(i, 1, returnedLocation);
+              this.locations.splice( i, 1, returnedLocation );
               alert( "Location successfully edited!" );            
             }
             else alert( "Edit failed." );  
@@ -54,7 +54,7 @@ export class LocationComponent implements OnInit {
         alert(msg);
         var i = this.locations.findIndex( loc => loc.id === id );
         // remove 1 object at index i
-        this.locations.splice(i, 1);
+        this.locations.splice( i, 1 );
       });
   }
 
