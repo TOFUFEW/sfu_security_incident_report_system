@@ -46,11 +46,13 @@ public class LocationController
 
     public String getClichedMessage ()
     {
-        try {
+        try
+        {
             String query = "select * from employee";
             ResultSet myRs = Connector.executeQuery ( query );
 
-            while( myRs.next() ){
+            while( myRs.next () )
+            {
                 String fname = myRs.getString ( "fname" );
                 String lname = myRs.getString ( "lname" );
                 System.out.println ( fname + ' ' + lname );

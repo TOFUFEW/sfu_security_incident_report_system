@@ -1,6 +1,6 @@
+package Model;
 
-
-package Model; public class Location
+public class Location
 {
     private String campus;
     private String buildingNumber;
