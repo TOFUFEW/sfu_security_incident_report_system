@@ -59,7 +59,9 @@ public class LocationController
             (
                 request,
                 response
-            ) -> getClichedMessage() );
+            ) -> getClichedMessage(),
+            json()
+        );
     }
 
     public String getClichedMessage ()
@@ -72,7 +74,8 @@ public class LocationController
                 String fname = myRs.getString ( "fname" );
                 String lname = myRs.getString ( "lname" );
                 System.out.println ( fname + ' ' + lname );
-                return fname + ' ' + lname;
+                String namePair = fname + ' ' + lname;
+                return namePair;
             }
         }
         catch ( Exception e )
