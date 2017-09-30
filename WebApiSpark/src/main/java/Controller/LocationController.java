@@ -25,7 +25,7 @@ public class LocationController {
         }, json());
 
         post("/locations", (request, response) -> {
-            Location loc = parser.jsonToLocation(request.body());
+            Location loc = (Location)parser.fromJson(request.body(), Location.class);
             int i = dbHelper.addLocation(loc, locationList); // This code touches the database
             return i >= 0 ? locationList.get(i) : null;
         }, json());
