@@ -10,23 +10,23 @@ export class LocationComponent {
   @Input() locations: Location[];
   newLocation: Location = new Location();
   
-  constructor(private locationService: LocationService){};
+  constructor( private locationService: LocationService ){};
 
   addLocation(): void {
-    if (this.newLocation.campus != null && this.newLocation.campus.length == 0)
+    if ( this.newLocation.campus != null && this.newLocation.campus.length == 0 )
       return;
-    this.locationService.create(this.newLocation);
+    this.locationService.create( this.newLocation );
     delete this.newLocation;
     this.newLocation = new Location();
   }
 
-  updateLocation(location: Location): void {
-    if (this.newLocation.campus != null && this.newLocation.campus.length == 0)
+  updateLocation( location: Location ): void {
+    if ( this.newLocation.campus != null && this.newLocation.campus.length == 0 )
       return;
-    this.locationService.update(location);
+    this.locationService.update( location );
   }
 
-  deleteLocation(id: number): void {
-    this.locationService.delete(id);
+  deleteLocation( id: number ): void {
+    this.locationService.delete( id );
   }
 }

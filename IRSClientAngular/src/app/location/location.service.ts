@@ -11,53 +11,53 @@ export class LocationService {
     constructor(private http: Http) {}
 
     getLocations(): Promise<Location[]> {
-        var locations = this.http.get(this.locationsUrl)
+        var locations = this.http.get( this.locationsUrl )
             .toPromise()
-            .then(response => response.json() as Location[])
-            .catch(this.handleError);
-        return Promise.resolve(locations);
+            .then( response => response.json() as Location[] )
+            .catch( this.handleError );
+        return Promise.resolve( locations );
     };
 
-    create(location: Location) : Promise<string> {
+    create( location: Location ) : Promise<string> {
         var promise = this.http
-                .post(this.locationsUrl, JSON.stringify(location), { headers: this.headers })
+                .post( this.locationsUrl, JSON.stringify( location ), { headers: this.headers } )
                 .toPromise()
-                .then(response => {
-                    alert(response.json() as string);
+                .then( response => {
+                    alert( response.json() as string );
                     window.location.reload(); // temporary
                 })
-                .catch(this.handleError);
-        return Promise.resolve(promise);
+                .catch( this.handleError );
+        return Promise.resolve( promise );
     };
 
-    update(location: Location) : Promise<string> {
+    update( location: Location ) : Promise<string> {
         var promise = this.http
-                .put(this.locationsUrl, JSON.stringify(location), { headers: this.headers })
+                .put( this.locationsUrl, JSON.stringify( location ), { headers: this.headers } )
                 .toPromise()
-                .then(response => {
-                    alert(response.json() as string);
+                .then( response => {
+                    alert( response.json() as string );
                     window.location.reload(); // temporary
                 })
-                .catch(this.handleError);
-        return Promise.resolve(promise);
+                .catch( this.handleError );
+        return Promise.resolve( promise );
     };
 
-    delete(id: number) : Promise<string> {
+    delete( id: number ) : Promise<string> {
         var url = `${this.locationsUrl}/${id}`;
         var promise = this.http
-                .delete(url, { headers: this.headers })
+                .delete( url, { headers: this.headers } )
                 .toPromise()
-                .then(response => {
-                    alert(response.json() as string);
+                .then( response => {
+                    alert( response.json() as string );
                     window.location.reload(); // temporary
                 })
-                .catch(this.handleError);
-        return Promise.resolve(promise);
+                .catch( this.handleError );
+        return Promise.resolve( promise );
     };
 
     private handleError(error: any): Promise<any> {
-        alert("An error occurred.");
-        console.error('An error occurred', error); // for demo purposes only
-        return Promise.reject(error.message || error);
+        alert( "An error occurred." );
+        console.error( 'An error occurred' , error ); // for demo purposes only
+        return Promise.reject( error.message || error );
     }
 }
