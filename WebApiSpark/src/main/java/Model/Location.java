@@ -84,23 +84,4 @@ public class Location extends IncidentComponent
                 DatabaseValues.DatabaseColumn.DEPARTMENT.getDefaultValue ()
         );
     }
-
-    private boolean validInput ( String input , String dataType )
-    {
-        if ( input == null ) return false;
-
-        if ( dataType.equals ( "INT" ) ) {
-            try
-            {
-                Integer.parseInt ( input );
-            }
-            catch ( Exception e )
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
 }
