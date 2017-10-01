@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Incidents } from '../incidents/incidents';
-import { IncidentsService } from '../incidents/incidents.service';
 import { Location } from '../location/location';
 import { LocationService } from '../location/location.service';
+import { Incidents } from '../incidents/incidents';
+import { IncidentsService } from '../incidents/incidents.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit
 {
   title = 'SFU Incident Reporting System';
   locationsList: Location[];
-  incidentsList: Incidents[];
+  incidentList: Incidents[];
 
   constructor( private http: HttpClient , private locationService: LocationService, private incidentsService: IncidentsService  ){}
   

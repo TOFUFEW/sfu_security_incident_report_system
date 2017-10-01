@@ -6,8 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { LocationComponent } from './location/location.component';
 import { IncidentsComponent } from './incidents/incidents.component';
+import { LocationComponent } from './location/location.component';
 
 @NgModule({
   imports: [
@@ -19,8 +19,8 @@ import { IncidentsComponent } from './incidents/incidents.component';
   declarations: [
     AppComponent,
     DashboardComponent,
-    LocationComponent, 
-    IncidentsComponent
+    IncidentsComponent,    
+    LocationComponent 
   ],
   
   providers: [],

@@ -1,10 +1,28 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Incidents } from './incidents';
-@Component({
+import { IncidentsService } from './incidents.service';
+
+@Component( 
+  {
   selector: 'incidents-component',
   templateUrl: 'incidents.component.html'
-})
+  }
+)
 
-export class IncidentsComponent {
-  @Input() incidents: Incidents[];
+export class IncidentsComponent implements OnInit {
+  incidents: Incidents[];
+  newIncidents: Incidents = new Incidents();
+  
+  constructor( private incidentsService: IncidentsService ){};
+
+  getIncidents(): void {
+    this.incidentsService.getIncidents().then( returnedIncidents => {
+      this.incidents = returnedIncidents;
+    } );    
+  }
+
+  ngOnInit() : void {
+    this.getIncidents();
+  }
+  
 }
