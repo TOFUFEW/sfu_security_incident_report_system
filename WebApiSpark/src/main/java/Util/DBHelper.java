@@ -14,7 +14,7 @@ public class DBHelper {
         /* For testing purposes only. Replace this with code that does some database query */
         int currentSize = locationList.size();
         int id = new Random().nextInt( 1000000+1 ); // for testing only
-        location.setId( id );
+        location.putValue( DatabaseValues.DatabaseColumn.LOCATION_ID , "" + id );
         locationList.add( location );
         return locationList.size() > currentSize ? locationList.size() - 1 : -1; // return the index of the new location
     }
@@ -26,7 +26,9 @@ public class DBHelper {
         /* For testing purposes only. Replace this with code that does some database query */
         int currentSize = locationList.size();
         for ( int i = 0 ; i < currentSize ; i += 1 ) {
-            if ( locationList.get( i ).getId() == location.getId() ) {
+            if ( locationList.get( i ).getValue ( DatabaseValues.DatabaseColumn.LOCATION_ID ) ==
+                    location.getValue ( DatabaseValues.DatabaseColumn.LOCATION_ID ) )
+            {
                 locationList.set( i , location );
                 return i; // return the index of the edited location
             }
@@ -41,7 +43,8 @@ public class DBHelper {
         /* For testing purposes only. Replace this with code that does some database query */
         int currentSize = locationList.size();
         for ( int i = 0 ; i < currentSize ; i += 1 ) {
-            if ( locationList.get( i ).getId() == id ) {
+            if ( locationList.get( i ).getValue ( DatabaseValues.DatabaseColumn.LOCATION_ID ) == ( "" + id ) )
+            {
                 locationList.remove( i );
                 return currentSize > locationList.size();
             }

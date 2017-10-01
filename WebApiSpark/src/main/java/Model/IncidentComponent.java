@@ -6,29 +6,11 @@ import java.util.HashMap;
 
 public class IncidentComponent {
     private DatabaseValues.DatabaseTable table;
-    private HashMap < DatabaseValues.DatabaseColumn , String > columValue = new HashMap ();
+    private HashMap < DatabaseValues.DatabaseColumn , String > columnValue = new HashMap ();
 
     protected IncidentComponent ( DatabaseValues.DatabaseTable table )
     {
         this.table = table;
-    }
-
-    protected boolean validInput ( String input , String dataType )
-    {
-        if ( input == null ) return false;
-
-        if ( dataType.equals ( "INT" ) ) {
-            try
-            {
-                Integer.parseInt ( input );
-            }
-            catch ( Exception e )
-            {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     public DatabaseValues.DatabaseTable getTable ()
@@ -38,19 +20,48 @@ public class IncidentComponent {
 
     public DatabaseValues.DatabaseColumn [] getColumnKeySet ()
     {
-        return columValue.keySet ().toArray( new DatabaseValues.DatabaseColumn [ columValue.size () ] );
+        return columnValue.keySet ().toArray( new DatabaseValues.DatabaseColumn [ columnValue.size () ] );
     }
 
-    public String putValue (
+    public void putValue (
             DatabaseValues.DatabaseColumn column,
             String value
     ) {
-        return columValue.put ( column , value );
+        if ( validInput ( column , value ) )
+        {
+            columnValue.put (
+                    column,
+                    value
+            );
+        }
+        else {
+            columnValue.put (
+                    column,
+                    column.getDefaultValue()
+            );
+        }
     }
 
     public String getValue ( DatabaseValues.DatabaseColumn column )
     {
-        return columValue.get ( column );
+        return columnValue.get ( column );
     }
 
+    private boolean validInput (DatabaseValues.DatabaseColumn column , String input )
+    {
+        if ( input == null ) return false;
+
+        if ( column.getDataType ().equals ( "INT" ) ) {
+            try
+            {
+                int testNum = Integer.parseInt ( input );
+            }
+            catch ( Exception e )
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

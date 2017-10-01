@@ -25,7 +25,7 @@ public class Application
 
         // TEST CODE WITHOUT DATABASE
         Location location1 = new Location (
-                1,
+                "1",
                 "Surrey",
                 "SURR-301",
                 "3200",
@@ -33,15 +33,25 @@ public class Application
         );
 
         Location location2 = new Location (
-                2,
+                "2",
                 "Burnaby",
                 "BUR-800",
                 "9808",
                 "Ensc"
         );
 
-        locationController.locationList.add( location1 );
-        locationController.locationList.add( location2 );
+        // test for bad input data
+        Location location3 = new Location (
+                "null",
+                "null",
+                null,
+                null,
+                null
+        );
+
+        locationController.locationList.add ( location1 );
+        locationController.locationList.add ( location2 );
+        locationController.locationList.add ( location3 );
         // END TEST CODE
     }
 

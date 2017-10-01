@@ -5,83 +5,37 @@ import Util.DatabaseValues;
 public class Location extends IncidentComponent
 {
     public Location (
-            String campus,
-            String buildingNum,
-            String roomNum,
+            String locationID,
+            String campusID,
+            String buildingNumber,
+            String roomNumber,
             String department
     ) {
-        super( DatabaseValues.DatabaseTable.LOCATION );
+        super(DatabaseValues.DatabaseTable.LOCATION);
 
-        initHashMap ();
+        super.putValue(
+                DatabaseValues.DatabaseColumn.LOCATION_ID,
+                locationID
+        );
 
-        if ( validInput ( campus , DatabaseValues.DatabaseColumn.CAMPUS_ID.toString () ) )
-        {
-            super.putValue (
-                    DatabaseValues.DatabaseColumn.CAMPUS_ID,
-                    campus
-            );
-        }
-
-        if ( validInput ( buildingNum , DatabaseValues.DatabaseColumn.BUILDING_NUMBER.toString () ) )
-        {
-            super.putValue (
-                    DatabaseValues.DatabaseColumn.BUILDING_NUMBER,
-                    buildingNum
-            );
-        }
-
-        if ( validInput ( roomNum , DatabaseValues.DatabaseColumn.ROOM_NUMBER.toString () ) )
-        {
-            super.putValue (
-                    DatabaseValues.DatabaseColumn.ROOM_NUMBER,
-                    roomNum
-            );
-        }
-
-        if ( validInput ( department , DatabaseValues.DatabaseColumn.DEPARTMENT.toString () ) )
-        {
-            super.putValue (
-                    DatabaseValues.DatabaseColumn.DEPARTMENT,
-                    department
-            );
-        }
-    }
-
-    public DatabaseValues.DatabaseTable getTable ()
-    {
-        return super.getTable ();
-    }
-
-    public DatabaseValues.DatabaseColumn [] getColumnKeySet ()
-{
-    return super.getColumnKeySet ();
-}
-
-    public String getValue ( DatabaseValues.DatabaseColumn column )
-    {
-        return super.getValue( column );
-    }
-
-    private void initHashMap ()
-    {
-        super.putValue (
+        super.putValue(
                 DatabaseValues.DatabaseColumn.CAMPUS_ID,
-                DatabaseValues.DatabaseColumn.CAMPUS_ID.getDefaultValue ()
+                campusID
         );
 
-        super.putValue (
+        super.putValue(
                 DatabaseValues.DatabaseColumn.BUILDING_NUMBER,
-                DatabaseValues.DatabaseColumn.BUILDING_NUMBER.getDefaultValue ()
+                buildingNumber
         );
 
-        super.putValue (
+        super.putValue(
                 DatabaseValues.DatabaseColumn.ROOM_NUMBER,
-                DatabaseValues.DatabaseColumn.ROOM_NUMBER.getDefaultValue ()
+                roomNumber
         );
 
-        super.putValue (
+        super.putValue(
                 DatabaseValues.DatabaseColumn.DEPARTMENT,
-                DatabaseValues.DatabaseColumn.DEPARTMENT.getDefaultValue ()
+                department
         );
     }
 }
