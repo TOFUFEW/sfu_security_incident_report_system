@@ -20,28 +20,28 @@ public class LocationController {
     }
 
     private void setupEndPoints() {
-        get("/locations", (request, response) -> {
+        get( "/locations" , ( request , response ) -> {
             return locationList;
+        }, json() );
+
+        post( "/locations" , ( request , response ) -> {
+            Location loc = ( Location ) parser.fromJson( request.body() , Location.class );
+            int i = dbHelper.addLocation( loc , locationList ); // This code touches the database
+            return i >= 0 ? locationList.get( i ) : null;
+        } , json() );
+
+        put( "/locations" , ( request , response ) -> {
+            Location loc = ( Location ) parser.fromJson( request.body() , Location.class );
+            int i = dbHelper.editLocation( loc , locationList ); // This code touches the database
+            return i >= 0 ? locationList.get( i ) : null;
         }, json());
 
-        post("/locations", (request, response) -> {
-            Location loc = (Location)parser.fromJson(request.body(), Location.class);
-            int i = dbHelper.addLocation(loc, locationList); // This code touches the database
-            return i >= 0 ? locationList.get(i) : null;
-        }, json());
+        delete( "/locations/:id", ( request , response ) -> {
+            int id = Integer.parseInt( request.params( ":id" ) );
+            return dbHelper.deleteLocation( id , locationList );
+        } , json() );
 
-        put("/locations", (request, response) -> {
-            Location loc = (Location)parser.fromJson(request.body(), Location.class);
-            int i = dbHelper.editLocation(loc, locationList); // This code touches the database
-            return i >= 0 ? locationList.get(i) : null;
-        }, json());
-
-        delete("/locations/:id", (request, response) -> {
-            int id = Integer.parseInt(request.params(":id"));
-            return dbHelper.deleteLocation(id, locationList);
-        }, json());
-
-        get("/test", (request, response) -> getClichedMessage());
+        get( "/test" , ( request , response ) -> getClichedMessage() );
     }
 
     public String getClichedMessage ()
