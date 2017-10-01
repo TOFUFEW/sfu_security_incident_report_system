@@ -16,7 +16,7 @@ public class Location extends IncidentComponent
 
         if ( validInput ( campus , DatabaseValues.DatabaseColumn.CAMPUS_ID.toString () ) )
         {
-            putValue (
+            super.putValue (
                     DatabaseValues.DatabaseColumn.CAMPUS_ID,
                     DatabaseValues.DatabaseColumn.CAMPUS_ID.getDefaultValue ()
             );
@@ -24,7 +24,7 @@ public class Location extends IncidentComponent
 
         if ( validInput ( buildingNum , DatabaseValues.DatabaseColumn.BUILDING_NUMBER.toString () ) )
         {
-            putValue (
+            super.putValue (
                     DatabaseValues.DatabaseColumn.BUILDING_NUMBER,
                     DatabaseValues.DatabaseColumn.BUILDING_NUMBER.getDefaultValue ()
             );
@@ -32,7 +32,7 @@ public class Location extends IncidentComponent
 
         if ( validInput ( roomNum , DatabaseValues.DatabaseColumn.ROOM_NUMBER.toString () ) )
         {
-            putValue (
+            super.putValue (
                     DatabaseValues.DatabaseColumn.ROOM_NUMBER,
                     DatabaseValues.DatabaseColumn.ROOM_NUMBER.getDefaultValue ()
             );
@@ -40,7 +40,7 @@ public class Location extends IncidentComponent
 
         if ( validInput ( department , DatabaseValues.DatabaseColumn.DEPARTMENT.toString () ) )
         {
-            putValue (
+            super.putValue (
                     DatabaseValues.DatabaseColumn.DEPARTMENT,
                     DatabaseValues.DatabaseColumn.DEPARTMENT.getDefaultValue ()
             );
@@ -49,37 +49,37 @@ public class Location extends IncidentComponent
 
     public DatabaseValues.DatabaseTable getTable ()
     {
-        return getTable ();
+        return super.getTable ();
     }
 
     public DatabaseValues.DatabaseColumn [] getColumnKeySet ()
-    {
-        return getColumnKeySet ();
-    }
+{
+    return super.getColumnKeySet ();
+}
 
     public String getValue ( DatabaseValues.DatabaseColumn column )
     {
-        return getValue( column );
+        return super.getValue( column );
     }
 
     private void initHashMap ()
     {
-        putValue (
+        super.putValue (
                 DatabaseValues.DatabaseColumn.CAMPUS_ID,
                 DatabaseValues.DatabaseColumn.CAMPUS_ID.getDefaultValue ()
         );
 
-        putValue (
+        super.putValue (
                 DatabaseValues.DatabaseColumn.BUILDING_NUMBER,
                 DatabaseValues.DatabaseColumn.BUILDING_NUMBER.getDefaultValue ()
         );
 
-        putValue (
+        super.putValue (
                 DatabaseValues.DatabaseColumn.ROOM_NUMBER,
                 DatabaseValues.DatabaseColumn.ROOM_NUMBER.getDefaultValue ()
         );
 
-        putValue (
+        super.putValue (
                 DatabaseValues.DatabaseColumn.DEPARTMENT,
                 DatabaseValues.DatabaseColumn.DEPARTMENT.getDefaultValue ()
         );
