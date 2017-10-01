@@ -2,19 +2,22 @@ package Controller;
 
 import DBConnector.Connector;
 import Model.Location;
+import Util.*;
 
 import java.sql.ResultSet;
 import java.util.*;
-import static Parser.JsonUtil.json;
+import static Util.JsonUtil.json;
 import static spark.Spark.*;
 
 public class LocationController {
+    JsonUtil parser = new JsonUtil();
+    DBHelper dbHelper = new DBHelper();
+    public List<Location> locationList = new ArrayList<>();
 
-    public LocationController(){
+    public LocationController ()
+    {
         setupEndPoints();
     }
-
-    public List<Location> locationList = new ArrayList<>();
 
     private void setupEndPoints() {
         get("/locations", (request, response) -> {
@@ -22,31 +25,44 @@ public class LocationController {
         }, json());
 
         post("/locations", (request, response) -> {
-            String campus = request.queryParams("campus");
-            String building_num = request.queryParams("building_num");
-            int room_num = Integer.parseInt(request.queryParams("room_num"));
-            String department = request.queryParams("department");
+            Location loc = parser.jsonToLocation(request.body());
+            int i = dbHelper.addLocation(loc, locationList); // This code touches the database
+            return i >= 0 ? locationList.get(i) : null;
+        }, json());
 
-            Location loc = new Location(campus, building_num, room_num, department);
-            locationList.add(loc);
-            return "Success!";
+        put("/locations", (request, response) -> {
+            Location loc = parser.jsonToLocation(request.body());
+            int i = dbHelper.editLocation(loc, locationList); // This code touches the database
+            return i >= 0 ? locationList.get(i) : null;
+        }, json());
+
+        delete("/locations/:id", (request, response) -> {
+            int id = Integer.parseInt(request.params(":id"));
+            return dbHelper.deleteLocation(id, locationList);
         }, json());
 
         get("/test", (request, response) -> getClichedMessage());
     }
 
-    public String getClichedMessage() {
-        try {
+    public String getClichedMessage ()
+    {
+        try
+        {
             String query = "select * from employee";
-            ResultSet myRs = Connector.executeQuery(query);
-            while(myRs.next()){
-                String fname = myRs.getString("fname");
-                String lname = myRs.getString("lname");
-                System.out.println(fname + ' ' + lname);
-                return fname + ' ' + lname;
+            ResultSet myRs = Connector.executeQuery ( query );
+
+            while( myRs.next () )
+            {
+                String fname = myRs.getString ( "fname" );
+                String lname = myRs.getString ( "lname" );
+                System.out.println ( fname + ' ' + lname );
+                String namePair = fname + ' ' + lname;
+                return namePair;
             }
-        } catch (Exception e){
-            e.printStackTrace();
+        }
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
         }
         return "Hello World";
     }

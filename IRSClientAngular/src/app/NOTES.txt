@@ -1,0 +1,77 @@
+
+I. Components
+    - Components are like 'Controllers' -- they have their own class, variables, methods, 
+        their own view (template)
+        - they can also be thought of as "div"s in the html
+    - Naming: name.component.ts, location.component.ts
+    - app.component.ts is the PARENT COMPONENT
+    - Child components can be added to the AppComponent
+
+    How to add a Child Component:
+    1. Create a new file, ex. location.component.ts
+    
+    In location.component.ts, 
+    2. Import component from angular/core 
+        import { Component } from '@angular/core';
+    3. Declare it as a component, with the following properties: selector, and template or templateUrl
+        (there are more, only if necessary)
+        ex. @Component({
+                selector: 'location-component',
+                templateUrl: 'location.component.html'
+            })
+
+
+        - selector - the html DOM name where the template will be inserted
+            ex. selector: 'location-component';
+            where in the html of the parent component, we can insert the view of this component
+            by inserting <location-component></location-component> somewhere
+        - templateUrl - the external html file of the component
+            ex. templateUrl: 'location.component.html';
+
+        
+    4. Create a class called LocationComponent
+        Below the code from 3, add: 
+            export class LocationComponent { }
+    
+    In app.module.ts, we need to have a reference for this new component
+    5. Import the child component
+        import { LocationComponent } from './location.component';
+    6. Add LocationComponent to the declarations
+        declarations: [
+            AppComponent,
+            LocationComponent
+        ]
+    7. Create the view for LocationComponent
+        - Add a new file in src/app, called location.component.html
+            - The file name must match the templateUrl in location.component.ts
+    8. Add a DOM for LocationComponent in its parent component html
+        - Somewhere in dashboard.component.html, add: <location-component></location-component>
+
+    
+    How to pass data from parent component
+
+
+
+
+
+
+
+    How to pass data from AppComponent to a child component: 
+    In the child component (ex. location.component.ts),
+    1. Import the Input library from angular core :
+        import { Component, Input } from '@angular/core';
+    
+    2. In the class LocationComponent, declare a new @Input() variable, as follows:
+        @Input() variable_name: variable_type;
+        ex. @Input() locations: Location[]; // locations is expecting an array of objects called Location
+
+    3. Assuming you already have <location-component></location-component> somewhere in app.component.html, 
+        bind the data, as follows:
+        <location-component [variable_name]="dataSource"></location-component>
+
+        ex. <location-component [locations]="locationsArray"></location-component>,
+        where 'locations' is the variable name from LocationComponent, and
+            'locationsArray' is the variable name from AppComponent
+    
+    4. Follow this guide on how to display data in Angular:
+        https://angular.io/tutorial/toh-pt1
