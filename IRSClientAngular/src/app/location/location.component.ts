@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Location } from './location';
+
 @Component({
   selector: 'location-component',
   templateUrl: 'location.component.html'
