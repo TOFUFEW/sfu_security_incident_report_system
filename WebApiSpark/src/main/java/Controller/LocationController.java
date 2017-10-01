@@ -2,46 +2,46 @@ package Controller;
 
 import DBConnector.Connector;
 import Model.Location;
+import Util.*;
 
 import java.sql.ResultSet;
 import java.util.*;
-import static Parser.JsonUtil.json;
+import static Util.JsonUtil.json;
 import static spark.Spark.*;
 
-public class LocationController
-{
+public class LocationController {
+    JsonUtil parser = new JsonUtil();
+    DBHelper dbHelper = new DBHelper();
+    public List<Location> locationList = new ArrayList<>();
 
     public LocationController ()
     {
         setupEndPoints();
     }
 
-    public List < Location > locationList = new ArrayList <> ();
+    private void setupEndPoints() {
+        get("/locations", (request, response) -> {
+            return locationList;
+        }, json());
 
-    private void setupEndPoints ()
-    {
-        get ( "/locations" , ( request , response ) -> { return locationList; } , json () );
+        post("/locations", (request, response) -> {
+            Location loc = parser.jsonToLocation(request.body());
+            int i = dbHelper.addLocation(loc, locationList); // This code touches the database
+            return i >= 0 ? locationList.get(i) : null;
+        }, json());
 
-        post ( "/locations" , ( request , response ) ->
-            {
-                String campus = request.queryParams ( "campus" );
-                String building_num = request.queryParams ( "building_num" );
-                String room_num = request.queryParams ( "room_num" );
-                String department = request.queryParams ( "department" );
+        put("/locations", (request, response) -> {
+            Location loc = parser.jsonToLocation(request.body());
+            int i = dbHelper.editLocation(loc, locationList); // This code touches the database
+            return i >= 0 ? locationList.get(i) : null;
+        }, json());
 
-                Location loc = new Location (
-                        campus,
-                        building_num,
-                        room_num,
-                        department
-                );
-                locationList.add ( loc );
-                return "Success!";
-            },
-            json ()
-        );
+        delete("/locations/:id", (request, response) -> {
+            int id = Integer.parseInt(request.params(":id"));
+            return dbHelper.deleteLocation(id, locationList);
+        }, json());
 
-        get ( "/test" , ( request , response ) -> getClichedMessage () , json () );
+        get("/test", (request, response) -> getClichedMessage());
     }
 
     public String getClichedMessage ()

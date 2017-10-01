@@ -3,8 +3,30 @@
   <div class="panel-body">
       <ul>
         <li *ngFor="let location of locations">
-          {{location.campus}} , {{location.building_num}} , {{location.room_num}} , {{location.department}}
+          Id: {{location.id}}
+          {{location.campus}} , {{location.buildingNumber}} , {{location.roomNumber}} , {{location.department}}
+          <br>
+          <input type="text" [(ngModel)]="location.campus"/>
+          <input type="text" [(ngModel)]="location.buildingNumber"/>
+          <input type="text" [(ngModel)]="location.roomNumber"/>
+          <input type="text" [(ngModel)]="location.department"/>
+          <a href="#" (click)="updateLocation(location);">Save</a>
+          <a href="#" (click)="deleteLocation(location.id)">Delete</a>
         </li>
       </ul>
+
+      <h4>Add a Location: </h4>
+      <span class="field-title">Campus</span>
+      <input type="text" [(ngModel)]="newLocation.campus" /> <br><br>
+      <span class="field-title">Building Number</span>
+      <input type="text" [(ngModel)]="newLocation.buildingNumber" /> <br><br>
+      <span class="field-title">Room Number</span>
+      <input type="text" [(ngModel)]="newLocation.roomNumber" /> <br><br>
+      <span class="field-title">Department</span>
+      <input type="text" [(ngModel)]="newLocation.department" /> <br> <br>
+      <button class="btn btn-primary"
+              (click)="addLocation();">
+        Submit
+      </button>
   </div>
 </div>
