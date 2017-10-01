@@ -18,7 +18,7 @@ public class Location extends IncidentComponent
         {
             super.putValue (
                     DatabaseValues.DatabaseColumn.CAMPUS_ID,
-                    DatabaseValues.DatabaseColumn.CAMPUS_ID.getDefaultValue ()
+                    campus
             );
         }
 
@@ -26,7 +26,7 @@ public class Location extends IncidentComponent
         {
             super.putValue (
                     DatabaseValues.DatabaseColumn.BUILDING_NUMBER,
-                    DatabaseValues.DatabaseColumn.BUILDING_NUMBER.getDefaultValue ()
+                    buildingNum
             );
         }
 
@@ -34,7 +34,7 @@ public class Location extends IncidentComponent
         {
             super.putValue (
                     DatabaseValues.DatabaseColumn.ROOM_NUMBER,
-                    DatabaseValues.DatabaseColumn.ROOM_NUMBER.getDefaultValue ()
+                    roomNum
             );
         }
 
@@ -42,7 +42,7 @@ public class Location extends IncidentComponent
         {
             super.putValue (
                     DatabaseValues.DatabaseColumn.DEPARTMENT,
-                    DatabaseValues.DatabaseColumn.DEPARTMENT.getDefaultValue ()
+                    department
             );
         }
     }
