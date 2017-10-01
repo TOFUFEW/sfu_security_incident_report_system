@@ -25,6 +25,7 @@ public class Application
 
         // TEST CODE WITHOUT DATABASE
         Location location1 = new Location (
+                1,
                 "Surrey",
                 "SURR-301",
                 "3200",
@@ -32,6 +33,7 @@ public class Application
         );
 
         Location location2 = new Location (
+                2,
                 "Burnaby",
                 "BUR-800",
                 "9808",
