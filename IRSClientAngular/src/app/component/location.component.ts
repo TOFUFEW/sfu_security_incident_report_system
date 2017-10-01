@@ -60,7 +60,7 @@ export class LocationComponent implements OnInit {
   }
 
   ngOnInit() : void {
-    //this.getLocations();
+    this.getLocations();
   }
   
 }
