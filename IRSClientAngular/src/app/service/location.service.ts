@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Location } from './location';
+import { Location } from '../model/location';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
+import { Config } from '../util/config.service';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class LocationService {
     private headers = new Headers({'Content-Type': 'application/json'});
-    locationsUrl = "http://localhost:4567/locations";
+    locationsUrl = Config.URI;
     constructor(private http: Http) {}
 
     getLocations(): Promise<Location[]> {
