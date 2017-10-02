@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Incidents } from './incidents';
+import { Incidents } from '../model/incidents';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
@@ -21,7 +21,7 @@ export class IncidentsService
         return Promise.resolve( incidents );
     };
 
-    private handleError(error: any): Promise<any> 
+    private handleError( error: any ) : Promise<any> 
     {
         alert( "An error occurred." );
         console.error( 'An error occurred' , error ); // for demo purposes only
