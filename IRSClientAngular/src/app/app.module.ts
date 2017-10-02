@@ -4,26 +4,40 @@ import { FormsModule }   from '@angular/forms';
 import { Http, HttpModule, Headers } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 
+import { routes } from './app.router';
 import { AppComponent } from './app.component';
+<<<<<<< HEAD
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LocationComponent } from './location/location.component';
 import { IncidentsComponent } from './incidents/incidents.component';
+=======
+import { DashboardComponent } from './component/dashboard.component';
+import { LocationComponent } from './component/location.component';
+import { LoginComponent } from './component/login.component';
+>>>>>>> b5301eba6cbc2d0c696cb488ca2b65833c81ab43
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    routes
   ],
   declarations: [
     AppComponent,
     DashboardComponent,
+<<<<<<< HEAD
     LocationComponent, 
     IncidentsComponent
+=======
+    LocationComponent,
+    LoginComponent,
+>>>>>>> b5301eba6cbc2d0c696cb488ca2b65833c81ab43
   ],
   
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
