@@ -9,7 +9,11 @@ public class Location {
 
     public Location() {}
 
-    public Location(int id, String campus, String buildingNumber, String roomNumber, String department) {
+    public Location( int id,
+                     String campus,
+                     String buildingNumber,
+                     String roomNumber,
+                     String department ) {
         this.id = id;
         this.campus = campus;
         this.buildingNumber = buildingNumber;
@@ -22,7 +26,7 @@ public class Location {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId( int id ) {
         this.id = id;
     }
 }
