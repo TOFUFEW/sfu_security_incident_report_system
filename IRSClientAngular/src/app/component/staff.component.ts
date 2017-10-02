@@ -24,7 +24,7 @@ export class StaffComponent implements OnInit {
         .then( returnedStaff => {
             if ( returnedStaff != null  ) {
               this.staff.push( returnedStaff );
-              alert( "Staff successfully added!" + returnedStaff.firstName );            
+              alert( returnedStaff.firstName + " successfully added!" );            
             }
             else alert( "Add failed." );  
         } );
@@ -40,7 +40,7 @@ export class StaffComponent implements OnInit {
               var i = this.staff.findIndex( staff => staff.id === returnedStaff.id );
               // remove 1 object at index i, replace it with returnedStaff
               this.staff.splice( i, 1, returnedStaff );
-              alert( "Staff successfully edited!" );            
+              alert( returnedStaff.firstName + " successfully edited!" );            
             }
             else alert( "Edit failed." );  
         } );
