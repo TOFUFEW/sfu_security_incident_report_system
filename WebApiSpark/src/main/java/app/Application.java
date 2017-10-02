@@ -56,9 +56,18 @@ public class Application
                 "6043883838",
                 new Date("09/10/1993"),
                 1
+        );
 
+        Staff testStaff2 = new Staff(
+                "Bill",
+                "Bob",
+                "Surrey Central Skytrain",
+                "6043883668",
+                new Date("09/12/1993"),
+                1
         );
         staffController.staffList.add(testStaff);
+        staffController.staffList.add(testStaff2);
         // END TEST CODE
     }
 

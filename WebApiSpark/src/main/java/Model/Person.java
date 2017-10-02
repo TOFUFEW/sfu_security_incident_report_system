@@ -33,37 +33,9 @@ public class Person {
     public void setId (int id){
         this.id = id;
     }
-    public void setName (
-            String first,
-            String last
-    ) {
-        firstName = first;
-        lastName = last;
-    }
-
-    public void setAddress(String addr){
-        address = addr;
-    }
-
-    //getters
 
     public int getId () {
         return id;
-    }
-    public String getName() {
-        return firstName + lastName;
-    }
-
-    public Date getDOB() {
-        return DOB;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getPhoneNumber(){
-        return phoneNumber;
     }
 
 
