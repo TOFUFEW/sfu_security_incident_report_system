@@ -7,6 +7,7 @@ import { Router, RouterModule } from '@angular/router';
 
 export class LoginComponent {
     data = <any>{};
+    
     constructor(private router: Router) {}
     onLogin() {
       if(this.data.username == "admin" && this.data.password == "admin") {
