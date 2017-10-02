@@ -1,9 +1,14 @@
 package app;
 
 import Controller.LocationController;
+import Controller.StaffController;
 import DBConnector.Connector;
 import Model.Location;
+import Model.Staff;
+
 import java.sql.DriverManager;
+import java.util.Date;
+
 import static spark.Spark.*;
 
 // Class that initializes each controller at start - up
@@ -22,6 +27,7 @@ public class Application
         DBinit ();
 
         LocationController locationController = new LocationController ();
+        StaffController staffController = new StaffController();
 
         // TEST CODE WITHOUT DATABASE
         Location location1 = new Location (
@@ -42,6 +48,17 @@ public class Application
 
         locationController.locationList.add( location1 );
         locationController.locationList.add( location2 );
+
+        Staff testStaff = new Staff(
+                "Bob",
+                "Ross",
+                "Surrey Central Skytrain",
+                "6043883838",
+                new Date("09/10/1993"),
+                1
+
+        );
+        staffController.staffList.add(testStaff);
         // END TEST CODE
     }
 

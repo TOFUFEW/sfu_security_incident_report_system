@@ -1,33 +1,26 @@
 package Controller;
 import Model.Staff;
-import spark.ResponseTransformer;
+import Util.DBHelper;
+import Util.JsonUtil;
 
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
-
-import static Parser.JsonUtil.json;
+import static Util.JsonUtil.json;
 import static spark.Spark.*;
 
+
+
 public class StaffController {
-    private List<Staff> staffList = new ArrayList<>();
+    JsonUtil parser = new JsonUtil ();
+    DBHelper dbHelper = new DBHelper ();
 
-    public StaffController()
+    public List<Staff> staffList = new ArrayList<> ();
+
+    public StaffController ()
     {
-        Date date = new Date("09/10/1993");
-        Staff testStaff = new Staff(
-                "Bob",
-                "Ross",
-                "Surrey Central Skytrain",
-                "6043883838",
-                date
-
-        );
-        setupEndPoints();
+        setupEndPoints ();
     }
 
-    private void setupEndPoints()
+    private void setupEndPoints ()
     {
         get("/staff", (request, response) -> {
             return staffList;
@@ -35,24 +28,22 @@ public class StaffController {
 
 
         post("/staff", (request, response) -> {
-            String firstName = request.queryParams("firstName");
-            String lastName = request.queryParams("lastName");
-            DateFormat df = new SimpleDateFormat("mm/dd/yyyy");
-            Date DOB = df.parse(request.queryParams("DOB"));
-            String address = request.queryParams("address");
-            String phoneNumber = request.queryParams("phoneNumber");
-            Staff staff = new Staff(
-                    firstName,
-                    lastName,
-                    address,
-                    phoneNumber,
-                    DOB
-            );
+            Staff staff = parser.jsonToStaff(request.body());
+            int i = dbHelper.addStaff(staff, staffList);
+            return i>=0? staffList.get(i) : null;
 
 
-            staffList.add(staff);
+        }, json());
 
-            return "Success!";
+        put("/locations", (request, response) -> {
+            Staff staff = parser.jsonToStaff(request.body());
+            int i = dbHelper.editStaff(staff, staffList); // This code touches the database
+            return i >= 0 ? staffList.get(i) : null;
+        }, json());
+
+        delete("/staff/:id", (request, response) -> {
+            int id = Integer.parseInt(request.params(":id"));
+            return dbHelper.deleteStaff(id, staffList);
         }, json());
     }
 

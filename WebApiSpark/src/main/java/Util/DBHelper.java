@@ -48,4 +48,46 @@ public class DBHelper {
         }
         return false;
     }
+
+
+    public static int addStaff (
+            Staff staff,
+            List<Staff> staffList
+    ) {
+        int currentSize = staffList.size();
+        int id = new Random().nextInt(100000 + 1);
+        staff.setId(id);
+        staffList.add( staff );
+        return staffList.size() > currentSize ? staffList.size() - 1 : -1;
+    }
+
+    public static int editStaff (
+            Staff staff,
+            List<Staff> staffList
+    ) {
+        /* For testing purposes only. Replace this with code that does some database query */
+        int currentSize = staffList.size();
+        for ( int i = 0 ; i < currentSize ; i += 1 ) {
+            if ( staffList.get( i ).getId() == staff.getId() ) {
+                staffList.set( i , staff );
+                return i; // return the index of the edited location
+            }
+        }
+        return -1;
+    }
+
+    public static boolean deleteStaff (
+            int id,
+            List<Staff> staffList /* remove this param when working with real db */
+    ) {
+        /* For testing purposes only. Replace this with code that does some database query */
+        int currentSize = staffList.size();
+        for ( int i = 0 ; i < currentSize ; i += 1 ) {
+            if ( staffList.get( i ).getId() == id ) {
+                staffList.remove( i );
+                return currentSize > staffList.size();
+            }
+        }
+        return false;
+    }
 }

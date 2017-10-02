@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LocationComponent } from './location/location.component';
+import { StaffComponent } from './staff/staff.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { LocationComponent } from './location/location.component';
   declarations: [
     AppComponent,
     DashboardComponent,
-    LocationComponent
+    LocationComponent,
+    StaffComponent
   ],
   
   providers: [],
