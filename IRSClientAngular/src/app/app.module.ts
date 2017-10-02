@@ -10,6 +10,7 @@ import { DashboardComponent } from './component/dashboard.component';
 import { LocationComponent } from './component/location.component';
 import { LoginComponent } from './component/login.component';
 
+
 @NgModule({
   imports: [
     BrowserModule,
