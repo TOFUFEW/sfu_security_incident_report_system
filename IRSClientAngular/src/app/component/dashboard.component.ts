@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '../location/location';
-import { LocationService } from '../location/location.service';
-import { Staff } from '../staff/staff';
-import { StaffService } from '../staff/staff.service';
+import { Location } from '../model/location';
+import { LocationService } from '../service/location.service';
+import { Staff } from '../model/staff';
+import { StaffService } from '../service/staff.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'dashboard',
-  templateUrl: 'dashboard.component.html',
+  templateUrl: '../view/dashboard.component.html',
   providers: [LocationService, StaffService]
 })
 

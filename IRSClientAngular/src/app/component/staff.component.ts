@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Staff } from './staff';
-import { StaffService } from './staff.service';
+import { Staff } from '../model/staff';
+import { StaffService } from '../service/staff.service';
 @Component({
   selector: 'staff-component',
-  templateUrl: 'staff.component.html'
+  templateUrl: '../view/staff.component.html'
 })
 
 export class StaffComponent implements OnInit {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Staff } from './staff';
+import { Staff } from '../model/staff';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';

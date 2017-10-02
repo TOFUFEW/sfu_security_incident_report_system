@@ -12,9 +12,7 @@ public class JsonUtil {
         return gson.toJson(object);
     }
 
-    public static Location jsonToLocation(String json) {
-        return gson.fromJson(json, Location.class);
-    }
+    public static Object fromJson( String json , Class classOfT ) { return gson.fromJson( json , classOfT ); }
 
     public static Staff jsonToStaff(String json) {
         return gson.fromJson(json, Staff.class);

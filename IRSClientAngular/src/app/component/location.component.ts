@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Location } from './location';
-import { LocationService } from './location.service';
+import { Location } from '../model/location';
+import { LocationService } from '../service/location.service';
+
 @Component({
   selector: 'location-component',
-  templateUrl: 'location.component.html'
+  templateUrl: '../view/location.component.html'
 })
 
 export class LocationComponent implements OnInit {
