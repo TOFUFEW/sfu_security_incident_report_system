@@ -28,7 +28,7 @@ public class StaffController {
 
 
         post("/staff", (request, response) -> {
-            Staff staff = parser.jsonToStaff(request.body());
+            Staff staff = ( Staff ) parser.fromJson(request.body(), Staff.class);
             int i = dbHelper.addStaff(staff, staffList);
             return i>=0? staffList.get(i) : null;
 
@@ -36,7 +36,7 @@ public class StaffController {
         }, json());
 
         put("/locations", (request, response) -> {
-            Staff staff = parser.jsonToStaff(request.body());
+            Staff staff = ( Staff ) parser.fromJson(request.body(), Staff.class);
             int i = dbHelper.editStaff(staff, staffList); // This code touches the database
             return i >= 0 ? staffList.get(i) : null;
         }, json());

@@ -1,16 +1,17 @@
 <div class="panel panel-default test-panel">
     <div class="panel-heading"><h4>Staff</h4></div>
-    <div class="panel-body">
-        <ul>
+    <div class="panel-body">  
+      <ul>
           <li *ngFor="let staff of staffList">
             Id: {{staff.id}}
-            {{staff.firstName}} , {{staff.lastName}} , {{staff.DOB}} , {{staff.type}}, {{staff.address}}
+            {{staff.firstName}} , {{staff.lastName}} , {{staff.DOB}} , {{staff.type}}, {{staff.address}}, {{staff.phoneNumber}}
             <br>
             <input type="text" [(ngModel)]="staff.firstName"/>
             <input type="text" [(ngModel)]="staff.lastName"/>
             <input type="date" [(ngModel)]="staff.DOB"/>
             <input type="text" [(ngModel)]="staff.type"/>
             <input type="text" [(ngModel)]="staff.address"/>
+            <input type="text" [(ngModel)]="staff.phoneNumber"/>
             <a href="#" (click)="updateStaff(staff);">Save</a>
             <a href="#" (click)="deleteStaff(staff.id)">Delete</a>
           </li>
@@ -27,6 +28,8 @@
         <input type="number" [(ngModel)]="newStaff.type" /><br><br>
         <span class="field-title">Address</span>
         <input type="text" [(ngModel)]="newStaff.Address" /> <br> <br>
+        <span class="field-title">Phone Number</span>
+        <input type="text" [(ngModel)]="newStaff.phoneNumber" /> <br> <br>
         <button class="btn btn-primary"
                 (click)="addStaff();">
           Submit

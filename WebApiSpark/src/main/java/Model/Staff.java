@@ -1,9 +1,14 @@
 package Model;
 
-
 import java.util.Date;
 
-public class Staff extends Person {
+public class Staff{
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String phoneNumber;
+    private Date DOB;
     int staffType;
 
     public Staff ()
@@ -19,18 +24,51 @@ public class Staff extends Person {
             String phoneNumber,
             Date DOB,
             int type
-    ) {
 
-        super (
-                firstName,
-                lastName,
-                addr,
-                phoneNumber,
-                DOB
-        );
+    ) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = addr;
+        this.phoneNumber = phoneNumber;
+        this.DOB = DOB;
         staffType = type;
     }
+    //setters
+    public void setId (int id){
+        this.id = id;
+    }
+    public void setName (
+            String first,
+            String last
+    ) {
+        firstName = first;
+        lastName = last;
+    }
 
+    public void setAddress(String addr){
+        address = addr;
+    }
+
+    //getters
+
+    public int getId () {
+        return id;
+    }
+    public String getName() {
+        return firstName + lastName;
+    }
+
+    public Date getDOB() {
+        return DOB;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhoneNumber(){
+        return phoneNumber;
+    }
 
 
 

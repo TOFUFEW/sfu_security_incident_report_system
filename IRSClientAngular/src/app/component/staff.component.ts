@@ -24,7 +24,7 @@ export class StaffComponent implements OnInit {
         .then( returnedStaff => {
             if ( returnedStaff != null  ) {
               this.staff.push( returnedStaff );
-              alert( "Staff successfully added!" );            
+              alert( "Staff successfully added!" + returnedStaff.firstName );            
             }
             else alert( "Add failed." );  
         } );

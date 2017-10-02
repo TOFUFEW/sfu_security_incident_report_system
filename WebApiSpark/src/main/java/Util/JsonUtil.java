@@ -14,10 +14,6 @@ public class JsonUtil {
 
     public static Object fromJson( String json , Class classOfT ) { return gson.fromJson( json , classOfT ); }
 
-    public static Staff jsonToStaff(String json) {
-        return gson.fromJson(json, Staff.class);
-    }
-
     public static ResponseTransformer json() {
         return JsonUtil::toJson;
     }
