@@ -8,7 +8,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class LocationService {
     private headers = new Headers({'Content-Type': 'application/json'});
-    locationsUrl = Config.URI;
+    locationsUrl = Config.LocationsURI;
     constructor(private http: Http) {}
 
     getLocations(): Promise<Location[]> {
