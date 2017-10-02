@@ -8,6 +8,7 @@ import { routes } from './app.router';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './component/dashboard.component';
 import { LocationComponent } from './component/location.component';
+import { IncidentsComponent } from './component/incidents.component';
 import { LoginComponent } from './component/login.component';
 
 @NgModule({
@@ -21,8 +22,9 @@ import { LoginComponent } from './component/login.component';
   declarations: [
     AppComponent,
     DashboardComponent,
-    LocationComponent,
-    LoginComponent,
+    LocationComponent, 
+    IncidentsComponent,
+    LoginComponent
   ],
   
   providers: [],

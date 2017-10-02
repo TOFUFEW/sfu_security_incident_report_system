@@ -1,0 +1,13 @@
+<div class="panel panel-default test-panel">
+  <div class="panel-heading"><h4>Incidents</h4></div>
+  <div class="panel-body">
+    <ul>
+      <li *ngFor="let incident of incidents">
+          {{incident.execSummary}} , 
+          RID: {{incident.reportID}} , 
+          Staff: {{incident.accountID}} , 
+          {{incident.description}}
+      </li>
+    </ul>
+  </div>
+</div>
