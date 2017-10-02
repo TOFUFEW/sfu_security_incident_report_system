@@ -6,14 +6,13 @@ import { Router, RouterModule } from '@angular/router';
 })
 
 export class LoginComponent {
-    data = <any>{};
-    
-    constructor(private router: Router) {}
-    onLogin() {
-      if(this.data.username == "admin" && this.data.password == "admin") {
-          this.router.navigate(['dashboard']);
+    data = < any > {};
+    constructor( private router : Router ) {}
+    onLogin () {
+      if( this.data.username == "admin" && this.data.password == "admin" ) {
+          this.router.navigate ([ 'dashboard' ] );
       } else {
-          console.log("hi random");
+          console.log ( "hi random" );
       }
     }
 }

@@ -1,6 +1,7 @@
 package app;
 
 import Controller.LocationController;
+import Controller.LoginController;
 import DBConnector.Connector;
 import Model.Location;
 import java.sql.DriverManager;
