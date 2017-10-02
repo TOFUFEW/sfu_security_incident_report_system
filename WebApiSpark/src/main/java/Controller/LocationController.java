@@ -21,7 +21,7 @@ public class LocationController {
 
     private void setupEndPoints() {
         get( "/locations" , ( request , response ) -> {
-            return locationList;
+            return dbHelper.getLocations();
         }, json() );
 
         post( "/locations" , ( request , response ) -> {
