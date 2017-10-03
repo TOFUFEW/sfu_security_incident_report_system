@@ -17,9 +17,13 @@ public class Connector {
         return myConnector;
     }
 
-    public static ResultSet executeQuery(String query) throws SQLException {
-
+    public static ResultSet executeQuery( String query ) throws SQLException {
         Statement stmt = Instance.createStatement();
-        return stmt.executeQuery(query);
+        return stmt.executeQuery( query );
+    }
+
+    public static int executeUpdate( String query ) throws SQLException {
+        Statement stmt = Instance.createStatement();
+        return stmt.executeUpdate( query );
     }
 }

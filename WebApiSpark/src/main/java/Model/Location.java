@@ -1,11 +1,11 @@
 package Model;
 
 public class Location {
-    private int id;
-    private String campus;
-    private String buildingNumber;
-    private String roomNumber;
-    private String department;
+    public int id;
+    public String campus;
+    public String buildingNumber;
+    public String roomNumber;
+    public String department;
 
     public Location() {}
 

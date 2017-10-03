@@ -26,14 +26,15 @@ public class LocationController {
 
         post( "/locations" , ( request , response ) -> {
             Location loc = ( Location ) parser.fromJson( request.body() , Location.class );
-            int i = dbHelper.addLocation( loc , locationList ); // This code touches the database
-            return i >= 0 ? locationList.get( i ) : null;
+            Location newLocation = dbHelper.addLocation( loc ); // This code touches the database
+            return newLocation;
         } , json() );
 
         put( "/locations" , ( request , response ) -> {
             Location loc = ( Location ) parser.fromJson( request.body() , Location.class );
             int i = dbHelper.editLocation( loc , locationList ); // This code touches the database
-            return i >= 0 ? locationList.get( i ) : null;
+            return loc;
+            //return i >= 0 ? locationList.get( i ) : null;
         }, json());
 
         delete( "/locations/:id", ( request , response ) -> {

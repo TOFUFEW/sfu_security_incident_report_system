@@ -6,6 +6,12 @@ export class Location {
   department: string;
 
   /*
+
+  Location = "{columValue:{ROOM_NUMBER:\"SURR-301\",CAMPUS_ID:\"1\",BUILDING_NUMBER:\"23\",DEPARTMENT:\"Sci\"}}"
+  Incident = "{ColumnValue:{}, Location, Staff}"
+
+
+[8:54] 
   constructor ( 
       id: number , 
       campus: string ,
