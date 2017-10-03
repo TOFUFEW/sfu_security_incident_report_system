@@ -144,7 +144,7 @@ public class DBHelper {
 
             while ( result.next() )
             {
-                String id = result.getString ( "ACCOUNT_ID" );
+                int id = Integer.parseInt(result.getString ( "ACCOUNT_ID" ));
                 String campusId = result.getString ( "CAMPUS_ID");
                 String firstName = result.getString ( "FIRST_NAME");
                 String lastName = result.getString("LAST_NAME");

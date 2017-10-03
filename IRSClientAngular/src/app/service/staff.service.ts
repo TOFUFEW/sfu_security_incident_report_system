@@ -18,6 +18,7 @@ export class StaffService {
         return Promise.resolve( staffList );
     };
 
+
     create( staff: Staff ) : Promise<Staff> {
         var promise = this.http
                 .post( this.staffUrl, JSON.stringify( staff ), { headers: this.headers } )

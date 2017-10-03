@@ -1,3 +1,3 @@
 export class Config {
-    static URI: string = "http://localhost:4567/locations";
+    static LocationsURI: string = "http://localhost:4567/locations";
 }

@@ -1,7 +1,7 @@
 package app;
 
-import Controller.LocationController;
 import Controller.IncidentsController;
+import Controller.LocationController;
 import Controller.StaffController;
 import DBConnector.Connector;
 import Model.Location;
@@ -11,7 +11,9 @@ import Model.Incidents;
 
 import java.sql.DriverManager;
 
-import static spark.Spark.*;
+import static spark.Spark.before;
+import static spark.Spark.options;
+
 
 // Class that initializes each controller at start - up
 public class Application
@@ -55,7 +57,7 @@ public class Application
 
 
         Staff testStaff = new Staff(
-                "1",
+                1,
                 "surrey",
                 "Bob",
                 "B"
@@ -63,7 +65,7 @@ public class Application
         );
 
         Staff testStaff2 = new Staff(
-                "2",
+                2,
                 "Burnaby",
                 "Boo",
                 "Ben"

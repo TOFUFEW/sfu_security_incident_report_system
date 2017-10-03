@@ -4,26 +4,23 @@ package Model;
 import Util.DatabaseValues;
 
 public class Staff extends IncidentElement {
-    private String accountId;
+    private int accountId;
     private String campusId;
     private String firstName;
     private String lastName;
 
 
     public Staff(
-            String accountId,
+            int accountId,
             String campusId,
             String firstName,
             String lastName
-
-
-
     ) {
         super(DatabaseValues.DatabaseTable.STAFF);
 
         super.putValue(
                 DatabaseValues.DatabaseColumn.ACCOUNT_ID,
-                accountId
+                Integer.toString(accountId)
         );
 
         super.putValue(

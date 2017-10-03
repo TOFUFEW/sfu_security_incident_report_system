@@ -13,6 +13,7 @@ import { StaffComponent } from './component/staff.component';
 import { IncidentsComponent } from './component/incidents.component';
 import { LoginComponent } from './component/login.component';
 
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -29,7 +30,7 @@ import { LoginComponent } from './component/login.component';
     IncidentsComponent,
     LoginComponent,
   ],
-  
+
   providers: [],
   bootstrap: [AppComponent]
 })
