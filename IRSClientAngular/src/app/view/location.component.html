@@ -1,6 +1,7 @@
 <div class="panel panel-default test-panel">
   <div class="panel-heading"><h4>Locations</h4></div>
   <div class="panel-body">
+
       <ul>
         <li *ngFor="let location of locations">
           Id: {{location.id}}
@@ -24,9 +25,9 @@
       <input type="text" [(ngModel)]="newLocation.roomNumber" /> <br><br>
       <span class="field-title">Department</span>
       <input type="text" [(ngModel)]="newLocation.department" /> <br> <br>
-      <button class="btn btn-primary"
-              (click)="addLocation();">
+      <button class="btn btn-primary" (click)="addLocation();">
         Submit
       </button>
+
   </div>
 </div>
