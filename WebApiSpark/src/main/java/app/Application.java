@@ -10,7 +10,6 @@ import Model.Staff;
 import Model.Incidents;
 
 import java.sql.DriverManager;
-import java.util.Date;
 
 import static spark.Spark.*;
 
@@ -56,21 +55,18 @@ public class Application
 
 
         Staff testStaff = new Staff(
+                "1",
+                "surrey",
                 "Bob",
-                "Ross",
-                "Surrey Central Skytrain",
-                "6043883838",
-                new Date("09/10/1993"),
-                1
+                "B"
+
         );
 
         Staff testStaff2 = new Staff(
-                "Bill",
-                "Bob",
-                "Surrey Central Skytrain",
-                "6043883668",
-                new Date("09/12/1993"),
-                1
+                "2",
+                "Burnaby",
+                "Boo",
+                "Ben"
         );
         staffController.staffList.add(testStaff);
         staffController.staffList.add(testStaff2);
