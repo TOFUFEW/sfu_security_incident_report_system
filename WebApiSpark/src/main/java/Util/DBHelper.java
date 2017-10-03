@@ -143,7 +143,7 @@ public class DBHelper {
             // Check if campus exists. If not, create one and insert into the database
             int id = getCampusId( location.CITY );
 
-            String query = "update location" +
+            String query = "update location " +
                     "set building_name = '" + location.BUILDING_NAME +
                     "', room_number = " + location.ROOM_NUMBER +
                     ", department = '" + location.DEPARTMENT +
@@ -171,6 +171,19 @@ public class DBHelper {
         return false;
     }
 
+    public static boolean isExistingLocation( int id ) {
+        try {
+            String query = "select * from location where location_id = " + id;
+            ResultSet result = Connector.executeQuery( query );
+            while (result.next()) {
+                return true;
+            }
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     private static String buildGetLocationQuery() {
         return "select "
                     + "loc.LOCATION_ID,"

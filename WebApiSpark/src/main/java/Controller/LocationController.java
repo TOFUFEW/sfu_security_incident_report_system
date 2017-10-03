@@ -27,7 +27,9 @@ public class LocationController {
 
         post( "/locations" , ( request , response ) -> {
             LocationViewModel loc = ( LocationViewModel ) parser.fromJson( request.body() , LocationViewModel.class );
-            return dbHelper.addLocation( loc );
+            if ( !dbHelper.isExistingLocation( loc.LOCATION_ID ) )
+                return dbHelper.addLocation( loc );
+            return dbHelper.editLocation( loc );
         } , json() );
 
         put( "/locations" , ( request , response ) -> {
