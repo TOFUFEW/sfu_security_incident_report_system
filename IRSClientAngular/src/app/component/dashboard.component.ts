@@ -22,9 +22,9 @@ export class DashboardComponent {
     private userService: UserService
   ) {
 
-    console.log(userService.getUserName());
-    if (this.userService.isLoggedIn() == false) {
-      this.router.navigate(['login']);
+    console.log( userService.getUserName() );
+    if ( this.userService.isLoggedIn() == false ) {
+      this.router.navigate([ 'login' ] );
     }
   }
 }

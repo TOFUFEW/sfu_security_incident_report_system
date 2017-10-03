@@ -13,7 +13,7 @@ export class UserService {
         return this.loggedIn;
     }
 
-    setUserName(credentials: string) {
+    setUserName( credentials: string ) {
         this.userName = credentials;
     }
 

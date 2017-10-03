@@ -7,25 +7,25 @@ import { UserService } from '../service/user.service';
 })
 
 export class LoginComponent {
-    data = <any>{};
+    data = < any > {};
     constructor(
         private router: Router,
-        private userService: UserService) {
+        private userService: UserService ) {
 
-        console.log(userService.getUserName());
-        if (this.userService.isLoggedIn() == true) {
-            alert("You are already logged in!");
-            this.router.navigate(['dashboard']);
+        console.log( userService.getUserName() );
+        if ( this.userService.isLoggedIn() == true ) {
+            alert( "You are already logged in!" );
+            this.router.navigate([ 'dashboard' ]);
         }
     }
 
     onLogin() {
-        if (this.data.username == "admin" && this.data.password == "admin") {
-            this.userService.setUserName("admin");
+        if ( this.data.username == "admin" && this.data.password == "admin" ) {
+            this.userService.setUserName( "admin" );
             this.userService.signIn();
-            this.router.navigate(['dashboard']);
+            this.router.navigate([ 'dashboard' ]);
         } else {
-            console.log("hi random");
+            console.log( "not admin" );
         }
     }
 }
