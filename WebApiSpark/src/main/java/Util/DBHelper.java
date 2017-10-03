@@ -11,98 +11,17 @@ import java.util.Random;
 public class DBHelper {
     public DBHelper(){}
 
-    /*
-    public static Location getLocation( int id ) {
-        try
-        {
-            String query = "select * from locations where id = " + id;
-            ResultSet myRs = Connector.executeQuery ( query );
 
-            while( myRs.next () )
-            {
-                int locId = myRs.getInt("id");
-                String campus = myRs.getString ( "campus" );
-                String buildingNumber = myRs.getString ( "buildingnumber" );
-                String roomNumber = myRs.getString ( "roomnumber" );
-                String department = myRs.getString ( "department" );
-                return new Location(
-                        locId,
-                        campus,
-                        buildingNumber,
-                        roomNumber,
-                        department ) ;
-            }
-        }
-        catch ( Exception e )
-        {
-            e.printStackTrace ();
-        }
-
-        return null;
-    }
-    */
-
-    public static List<Location> getLocations() {
-        List<Location> locationList = new ArrayList<>();
-        try
-        {
-            String query = "select * from location";
-            ResultSet myRs = Connector.executeQuery ( query );
-
-            while( myRs.next () )
-            {
-                int id = myRs.getInt("id");
-                String campus = myRs.getString ( "campus" );
-                String buildingNumber = myRs.getString ( "buildingnumber" );
-                String roomNumber = myRs.getString ( "roomnumber" );
-                String department = myRs.getString ( "department" );
-                locationList.add( new Location(
-                        id,
-                        campus,
-                        buildingNumber,
-                        roomNumber,
-                        department ) );
-
-            }
-            return locationList;
-        }
-        catch ( Exception e )
-        {
-            e.printStackTrace ();
-        }
-        return locationList;
-    }
-
-    public static Location addLocation ( Location location ) {
-        try
-        {
-            String query = "insert into location (campus, buildingnumber, roomnumber, department) values ('"
-                    + location.campus + "', '" + location.buildingNumber + "', '" + location.roomNumber + "', '"
-                    + location.department + "')";
-            if ( Connector.executeUpdate( query ) > 0 ) {
-                String newlyAdded = "select top 1 * from locations order by id desc";
-                ResultSet myRs = Connector.executeQuery( newlyAdded );
-                while ( myRs.next() ) {
-                    int id = myRs.getInt("id");
-                    String campus = myRs.getString ( "campus" );
-                    String buildingNumber = myRs.getString ( "buildingnumber" );
-                    String roomNumber = myRs.getString ( "roomnumber" );
-                    String department = myRs.getString ( "department" );
-                    return new Location(
-                            id,
-                            campus,
-                            buildingNumber,
-                            roomNumber,
-                            department ) ;
-                }
-            }
-        }
-        catch ( Exception e )
-        {
-            e.printStackTrace ();
-        }
-
-        return null;
+    public static int addLocation (
+            Location location,
+            List<Location> locationList /* remove this param when working with real db */
+    ) {
+        /* For testing purposes only. Replace this with code that does some database query */
+        int currentSize = locationList.size();
+        int id = new Random().nextInt( 1000000+1 ); // for testing only
+        location.putValue( DatabaseValues.DatabaseColumn.LOCATION_ID , "" + id );
+        locationList.add( location );
+        return locationList.size() > currentSize ? locationList.size() - 1 : -1; // return the index of the new location
     }
 
     public static int editLocation (
@@ -112,7 +31,9 @@ public class DBHelper {
         /* For testing purposes only. Replace this with code that does some database query */
         int currentSize = locationList.size();
         for ( int i = 0 ; i < currentSize ; i += 1 ) {
-            if ( locationList.get( i ).getId() == location.getId() ) {
+            if ( locationList.get( i ).getValue ( DatabaseValues.DatabaseColumn.LOCATION_ID ) ==
+                    location.getValue ( DatabaseValues.DatabaseColumn.LOCATION_ID ) )
+            {
                 locationList.set( i , location );
                 return i; // return the index of the edited location
             }
@@ -127,11 +48,44 @@ public class DBHelper {
         /* For testing purposes only. Replace this with code that does some database query */
         int currentSize = locationList.size();
         for ( int i = 0 ; i < currentSize ; i += 1 ) {
-            if ( locationList.get( i ).getId() == id ) {
+            if ( locationList.get( i ).getValue ( DatabaseValues.DatabaseColumn.LOCATION_ID ) == ( "" + id ) )
+            {
                 locationList.remove( i );
                 return currentSize > locationList.size();
             }
         }
         return false;
+    }
+
+    public static List < Location > getLocations () {
+        List < Location > locationList = new ArrayList<>();
+
+        try
+        {
+            ResultSet result = Connector.executeQuery ( "select * from Location" );
+
+            while ( result.next() )
+            {
+                String locationId = result.getString ( "location_id" );
+                String campus = result.getString ( "campus" );
+                String building_num = result.getString ( "building_num" );
+                String room_num = result.getString ( "room_num" );
+                String department = result.getString ( "department" );
+
+                Location loc = new Location (
+                        locationId,
+                        campus,
+                        building_num,
+                        room_num,
+                        department
+                );
+                locationList.add(loc);
+            }
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+
+        return locationList;
     }
 }

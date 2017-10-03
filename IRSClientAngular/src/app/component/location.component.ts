@@ -10,13 +10,13 @@ import { LocationService } from '../service/location.service';
 export class LocationComponent implements OnInit {
   locations: Location[];
   newLocation: Location = new Location();
-  
+
   constructor( private locationService: LocationService ){};
 
   getLocations(): void {
     this.locationService.getLocations().then( returnedLocations => {
       this.locations = returnedLocations;
-    } );    
+    } );
   }
 
   addLocation(): void {
@@ -26,9 +26,9 @@ export class LocationComponent implements OnInit {
         .then( returnedLocation => {
             if ( returnedLocation != null  ) {
               this.locations.push( returnedLocation );
-              alert( "Location successfully added!" );            
+              alert( "Location successfully added!" );
             }
-            else alert( "Add failed." );  
+            else alert( "Add failed." );
         } );
     delete this.newLocation;
     this.newLocation = new Location();
@@ -43,9 +43,9 @@ export class LocationComponent implements OnInit {
               var i = this.locations.findIndex( loc => loc.id === returnedLocation.id );
               // remove 1 object at index i, replace it with returnedLocation
               this.locations.splice( i, 1, returnedLocation );
-              alert( "Location successfully edited!" );            
+              alert( "Location successfully edited!" );
             }
-            else alert( "Edit failed." );  
+            else alert( "Edit failed." );
         } );
   }
 
@@ -62,5 +62,5 @@ export class LocationComponent implements OnInit {
   ngOnInit() : void {
     this.getLocations();
   }
-  
+
 }

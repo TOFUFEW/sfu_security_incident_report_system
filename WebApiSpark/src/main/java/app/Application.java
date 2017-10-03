@@ -1,12 +1,15 @@
 package app;
 
-import Controller.LocationController;
 import Controller.IncidentsController;
+import Controller.LocationController;
 import DBConnector.Connector;
-import Model.Location;
 import Model.Incidents;
+import Model.Location;
+
 import java.sql.DriverManager;
-import static spark.Spark.*;
+
+import static spark.Spark.before;
+import static spark.Spark.options;
 
 // Class that initializes each controller at start - up
 public class Application
@@ -28,7 +31,7 @@ public class Application
 
         // TEST CODE WITHOUT DATABASE
         Location location1 = new Location (
-                1,
+                "1",
                 "Surrey",
                 "SURR-301",
                 "3200",
@@ -36,7 +39,7 @@ public class Application
         );
 
         Location location2 = new Location (
-                2,
+                "2",
                 "Burnaby",
                 "BUR-800",
                 "9808",
