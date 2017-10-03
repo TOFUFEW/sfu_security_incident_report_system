@@ -3,30 +3,30 @@
     <div class="panel-body">  
       <ul>
           <li *ngFor="let staff of staffList">
-            Id: {{staff.accountId}},
-            {{staff.campusId}}, 
-            {{staff.firstName}}, 
-            {{staff.lastName}}
+            Id: {{staff.ACCOUNT_ID}},
+            {{staff.CAMPUS_ID}}, 
+            {{staff.FIRST_NAME}}, 
+            {{staff.LAST_NAME}}
             <br>
-            <input type="number" [(ngModel)]="staff.accountId"/>
-            <input type="text" [(ngModel)]="staff.campusId"/>
-            <input type="text" [(ngModel)]="staff.firstName"/>
-            <input type="text" [(ngModel)]="staff.lastName"/>
+            <input type="text" [(ngModel)]="staff.ACCOUNT_ID"/>
+            <input type="text" [(ngModel)]="staff.CAMPUS_ID"/>
+            <input type="text" [(ngModel)]="staff.FIRST_NAME"/>
+            <input type="text" [(ngModel)]="staff.LAST_NAME"/>
 
             <a href="#" (click)="updateStaff(staff);">Save</a>
-            <a href="#" (click)="deleteStaff(staff.id)">Delete</a>
+            <a href="#" (click)="deleteStaff(staff.ACCOUNT_ID)">Delete</a>
           </li>
         </ul>
   
         <h4>Add a Staff: </h4>
         <span class="field-title">Staff ID</span>
-        <input type="number" [(ngModel)]="newStaff.accountId" /> <br><br>
+        <input type="text" [(ngModel)]="newStaff.ACCOUNT_ID" /> <br><br>
         <span class="field-title">Campus</span>
-        <input type="text" [(ngModel)]="newStaff.campusId" /> <br><br>
+        <input type="text" [(ngModel)]="newStaff.CAMPUS_ID" /> <br><br>
         <span class="field-title">First Name</span>
-        <input type="text" [(ngModel)]="newStaff.firstName" /> <br><br>
+        <input type="text" [(ngModel)]="newStaff.FIRST_NAME" /> <br><br>
         <span class="field-title">Last Name</span>
-        <input type="text" [(ngModel)]="newStaff.lastName" /> <br><br>
+        <input type="text" [(ngModel)]="newStaff.LAST_NAME" /> <br><br>
         <button class="btn btn-primary"
                 (click)="addStaff();">
           Submit

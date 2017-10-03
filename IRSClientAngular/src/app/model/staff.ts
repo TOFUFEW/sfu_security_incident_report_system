@@ -1,7 +1,7 @@
 export class Staff {
-    accountId: number;
-    campusId: string;
-    firstName: string;
-    lastName: string;
+    ACCOUNT_ID: number;
+    CAMPUS_ID: string;
+    FIRST_NAME: string;
+    LAST_NAME: string;
 
 }

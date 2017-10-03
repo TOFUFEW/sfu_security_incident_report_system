@@ -3,12 +3,13 @@ import { Staff } from '../model/staff';
 import { IncidentElement } from '../model/incidentElement';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
+import { Config } from '../util/config.service';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class StaffService {
     private headers = new Headers({'Content-Type': 'application/json'});
-    staffUrl = "http://localhost:4567/staff";
+    staffUrl = Config.StaffURI;
     constructor(private http: Http) {}
 
     getStaffs(): Promise<IncidentElement[]> {
