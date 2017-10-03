@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'dashboard',
   templateUrl: '../view/dashboard.component.html',
-  providers: [LocationService]
+  providers: [ LocationService ]
 })
 
 
@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
   locationsList: Location[];
 
   constructor( private http: HttpClient , private locationService: LocationService ){}
-  
+
   ngOnInit() : void {
   }
 }

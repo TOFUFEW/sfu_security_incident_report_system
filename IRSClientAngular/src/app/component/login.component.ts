@@ -11,7 +11,8 @@ export class LoginComponent {
     onLogin () {
       if( this.data.username == "admin" && this.data.password == "admin" ) {
           this.router.navigate ([ 'dashboard' ] );
-      } else {
+      }
+      else {
           console.log ( "hi random" );
       }
     }
