@@ -2,6 +2,7 @@ package Util;
 
 import DBConnector.Connector;
 import Model.*;
+import ViewModel.LocationViewModel;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -11,6 +12,41 @@ import java.util.Random;
 public class DBHelper {
     public DBHelper(){}
 
+    public static List < LocationViewModel > getLocations () {
+        List < LocationViewModel > locationList = new ArrayList<>();
+
+        try
+        {
+            ResultSet result = Connector.executeQuery ( buildGetLocationQuery() );
+
+            while ( result.next() )
+            {
+                int locationId = result.getInt ( "location_id" );
+                int campusId = result.getInt ( "campus_id" );
+                String buildingName = result.getString ( "building_name" );
+                int roomNumber = result.getInt ( "room_number" );
+                String department = result.getString ( "department" );
+                String city = result.getString( "city" );
+                String address = result.getString( "address" );
+
+                LocationViewModel loc = new LocationViewModel (
+                        locationId,
+                        campusId,
+                        buildingName,
+                        roomNumber,
+                        department,
+                        city,
+                        address
+                );
+                locationList.add(loc);
+            }
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+
+        return locationList;
+    }
 
     public static int addLocation (
             Location location,
@@ -57,35 +93,19 @@ public class DBHelper {
         return false;
     }
 
-    public static List < Location > getLocations () {
-        List < Location > locationList = new ArrayList<>();
-
-        try
-        {
-            ResultSet result = Connector.executeQuery ( "select * from Location" );
-
-            while ( result.next() )
-            {
-                String locationId = result.getString ( "location_id" );
-                String campus = result.getString ( "campus" );
-                String building_num = result.getString ( "building_num" );
-                String room_num = result.getString ( "room_num" );
-                String department = result.getString ( "department" );
-
-                Location loc = new Location (
-                        locationId,
-                        campus,
-                        building_num,
-                        room_num,
-                        department
-                );
-                locationList.add(loc);
-            }
-        }
-        catch ( Exception e ) {
-            e.printStackTrace();
-        }
-
-        return locationList;
+    private static String buildGetLocationQuery() {
+        return "select "
+                    + "loc.LOCATION_ID,"
+                    + "loc.CAMPUS_ID,"
+                    + "loc.BUILDING_NAME,"
+                    + "loc.DEPARTMENT,"
+                    + "loc.ROOM_NUMBER,"
+                    + "camp.CITY,"
+                    + "camp.ADDRESS "
+                + "from dbo.location as loc "
+                + "inner join dbo.Campus as camp "
+                + "on loc.CAMPUS_ID = camp.CAMPUS_ID";
     }
+
+
 }

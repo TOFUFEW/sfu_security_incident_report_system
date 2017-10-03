@@ -4,27 +4,27 @@
 
       <ul>
         <li *ngFor="let location of locations">
-          Id: {{location.id}}
-          {{location.campus}} , {{location.buildingNumber}} , {{location.roomNumber}} , {{location.department}}
+          Id: {{location.LOCATION_ID}}
+          {{location.CITY}} , {{location.BUILDING_NAME}} , {{location.ROOM_NUMBER}} , {{location.DEPARTMENT}}
           <br>
-          <input type="text" [(ngModel)]="location.campus"/>
-          <input type="text" [(ngModel)]="location.buildingNumber"/>
-          <input type="text" [(ngModel)]="location.roomNumber"/>
-          <input type="text" [(ngModel)]="location.department"/>
+          <input type="text" [(ngModel)]="location.CITY"/>
+          <input type="text" [(ngModel)]="location.BUILDING_NAME"/>
+          <input type="text" [(ngModel)]="location.ROOM_NUMBER"/>
+          <input type="text" [(ngModel)]="location.DEPARTMENT"/>
           <a href="#" (click)="updateLocation(location);">Save</a>
-          <a href="#" (click)="deleteLocation(location.id)">Delete</a>
+          <a href="#" (click)="deleteLocation(location.LOCATION_ID)">Delete</a>
         </li>
       </ul>
 
       <h4>Add a Location: </h4>
       <span class="field-title">Campus</span>
-      <input type="text" [(ngModel)]="newLocation.campus" /> <br><br>
+      <input type="text" [(ngModel)]="newLocation.CITY" /> <br><br>
       <span class="field-title">Building Number</span>
-      <input type="text" [(ngModel)]="newLocation.buildingNumber" /> <br><br>
+      <input type="text" [(ngModel)]="newLocation.BUILDING_NAME" /> <br><br>
       <span class="field-title">Room Number</span>
-      <input type="text" [(ngModel)]="newLocation.roomNumber" /> <br><br>
+      <input type="text" [(ngModel)]="newLocation.ROOM_NUMBER" /> <br><br>
       <span class="field-title">Department</span>
-      <input type="text" [(ngModel)]="newLocation.department" /> <br> <br>
+      <input type="text" [(ngModel)]="newLocation.DEPARTMENT" /> <br> <br>
       <button class="btn btn-primary" (click)="addLocation();">
         Submit
       </button>

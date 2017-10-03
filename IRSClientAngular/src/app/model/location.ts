@@ -1,9 +1,11 @@
 export class Location {
-  id: number;
-  campus: string;
-  buildingNumber: string;
-  roomNumber: number;
-  department: string;
+  LOCATION_ID: number;
+  CAMPUS_ID: number;
+  BUILDING_NAME: string;
+  ROOM_NUMBER: number;
+  DEPARTMENT: string;
+  CITY: string;
+  ADDRESS: string;
 
   /*
 
