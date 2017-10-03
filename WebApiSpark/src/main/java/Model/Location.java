@@ -2,7 +2,7 @@ package Model;
 
 import Util.DatabaseValues;
 
-public class Location extends IncidentComponent
+public class Location extends IncidentElement
 {
     public Location (
             String locationID,

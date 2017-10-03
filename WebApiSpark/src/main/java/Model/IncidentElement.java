@@ -4,11 +4,11 @@ import Util.DatabaseValues;
 
 import java.util.HashMap;
 
-public class IncidentComponent {
+public class IncidentElement {
     private DatabaseValues.DatabaseTable table;
     private HashMap < DatabaseValues.DatabaseColumn , String > columnValue = new HashMap ();
 
-    protected IncidentComponent ( DatabaseValues.DatabaseTable table )
+    protected IncidentElement(DatabaseValues.DatabaseTable table )
     {
         this.table = table;
     }
