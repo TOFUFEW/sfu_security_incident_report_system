@@ -1,9 +1,9 @@
 export class Location {
-  id: number;
-  campus: string;
-  buildingNumber: string;
-  roomNumber: number;
-  department: string;
+  LOCATION_ID: number;
+  CAMPUS_ID: string;
+  BUILDING_NUMBER: string;
+  ROOM_NUMBER: number;
+  DEPARTMENT: string;
 
   /*
   constructor ( 

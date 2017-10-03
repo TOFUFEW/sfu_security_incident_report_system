@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IncidentElement } from '../model/incidentElement';
 import { Location } from '../model/location';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
@@ -11,10 +12,10 @@ export class LocationService {
     locationsUrl = Config.URI;
     constructor(private http: Http) {}
 
-    getLocations(): Promise<Location[]> {
+    getLocations(): Promise<IncidentElement[]> {
         var locations = this.http.get( this.locationsUrl )
             .toPromise()
-            .then( response => response.json() as Location[] )
+            .then( response => response.json() as IncidentElement[] )
             .catch( this.handleError );
         return Promise.resolve( locations );
     };
