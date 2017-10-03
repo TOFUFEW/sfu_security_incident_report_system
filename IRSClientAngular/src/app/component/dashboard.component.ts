@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Incidents } from '../model/incidents';
+import { IncidentsService } from '../service/incidents.service';
 import { Location } from '../model/location';
 import { LocationService } from '../service/location.service';
 import { HttpClient } from '@angular/common/http';
@@ -8,12 +10,13 @@ import { UserService } from '../service/user.service';
 @Component({
   selector: 'dashboard',
   templateUrl: '../view/dashboard.component.html',
-  providers: [ LocationService ]
+  providers: [ LocationService, IncidentsService ]
 })
 
 export class DashboardComponent {
   title = 'SFU Incident Reporting System';
   locationsList: Location[];
+  incidentsList: Incidents[];
 
   constructor(
     private router: Router,
