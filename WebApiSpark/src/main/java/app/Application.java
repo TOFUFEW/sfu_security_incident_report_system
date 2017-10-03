@@ -1,15 +1,14 @@
 package app;
 
-import Controller.IncidentsController;
-import Controller.LocationController;
+import Controller.*;
 import DBConnector.Connector;
 import Model.Incidents;
 import Model.Location;
 
 import java.sql.DriverManager;
 
-import static spark.Spark.before;
-import static spark.Spark.options;
+import static Util.JsonUtil.json;
+import static spark.Spark.*;
 
 // Class that initializes each controller at start - up
 public class Application
@@ -23,11 +22,12 @@ public class Application
                 "GET, " + "POST, PUT, DELETE, OPTIONS, HEAD",
                 "origin, content-type, accept, authorization"
         );
-
         DBinit ();
 
         LocationController locationController = new LocationController();
         IncidentsController incidentsController = new IncidentsController();
+        LoginController loginController = new LoginController();
+
 
         // TEST CODE WITHOUT DATABASE
         Location location1 = new Location (

@@ -1,23 +1,34 @@
 import { Injectable } from "@angular/core";
+import { User } from '../model/user';
 
 @Injectable()
 export class UserService {
-    private userName: string = '';
-    private loggedIn = false;
+    private currentUser: string = 'currentUser';
 
-    getUserName(): string {
-        return this.userName;
+    authUser(userString: string) {
+        if (userString == null) {
+            return;
+        }
+        console.log("local storage added user");
+        sessionStorage.setItem(this.currentUser, JSON.stringify(userString));
+    }
+    
+    isLoggedIn(): boolean {
+        let currentUser = this.getCurrentUser();
+
+        if (currentUser != null) {
+            return true;
+        }
+        return false;
     }
 
-    isLoggedIn() {
-        return this.loggedIn;
-    }
+    getCurrentUser(): User {
+        let jsonString = sessionStorage.getItem(this.currentUser);
+        let currentUser = JSON.parse(jsonString) as User;
 
-    setUserName( credentials: string ) {
-        this.userName = credentials;
-    }
-
-    signIn() {
-        this.loggedIn = true;
+        if (currentUser != null) {
+            return currentUser;
+        }
+        return null;
     }
 }
