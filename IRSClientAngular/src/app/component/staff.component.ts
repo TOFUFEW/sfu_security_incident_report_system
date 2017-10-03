@@ -7,14 +7,14 @@ import { StaffService } from '../service/staff.service';
 })
 
 export class StaffComponent implements OnInit {
-  staff: Staff[];
+  staffList: Staff[];
   newStaff: Staff = new Staff();
   
   constructor( private staffService: StaffService ){};
 
   getStaffs(): void {
     this.staffService.getStaffs().then( returnedStaffs => {
-      this.staff = returnedStaffs;
+      this.staffList = returnedStaffs;
     } );    
   }
 
@@ -23,7 +23,7 @@ export class StaffComponent implements OnInit {
     this.staffService.create( this.newStaff )
         .then( returnedStaff => {
             if ( returnedStaff != null  ) {
-              this.staff.push( returnedStaff );
+              this.staffList.push( returnedStaff );
               alert( returnedStaff.firstName + " successfully added!" );            
             }
             else alert( "Add failed." );  
@@ -37,9 +37,9 @@ export class StaffComponent implements OnInit {
     this.staffService.update( staff )
         .then( returnedStaff => {
             if ( returnedStaff != null  ) {
-              var i = this.staff.findIndex( staff => staff.id === returnedStaff.id );
+              var i = this.staffList.findIndex( staff => staff.id === returnedStaff.id );
               // remove 1 object at index i, replace it with returnedStaff
-              this.staff.splice( i, 1, returnedStaff );
+              this.staffList.splice( i, 1, returnedStaff );
               alert( returnedStaff.firstName + " successfully edited!" );            
             }
             else alert( "Edit failed." );  
@@ -50,9 +50,9 @@ export class StaffComponent implements OnInit {
     this.staffService.delete( id ).then( isDeleted => {
         var msg = isDeleted ? "Staff successfully deleted!" : "Delete failed";
         alert(msg);
-        var i = this.staff.findIndex( staff => staff.id === id );
+        var i = this.staffList.findIndex( staff => staff.id === id );
         // remove 1 object at index i
-        this.staff.splice( i, 1 );
+        this.staffList.splice( i, 1 );
       });
   }
 
