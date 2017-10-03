@@ -15,7 +15,18 @@ public class DBHelper {
     public static LocationViewModel getLocation( int id ) {
         try
         {
-            String query = "select * from location where location_id = " + id;
+            String query = "select "
+                    + "loc.LOCATION_ID,"
+                    + "loc.CAMPUS_ID,"
+                    + "loc.BUILDING_NAME,"
+                    + "loc.DEPARTMENT,"
+                    + "loc.ROOM_NUMBER,"
+                    + "camp.CITY,"
+                    + "camp.ADDRESS "
+                    + "from dbo.location as loc "
+                    + "where loc.location_id = " + id
+                    + " inner join dbo.Campus as camp "
+                    + "on loc.CAMPUS_ID = camp.CAMPUS_ID";
             ResultSet result = Connector.executeQuery ( query );
 
             while ( result.next() )
@@ -151,24 +162,7 @@ public class DBHelper {
     private static String buildAddLocationQuery(LocationViewModel location) {
         // Check if campus exists
         try {
-            int i = 0;
-
-            String checkCampus = "select * from campus " +
-                    "where campus.CITY = '" + location.CITY + "' ";
-            ResultSet campusResult = Connector.executeQuery( checkCampus );
-
-            if ( !campusResult.next() ) {
-                // insert into campus db
-                String insertCampus = "insert into campus (city) values ('" + location.CITY + "')";
-                i = Connector.executeUpdate( insertCampus );
-                campusResult = Connector.executeQuery( checkCampus );
-            }
-
-            int campusId = 0;
-            while ( campusResult.next() ) {
-                campusId = campusResult.getInt( "campus_id" );
-            }
-
+            int campusId = getCampusId( location.CITY );
             return "insert into location (campus_id, building_name, room_number, department) "
                     + "values ('" + campusId + "', '"
                     + location.BUILDING_NAME + "', '"
@@ -180,6 +174,35 @@ public class DBHelper {
         }
         return "";
     }
+
+    private static int getCampusId( String city ) {
+        try {
+            String checkCampus = "select * from campus " +
+                    "where campus.CITY = '" + city + "' ";
+            ResultSet campusResult = Connector.executeQuery( checkCampus );
+
+            int i = 0;
+            if ( !campusResult.next() ) {
+                // insert into campus db
+                String insertCampus = "insert into campus (city) values ('" + city + "')";
+                i = Connector.executeUpdate( insertCampus );
+            }
+
+            campusResult = Connector.executeQuery( checkCampus );
+
+            while ( campusResult.next() ) {
+                int id = campusResult.getInt( "campus_id" );
+                System.out.println( id );
+                return id;
+            }
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
 
 
 }
