@@ -7,8 +7,8 @@ import { LoginComponent } from './component/login.component';
 
 export const router: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'dashboard', component: DashboardComponent }, 
-    { path: 'login', component: LoginComponent }, 
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'login', component: LoginComponent },
 ];
 
-export const routes: ModuleWithProviders = RouterModule.forRoot(router);
+export const routes: ModuleWithProviders = RouterModule.forRoot( router );

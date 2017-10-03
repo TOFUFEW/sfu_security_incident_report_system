@@ -1,12 +1,15 @@
 package app;
 
-import Controller.LocationController;
 import Controller.IncidentsController;
+import Controller.LocationController;
 import DBConnector.Connector;
-import Model.Location;
 import Model.Incidents;
+import Model.Location;
+
 import java.sql.DriverManager;
-import static spark.Spark.*;
+
+import static spark.Spark.before;
+import static spark.Spark.options;
 
 // Class that initializes each controller at start - up
 public class Application
