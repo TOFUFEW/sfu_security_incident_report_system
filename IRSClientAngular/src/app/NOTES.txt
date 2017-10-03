@@ -48,12 +48,6 @@ I. Components
         - Somewhere in dashboard.component.html, add: <location-component></location-component>
 
     
-    How to pass data from parent component
-
-
-
-
-
 
 
     How to pass data from AppComponent to a child component: 
@@ -75,3 +69,29 @@ I. Components
     
     4. Follow this guide on how to display data in Angular:
         https://angular.io/tutorial/toh-pt1
+
+
+
+
+
+
+    One-Way Databinding, from component to view:
+
+    1. Declear a variable in component, 
+       ex. homeMessage: string = "welcome"
+
+    2. In any tag element in the .html file, do <p> {{ your_variable_name }} </p>,
+        ex. <p> {{ homeMessage }} <p> // displays "welcome"
+    
+
+    Two-Way Databinding, component to view and vice versa
+
+    1. Declear an object in component with member fields
+        ex. car = {
+            car.make = "honda"
+            car.model = "H2012"
+        }
+
+    2. In an 'input' tag in the .html file, do <input [(ngModel)] = "car.model"/>
+        this will tell the .html file to look for the object property 'car.model' in the component.ts file
+        changes to car.model in the view will update the property value for the component.ts file, hence two-way binding
