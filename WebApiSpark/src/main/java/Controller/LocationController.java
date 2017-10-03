@@ -31,15 +31,14 @@ public class LocationController {
         } , json() );
 
         put( "/locations" , ( request , response ) -> {
-            Location loc = ( Location ) parser.fromJson( request.body() , Location.class );
-            int i = dbHelper.editLocation( loc , locationList ); // This code touches the database
-            return loc;
-            //return i >= 0 ? locationList.get( i ) : null;
+            LocationViewModel loc = ( LocationViewModel ) parser.fromJson( request.body() , Location.class );
+            LocationViewModel ret = dbHelper.editLocation( loc ); // This code touches the database
+            return ret;
         }, json());
 
         delete( "/locations/:id", ( request , response ) -> {
             int id = Integer.parseInt( request.params( ":id" ) );
-            return dbHelper.deleteLocation( id , locationList );
+            return dbHelper.deleteLocation( id );
         } , json() );
 
         get( "/test" , ( request , response ) -> getClichedMessage() );

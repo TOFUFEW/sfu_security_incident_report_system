@@ -16,16 +16,16 @@ public class DBHelper {
         try
         {
             String query = "select "
-                    + "loc.LOCATION_ID,"
-                    + "loc.CAMPUS_ID,"
-                    + "loc.BUILDING_NAME,"
-                    + "loc.DEPARTMENT,"
-                    + "loc.ROOM_NUMBER,"
-                    + "camp.CITY,"
+                    + "loc.LOCATION_ID, "
+                    + "loc.CAMPUS_ID, "
+                    + "loc.BUILDING_NAME, "
+                    + "loc.DEPARTMENT, "
+                    + "loc.ROOM_NUMBER, "
+                    + "camp.CITY, "
                     + "camp.ADDRESS "
                     + "from dbo.location as loc "
                     + "inner join dbo.Campus as camp "
-                    + "on loc.CAMPUS_ID = camp.CAMPUS_ID"
+                    + "on loc.CAMPUS_ID = camp.CAMPUS_ID "
                     + "where loc.location_id = " + id;
             ResultSet result = Connector.executeQuery ( query );
 
@@ -92,9 +92,7 @@ public class DBHelper {
         return locationList;
     }
 
-    public static LocationViewModel addLocation (
-            LocationViewModel location
-    ) {
+    public static LocationViewModel addLocation ( LocationViewModel location ) {
         try
         {
             int i = Connector.executeUpdate ( buildAddLocationQuery( location ) );
@@ -140,35 +138,35 @@ public class DBHelper {
         return new LocationViewModel();
     }
 
-    public static int editLocation (
-            Location location,
-            List<Location> locationList /* remove this param when working with real db */
-    ) {
-        /* For testing purposes only. Replace this with code that does some database query */
-        int currentSize = locationList.size();
-        for ( int i = 0 ; i < currentSize ; i += 1 ) {
-            if ( locationList.get( i ).getValue ( DatabaseValues.DatabaseColumn.LOCATION_ID ) ==
-                    location.getValue ( DatabaseValues.DatabaseColumn.LOCATION_ID ) )
-            {
-                locationList.set( i , location );
-                return i; // return the index of the edited location
-            }
+    public static LocationViewModel editLocation ( LocationViewModel location ) {
+        try {
+            // Check if campus exists. If not, create one and insert into the database
+            int id = getCampusId( location.CITY );
+
+            String query = "update location" +
+                    "set building_name = '" + location.BUILDING_NAME +
+                    "', room_number = " + location.ROOM_NUMBER +
+                    ", department = '" + location.DEPARTMENT +
+                    "', campus_id = " + id +
+                    " where location_id = " + location.LOCATION_ID;
+            int i = Connector.executeUpdate( query );
+            return getLocation( location.LOCATION_ID );
         }
-        return -1;
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+
+        return new LocationViewModel();
     }
 
-    public static boolean deleteLocation (
-            int id,
-            List<Location> locationList /* remove this param when working with real db */
-    ) {
-        /* For testing purposes only. Replace this with code that does some database query */
-        int currentSize = locationList.size();
-        for ( int i = 0 ; i < currentSize ; i += 1 ) {
-            if ( locationList.get( i ).getValue ( DatabaseValues.DatabaseColumn.LOCATION_ID ) == ( "" + id ) )
-            {
-                locationList.remove( i );
-                return currentSize > locationList.size();
-            }
+    public static boolean deleteLocation ( int id ) {
+        try {
+            String query = "delete from location where location_id = " + id;
+            int i = Connector.executeUpdate( query );
+            return i > 0;
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
         }
         return false;
     }
@@ -187,7 +185,7 @@ public class DBHelper {
                 + "on loc.CAMPUS_ID = camp.CAMPUS_ID";
     }
 
-    private static String buildAddLocationQuery(LocationViewModel location) {
+    private static String buildAddLocationQuery( LocationViewModel location ) {
         // Check if campus exists
         try {
             int campusId = getCampusId( location.CITY );
