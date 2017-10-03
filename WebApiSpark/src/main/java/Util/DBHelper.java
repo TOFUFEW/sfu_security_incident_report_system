@@ -24,9 +24,9 @@ public class DBHelper {
                     + "camp.CITY,"
                     + "camp.ADDRESS "
                     + "from dbo.location as loc "
-                    + "where loc.location_id = " + id
-                    + " inner join dbo.Campus as camp "
-                    + "on loc.CAMPUS_ID = camp.CAMPUS_ID";
+                    + "inner join dbo.Campus as camp "
+                    + "on loc.CAMPUS_ID = camp.CAMPUS_ID"
+                    + "where loc.location_id = " + id;
             ResultSet result = Connector.executeQuery ( query );
 
             while ( result.next() )
@@ -98,10 +98,38 @@ public class DBHelper {
         try
         {
             int i = Connector.executeUpdate ( buildAddLocationQuery( location ) );
-            ResultSet result = Connector.executeQuery( "select top 1 * from location order by location_id desc" );
+
+            String query = "select top 1 " +
+                    "loc.LOCATION_ID, " +
+                    "loc.CAMPUS_ID, " +
+                    "loc.BUILDING_NAME, " +
+                    "loc.DEPARTMENT, " +
+                    "loc.ROOM_NUMBER, " +
+                    "camp.CITY, " +
+                    "camp.ADDRESS  " +
+                    "from dbo.location as loc  " +
+                    "inner join dbo.Campus as camp " +
+                    "on loc.CAMPUS_ID = camp.CAMPUS_ID " +
+                    "order by location_id desc";
+            ResultSet result = Connector.executeQuery( query );
             while ( result.next() ) {
-                int id = result.getInt( "location_id" );
-                LocationViewModel loc = getLocation( id );
+                int locationId = result.getInt ( "location_id" );
+                int campusId = result.getInt ( "campus_id" );
+                String buildingName = result.getString ( "building_name" );
+                int roomNumber = result.getInt ( "room_number" );
+                String department = result.getString ( "department" );
+                String city = result.getString( "city" );
+                String address = result.getString( "address" );
+
+                LocationViewModel loc = new LocationViewModel (
+                        locationId,
+                        campusId,
+                        buildingName,
+                        roomNumber,
+                        department,
+                        city,
+                        address
+                );
                 return loc;
             }
         }
