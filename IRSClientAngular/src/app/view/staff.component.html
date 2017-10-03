@@ -3,10 +3,12 @@
     <div class="panel-body">  
       <ul>
           <li *ngFor="let staff of staffList">
-            Id: {{staff.id}}
-            {{staff.campusId}}, {{staff.firstName}} , {{staff.lastName}}
+            Id: {{staff.accountId}},
+            {{staff.campusId}}, 
+            {{staff.firstName}}, 
+            {{staff.lastName}}
             <br>
-            <input type="number" [(ngModel)]="staff.id"/>
+            <input type="number" [(ngModel)]="staff.accountId"/>
             <input type="text" [(ngModel)]="staff.campusId"/>
             <input type="text" [(ngModel)]="staff.firstName"/>
             <input type="text" [(ngModel)]="staff.lastName"/>
@@ -18,7 +20,7 @@
   
         <h4>Add a Staff: </h4>
         <span class="field-title">Staff ID</span>
-        <input type="number" [(ngModel)]="newStaff.id" /> <br><br>
+        <input type="number" [(ngModel)]="newStaff.accountId" /> <br><br>
         <span class="field-title">Campus</span>
         <input type="text" [(ngModel)]="newStaff.campusId" /> <br><br>
         <span class="field-title">First Name</span>

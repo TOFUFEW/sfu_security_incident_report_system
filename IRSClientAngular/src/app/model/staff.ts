@@ -1,5 +1,5 @@
 export class Staff {
-    id: number;
+    accountId: number;
     campusId: string;
     firstName: string;
     lastName: string;
