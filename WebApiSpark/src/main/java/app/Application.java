@@ -1,10 +1,13 @@
 package app;
 
 import Controller.LocationController;
+import Controller.IncidentsController;
 import Controller.StaffController;
 import DBConnector.Connector;
 import Model.Location;
 import Model.Staff;
+
+import Model.Incidents;
 
 import java.sql.DriverManager;
 import java.util.Date;
@@ -28,10 +31,12 @@ public class Application
 
         LocationController locationController = new LocationController ();
         StaffController staffController = new StaffController();
+        IncidentsController incidentsController = new IncidentsController();
+
 
         // TEST CODE WITHOUT DATABASE
         Location location1 = new Location (
-                1,
+                "1",
                 "Surrey",
                 "SURR-301",
                 "3200",
@@ -39,7 +44,7 @@ public class Application
         );
 
         Location location2 = new Location (
-                2,
+                "2",
                 "Burnaby",
                 "BUR-800",
                 "9808",
@@ -48,6 +53,7 @@ public class Application
 
         locationController.locationList.add( location1 );
         locationController.locationList.add( location2 );
+
 
         Staff testStaff = new Staff(
                 "Bob",
@@ -68,6 +74,19 @@ public class Application
         );
         staffController.staffList.add(testStaff);
         staffController.staffList.add(testStaff2);
+
+        Incidents incident1 = new Incidents (
+                123456 ,
+                7890 ,
+                3 ,
+                "Lorem ipsum description long" ,
+                "Short summary here" ,
+                0
+        );
+
+        incidentsController.incidentList.add( incident1 );
+
+
         // END TEST CODE
     }
 
@@ -111,11 +130,10 @@ public class Application
         );
     }
 
-    private static void DBinit ()
-    {
-        Connector.Username = "cmpt373alpha";
-        Connector.Password = "cmpt373alpha";
-        Connector.URL = "jdbc:sqlserver://sfuirsdb.czoee5rkbxlk.us-west-1.rds.amazonaws.com:1433;DatabaseName=IRS;";
+    private static void DBinit(){
+        Connector.Username = "sa";
+        Connector.Password = "CMPT373Alpha";
+        Connector.URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=master;";
 
         try
         {

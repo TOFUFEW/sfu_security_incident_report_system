@@ -1,33 +1,41 @@
 package Model;
 
-public class Location {
-    private int id;
-    private String campus;
-    private String buildingNumber;
-    private String roomNumber;
-    private String department;
+import Util.DatabaseValues;
 
-    public Location() {}
+public class Location extends IncidentElement
+{
+    public Location (
+            String locationID,
+            String campusID,
+            String buildingNumber,
+            String roomNumber,
+            String department
+    ) {
+        super(DatabaseValues.DatabaseTable.LOCATION);
 
-    public Location( int id,
-                     String campus,
-                     String buildingNumber,
-                     String roomNumber,
-                     String department ) {
-        this.id = id;
-        this.campus = campus;
-        this.buildingNumber = buildingNumber;
-        this.roomNumber = roomNumber;
-        this.department = department;
-    }
+        super.putValue(
+                DatabaseValues.DatabaseColumn.LOCATION_ID,
+                locationID
+        );
 
-    // for testing purposes only
-    public int getId() {
-        return this.id;
-    }
+        super.putValue(
+                DatabaseValues.DatabaseColumn.CAMPUS_ID,
+                campusID
+        );
 
-    public void setId( int id ) {
-        this.id = id;
+        super.putValue(
+                DatabaseValues.DatabaseColumn.BUILDING_NUMBER,
+                buildingNumber
+        );
+
+        super.putValue(
+                DatabaseValues.DatabaseColumn.ROOM_NUMBER,
+                roomNumber
+        );
+
+        super.putValue(
+                DatabaseValues.DatabaseColumn.DEPARTMENT,
+                department
+        );
     }
 }
-

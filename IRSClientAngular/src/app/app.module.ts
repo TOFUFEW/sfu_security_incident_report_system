@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './component/dashboard.component';
 import { LocationComponent } from './component/location.component';
 import { StaffComponent } from './component/staff.component';
+import { IncidentsComponent } from './component/incidents.component';
 import { LoginComponent } from './component/login.component';
 
 @NgModule({
@@ -25,6 +26,7 @@ import { LoginComponent } from './component/login.component';
     DashboardComponent,
     LocationComponent,
     StaffComponent,
+    IncidentsComponent,
     LoginComponent,
   ],
   
