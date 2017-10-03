@@ -12,6 +12,39 @@ import java.util.Random;
 public class DBHelper {
     public DBHelper(){}
 
+    public static LocationViewModel getLocation( int id ) {
+        try
+        {
+            String query = "select * from location where location_id = " + id;
+            ResultSet result = Connector.executeQuery ( query );
+
+            while ( result.next() )
+            {
+                int locationId = result.getInt ( "location_id" );
+                int campusId = result.getInt ( "campus_id" );
+                String buildingName = result.getString ( "building_name" );
+                int roomNumber = result.getInt ( "room_number" );
+                String department = result.getString ( "department" );
+                String city = result.getString( "city" );
+                String address = result.getString( "address" );
+
+                return new LocationViewModel (
+                        locationId,
+                        campusId,
+                        buildingName,
+                        roomNumber,
+                        department,
+                        city,
+                        address
+                );
+            }
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return new LocationViewModel();
+    }
+
     public static List < LocationViewModel > getLocations () {
         List < LocationViewModel > locationList = new ArrayList<>();
 
@@ -48,16 +81,24 @@ public class DBHelper {
         return locationList;
     }
 
-    public static int addLocation (
-            Location location,
-            List<Location> locationList /* remove this param when working with real db */
+    public static LocationViewModel addLocation (
+            LocationViewModel location
     ) {
-        /* For testing purposes only. Replace this with code that does some database query */
-        int currentSize = locationList.size();
-        int id = new Random().nextInt( 1000000+1 ); // for testing only
-        location.putValue( DatabaseValues.DatabaseColumn.LOCATION_ID , "" + id );
-        locationList.add( location );
-        return locationList.size() > currentSize ? locationList.size() - 1 : -1; // return the index of the new location
+        try
+        {
+            int i = Connector.executeUpdate ( buildAddLocationQuery( location ) );
+            ResultSet result = Connector.executeQuery( "select top 1 * from location order by location_id desc" );
+            while ( result.next() ) {
+                int id = result.getInt( "location_id" );
+                LocationViewModel loc = getLocation( id );
+                return loc;
+            }
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+
+        return new LocationViewModel();
     }
 
     public static int editLocation (
@@ -105,6 +146,39 @@ public class DBHelper {
                 + "from dbo.location as loc "
                 + "inner join dbo.Campus as camp "
                 + "on loc.CAMPUS_ID = camp.CAMPUS_ID";
+    }
+
+    private static String buildAddLocationQuery(LocationViewModel location) {
+        // Check if campus exists
+        try {
+            int i = 0;
+
+            String checkCampus = "select * from campus " +
+                    "where campus.CITY = '" + location.CITY + "' ";
+            ResultSet campusResult = Connector.executeQuery( checkCampus );
+
+            if ( !campusResult.next() ) {
+                // insert into campus db
+                String insertCampus = "insert into campus (city) values ('" + location.CITY + "')";
+                i = Connector.executeUpdate( insertCampus );
+                campusResult = Connector.executeQuery( checkCampus );
+            }
+
+            int campusId = 0;
+            while ( campusResult.next() ) {
+                campusId = campusResult.getInt( "campus_id" );
+            }
+
+            return "insert into location (campus_id, building_name, room_number, department) "
+                    + "values ('" + campusId + "', '"
+                    + location.BUILDING_NAME + "', '"
+                    + location.ROOM_NUMBER + "', '"
+                    + location.DEPARTMENT + "')";
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 

@@ -3,6 +3,7 @@ package Controller;
 import DBConnector.Connector;
 import Model.Location;
 import Util.*;
+import ViewModel.LocationViewModel;
 
 import java.sql.ResultSet;
 import java.util.*;
@@ -25,9 +26,8 @@ public class LocationController {
         }, json() );
 
         post( "/locations" , ( request , response ) -> {
-            Location loc = ( Location ) parser.fromJson( request.body() , Location.class );
-            int newLocation = dbHelper.addLocation( loc, locationList ); // This code touches the database
-            return newLocation;
+            LocationViewModel loc = ( LocationViewModel ) parser.fromJson( request.body() , LocationViewModel.class );
+            return dbHelper.addLocation( loc );
         } , json() );
 
         put( "/locations" , ( request , response ) -> {
