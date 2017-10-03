@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Staff } from '../model/staff';
+import { IncidentElement } from '../model/incidentElement';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
@@ -10,10 +11,10 @@ export class StaffService {
     staffUrl = "http://localhost:4567/staff";
     constructor(private http: Http) {}
 
-    getStaffs(): Promise<Staff[]> {
+    getStaffs(): Promise<IncidentElement[]> {
         var staffList = this.http.get( this.staffUrl )
             .toPromise()
-            .then( response => response.json() as Staff[] )
+            .then( response => response.json() as IncidentElement[] )
             .catch( this.handleError );
         return Promise.resolve( staffList );
     };

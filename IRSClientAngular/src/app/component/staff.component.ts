@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { IncidentElement } from '../model/incidentElement';
 import { Staff } from '../model/staff';
 import { StaffService } from '../service/staff.service';
 @Component({
@@ -12,9 +13,16 @@ export class StaffComponent implements OnInit {
   
   constructor( private staffService: StaffService ){};
 
+
   getStaffs(): void {
-    this.staffService.getStaffs().then( returnedStaffs => {
-      this.staffList = returnedStaffs;
+    this.staffService.getStaffs().then( data => {
+      var incidentElements = data ;
+      incidentElements.forEach(element => {
+        if (element != null) {
+          this.staffList.push(element.columnValue as Staff);
+        }
+          
+      } );
     } );    
   }
 
