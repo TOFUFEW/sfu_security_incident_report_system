@@ -51,7 +51,7 @@ public class IncidentElement {
     {
         if ( input == null ) return false;
 
-        if ( column.getDataType ().equals ( "INT" ) ) {ll
+        if ( column.getDataType ().equals ( "INT" ) ) {
             try
             {
                 int testNum = Integer.parseInt ( input );

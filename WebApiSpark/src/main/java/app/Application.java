@@ -130,12 +130,7 @@ public class Application
     }
 
     private static void DBinit(){
-<<<<<<< HEAD
-        Connector.Username = "cmpt373alpha";
-        Connector.Password = "cmpt373alpha";
-        Connector.URL = "jdbc:sqlserver://sfuirsdb.czoee5rkbxlk.us-west-1.rds.amazonaws.com:1433;DatabaseName=IRS;";
 
-=======
         Connector.Username = "sa";
         Connector.Password = "CMPT373Alpha";
         Connector.URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=master;";
@@ -144,7 +139,7 @@ public class Application
         Connector.Password = "cmpt373alpha";
         Connector.URL = "jdbc:sqlserver://sfuirsdb.czoee5rkbxlk.us-west-1.rds.amazonaws.com:1433;DatabaseName=IRS;";
         */
->>>>>>> 27b1771c81a40b836bcd14562cfb64d516604b8b
+
         try
         {
             Class.forName ( "com.microsoft.sqlserver.jdbc.SQLServerDriver" );
