@@ -2,12 +2,11 @@ package app;
 
 import Controller.*;
 import DBConnector.Connector;
-import Model.Incidents;
+import Model.Incident;
 import Model.Location;
 
 import java.sql.DriverManager;
 
-import static Util.JsonUtil.json;
 import static spark.Spark.*;
 
 // Class that initializes each controller at start - up
@@ -49,7 +48,7 @@ public class Application
         locationController.locationList.add( location1 );
         locationController.locationList.add( location2 );
 
-        Incidents incident1 = new Incidents (
+        Incident incident1 = new Incident(
                 123456 ,
                 7890 ,
                 3 ,
@@ -104,14 +103,14 @@ public class Application
     }
 
     private static void DBinit(){
-        Connector.Username = "sa";
+        /*Connector.Username = "sa";
         Connector.Password = "CMPT373Alpha";
         Connector.URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=master;";
-        /*
+        */
         Connector.Username = "cmpt373alpha";
         Connector.Password = "cmpt373alpha";
         Connector.URL = "jdbc:sqlserver://sfuirsdb.czoee5rkbxlk.us-west-1.rds.amazonaws.com:1433;DatabaseName=IRS;";
-        */
+
         try
         {
             Class.forName ( "com.microsoft.sqlserver.jdbc.SQLServerDriver" );

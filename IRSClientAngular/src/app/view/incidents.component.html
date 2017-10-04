@@ -17,14 +17,14 @@
   <div class="panel-body">
     <div class="row-container">
       <span class="field-title">Description</span>
-      <textarea cols="50" rows="8"></textarea>
+      <textarea cols="50" rows="8" [(ngModel)]="newIncident.DESCRIPTION"></textarea>
     </div>
 
     <div class="row-container">
       <span class="field-title">Executive Summary</span>
-      <textarea cols="50" rows="8"></textarea>
+      <textarea cols="50" rows="8" [(ngModel)]="newIncident.EXECUTIVE_SUMMARY"></textarea>
     </div>
 
-    <button class="btn btn-primary">Submit</button>
+    <button class="btn btn-primary" (click)="addIncident();">Submit</button>
   </div>
 </div>

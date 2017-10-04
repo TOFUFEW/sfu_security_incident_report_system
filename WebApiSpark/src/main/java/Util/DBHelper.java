@@ -2,6 +2,7 @@ package Util;
 
 import DBConnector.Connector;
 import Model.*;
+import ViewModel.IncidentViewModel;
 import ViewModel.LocationViewModel;
 
 import java.sql.ResultSet;
@@ -242,6 +243,33 @@ public class DBHelper {
         return 0;
     }
 
+    public static List<IncidentViewModel> getIncidents () {
+        List<IncidentViewModel> incidentList = new ArrayList<>();
+        try {
+            String query = "select * from incident";
+            ResultSet result = Connector.executeQuery( query );
 
+            while ( result.next() ) {
+                List<LocationViewModel> locationList = new ArrayList<>();
+                locationList.add( getLocation( 1 ) );
+
+                IncidentViewModel incident = new IncidentViewModel(
+                        result.getInt( "report_id" ),
+                        result.getInt( "account_id" ),
+                        result.getInt( "category_id" ),
+                        result.getString( "description" ),
+                        result.getString( "executive_summary" ),
+                        result.getBoolean( "closed" ),
+                        locationList
+                );
+
+                incidentList.add( incident );
+            }
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return incidentList ;
+    }
 
 }

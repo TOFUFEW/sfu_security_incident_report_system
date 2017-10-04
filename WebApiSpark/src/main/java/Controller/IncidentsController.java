@@ -1,11 +1,9 @@
 package Controller;
 
-import DBConnector.Connector;
-import Model.Incidents;
+import Model.Incident;
 import Util.DBHelper;
 import Util.JsonUtil;
 
-import java.sql.ResultSet;
 import java.util.*;
 import static Util.JsonUtil.json;
 import static spark.Spark.*;
@@ -19,19 +17,21 @@ public class IncidentsController
         setupEndPoints();
     }
 
-    public List<Incidents> incidentList = new ArrayList<>();
+    public List<Incident> incidentList = new ArrayList<>();
 
     private void setupEndPoints()
     {
         get ("/incidents", ( request , response ) ->
         {
-            return incidentList;
+            return dbHelper.getIncidents();
         }, json());
 
+        /*
         post ("/incidents", ( request, response ) ->
         {
             Incident newIncident = ( Incident ) parser.fromJson ( request.body() , Incident.class );
             return dbHelper.addIncident( newIncident, incidentList );
         }, json() );
+        */
     }
 }

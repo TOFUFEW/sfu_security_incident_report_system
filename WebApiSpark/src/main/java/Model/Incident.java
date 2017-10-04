@@ -1,17 +1,17 @@
 package Model;
 
-public class Incidents {
+public class Incident {
 
-    public Incidents ()
+    public Incident()
     {
     }
 
-    public Incidents ( int reportID ,
-                       int accountID ,
-                       int categoryID ,
-                       String description ,
-                       String execSummary ,
-                       int closed )
+    public Incident(int reportID ,
+                    int accountID ,
+                    int categoryID ,
+                    String description ,
+                    String execSummary ,
+                    int closed )
     {
         this.reportID = reportID ;
         this.accountID = accountID ;
