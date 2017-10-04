@@ -1,45 +1,46 @@
 import { Injectable } from '@angular/core';
+import { Staff } from '../model/staff';
 import { IncidentElement } from '../model/incidentElement';
-import { Location } from '../model/location';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class LocationService {
-    private headers = new Headers({ 'Content-Type': 'application/json' });
-    locationsUrl = Config.LocationsURI;
-    constructor( private http: Http ) {}
+export class StaffService {
+    private headers = new Headers({'Content-Type': 'application/json'});
+    staffUrl = Config.StaffURI;
+    constructor(private http: Http) {}
 
-    getLocations(): Promise<Location[]> {
-        var locations = this.http.get( this.locationsUrl )
+    getStaffs(): Promise<Staff[]> {
+        var staffList = this.http.get( this.staffUrl )
             .toPromise()
-            .then( response => response.json() as Location[] )
+            .then( response => response.json() as Staff[] )
             .catch( this.handleError );
-        return Promise.resolve( locations );
+        return Promise.resolve( staffList );
     };
 
-    create( location: Location ) : Promise<Location> {
-        var promise = this.http
-                .post( this.locationsUrl, JSON.stringify( location ), { headers: this.headers } )
-                .toPromise()
-                .then( response => response.json() as Location )
-                .catch( this.handleError );
-        return Promise.resolve( promise );
-    };
 
-    update( location: Location ) : Promise<Location> {
+    // create( staff: Staff ) : Promise<Staff> {
+    //     var promise = this.http
+    //             .post( this.staffUrl, JSON.stringify( staff ), { headers: this.headers } )
+    //             .toPromise()
+    //             .then( response => response.json() as Staff )
+    //             .catch( this.handleError );
+    //     return Promise.resolve( promise );
+    // };
+
+    update( staff: Staff ) : Promise<Staff> {
         var promise = this.http
-                .post( this.locationsUrl, JSON.stringify( location ), { headers: this.headers } )
+                .put( this.staffUrl, JSON.stringify( staff ), { headers: this.headers } )
                 .toPromise()
-                .then( response => response.json() as Location )
+                .then( response => response.json() as Staff )
                 .catch( this.handleError );
         return Promise.resolve( promise );
     };
 
     delete( id: number ) : Promise<boolean> {
-        var url = `${this.locationsUrl}/${id}`;
+        var url = `${this.staffUrl}/${id}`;
         var promise = this.http
                 .delete( url, { headers: this.headers } )
                 .toPromise()

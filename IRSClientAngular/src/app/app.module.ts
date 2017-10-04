@@ -7,8 +7,10 @@ import { routes } from './app.router';
 
 /* Components */
 import { AppComponent } from './app.component';
+
 import { DashboardComponent } from './component/dashboard.component';
 import { LocationComponent } from './component/location.component';
+import { StaffComponent } from './component/staff.component';
 import { IncidentsComponent } from './component/incidents.component';
 import { LoginComponent } from './component/login.component';
 
@@ -27,9 +29,10 @@ import { LoginService } from './service/login.service';
   declarations: [
     AppComponent,
     DashboardComponent,
-    LocationComponent, 
+    LocationComponent,
+    StaffComponent,
     IncidentsComponent,
-    LoginComponent
+    LoginComponent,
   ],
 
   providers: [ UserService, LoginService ],
