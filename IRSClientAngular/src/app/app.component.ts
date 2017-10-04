@@ -11,14 +11,14 @@ export class AppComponent {
   constructor(
     private router: Router
   ) {
-    var button = document.getElementById("logout");
-    button.style.visibility = "hidden";
+    // var button = document.getElementById("logout");
+    // button.style.visibility = "hidden";
   }
 
-  showLogoutButton() {
-    var button = document.getElementById("logout");
-    button.style.visibility = "visible";
-  }
+  // showLogoutButton() {
+  //   var button = document.getElementById("logout");
+  //   button.style.visibility = "visible";
+  // }
 
   onLogout() {
     console.log("logging out");

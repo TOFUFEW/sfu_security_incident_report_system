@@ -29,4 +29,10 @@ export class DashboardComponent {
       this.router.navigate([ 'login' ] );
     }
   }
+
+  onLogout() {
+      console.log("logging out");
+      this.userService.logout();
+      this.router.navigate([ 'login' ] );
+  }
 }

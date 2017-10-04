@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Location } from '../model/location';
 import { LocationService } from '../service/location.service';
+import {UserService} from "../service/user.service";
 
 @Component({
   selector: 'location-component',
@@ -11,7 +12,9 @@ export class LocationComponent implements OnInit {
   locations: Location[];
   newLocation: Location = new Location();
 
-  constructor( private locationService: LocationService ){};
+  constructor( private locationService: LocationService,
+               private userService: UserService) {
+  }
 
   getLocations(): void {
     this.locationService.getLocations().then( returnedLocations => {

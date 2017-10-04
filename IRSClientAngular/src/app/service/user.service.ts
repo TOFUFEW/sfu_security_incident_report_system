@@ -12,7 +12,7 @@ export class UserService {
         console.log("local storage added user");
         sessionStorage.setItem(this.currentUser, JSON.stringify(userString));
     }
-    
+
     isLoggedIn(): boolean {
         let currentUser = this.getCurrentUser();
 
@@ -20,6 +20,10 @@ export class UserService {
             return true;
         }
         return false;
+    }
+
+    logout() {
+      sessionStorage.setItem(this.currentUser, null);
     }
 
     getCurrentUser(): User {
