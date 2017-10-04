@@ -12,10 +12,10 @@ export class StaffService {
     staffUrl = Config.StaffURI;
     constructor(private http: Http) {}
 
-    getStaffs(): Promise<IncidentElement[]> {
+    getStaffs(): Promise<Staff[]> {
         var staffList = this.http.get( this.staffUrl )
             .toPromise()
-            .then( response => response.json() as IncidentElement[] )
+            .then( response => response.json() as Staff[] )
             .catch( this.handleError );
         return Promise.resolve( staffList );
     };

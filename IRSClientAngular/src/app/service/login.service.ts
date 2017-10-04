@@ -13,23 +13,10 @@ export class LoginService {
     loginUrl = Config.LoginURI;
     constructor(private http: Http) { }
 
-    /*
-    doLogin( user: User ) : Promise<boolean> {
-        var promise = this.http
-                .post( this.loginUrl, JSON.stringify( user ), { headers: this.headers } )
-                .toPromise()
-                .then( response => response.json() as boolean )
-                .catch( this.handleError );
-        return Promise.resolve( promise );
-    };
-    */
-
-    
     doLogin(user: User): Observable<string> {
         let options = new RequestOptions({ headers: this.headers });
         return this.http.post(this.loginUrl, JSON.stringify(user), options)
                 // response becomes a string
                 .map((response: Response) => <string>response.json());
     }
-
 }

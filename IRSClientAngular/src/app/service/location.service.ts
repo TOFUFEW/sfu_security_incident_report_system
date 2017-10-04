@@ -12,10 +12,10 @@ export class LocationService {
     locationsUrl = Config.LocationsURI;
     constructor( private http: Http ) {}
 
-    getLocations(): Promise<IncidentElement[]> {
+    getLocations(): Promise<Location[]> {
         var locations = this.http.get( this.locationsUrl )
             .toPromise()
-            .then( response => response.json() as IncidentElement[] )
+            .then( response => response.json() as Location[] )
             .catch( this.handleError );
         return Promise.resolve( locations );
     };
