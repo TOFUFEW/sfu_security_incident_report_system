@@ -21,7 +21,7 @@ export class IncidentsComponent implements OnInit {
     } );    
   }
 
-  addIncident(): void {;
+  addIncident(): void {
     this.incidentsService.create( this.newIncident )
         .then( returnedIncident => {
             if ( returnedIncident != null  ) {
