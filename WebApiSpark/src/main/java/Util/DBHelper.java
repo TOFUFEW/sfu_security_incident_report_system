@@ -279,23 +279,28 @@ public class DBHelper {
     }
 
     public static int addIncident (
-            Incident incidentToAdd
+            IncidentViewModel incidentToAdd
     ) {
-        try {
-            Connector.executeQuery (
-                    "EXEC dbo.createIncident " +
-                    "@creator_id = 1, " +
-                    "@category_id = 1, " +
-                    "@description = '', " +
-                    "@executive_summary = '', " +
-                    "@location_id = 1, " +
-                    "@person_id = 1, " +
-                    "@staff_id = 1"
-            );
-        } catch ( Exception e ) {
-            e.printStackTrace();
+        String query =  "EXEC dbo.createIncident " +
+                        "@creator_id = 1, " +
+                        "@category_id = 1, " +
+                        "@description = '" + incidentToAdd.DESCRIPTION + "', " +
+                        "@executive_summary = '" + incidentToAdd.EXECUTIVE_SUMMARY + "', " +
+                        "@location_id = 1, " +
+                        "@person_id = 1, " +
+                        "@staff_id = 1";
+         System.out.println(query);
+
+        try
+        {
+            Connector.executeUpdate ( query );
+            return 1;
         }
-        return 0;
+        catch ( Exception e )
+        {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
 }

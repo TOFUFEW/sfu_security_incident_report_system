@@ -24,7 +24,10 @@ public class Incident {
     public int getReportID() { return reportID; };
     public int getAccountID() { return accountID; };
     public int getCategoryID() { return categoryID; };
-    public String getDescription() { return description; };
+    public String getDescription()
+    {
+        System.out.println("Description: " + description);
+        return description; };
     public String getExecSummary() { return execSummary; };
     public int getClosed() { return closed; };
 

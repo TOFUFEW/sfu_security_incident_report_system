@@ -3,6 +3,7 @@ package Controller;
 import Model.Incident;
 import Util.DBHelper;
 import Util.JsonUtil;
+import ViewModel.IncidentViewModel;
 
 import java.util.*;
 import static Util.JsonUtil.json;
@@ -28,7 +29,7 @@ public class IncidentsController
 
         post ("/incidents", ( request, response ) ->
         {
-            Incident newIncident = ( Incident ) parser.fromJson ( request.body() , Incident.class );
+            IncidentViewModel newIncident = ( IncidentViewModel ) parser.fromJson ( request.body() , IncidentViewModel.class );
             System.out.println ( "request body: " + request.body() );
             System.out.println ( newIncident );
             return dbHelper.addIncident( newIncident );
