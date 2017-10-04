@@ -279,7 +279,6 @@ public class DBHelper {
             Incident incidentToAdd
     ) {
         try {
-            incidentToAdd.;
             Connector.executeQuery (
                     "EXEC dbo.createIncident " +
                     "@creator_id = 1, " +
