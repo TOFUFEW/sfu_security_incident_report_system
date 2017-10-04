@@ -1,7 +1,5 @@
 package Util;
 
-import Model.Location;
-import Model.Staff;
 import com.google.gson.Gson;
 import spark.ResponseTransformer;
 
@@ -12,6 +10,7 @@ public class JsonUtil {
         return gson.toJson(object);
     }
 
+    // Custom line
     public static Object fromJson( String json , Class classOfT ) { return gson.fromJson( json , classOfT ); }
 
     public static ResponseTransformer json() {

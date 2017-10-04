@@ -1,8 +1,8 @@
 package app;
 
-import Controller.IncidentsController;
-import Controller.LocationController;
-import Controller.StaffController;
+
+import Controller.*;
+
 import DBConnector.Connector;
 import Model.Location;
 import Model.Staff;
@@ -11,8 +11,8 @@ import Model.Incidents;
 
 import java.sql.DriverManager;
 
-import static spark.Spark.before;
-import static spark.Spark.options;
+import static Util.JsonUtil.json;
+import static spark.Spark.*;
 
 
 // Class that initializes each controller at start - up
@@ -27,12 +27,13 @@ public class Application
                 "GET, " + "POST, PUT, DELETE, OPTIONS, HEAD",
                 "origin, content-type, accept, authorization"
         );
-
         DBinit ();
 
         LocationController locationController = new LocationController ();
         StaffController staffController = new StaffController();
         IncidentsController incidentsController = new IncidentsController();
+        LoginController loginController = new LoginController();
+
 
 
         // TEST CODE WITHOUT DATABASE
@@ -129,10 +130,21 @@ public class Application
     }
 
     private static void DBinit(){
+<<<<<<< HEAD
         Connector.Username = "cmpt373alpha";
         Connector.Password = "cmpt373alpha";
         Connector.URL = "jdbc:sqlserver://sfuirsdb.czoee5rkbxlk.us-west-1.rds.amazonaws.com:1433;DatabaseName=IRS;";
 
+=======
+        Connector.Username = "sa";
+        Connector.Password = "CMPT373Alpha";
+        Connector.URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=master;";
+        /*
+        Connector.Username = "cmpt373alpha";
+        Connector.Password = "cmpt373alpha";
+        Connector.URL = "jdbc:sqlserver://sfuirsdb.czoee5rkbxlk.us-west-1.rds.amazonaws.com:1433;DatabaseName=IRS;";
+        */
+>>>>>>> 27b1771c81a40b836bcd14562cfb64d516604b8b
         try
         {
             Class.forName ( "com.microsoft.sqlserver.jdbc.SQLServerDriver" );

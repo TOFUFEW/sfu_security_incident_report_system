@@ -29,7 +29,6 @@ export class DashboardComponent {
     private staffService:StaffService
   ) {
 
-    console.log( userService.getUserName() );
     if ( this.userService.isLoggedIn() == false ) {
       this.router.navigate([ 'login' ] );
     }

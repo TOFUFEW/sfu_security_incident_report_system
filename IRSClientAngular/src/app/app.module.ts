@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { Http, HttpModule, Headers } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-
 import { routes } from './app.router';
+
+/* Components */
 import { AppComponent } from './app.component';
 
 import { DashboardComponent } from './component/dashboard.component';
@@ -13,6 +14,9 @@ import { StaffComponent } from './component/staff.component';
 import { IncidentsComponent } from './component/incidents.component';
 import { LoginComponent } from './component/login.component';
 
+/* Services */
+import { UserService } from './service/user.service';
+import { LoginService } from './service/login.service';
 
 @NgModule({
   imports: [
@@ -31,7 +35,7 @@ import { LoginComponent } from './component/login.component';
     LoginComponent,
   ],
 
-  providers: [],
+  providers: [ UserService, LoginService ],
   bootstrap: [AppComponent]
 })
 
