@@ -278,7 +278,7 @@ public class DBHelper {
         return incidentList;
     }
 
-    public static int addIncident (
+    public static IncidentViewModel addIncident (
             IncidentViewModel incidentToAdd
     ) {
         String query =  "EXEC dbo.createIncident " +
@@ -289,18 +289,38 @@ public class DBHelper {
                         "@location_id = 1, " +
                         "@person_id = 1, " +
                         "@staff_id = 1";
-         System.out.println(query);
-
         try
         {
-            Connector.executeUpdate ( query );
-            return 1;
+            int i = Connector.executeUpdate ( query );
+
+            ResultSet results = Connector.executeQuery ( "SELECT TOP 1 FROM Incident"
+            );
+            while ( results.next() ) {
+                System.out.println("query result " + results.getString("executive_summary"));
+                int reportID = results.getInt("report_id");
+                int accountID = results.getInt("account_id");
+                int categoryID = results.getInt( "category_id");
+                String description = results.getString("description");
+                String execSummary = results.getString("executive_summary");
+                boolean closed = results.getBoolean("closed");
+                IncidentViewModel incident = new IncidentViewModel(
+                        reportID,
+                        accountID,
+                        categoryID,
+                        description,
+                        execSummary,
+                        closed,
+                        null
+
+                );
+                return new IncidentViewModel();
+            }
         }
         catch ( Exception e )
         {
             e.printStackTrace();
-            return 0;
         }
+        return incidentToAdd;
     }
 
 }
