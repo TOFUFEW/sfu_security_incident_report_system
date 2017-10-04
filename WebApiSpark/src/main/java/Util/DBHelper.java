@@ -252,9 +252,11 @@ public class DBHelper {
             List<LocationViewModel> locations = getLocations();
 
             while ( result.next() ) {
+                // Get some random locations
                 List<LocationViewModel> locationList = new ArrayList<>();
                 locationList.add( locations.get(0) );
                 locationList.add( locations.get(1) );
+
                 IncidentViewModel incident = new IncidentViewModel(
                         result.getInt( "report_id" ),
                         result.getInt( "account_id" ),
