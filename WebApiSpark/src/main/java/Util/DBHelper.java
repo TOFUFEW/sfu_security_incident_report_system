@@ -249,10 +249,12 @@ public class DBHelper {
             String query = "select * from incident";
             ResultSet result = Connector.executeQuery( query );
 
+            List<LocationViewModel> locations = getLocations();
+
             while ( result.next() ) {
                 List<LocationViewModel> locationList = new ArrayList<>();
-                locationList.add( getLocation( 1 ) );
-
+                locationList.add( locations.get(0) );
+                locationList.add( locations.get(1) );
                 IncidentViewModel incident = new IncidentViewModel(
                         result.getInt( "report_id" ),
                         result.getInt( "account_id" ),

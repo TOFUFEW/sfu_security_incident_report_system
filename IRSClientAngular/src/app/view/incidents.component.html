@@ -6,7 +6,17 @@
           {{incident.EXECUTIVE_SUMMARY}} , 
           RID: {{incident.REPORT_ID}} , 
           Staff: {{incident.ACCOUNT_ID}} , 
-          {{incident.DESCRIPTION}}
+          Description: {{incident.DESCRIPTION}} <br>
+          Location(s): <br>
+          <ul>
+            <li *ngFor="let location of incident.LOCATIONS">
+              {{location.CITY}} , 
+              {{location.BUILDING_NAME}} , 
+              {{location.ROOM_NUMBER}} , 
+              {{location.DEPARTMENT}} 
+            </li>
+          </ul>
+          
       </li>
     </ul>
   </div>
