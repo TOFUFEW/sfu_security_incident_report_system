@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Incidents } from '../model/incidents';
+import { Incident } from '../model/incident';
 import { IncidentsService } from '../service/incidents.service';
 import { Location } from '../model/location';
 import { LocationService } from '../service/location.service';
@@ -19,7 +19,7 @@ export class DashboardComponent {
   title = 'SFU Incident Reporting System';
   locationsList: Location[];
   staffList: Staff[];
-  incidentsList: Incidents[];
+  incidentsList: Incident[];
 
   constructor(
     private router: Router,

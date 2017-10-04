@@ -4,7 +4,7 @@ import { UserService } from '../service/user.service';
 import { LoginService } from '../service/login.service';
 import { User } from '../model/user';
 import { Observable } from 'rxjs';
-import { Incidents } from '../model/incidents';
+import { Incident } from '../model/incident';
 
 @Component({
     templateUrl: '../view/login.component.html',

@@ -4,14 +4,13 @@ package app;
 import Controller.*;
 
 import DBConnector.Connector;
+
+import Model.Incident;
 import Model.Location;
 import Model.Staff;
 
-import Model.Incidents;
-
 import java.sql.DriverManager;
 
-import static Util.JsonUtil.json;
 import static spark.Spark.*;
 
 
@@ -33,7 +32,6 @@ public class Application
         StaffController staffController = new StaffController();
         IncidentsController incidentsController = new IncidentsController();
         LoginController loginController = new LoginController();
-
 
 
         // TEST CODE WITHOUT DATABASE
@@ -73,17 +71,6 @@ public class Application
         );
         staffController.staffList.add(testStaff);
         staffController.staffList.add(testStaff2);
-
-        Incidents incident1 = new Incidents (
-                123456 ,
-                7890 ,
-                3 ,
-                "Lorem ipsum description long" ,
-                "Short summary here" ,
-                0
-        );
-
-        incidentsController.incidentList.add( incident1 );
 
 
         // END TEST CODE
@@ -130,7 +117,6 @@ public class Application
     }
 
     private static void DBinit(){
-
         Connector.Username = "sa";
         Connector.Password = "CMPT373Alpha";
         Connector.URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=master;";
@@ -139,6 +125,7 @@ public class Application
         Connector.Password = "cmpt373alpha";
         Connector.URL = "jdbc:sqlserver://sfuirsdb.czoee5rkbxlk.us-west-1.rds.amazonaws.com:1433;DatabaseName=IRS;";
         */
+
 
         try
         {

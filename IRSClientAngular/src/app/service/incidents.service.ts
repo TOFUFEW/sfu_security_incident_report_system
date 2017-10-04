@@ -1,24 +1,52 @@
 import { Injectable } from '@angular/core';
-import { Incidents } from '../model/incidents';
+import { Incident } from '../model/incident';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
+import { Config } from '../util/config.service';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class IncidentsService 
 {
     private headers = new Headers({'Content-Type': 'application/json'});
-    incidentsUrl = "http://localhost:4567/incidents";
+    incidentsUrl = Config.IncidentsURI;
     
     constructor( private http: Http ) {}
 
-    getIncidents(): Promise<Incidents[]> 
-    {
+    getIncidents(): Promise<Incident[]> {
         var incidents = this.http.get( this.incidentsUrl )
             .toPromise()
-            .then( response => response.json() as Incidents[] )
+            .then( response => response.json() as Incident[] )
             .catch( this.handleError );
         return Promise.resolve( incidents );
+    };
+
+    create( incident: Incident ): Promise<Incident> {
+        var promise = this.http
+                .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
+                .toPromise()
+                .then( response => response.json() as Incident )
+                .catch( this.handleError );
+        return Promise.resolve( promise );
+    }
+
+    update( incident: Incident ): Promise<Incident> {
+        var promise = this.http
+                .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
+                .toPromise()
+                .then( response => response.json() as Incident )
+                .catch( this.handleError );
+        return Promise.resolve( promise );
+    }
+
+    delete( id: number ) : Promise<boolean> {
+        var url = `${this.incidentsUrl}/${id}`;
+        var promise = this.http
+                .delete( url, { headers: this.headers } )
+                .toPromise()
+                .then( response => response.json() as boolean )
+                .catch( this.handleError );
+        return Promise.resolve( promise );
     };
 
     private handleError( error: any ) : Promise<any> 

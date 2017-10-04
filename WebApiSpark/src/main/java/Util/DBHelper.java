@@ -2,6 +2,7 @@ package Util;
 
 import DBConnector.Connector;
 import Model.*;
+import ViewModel.IncidentViewModel;
 import ViewModel.LocationViewModel;
 
 import java.sql.ResultSet;
@@ -131,10 +132,11 @@ public class DBHelper {
         return new LocationViewModel();
     }
 
-    public static LocationViewModel editLocation(LocationViewModel location) {
+    public static LocationViewModel editLocation(LocationViewModel location)
+    {
         try {
             // Check if campus exists. If not, create one and insert into the database
-            int id = getCampusId(location.CITY);
+            int id = getCampusId (location.CITY);
 
             String query = "update location " +
                     "set building_name = '" + location.BUILDING_NAME +
@@ -142,7 +144,7 @@ public class DBHelper {
                     ", department = '" + location.DEPARTMENT +
                     "', campus_id = " + id +
                     " where location_id = " + location.LOCATION_ID;
-            int i = Connector.executeUpdate(query);
+            int i = Connector.executeUpdate (query);
             return getLocation(location.LOCATION_ID);
         } catch (Exception e) {
             e.printStackTrace();
@@ -192,7 +194,7 @@ public class DBHelper {
     private static String buildAddLocationQuery(LocationViewModel location) {
         // Check if campus exists
         try {
-            int campusId = getCampusId(location.CITY);
+            int campusId = getCampusId (location.CITY);
             return "insert into location (campus_id, building_name, room_number, department) "
                     + "values ('" + campusId + "', '"
                     + location.BUILDING_NAME + "', '"
@@ -328,7 +330,80 @@ public class DBHelper {
         return true;
     }
 
+    public static List<IncidentViewModel> getIncidents () {
+        List<IncidentViewModel> incidentList = new ArrayList<>();
+        try
+        {
+            ResultSet results = Connector.executeQuery ( "SELECT * FROM Incident" );
+            while ( results.next() )
+            {
+                int reportID = results.getInt ( "report_id" );
+                int accountID = results.getInt ( "account_id" );
+                int categoryID = results.getInt ( "category_id" );
+                String description = results.getString ( "description" );
+                String execSummary = results.getString ( "executive_summary" );
+                boolean closed = results.getBoolean ("closed");
+                IncidentViewModel incident = new IncidentViewModel (
+                        reportID,
+                        accountID,
+                        categoryID,
+                        description,
+                        execSummary,
+                        closed,
+                        null
+                );
+                incidentList.add(incident);
+            }
+        }
+        catch ( Exception e )
+        {
+            e.printStackTrace();
+        }
+        return incidentList;
+    }
 
+    public static IncidentViewModel addIncident (
+            IncidentViewModel incidentToAdd
+    ) {
+        String query =  "EXEC dbo.createIncident " +
+                        "@creator_id = 1, " +
+                        "@category_id = 1, " +
+                        "@description = '" + incidentToAdd.DESCRIPTION + "', " +
+                        "@executive_summary = '" + incidentToAdd.EXECUTIVE_SUMMARY + "', " +
+                        "@location_id = 1, " +
+                        "@person_id = 1, " +
+                        "@staff_id = 1";
+        try
+        {
+            int i = Connector.executeUpdate ( query );
 
+            ResultSet results = Connector.executeQuery ( "SELECT TOP 1 FROM Incident"
+            );
+            while ( results.next() ) {
+                System.out.println("query result " + results.getString("executive_summary"));
+                int reportID = results.getInt("report_id");
+                int accountID = results.getInt("account_id");
+                int categoryID = results.getInt( "category_id");
+                String description = results.getString("description");
+                String execSummary = results.getString("executive_summary");
+                boolean closed = results.getBoolean("closed");
+                IncidentViewModel incident = new IncidentViewModel(
+                        reportID,
+                        accountID,
+                        categoryID,
+                        description,
+                        execSummary,
+                        closed,
+                        null
 
+                );
+                return new IncidentViewModel();
+            }
+        }
+        catch ( Exception e )
+        {
+            e.printStackTrace();
+        }
+        return incidentToAdd;
+    }
 }
