@@ -185,6 +185,7 @@ public class DBHelper {
         }
         return false;
     }
+
     private static String buildGetLocationQuery() {
         return "select "
                     + "loc.LOCATION_ID,"
@@ -245,34 +246,36 @@ public class DBHelper {
 
     public static List<IncidentViewModel> getIncidents () {
         List<IncidentViewModel> incidentList = new ArrayList<>();
-        try {
-            String query = "select * from incident";
-            ResultSet result = Connector.executeQuery( query );
+        try
+        {
+            ResultSet results = Connector.executeQuery ( "SELECT * FROM Incident" );
+            while ( results.next() )
+            {
+                System.out.println("query result " + results.getString( "executive_summary"));
+                int reportID = results.getInt ( "report_id" );
+                int accountID = results.getInt ( "account_id" );
+                int categoryID = results.getInt ( "category_id" );
+                String description = results.getString ( "description" );
+                String execSummary = results.getString ( "executive_summary" );
+                boolean closed = results.getBoolean ("closed");
+                IncidentViewModel incident = new IncidentViewModel (
+                        reportID,
+                        accountID,
+                        categoryID,
+                        description,
+                        execSummary,
+                        closed,
+                        null
 
-            List<LocationViewModel> locations = getLocations();
-
-            while ( result.next() ) {
-                List<LocationViewModel> locationList = new ArrayList<>();
-                locationList.add( locations.get(0) );
-                locationList.add( locations.get(1) );
-                IncidentViewModel incident = new IncidentViewModel(
-                        result.getInt( "report_id" ),
-                        result.getInt( "account_id" ),
-                        result.getInt( "category_id" ),
-                        result.getString( "description" ),
-                        result.getString( "executive_summary" ),
-                        result.getBoolean( "closed" ),
-                        locationList
                 );
-
-                incidentList.add( incident );
-                return incidentList;
+                incidentList.add(incident);
             }
         }
-        catch ( Exception e ) {
+        catch ( Exception e )
+        {
             e.printStackTrace();
         }
-        return incidentList ;
+        return incidentList;
     }
 
     public static int addIncident (
