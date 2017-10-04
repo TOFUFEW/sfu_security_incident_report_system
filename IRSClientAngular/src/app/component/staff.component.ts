@@ -18,6 +18,7 @@ export class StaffComponent implements OnInit {
 
   getStaffs(): void {
     this.staffService.getStaffs().then( returnedStaffs => {
+      console.log(returnedStaffs);
       this.staffList = returnedStaffs;
     } );    
   }
