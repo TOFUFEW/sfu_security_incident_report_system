@@ -2,33 +2,44 @@ import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../service/user.service';
 import { AppComponent} from "../app.component";
+import { LoginService } from '../service/login.service';
+import { User } from '../model/user';
+import { Observable } from 'rxjs';
+import { Incidents } from '../model/incidents';
 
 @Component({
     templateUrl: '../view/login.component.html',
 })
 
 export class LoginComponent {
-    data = < any > {};
+    user: User = new User();
+    retVal: string = '';
     constructor(
         private router: Router,
         private userService: UserService,
-        private app: AppComponent) {
-
-        console.log( userService.getUserName() );
-        if ( this.userService.isLoggedIn() == true ) {
-            alert( "You are already logged in!" );
-            this.router.navigate([ 'dashboard' ]);
+        private loginService: LoginService,
+    ) {
+        if (this.userService.isLoggedIn()){
+            alert("You are already logged in!");
+            this.router.navigate([ 'dashboard' ] );
         }
     }
 
     onLogin() {
-        if ( this.data.username == "admin" && this.data.password == "admin" ) {
-            this.userService.setUserName( "admin" );
-            this.userService.signIn();
-            this.app.showLogoutButton();
-            this.router.navigate([ 'dashboard' ]);
-        } else {
-            console.log( "not admin" );
-        }
+        this.loginService.doLogin(this.user)
+        .subscribe(
+            (responseData) => {
+                this.retVal = responseData;
+                console.log(this.retVal);
+                this.userService.authUser(this.retVal);
+                if ( this.userService.isLoggedIn() ) {
+                    console.log("login success! Welcome " + this.userService.getCurrentUser().username);
+                    this.router.navigate([ 'dashboard' ] );
+                } else {
+                    alert("Invalid login credentials!");
+                    console.log("Invalid login credentials!");
+                }
+            },
+        );
     }
 }

@@ -5,7 +5,6 @@ import { Router, RouterModule } from '@angular/router';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    providers: [UserService]
 })
 
 export class AppComponent {

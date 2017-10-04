@@ -1,5 +1,6 @@
 package Model;
 
+
 import Util.DatabaseValues;
 
 public class Location extends IncidentElement

@@ -30,7 +30,7 @@ export class LocationService {
 
     update( location: Location ) : Promise<Location> {
         var promise = this.http
-                .put( this.locationsUrl, JSON.stringify( location ), { headers: this.headers } )
+                .post( this.locationsUrl, JSON.stringify( location ), { headers: this.headers } )
                 .toPromise()
                 .then( response => response.json() as Location )
                 .catch( this.handleError );
