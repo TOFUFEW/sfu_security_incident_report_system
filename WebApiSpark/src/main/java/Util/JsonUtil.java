@@ -1,4 +1,5 @@
 package Util;
+
 import com.google.gson.Gson;
 import spark.ResponseTransformer;
 
@@ -15,4 +16,7 @@ public class JsonUtil {
     public static ResponseTransformer json() {
         return JsonUtil::toJson;
     }
+
+
+
 }

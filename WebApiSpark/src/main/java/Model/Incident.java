@@ -21,6 +21,16 @@ public class Incident {
         this.closed = closed ;
     }
 
+    public int getReportID() { return reportID; };
+    public int getAccountID() { return accountID; };
+    public int getCategoryID() { return categoryID; };
+    public String getDescription()
+    {
+        System.out.println("Description: " + description);
+        return description; };
+    public String getExecSummary() { return execSummary; };
+    public int getClosed() { return closed; };
+
     private int reportID ;
     private int accountID ;
     private int categoryID ;

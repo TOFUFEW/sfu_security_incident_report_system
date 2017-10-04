@@ -1,13 +1,18 @@
 package app;
 
+
 import Controller.*;
+
 import DBConnector.Connector;
+
 import Model.Incident;
 import Model.Location;
+import Model.Staff;
 
 import java.sql.DriverManager;
 
 import static spark.Spark.*;
+
 
 // Class that initializes each controller at start - up
 public class Application
@@ -23,7 +28,8 @@ public class Application
         );
         DBinit ();
 
-        LocationController locationController = new LocationController();
+        LocationController locationController = new LocationController ();
+        StaffController staffController = new StaffController();
         IncidentsController incidentsController = new IncidentsController();
         LoginController loginController = new LoginController();
 
@@ -48,16 +54,24 @@ public class Application
         locationController.locationList.add( location1 );
         locationController.locationList.add( location2 );
 
-        Incident incident1 = new Incident(
-                123456 ,
-                7890 ,
-                3 ,
-                "Lorem ipsum description long" ,
-                "Short summary here" ,
-                0
+
+        Staff testStaff = new Staff(
+                100,
+                1,
+                "Bob",
+                "B"
+
         );
 
-        incidentsController.incidentList.add( incident1 );
+        Staff testStaff2 = new Staff(
+                200,
+                2,
+                "Boo",
+                "Ben"
+        );
+        staffController.staffList.add(testStaff);
+        staffController.staffList.add(testStaff2);
+
 
         // END TEST CODE
     }
@@ -103,13 +117,15 @@ public class Application
     }
 
     private static void DBinit(){
-        /*Connector.Username = "sa";
+        Connector.Username = "sa";
         Connector.Password = "CMPT373Alpha";
         Connector.URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=master;";
-        */
+        /*
         Connector.Username = "cmpt373alpha";
         Connector.Password = "cmpt373alpha";
         Connector.URL = "jdbc:sqlserver://sfuirsdb.czoee5rkbxlk.us-west-1.rds.amazonaws.com:1433;DatabaseName=IRS;";
+        */
+
 
         try
         {
