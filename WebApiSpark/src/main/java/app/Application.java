@@ -59,7 +59,7 @@ public class Application
 
         Staff testStaff = new Staff(
                 100,
-                "surrey",
+                1,
                 "Bob",
                 "B"
 
@@ -67,7 +67,7 @@ public class Application
 
         Staff testStaff2 = new Staff(
                 200,
-                "Burnaby",
+                2,
                 "Boo",
                 "Ben"
         );

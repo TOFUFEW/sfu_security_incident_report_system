@@ -231,54 +231,72 @@ public class DBHelper {
     }
 
 
+    public static Staff addStaff( Staff staff ) {
+        try {
+            String insertStaff = "insert into staff "
+                    + "values (" + staff.getAccountId() + ", "
+                    + staff.getCampusId() + ", "
+                    + staff.getFirstName() + ", "
+                    + staff.getLastName() + ")";
 
+            Connector.executeUpdate(insertStaff);
 
+        } catch ( Exception e ){
+            e.printStackTrace();
+        }
+        return staff;
+    }
 
+    public static boolean staffExists( int id ) {
 
-
-    public static int addStaff (
-            Staff staff,
-            List<Staff> staffList
-            ) {
-            int currentSize = staffList.size();
-            int id = new Random().nextInt(100000 + 1);
-            staff.putValue( DatabaseValues.DatabaseColumn.ACCOUNT_ID , "" + id );
-            staffList.add( staff );
-            return staffList.size() > currentSize ? staffList.size() - 1 : -1;
+        try {
+            String existsQuery = "select 1 from Staff where account_id = " + Integer.toString(id);
+            ResultSet result = Connector.executeQuery((existsQuery));
+            while ( result.next() ){
+                return true;
             }
+        } catch ( Exception e ){
+            e.printStackTrace();
+        }
+        return false;
+    }
 
-    public static int editStaff (
-            Staff staff,
-            List<Staff> staffList
-            ) {
-            int currentSize = staffList.size();
-            for ( int i = 0 ; i < currentSize ; i += 1 ) {
-            if ( staffList.get( i ).getValue ( DatabaseValues.DatabaseColumn.ACCOUNT_ID ) ==
-            staff.getValue ( DatabaseValues.DatabaseColumn.ACCOUNT_ID ) )
-            {
-            staffList.set( i , staff );
-            return i; // return the index of the edited location
-            }
-            }
 
-            return -1;
+    public static Staff editStaff( Staff staff ) {
+        try {
+            if (!staffExists( staff.getAccountId() )){
+                String editQuery = "update staff set "
+                        + "account_id = " + staff.getAccountId() + ", "
+                        + "campus_id = " + staff.getCampusId() + ", "
+                        + "first_name = " + staff.getFirstName() + ", "
+                        + "last_name = " + staff.getLastName() + " "
+                        + "where account_id = " + staff.getAccountId() + ";";
+                Connector.executeUpdate(editQuery);
+            } else {
+                return null;
             }
+        } catch ( Exception e ){
+        e.printStackTrace();
+    }
+        return staff;
+    }
 
-    public static boolean deleteStaff (
-            int id,
-            List<Staff> staffList
-            ) {
-            /* For testing purposes only. Replace this with code that does some database query */
-            int currentSize = staffList.size();
-            for ( int i = 0; i < currentSize; i++ ) {
-            if (staffList.get(i).getValue(DatabaseValues.DatabaseColumn.ACCOUNT_ID) == ("" + id)) {
-            staffList.remove(i);
-            return currentSize > staffList.size();
+    public static boolean deleteStaff(
+            int id
+    ) {
+        try {
+            if (staffExists(id)) {
+                String deleteQuery = "delete from staff where account_id = " + id + ";";
+                Connector.executeUpdate(deleteQuery);
+                return true;
+            } else {
+                return false;
             }
-            }
-
-            return false;
-            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return true;
+    }
 
 
     public static List < Staff > getStaff () {
@@ -288,10 +306,10 @@ public class DBHelper {
             ResultSet result = Connector.executeQuery("select * from Staff");
 
             while (result.next()) {
-                int id = Integer.parseInt(result.getString("ACCOUNT_ID"));
-                int campusId = Integer.parseInt(result.getString("CAMPUS_ID"));
-                String firstName = result.getString("FIRST_NAME");
-                String lastName = result.getString("LAST_NAME");
+                int id = Integer.parseInt(result.getString("account_id"));
+                int campusId = Integer.parseInt(result.getString("campus_id"));
+                String firstName = result.getString("first_name");
+                String lastName = result.getString("last_name");
 
                 Staff staff = new Staff(
                         id,

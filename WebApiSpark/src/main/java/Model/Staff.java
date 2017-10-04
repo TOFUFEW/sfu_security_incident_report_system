@@ -44,4 +44,22 @@ public class Staff extends IncidentElement {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    public int getAccountId () {
+        return accountId;
+    }
+
+    public int getCampusId () {
+        return campusId;
+    }
+
+    public String getFirstName () {
+        return firstName;
+    }
+
+    public String getLastName () {
+        return lastName;
+    }
+
+
 }

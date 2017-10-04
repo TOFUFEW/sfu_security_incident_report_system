@@ -23,27 +23,24 @@ public class StaffController {
     private void setupEndPoints ()
     {
         get("/staff", (request, response) -> {
-            return staffList;
+            return dbHelper.getStaff();
         }, json());
 
 
         post("/staff", (request, response) -> {
             Staff staff = ( Staff ) parser.fromJson(request.body(), Staff.class);
-            int i = dbHelper.addStaff(staff, staffList);
-            return i>=0? staffList.get(i) : null;
-
-
+            return dbHelper.addStaff(staff);
         }, json());
 
         put("/locations", (request, response) -> {
             Staff staff = ( Staff ) parser.fromJson(request.body(), Staff.class);
-            int i = dbHelper.editStaff(staff, staffList); // This code touches the database
-            return i >= 0 ? staffList.get(i) : null;
+            return dbHelper.editStaff(staff); // This code touches the database
+
         }, json());
 
         delete("/staff/:id", (request, response) -> {
             int id = Integer.parseInt(request.params(":id"));
-            return dbHelper.deleteStaff(id, staffList);
+            return dbHelper.deleteStaff(id);
         }, json());
     }
 
