@@ -21,14 +21,14 @@ export class StaffService {
     };
 
 
-    create( staff: Staff ) : Promise<Staff> {
-        var promise = this.http
-                .post( this.staffUrl, JSON.stringify( staff ), { headers: this.headers } )
-                .toPromise()
-                .then( response => response.json() as Staff )
-                .catch( this.handleError );
-        return Promise.resolve( promise );
-    };
+    // create( staff: Staff ) : Promise<Staff> {
+    //     var promise = this.http
+    //             .post( this.staffUrl, JSON.stringify( staff ), { headers: this.headers } )
+    //             .toPromise()
+    //             .then( response => response.json() as Staff )
+    //             .catch( this.handleError );
+    //     return Promise.resolve( promise );
+    // };
 
     update( staff: Staff ) : Promise<Staff> {
         var promise = this.http

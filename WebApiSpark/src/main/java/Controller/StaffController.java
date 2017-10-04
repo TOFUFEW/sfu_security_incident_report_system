@@ -27,12 +27,12 @@ public class StaffController {
         }, json());
 
 
-        post("/staff", (request, response) -> {
-            Staff staff = ( Staff ) parser.fromJson(request.body(), Staff.class);
-            return dbHelper.addStaff(staff);
-        }, json());
+//        post("/staff", (request, response) -> {
+//            Staff staff = ( Staff ) parser.fromJson(request.body(), Staff.class);
+//            return dbHelper.addStaff(staff);
+//        }, json());
 
-        put("/locations", (request, response) -> {
+        put("/staff", (request, response) -> {
             Staff staff = ( Staff ) parser.fromJson(request.body(), Staff.class);
             return dbHelper.editStaff(staff); // This code touches the database
 

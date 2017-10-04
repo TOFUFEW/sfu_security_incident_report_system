@@ -230,22 +230,50 @@ public class DBHelper {
         return 0;
     }
 
+    //staff functions
 
-    public static Staff addStaff( Staff staff ) {
+    public static List < Staff > getStaff () {
+        List<Staff> staffList = new ArrayList<>();
+
         try {
-            String insertStaff = "insert into staff "
-                    + "values (" + staff.getAccountId() + ", "
-                    + staff.getCampusId() + ", "
-                    + staff.getFirstName() + ", "
-                    + staff.getLastName() + ")";
+            ResultSet result = Connector.executeQuery("select * from Staff");
 
-            Connector.executeUpdate(insertStaff);
+            while (result.next()) {
+                int id = Integer.parseInt(result.getString("account_id"));
+                int campusId = Integer.parseInt(result.getString("campus_id"));
+                String firstName = result.getString("first_name");
+                String lastName = result.getString("last_name");
 
-        } catch ( Exception e ){
+                Staff staff = new Staff(
+                        id,
+                        campusId,
+                        firstName,
+                        lastName
+                );
+                staffList.add(staff);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return staff;
+        return staffList;
     }
+
+
+//    public static Staff addStaff( Staff staff ) {
+//        try {
+//            String insertStaff = "insert into staff "
+//                    + "values (" + staff.getAccountId() + ", "
+//                    + staff.getCampusId() + ", "
+//                    + staff.getFirstName() + ", "
+//                    + staff.getLastName() + ")";
+//
+//            Connector.executeUpdate(insertStaff);
+//
+//        } catch ( Exception e ){
+//            e.printStackTrace();
+//        }
+//        return staff;
+//    }
 
     public static boolean staffExists( int id ) {
 
@@ -299,30 +327,6 @@ public class DBHelper {
     }
 
 
-    public static List < Staff > getStaff () {
-        List<Staff> staffList = new ArrayList<>();
 
-        try {
-            ResultSet result = Connector.executeQuery("select * from Staff");
-
-            while (result.next()) {
-                int id = Integer.parseInt(result.getString("account_id"));
-                int campusId = Integer.parseInt(result.getString("campus_id"));
-                String firstName = result.getString("first_name");
-                String lastName = result.getString("last_name");
-
-                Staff staff = new Staff(
-                        id,
-                        campusId,
-                        firstName,
-                        lastName
-                );
-                staffList.add(staff);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return staffList;
-    }
 
 }
