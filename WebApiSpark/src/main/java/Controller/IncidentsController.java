@@ -26,12 +26,13 @@ public class IncidentsController
             return dbHelper.getIncidents();
         }, json());
 
-        /*
         post ("/incidents", ( request, response ) ->
         {
             Incident newIncident = ( Incident ) parser.fromJson ( request.body() , Incident.class );
-            return dbHelper.addIncident( newIncident, incidentList );
+            System.out.println ( "request body: " + request.body() );
+            System.out.println ( newIncident );
+            return dbHelper.addIncident( newIncident );
         }, json() );
-        */
+
     }
 }

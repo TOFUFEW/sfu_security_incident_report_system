@@ -273,4 +273,25 @@ public class DBHelper {
         return incidentList ;
     }
 
+    public static int addIncident (
+            Incident incidentToAdd
+    ) {
+        try {
+            incidentToAdd.;
+            Connector.executeQuery (
+                    "EXEC dbo.createIncident " +
+                    "@creator_id = 1, " +
+                    "@category_id = 1, " +
+                    "@description = '', " +
+                    "@executive_summary = '', " +
+                    "@location_id = 1, " +
+                    "@person_id = 1, " +
+                    "@staff_id = 1"
+            );
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }
