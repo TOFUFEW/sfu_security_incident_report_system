@@ -32,6 +32,48 @@ public class Application
         StaffController staffController = new StaffController();
         IncidentsController incidentsController = new IncidentsController();
         LoginController loginController = new LoginController();
+
+
+        // TEST CODE WITHOUT DATABASE
+        Location location1 = new Location (
+                "1",
+                "Surrey",
+                "SURR-301",
+                "3200",
+                "Cmpt"
+        );
+
+        Location location2 = new Location (
+                "2",
+                "Burnaby",
+                "BUR-800",
+                "9808",
+                "Ensc"
+        );
+
+        locationController.locationList.add( location1 );
+        locationController.locationList.add( location2 );
+
+
+        Staff testStaff = new Staff(
+                100,
+                1,
+                "Bob",
+                "B"
+
+        );
+
+        Staff testStaff2 = new Staff(
+                200,
+                2,
+                "Boo",
+                "Ben"
+        );
+        staffController.staffList.add(testStaff);
+        staffController.staffList.add(testStaff2);
+
+
+        // END TEST CODE
     }
 
     // CORS Filter
@@ -78,6 +120,11 @@ public class Application
         Connector.Username = "sa";
         Connector.Password = "CMPT373Alpha";
         Connector.URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=master;";
+        /*
+        Connector.Username = "cmpt373alpha";
+        Connector.Password = "cmpt373alpha";
+        Connector.URL = "jdbc:sqlserver://sfuirsdb.czoee5rkbxlk.us-west-1.rds.amazonaws.com:1433;DatabaseName=IRS;";
+        */
 
 
         try

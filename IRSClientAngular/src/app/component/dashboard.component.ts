@@ -18,6 +18,8 @@ import { UserService } from '../service/user.service';
 export class DashboardComponent {
   title = 'SFU Incident Reporting System';
   locationsList: Location[];
+  staffList: Staff[];
+  incidentsList: Incidents[];
   incidentsList: Incident[];
   staffList: Staff[];
 
