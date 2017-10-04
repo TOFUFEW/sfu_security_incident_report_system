@@ -4,10 +4,10 @@ package Model;
 import Util.DatabaseValues;
 
 public class Staff extends IncidentElement {
-    private int accountId;
-    private int campusId;
-    private String firstName;
-    private String lastName;
+    public int accountId;
+    public int campusId;
+    public String firstName;
+    public String lastName;
 
 
     public Staff(

@@ -251,7 +251,9 @@ public class DBHelper {
                         lastName
                 );
                 staffList.add(staff);
+                System.out.print(Integer.toString(staff.getAccountId()) + Integer.toString(staff.getCampusId()) + staff.getFirstName() +"\n");
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

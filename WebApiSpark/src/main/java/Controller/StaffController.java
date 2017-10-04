@@ -24,7 +24,7 @@ public class StaffController {
     {
         get("/staff", (request, response) -> {
             return dbHelper.getStaff();
-        }, json());
+        }, json() );
 
 
 //        post("/staff", (request, response) -> {
