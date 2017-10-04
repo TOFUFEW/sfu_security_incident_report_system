@@ -13,8 +13,8 @@
             <input type="text" [(ngModel)]="staff.firstName"/>
             <input type="text" [(ngModel)]="staff.lastName"/>
 
-            <a href="#" (click)="updateStaff(staff);">Save</a>
-            <a href="#" (click)="deleteStaff(staff.accountId)">Delete</a>
+            <span class="link" (click)="updateStaff(staff);">Save</span>
+            <span class="link" (click)="deleteStaff(staff.accountId)">Delete</span>
           </li>
         </ul>
   
