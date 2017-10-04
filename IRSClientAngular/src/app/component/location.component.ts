@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { IncidentElement } from '../model/incidentElement';
 import { Location } from '../model/location';
 import { LocationService } from '../service/location.service';
 import { Router, RouterModule } from '@angular/router';
@@ -9,7 +10,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 
 export class LocationComponent implements OnInit {
-  locations: Location[];
+  locations: Location[] = [];
   newLocation: Location = new Location();
 
   constructor (

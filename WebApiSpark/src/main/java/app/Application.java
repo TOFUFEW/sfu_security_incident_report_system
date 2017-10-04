@@ -1,13 +1,18 @@
 package app;
 
+
 import Controller.*;
+
 import DBConnector.Connector;
+
 import Model.Incident;
 import Model.Location;
+import Model.Staff;
 
 import java.sql.DriverManager;
 
 import static spark.Spark.*;
+
 
 // Class that initializes each controller at start - up
 public class Application
@@ -23,43 +28,10 @@ public class Application
         );
         DBinit ();
 
-        LocationController locationController = new LocationController();
+        LocationController locationController = new LocationController ();
+        StaffController staffController = new StaffController();
         IncidentsController incidentsController = new IncidentsController();
         LoginController loginController = new LoginController();
-
-
-        // TEST CODE WITHOUT DATABASE
-        Location location1 = new Location (
-                "1",
-                "Surrey",
-                "SURR-301",
-                "3200",
-                "Cmpt"
-        );
-
-        Location location2 = new Location (
-                "2",
-                "Burnaby",
-                "BUR-800",
-                "9808",
-                "Ensc"
-        );
-
-        locationController.locationList.add( location1 );
-        locationController.locationList.add( location2 );
-
-        Incident incident1 = new Incident(
-                123456 ,
-                7890 ,
-                3 ,
-                "Lorem ipsum description long" ,
-                "Short summary here" ,
-                0
-        );
-
-        incidentsController.incidentList.add( incident1 );
-
-        // END TEST CODE
     }
 
     // CORS Filter
@@ -103,13 +75,10 @@ public class Application
     }
 
     private static void DBinit(){
-        /*Connector.Username = "sa";
-        Connector.Password = "CMPT373Alpha";
-        Connector.URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=master;";
-        */
         Connector.Username = "sa";
         Connector.Password = "CMPT373Alpha";
         Connector.URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=master;";
+
 
         try
         {

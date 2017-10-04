@@ -6,7 +6,7 @@ export class Location {
   DEPARTMENT: string;
   CITY: string;
   ADDRESS: string;
-
+  
   /*
 
   Location = "{columValue:{ROOM_NUMBER:\"SURR-301\",CAMPUS_ID:\"1\",BUILDING_NUMBER:\"23\",DEPARTMENT:\"Sci\"}}"
