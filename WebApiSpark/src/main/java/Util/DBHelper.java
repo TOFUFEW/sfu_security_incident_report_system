@@ -264,6 +264,7 @@ public class DBHelper {
                 );
 
                 incidentList.add( incident );
+                return incidentList;
             }
         }
         catch ( Exception e ) {
