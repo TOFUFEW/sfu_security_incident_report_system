@@ -27,5 +27,11 @@ public class IncidentsController
         {
             return incidentList;
         }, json());
+
+        post ("/incidents", ( request, response ) ->
+        {
+            Incident newIncident = ( Incident ) parser.fromJson ( request.body() , Incident.class );
+            return dbHelper.addIncident( newIncident, incidentList );
+        }, json() );
     }
 }
