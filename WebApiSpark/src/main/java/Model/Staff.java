@@ -5,14 +5,14 @@ import Util.DatabaseValues;
 
 public class Staff extends IncidentElement {
     private int accountId;
-    private String campusId;
+    private int campusId;
     private String firstName;
     private String lastName;
 
 
     public Staff(
             int accountId,
-            String campusId,
+            int campusId,
             String firstName,
             String lastName
     ) {
@@ -25,7 +25,7 @@ public class Staff extends IncidentElement {
 
         super.putValue(
                 DatabaseValues.DatabaseColumn.CAMPUS_ID,
-                campusId
+                Integer.toString(campusId)
         );
 
 
