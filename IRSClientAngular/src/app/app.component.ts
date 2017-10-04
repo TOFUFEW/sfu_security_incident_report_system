@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from './service/user.service';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -8,5 +9,21 @@ import { UserService } from './service/user.service';
 })
 
 export class AppComponent {
-    
+  constructor(
+    private router: Router
+  ) {
+    var button = document.getElementById("logout");
+    button.style.visibility = "hidden";
+  }
+
+  showLogoutButton() {
+    var button = document.getElementById("logout");
+    button.style.visibility = "visible";
+  }
+
+  onLogout() {
+    console.log("logging out");
+    this.router.navigate(['login']);
+  }
+
 }
