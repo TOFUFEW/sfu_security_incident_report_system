@@ -1,14 +1,20 @@
 <div class="main-container">
     <div id="main-content" class="max-height-width">
       <div class="row-container">
+        <div class="container-fluid">
+          <incidents-component></incidents-component>
+        </div>
 
-        <incidents-component class="container-fluid"></incidents-component>
+        <div class="container-fluid" id="staffComponent">
+          <staff-component></staff-component>
+        </div>
 
-        <staff-component class="container-fluid"></staff-component>
-
-        <location-component class="container-fluid"></location-component>
-        <button (click)="onLogout()" class="btn-default btn" id="logout">Logout</button>
-
+        <div class="container-fluid" id="locationComponent">
+          <location-component></location-component>
+        </div>
+        <div>
+          <button (click)="onLogout()" class="btn-default btn" id="logout">Logout</button>
+        </div>
       </div>
     </div>
 </div>

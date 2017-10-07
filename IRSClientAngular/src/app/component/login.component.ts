@@ -18,7 +18,6 @@ export class LoginComponent {
         private router: Router,
         private userService: UserService,
         private loginService: LoginService,
-        private app: AppComponent
     ) {
         if (this.userService.isLoggedIn()){
             alert("You are already logged in!");
@@ -33,10 +32,8 @@ export class LoginComponent {
                 this.data = responseData;
                 console.log(this.data);
                 this.userService.authUser(this.data);
-                
                 if ( this.userService.isLoggedIn() ) {
                     console.log("login success! Welcome " + this.userService.getCurrentUser().username);
-                    // this.app.showLogoutButton();
                     this.router.navigate([ 'dashboard' ] );
                 } else {
                     alert("Invalid login credentials!");

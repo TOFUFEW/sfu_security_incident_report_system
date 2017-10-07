@@ -15,7 +15,7 @@ import { UserService } from '../service/user.service';
   providers: [LocationService, StaffService, IncidentsService]
 })
 
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   title = 'SFU Incident Reporting System';
   locationsList: Location[];
   staffList: Staff[];
@@ -38,5 +38,15 @@ export class DashboardComponent {
       console.log("logging out");
       this.userService.logout();
       this.router.navigate([ 'login' ] );
+  }
+
+  ngOnInit(): void {
+    console.log(this.userService.getCurrentUser().accType);
+    if( this.userService.getCurrentUser().accType == 2) {
+      var staffComp = document.getElementById("staffComponent");
+      var locationComp = document.getElementById("locationComponent");
+      staffComp.style.visibility = "hidden";
+      locationComp.style.visibility = "hidden";
+    }
   }
 }
