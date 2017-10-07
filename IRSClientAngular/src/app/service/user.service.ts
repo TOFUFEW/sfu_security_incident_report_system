@@ -5,32 +5,32 @@ import { User } from '../model/user';
 export class UserService {
     private currentUser: string = 'currentUser';
 
-    authUser(userString: string) {
-        if (userString == null) {
+    authUser( userString: string ) {
+        if ( userString == null ) {
             return;
         }
         console.log("local storage added user");
-        sessionStorage.setItem(this.currentUser, JSON.stringify(userString));
+        sessionStorage.setItem( this.currentUser, JSON.stringify( userString ) );
     }
 
     isLoggedIn(): boolean {
         let currentUser = this.getCurrentUser();
 
-        if (currentUser != null) {
+        if ( currentUser != null ) {
             return true;
         }
         return false;
     }
 
     logout() {
-      sessionStorage.setItem(this.currentUser, null);
+      sessionStorage.setItem( this.currentUser , null );
     }
 
     getCurrentUser(): User {
-        let jsonString = sessionStorage.getItem(this.currentUser);
-        let currentUser = JSON.parse(jsonString) as User;
+        let jsonString = sessionStorage.getItem( this.currentUser );
+        let currentUser = JSON.parse( jsonString ) as User;
 
-        if (currentUser != null) {
+        if ( currentUser != null ) {
             return currentUser;
         }
         return null;

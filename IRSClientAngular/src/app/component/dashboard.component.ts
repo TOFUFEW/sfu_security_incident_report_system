@@ -41,10 +41,9 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.userService.getCurrentUser().accType);
-    if( this.userService.getCurrentUser().accType == 2) {
-      var staffComp = document.getElementById("staffComponent");
-      var locationComp = document.getElementById("locationComponent");
+    if( this.userService.getCurrentUser().accType == 2 ) {
+      var staffComp = document.getElementById("staffComponent" );
+      var locationComp = document.getElementById("locationComponent" );
       staffComp.style.visibility = "hidden";
       locationComp.style.visibility = "hidden";
     }

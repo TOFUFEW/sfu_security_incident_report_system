@@ -26,14 +26,14 @@ export class LoginComponent {
     }
 
     onLogin() {
-        this.loginService.doLogin(this.user)
+        this.loginService.doLogin( this.user )
         .subscribe(
             (responseData) => {
                 this.data = responseData;
                 console.log(this.data);
-                this.userService.authUser(this.data);
+                this.userService.authUser( this.data );
                 if ( this.userService.isLoggedIn() ) {
-                    console.log("login success! Welcome " + this.userService.getCurrentUser().username);
+                    console.log("login success! Welcome " + this.userService.getCurrentUser().username );
                     this.router.navigate([ 'dashboard' ] );
                 } else {
                     alert("Invalid login credentials!");
