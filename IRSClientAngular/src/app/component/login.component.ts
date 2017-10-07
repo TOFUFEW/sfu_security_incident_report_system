@@ -5,7 +5,7 @@ import { AppComponent} from "../app.component";
 import { LoginService } from '../service/login.service';
 import { User } from '../model/user';
 import { Observable } from 'rxjs';
-import { Incidents } from '../model/incidents';
+import { Incident } from '../model/incident';
 
 @Component({
     templateUrl: '../view/login.component.html',
@@ -13,7 +13,7 @@ import { Incidents } from '../model/incidents';
 
 export class LoginComponent {
     user: User = new User();
-    retVal: string = '';
+    data: string = '';
     constructor(
         private router: Router,
         private userService: UserService,
@@ -30,9 +30,10 @@ export class LoginComponent {
         this.loginService.doLogin(this.user)
         .subscribe(
             (responseData) => {
-                this.retVal = responseData;
-                console.log(this.retVal);
-                this.userService.authUser(this.retVal);
+                this.data = responseData;
+                console.log(this.data);
+                this.userService.authUser(this.data);
+                
                 if ( this.userService.isLoggedIn() ) {
                     console.log("login success! Welcome " + this.userService.getCurrentUser().username);
                     // this.app.showLogoutButton();

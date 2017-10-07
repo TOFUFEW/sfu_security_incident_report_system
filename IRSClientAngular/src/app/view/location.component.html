@@ -4,15 +4,20 @@
 
       <ul>
         <li *ngFor="let location of locations">
-          Id: {{location.LOCATION_ID}}
+          Id: {{location.LOCATION_ID}} ,
           {{location.CITY}} , {{location.BUILDING_NAME}} , {{location.ROOM_NUMBER}} , {{location.DEPARTMENT}}
           <br>
+
+          <span>City:</span>
           <input type="text" [(ngModel)]="location.CITY"/>
+          <span>Building Name:</span>
           <input type="text" [(ngModel)]="location.BUILDING_NAME"/>
+          <span>Room Number:</span>
           <input type="text" [(ngModel)]="location.ROOM_NUMBER"/>
+          <span>Department:</span>
           <input type="text" [(ngModel)]="location.DEPARTMENT"/>
-          <a href="#" (click)="updateLocation(location);">Save</a>
-          <a href="#" (click)="deleteLocation(location.LOCATION_ID)" id="deleteLocation">Delete</a>
+          <span class="link" (click)="updateLocation(location);">Save</span>
+          <span class="link" (click)="deleteLocation(location.LOCATION_ID)">Delete</span>
         </li>
       </ul>
 
