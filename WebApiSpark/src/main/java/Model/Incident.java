@@ -9,10 +9,9 @@ public class Incident extends StorageObject
 {
     private ArrayList< IncidentElement > incidentElements = new ArrayList ();
 
-    public Incident ( Connector connector )
+    public Incident ( )
     {
         this (
-                connector,
                 "",
                 "",
                 "",
@@ -23,7 +22,6 @@ public class Incident extends StorageObject
     }
 
     public Incident (
-            Connector connector,
             String reportID,
             String accountID,
             String categoryID,
