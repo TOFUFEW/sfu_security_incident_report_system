@@ -1,40 +1,63 @@
 package Model;
 
 
+import DBConnector.Connector;
 import Util.DatabaseValues;
 
 public class Location extends IncidentElement
 {
+    public Location ( )
+    {
+        this (
+                "",
+                "",
+                "",
+                "",
+                ""
+
+        );
+    }
+
     public Location (
             String locationID,
             String campusID,
-            String buildingNumber,
+            String buildingName,
             String roomNumber,
             String department
     ) {
-        super(DatabaseValues.DatabaseTable.LOCATION);
+        super (
+                DatabaseValues.DatabaseTable.LOCATION,
+                new DatabaseValues.DatabaseColumn []
+                {
+                        DatabaseValues.DatabaseColumn.LOCATION_ID,
+                        DatabaseValues.DatabaseColumn.CAMPUS_ID,
+                        DatabaseValues.DatabaseColumn.BUILDING_NAME,
+                        DatabaseValues.DatabaseColumn.ROOM_NUMBER,
+                        DatabaseValues.DatabaseColumn.DEPARTMENT,
+                }
+        );
 
-        super.putValue(
+        editColumnValue (
                 DatabaseValues.DatabaseColumn.LOCATION_ID,
                 locationID
         );
 
-        super.putValue(
+        editColumnValue (
                 DatabaseValues.DatabaseColumn.CAMPUS_ID,
                 campusID
         );
 
-        super.putValue(
-                DatabaseValues.DatabaseColumn.BUILDING_NUMBER,
-                buildingNumber
+        editColumnValue (
+                DatabaseValues.DatabaseColumn.BUILDING_NAME,
+                buildingName
         );
 
-        super.putValue(
+        editColumnValue (
                 DatabaseValues.DatabaseColumn.ROOM_NUMBER,
                 roomNumber
         );
 
-        super.putValue(
+        editColumnValue (
                 DatabaseValues.DatabaseColumn.DEPARTMENT,
                 department
         );

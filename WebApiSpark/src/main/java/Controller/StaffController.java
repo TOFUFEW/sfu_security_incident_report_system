@@ -39,7 +39,7 @@ public class StaffController {
         }, json());
 
         delete("/staff/:id", (request, response) -> {
-            int id = Integer.parseInt(request.params(":id"));
+            String id = request.params(":id");
             return dbHelper.deleteStaff(id);
         }, json());
     }
