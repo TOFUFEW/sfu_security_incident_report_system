@@ -191,7 +191,7 @@ public class TestIncidentElement
         Location [] locations = DBHelper.getLocations ();
         int initialNumRecords = locations.length;
 
-        DBHelper.insertIncidentElement ( location );
+        Assert.assertTrue ( DBHelper.insertIncidentElement ( location ) );
 
         locations = DBHelper.getLocations ();
         int finalNumRecords = locations.length;
@@ -206,7 +206,7 @@ public class TestIncidentElement
                 DatabaseValues.DatabaseColumn.LOCATION_ID, locationID
         );
 
-        DBHelper.deleteIncidentElement ( location );
+        Assert.assertTrue ( DBHelper.deleteIncidentElement ( location ) );
     }
 
     @Test
@@ -220,7 +220,7 @@ public class TestIncidentElement
                 "Arts"
         );
 
-        DBHelper.insertIncidentElement ( location );
+        Assert.assertTrue ( DBHelper.insertIncidentElement ( location ) );
 
         String locationID = DBHelper.DEBUG_getLargestLocationIDFromTable ();
 
@@ -234,7 +234,7 @@ public class TestIncidentElement
                 DatabaseValues.DatabaseColumn.ROOM_NUMBER, "1000"
         );
 
-        DBHelper.updateIncidentElement ( location );
+        Assert.assertTrue ( DBHelper.updateIncidentElement ( location ) );
 
         Location [] locations = DBHelper.getLocations ();
         for ( int i = 0 ; i < locations.length ; i++ )
@@ -255,7 +255,7 @@ public class TestIncidentElement
                 DatabaseValues.DatabaseColumn.LOCATION_ID, locationID
         );
 
-        DBHelper.deleteIncidentElement ( location );
+        Assert.assertTrue ( DBHelper.deleteIncidentElement ( location ) );
     }
 
     @Test
@@ -269,7 +269,7 @@ public class TestIncidentElement
                 "Arts"
         );
 
-        DBHelper.insertIncidentElement ( location );
+        Assert.assertTrue ( DBHelper.insertIncidentElement ( location ) );
 
         Location [] locations = DBHelper.getLocations ();
         int initialNumRecords = locations.length;
@@ -281,7 +281,7 @@ public class TestIncidentElement
                 DatabaseValues.DatabaseColumn.LOCATION_ID, locationID
         );
 
-        DBHelper.deleteIncidentElement ( location );
+        Assert.assertTrue ( DBHelper.deleteIncidentElement ( location ) );
 
         locations = DBHelper.getLocations ();
         int finalNumRecords = locations.length;
