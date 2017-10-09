@@ -145,7 +145,8 @@ public class TestIncidentElement
         Assert.assertTrue ( !insertSQL.contains (DatabaseValues.DatabaseColumn.LOCATION_ID.toString () ) );
 
         // Location's locationID is only useful for objects that are retrieved from the database and
-        // brought to the front end, which are updated or deleted by the user. Thus:
+        // brought to the front end, which are updated or deleted by the user. However, because it is null in value,
+        // it will be ignored when generating sql.
 
         String updateSQL = location.toUpdateSQL ();
         Assert.assertTrue ( !updateSQL.contains (DatabaseValues.DatabaseColumn.LOCATION_ID.toString () ) );
@@ -291,30 +292,5 @@ public class TestIncidentElement
 
         Assert.assertTrue ( initialNumRecords > finalNumRecords );
     }
-
-    /* POTENTIAL PROBLEMS AND CONCERNS WITH DESIGN
-         * Notice how locationID is null in the Location constructor?
-         *
-         * This is a subtle/sneaky mechanism which tells the class that the value should be ignored when creating
-         * insert sql statements, because it will be an auto-incremented value by the database.
-         *
-         * The database will not permit an insertion sql statement for location that includes locationID, so we are
-         * excluding it from the insert statement.
-         *
-         * DBHelper.insertIncidentElement ( location ); // works if locationID is set to null, else it will be rejected
-         * by the database.
-         *
-         * update and delete would be called identically, however, this time, locationId must be included,
-         * as it is the primary key of Location table. This probably won't be an issue, because the context is different.
-         *
-         * In insert, a Location object is created from scratch, and does not exist in the database.
-         * In terms of update and delete, however, an existing Location record is pulled from the database, converted
-         * into a Java Location object, and then sent to the UI, with its locationID. Thus, if it's sent back to the
-         * server for an update or delete, it will still have its locationID. So this operation should be fine in theory.
-         *
-         * DBHelper.updateStorageObject ( location1 ); // doesn't work unless location1 has valid locationID
-         * DBHelper.deleteStorageObject ( location1 ); // doesn't work unless location1 has valid locationID
-         *
-         */
 
 }
