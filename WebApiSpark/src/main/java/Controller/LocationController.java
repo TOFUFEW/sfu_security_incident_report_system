@@ -4,6 +4,7 @@ import DBConnector.Connector;
 import Model.Location;
 import Util.*;
 import ViewModel.LocationViewModel;
+import com.google.gson.Gson;
 
 import java.sql.ResultSet;
 import java.util.*;
@@ -11,9 +12,6 @@ import static Util.JsonUtil.json;
 import static spark.Spark.*;
 
 public class LocationController {
-    JsonUtil parser = new JsonUtil();
-    DBHelper dbHelper = new DBHelper();
-    public List<Location> locationList = new ArrayList<>();
 
     public LocationController ()
     {
@@ -21,51 +19,40 @@ public class LocationController {
     }
 
     private void setupEndPoints() {
-        get( "/locations" , ( request , response ) -> {
-            return dbHelper.getLocations();
-        }, json() );
+        get ( "/locations" , ( request , response ) -> {
+            return DBHelper.getLocations ();
+        } );
 
-        post( "/locations" , ( request , response ) -> {
-            LocationViewModel loc = ( LocationViewModel ) parser.fromJson( request.body() , LocationViewModel.class );
-            if ( !dbHelper.isExistingLocation( loc.LOCATION_ID ) )
-                return dbHelper.addLocation( loc );
-            return dbHelper.editLocation( loc );
-        } , json() );
+        post ( "/locations" , ( request , response ) -> {
+            Gson gson = new Gson ();
+            Location location = gson.fromJson (
+                    request.body (),
+                    Location.class
+            );
 
-        put( "/locations" , ( request , response ) -> {
-            LocationViewModel loc = ( LocationViewModel ) parser.fromJson( request.body() , Location.class );
-            LocationViewModel ret = dbHelper.editLocation( loc ); // This code touches the database
-            return ret;
-        }, json());
+//            if ( !DBHelper.isExistingLocation ( location ) )
+//            {
+//                return DBHelper.insertIncidentElement ( location );
+//            }
+//
+//            return DBHelper.editLocation( location );return "";
+            return "";
+        } );
+
+        put ( "/locations" , ( request , response ) -> {
+            Gson gson = new Gson ();
+            Location location = gson.fromJson (
+                    request.body (),
+                    Location.class
+            );
+
+           // LocationViewModel ret = DBHelper.editLocation ( location ); // This code touches the database
+            return ""; //ret;
+        } );
 
         delete( "/locations/:id", ( request , response ) -> {
             int id = Integer.parseInt( request.params( ":id" ) );
-            return dbHelper.deleteLocation( id );
+            return DBHelper.deleteLocation( id );
         } , json() );
-
-        get( "/test" , ( request , response ) -> getClichedMessage() );
-    }
-
-    public String getClichedMessage ()
-    {
-        try
-        {
-            String query = "select * from employee";
-            ResultSet myRs = Connector.executeQuery ( query );
-
-            while( myRs.next () )
-            {
-                String fname = myRs.getString ( "fname" );
-                String lname = myRs.getString ( "lname" );
-                System.out.println ( fname + ' ' + lname );
-                String namePair = fname + ' ' + lname;
-                return namePair;
-            }
-        }
-        catch ( Exception e )
-        {
-            e.printStackTrace ();
-        }
-        return "Hello World";
     }
 }
