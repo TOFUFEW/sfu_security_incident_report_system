@@ -12,7 +12,7 @@ import { UserService } from '../service/user.service';
 @Component({
   selector: 'dashboard',
   templateUrl: '../view/dashboard.component.html',
-  styleUrls: ['../../assets/css/dashboard.css'],
+  styleUrls: ['../../assets/css/dashboard.component.css'],
   providers: [LocationService, StaffService, IncidentsService]
 })
 

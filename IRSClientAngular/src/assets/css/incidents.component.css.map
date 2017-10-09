@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAGI,mBAAG;EACC,OAAO,EAAE,OAAO;AAEpB,mBAAG;EACC,OAAO,EAAE,GAAG;AAGhB,mBAAG;EACC,UAAU,ECQD,6BAA0B",
+"sources": ["incidents.component.scss","_settings.scss"],
+"names": [],
+"file": "incidents.component.css"
+}

@@ -1,0 +1,8 @@
+#incidents-table th {
+  padding: 8px 4px; }
+#incidents-table td {
+  padding: 4px; }
+#incidents-table td {
+  border-top: 1px solid rgba(0, 0, 0, 0.16); }
+
+/*# sourceMappingURL=incidents.component.css.map */

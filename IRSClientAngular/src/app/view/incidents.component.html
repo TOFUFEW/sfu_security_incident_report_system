@@ -1,23 +1,27 @@
-<ul>
-  <li *ngFor="let incident of incidents">
-      {{incident.EXECUTIVE_SUMMARY}} , 
-      RID: {{incident.REPORT_ID}} , 
-      Staff: {{incident.ACCOUNT_ID}} , 
-      Description: {{incident.DESCRIPTION}} <br>
-      Location(s): <br>
-      <ul>
-        <li *ngFor="let location of incident.LOCATIONS">
-          {{location.CITY}} , 
-          {{location.BUILDING_NAME}} , 
-          {{location.ROOM_NUMBER}} , 
-          {{location.DEPARTMENT}} 
-        </li>
-      </ul>
-      
-  </li>
-</ul>
+<table id="incidents-table" class="max-height-width">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ID</th>
+      <th>Description</th>
+      <th>Location</th>
+      <th>Assigned Staff</th>
+      <th>Timer</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let incident of incidents">
+    <tr>
+      <td>!!!</td>
+      <td>{{incident.REPORT_ID}}</td>
+      <td>{{incident.DESCRIPTION}} </td>
+      <td></td>
+      <td><a href="">Assign</a></td>
+      <td>4:44</td>
+    </tr>
+  </tbody>
+</table>
 
-<div class="row-container">
+<!-- <div class="row-container">
   <span class="field-title">Description</span>
   <textarea cols="50" rows="8" [(ngModel)]="newIncident.DESCRIPTION"></textarea>
 </div>
@@ -27,4 +31,4 @@
   <textarea cols="50" rows="8" [(ngModel)]="newIncident.EXECUTIVE_SUMMARY"></textarea>
 </div>
 
-<button class="btn btn-primary" (click)="addIncident();">Submit</button>
+<button class="btn btn-primary" (click)="addIncident();">Submit</button> -->

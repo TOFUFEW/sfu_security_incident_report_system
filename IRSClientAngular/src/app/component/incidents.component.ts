@@ -4,8 +4,9 @@ import { IncidentsService } from '../service/incidents.service';
 
 @Component( 
   {
-  selector: 'incidents-component',
-  templateUrl: '../view/incidents.component.html'
+    selector: 'incidents-component',
+    templateUrl: '../view/incidents.component.html',
+    styleUrls: ['../../assets/css/incidents.component.css']
   }
 )
 
