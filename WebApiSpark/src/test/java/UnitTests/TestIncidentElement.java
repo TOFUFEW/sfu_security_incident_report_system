@@ -148,10 +148,10 @@ public class TestIncidentElement
         // brought to the front end, which are updated or deleted by the user. Thus:
 
         String updateSQL = location.toUpdateSQL ();
-        Assert.assertTrue ( updateSQL.contains (DatabaseValues.DatabaseColumn.LOCATION_ID.toString () ) );
+        Assert.assertTrue ( !updateSQL.contains (DatabaseValues.DatabaseColumn.LOCATION_ID.toString () ) );
 
         String deleteSQL = location.toDeleteSQL ();
-        Assert.assertTrue ( deleteSQL.contains (DatabaseValues.DatabaseColumn.LOCATION_ID.toString () ) );
+        Assert.assertTrue ( !deleteSQL.contains (DatabaseValues.DatabaseColumn.LOCATION_ID.toString () ) );
     }
 
     @Test
@@ -200,6 +200,16 @@ public class TestIncidentElement
         int finalNumRecords = locations.length;
 
         Assert.assertTrue ( initialNumRecords < finalNumRecords );
+
+        // clean up after test
+        String locationID = DBHelper.DEBUG_getLargestLocationIDFromTable ();
+
+        // add locationID
+        location.editColumnValue (
+                DatabaseValues.DatabaseColumn.LOCATION_ID, locationID
+        );
+
+        DBHelper.deleteIncidentElement ( location );
     }
 
     @Test
@@ -241,6 +251,14 @@ public class TestIncidentElement
 
         Assert.assertTrue ( !location.getColumnValue ( DatabaseValues.DatabaseColumn.ROOM_NUMBER ).equals ( "4000" ) );
         Assert.assertTrue ( location.getColumnValue ( DatabaseValues.DatabaseColumn.ROOM_NUMBER ).equals ( "1000" ) );
+
+        // clean up after test
+        // add locationID
+        location.editColumnValue (
+                DatabaseValues.DatabaseColumn.LOCATION_ID, locationID
+        );
+
+        DBHelper.deleteIncidentElement ( location );
     }
 
     @Test

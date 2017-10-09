@@ -82,7 +82,7 @@ public class StorageObject
 
             if ( value == null )
             {
-                // don't do anything with empty string values - means it is auto-incremented by database
+                // don't do anything with null string values - means it is auto-incremented by database
             }
 
             else if ( column.getDataType ().equals ( "INT" ) || column.getDataType ().equals ( "BIT" ) )
@@ -122,7 +122,12 @@ public class StorageObject
         {
             String value = getColumnValue ( column );
 
-            if ( !column.isPrimaryKeyOfTable ( table ) )
+            if ( value == null )
+            {
+                // don't do anything with null string values
+            }
+
+            else if ( !column.isPrimaryKeyOfTable ( table ) )
             {
                 setSQL += column.toString () + " = " + "\'" + value + "\'" + ", ";
             }
@@ -139,7 +144,12 @@ public class StorageObject
         {
             String value = getColumnValue ( column );
 
-            if ( column.isPrimaryKeyOfTable ( table ) )
+            if ( value == null )
+            {
+                // don't do anything with null string values
+            }
+
+            else if ( column.isPrimaryKeyOfTable ( table ) )
             {
                 if ( column.getDataType ().equals ( "INT" ) )
                 {
@@ -176,7 +186,14 @@ public class StorageObject
         String whereList = "WHERE ";
         for ( DatabaseValues.DatabaseColumn column : columns )
         {
-            if ( column.isPrimaryKeyOfTable ( table ) )
+            String value = getColumnValue ( column );
+
+            if ( value == null )
+            {
+                // don't do anything with null string values
+            }
+
+            else if ( column.isPrimaryKeyOfTable ( table ) )
             {
                 whereList += column.toString () + " = " + "\'" + getColumnValue ( column ) + "\'" + " AND ";
             }

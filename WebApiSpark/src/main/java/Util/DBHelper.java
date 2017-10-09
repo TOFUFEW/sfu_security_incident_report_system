@@ -8,6 +8,7 @@ import ViewModel.LocationViewModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -16,6 +17,29 @@ public class DBHelper {
     }
 
     /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; REFACTORED methods ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
+
+    public static boolean insertIncident ( Incident incident )
+    {
+        String incidentSQL = incident.toInsertSQL ();
+        String [] incidentElementInsertSQL = incident.incidentElementsToInsertSQL ();
+
+        // collect all sql in one array list to iterate
+        ArrayList < String > sqlArrList = new ArrayList ( Arrays.asList ( incidentElementInsertSQL ) );
+        sqlArrList.add ( incidentSQL );
+
+        try {
+            for ( String sql : sqlArrList )
+            {
+                Connector.execute ( sql );
+            }
+        }
+        catch ( SQLException e )
+        {
+            e.printStackTrace ();
+            return false;
+        }
+        return true;
+    }
 
     public static boolean insertIncidentElement ( IncidentElement incidentElement )
     {
