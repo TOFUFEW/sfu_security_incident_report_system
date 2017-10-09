@@ -6,14 +6,9 @@ import Util.DatabaseValues;
 import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.experimental.theories.suppliers.TestedOn;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TestIncidentElement
 {
-
     @Test
     public void testValidLocation ()
     {
@@ -25,11 +20,11 @@ public class TestIncidentElement
                 "Arts"
         );
 
-        String locationID = location.getColumnValue( DatabaseValues.DatabaseColumn.LOCATION_ID );
-        String campusID = location.getColumnValue( DatabaseValues.DatabaseColumn.CAMPUS_ID );
-        String buidingName = location.getColumnValue( DatabaseValues.DatabaseColumn.BUILDING_NAME );
-        String roomNumber = location.getColumnValue( DatabaseValues.DatabaseColumn.ROOM_NUMBER );
-        String department = location.getColumnValue( DatabaseValues.DatabaseColumn.DEPARTMENT );
+        String locationID = location.getColumnValue ( DatabaseValues.DatabaseColumn.LOCATION_ID );
+        String campusID = location.getColumnValue ( DatabaseValues.DatabaseColumn.CAMPUS_ID );
+        String buidingName = location.getColumnValue ( DatabaseValues.DatabaseColumn.BUILDING_NAME );
+        String roomNumber = location.getColumnValue ( DatabaseValues.DatabaseColumn.ROOM_NUMBER );
+        String department = location.getColumnValue ( DatabaseValues.DatabaseColumn.DEPARTMENT );
 
 
         Assert.assertTrue ( locationID == null );
@@ -68,11 +63,11 @@ public class TestIncidentElement
                 "Science"
         );
 
-        String locationID = location.getColumnValue( DatabaseValues.DatabaseColumn.LOCATION_ID );
-        String campusID = location.getColumnValue( DatabaseValues.DatabaseColumn.CAMPUS_ID );
-        String buidingName = location.getColumnValue( DatabaseValues.DatabaseColumn.BUILDING_NAME );
-        String roomNumber = location.getColumnValue( DatabaseValues.DatabaseColumn.ROOM_NUMBER );
-        String department = location.getColumnValue( DatabaseValues.DatabaseColumn.DEPARTMENT );
+        String locationID = location.getColumnValue ( DatabaseValues.DatabaseColumn.LOCATION_ID );
+        String campusID = location.getColumnValue ( DatabaseValues.DatabaseColumn.CAMPUS_ID );
+        String buidingName = location.getColumnValue ( DatabaseValues.DatabaseColumn.BUILDING_NAME );
+        String roomNumber = location.getColumnValue ( DatabaseValues.DatabaseColumn.ROOM_NUMBER );
+        String department = location.getColumnValue ( DatabaseValues.DatabaseColumn.DEPARTMENT );
 
         Assert.assertFalse ( campusID.equals ( "1" ) );
         Assert.assertFalse ( buidingName.equals ( "Building E" ) );
@@ -117,9 +112,9 @@ public class TestIncidentElement
         Assert.assertTrue ( !updateFirstName ); // failed
         Assert.assertTrue ( !updateRoomNumber ); // failed
 
-        String campusID = location.getColumnValue( DatabaseValues.DatabaseColumn.CAMPUS_ID );
-        String firstName = location.getColumnValue( DatabaseValues.DatabaseColumn.FIRST_NAME );
-        String roomNumber = location.getColumnValue( DatabaseValues.DatabaseColumn.ROOM_NUMBER );
+        String campusID = location.getColumnValue ( DatabaseValues.DatabaseColumn.CAMPUS_ID );
+        String firstName = location.getColumnValue ( DatabaseValues.DatabaseColumn.FIRST_NAME );
+        String roomNumber = location.getColumnValue ( DatabaseValues.DatabaseColumn.ROOM_NUMBER );
 
         Assert.assertFalse ( campusID.equals ( "Burnaby" ) );
         Assert.assertFalse ( firstName != null && firstName.equals ( "Spiderman" ) );
@@ -142,22 +137,23 @@ public class TestIncidentElement
         );
 
         String insertSQL = location.toInsertSQL ();
-        Assert.assertTrue ( !insertSQL.contains (DatabaseValues.DatabaseColumn.LOCATION_ID.toString () ) );
+        Assert.assertTrue ( !insertSQL.contains ( DatabaseValues.DatabaseColumn.LOCATION_ID.toString () ) );
 
         // Location's locationID is only useful for objects that are retrieved from the database and
         // brought to the front end, which are updated or deleted by the user. However, because it is null in value,
         // it will be ignored when generating sql.
 
         String updateSQL = location.toUpdateSQL ();
-        Assert.assertTrue ( !updateSQL.contains (DatabaseValues.DatabaseColumn.LOCATION_ID.toString () ) );
+        Assert.assertTrue ( !updateSQL.contains ( DatabaseValues.DatabaseColumn.LOCATION_ID.toString () ) );
 
         String deleteSQL = location.toDeleteSQL ();
-        Assert.assertTrue ( !deleteSQL.contains (DatabaseValues.DatabaseColumn.LOCATION_ID.toString () ) );
+        Assert.assertTrue ( !deleteSQL.contains ( DatabaseValues.DatabaseColumn.LOCATION_ID.toString () ) );
     }
 
     @Test
-    public void testToJsonLocation () {
-        Location location1 = new Location(
+    public void testToJsonLocation ()
+    {
+        Location location1 = new Location (
                 null, // notice how this is null? Tells class to ignore the column and its value when creating Insert SQL
                 "1",
                 "Building E",
