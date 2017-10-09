@@ -30,8 +30,6 @@ public class IncidentsController
         post ("/incidents", ( request, response ) ->
         {
             IncidentViewModel newIncident = ( IncidentViewModel ) parser.fromJson ( request.body() , IncidentViewModel.class );
-            System.out.println ( "request body: " + request.body() );
-            System.out.println ( newIncident );
             return dbHelper.addIncident( newIncident );
         }, json() );
 
