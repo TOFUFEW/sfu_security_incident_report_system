@@ -75,6 +75,7 @@ body {
         align-items: center !important;
     }
 }
+
 .test-panel {
     width: 100%;
     height: auto;
@@ -157,6 +158,10 @@ span.panel-header, .glyphicon-heading {
     font-size: $text-md;
 }
 
+span.glyphicon-fire {
+    color: $sfu-red;
+}
+
 .green { background: $color-danger; }
 
 .icon {
@@ -175,4 +180,3 @@ span.panel-header, .glyphicon-heading {
     border: none !important;
     font-weight: 700;
 }
-

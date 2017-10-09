@@ -1,11 +1,17 @@
 @import "settings";
 
+div.incident-element-container,
+div.incident-element-container .incident-element-header,
+div.incident-element-container .incident-element-details,
+div.incidents-row,
+div.side-container,
+div.side-container .panel-heading {
+    @include flex(flex-start, flex-start);
+}
+
 div#incidents-container {
-    //flex-direction: column;
-    //width: 60%;
     order: 2;
     padding: $padding-lg;
-    //flex-grow: 3;
 
     div#incidents-dashboard {
         height: 67%;
@@ -52,92 +58,77 @@ div#incidents-container {
             height: 100%;
         }
     }
-    
-    div.incidents-row {
-        @include flex(flex-start, flex-start);
-        background-color: white;
-        height: 100%;
+}
+
+div.incidents-row {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    overflow-x: auto;
+}
+
+div.incident-box {
+    flex-direction: column;
+    height: 100%;
+    width: 25%;
+    min-width: 25%;
+    padding: $padding-lg;
+    border-right: $border-default;
+    overflow: auto;
+
+    .incident-header {
+        font-size: $text-lg;
+    }
+}
+
+div.incident-card {
+    @include flex(space-between, center);
+    padding-bottom: $padding-lg;
+    border-bottom: $border-default;
+
+    div.incident-icon {
+        height: 36px;
+        width: 36px;
+        border: $border-default;
+        border-radius: 99px;
+    }
+
+    div.incident-title {
+        @include flex(flex-start, center);
+        flex-direction: column;
+    }
+
+    .incident-timer {
+        float: right;
+        font-size: $text-md;
+    }
+}
+
+div.incident-element-container {
+    flex-direction: column;
+    padding-top: $padding-sm;
+    padding-bottom: $padding-sm;
+
+    .incident-element-header {
         width: 100%;
-        overflow-x: auto;
-    }
-
-    div.incident-box {
-        flex-direction: column;
-        height: 100%;
-        width: 25%;
-        min-width: 25%;
-        padding: $padding-lg;
-        // border-left: $border-default;
-         border-right: $border-default;
-        overflow: auto;
-
-        .incident-header {
-            font-size: $text-lg;
-        }
-    }
-
-    div.incident-card {
-        @include flex(space-between, center);
-        padding-bottom: $padding-lg;
-        border-bottom: $border-default;
-        div.incident-icon {
-            height: 36px;
-            width: 36px;
-            border: $border-default;
-            border-radius: 99px;
-        }
-        div.incident-title {
-            @include flex(flex-start, center);
-            flex-direction: column;
-        }
-
-        .incident-timer {
-            float: right;
-            font-size: $text-md;
-        }
-    }
-
-    div.incident-element-container {
-        @include flex(flex-start, flex-start);
-        flex-direction: column;
-        padding-top: $padding-sm;
         padding-bottom: $padding-sm;
-
-        .incident-element-header {
-            @include flex(flex-start, flex-start);
-            width: 100%;
-            padding-bottom: $padding-sm;
-        }
-
-        .icon { margin-right: 8px; }
-        .incident-element-title {
-            font-size: $text-md;
-        }
-
-        .incident-element-details {
-            @include flex(flex-start, flex-start);
-            flex-direction: column;
-        }
-        width: 100%;
-        height: auto;
     }
+
+    .icon { margin-right: 8px; }
+    .incident-element-title {
+        font-size: $text-md;
+    }
+
+    .incident-element-details {
+        
+        flex-direction: column;
+    }
+    width: 100%;
+    height: auto;
 }
 
 div#left-panels {
-    //flex-grow: 1;
     order: 1;
-}
-div#right-panels {
-    //flex-grow: 1;
-    order: 3;
-}
-
-div.side-container {
-    @include flex(flex-start, flex-start);
-    //flex-grow: 1;
-    flex-direction: column;
-    padding: $padding-md;
-    //background-color: $sfu-black;
 
     #button-container {
         flex-grow: 0.1;
@@ -145,13 +136,18 @@ div.side-container {
             padding: 6px 48px !important;
         }
     }
+}
+div#right-panels {
+    order: 3;
+}
+
+div.side-container {
+    flex-direction: column;
+    padding: $padding-md;
+
     .panel {
         width: 100%;
         flex-grow: 1;
-
-        .panel-heading {
-            @include flex (flex-start, flex-start);
-        }
     }
 
     .form-control {

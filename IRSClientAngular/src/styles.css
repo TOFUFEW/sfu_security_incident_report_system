@@ -120,6 +120,9 @@ body {
 span.panel-header, .glyphicon-heading {
   font-size: 18px; }
 
+span.glyphicon-fire {
+  color: #A6192E; }
+
 .green {
   background: #cc0000; }
 
