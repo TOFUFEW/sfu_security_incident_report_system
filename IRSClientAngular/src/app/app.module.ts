@@ -15,6 +15,7 @@ import { IncidentsComponent } from './component/incidents.component';
 import { LoginComponent } from './component/login.component';
 
 /* Services */
+import { DataHelperService } from './util/dataHelper.service';
 import { UserService } from './service/user.service';
 import { LoginService } from './service/login.service';
 
@@ -35,7 +36,7 @@ import { LoginService } from './service/login.service';
     LoginComponent,
   ],
 
-  providers: [ UserService, LoginService ],
+  providers: [ UserService, LoginService, DataHelperService ],
   bootstrap: [AppComponent]
 })
 
