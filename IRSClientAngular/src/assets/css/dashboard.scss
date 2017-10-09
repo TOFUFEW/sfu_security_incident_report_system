@@ -1,0 +1,163 @@
+@import "settings";
+
+div#incidents-container {
+    //flex-direction: column;
+    //width: 60%;
+    order: 2;
+    padding: $padding-lg;
+    //flex-grow: 3;
+
+    div#incidents-dashboard {
+        height: 67%;
+        margin: 0px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    div#incidents-list-panel {
+        height: 33%;
+        background: $grey-lite;
+        border-top: 4px solid $grey-default;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        
+        div.panel-body {
+            padding-bottom: 0px;
+        }
+        
+        div#toolbar {
+            height: 20%;
+        }
+        div#incidents-list {
+            height: 100%;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            background-color: $grey-dark;
+            overflow: auto;
+        }
+    }
+
+    div.panel {
+        overflow: hidden;
+
+        div.panel-heading {
+            @include flex(space-between, center);
+            
+            input {
+                min-width: 250px;
+                width: 350px;
+            }
+        }
+        div.panel-body {
+            height: 100%;
+        }
+    }
+    
+    div.incidents-row {
+        @include flex(flex-start, flex-start);
+        background-color: white;
+        height: 100%;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    div.incident-box {
+        flex-direction: column;
+        height: 100%;
+        width: 25%;
+        min-width: 25%;
+        padding: $padding-lg;
+        // border-left: $border-default;
+         border-right: $border-default;
+        overflow: auto;
+
+        .incident-header {
+            font-size: $text-lg;
+        }
+    }
+
+    div.incident-card {
+        @include flex(space-between, center);
+        padding-bottom: $padding-lg;
+        border-bottom: $border-default;
+        div.incident-icon {
+            height: 36px;
+            width: 36px;
+            border: $border-default;
+            border-radius: 99px;
+        }
+        div.incident-title {
+            @include flex(flex-start, center);
+            flex-direction: column;
+        }
+
+        .incident-timer {
+            float: right;
+            font-size: $text-md;
+        }
+    }
+
+    div.incident-element-container {
+        @include flex(flex-start, flex-start);
+        flex-direction: column;
+        padding-top: $padding-sm;
+        padding-bottom: $padding-sm;
+
+        .incident-element-header {
+            @include flex(flex-start, flex-start);
+            width: 100%;
+            padding-bottom: $padding-sm;
+        }
+
+        .icon { margin-right: 8px; }
+        .incident-element-title {
+            font-size: $text-md;
+        }
+
+        .incident-element-details {
+            @include flex(flex-start, flex-start);
+            flex-direction: column;
+        }
+        width: 100%;
+        height: auto;
+    }
+}
+
+div#left-panels {
+    //flex-grow: 1;
+    order: 1;
+}
+div#right-panels {
+    //flex-grow: 1;
+    order: 3;
+}
+
+div.side-container {
+    @include flex(flex-start, flex-start);
+    //flex-grow: 1;
+    flex-direction: column;
+    padding: $padding-md;
+    //background-color: $sfu-black;
+
+    #button-container {
+        flex-grow: 0.1;
+        button {
+            padding: 6px 48px !important;
+        }
+    }
+    .panel {
+        width: 100%;
+        flex-grow: 1;
+
+        .panel-heading {
+            @include flex (flex-start, flex-start);
+        }
+    }
+
+    .form-control {
+        background-color: $grey-lite;
+        border: none;
+        box-shadow: none;
+        max-width: 50%;
+    }
+}
