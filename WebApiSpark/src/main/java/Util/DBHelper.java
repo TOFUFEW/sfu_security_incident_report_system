@@ -145,6 +145,50 @@ public class DBHelper {
         return "-1";
     }
 
+
+    public static Staff [] getStaffs ()
+    {
+        ArrayList < Staff > staffList = new ArrayList ();
+
+        try
+        {
+            ResultSet resultSet = Connector.executeQuery ( "SELECT * FROM dbo.Staff" );
+
+            while ( resultSet.next () )
+            {
+                Staff staff = new Staff ();
+
+                staff.extractFromResultSet ( resultSet );
+
+                staffList.add ( staff );
+            }
+        }
+
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+
+        return staffList.toArray ( new Staff [ staffList.size () ] );
+    }
+
+    public static boolean deleteStaff (
+            String id
+    ) {
+        try {
+            if (staffExists(id)) {
+                String deleteQuery = "delete from staff where account_id = " + id + ";";
+                Connector.executeUpdate(deleteQuery);
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return true;
+    }
+
     /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; NOT REFACTORED! ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
 
     public static LocationViewModel getLocation(int id) {
@@ -416,22 +460,7 @@ public class DBHelper {
         return staff;
     }
 
-    public static boolean deleteStaff (
-            String id
-    ) {
-        try {
-            if (staffExists(id)) {
-                String deleteQuery = "delete from staff where account_id = " + id + ";";
-                Connector.executeUpdate(deleteQuery);
-                return true;
-            } else {
-                return false;
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return true;
-    }
+
 
     public static IncidentViewModel addIncident (
             IncidentViewModel incidentToAdd
