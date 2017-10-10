@@ -18,6 +18,31 @@ public class DBHelper {
 
     /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; REFACTORED methods ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
 
+    public static Incident [] getIncidents () {
+        ArrayList < Incident > incidentList = new ArrayList ();
+
+        try
+        {
+            ResultSet resultSet = Connector.executeQuery ( "SELECT * FROM dbo.Incident" );
+
+            while ( resultSet.next () )
+            {
+                Incident incident = new Incident ();
+
+                incident.extractFromResultSet ( resultSet );
+
+                incidentList.add ( incident );
+            }
+        }
+
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+
+        return incidentList.toArray ( new Incident [ incidentList.size () ] );
+    }
+
     public static boolean insertIncident ( Incident incident )
     {
         String incidentSQL = incident.toInsertSQL ();
@@ -406,38 +431,6 @@ public class DBHelper {
             e.printStackTrace();
         }
         return true;
-    }
-
-    public static List<IncidentViewModel> getIncidents () {
-        List<IncidentViewModel> incidentList = new ArrayList<>();
-        try
-        {
-            ResultSet results = Connector.executeQuery ( "SELECT * FROM Incident" );
-            while ( results.next() )
-            {
-                int reportID = results.getInt ( "report_id" );
-                int accountID = results.getInt ( "account_id" );
-                int categoryID = results.getInt ( "category_id" );
-                String description = results.getString ( "description" );
-                String execSummary = results.getString ( "executive_summary" );
-                boolean closed = results.getBoolean ("closed");
-                IncidentViewModel incident = new IncidentViewModel (
-                        reportID,
-                        accountID,
-                        categoryID,
-                        description,
-                        execSummary,
-                        closed,
-                        null
-                );
-                incidentList.add(incident);
-            }
-        }
-        catch ( Exception e )
-        {
-            e.printStackTrace();
-        }
-        return incidentList;
     }
 
     public static IncidentViewModel addIncident (
