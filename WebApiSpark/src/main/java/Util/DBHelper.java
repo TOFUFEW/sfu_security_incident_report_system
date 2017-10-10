@@ -151,7 +151,7 @@ public class DBHelper
 
         try
         {
-            ResultSet resultSet = Connector.executeQuery ( "SELECT * FROM dbo.Location" );
+            ResultSet resultSet = Connector.executeQuery ( "SELECT * FROM " + DatabaseValues.DatabaseTable.LOCATION.toString () );
 
             while ( resultSet.next () )
             {
@@ -175,7 +175,7 @@ public class DBHelper
     {
         try
         {
-            ResultSet resultSet = Connector.executeQuery("SELECT MAX ( LOCATION_ID ) AS MaxLocationID FROM dbo.Location");
+            ResultSet resultSet = Connector.executeQuery("SELECT MAX ( LOCATION_ID ) AS MaxLocationID FROM " + DatabaseValues.DatabaseTable.LOCATION.toString () );
             while ( resultSet.next () )
             {
                 return "" + resultSet.getInt ( "MaxLocationID" );

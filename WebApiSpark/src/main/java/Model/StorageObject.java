@@ -308,7 +308,6 @@ public class StorageObject
         }
     }
 
-
     public boolean validColumn ( DatabaseValues.DatabaseColumn column )
     {
         for ( DatabaseValues.DatabaseColumn existingColumn :  getColumnSet () )
