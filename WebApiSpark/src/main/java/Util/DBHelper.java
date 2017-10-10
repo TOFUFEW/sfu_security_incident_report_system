@@ -20,7 +20,7 @@ public class DBHelper
 
         try
         {
-            ResultSet resultSet = Connector.executeQuery ( "SELECT * FROM dbo.Incident" );
+            ResultSet resultSet = Connector.executeQuery ( "SELECT * FROM " + DatabaseValues.DatabaseTable.INCIDENT.toString() );
 
             while ( resultSet.next () )
             {

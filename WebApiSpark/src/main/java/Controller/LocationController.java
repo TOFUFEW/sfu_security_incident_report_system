@@ -29,7 +29,7 @@ public class LocationController {
 
         post( "/locations" , ( request , response ) -> {
             Location location = ( Location ) parser.fromJson ( request.body () , Location.class );
-
+            System.out.println("request.body(): "+ request.body() + "   ;    location: " + location);
             if ( DBHelper.selectIncidentElement ( location ) == null )
             {
                 return DBHelper.insertIncidentElement ( location );

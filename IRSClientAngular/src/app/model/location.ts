@@ -4,8 +4,8 @@ export class Location {
   BUILDING_NAME: string;
   ROOM_NUMBER: number;
   DEPARTMENT: string;
-  CITY: string;
-  ADDRESS: string;
+  // CITY: string;
+  // ADDRESS: string;
   
   /*
 
