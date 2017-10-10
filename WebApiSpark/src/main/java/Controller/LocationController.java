@@ -2,8 +2,10 @@ package Controller;
 
 import DBConnector.Connector;
 import Model.Location;
+import Model.StorageObject;
 import Util.*;
 import ViewModel.LocationViewModel;
+import com.google.gson.Gson;
 
 import java.sql.ResultSet;
 import java.util.*;
@@ -26,23 +28,30 @@ public class LocationController {
         }, json() );
 
         post( "/locations" , ( request , response ) -> {
-            Location loc = ( Location ) parser.fromJson( request.body() , LocationViewModel.class );
-            if ( !DBHelper.isExistingLocation ( loc ) )
-                return DBHelper.addLocation ( loc );
-            return loc.toUpdateSQL();
-        } , json() );
+            Location location = ( Location ) parser.fromJson ( request.body () , Location.class );
 
-        put( "/locations" , ( request , response ) -> {
-            Location loc = ( Location ) parser.fromJson( request.body() , Location.class );
-            Location ret = DBHelper.updateLocation ( loc ); // This code touches the database
-            return ret;
-        }, json());
+            if ( !DBHelper.checkIfExistsIncidentElement ( location ) )
+            {
+                return DBHelper.insertIncidentElement ( location );
+            }
+            return DBHelper.updateIncidentElement( location );
+        } );
 
-        delete( "/locations/:id", ( request , response ) -> {
-            int id = Integer.parseInt( request.params( ":id" ) );
-            Location loc = DBHelper.getLocation( id );
-            return dbHelper.deleteLocation ( loc );
-        } , json() );
+        put ( "/locations" , ( request , response ) -> {
+            Location location = ( Location ) parser.fromJson ( request.body () , Location.class );
+
+            if ( !DBHelper.checkIfExistsIncidentElement ( location ) ) {
+                return DBHelper.insertIncidentElement ( location );
+            }
+            return DBHelper.updateIncidentElement( location );
+        } );
+
+        delete ( "/locations", ( request , response ) -> {
+            Location location = ( Location ) parser.fromJson ( request.body () , Location.class );
+
+            boolean delete = DBHelper.deleteIncidentElement ( location );
+            return delete;
+        } );
 
         get( "/test" , ( request , response ) -> getClichedMessage() );
     }

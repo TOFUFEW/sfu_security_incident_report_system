@@ -13,9 +13,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DBHelper {
-    public DBHelper() {
-    }
+public class DBHelper
+{
 
     /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; REFACTORED methods ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
 
@@ -78,6 +77,28 @@ public class DBHelper {
         return true;
     }
 
+    public static boolean checkIfExistsIncidentElement ( IncidentElement incidentElement )
+    {
+        String sql = incidentElement.toSelectSQL ();
+
+        if ( sql == null )
+        {
+            return false;
+        }
+
+        try {
+            ResultSet resultSet = Connector.executeQuery ( sql );
+            if ( !resultSet.next () )
+            {
+                return false;
+            }
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
     public static Location [] getLocations ()
     {
         ArrayList < Location > locationList = new ArrayList ();
@@ -120,6 +141,33 @@ public class DBHelper {
         }
         return "-1";
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; NOT REFACTORED! DO NOT USE! ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
 
     public static Location getLocation (int id) {
         try {
@@ -195,8 +243,6 @@ public class DBHelper {
         }
         return false;
     }
-
-       /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; NOT REFACTORED! ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
 
     //staff functions
 

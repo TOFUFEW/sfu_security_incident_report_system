@@ -3,7 +3,6 @@ package Model;
 import Util.DatabaseValues;
 import com.google.gson.Gson;
 
-import javax.xml.crypto.Data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -45,11 +44,6 @@ public class StorageObject
 
     public String toInsertSQL ()
     {
-        if ( !validObjectForSQL () )
-        {
-            return null;
-        }
-
         DatabaseValues.DatabaseColumn [] columns = getColumnSet ();
 
         String columnList = "(";
@@ -110,7 +104,7 @@ public class StorageObject
 
     public String toUpdateSQL ()
     {
-        if ( !validObjectForSQL () )
+        if ( !hasAllValidPrimaryKeyValues() )
         {
             return null;
         }
@@ -176,7 +170,7 @@ public class StorageObject
 
     public String toDeleteSQL ()
     {
-        if ( !validObjectForSQL () )
+        if ( !hasAllValidPrimaryKeyValues() )
         {
             return null;
         }
@@ -207,6 +201,41 @@ public class StorageObject
 
         String deleteSQL = "DELETE FROM " + table.toString () + " " + whereList;
         return deleteSQL;
+    }
+
+    public String toSelectSQL ()
+    {
+        if ( !hasAllValidPrimaryKeyValues() )
+        {
+            return null;
+        }
+
+        DatabaseValues.DatabaseColumn [] columns = getColumnSet ();
+
+        String whereList = "WHERE ";
+        for ( DatabaseValues.DatabaseColumn column : columns )
+        {
+            String value = getColumnValue ( column );
+
+            if ( value == null )
+            {
+                // don't do anything with null string values
+            }
+
+            else if ( column.isPrimaryKeyOfTable ( table ) )
+            {
+                whereList += column.toString () + " = " + "\'" + getColumnValue ( column ) + "\'" + " AND ";
+            }
+        }
+
+        // remove AND at the end of list
+        whereList = whereList.substring (
+                0,
+                whereList.length () - 4
+        );
+
+        String selectSQL = "SELECT * FROM " + table.toString () + " " + whereList;
+        return selectSQL;
     }
 
     public String toJson ()
@@ -292,16 +321,24 @@ public class StorageObject
         return false;
     }
 
-    private boolean validObjectForSQL ()
+    private boolean hasAllValidPrimaryKeyValues ()
     {
+        boolean valid = false;
         for ( DatabaseValues.DatabaseColumn column : getColumnSet () )
         {
             if ( column.isPrimaryKeyOfTable ( table ) )
             {
-                return true;
+                if ( getColumnValue ( column ) != null && !getColumnValue ( column ).isEmpty () )
+                {
+                    valid = true;
+                }
+                else
+                {
+                    return false; // has a primary key that does not have a valid value
+                }
             }
         }
-        return false;
+        return valid;
     }
 
     private String validateInput (

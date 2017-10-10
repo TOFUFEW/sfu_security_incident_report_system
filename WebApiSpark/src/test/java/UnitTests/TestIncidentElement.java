@@ -163,7 +163,7 @@ public class TestIncidentElement
 
         String json = location1.toJson ();
         Gson gson = new Gson ();
-
+        System.out.println ( "json = " + json );
         Location location2 = gson.fromJson (
                 json,
                 Location.class
