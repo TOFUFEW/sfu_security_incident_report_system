@@ -141,13 +141,15 @@ public class TestIncidentElement
 
         // Location's locationID is only useful for objects that are retrieved from the database and
         // brought to the front end, which are updated or deleted by the user. However, because it is null in value,
-        // it will be ignored when generating sql.
+        // it will be ignored when generating sql. Furthermore, update and delete require Primary Key info.
+        // because this location object has null for a value, it cannot generate valid update and delete sql
+        // statements, so it returns null
 
         String updateSQL = location.toUpdateSQL ();
-        Assert.assertTrue ( !updateSQL.contains ( DatabaseValues.DatabaseColumn.LOCATION_ID.toString () ) );
+        Assert.assertTrue ( updateSQL == null );
 
         String deleteSQL = location.toDeleteSQL ();
-        Assert.assertTrue ( !deleteSQL.contains ( DatabaseValues.DatabaseColumn.LOCATION_ID.toString () ) );
+        Assert.assertTrue ( deleteSQL == null );
     }
 
     @Test
@@ -289,4 +291,40 @@ public class TestIncidentElement
         Assert.assertTrue ( initialNumRecords > finalNumRecords );
     }
 
+    @Test
+    public void testSelectSQLLocation () {
+        Location location1 = new Location (
+                null, // notice how this is null? Tells class to ignore the column and its value when creating Insert SQL
+                "1",
+                "Building E",
+                "4000",
+                "Arts"
+        );
+
+        Assert.assertTrue ( DBHelper.insertIncidentElement ( location1 ) );
+
+        String locationID = DBHelper.DEBUG_getLargestLocationIDFromTable ();
+
+        Location location2 = new Location (
+                locationID,
+                "",
+                "",
+                "",
+                ""
+        );
+
+        Location location3 = ( Location ) DBHelper.selectIncidentElement ( location2 );
+
+        Assert.assertTrue ( location2.getColumnValue( DatabaseValues.DatabaseColumn.LOCATION_ID )
+                .equals ( location3.getColumnValue( DatabaseValues.DatabaseColumn.LOCATION_ID ) )
+        );
+
+        // clean up after test
+        // add locationID
+        location1.editColumnValue (
+                DatabaseValues.DatabaseColumn.LOCATION_ID, locationID
+        );
+
+        Assert.assertTrue ( DBHelper.deleteIncidentElement ( location1 ) );
+    }
 }
