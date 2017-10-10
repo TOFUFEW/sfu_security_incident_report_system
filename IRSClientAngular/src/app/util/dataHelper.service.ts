@@ -21,4 +21,14 @@ export class DataHelperService
         });
         return arr;
     }
+
+    toIncidentElement( table: string, object: Object): IncidentElement{
+        var incidentElement: IncidentElement = new IncidentElement();
+     
+        incidentElement.table = table;
+        incidentElement.columnValue = object;
+        return incidentElement;
+    }
+
+
 }
