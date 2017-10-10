@@ -26,21 +26,22 @@ public class LocationController {
         }, json() );
 
         post( "/locations" , ( request , response ) -> {
-            LocationViewModel loc = ( LocationViewModel ) parser.fromJson( request.body() , LocationViewModel.class );
-            if ( !dbHelper.isExistingLocation( loc.LOCATION_ID ) )
-                return dbHelper.addLocation( loc );
-            return dbHelper.editLocation( loc );
+            Location loc = ( Location ) parser.fromJson( request.body() , LocationViewModel.class );
+            if ( !DBHelper.isExistingLocation ( loc ) )
+                return DBHelper.addLocation ( loc );
+            return loc.toUpdateSQL();
         } , json() );
 
         put( "/locations" , ( request , response ) -> {
-            LocationViewModel loc = ( LocationViewModel ) parser.fromJson( request.body() , Location.class );
-            LocationViewModel ret = dbHelper.editLocation( loc ); // This code touches the database
+            Location loc = ( Location ) parser.fromJson( request.body() , Location.class );
+            Location ret = DBHelper.updateLocation ( loc ); // This code touches the database
             return ret;
         }, json());
 
         delete( "/locations/:id", ( request , response ) -> {
             int id = Integer.parseInt( request.params( ":id" ) );
-            return dbHelper.deleteLocation( id );
+            Location loc = DBHelper.getLocation( id );
+            return dbHelper.deleteLocation ( loc );
         } , json() );
 
         get( "/test" , ( request , response ) -> getClichedMessage() );

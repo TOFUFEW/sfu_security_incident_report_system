@@ -289,4 +289,29 @@ public class TestIncidentElement
         Assert.assertTrue ( initialNumRecords > finalNumRecords );
     }
 
+    @Test
+    public void testGetLocation () {
+        Location location = DBHelper.getLocation (66);
+        System.out.println(location.toString());
+        Assert.assertTrue ( location.getColumnValue( DatabaseValues.DatabaseColumn.LOCATION_ID ).equals(66) );
+    }
+
+    @Test
+    public void testAddLocation () {
+        Location location = new Location (
+                null,
+                "100",
+                "Test",
+                "4000",
+                "Arts"
+        );
+
+        Location loc = DBHelper.addLocation( location );
+        Assert.assertTrue( loc.getColumnValue( DatabaseValues.DatabaseColumn.CAMPUS_ID ).equals( "1" ) );
+        Assert.assertTrue( loc.getColumnValue( DatabaseValues.DatabaseColumn.BUILDING_NAME ).equals( "Building E" ) );
+        Assert.assertTrue( loc.getColumnValue( DatabaseValues.DatabaseColumn.ROOM_NUMBER ).equals( "4000" ) );
+        Assert.assertTrue( loc.getColumnValue( DatabaseValues.DatabaseColumn.DEPARTMENT ).equals( "Arts" ) );
+
+    }
+
 }

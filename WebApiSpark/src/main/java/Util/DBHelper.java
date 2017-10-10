@@ -1,16 +1,17 @@
 package Util;
 
 import DBConnector.Connector;
-import Model.*;
+import Model.Incident;
+import Model.IncidentElement;
+import Model.Location;
+import Model.Staff;
 import ViewModel.IncidentViewModel;
-import ViewModel.LocationViewModel;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class DBHelper {
     public DBHelper() {
@@ -120,130 +121,73 @@ public class DBHelper {
         return "-1";
     }
 
-    /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; NOT REFACTORED! ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
-
-    public static LocationViewModel getLocation(int id) {
+    public static Location getLocation (int id) {
         try {
-            String query = "select "
-                    + "loc.LOCATION_ID, "
-                    + "loc.CAMPUS_ID, "
-                    + "loc.BUILDING_NAME, "
-                    + "loc.DEPARTMENT, "
-                    + "loc.ROOM_NUMBER, "
-                    + "camp.CITY, "
-                    + "camp.ADDRESS "
-                    + "from dbo.location as loc "
-                    + "inner join dbo.Campus as camp "
-                    + "on loc.CAMPUS_ID = camp.CAMPUS_ID "
-                    + "where loc.location_id = " + id;
+            String query = "select * from dbo.Location where location_id = " + id;
             ResultSet result = Connector.executeQuery(query);
 
-            while (result.next()) {
-                int locationId = result.getInt("location_id");
-                int campusId = result.getInt("campus_id");
-                String buildingName = result.getString("building_name");
-                int roomNumber = result.getInt("room_number");
-                String department = result.getString("department");
-                String city = result.getString("city");
-                String address = result.getString("address");
+            Location location = new Location ();
 
-                return new LocationViewModel(
-                        locationId,
-                        campusId,
-                        buildingName,
-                        roomNumber,
-                        department,
-                        city,
-                        address
-                );
-            }
+            location.extractFromResultSet ( result );
+            return location;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new LocationViewModel();
+        return null;
     }
 
-    public static LocationViewModel addLocation(LocationViewModel location) {
+    public static Location addLocation ( Location location ) {
         try {
-            int i = Connector.executeUpdate(buildAddLocationQuery(location));
-
-            String query = "select top 1 " +
-                    "loc.LOCATION_ID, " +
-                    "loc.CAMPUS_ID, " +
-                    "loc.BUILDING_NAME, " +
-                    "loc.DEPARTMENT, " +
-                    "loc.ROOM_NUMBER, " +
-                    "camp.CITY, " +
-                    "camp.ADDRESS  " +
-                    "from dbo.location as loc  " +
-                    "inner join dbo.Campus as camp " +
-                    "on loc.CAMPUS_ID = camp.CAMPUS_ID " +
-                    "order by location_id desc";
+            String query = location.toInsertSQL();
             ResultSet result = Connector.executeQuery(query);
-            while (result.next()) {
-                int locationId = result.getInt("location_id");
-                int campusId = result.getInt("campus_id");
-                String buildingName = result.getString("building_name");
-                int roomNumber = result.getInt("room_number");
-                String department = result.getString("department");
-                String city = result.getString("city");
-                String address = result.getString("address");
 
-                LocationViewModel loc = new LocationViewModel(
-                        locationId,
-                        campusId,
-                        buildingName,
-                        roomNumber,
-                        department,
-                        city,
-                        address
-                );
-                return loc;
-            }
+            Location loc = new Location ();
+
+            loc.extractFromResultSet ( result );
+            return loc;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
 
-        return new LocationViewModel();
     }
 
-    public static LocationViewModel editLocation(LocationViewModel location)
-    {
+    public static Location updateLocation ( Location location ) {
         try {
-            // Check if campus exists. If not, create one and insert into the database
-            int id = getCampusId (location.CITY);
+            String query = location.toUpdateSQL();
+            ResultSet result = Connector.executeQuery(query);
 
-            String query = "update location " +
-                    "set building_name = '" + location.BUILDING_NAME +
-                    "', room_number = " + location.ROOM_NUMBER +
-                    ", department = '" + location.DEPARTMENT +
-                    "', campus_id = " + id +
-                    " where location_id = " + location.LOCATION_ID;
-            int i = Connector.executeUpdate (query);
-            return getLocation(location.LOCATION_ID);
+            Location loc = new Location ();
+
+            loc.extractFromResultSet ( result );
+            return loc;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return new LocationViewModel();
+        return null;
     }
 
-    public static boolean deleteLocation(int id) {
+    public static boolean deleteLocation ( Location location ) {
         try {
-            String query = "delete from location where location_id = " + id;
-            int i = Connector.executeUpdate(query);
-            return i > 0;
+            String query = location.toDeleteSQL();
+            ResultSet result = Connector.executeQuery(query);
+
+            return result.next();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    public static boolean isExistingLocation(int id) {
+    public static boolean isExistingLocation( Location location ) {
         try {
-            String query = "select * from location where location_id = " + id;
+            String query = "select * from location where location_id = " + location.getColumnValue( DatabaseValues.DatabaseColumn.LOCATION_ID );
             ResultSet result = Connector.executeQuery(query);
-            while (result.next()) {
+            if ( result.next() ) {
                 return true;
             }
         } catch (Exception e) {
@@ -252,60 +196,7 @@ public class DBHelper {
         return false;
     }
 
-    private static String buildGetLocationQuery() {
-        return "select "
-                + "loc.LOCATION_ID,"
-                + "loc.CAMPUS_ID,"
-                + "loc.BUILDING_NAME,"
-                + "loc.DEPARTMENT,"
-                + "loc.ROOM_NUMBER,"
-                + "camp.CITY,"
-                + "camp.ADDRESS "
-                + "from dbo.location as loc "
-                + "inner join dbo.Campus as camp "
-                + "on loc.CAMPUS_ID = camp.CAMPUS_ID";
-    }
-
-    private static String buildAddLocationQuery(LocationViewModel location) {
-        // Check if campus exists
-        try {
-            int campusId = getCampusId (location.CITY);
-            return "insert into location (campus_id, building_name, room_number, department) "
-                    + "values ('" + campusId + "', '"
-                    + location.BUILDING_NAME + "', '"
-                    + location.ROOM_NUMBER + "', '"
-                    + location.DEPARTMENT + "')";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
-    public static int getCampusId(String city) {
-        try {
-            String checkCampus = "select * from campus " +
-                    "where campus.CITY = '" + city + "' ";
-            ResultSet campusResult = Connector.executeQuery(checkCampus);
-
-            int i = 0;
-            if (!campusResult.next()) {
-                // insert into campus db
-                String insertCampus = "insert into campus (city) values ('" + city + "')";
-                i = Connector.executeUpdate(insertCampus);
-            }
-
-            campusResult = Connector.executeQuery(checkCampus);
-
-            while (campusResult.next()) {
-                int id = campusResult.getInt("campus_id");
-                System.out.println(id);
-                return id;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
+       /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; NOT REFACTORED! ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
 
     //staff functions
 
