@@ -1,10 +1,7 @@
 package Util;
 
 import DBConnector.Connector;
-import Model.Incident;
-import Model.IncidentElement;
-import Model.Location;
-import Model.Staff;
+import Model.*;
 import ViewModel.IncidentViewModel;
 
 import java.sql.ResultSet;
@@ -102,26 +99,50 @@ public class DBHelper
         return true;
     }
 
-    public static boolean checkIfExistsIncidentElement ( IncidentElement incidentElement )
+    public static IncidentElement selectIncidentElement ( IncidentElement incidentElement )
     {
         String sql = incidentElement.toSelectSQL ();
 
         if ( sql == null )
         {
-            return false;
+            return null;
         }
 
         try {
             ResultSet resultSet = Connector.executeQuery ( sql );
-            if ( !resultSet.next () )
+            if ( resultSet.next () )
             {
-                return false;
+                if ( incidentElement instanceof Location )
+                {
+                    Location location = new Location ();
+                    location.extractFromResultSet ( resultSet );
+                    return location;
+                }
+                else if ( incidentElement instanceof Staff )
+                {
+                    Staff staff = new Staff ();
+                    staff.extractFromResultSet ( resultSet );
+                    return staff;
+                }
+                else if ( incidentElement instanceof User)
+                {
+                    User user = new User ();
+                    user.extractFromResultSet ( resultSet );
+                    return user;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
             }
         } catch ( SQLException e ) {
             e.printStackTrace();
-            return false;
+            return null;
         }
-        return true;
     }
 
     public static Location [] getLocations ()

@@ -141,13 +141,15 @@ public class TestIncidentElement
 
         // Location's locationID is only useful for objects that are retrieved from the database and
         // brought to the front end, which are updated or deleted by the user. However, because it is null in value,
-        // it will be ignored when generating sql.
+        // it will be ignored when generating sql. Furthermore, update and delete require Primary Key info.
+        // because this location object has null for a value, it cannot generate valid update and delete sql
+        // statements, so it returns null
 
         String updateSQL = location.toUpdateSQL ();
-        Assert.assertTrue ( !updateSQL.contains ( DatabaseValues.DatabaseColumn.LOCATION_ID.toString () ) );
+        Assert.assertTrue ( updateSQL == null );
 
         String deleteSQL = location.toDeleteSQL ();
-        Assert.assertTrue ( !deleteSQL.contains ( DatabaseValues.DatabaseColumn.LOCATION_ID.toString () ) );
+        Assert.assertTrue ( deleteSQL == null );
     }
 
     @Test
@@ -163,7 +165,7 @@ public class TestIncidentElement
 
         String json = location1.toJson ();
         Gson gson = new Gson ();
-        System.out.println ( "json = " + json );
+
         Location location2 = gson.fromJson (
                 json,
                 Location.class
@@ -290,28 +292,39 @@ public class TestIncidentElement
     }
 
     @Test
-    public void testGetLocation () {
-        Location location = DBHelper.getLocation (66);
-        System.out.println(location.toString());
-        Assert.assertTrue ( location.getColumnValue( DatabaseValues.DatabaseColumn.LOCATION_ID ).equals(66) );
-    }
-
-    @Test
-    public void testAddLocation () {
-        Location location = new Location (
-                null,
-                "100",
-                "Test",
+    public void testSelectSQLLocation () {
+        Location location1 = new Location (
+                null, // notice how this is null? Tells class to ignore the column and its value when creating Insert SQL
+                "1",
+                "Building E",
                 "4000",
                 "Arts"
         );
 
-        Location loc = DBHelper.addLocation( location );
-        Assert.assertTrue( loc.getColumnValue( DatabaseValues.DatabaseColumn.CAMPUS_ID ).equals( "1" ) );
-        Assert.assertTrue( loc.getColumnValue( DatabaseValues.DatabaseColumn.BUILDING_NAME ).equals( "Building E" ) );
-        Assert.assertTrue( loc.getColumnValue( DatabaseValues.DatabaseColumn.ROOM_NUMBER ).equals( "4000" ) );
-        Assert.assertTrue( loc.getColumnValue( DatabaseValues.DatabaseColumn.DEPARTMENT ).equals( "Arts" ) );
+        Assert.assertTrue ( DBHelper.insertIncidentElement ( location1 ) );
 
+        String locationID = DBHelper.DEBUG_getLargestLocationIDFromTable ();
+
+        Location location2 = new Location (
+                locationID,
+                "",
+                "",
+                "",
+                ""
+        );
+
+        Location location3 = ( Location ) DBHelper.selectIncidentElement ( location2 );
+
+        Assert.assertTrue ( location2.getColumnValue( DatabaseValues.DatabaseColumn.LOCATION_ID )
+                .equals ( location3.getColumnValue( DatabaseValues.DatabaseColumn.LOCATION_ID ) )
+        );
+
+        // clean up after test
+        // add locationID
+        location1.editColumnValue (
+                DatabaseValues.DatabaseColumn.LOCATION_ID, locationID
+        );
+
+        Assert.assertTrue ( DBHelper.deleteIncidentElement ( location1 ) );
     }
-
 }
