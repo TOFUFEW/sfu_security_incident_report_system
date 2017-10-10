@@ -23,7 +23,7 @@ public class StaffController {
     private void setupEndPoints ()
     {
         get("/staff", (request, response) -> {
-            return dbHelper.getStaff();
+            return dbHelper.getStaffs();
         }, json() );
 
 
@@ -34,7 +34,7 @@ public class StaffController {
 
         put("/staff", (request, response) -> {
             Staff staff = ( Staff ) parser.fromJson(request.body(), Staff.class);
-            return dbHelper.editStaff(staff); // This code touches the database
+            return dbHelper.updateIncidentElement(staff);
 
         }, json());
 

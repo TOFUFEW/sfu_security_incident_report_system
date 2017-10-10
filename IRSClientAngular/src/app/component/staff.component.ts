@@ -40,10 +40,10 @@ export class StaffComponent implements OnInit {
     this.staffService.update( staff )
         .then( returnedStaff => {
             if ( returnedStaff != null  ) {
-              var i = this.staffList.findIndex( staff => staff.accountId === returnedStaff.accountId );
+              var i = this.staffList.findIndex( staff => staff.ACCOUNT_ID === returnedStaff.ACCOUNT_ID );
               // remove 1 object at index i, replace it with returnedStaff
               this.staffList.splice( i, 1, returnedStaff );
-              alert( returnedStaff.firstName + " successfully edited!" );            
+              alert( returnedStaff.FIRST_NAME + " successfully edited!" );            
             }
             else alert( "Edit failed." );  
         } );
@@ -53,7 +53,7 @@ export class StaffComponent implements OnInit {
     this.staffService.delete( id ).then( isDeleted => {
         var msg = isDeleted ? "Staff successfully deleted!" : "Delete failed";
         alert(msg);
-        var i = this.staffList.findIndex( staff => staff.accountId === id );
+        var i = this.staffList.findIndex( staff => staff.ACCOUNT_ID === id );
         // remove 1 object at index i
         this.staffList.splice( i, 1 );
       });

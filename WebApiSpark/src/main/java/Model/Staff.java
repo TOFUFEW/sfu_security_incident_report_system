@@ -1,11 +1,14 @@
 package Model;
 
-
-import DBConnector.Connector;
 import Util.DatabaseValues;
 
 public class Staff extends IncidentElement
 {
+//    private int ACCOUNT_ID;
+//    private int CAMPUS_ID;
+//    private String FIRST_NAME;
+//    private String LAST_NAME;
+
     public Staff ( )
     {
         this (
@@ -54,5 +57,10 @@ public class Staff extends IncidentElement
                 DatabaseValues.DatabaseColumn.LAST_NAME,
                 lastName
         );
+//
+//        this.ACCOUNT_ID = Integer.getInteger(accountId);
+//        this.CAMPUS_ID = Integer.getInteger(campusId);
+//        this.FIRST_NAME = firstName;
+//        this.LAST_NAME = lastName;
     }
 }
