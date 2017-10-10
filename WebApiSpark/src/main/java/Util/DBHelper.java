@@ -179,7 +179,7 @@ public class DBHelper
 
         try
         {
-            ResultSet resultSet = Connector.executeQuery ( "SELECT * FROM dbo.Staff" );
+            ResultSet resultSet = Connector.executeQuery ( "SELECT * FROM " + DatabaseValues.DatabaseTable.STAFF.toString() );
 
             while ( resultSet.next () )
             {
@@ -188,6 +188,7 @@ public class DBHelper
                 staff.extractFromResultSet ( resultSet );
 
                 staffList.add ( staff );
+
             }
         }
 
