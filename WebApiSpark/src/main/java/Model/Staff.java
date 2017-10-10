@@ -4,10 +4,10 @@ import Util.DatabaseValues;
 
 public class Staff extends IncidentElement
 {
-//    private int ACCOUNT_ID;
-//    private int CAMPUS_ID;
-//    private String FIRST_NAME;
-//    private String LAST_NAME;
+//    public int ACCOUNT_ID;
+//    public int CAMPUS_ID;
+//    public String FIRST_NAME;
+//    public String LAST_NAME;
 
     public Staff ( )
     {
@@ -57,7 +57,7 @@ public class Staff extends IncidentElement
                 DatabaseValues.DatabaseColumn.LAST_NAME,
                 lastName
         );
-//
+
 //        this.ACCOUNT_ID = Integer.getInteger(accountId);
 //        this.CAMPUS_ID = Integer.getInteger(campusId);
 //        this.FIRST_NAME = firstName;

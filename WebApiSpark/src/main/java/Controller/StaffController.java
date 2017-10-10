@@ -33,10 +33,15 @@ public class StaffController {
 //        }, json());
 
         put("/staff", (request, response) -> {
-            Staff staff = ( Staff ) parser.fromJson(request.body(), Staff.class);
+            Staff staff = ( Staff ) parser.fromJson( request.body () , Staff.class);
+
+            if (DBHelper.selectIncidentElement ( staff ) == null ) {
+                return -1;
+            }
             return dbHelper.updateIncidentElement(staff);
 
-        }, json());
+        } );
+
 
         delete("/staff/:id", (request, response) -> {
             String id = request.params(":id");
