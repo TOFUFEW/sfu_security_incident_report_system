@@ -398,6 +398,10 @@ public class StorageObject
         }
         return input;
     }
+
+    public DatabaseValues.DatabaseColumn getIDColumn () {
+        return null ;
+    }
 }
 
 

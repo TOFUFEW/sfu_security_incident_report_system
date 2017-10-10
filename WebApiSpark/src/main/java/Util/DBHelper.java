@@ -1,7 +1,10 @@
 package Util;
 
 import DBConnector.Connector;
-import Model.*;
+import Model.Incident;
+import Model.IncidentElement;
+import Model.Location;
+import Model.Staff;
 import ViewModel.IncidentViewModel;
 
 import java.sql.ResultSet;
@@ -99,49 +102,31 @@ public class DBHelper
         return true;
     }
 
-    public static IncidentElement selectIncidentElement ( IncidentElement incidentElement )
+    public static boolean selectIncidentElement ( IncidentElement incidentElement, String id )
     {
+        incidentElement.editColumnValue( incidentElement.getIDColumn (), id );
         String sql = incidentElement.toSelectSQL ();
 
         if ( sql == null )
         {
-            return null;
+            return false;
         }
 
         try {
             ResultSet resultSet = Connector.executeQuery ( sql );
             if ( resultSet.next () )
             {
-                if ( incidentElement instanceof Location )
-                {
-                    Location location = new Location ();
-                    location.extractFromResultSet ( resultSet );
-                    return location;
-                }
-                else if ( incidentElement instanceof Staff )
-                {
-                    Staff staff = new Staff ();
-                    staff.extractFromResultSet ( resultSet );
-                    return staff;
-                }
-                else if ( incidentElement instanceof User)
-                {
-                    User user = new User ();
-                    user.extractFromResultSet ( resultSet );
-                    return user;
-                }
-                else
-                {
-                    return null;
-                }
+                incidentElement.extractFromResultSet ( resultSet );
+                return true;
+
             }
             else
             {
-                return null;
+                return false;
             }
         } catch ( SQLException e ) {
             e.printStackTrace();
-            return null;
+            return false;
         }
     }
 
@@ -231,7 +216,7 @@ public class DBHelper
         return true;
     }
 
-   
+
 
 
 
