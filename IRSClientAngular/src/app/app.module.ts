@@ -13,6 +13,7 @@ import { LocationComponent } from './component/location.component';
 import { StaffComponent } from './component/staff.component';
 import { IncidentsComponent } from './component/incidents.component';
 import { LoginComponent } from './component/login.component';
+import { GuardIncidentComponent } from './component/guardApp/incident.component';
 
 /* Services */
 import { UserService } from './service/user.service';
@@ -33,10 +34,11 @@ import { LoginService } from './service/login.service';
     StaffComponent,
     IncidentsComponent,
     LoginComponent,
+    GuardIncidentComponent
   ],
 
   providers: [ UserService, LoginService ],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 
 export class AppModule { }
