@@ -308,6 +308,7 @@ public class TestIncidentElement
         Location location2 = new Location ();
 
         Assert.assertTrue( DBHelper.selectIncidentElement ( location2, locationID ) );
+        Assert.assertTrue(location2.getColumnValue(DatabaseValues.DatabaseColumn.LOCATION_ID).equals(locationID));
 
         // clean up after test
         // add locationID
