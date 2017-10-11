@@ -1,7 +1,6 @@
 package Model;
 
 
-import DBConnector.Connector;
 import Util.DatabaseValues;
 
 public class Location extends IncidentElement
@@ -61,5 +60,9 @@ public class Location extends IncidentElement
                 DatabaseValues.DatabaseColumn.DEPARTMENT,
                 department
         );
+    }
+
+    public DatabaseValues.DatabaseColumn getIDColumn () {
+        return DatabaseValues.DatabaseColumn.LOCATION_ID ;
     }
 }
