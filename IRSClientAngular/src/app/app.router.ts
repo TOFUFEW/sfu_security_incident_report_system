@@ -3,12 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './component/dashboard.component';
 import { LoginComponent } from './component/login.component';
-
+import { DynamicFormComponent } from './component/dynamicForm.component';
 
 export const router: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent },
     { path: 'login', component: LoginComponent },
+    { path: 'form', component: DynamicFormComponent },
     { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 

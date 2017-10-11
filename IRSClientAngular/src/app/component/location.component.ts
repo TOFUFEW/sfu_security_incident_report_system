@@ -15,7 +15,6 @@ export class LocationComponent implements OnInit {
 
   constructor (
     private locationService: LocationService,
-    private router: Router
   ) {
 
   };
@@ -68,7 +67,7 @@ export class LocationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getLocations();
+    //this.getLocations();
   }
 
 }

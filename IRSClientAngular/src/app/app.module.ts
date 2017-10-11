@@ -13,10 +13,14 @@ import { LocationComponent } from './component/location.component';
 import { StaffComponent } from './component/staff.component';
 import { IncidentsComponent } from './component/incidents.component';
 import { LoginComponent } from './component/login.component';
+import { DynamicFormComponent } from './component/dynamicForm.component';
+import { MyTestComponent } from './component/myTest.component';
 
 /* Services */
 import { UserService } from './service/user.service';
 import { LoginService } from './service/login.service';
+import { DomService } from './service/dom.service';
+import { LocationService } from './service/location.service'
 
 @NgModule({
   imports: [
@@ -26,6 +30,7 @@ import { LoginService } from './service/login.service';
     HttpClientModule,
     routes
   ],
+
   declarations: [
     AppComponent,
     DashboardComponent,
@@ -33,10 +38,15 @@ import { LoginService } from './service/login.service';
     StaffComponent,
     IncidentsComponent,
     LoginComponent,
+    DynamicFormComponent,
+    MyTestComponent
   ],
+  
 
-  providers: [ UserService, LoginService ],
-  bootstrap: [AppComponent]
+
+  providers: [UserService, LoginService, DomService, LocationService],
+  bootstrap: [AppComponent],
+  entryComponents: [ LocationComponent, MyTestComponent ]
 })
 
 export class AppModule { }
