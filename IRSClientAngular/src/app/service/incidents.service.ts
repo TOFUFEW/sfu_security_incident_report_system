@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { DataHelperService } from '../util/dataHelper.service';
 import { Incident } from '../model/incident';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
@@ -10,13 +11,13 @@ export class IncidentsService
 {
     private headers = new Headers({'Content-Type': 'application/json'});
     incidentsUrl = Config.IncidentsURI;
-    
-    constructor( private http: Http ) {}
+    tableName = "";
+    constructor( private http: Http, private dataHelper: DataHelperService ) {}
 
     getIncidents(): Promise<Incident[]> {
         var incidents = this.http.get( this.incidentsUrl )
             .toPromise()
-            .then( response => response.json() as Incident[] )
+            .then( response => this.dataHelper.extractColumnValues( response.json() ) as Incident[] )
             .catch( this.handleError );
         return Promise.resolve( incidents );
     };

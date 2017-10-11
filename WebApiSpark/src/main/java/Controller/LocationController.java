@@ -1,19 +1,16 @@
 package Controller;
 
-import DBConnector.Connector;
 import Model.Location;
-import Util.*;
-import ViewModel.LocationViewModel;
+import Util.DBHelper;
+import Util.DatabaseValues;
+import Util.JsonUtil;
 
 import java.sql.ResultSet;
-import java.util.*;
+
 import static Util.JsonUtil.json;
 import static spark.Spark.*;
 
 public class LocationController {
-    JsonUtil parser = new JsonUtil();
-    DBHelper dbHelper = new DBHelper();
-    public List<Location> locationList = new ArrayList<>();
 
     public LocationController ()
     {
@@ -21,27 +18,46 @@ public class LocationController {
     }
 
     private void setupEndPoints() {
-        get( "/locations" , ( request , response ) -> {
-            return dbHelper.getLocations();
+        get ( "/locations" , ( request , response ) -> {
+            return DBHelper.getLocations();
         }, json() );
 
         post( "/locations" , ( request , response ) -> {
-            LocationViewModel loc = ( LocationViewModel ) parser.fromJson( request.body() , LocationViewModel.class );
-            if ( !dbHelper.isExistingLocation( loc.LOCATION_ID ) )
-                return dbHelper.addLocation( loc );
-            return dbHelper.editLocation( loc );
-        } , json() );
+            Location location = ( Location ) JsonUtil.fromJson ( request.body () , Location.class );
 
-        put( "/locations" , ( request , response ) -> {
-            LocationViewModel loc = ( LocationViewModel ) parser.fromJson( request.body() , Location.class );
-            LocationViewModel ret = dbHelper.editLocation( loc ); // This code touches the database
-            return ret;
-        }, json());
+            if ( !DBHelper.selectIncidentElement ( location ) )
+            {
+                return DBHelper.insertIncidentElement ( location );
+            }
 
-        delete( "/locations/:id", ( request , response ) -> {
-            int id = Integer.parseInt( request.params( ":id" ) );
-            return dbHelper.deleteLocation( id );
-        } , json() );
+            return DBHelper.updateIncidentElement( location );
+        } );
+
+        put ( "/locations" , ( request , response ) -> {
+            Location location = ( Location ) JsonUtil.fromJson ( request.body () , Location.class );
+
+            if ( !DBHelper.selectIncidentElement ( location ) )
+            {
+                return DBHelper.insertIncidentElement ( location );
+            }
+            return DBHelper.updateIncidentElement( location );
+        } );
+
+        delete ( "/locations/:id", ( request , response ) -> {
+            Location location = ( Location ) JsonUtil.fromJson ( request.body () , Location.class );
+
+            boolean delete = DBHelper.deleteIncidentElement ( location );
+            return delete;
+        } );
+
+        get ( "/location/:id",  (request, response) -> {
+            Location location = new Location();
+            location.editColumnValue (
+                    DatabaseValues.DatabaseColumn.LOCATION_ID,
+                    request.params ( ":id" )
+            );
+            return DBHelper.selectIncidentElement ( location );
+        }, json () );
 
         get( "/test" , ( request , response ) -> getClichedMessage() );
     }
@@ -51,7 +67,7 @@ public class LocationController {
         try
         {
             String query = "select * from employee";
-            ResultSet myRs = Connector.executeQuery ( query );
+            ResultSet myRs = DBHelper.executeQuery ( query );
 
             while( myRs.next () )
             {
