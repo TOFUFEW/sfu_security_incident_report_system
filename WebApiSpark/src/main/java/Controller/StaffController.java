@@ -11,8 +11,6 @@ import static spark.Spark.*;
 
 
 public class StaffController {
-    JsonUtil parser = new JsonUtil ();
-    DBHelper dbHelper = new DBHelper ();
 
     public List<Staff> staffList = new ArrayList<> ();
 
@@ -23,16 +21,20 @@ public class StaffController {
 
     private void setupEndPoints ()
     {
+        get ( "/staffs" , ( request , response ) -> {
+            return DBHelper.getStaffs();
+        }, json() );
+
         get("/staff", (request, response) -> {
-            return dbHelper.getStaffs();
+            return DBHelper.getStaffs();
         }, json() );
 
 
         put("/staff", (request, response) -> {
-            Staff staff = ( Staff ) parser.fromJson( request.body () , Staff.class);
+            Staff staff = ( Staff ) JsonUtil.fromJson( request.body () , Staff.class);
 
-            if (dbHelper.staffExists(staff.getColumnValue(DatabaseValues.DatabaseColumn.ACCOUNT_ID)) ) {
-                return dbHelper.updateIncidentElement(staff);
+            if (!DBHelper.selectIncidentElement(staff, staff.getColumnValue(DatabaseValues.DatabaseColumn.ACCOUNT_ID)) ) {
+                return DBHelper.updateIncidentElement(staff);
             } else {
                 return false;
             }
@@ -42,12 +44,10 @@ public class StaffController {
 
         delete("/staff/:id", (request, response) -> {
             String id = request.params(":id");
-            return dbHelper.deleteStaff(id);
+            Staff staff = new Staff();
+            DBHelper.selectIncidentElement(staff, id);
+            return DBHelper.deleteIncidentElement(staff);
         }, json());
-    }
-
-    public DatabaseValues.DatabaseColumn getIDColumn () {
-        return DatabaseValues.DatabaseColumn.ACCOUNT_ID ;
     }
 
 }

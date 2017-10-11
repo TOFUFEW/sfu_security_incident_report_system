@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class DBHelper
 {
@@ -134,8 +133,6 @@ public class DBHelper
         }
     }
 
-
-
     public static Location [] getLocations ()
     {
         ArrayList < Location > locationList = new ArrayList <> ();
@@ -160,20 +157,6 @@ public class DBHelper
         }
 
         return locationList.toArray ( new Location [ locationList.size () ] );
-    }
-
-    public static boolean isExistingLocation( String id ) {
-
-        try {
-            String existsQuery = "select 1 from location where location_id = " + id;
-            ResultSet result = Connector.executeQuery((existsQuery));
-            while ( result.next() ){
-                return true;
-            }
-        } catch ( Exception e ){
-            e.printStackTrace();
-        }
-        return false;
     }
 
 
@@ -205,54 +188,6 @@ public class DBHelper
         return staffList.toArray ( new Staff [ staffList.size () ] );
     }
 
-    public static boolean deleteStaff (
-            String id
-    ) {
-        try {
-            if (staffExists(id)) {
-                String deleteQuery = "delete from staff where account_id = " + id + ";";
-                Connector.executeUpdate(deleteQuery);
-                return true;
-            } else {
-                return false;
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return true;
-    }
-
-    public static boolean staffExists( String id ) {
-
-        try {
-            String existsQuery = "select 1 from Staff where account_id = " + id;
-            ResultSet result = Connector.executeQuery((existsQuery));
-            while ( result.next() ){
-                return true;
-            }
-        } catch ( Exception e ){
-            e.printStackTrace();
-        }
-        return false;
-    }
-
     // end staff code
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; NOT REFACTORED! DO NOT USE! ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
-
-
 
 }

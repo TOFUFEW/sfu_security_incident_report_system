@@ -53,4 +53,8 @@ public class Staff extends IncidentElement
                 lastName
         );
     }
+
+    public DatabaseValues.DatabaseColumn getIDColumn () {
+        return DatabaseValues.DatabaseColumn.ACCOUNT_ID ;
+    }
 }

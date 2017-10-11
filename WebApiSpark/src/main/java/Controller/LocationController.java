@@ -7,16 +7,11 @@ import Util.DatabaseValues;
 import Util.JsonUtil;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 
 import static Util.JsonUtil.json;
 import static spark.Spark.*;
 
 public class LocationController {
-    JsonUtil parser = new JsonUtil();
-    DBHelper dbHelper = new DBHelper();
-    public List<Location> locationList = new ArrayList<>();
 
     public LocationController ()
     {
@@ -25,13 +20,13 @@ public class LocationController {
 
     private void setupEndPoints() {
         get ( "/locations" , ( request , response ) -> {
-            return dbHelper.getLocations();
+            return DBHelper.getLocations();
         }, json() );
 
         post( "/locations" , ( request , response ) -> {
-            Location location = ( Location ) parser.fromJson ( request.body () , Location.class );
+            Location location = ( Location ) JsonUtil.fromJson ( request.body () , Location.class );
 
-            if ( !DBHelper.isExistingLocation(location.getColumnValue(DatabaseValues.DatabaseColumn.LOCATION_ID)) )
+            if ( !DBHelper.selectIncidentElement(location, location.getColumnValue(DatabaseValues.DatabaseColumn.LOCATION_ID)) )
             {
                 return DBHelper.insertIncidentElement ( location );
             }
@@ -40,9 +35,9 @@ public class LocationController {
         } );
 
         put ( "/locations" , ( request , response ) -> {
-            Location location = ( Location ) parser.fromJson ( request.body () , Location.class );
+            Location location = ( Location ) JsonUtil.fromJson ( request.body () , Location.class );
 
-            if ( !DBHelper.isExistingLocation(location.getColumnValue(DatabaseValues.DatabaseColumn.LOCATION_ID)) )
+            if ( !DBHelper.selectIncidentElement(location,location.getColumnValue(DatabaseValues.DatabaseColumn.LOCATION_ID)) )
             {
                 return DBHelper.insertIncidentElement ( location );
             }
@@ -50,7 +45,7 @@ public class LocationController {
         } );
 
         delete ( "/locations/:id", ( request , response ) -> {
-            Location location = ( Location ) parser.fromJson ( request.body () , Location.class );
+            Location location = ( Location ) JsonUtil.fromJson ( request.body () , Location.class );
 
             boolean delete = DBHelper.deleteIncidentElement ( location );
             return delete;
