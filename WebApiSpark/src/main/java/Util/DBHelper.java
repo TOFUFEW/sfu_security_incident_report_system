@@ -173,6 +173,8 @@ public class DBHelper
         return "-1";
     }
 
+
+    // staff code
     public static Staff [] getStaffs ()
     {
         ArrayList < Staff > staffList = new ArrayList ();
@@ -217,8 +219,21 @@ public class DBHelper
         return true;
     }
 
+    public static boolean staffExists( String id ) {
 
+        try {
+            String existsQuery = "select 1 from Staff where account_id = " + id;
+            ResultSet result = Connector.executeQuery((existsQuery));
+            while ( result.next() ){
+                return true;
+            }
+        } catch ( Exception e ){
+            e.printStackTrace();
+        }
+        return false;
+    }
 
+    // end staff code
 
 
 
@@ -310,89 +325,6 @@ public class DBHelper
         return false;
     }
 
-    //staff functions
-
-    public static List < Staff > getStaff () {
-        List<Staff> staffList = new ArrayList<>();
-
-        try {
-            ResultSet result = Connector.executeQuery("select * from Staff");
-
-            while ( result.next () )
-            {
-                String id = result.getString ( "account_id" );
-                String campusId = result.getString ( "campus_id" );
-                String firstName = result.getString ( "first_name" );
-                String lastName = result.getString ( "last_name" );
-
-                Staff staff = new Staff (
-                        id,
-                        campusId,
-                        firstName,
-                        lastName
-                );
-                staffList.add ( staff );
-            }
-
-        }
-
-        catch ( Exception e )
-        {
-            e.printStackTrace ();
-        }
-        return staffList;
-    }
-
-
-//    public static Staff addStaff( Staff staff ) {
-//        try {
-//            String insertStaff = "insert into staff "
-//                    + "values (" + staff.getAccountId() + ", "
-//                    + staff.getCampusId() + ", "
-//                    + staff.getFirstName() + ", "
-//                    + staff.getLastName() + ")";
-//
-//            Connector.executeUpdate(insertStaff);
-//
-//        } catch ( Exception e ){
-//            e.printStackTrace();
-//        }
-//        return staff;
-//    }
-
-    public static boolean staffExists( String id ) {
-
-        try {
-            String existsQuery = "select 1 from Staff where account_id = " + id;
-            ResultSet result = Connector.executeQuery((existsQuery));
-            while ( result.next() ){
-                return true;
-            }
-        } catch ( Exception e ){
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-
-    public static Staff editStaff( Staff staff ) {
-        try {
-            if ( !staffExists ( staff.getColumnValue ( DatabaseValues.DatabaseColumn.ACCOUNT_ID ) ) )
-            {
-                String editQuery = "update staff set "
-                        + "campus_id = " + staff.getColumnValue( DatabaseValues.DatabaseColumn.CAMPUS_ID ) + ", "
-                        + "first_name = " + staff.getColumnValue( DatabaseValues.DatabaseColumn.FIRST_NAME ) + ", "
-                        + "last_name = " + staff.getColumnValue( DatabaseValues.DatabaseColumn.LAST_NAME ) + " "
-                        + "where account_id = " + staff.getColumnValue( DatabaseValues.DatabaseColumn.ACCOUNT_ID ) + ";";
-                Connector.executeUpdate(editQuery);
-            } else {
-                return null;
-            }
-        } catch ( Exception e ){
-        e.printStackTrace();
-    }
-        return staff;
-    }
 
 
 

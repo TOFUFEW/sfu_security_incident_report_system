@@ -11,7 +11,7 @@ import 'rxjs/add/operator/toPromise';
 export class StaffService {
     private headers = new Headers({'Content-Type': 'application/json'});
     staffUrl = Config.StaffURI;
-    table = Config.StaffTable;
+    tableName = Config.StaffTable;
     constructor(private http: Http, private dataHelper : DataHelperService) {}
 
     getStaffs(): Promise<Staff[]> {
@@ -23,18 +23,10 @@ export class StaffService {
     };
 
 
-    // create( staff: Staff ) : Promise<Staff> {
-    //     var promise = this.http
-    //             .post( this.staffUrl, JSON.stringify( staff ), { headers: this.headers } )
-    //             .toPromise()
-    //             .then( response => response.json() as Staff )
-    //             .catch( this.handleError );
-    //     return Promise.resolve( promise );
-    // };
 
     update( staff: Staff ) : Promise<Staff> {
         var promise = this.http
-                .put( this.staffUrl, JSON.stringify( this.dataHelper.toIncidentElement(this.table, staff) ), { headers: this.headers } )
+                .put( this.staffUrl, JSON.stringify( this.dataHelper.toIncidentElement(this.tableName, staff) ), { headers: this.headers } )
                 .toPromise()
                 .then( response => response.json() as Staff )
                 .catch( this.handleError );

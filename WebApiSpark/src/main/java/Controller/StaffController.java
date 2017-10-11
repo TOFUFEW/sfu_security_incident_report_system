@@ -28,11 +28,6 @@ public class StaffController {
         }, json() );
 
 
-//        post("/staff", (request, response) -> {
-//            Staff staff = ( Staff ) parser.fromJson(request.body(), Staff.class);
-//            return dbHelper.addStaff(staff);
-//        }, json());
-
         put("/staff", (request, response) -> {
             Staff staff = ( Staff ) parser.fromJson( request.body () , Staff.class);
 

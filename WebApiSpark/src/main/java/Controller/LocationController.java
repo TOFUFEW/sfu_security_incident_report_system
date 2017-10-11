@@ -31,23 +31,25 @@ public class LocationController {
         post( "/locations" , ( request , response ) -> {
             Location location = ( Location ) parser.fromJson ( request.body () , Location.class );
 
-            if ( DBHelper.selectIncidentElement ( location , location.getColumnValue( DatabaseValues.DatabaseColumn.LOCATION_ID ) ) )
+            if ( !DBHelper.isExistingLocation(location) )
             {
                 return DBHelper.insertIncidentElement ( location );
             }
+
             return DBHelper.updateIncidentElement( location );
         } );
 
         put ( "/locations" , ( request , response ) -> {
             Location location = ( Location ) parser.fromJson ( request.body () , Location.class );
 
-            if ( DBHelper.selectIncidentElement ( location , location.getColumnValue( DatabaseValues.DatabaseColumn.LOCATION_ID ) ) ) {
+            if ( !DBHelper.isExistingLocation(location) )
+            {
                 return DBHelper.insertIncidentElement ( location );
             }
             return DBHelper.updateIncidentElement( location );
         } );
 
-        delete ( "/locations", ( request , response ) -> {
+        delete ( "/locations/:id", ( request , response ) -> {
             Location location = ( Location ) parser.fromJson ( request.body () , Location.class );
 
             boolean delete = DBHelper.deleteIncidentElement ( location );
