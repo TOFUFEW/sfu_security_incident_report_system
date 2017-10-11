@@ -31,7 +31,7 @@ public class LocationController {
         post( "/locations" , ( request , response ) -> {
             Location location = ( Location ) parser.fromJson ( request.body () , Location.class );
 
-            if ( !DBHelper.isExistingLocation(location) )
+            if ( !DBHelper.isExistingLocation(location.getColumnValue(DatabaseValues.DatabaseColumn.LOCATION_ID)) )
             {
                 return DBHelper.insertIncidentElement ( location );
             }
@@ -42,7 +42,7 @@ public class LocationController {
         put ( "/locations" , ( request , response ) -> {
             Location location = ( Location ) parser.fromJson ( request.body () , Location.class );
 
-            if ( !DBHelper.isExistingLocation(location) )
+            if ( !DBHelper.isExistingLocation(location.getColumnValue(DatabaseValues.DatabaseColumn.LOCATION_ID)) )
             {
                 return DBHelper.insertIncidentElement ( location );
             }

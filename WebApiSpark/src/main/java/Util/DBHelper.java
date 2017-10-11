@@ -5,7 +5,6 @@ import Model.Incident;
 import Model.IncidentElement;
 import Model.Location;
 import Model.Staff;
-import ViewModel.IncidentViewModel;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,11 +18,11 @@ public class DBHelper
     /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; REFACTORED methods ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
 
     public static Incident [] getIncidents () {
-        ArrayList < Incident > incidentList = new ArrayList ();
+        ArrayList < Incident > incidentList = new ArrayList <> ();
 
         try
         {
-            ResultSet resultSet = Connector.executeQuery ( "SELECT * FROM dbo.Incident" );
+            ResultSet resultSet = Connector.executeQuery ( "SELECT * FROM " + DatabaseValues.DatabaseTable.INCIDENT.toString() );
 
             while ( resultSet.next () )
             {
@@ -49,7 +48,7 @@ public class DBHelper
         String [] incidentElementInsertSQL = incident.incidentElementsToInsertSQL ();
 
         // collect all sql in one array list to iterate
-        ArrayList < String > sqlArrList = new ArrayList ( Arrays.asList ( incidentElementInsertSQL ) );
+        ArrayList < String > sqlArrList = new ArrayList <> ( Arrays.asList ( incidentElementInsertSQL ) );
         sqlArrList.add ( incidentSQL );
 
         try {
@@ -102,9 +101,14 @@ public class DBHelper
         return true;
     }
 
-    public static boolean selectIncidentElement ( IncidentElement incidentElement, String id )
-    {
-        incidentElement.editColumnValue( incidentElement.getIDColumn (), id );
+    public static boolean selectIncidentElement (
+            IncidentElement incidentElement,
+            String id
+    ) {
+        incidentElement.editColumnValue (
+                incidentElement.getIDColumn (),
+                id
+        );
         String sql = incidentElement.toSelectSQL ();
 
         if ( sql == null )
@@ -130,9 +134,11 @@ public class DBHelper
         }
     }
 
+
+
     public static Location [] getLocations ()
     {
-        ArrayList < Location > locationList = new ArrayList ();
+        ArrayList < Location > locationList = new ArrayList <> ();
 
         try
         {
@@ -156,21 +162,18 @@ public class DBHelper
         return locationList.toArray ( new Location [ locationList.size () ] );
     }
 
-    public static String DEBUG_getLargestLocationIDFromTable ()
-    {
-        try
-        {
-            ResultSet resultSet = Connector.executeQuery("SELECT MAX ( LOCATION_ID ) AS MaxLocationID FROM " + DatabaseValues.DatabaseTable.LOCATION.toString () );
-            while ( resultSet.next () )
-            {
-                return "" + resultSet.getInt ( "MaxLocationID" );
+    public static boolean isExistingLocation( String id ) {
+
+        try {
+            String existsQuery = "select 1 from location where location_id = " + id;
+            ResultSet result = Connector.executeQuery((existsQuery));
+            while ( result.next() ){
+                return true;
             }
+        } catch ( Exception e ){
+            e.printStackTrace();
         }
-        catch ( Exception e )
-        {
-            e.printStackTrace ();
-        }
-        return "-1";
+        return false;
     }
 
 
@@ -250,126 +253,6 @@ public class DBHelper
 
     /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; NOT REFACTORED! DO NOT USE! ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
 
-    public static Location getLocation (int id) {
-        try {
-            String query = "select * from dbo.Location where location_id = " + id;
-            ResultSet result = Connector.executeQuery(query);
-
-            Location location = new Location ();
-
-            location.extractFromResultSet ( result );
-            return location;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static Location addLocation ( Location location ) {
-        try {
-            String query = location.toInsertSQL();
-            ResultSet result = Connector.executeQuery(query);
-
-            Location loc = new Location ();
-
-            loc.extractFromResultSet ( result );
-            return loc;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-
-    }
-
-    public static Location updateLocation ( Location location ) {
-        try {
-            String query = location.toUpdateSQL();
-            ResultSet result = Connector.executeQuery(query);
-
-            Location loc = new Location ();
-
-            loc.extractFromResultSet ( result );
-            return loc;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static boolean deleteLocation ( Location location ) {
-        try {
-            String query = location.toDeleteSQL();
-            ResultSet result = Connector.executeQuery(query);
-
-            return result.next();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public static boolean isExistingLocation( Location location ) {
-        try {
-            String query = "select * from location where location_id = " + location.getColumnValue( DatabaseValues.DatabaseColumn.LOCATION_ID );
-            ResultSet result = Connector.executeQuery(query);
-            if ( result.next() ) {
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
 
-
-
-    public static IncidentViewModel addIncident (
-            IncidentViewModel incidentToAdd
-    ) {
-        String query =  "EXEC dbo.createIncident " +
-                        "@creator_id = 1, " +
-                        "@category_id = 1, " +
-                        "@description = '" + incidentToAdd.DESCRIPTION + "', " +
-                        "@executive_summary = '" + incidentToAdd.EXECUTIVE_SUMMARY + "', " +
-                        "@location_id = 1, " +
-                        "@person_id = 1, " +
-                        "@staff_id = 1";
-        try
-        {
-            int i = Connector.executeUpdate ( query );
-
-            ResultSet results = Connector.executeQuery ( "SELECT TOP 1 FROM Incident"
-            );
-            while ( results.next() ) {
-                System.out.println("query result " + results.getString("executive_summary"));
-                int reportID = results.getInt("report_id");
-                int accountID = results.getInt("account_id");
-                int categoryID = results.getInt( "category_id");
-                String description = results.getString("description");
-                String execSummary = results.getString("executive_summary");
-                boolean closed = results.getBoolean("closed");
-                IncidentViewModel incident = new IncidentViewModel(
-                        reportID,
-                        accountID,
-                        categoryID,
-                        description,
-                        execSummary,
-                        closed,
-                        null
-
-                );
-                return new IncidentViewModel();
-            }
-        }
-        catch ( Exception e )
-        {
-            e.printStackTrace();
-        }
-        return incidentToAdd;
-    }
 }

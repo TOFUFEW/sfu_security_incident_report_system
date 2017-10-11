@@ -45,7 +45,7 @@ public class StorageObject
     public String toInsertSQL ()
     {
         DatabaseValues.DatabaseColumn [] columns = getColumnSet ();
-
+        System.out.println(columns);
         String columnList = "(";
         for ( DatabaseValues.DatabaseColumn column : columns )
         {
@@ -73,7 +73,7 @@ public class StorageObject
         for ( DatabaseValues.DatabaseColumn column : columns )
         {
             String value = getColumnValue ( column );
-
+            System.out.println("column: " + column + " value: " + value);
             if ( value == null )
             {
                 // don't do anything with null string values - means it is auto-incremented by database
@@ -400,7 +400,7 @@ public class StorageObject
     }
 
     public DatabaseValues.DatabaseColumn getIDColumn () {
-        return null ;
+        throw new IllegalStateException("getIDColumn() not implemented in " + this.getClass().toString());
     }
 }
 

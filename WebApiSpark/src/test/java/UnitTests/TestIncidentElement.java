@@ -1,11 +1,14 @@
 package UnitTests;
 
+import DBConnector.Connector;
 import Model.Location;
 import Util.DBHelper;
 import Util.DatabaseValues;
 import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.sql.ResultSet;
 
 public class TestIncidentElement
 {
@@ -201,7 +204,7 @@ public class TestIncidentElement
         Assert.assertTrue ( initialNumRecords < finalNumRecords );
 
         // clean up after test
-        String locationID = DBHelper.DEBUG_getLargestLocationIDFromTable ();
+        String locationID = DEBUG_getLargestLocationIDFromTable ();
 
         // add locationID
         location.editColumnValue (
@@ -224,7 +227,7 @@ public class TestIncidentElement
 
         Assert.assertTrue ( DBHelper.insertIncidentElement ( location ) );
 
-        String locationID = DBHelper.DEBUG_getLargestLocationIDFromTable ();
+        String locationID = DEBUG_getLargestLocationIDFromTable ();
 
         // add locationID
         location.editColumnValue (
@@ -276,7 +279,7 @@ public class TestIncidentElement
         Location [] locations = DBHelper.getLocations ();
         int initialNumRecords = locations.length;
 
-        String locationID = DBHelper.DEBUG_getLargestLocationIDFromTable ();
+        String locationID = DEBUG_getLargestLocationIDFromTable ();
 
         // add locationID
         location.editColumnValue (
@@ -303,11 +306,12 @@ public class TestIncidentElement
 
         Assert.assertTrue ( DBHelper.insertIncidentElement ( location1 ) );
 
-        String locationID = DBHelper.DEBUG_getLargestLocationIDFromTable ();
+        String locationID = DEBUG_getLargestLocationIDFromTable ();
 
         Location location2 = new Location ();
 
         Assert.assertTrue( DBHelper.selectIncidentElement ( location2, locationID ) );
+        Assert.assertTrue(location2.getColumnValue(DatabaseValues.DatabaseColumn.LOCATION_ID).equals(locationID));
 
         // clean up after test
         // add locationID
@@ -316,5 +320,22 @@ public class TestIncidentElement
         );
 
         Assert.assertTrue ( DBHelper.deleteIncidentElement ( location1 ) );
+    }
+
+    private static String DEBUG_getLargestLocationIDFromTable ()
+    {
+        try
+        {
+            ResultSet resultSet = Connector.executeQuery("SELECT MAX ( LOCATION_ID ) AS MaxLocationID FROM " + DatabaseValues.DatabaseTable.LOCATION.toString () );
+            while ( resultSet.next () )
+            {
+                return "" + resultSet.getInt ( "MaxLocationID" );
+            }
+        }
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+        return "-1";
     }
 }
