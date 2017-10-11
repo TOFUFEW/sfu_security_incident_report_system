@@ -305,19 +305,10 @@ public class TestIncidentElement
 
         String locationID = DBHelper.DEBUG_getLargestLocationIDFromTable ();
 
-        Location location2 = new Location (
-                locationID,
-                "",
-                "",
-                "",
-                ""
-        );
+        Location location2 = new Location ();
 
-        Location location3 = ( Location ) DBHelper.selectIncidentElement ( location2 );
-
-        Assert.assertTrue ( location2.getColumnValue( DatabaseValues.DatabaseColumn.LOCATION_ID )
-                .equals ( location3.getColumnValue( DatabaseValues.DatabaseColumn.LOCATION_ID ) )
-        );
+        Assert.assertTrue( DBHelper.selectIncidentElement ( location2, locationID ) );
+        Assert.assertTrue(location2.getColumnValue(DatabaseValues.DatabaseColumn.LOCATION_ID).equals(locationID));
 
         // clean up after test
         // add locationID

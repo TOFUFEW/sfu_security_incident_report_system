@@ -1,6 +1,7 @@
 package Controller;
 import Model.Staff;
 import Util.DBHelper;
+import Util.DatabaseValues;
 import Util.JsonUtil;
 
 import java.util.*;
@@ -33,15 +34,25 @@ public class StaffController {
 //        }, json());
 
         put("/staff", (request, response) -> {
-            Staff staff = ( Staff ) parser.fromJson(request.body(), Staff.class);
-            return dbHelper.updateIncidentElement(staff);
+            Staff staff = ( Staff ) parser.fromJson( request.body () , Staff.class);
 
-        }, json());
+            if (dbHelper.staffExists(staff.getColumnValue(DatabaseValues.DatabaseColumn.ACCOUNT_ID)) ) {
+                return dbHelper.updateIncidentElement(staff);
+            } else {
+                return false;
+            }
+
+        } );
+
 
         delete("/staff/:id", (request, response) -> {
             String id = request.params(":id");
             return dbHelper.deleteStaff(id);
         }, json());
+    }
+
+    public DatabaseValues.DatabaseColumn getIDColumn () {
+        return DatabaseValues.DatabaseColumn.ACCOUNT_ID ;
     }
 
 }

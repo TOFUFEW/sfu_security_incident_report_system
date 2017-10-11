@@ -398,6 +398,10 @@ public class StorageObject
         }
         return input;
     }
+
+    public DatabaseValues.DatabaseColumn getIDColumn () {
+        throw new IllegalStateException("getIDColumn() not implemented in " + this.getClass().toString());
+    }
 }
 
 

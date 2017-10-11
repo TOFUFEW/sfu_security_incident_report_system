@@ -2,13 +2,14 @@ package Controller;
 
 import DBConnector.Connector;
 import Model.Location;
-import Model.StorageObject;
-import Util.*;
-import ViewModel.LocationViewModel;
-import com.google.gson.Gson;
+import Util.DBHelper;
+import Util.DatabaseValues;
+import Util.JsonUtil;
 
 import java.sql.ResultSet;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import static Util.JsonUtil.json;
 import static spark.Spark.*;
 
@@ -23,14 +24,14 @@ public class LocationController {
     }
 
     private void setupEndPoints() {
-        get( "/locations" , ( request , response ) -> {
+        get ( "/locations" , ( request , response ) -> {
             return dbHelper.getLocations();
         }, json() );
 
         post( "/locations" , ( request , response ) -> {
             Location location = ( Location ) parser.fromJson ( request.body () , Location.class );
             System.out.println("request.body(): "+ request.body() + "   ;    location: " + location);
-            if ( DBHelper.selectIncidentElement ( location ) == null )
+            if ( DBHelper.selectIncidentElement ( location , location.getColumnValue( DatabaseValues.DatabaseColumn.LOCATION_ID ) ) )
             {
                 return DBHelper.insertIncidentElement ( location );
             }
@@ -40,7 +41,7 @@ public class LocationController {
         put ( "/locations" , ( request , response ) -> {
             Location location = ( Location ) parser.fromJson ( request.body () , Location.class );
 
-            if ( DBHelper.selectIncidentElement ( location ) == null ) {
+            if ( DBHelper.selectIncidentElement ( location , location.getColumnValue( DatabaseValues.DatabaseColumn.LOCATION_ID ) ) ) {
                 return DBHelper.insertIncidentElement ( location );
             }
             return DBHelper.updateIncidentElement( location );
@@ -52,6 +53,14 @@ public class LocationController {
             boolean delete = DBHelper.deleteIncidentElement ( location );
             return delete;
         } );
+
+        get ( "/location/:id",  (request, response) -> {
+            Location location = new Location();
+            return DBHelper.selectIncidentElement (
+                    location,
+                    request.params(":id")
+            );
+        }, json () );
 
         get( "/test" , ( request , response ) -> getClichedMessage() );
     }
