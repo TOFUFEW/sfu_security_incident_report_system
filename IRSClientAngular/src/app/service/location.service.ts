@@ -4,18 +4,20 @@ import { Location } from '../model/location';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
+import { DataHelperService } from '../util/dataHelper.service';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class LocationService {
     private headers = new Headers({ 'Content-Type': 'application/json' });
     locationsUrl = Config.LocationsURI;
-    constructor( private http: Http ) {}
+    tableName = "LOCATIONS";
+    constructor( private http: Http, private dataHelper: DataHelperService ) {}
 
     getLocations(): Promise<Location[]> {
         var locations = this.http.get( this.locationsUrl )
             .toPromise()
-            .then( response => response.json() as Location[] )
+            .then( response => this.dataHelper.extractColumnValues( response.json() ) as Location[] )
             .catch( this.handleError );
         return Promise.resolve( locations );
     };
