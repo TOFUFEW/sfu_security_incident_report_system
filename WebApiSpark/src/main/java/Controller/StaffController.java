@@ -36,10 +36,11 @@ public class StaffController {
         put("/staff", (request, response) -> {
             Staff staff = ( Staff ) parser.fromJson( request.body () , Staff.class);
 
-            if (DBHelper.selectIncidentElement(staff, staff.getColumnValue( DatabaseValues.DatabaseColumn.PERSON_ID ) ) ) {
-                return -1;
+            if (dbHelper.staffExists(staff.getColumnValue(DatabaseValues.DatabaseColumn.ACCOUNT_ID)) ) {
+                return dbHelper.updateIncidentElement(staff);
+            } else {
+                return false;
             }
-            return dbHelper.updateIncidentElement(staff);
 
         } );
 
@@ -48,6 +49,10 @@ public class StaffController {
             String id = request.params(":id");
             return dbHelper.deleteStaff(id);
         }, json());
+    }
+
+    public DatabaseValues.DatabaseColumn getIDColumn () {
+        return DatabaseValues.DatabaseColumn.ACCOUNT_ID ;
     }
 
 }

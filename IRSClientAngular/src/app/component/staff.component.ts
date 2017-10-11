@@ -43,7 +43,7 @@ export class StaffComponent implements OnInit {
               var i = this.staffList.findIndex( staff => staff.ACCOUNT_ID === returnedStaff.ACCOUNT_ID );
               // remove 1 object at index i, replace it with returnedStaff
               this.staffList.splice( i, 1, returnedStaff );
-              alert( returnedStaff.FIRST_NAME + " successfully edited!" );            
+              alert( " successfully edited!" );            
             }
             else alert( "Edit failed." );  
         } );
