@@ -3,11 +3,13 @@ package Controller;
 import Model.Incident;
 import Util.DBHelper;
 import Util.JsonUtil;
-import ViewModel.IncidentViewModel;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import static Util.JsonUtil.json;
-import static spark.Spark.*;
+import static spark.Spark.get;
+import static spark.Spark.post;
 
 public class IncidentsController
 {
@@ -29,10 +31,8 @@ public class IncidentsController
 
         post ("/incidents", ( request, response ) ->
         {
-            IncidentViewModel newIncident = ( IncidentViewModel ) parser.fromJson ( request.body() , IncidentViewModel.class );
-            Incident incident = ( Incident ) parser.fromJson ( request.body() , Incident.class );
-            System.out.println(incident);
-            return dbHelper.addIncident( newIncident );
+            Incident newIncident = ( Incident ) parser.fromJson ( request.body() , Incident.class );
+            return dbHelper.insertIncident( newIncident );
         }, json() );
 
     }
