@@ -67,9 +67,11 @@ body {
   height: auto; }
 
 .field-title {
+  display: inline-block;
   width: auto;
   color: #696969;
-  font-size: 116%; }
+  font-size: 116%;
+  margin-bottom: 8px; }
 
 .card-text-primary {
   color: #54585A;
@@ -78,6 +80,11 @@ body {
 .card-text-secondary {
   color: #696969;
   font-size: 100%; }
+
+.btn-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
 
 .btn-default {
   background-color: white;
@@ -141,5 +148,8 @@ span.glyphicon-fire {
 .nav-tabs > li.active > a {
   border: none !important;
   font-weight: 700; }
+
+.form-group {
+  margin-bottom: 20px !important; }
 
 /*# sourceMappingURL=styles.css.map */

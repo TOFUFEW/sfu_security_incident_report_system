@@ -82,9 +82,11 @@ body {
 }
 
 .field-title {
+    display: inline-block;
     width: auto;
     color: $field-title-color;
     font-size: 116%;
+    margin-bottom: $field-title-margin-bottom;
 }
 
 .card-text-primary {
@@ -97,8 +99,8 @@ body {
     font-size: 100%;
 }
 
-.btn {
-    
+.btn-row {
+    @include flex(space-between, center);
 }
 
 .btn-default {
@@ -179,4 +181,8 @@ span.glyphicon-fire {
 .nav-tabs > li.active > a {
     border: none !important;
     font-weight: 700;
+}
+
+.form-group {
+    margin-bottom: $padding-lg !important;
 }

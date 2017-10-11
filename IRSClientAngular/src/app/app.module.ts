@@ -13,6 +13,7 @@ import { LocationComponent } from './component/location.component';
 import { StaffComponent } from './component/staff.component';
 import { IncidentsComponent } from './component/incidents.component';
 import { LoginComponent } from './component/login.component';
+import { NewIncidentComponent } from './component/new-incident.component';
 
 /* Services */
 import { DataHelperService } from './util/dataHelper.service';
@@ -34,6 +35,7 @@ import { LoginService } from './service/login.service';
     StaffComponent,
     IncidentsComponent,
     LoginComponent,
+    NewIncidentComponent,
   ],
 
   providers: [ UserService, LoginService, DataHelperService ],
