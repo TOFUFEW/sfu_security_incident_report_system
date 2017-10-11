@@ -10,9 +10,8 @@ import static spark.Spark.*;
 
 
 
-public class StaffController {
-
-    public List<Staff> staffList = new ArrayList<> ();
+public class StaffController
+{
 
     public StaffController ()
     {
@@ -22,19 +21,20 @@ public class StaffController {
     private void setupEndPoints ()
     {
         get ( "/staffs" , ( request , response ) -> {
-            return DBHelper.getStaffs();
-        }, json() );
+            return JsonUtil.toJson( DBHelper.getStaffs () );
+        } );
 
         get("/staff", (request, response) -> {
-            return DBHelper.getStaffs();
-        }, json() );
+            return JsonUtil.toJson( DBHelper.getStaffs () );
+        } );
 
 
         put("/staff", (request, response) -> {
-            Staff staff = ( Staff ) JsonUtil.fromJson( request.body () , Staff.class);
+            Staff staff = ( Staff ) JsonUtil.fromJson ( request.body (), Staff.class);
 
-            if (!DBHelper.selectIncidentElement(staff, staff.getColumnValue(DatabaseValues.DatabaseColumn.ACCOUNT_ID)) ) {
-                return DBHelper.updateIncidentElement(staff);
+            if (!DBHelper.selectIncidentElement ( staff ) )
+            {
+                return DBHelper.updateIncidentElement ( staff );
             } else {
                 return false;
             }
@@ -45,9 +45,13 @@ public class StaffController {
         delete("/staff/:id", (request, response) -> {
             String id = request.params(":id");
             Staff staff = new Staff();
-            DBHelper.selectIncidentElement(staff, id);
-            return DBHelper.deleteIncidentElement(staff);
-        }, json());
+            staff.editColumnValue (
+                    DatabaseValues.DatabaseColumn.ACCOUNT_ID,
+                    request.params ( ":id" )
+            );
+
+            return DBHelper.deleteIncidentElement ( staff );
+        } );
     }
 
 }

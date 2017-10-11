@@ -1,6 +1,5 @@
 package Model;
 
-import DBConnector.Connector;
 import Util.DatabaseValues;
 
 import java.util.ArrayList;

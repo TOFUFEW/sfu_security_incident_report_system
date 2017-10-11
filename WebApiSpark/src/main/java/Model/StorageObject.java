@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class StorageObject
 {
     private DatabaseValues.DatabaseTable table;
-    private HashMap < DatabaseValues.DatabaseColumn , String > columnValue = new HashMap ();
+    private HashMap < DatabaseValues.DatabaseColumn , String > attributes = new HashMap ();
 
     protected StorageObject (
             DatabaseValues.DatabaseTable table,
@@ -20,7 +20,7 @@ public class StorageObject
 
         for ( DatabaseValues.DatabaseColumn column : columns )
         {
-            columnValue.put (
+            attributes.put (
                 column,
                 column.getDefaultValue ()
             );
@@ -34,12 +34,12 @@ public class StorageObject
 
     public DatabaseValues.DatabaseColumn [] getColumnSet ()
     {
-        return columnValue.keySet ().toArray( new DatabaseValues.DatabaseColumn [ columnValue.size () ] );
+        return attributes.keySet ().toArray( new DatabaseValues.DatabaseColumn [ attributes.size () ] );
     }
 
     public String getColumnValue ( DatabaseValues.DatabaseColumn column )
     {
-        return columnValue.get ( column );
+        return attributes.get ( column );
     }
 
     public String toInsertSQL ()
@@ -258,7 +258,7 @@ public class StorageObject
                 value
         );
 
-        columnValue.put (
+        attributes.put (
             column,
             value
         );
@@ -397,10 +397,6 @@ public class StorageObject
             return column.getDefaultValue ();
         }
         return input;
-    }
-
-    public DatabaseValues.DatabaseColumn getIDColumn () {
-        throw new IllegalStateException("getIDColumn() not implemented in " + this.getClass().toString());
     }
 }
 

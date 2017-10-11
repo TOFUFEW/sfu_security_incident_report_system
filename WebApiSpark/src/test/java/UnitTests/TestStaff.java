@@ -1,7 +1,7 @@
 package UnitTests;
 
-import DBConnector.Connector;
 import Model.Staff;
+import Util.DBHelper;
 import Util.DatabaseValues;
 import com.google.gson.Gson;
 import org.junit.Assert;
@@ -163,7 +163,8 @@ public class TestStaff
     {
         try
         {
-            ResultSet resultSet = Connector.executeQuery("SELECT MAX ( ACCOUNT_ID ) AS MaxStaffID FROM " + DatabaseValues.DatabaseTable.STAFF.toString () );
+            ResultSet resultSet = DBHelper.executeQuery ( "SELECT MAX ( ACCOUNT_ID ) AS MaxStaffID FROM " +
+                    DatabaseValues.DatabaseTable.STAFF.toString () );
             while ( resultSet.next () )
             {
                 return "" + resultSet.getInt ( "MaxStaffID" );

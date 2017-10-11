@@ -1,6 +1,5 @@
 package Controller;
 
-import DBConnector.Connector;
 import Model.Location;
 import Util.DBHelper;
 import Util.DatabaseValues;
@@ -26,7 +25,7 @@ public class LocationController {
         post( "/locations" , ( request , response ) -> {
             Location location = ( Location ) JsonUtil.fromJson ( request.body () , Location.class );
 
-            if ( !DBHelper.selectIncidentElement(location, location.getColumnValue(DatabaseValues.DatabaseColumn.LOCATION_ID)) )
+            if ( !DBHelper.selectIncidentElement ( location ) )
             {
                 return DBHelper.insertIncidentElement ( location );
             }
@@ -37,7 +36,7 @@ public class LocationController {
         put ( "/locations" , ( request , response ) -> {
             Location location = ( Location ) JsonUtil.fromJson ( request.body () , Location.class );
 
-            if ( !DBHelper.selectIncidentElement(location,location.getColumnValue(DatabaseValues.DatabaseColumn.LOCATION_ID)) )
+            if ( !DBHelper.selectIncidentElement ( location ) )
             {
                 return DBHelper.insertIncidentElement ( location );
             }
@@ -53,10 +52,11 @@ public class LocationController {
 
         get ( "/location/:id",  (request, response) -> {
             Location location = new Location();
-            return DBHelper.selectIncidentElement (
-                    location,
-                    request.params(":id")
+            location.editColumnValue (
+                    DatabaseValues.DatabaseColumn.LOCATION_ID,
+                    request.params ( ":id" )
             );
+            return DBHelper.selectIncidentElement ( location );
         }, json () );
 
         get( "/test" , ( request , response ) -> getClichedMessage() );
@@ -67,7 +67,7 @@ public class LocationController {
         try
         {
             String query = "select * from employee";
-            ResultSet myRs = Connector.executeQuery ( query );
+            ResultSet myRs = DBHelper.executeQuery ( query );
 
             while( myRs.next () )
             {
