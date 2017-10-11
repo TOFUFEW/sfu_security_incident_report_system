@@ -1,6 +1,7 @@
 package Controller;
 import Model.Staff;
 import Util.DBHelper;
+import Util.DatabaseValues;
 import Util.JsonUtil;
 
 import java.util.*;
@@ -35,7 +36,7 @@ public class StaffController {
         put("/staff", (request, response) -> {
             Staff staff = ( Staff ) parser.fromJson( request.body () , Staff.class);
 
-            if (DBHelper.selectIncidentElement ( staff ) == null ) {
+            if (DBHelper.selectIncidentElement(staff, staff.getColumnValue( DatabaseValues.DatabaseColumn.PERSON_ID ) ) ) {
                 return -1;
             }
             return dbHelper.updateIncidentElement(staff);
