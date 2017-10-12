@@ -35,18 +35,18 @@ export class IncidentsComponent implements OnInit {
     this.newIncident = new Incident();
   }
 
-  updateIncident( incident: Incident ): void {
-    this.incidentsService.update( incident )
-        .then( returnedIncident => {
-            if ( returnedIncident != null  ) {
-              var i = this.incidents.findIndex( inc => inc.REPORT_ID === returnedIncident.REPORT_ID );
-              // remove 1 object at index i, replace it with returnedLocation
-              this.incidents.splice( i, 1, returnedIncident );
-              alert( "Incident successfully edited!" );
-            }
-            else alert( "Edit failed." );
-        } );
-  }
+  // updateIncident( incident: Incident ): void {
+  //   this.incidentsService.update( incident )
+  //       .then( returnedIncident => {
+  //           if ( returnedIncident != null  ) {
+  //             var i = this.incidents.findIndex( inc => inc.REPORT_ID === returnedIncident.REPORT_ID );
+  //             // remove 1 object at index i, replace it with returnedLocation
+  //             this.incidents.splice( i, 1, returnedIncident );
+  //             alert( "Incident successfully edited!" );
+  //           }
+  //           else alert( "Edit failed." );
+  //       } );
+  // }
 
   deleteIncident( id: number ): void {
     this.incidentsService.delete( id ).then( isDeleted => {
