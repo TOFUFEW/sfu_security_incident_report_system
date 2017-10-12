@@ -72,6 +72,18 @@ public class DBHelper
         return true;
     }
 
+    public static boolean updateIncident ( Incident incident ) {
+        String incidentSQL = incident.toUpdateSQL();
+        try {
+            return execute( incidentSQL );
+        }
+        catch ( SQLException e )
+        {
+            e.printStackTrace ();
+        }
+        return false;
+    }
+
     public static boolean insertIncidentElement ( IncidentElement incidentElement )
     {
         String sql = incidentElement.toInsertSQL ();

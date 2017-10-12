@@ -13,6 +13,7 @@ import org.junit.Test;
 public class TestIncident {
     public TestIncident() {}
 
+    /*
     @Test
     public void testInsertIncident() {
         Location location1 = new Location (
@@ -20,7 +21,7 @@ public class TestIncident {
                 "1",
                 "Building E",
                 "4000",
-                "Arts"
+                "SOSY"
         );
 
         Incident incident = new Incident();
@@ -30,13 +31,36 @@ public class TestIncident {
         incident.editColumnValue( DatabaseColumn.DESCRIPTION, "TEST DESCRIPTION" );
         incident.editColumnValue( DatabaseColumn.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
         incident.editColumnValue( DatabaseColumn.CLOSED, "0" );
-        
+        incident.addIncidentElement( location1 );
+
         int currentSize = getNumberOfIncidents();
         DBHelper.insertIncident( incident );
-
         Incident[] incidents = DBHelper.getIncidents();
 
         Assert.assertTrue( currentSize < incidents.length);
+    }
+*/
+    @Test
+    public void testUpdateIncident() {
+        Incident[] incidents = DBHelper.getIncidents();
+
+        if (incidents.length == 0) return;
+
+        Incident incident = incidents[ incidents.length - 1 ];
+        Assert.assertTrue( incident.getColumnValue(DatabaseColumn.REPORT_ID) != null );
+
+        String editedDescription = "EDITED DESCRIPTION";
+        incident.editColumnValue( DatabaseColumn.DESCRIPTION, editedDescription );
+
+        int currentSize = getNumberOfIncidents();
+        DBHelper.updateIncident( incident );
+        incidents = DBHelper.getIncidents();
+
+        Assert.assertTrue( currentSize == incidents.length );
+
+        incident = incidents[ incidents.length - 1 ];
+        Assert.assertTrue( incident.getColumnValue( DatabaseColumn.DESCRIPTION )
+                            .equals( editedDescription ));
     }
 
     public int getNumberOfIncidents() {
