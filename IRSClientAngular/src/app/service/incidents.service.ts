@@ -29,7 +29,9 @@ export class IncidentsService
         var promise = this.http
                 .post( this.incidentsUrl, JSON.stringify( _incident ), { headers: this.headers } )
                 .toPromise()
-                .then( response => response.json() as Incident )
+                .then( response => { 
+                    return (response.json() as boolean) ? incident : null 
+                })
                 .catch( this.handleError );
         return Promise.resolve( promise );
     }
