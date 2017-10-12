@@ -30,8 +30,7 @@ public class TestIncident {
         incident.editColumnValue( DatabaseColumn.DESCRIPTION, "TEST DESCRIPTION" );
         incident.editColumnValue( DatabaseColumn.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
         incident.editColumnValue( DatabaseColumn.CLOSED, "0" );
-        //incident.addIncidentElement( location1 );
-
+        
         int currentSize = getNumberOfIncidents();
         DBHelper.insertIncident( incident );
 
@@ -53,5 +52,4 @@ public class TestIncident {
         }
         return 0;
     }
-
 }
