@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DataHelperService } from '../util/dataHelper.service';
+import { DataHelperService } from '../util/data-helper.service';
 import { Incident } from '../model/incident';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
@@ -23,8 +23,11 @@ export class IncidentsService
     };
 
     create( incident: Incident ): Promise<Incident> {
+        incident.ACCOUNT_ID = 1;
+        incident.CATEGORY_ID = 1;
+        var _incident = this.dataHelper.toIncidentElement( Config.IncidentTable, incident );
         var promise = this.http
-                .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
+                .post( this.incidentsUrl, JSON.stringify( _incident ), { headers: this.headers } )
                 .toPromise()
                 .then( response => response.json() as Incident )
                 .catch( this.handleError );
@@ -32,12 +35,7 @@ export class IncidentsService
     }
 
     update( incident: Incident ): Promise<Incident> {
-        var promise = this.http
-                .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
-                .toPromise()
-                .then( response => response.json() as Incident )
-                .catch( this.handleError );
-        return Promise.resolve( promise );
+        return this.create( incident );
     }
 
     delete( id: number ) : Promise<boolean> {

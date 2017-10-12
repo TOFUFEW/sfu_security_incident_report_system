@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { Config } from '../util/config.service';
-import { DataHelperService } from '../util/dataHelper.service';
+import { DataHelperService } from '../util/data-helper.service';
 import { User } from '../model/user';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
