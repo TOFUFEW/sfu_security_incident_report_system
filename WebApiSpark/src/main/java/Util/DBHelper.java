@@ -247,6 +247,20 @@ public class DBHelper
         return stmt.executeQuery ( query );
     }
 
+    public static ResultSet executeQuery (String query, ArrayList<String> parameters) {
+        try {
+            initDB ();
+            PreparedStatement stmt = connection.prepareStatement(query);
+            for ( int i = 0 ; i < parameters.size() ; i++ ) {
+                stmt.setString(i + 1, parameters.get(i));
+            }
+            return stmt.executeQuery ( query );
+        } catch ( Exception e ) {
+            System.out.println ( e );
+        }
+        return null;
+    }
+
     private static void initDB ()
     {
         if ( connection != null )
