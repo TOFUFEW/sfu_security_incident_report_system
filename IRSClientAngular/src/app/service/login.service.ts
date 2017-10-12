@@ -10,17 +10,17 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class LoginService {
-    private headers = new Headers({ 'Content-Type': 'application/json' });
+    private headers = new Headers( { 'Content-Type': 'application/json' } );
     loginUrl = Config.LoginURI;
     constructor( private http: Http, private dataHelper: DataHelperService ) { }
 
-    doLogin(user: User): Observable<string> {
-        let options = new RequestOptions({ headers: this.headers });
-        var _user = this.dataHelper.toIncidentElement (Config.AccountTable, user );
+    doLogin( user: User ): Observable<string> {
+        let options = new RequestOptions( { headers: this.headers } );
+        var _user = this.dataHelper.toIncidentElement ( Config.AccountTable, user );
         return this.http.post( this.loginUrl, 
             JSON.stringify( _user ), 
             options )
                 // response becomes a string
-                .map((response: Response) => <string>response.json());
+                .map( ( response: Response ) => <string> response.json() );
     }
 }
