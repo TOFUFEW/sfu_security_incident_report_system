@@ -4,13 +4,13 @@ export class Location {
   BUILDING_NAME: string;
   ROOM_NUMBER: number;
   DEPARTMENT: string;
-  CITY: string;
-  ADDRESS: string;
+  // CITY: string;
+  // ADDRESS: string;
   
   /*
 
   Location = "{columValue:{ROOM_NUMBER:\"SURR-301\",CAMPUS_ID:\"1\",BUILDING_NUMBER:\"23\",DEPARTMENT:\"Sci\"}}"
-  Incident = "{ColumnValue:{}, Location, Staff}"
+  Incident = "{attributes:{}, Location, Staff}"
 
 
 [8:54] 

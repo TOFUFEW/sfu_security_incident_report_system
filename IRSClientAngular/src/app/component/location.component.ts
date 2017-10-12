@@ -29,8 +29,8 @@ export class LocationComponent implements OnInit {
   }
 
   addLocation(): void {
-    if (this.newLocation.CITY != null && this.newLocation.CITY.length == 0)
-      return;
+    // if (this.newLocation.CITY != null && this.newLocation.CITY.length == 0)
+    //   return;
     this.locationService.create(this.newLocation)
       .then(returnedLocation => {
         if (returnedLocation != null) {
@@ -44,8 +44,8 @@ export class LocationComponent implements OnInit {
   }
 
   updateLocation(location: Location): void {
-    if (this.newLocation.CITY != null && this.newLocation.CITY.length == 0)
-      return;
+    // if (this.newLocation.CITY != null && this.newLocation.CITY.length == 0)
+    //   return;
     this.locationService.update(location)
       .then(returnedLocation => {
         if (returnedLocation != null) {

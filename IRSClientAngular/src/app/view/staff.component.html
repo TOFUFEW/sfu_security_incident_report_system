@@ -3,18 +3,18 @@
     <div class="panel-body">  
       <ul>
           <li *ngFor="let staff of staffList">
-            Id: {{staff.accountId}},
-            {{staff.campusId}}, 
-            {{staff.firstName}}, 
-            {{staff.lastName}}
+            Id: {{staff.ACCOUNT_ID}},
+            {{staff.CAMPUS_ID}}, 
+            {{staff.FIRST_NAME}}, 
+            {{staff.LAST_NAME}}
             <br>
-            <input type="text" [(ngModel)]="staff.accountId"/>
-            <input type="text" [(ngModel)]="staff.campusId"/>
-            <input type="text" [(ngModel)]="staff.firstName"/>
-            <input type="text" [(ngModel)]="staff.lastName"/>
+            <input type="text" [(ngModel)]="staff.ACCOUNT_ID"/>
+            <input type="text" [(ngModel)]="staff.CAMPUS_ID"/>
+            <input type="text" [(ngModel)]="staff.FIRST_NAME"/>
+            <input type="text" [(ngModel)]="staff.LAST_NAME"/>
 
             <span class="link" (click)="updateStaff(staff);">Save</span>
-            <span class="link" (click)="deleteStaff(staff.accountId)">Delete</span>
+            <span class="link" (click)="deleteStaff(staff.ACCOUNT_ID)">Delete</span>
           </li>
         </ul>
   

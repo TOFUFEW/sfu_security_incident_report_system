@@ -1,6 +1,7 @@
 package Controller;
 import Model.Staff;
 import Util.DBHelper;
+import Util.DatabaseValues;
 import Util.JsonUtil;
 
 import java.util.*;
@@ -9,11 +10,8 @@ import static spark.Spark.*;
 
 
 
-public class StaffController {
-    JsonUtil parser = new JsonUtil ();
-    DBHelper dbHelper = new DBHelper ();
-
-    public List<Staff> staffList = new ArrayList<> ();
+public class StaffController
+{
 
     public StaffController ()
     {
@@ -22,26 +20,38 @@ public class StaffController {
 
     private void setupEndPoints ()
     {
+        get ( "/staffs" , ( request , response ) -> {
+            return JsonUtil.toJson( DBHelper.getStaffs () );
+        } );
+
         get("/staff", (request, response) -> {
-            return dbHelper.getStaff();
-        }, json() );
+            return JsonUtil.toJson( DBHelper.getStaffs () );
+        } );
 
-
-//        post("/staff", (request, response) -> {
-//            Staff staff = ( Staff ) parser.fromJson(request.body(), Staff.class);
-//            return dbHelper.addStaff(staff);
-//        }, json());
 
         put("/staff", (request, response) -> {
-            Staff staff = ( Staff ) parser.fromJson(request.body(), Staff.class);
-            return dbHelper.editStaff(staff); // This code touches the database
+            Staff staff = ( Staff ) JsonUtil.fromJson ( request.body (), Staff.class);
 
-        }, json());
+            if (!DBHelper.selectIncidentElement ( staff ) )
+            {
+                return DBHelper.updateIncidentElement ( staff );
+            } else {
+                return false;
+            }
+
+        } );
+
 
         delete("/staff/:id", (request, response) -> {
-            int id = Integer.parseInt(request.params(":id"));
-            return dbHelper.deleteStaff(id);
-        }, json());
+            String id = request.params(":id");
+            Staff staff = new Staff();
+            staff.editColumnValue (
+                    DatabaseValues.DatabaseColumn.ACCOUNT_ID,
+                    request.params ( ":id" )
+            );
+
+            return DBHelper.deleteIncidentElement ( staff );
+        } );
     }
 
 }
