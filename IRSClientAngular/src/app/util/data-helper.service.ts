@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IncidentElement } from '../model/incidentElement';
+import { IncidentElement } from '../model/incident-element';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';

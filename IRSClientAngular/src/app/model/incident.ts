@@ -5,6 +5,6 @@ export class Incident {
     DESCRIPTION: string;
     EXECUTIVE_SUMMARY: string;
     CLOSED: boolean;
-    LOCATIONS: Location[];
+    incidentElements: object[];
   }
   

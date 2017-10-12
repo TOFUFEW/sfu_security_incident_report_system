@@ -18,7 +18,7 @@ public class LoginController {
 
     private void setupEndPoints() {
         post( "/login", ( request, response ) -> {
-            User user = new Gson().fromJson( request.body(), User.class );
+            User user = (User) JsonUtil.fromJson( request.body(), User.class );
             return auth_account( user );
         }, json());
     }
