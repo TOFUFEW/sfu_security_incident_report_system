@@ -2,15 +2,6 @@ package App;
 
 
 import Controller.*;
-
-import DBConnector.Connector;
-
-import Model.Location;
-import Util.DBHelper;
-import Util.DatabaseValues;
-
-import java.sql.DriverManager;
-
 import static spark.Spark.*;
 
 

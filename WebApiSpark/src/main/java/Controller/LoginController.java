@@ -1,6 +1,5 @@
 package Controller;
 
-import DBConnector.Connector;
 import Model.*;
 import Util.*;
 import com.google.gson.Gson;
@@ -31,7 +30,7 @@ public class LoginController {
                     "select * from account acc" +
                     " where acc.USERNAME = '" + user.getColumnValue ( DatabaseValues.DatabaseColumn.USERNAME ) + "'" +
                     " AND acc.PASSWORD = '" + user.getColumnValue ( DatabaseValues.DatabaseColumn.PASSWORD ) + "'";
-            ResultSet myRs = Connector.executeQuery ( query );
+            ResultSet myRs = DBHelper.executeQuery ( query );
 
             if ( myRs.next () )
             {

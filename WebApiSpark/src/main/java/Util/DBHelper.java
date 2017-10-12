@@ -1,19 +1,20 @@
 package Util;
 
-import DBConnector.Connector;
 import Model.Incident;
 import Model.IncidentElement;
 import Model.Location;
 import Model.Staff;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class DBHelper
 {
+    private static final String USERNAME = "sa";
+    private static final String PASSWORD = "CMPT373Alpha";
+    private static final String URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=master;";
+    private static Connection connection = null;
 
     /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; REFACTORED methods ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
 
@@ -22,7 +23,7 @@ public class DBHelper
 
         try
         {
-            ResultSet resultSet = Connector.executeQuery ( "SELECT * FROM " + DatabaseValues.DatabaseTable.INCIDENT.toString() );
+            ResultSet resultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.DatabaseTable.INCIDENT.toString() );
 
             while ( resultSet.next () )
             {
@@ -54,7 +55,7 @@ public class DBHelper
         try {
             for ( String sql : sqlArrList )
             {
-                Connector.execute ( sql );
+                execute ( sql );
             }
         }
         catch ( SQLException e )
@@ -69,7 +70,7 @@ public class DBHelper
     {
         String sql = incidentElement.toInsertSQL ();
         try {
-            Connector.execute ( sql );
+            execute ( sql );
         } catch ( SQLException e ) {
             e.printStackTrace();
             return false;
@@ -81,7 +82,7 @@ public class DBHelper
     {
         String sql = incidentElement.toUpdateSQL ();
         try {
-            Connector.execute ( sql );
+            execute ( sql );
         } catch ( SQLException e ) {
             e.printStackTrace();
             return false;
@@ -93,7 +94,7 @@ public class DBHelper
     {
         String sql = incidentElement.toDeleteSQL ();
         try {
-            Connector.execute ( sql );
+            execute ( sql );
         } catch ( SQLException e ) {
             e.printStackTrace();
             return false;
@@ -101,14 +102,8 @@ public class DBHelper
         return true;
     }
 
-    public static boolean selectIncidentElement (
-            IncidentElement incidentElement,
-            String id
-    ) {
-        incidentElement.editColumnValue (
-                incidentElement.getIDColumn (),
-                id
-        );
+    public static boolean selectIncidentElement ( IncidentElement incidentElement)
+    {
         String sql = incidentElement.toSelectSQL ();
 
         if ( sql == null )
@@ -117,7 +112,7 @@ public class DBHelper
         }
 
         try {
-            ResultSet resultSet = Connector.executeQuery ( sql );
+            ResultSet resultSet = executeQuery ( sql );
             if ( resultSet.next () )
             {
                 incidentElement.extractFromResultSet ( resultSet );
@@ -134,7 +129,47 @@ public class DBHelper
         }
     }
 
+    public static IncidentElement [] getIncidentElements ( DatabaseValues.DatabaseTable table )
+    {
+        ArrayList < IncidentElement > incidentElementList = new ArrayList ();
 
+        try
+        {
+            ResultSet resultSet = executeQuery ( "SELECT * FROM " + table.toString () );
+
+            while ( resultSet.next () )
+            {
+                IncidentElement incidentElement;
+                if ( table == DatabaseValues.DatabaseTable.LOCATION )
+                {
+                    incidentElement = new Location ();
+                }
+                else if ( table == DatabaseValues.DatabaseTable.STAFF )
+                {
+                    incidentElement = new Staff ();
+                }
+                else
+                {
+                    throw new IllegalStateException ( table.toString () + " does not have its Model implemented yet" );
+                }
+//                else if ( table == DatabaseValues.DatabaseTable.ACCOUNT )
+//                {
+//                    //incidentElement = new Account ();
+//                }
+
+                incidentElement.extractFromResultSet ( resultSet );
+
+                incidentElementList.add ( incidentElement );
+            }
+        }
+
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+
+        return incidentElementList.toArray ( new IncidentElement [ incidentElementList.size () ] );
+    }
 
     public static Location [] getLocations ()
     {
@@ -142,7 +177,7 @@ public class DBHelper
 
         try
         {
-            ResultSet resultSet = Connector.executeQuery ( "SELECT * FROM " + DatabaseValues.DatabaseTable.LOCATION.toString () );
+            ResultSet resultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.DatabaseTable.LOCATION.toString () );
 
             while ( resultSet.next () )
             {
@@ -163,13 +198,14 @@ public class DBHelper
     }
 
 
+    // staff code
     public static Staff [] getStaffs ()
     {
         ArrayList < Staff > staffList = new ArrayList ();
 
         try
         {
-            ResultSet resultSet = Connector.executeQuery ( "SELECT * FROM " + DatabaseValues.DatabaseTable.STAFF.toString() );
+            ResultSet resultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.DatabaseTable.STAFF.toString() );
 
             while ( resultSet.next () )
             {
@@ -190,124 +226,48 @@ public class DBHelper
         return staffList.toArray ( new Staff [ staffList.size () ] );
     }
 
-    public static boolean deleteStaff (
-            String id
-    ) {
-        try {
-            if (staffExists(id)) {
-                String deleteQuery = "delete from staff where account_id = " + id + ";";
-                Connector.executeUpdate(deleteQuery);
-                return true;
-            } else {
-                return false;
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return true;
+    public static boolean execute ( String query ) throws SQLException
+    {
+        initDB ();
+        Statement stmt = connection.createStatement ();
+        return stmt.execute ( query );
     }
 
+    public static int executeUpdate ( String query ) throws SQLException
+    {
+        initDB ();
+        Statement stmt = connection.createStatement( );
+        return stmt.executeUpdate ( query );
+    }
 
+    public static ResultSet executeQuery ( String query ) throws SQLException
+    {
+        initDB ();
+        Statement stmt = connection.createStatement ();
+        return stmt.executeQuery ( query );
+    }
 
+    private static void initDB ()
+    {
+        if ( connection != null )
+        {
+            return;
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; NOT REFACTORED! DO NOT USE! ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
-
-
-    //staff functions
-
-    public static List < Staff > getStaff () {
-        List<Staff> staffList = new ArrayList<>();
-
-        try {
-            ResultSet result = Connector.executeQuery("select * from Staff");
-
-            while ( result.next () )
-            {
-                String id = result.getString ( "account_id" );
-                String campusId = result.getString ( "campus_id" );
-                String firstName = result.getString ( "first_name" );
-                String lastName = result.getString ( "last_name" );
-
-                Staff staff = new Staff (
-                        id,
-                        campusId,
-                        firstName,
-                        lastName
-                );
-                staffList.add ( staff );
-            }
-
+        try
+        {
+            Class.forName ( "com.microsoft.sqlserver.jdbc.SQLServerDriver" );
+            connection = DriverManager.getConnection (
+                    URL,
+                    USERNAME,
+                    PASSWORD
+            );
         }
 
         catch ( Exception e )
         {
             e.printStackTrace ();
+            connection = null;
         }
-        return staffList;
     }
-
-
-//    public static Staff addStaff( Staff staff ) {
-//        try {
-//            String insertStaff = "insert into staff "
-//                    + "values (" + staff.getAccountId() + ", "
-//                    + staff.getCampusId() + ", "
-//                    + staff.getFirstName() + ", "
-//                    + staff.getLastName() + ")";
-//
-//            Connector.executeUpdate(insertStaff);
-//
-//        } catch ( Exception e ){
-//            e.printStackTrace();
-//        }
-//        return staff;
-//    }
-
-    public static boolean staffExists( String id ) {
-
-        try {
-            String existsQuery = "select 1 from Staff where account_id = " + id;
-            ResultSet result = Connector.executeQuery((existsQuery));
-            while ( result.next() ){
-                return true;
-            }
-        } catch ( Exception e ){
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-
-    public static Staff editStaff( Staff staff ) {
-        try {
-            if ( !staffExists ( staff.getColumnValue ( DatabaseValues.DatabaseColumn.ACCOUNT_ID ) ) )
-            {
-                String editQuery = "update staff set "
-                        + "campus_id = " + staff.getColumnValue( DatabaseValues.DatabaseColumn.CAMPUS_ID ) + ", "
-                        + "first_name = " + staff.getColumnValue( DatabaseValues.DatabaseColumn.FIRST_NAME ) + ", "
-                        + "last_name = " + staff.getColumnValue( DatabaseValues.DatabaseColumn.LAST_NAME ) + " "
-                        + "where account_id = " + staff.getColumnValue( DatabaseValues.DatabaseColumn.ACCOUNT_ID ) + ";";
-                Connector.executeUpdate(editQuery);
-            } else {
-                return null;
-            }
-        } catch ( Exception e ){
-        e.printStackTrace();
-    }
-        return staff;
-    }
-
 }

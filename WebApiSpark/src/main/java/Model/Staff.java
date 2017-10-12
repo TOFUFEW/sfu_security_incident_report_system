@@ -4,11 +4,6 @@ import Util.DatabaseValues;
 
 public class Staff extends IncidentElement
 {
-//    public int ACCOUNT_ID;
-//    public int CAMPUS_ID;
-//    public String FIRST_NAME;
-//    public String LAST_NAME;
-
     public Staff ( )
     {
         this (
@@ -25,42 +20,41 @@ public class Staff extends IncidentElement
             String firstName,
             String lastName
     ) {
-        super (
+        super(
                 DatabaseValues.DatabaseTable.STAFF,
-                new DatabaseValues.DatabaseColumn []
-                {
-                        DatabaseValues.DatabaseColumn.ACCOUNT_ID,
-                        DatabaseValues.DatabaseColumn.CAMPUS_ID,
-                        DatabaseValues.DatabaseColumn.FIRST_NAME,
-                        DatabaseValues.DatabaseColumn.LAST_NAME,
+                new DatabaseValues.DatabaseColumn[]
+                        {
+                                DatabaseValues.DatabaseColumn.ACCOUNT_ID,
+                                DatabaseValues.DatabaseColumn.CAMPUS_ID,
+                                DatabaseValues.DatabaseColumn.FIRST_NAME,
+                                DatabaseValues.DatabaseColumn.LAST_NAME,
 
-                }
+                        }
         );
 
-        editColumnValue (
+        editColumnValue(
                 DatabaseValues.DatabaseColumn.ACCOUNT_ID,
                 accountId
         );
 
-        editColumnValue (
+        editColumnValue(
                 DatabaseValues.DatabaseColumn.CAMPUS_ID,
                 campusId
         );
 
 
-        editColumnValue (
+        editColumnValue(
                 DatabaseValues.DatabaseColumn.FIRST_NAME,
                 firstName
         );
 
-        editColumnValue (
+        editColumnValue(
                 DatabaseValues.DatabaseColumn.LAST_NAME,
                 lastName
         );
+    }
 
-//        this.ACCOUNT_ID = Integer.getInteger(accountId);
-//        this.CAMPUS_ID = Integer.getInteger(campusId);
-//        this.FIRST_NAME = firstName;
-//        this.LAST_NAME = lastName;
+    public DatabaseValues.DatabaseColumn getIDColumn () {
+        return DatabaseValues.DatabaseColumn.ACCOUNT_ID ;
     }
 }

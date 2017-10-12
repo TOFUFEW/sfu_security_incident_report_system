@@ -11,7 +11,7 @@ import 'rxjs/add/operator/toPromise';
 export class LocationService {
     private headers = new Headers({ 'Content-Type': 'application/json' });
     locationsUrl = Config.LocationsURI;
-    tableName = "LOCATIONS";
+    tableName = Config.LocationTable;
     constructor( private http: Http, private dataHelper: DataHelperService ) {}
 
     getLocations(): Promise<Location[]> {
@@ -24,7 +24,7 @@ export class LocationService {
 
     create( location: Location ) : Promise<Location> {
         var promise = this.http
-                .post( this.locationsUrl, JSON.stringify( location ), { headers: this.headers } )
+                .post( this.locationsUrl, JSON.stringify( this.dataHelper.toIncidentElement( this.tableName, location ) ), { headers: this.headers } )
                 .toPromise()
                 .then( response => response.json() as Location )
                 .catch( this.handleError );
@@ -33,7 +33,7 @@ export class LocationService {
 
     update( location: Location ) : Promise<Location> {
         var promise = this.http
-                .post( this.locationsUrl, JSON.stringify( location ), { headers: this.headers } )
+                .post( this.locationsUrl, JSON.stringify( this.dataHelper.toIncidentElement( this.tableName, location ) ), { headers: this.headers } )
                 .toPromise()
                 .then( response => response.json() as Location )
                 .catch( this.handleError );

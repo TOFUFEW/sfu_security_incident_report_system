@@ -1,6 +1,5 @@
 package UnitTests;
 
-import DBConnector.Connector;
 import Model.Location;
 import Util.DBHelper;
 import Util.DatabaseValues;
@@ -10,7 +9,7 @@ import org.junit.Test;
 
 import java.sql.ResultSet;
 
-public class TestIncidentElement
+public class TestLocation
 {
     @Test
     public void testValidLocation ()
@@ -309,9 +308,15 @@ public class TestIncidentElement
         String locationID = DEBUG_getLargestLocationIDFromTable ();
 
         Location location2 = new Location ();
+        location2.editColumnValue (
+                DatabaseValues.DatabaseColumn.LOCATION_ID,
+                locationID
+        );
 
-        Assert.assertTrue( DBHelper.selectIncidentElement ( location2, locationID ) );
-        Assert.assertTrue(location2.getColumnValue(DatabaseValues.DatabaseColumn.LOCATION_ID).equals(locationID));
+        Assert.assertTrue( DBHelper.selectIncidentElement ( location2 ) );
+        Assert.assertTrue ( location2.getColumnValue ( DatabaseValues.DatabaseColumn.LOCATION_ID )
+                .equals ( locationID )
+        );
 
         // clean up after test
         // add locationID
@@ -326,7 +331,8 @@ public class TestIncidentElement
     {
         try
         {
-            ResultSet resultSet = Connector.executeQuery("SELECT MAX ( LOCATION_ID ) AS MaxLocationID FROM " + DatabaseValues.DatabaseTable.LOCATION.toString () );
+            ResultSet resultSet = DBHelper.executeQuery ( "SELECT MAX ( LOCATION_ID ) AS MaxLocationID FROM " +
+                    DatabaseValues.DatabaseTable.LOCATION.toString () );
             while ( resultSet.next () )
             {
                 return "" + resultSet.getInt ( "MaxLocationID" );

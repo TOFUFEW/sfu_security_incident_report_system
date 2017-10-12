@@ -22,19 +22,6 @@ export class StaffComponent implements OnInit {
     } );    
   }
 
-  // addStaff(): void {
-
-  //   this.staffService.create( this.newStaff )
-  //       .then( returnedStaff => {
-  //           if ( returnedStaff != null  ) {
-  //             this.staffList.push( returnedStaff );
-  //             alert( returnedStaff.FIRST_NAME + " successfully added!" );            
-  //           }
-  //           else alert( "Add failed." );  
-  //       } );
-  //   delete this.newStaff;
-  //   this.newStaff = new Staff();
-  // }
 
   updateStaff( staff:Staff ): void {
     this.staffService.update( staff )

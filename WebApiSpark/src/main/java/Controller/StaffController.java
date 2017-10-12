@@ -10,11 +10,8 @@ import static spark.Spark.*;
 
 
 
-public class StaffController {
-    JsonUtil parser = new JsonUtil ();
-    DBHelper dbHelper = new DBHelper ();
-
-    public List<Staff> staffList = new ArrayList<> ();
+public class StaffController
+{
 
     public StaffController ()
     {
@@ -23,21 +20,21 @@ public class StaffController {
 
     private void setupEndPoints ()
     {
+        get ( "/staffs" , ( request , response ) -> {
+            return JsonUtil.toJson( DBHelper.getStaffs () );
+        } );
+
         get("/staff", (request, response) -> {
-            return dbHelper.getStaffs();
-        }, json() );
+            return JsonUtil.toJson( DBHelper.getStaffs () );
+        } );
 
-
-//        post("/staff", (request, response) -> {
-//            Staff staff = ( Staff ) parser.fromJson(request.body(), Staff.class);
-//            return dbHelper.addStaff(staff);
-//        }, json());
 
         put("/staff", (request, response) -> {
-            Staff staff = ( Staff ) parser.fromJson( request.body () , Staff.class);
+            Staff staff = ( Staff ) JsonUtil.fromJson ( request.body (), Staff.class);
 
-            if (dbHelper.staffExists(staff.getColumnValue(DatabaseValues.DatabaseColumn.ACCOUNT_ID)) ) {
-                return dbHelper.updateIncidentElement(staff);
+            if (!DBHelper.selectIncidentElement ( staff ) )
+            {
+                return DBHelper.updateIncidentElement ( staff );
             } else {
                 return false;
             }
@@ -47,12 +44,14 @@ public class StaffController {
 
         delete("/staff/:id", (request, response) -> {
             String id = request.params(":id");
-            return dbHelper.deleteStaff(id);
-        }, json());
-    }
+            Staff staff = new Staff();
+            staff.editColumnValue (
+                    DatabaseValues.DatabaseColumn.ACCOUNT_ID,
+                    request.params ( ":id" )
+            );
 
-    public DatabaseValues.DatabaseColumn getIDColumn () {
-        return DatabaseValues.DatabaseColumn.ACCOUNT_ID ;
+            return DBHelper.deleteIncidentElement ( staff );
+        } );
     }
 
 }
