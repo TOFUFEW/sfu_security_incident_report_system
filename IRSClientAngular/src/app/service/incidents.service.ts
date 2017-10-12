@@ -30,7 +30,7 @@ export class IncidentsService
                 .post( this.incidentsUrl, JSON.stringify( _incident ), { headers: this.headers } )
                 .toPromise()
                 .then( response => { 
-                    return (response.json() as boolean) ? incident : null 
+                    return ( response.json() as boolean ) ? incident : null 
                 })
                 .catch( this.handleError );
         return Promise.resolve( promise );
