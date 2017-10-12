@@ -1,0 +1,1 @@
+curl -H "Content-Type: application/json" -X POST -d '{"REPORT_ID" : 1 , "CATEGORY_ID" : 1 , "ACCOUNT_ID" : 1, "DESCRIPTION": "NHAN" , "EXECUTIVE_SUMMARY" : "NGUYEN", "CLOSED" : 0, "LOCATIONS": []}' http://localhost:4567/updateIncident
