@@ -10,14 +10,14 @@ export class DataHelperService
 {
     constructor() {}
 
-    extractColumnValue( incidentElement: IncidentElement ): Object {
-        return incidentElement.columnValue;
+    extractAttribute( incidentElement: IncidentElement ): Object {
+        return incidentElement.attributes;
     }
 
-    extractColumnValues( incidentElements: IncidentElement[] ): Object[] {
+    extractAttributes( incidentElements: IncidentElement[] ): Object[] {
         var arr = [];
         incidentElements.forEach( iE => {
-            arr.push( iE.columnValue );
+            arr.push( iE.attributes );
         });
         return arr;
     }
@@ -26,7 +26,7 @@ export class DataHelperService
         var incidentElement: IncidentElement = new IncidentElement();
      
         incidentElement.table = table;
-        incidentElement.columnValue = object;
+        incidentElement.attributes = object;
         return incidentElement;
     }
 
