@@ -31,7 +31,7 @@ export class DashboardComponent {
   ) {
 
     if ( this.userService.isLoggedIn() == false ) {
-      //this.router.navigate([ 'login' ] );
+      this.router.navigate([ 'login' ] );
     }
   }
 }
