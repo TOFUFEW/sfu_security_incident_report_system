@@ -7,4 +7,5 @@ export class Config {
 
     static StaffTable: string = "STAFF";
     static LocationTable: string = "LOCATION";
+    static AccountTable: string = "ACCOUNT";
 }

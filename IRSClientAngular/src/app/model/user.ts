@@ -1,5 +1,6 @@
 export class User {
-    id: number;
-    username: string;
-    password: string;
+    //id: number;
+    USERNAME: string;
+    PASSWORD: string;
+    ACCOUNT_TYPE: string;
 }

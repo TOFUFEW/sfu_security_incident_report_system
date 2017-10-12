@@ -33,7 +33,7 @@ export class LoginComponent {
                 this.userService.authUser(this.data);
                 
                 if ( this.userService.isLoggedIn() ) {
-                    console.log("login success! Welcome " + this.userService.getCurrentUser().username);
+                    console.log("login success! Welcome " + this.userService.getCurrentUser().USERNAME);
                     this.router.navigate([ 'dashboard' ] );
                 } else {
                     alert("Invalid login credentials!");
