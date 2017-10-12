@@ -1,65 +1,60 @@
 package Model;
 
-
 import Util.DatabaseValues;
 
-public class Staff extends IncidentElement {
-    public int accountId;
-    public int campusId;
-    public String firstName;
-    public String lastName;
+public class Staff extends IncidentElement
+{
+    public Staff ( )
+    {
+        this (
+                "",
+                "",
+                "",
+                ""
+        );
+    }
 
-
-    public Staff(
-            int accountId,
-            int campusId,
+    public Staff (
+            String accountId,
+            String campusId,
             String firstName,
             String lastName
     ) {
-        super(DatabaseValues.DatabaseTable.STAFF);
+        super(
+                DatabaseValues.DatabaseTable.STAFF,
+                new DatabaseValues.DatabaseColumn[]
+                        {
+                                DatabaseValues.DatabaseColumn.ACCOUNT_ID,
+                                DatabaseValues.DatabaseColumn.CAMPUS_ID,
+                                DatabaseValues.DatabaseColumn.FIRST_NAME,
+                                DatabaseValues.DatabaseColumn.LAST_NAME,
 
-        super.putValue(
+                        }
+        );
+
+        editColumnValue(
                 DatabaseValues.DatabaseColumn.ACCOUNT_ID,
-                Integer.toString(accountId)
+                accountId
         );
 
-        super.putValue(
+        editColumnValue(
                 DatabaseValues.DatabaseColumn.CAMPUS_ID,
-                Integer.toString(campusId)
+                campusId
         );
 
 
-        super.putValue(
+        editColumnValue(
                 DatabaseValues.DatabaseColumn.FIRST_NAME,
                 firstName
         );
 
-        super.putValue(
+        editColumnValue(
                 DatabaseValues.DatabaseColumn.LAST_NAME,
                 lastName
         );
-
-        this.accountId = accountId;
-        this.campusId = campusId;
-        this.firstName = firstName;
-        this.lastName = lastName;
     }
 
-    public int getAccountId () {
-        return accountId;
+    public DatabaseValues.DatabaseColumn getIDColumn () {
+        return DatabaseValues.DatabaseColumn.ACCOUNT_ID ;
     }
-
-    public int getCampusId () {
-        return campusId;
-    }
-
-    public String getFirstName () {
-        return firstName;
-    }
-
-    public String getLastName () {
-        return lastName;
-    }
-
-
 }

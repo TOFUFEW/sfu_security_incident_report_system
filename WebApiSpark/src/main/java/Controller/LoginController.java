@@ -1,6 +1,5 @@
 package Controller;
 
-import DBConnector.Connector;
 import Model.*;
 import Util.*;
 import com.google.gson.Gson;
@@ -24,25 +23,32 @@ public class LoginController {
         }, json());
     }
 
-    private User auth_account( User user ) {
+    private User auth_account ( User user ) {
         try {
 
             String query = "" +
                     "select * from account acc" +
-                    " where acc.USERNAME = '" + user.username + "'" +
-                    " AND acc.PASSWORD = '" + user.password + "'";
-            ResultSet myRs = Connector.executeQuery( query );
+                    " where acc.USERNAME = '" + user.getColumnValue ( DatabaseValues.DatabaseColumn.USERNAME ) + "'" +
+                    " AND acc.PASSWORD = '" + user.getColumnValue ( DatabaseValues.DatabaseColumn.PASSWORD ) + "'";
+            ResultSet myRs = DBHelper.executeQuery ( query );
 
+            if ( myRs.next () )
+            {
+                user.editColumnValue (
+                        DatabaseValues.DatabaseColumn.ACCOUNT_TYPE,
+                        myRs.getString ( DatabaseValues.DatabaseColumn.ACCOUNT_TYPE.toString () )
+                );
+            }
 
-            if ( myRs.next() ) {
-                user.accType = Integer.parseInt( myRs.getString( "ACCOUNT_TYPE" ) );
-            } else {
+            else
+            {
                 return null;
             }
 
         } catch ( Exception e ) {
-            e.printStackTrace();
+            e.printStackTrace ();
         }
+
         return user;
     }
 
