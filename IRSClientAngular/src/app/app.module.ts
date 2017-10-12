@@ -15,7 +15,7 @@ import { IncidentsComponent } from './component/incidents.component';
 import { LoginComponent } from './component/login.component';
 
 /* Services */
-import { DataHelperService } from './util/dataHelper.service';
+import { DataHelperService } from './util/data-helper.service';
 import { UserService } from './service/user.service';
 import { LoginService } from './service/login.service';
 
