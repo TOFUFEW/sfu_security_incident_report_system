@@ -17,7 +17,7 @@ export class IncidentsService
     getIncidents(): Promise<Incident[]> {
         var incidents = this.http.get( this.incidentsUrl )
             .toPromise()
-            .then( response => this.dataHelper.extractColumnValues( response.json() ) as Incident[] )
+            .then( response => this.dataHelper.extractAttributes( response.json() ) as Incident[] )
             .catch( this.handleError );
         return Promise.resolve( incidents );
     };
