@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IncidentElement } from '../model/incident-element';
+import { StorageObject } from '../model/storage-object';
 import { Staff } from '../model/staff';
 import { StaffService } from '../service/staff.service';
 import { Router, RouterModule } from '@angular/router';

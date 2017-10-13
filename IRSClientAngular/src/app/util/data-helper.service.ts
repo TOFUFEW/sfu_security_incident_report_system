@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { IncidentElement } from '../model/incident-element';
+import { Incident } from '../model/incident';
+import { StorageObject } from '../model/storage-object';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
@@ -10,23 +11,25 @@ export class DataHelperService
 {
     constructor() {}
 
-    extractAttribute( incidentElement: IncidentElement ): Object {
-        return incidentElement.attributes;
+    extractAttribute( storageObject: StorageObject ): Object {
+        return storageObject.attributes;
     }
 
-    extractAttributes( incidentElements: IncidentElement[] ): Object[] {
+    extractAttributes( storageObjects: StorageObject[] ): Object[] {
         var arr = [];
-        incidentElements.forEach( iE => {
-            arr.push( iE.attributes );
+        storageObjects.forEach( so => {
+            arr.push( so.attributes );
         });
         return arr;
     }
 
-    toIncidentElement( table: string, object: Object): IncidentElement{
-        var incidentElement: IncidentElement = new IncidentElement();
+    toStorageObject( table: string, object: Object): StorageObject {
+        var storageObject: StorageObject = new StorageObject();
      
-        incidentElement.table = table;
-        incidentElement.attributes = object;
-        return incidentElement;
+        storageObject.table = table;
+        storageObject.attributes = object;
+        return storageObject;
     }
+
+
 }

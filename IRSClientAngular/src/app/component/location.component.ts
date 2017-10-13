@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IncidentElement } from '../model/incident-element';
+import { StorageObject } from '../model/storage-object';
 import { Location } from '../model/location';
 import { LocationService } from '../service/location.service';
 import { Router, RouterModule } from '@angular/router';

@@ -1,4 +1,4 @@
-export class IncidentElement {
+export class StorageObject {
     table: string;
     attributes: object;
 }
