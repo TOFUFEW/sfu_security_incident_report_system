@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Incident } from '../model/incident';
 import { IncidentElement } from '../model/incident-element';
+import { IncidentJson } from '../model/incident-json';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
@@ -31,5 +32,11 @@ export class DataHelperService
         return incidentElement;
     }
 
-
+    toIncidentJson( incident: Incident ): IncidentJson {
+        var incidentJson = new IncidentJson();
+        incidentJson.table = Config.IncidentTable;
+        incidentJson.attributes = incident;
+        incidentJson.incidentElements = [];
+        return incidentJson;
+    }
 }

@@ -5,10 +5,5 @@ export class Incident {
     DESCRIPTION: string;
     EXECUTIVE_SUMMARY: string;
     CLOSED: number;
-    incidentElements: object[];
-
-    constructor() {
-      this.incidentElements = [];
-    }
   }
   

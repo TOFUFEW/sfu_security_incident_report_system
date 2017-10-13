@@ -59,10 +59,11 @@ export class DashboardComponent {
     inc.ACCOUNT_ID = 1;
     inc.CATEGORY_ID = 1;
     inc.CLOSED = 0;
-    inc.DESCRIPTION = "SAMPLE DESCRIPTION";
+    inc.DESCRIPTION = "TEST NEW JSON FORMAT";
     inc.EXECUTIVE_SUMMARY = "SAMPLE EXECUTIVE SUMMARY";
-    //inc.incidentElements.push(_loc1);
-    //inc.incidentElements.push(_loc2); //
+    var _inc = this.dataHelper.toIncidentJson( inc );
+    _inc.incidentElements.push( _loc1 );
+    _inc.incidentElements.push( _loc2 );
 
     this.incidentService.create( inc )
         .then( returnedIncident => {
