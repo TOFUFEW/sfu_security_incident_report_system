@@ -7,6 +7,9 @@
                       <span class="glyphicon glyphicon-dashboard glyphicon-heading"></span>
                       <span class="panel-header">Workspace</span>
                   </div>
+                  <div id="button-container">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#new-incident-modal" (click)="addIncident();">New Incident</button>
+                    </div>
               </div>
               <div class="panel-body">
                 <div class="incidents-row">
@@ -92,32 +95,54 @@
             </div>
           </div>
 
-          <div id="incidents-list-panel" class="panel panel-default">
-              <div class="panel-body">
-                  <div id="toolbar" class="row">
-                      <div class="col-md-6 col-lg-6">
-                          <div>
-                              <span class="glyphicon glyphicon-list-alt glyphicon-heading"></span>
-                              <span class="panel-header">Incidents</span>
-                          </div>
+          <div id="bottom-panels" class="row">
+                <div class="col-md-6 col-lg-6">
+                    <div id="incidents-list-panel" class="panel panel-default">
+                        <div class="panel-body">
+                            <div id="toolbar" class="row">
+                                <div class="col-md-6 col-lg-6">
+                                    <div>
+                                        <span class="glyphicon glyphicon-list-alt glyphicon-heading"></span>
+                                        <span class="panel-header">Incidents</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-lg-4 col-md-offset-2 col-lg-offset-2">
+                                    <input class="form-control" type="text" placeholder="Search for incidents...">
+                                </div>
+                            </div>
+                            <div id="incidents-list" class="col-md-12 col-lg-12">
+                                <incidents-component></incidents-component>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              <div class="col-md-6 col-lg-6">
+                  <div id="staff-list-panel" class="panel panel-default">
+                      <div class="panel-body">
+                            <div id="toolbar" class="row">
+                                <div class="col-md-6 col-lg-6">
+                                    <div>
+                                        <span class="glyphicon glyphicon-user glyphicon-heading"></span>
+                                        <span class="panel-header">Staff</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-lg-4 col-md-offset-2 col-lg-offset-2">
+                                    <input class="form-control" type="text" placeholder="Search for staff...">
+                                </div>
+                            </div>
+                            <div id="staff-list" class="col-md-12 col-lg-12">
+                                <staff-component></staff-component>
+                            </div>
                       </div>
-                      <div class="col-md-4 col-lg-4 col-md-offset-2 col-lg-offset-2">
-                          <input class="form-control" type="text" placeholder="Search for incidents...">
-                      </div>
-                  </div>
-                  <div id="incidents-list" class="col-md-12 col-lg-12">
-                    <incidents-component></incidents-component>
                   </div>
               </div>
+            
           </div>
+          
       </div>
       
 
       <div id="left-panels" class="col-md-2 col-lg-2 side-container">
-          <div id="button-container">
-              <button class="btn btn-primary" data-toggle="modal" data-target="#new-incident-modal" (click)="addIncident();">New Incident</button>
-          </div>
-          
           <div class="panel panel-default">
               <div class="panel-heading">
                   <select class="form-control">

@@ -9,6 +9,7 @@ div.side-container .panel-heading {
     @include flex(flex-start, flex-start);
 }
 
+
 div#incidents-container {
     order: 2;
     padding: $padding-lg;
@@ -24,8 +25,13 @@ div#incidents-container {
         }
     }
 
-    div#incidents-list-panel {
+    div#bottom-panels {
         height: 33%;
+        max-height: 33%;
+    }
+
+    div#incidents-list-panel, div#staff-list-panel {
+        height: 100%;
         background: $grey-lite;
         border-top: 4px solid $grey-default;
         border-top-left-radius: 0px;
@@ -38,7 +44,7 @@ div#incidents-container {
         div#toolbar {
             height: 20%;
         }
-        div#incidents-list {
+        div#incidents-list, div#staff-list {
             height: 80%;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
