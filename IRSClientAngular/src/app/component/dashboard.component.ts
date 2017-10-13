@@ -56,14 +56,13 @@ export class DashboardComponent {
     var _loc2 = this.dataHelper.toIncidentElement( Config.LocationTable, loc2);
 
     var inc = this.newIncident;
-    inc.ACCOUNT_ID = 1;
-    inc.CATEGORY_ID = 1;
-    inc.CLOSED = 0;
-    inc.DESCRIPTION = "TEST NEW JSON FORMAT";
-    inc.EXECUTIVE_SUMMARY = "SAMPLE EXECUTIVE SUMMARY";
-    var _inc = this.dataHelper.toIncidentJson( inc );
-    _inc.incidentElements.push( _loc1 );
-    _inc.incidentElements.push( _loc2 );
+    inc.attributes.ACCOUNT_ID = 1;
+    inc.attributes.CATEGORY_ID = 1;
+    inc.attributes.CLOSED = 0;
+    inc.attributes.DESCRIPTION = "TESTTTTTT";
+    inc.attributes.EXECUTIVE_SUMMARY = "SAMPLE EXECUTIVE SUMMARY";
+    inc.incidentElements.push( _loc1 );
+    inc.incidentElements.push( _loc2 );
 
     this.incidentService.create( inc )
         .then( returnedIncident => {

@@ -23,10 +23,8 @@ export class IncidentsService
     };
 
     create( incident: Incident ): Promise<Incident> {
-        var _incident = this.dataHelper.toIncidentElement( Config.IncidentTable, incident );
-        console.log(_incident);
         var promise = this.http
-                .post( this.incidentsUrl, JSON.stringify( _incident ), { headers: this.headers } )
+                .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
                 .toPromise()
                 .then( response => { 
                     return ( response.json() as boolean ) ? incident : null 
