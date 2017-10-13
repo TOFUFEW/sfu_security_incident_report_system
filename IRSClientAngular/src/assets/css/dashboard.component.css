@@ -16,6 +16,8 @@ div#incidents-container {
     margin: 0px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px; }
+    div#incidents-container div#incidents-dashboard .panel-body {
+      padding: 0px !important; }
   div#incidents-container div#incidents-list-panel {
     height: 33%;
     background: #f5f5f5;
@@ -50,13 +52,17 @@ div.incidents-row {
   width: 100%;
   overflow-x: auto; }
 
+div.quarter-box {
+  height: 100%;
+  width: 25%;
+  border-right: 8px double #d1d1d1; }
+
 div.incident-box {
   flex-direction: column;
   height: 100%;
-  width: 25%;
+  width: 100%;
   min-width: 25%;
   padding: 20px;
-  border-right: 1px solid rgba(0, 0, 0, 0.16);
   overflow: auto; }
   div.incident-box .incident-header {
     font-size: 24px; }

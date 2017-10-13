@@ -18,6 +18,10 @@ div#incidents-container {
         margin: 0px;
         border-bottom-left-radius: 0px;
         border-bottom-right-radius: 0px;
+
+        .panel-body{
+            padding: 0px !important;
+        }
     }
 
     div#incidents-list-panel {
@@ -67,13 +71,19 @@ div.incidents-row {
     overflow-x: auto;
 }
 
+div.quarter-box {
+    height: 100%;
+    width: 25%;
+    border-right: 8px double $grey-dark;
+}
+
 div.incident-box {
     flex-direction: column;
     height: 100%;
-    width: 25%;
+    width: 100%;
     min-width: 25%;
     padding: $padding-lg;
-    border-right: $border-default;
+    //border: $border-default;
     overflow: auto;
 
     .incident-header {
