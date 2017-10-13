@@ -7,16 +7,17 @@ import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../service/user.service';
 
+
 @Component({
-  selector: 'guard-incident',
-  templateUrl: '../../view/guardApp/incident.component.html',
+  selector: 'guard-dashboard',
+  templateUrl: '../../view/guard-app/guard-dashboard.component.html',
   providers: [LocationService, IncidentsService]
 })
 
-export class GuardIncidentComponent {
+export class GuardDashboard {
   title = 'SFU Incident Reporting System';
   locationsList: Location[];
-  incident: Incident;
+  incidentsList: Incident[];
 
   constructor(
     private router: Router,
