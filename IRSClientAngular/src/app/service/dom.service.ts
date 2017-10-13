@@ -12,6 +12,7 @@ import { DynamicFormComponent } from '../component/dynamicForm.component';
 @Injectable()
 export class DomService {
 
+
     constructor(
         private componentFactoryResolver: ComponentFactoryResolver,
         private appRef: ApplicationRef,
@@ -19,12 +20,21 @@ export class DomService {
     ) { }
 
     appendComponentToDiv(component: any, tag: string) {
-   
+
         // 1. Create a component reference from the component 
         const componentRef = this.componentFactoryResolver
         .resolveComponentFactory(component)
         .create(this.injector);
 
+        /*
+        const factory = this.componentFactoryResolver.resolveComponentFactory(component);
+        console.log("we are here");
+        let rootViewContainer = viewContainerRef;
+        rootViewContainer.clear();
+        let componentRef = factory.create(rootViewContainer.parentInjector);
+        */
+
+        console.log("component created");
         // 2. Attach component to the appRef so that it's inside the ng component tree
         this.appRef.attachView(componentRef.hostView);
 
