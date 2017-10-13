@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IncidentElement } from '../model/incidentElement';
+import { IncidentElement } from '../model/incident-element';
 import { Location } from '../model/location';
 import { LocationService } from '../service/location.service';
 import {UserService} from "../service/user.service";
