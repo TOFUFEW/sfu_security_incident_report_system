@@ -21,9 +21,25 @@ public class TestIncident {
         Location location1 = new Location (
                 null, // notice how this is null? Tells class to ignore the column and its value when creating Insert SQL
                 "1",
-                "Building E",
+                "TEST BLDG 1",
                 "4000",
                 "SOSY"
+        );
+
+        Location location2 = new Location (
+                null, // notice how this is null? Tells class to ignore the column and its value when creating Insert SQL
+                "1",
+                "TEST BLDG 2",
+                "4000",
+                "CMPT"
+        );
+
+        Location location3 = new Location (
+                null, // notice how this is null? Tells class to ignore the column and its value when creating Insert SQL
+                "1",
+                "TEST BLDG 3",
+                "4000",
+                "CMPT"
         );
 
         IncidentElement[] staff = DBHelper.getIncidentElements( DatabaseTable.STAFF );
@@ -39,7 +55,7 @@ public class TestIncident {
         incident.editColumnValue( DatabaseColumn.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
         incident.editColumnValue( DatabaseColumn.CLOSED, "0" );
         incident.addIncidentElement( location1 );
-        incident.addIncidentElement( staff1 );
+        incident.addIncidentElement( location2 );
 
         int currentSize = getNumberOfIncidents();
         DBHelper.insertIncident( incident );
