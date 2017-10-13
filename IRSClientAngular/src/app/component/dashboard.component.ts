@@ -62,7 +62,7 @@ export class DashboardComponent {
     inc.DESCRIPTION = "SAMPLE DESCRIPTION";
     inc.EXECUTIVE_SUMMARY = "SAMPLE EXECUTIVE SUMMARY";
     //inc.incidentElements.push(_loc1);
-    //inc.incidentElements.push(_loc2);
+    //inc.incidentElements.push(_loc2); //
 
     this.incidentService.create( inc )
         .then( returnedIncident => {
