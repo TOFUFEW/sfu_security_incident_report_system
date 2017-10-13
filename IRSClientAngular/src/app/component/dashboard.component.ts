@@ -46,14 +46,14 @@ export class DashboardComponent {
     loc1.CAMPUS_ID = 1;
     loc1.DEPARTMENT  = "SOSY";
     loc1.ROOM_NUMBER = 4080;
-    var _loc1 = this.dataHelper.toStorageObject( Config.LocationTable, loc1);
+    var _loc1 = this.dataHelper.toIncidentElement( Config.LocationTable, loc1);
 
     var loc2 = new Location();
     loc2.BUILDING_NAME = "TEST2";
     loc2.CAMPUS_ID = 1;
     loc2.DEPARTMENT  = "SOSY";
     loc2.ROOM_NUMBER = 4080;
-    var _loc2 = this.dataHelper.toStorageObject( Config.LocationTable, loc2);
+    var _loc2 = this.dataHelper.toIncidentElement( Config.LocationTable, loc2);
 
     var inc = this.newIncident;
     inc.ACCOUNT_ID = 1;

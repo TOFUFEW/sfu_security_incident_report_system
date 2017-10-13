@@ -16,7 +16,7 @@ export class LoginService {
 
     doLogin( user: User ): Observable<string> {
         let options = new RequestOptions( { headers: this.headers } );
-        var _user = this.dataHelper.toStorageObject ( Config.AccountTable, user );
+        var _user = this.dataHelper.toIncidentElement ( Config.AccountTable, user );
         return this.http.post( this.loginUrl, 
             JSON.stringify( _user ), 
             options )

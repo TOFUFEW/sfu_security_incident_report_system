@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { StorageObject } from '../model/storage-object';
+import { IncidentElement } from '../model/incident-element';
 import { Location } from '../model/location';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
@@ -24,7 +24,7 @@ export class LocationService {
 
     create( location: Location ) : Promise<Location> {
         var promise = this.http
-                .post( this.locationsUrl, JSON.stringify( this.dataHelper.toStorageObject( this.tableName, location ) ), { headers: this.headers } )
+                .post( this.locationsUrl, JSON.stringify( this.dataHelper.toIncidentElement( this.tableName, location ) ), { headers: this.headers } )
                 .toPromise()
                 .then( response => response.json() as Location )
                 .catch( this.handleError );
@@ -33,7 +33,7 @@ export class LocationService {
 
     update( location: Location ) : Promise<Location> {
         var promise = this.http
-                .post( this.locationsUrl, JSON.stringify( this.dataHelper.toStorageObject( this.tableName, location ) ), { headers: this.headers } )
+                .post( this.locationsUrl, JSON.stringify( this.dataHelper.toIncidentElement( this.tableName, location ) ), { headers: this.headers } )
                 .toPromise()
                 .then( response => response.json() as Location )
                 .catch( this.handleError );

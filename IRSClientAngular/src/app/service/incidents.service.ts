@@ -23,7 +23,7 @@ export class IncidentsService
     };
 
     create( incident: Incident ): Promise<Incident> {
-        var _incident = this.dataHelper.toStorageObject( Config.IncidentTable, incident );
+        var _incident = this.dataHelper.toIncidentElement( Config.IncidentTable, incident );
         console.log(_incident);
         var promise = this.http
                 .post( this.incidentsUrl, JSON.stringify( _incident ), { headers: this.headers } )

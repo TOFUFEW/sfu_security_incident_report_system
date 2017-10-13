@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Staff } from '../model/staff';
-import { StorageObject } from '../model/storage-object';
+import { IncidentElement } from '../model/incident-element';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
@@ -26,7 +26,7 @@ export class StaffService {
 
     update( staff: Staff ) : Promise<Staff> {
         var promise = this.http
-                .put( this.staffUrl, JSON.stringify( this.dataHelper.toStorageObject(this.tableName, staff) ), { headers: this.headers } )
+                .put( this.staffUrl, JSON.stringify( this.dataHelper.toIncidentElement(this.tableName, staff) ), { headers: this.headers } )
                 .toPromise()
                 .then( response => response.json() as Staff )
                 .catch( this.handleError );
