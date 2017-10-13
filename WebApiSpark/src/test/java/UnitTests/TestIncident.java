@@ -1,7 +1,9 @@
 package UnitTests;
 
 import Model.Incident;
+import Model.IncidentElement;
 import Model.Location;
+import Model.Staff;
 import Util.DBHelper;
 import Util.DatabaseValues.DatabaseColumn;
 import Util.DatabaseValues.DatabaseTable;
@@ -24,6 +26,11 @@ public class TestIncident {
                 "SOSY"
         );
 
+        IncidentElement[] staff = DBHelper.getIncidentElements( DatabaseTable.STAFF );
+        Assert.assertTrue( staff.length > 0 );
+
+        Staff staff1 =  ( Staff ) staff[ 0 ];
+
         Incident incident = new Incident();
         incident.editColumnValue( DatabaseColumn.REPORT_ID, null );
         incident.editColumnValue( DatabaseColumn.ACCOUNT_ID, "1" );
@@ -32,6 +39,7 @@ public class TestIncident {
         incident.editColumnValue( DatabaseColumn.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
         incident.editColumnValue( DatabaseColumn.CLOSED, "0" );
         incident.addIncidentElement( location1 );
+        incident.addIncidentElement( staff1 );
 
         int currentSize = getNumberOfIncidents();
         DBHelper.insertIncident( incident );
