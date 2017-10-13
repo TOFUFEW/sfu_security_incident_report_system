@@ -29,6 +29,4 @@ export class DataHelperService
         incidentElement.attributes = object;
         return incidentElement;
     }
-
-
 }

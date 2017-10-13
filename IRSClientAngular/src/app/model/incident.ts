@@ -4,7 +4,11 @@ export class Incident {
     CATEGORY_ID: number;
     DESCRIPTION: string;
     EXECUTIVE_SUMMARY: string;
-    CLOSED: boolean;
+    CLOSED: number;
     incidentElements: object[];
+
+    constructor() {
+      this.incidentElements = [];
+    }
   }
   

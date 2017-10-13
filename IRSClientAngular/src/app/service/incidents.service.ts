@@ -23,9 +23,8 @@ export class IncidentsService
     };
 
     create( incident: Incident ): Promise<Incident> {
-        incident.ACCOUNT_ID = 1;
-        incident.CATEGORY_ID = 1;
         var _incident = this.dataHelper.toIncidentElement( Config.IncidentTable, incident );
+        console.log(_incident);
         var promise = this.http
                 .post( this.incidentsUrl, JSON.stringify( _incident ), { headers: this.headers } )
                 .toPromise()

@@ -13,7 +13,7 @@ import org.junit.Test;
 public class TestIncident {
     public TestIncident() {}
 
-    /*
+
     @Test
     public void testInsertIncident() {
         Location location1 = new Location (
@@ -39,7 +39,7 @@ public class TestIncident {
 
         Assert.assertTrue( currentSize < incidents.length);
     }
-*/
+
     @Test
     public void testUpdateIncident() {
         Incident[] incidents = DBHelper.getIncidents();
@@ -61,6 +61,17 @@ public class TestIncident {
         incident = incidents[ incidents.length - 1 ];
         Assert.assertTrue( incident.getColumnValue( DatabaseColumn.DESCRIPTION )
                             .equals( editedDescription ));
+    }
+
+    @Test
+    public void testSelectIncident() {
+        Incident[] incidents = DBHelper.getIncidents();
+
+        if (incidents.length == 0) return;
+
+        Incident incident = incidents[ incidents.length - 1 ];
+
+        Assert.assertTrue( DBHelper.selectIncident( incident ) );
     }
 
     public int getNumberOfIncidents() {
