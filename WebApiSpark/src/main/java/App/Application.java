@@ -22,7 +22,7 @@ public class Application
         StaffController staffController = new StaffController();
         IncidentsController incidentsController = new IncidentsController();
         LoginController loginController = new LoginController();
-
+        PersonController personController = new PersonController();
 
         // TEST CODE WITHOUT DATABASE
 

@@ -4,6 +4,7 @@ import Model.Incident;
 import Model.IncidentElement;
 import Model.Location;
 import Model.Staff;
+import Model.Person;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -147,6 +148,9 @@ public class DBHelper
                 else if ( table == DatabaseValues.DatabaseTable.STAFF )
                 {
                     incidentElement = new Staff ();
+                } else if ( table == DatabaseValues.DatabaseTable.PERSON )
+                {
+                    incidentElement = new Person ();
                 }
                 else
                 {
@@ -224,6 +228,27 @@ public class DBHelper
         }
 
         return staffList.toArray ( new Staff [ staffList.size () ] );
+    }
+
+    public static Person [] getPersons ()
+    {
+        ArrayList < Person > personList = new ArrayList ();
+
+        try
+        {
+            ResultSet resultSet = executeQuery ( "SELECT * FROM" + DatabaseValues.DatabaseTable.PERSON.toString() );
+            while(resultSet.next () )
+            {
+                Person person = new Person();
+                person.extractFromResultSet( resultSet );
+                personList.add (person);
+            }
+        }
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+        return personList.toArray(new Person [ personList.size () ]);
     }
 
     public static boolean execute ( String query ) throws SQLException
