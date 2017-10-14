@@ -7,7 +7,7 @@ import {
     ViewContainerRef
 } from '@angular/core';
 
-import { DynamicFormComponent } from '../component/dynamicForm.component';
+import { DynamicFormComponent } from '../component/dynamic-form.component';
 
 @Injectable()
 export class DomService {

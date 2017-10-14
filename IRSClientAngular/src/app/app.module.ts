@@ -14,7 +14,7 @@ import { StaffComponent } from './component/staff.component';
 import { IncidentsComponent } from './component/incidents.component';
 import { LoginComponent } from './component/login.component';
 import { NewIncidentComponent } from './component/new-incident.component';
-import { DynamicFormComponent } from './component/dynamicForm.component';
+import { DynamicFormComponent } from './component/dynamic-form.component';
 import { MyTestComponent } from './component/myTest.component';
 
 /* Services */

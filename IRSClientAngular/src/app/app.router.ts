@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './component/dashboard.component';
 import { NewIncidentComponent } from './component/new-incident.component';
 import { LoginComponent } from './component/login.component';
-import { DynamicFormComponent } from './component/dynamicForm.component';
+import { DynamicFormComponent } from './component/dynamic-form.component';
 
 export const router: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },

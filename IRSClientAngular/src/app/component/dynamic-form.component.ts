@@ -6,7 +6,7 @@ import { MyTestComponent } from './myTest.component';
 
 @Component({
     selector: 'dynamic-form',
-    templateUrl: '../view/dynamicForm.component.html',
+    templateUrl: '../view/dynamic-form.component.html',
 })
 
 export class DynamicFormComponent {
