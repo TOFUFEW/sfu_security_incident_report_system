@@ -8,6 +8,7 @@ import { StaffService } from '../service/staff.service';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../service/user.service';
+import {DataHelperService} from "../util/data-helper.service";
 
 @Component({
   selector: 'dashboard',
@@ -41,7 +42,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if( this.userService.getCurrentUser().accType == 2 ) {
+    console.log(this.userService.getAccountType());
+    if( this.userService.getCurrentUser().ACCOUNT_TYPE == 2 ) {
       var staffComp = document.getElementById("staffComponent" );
       var locationComp = document.getElementById("locationComponent" );
       staffComp.style.visibility = "hidden";

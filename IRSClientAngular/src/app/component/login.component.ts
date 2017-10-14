@@ -6,6 +6,7 @@ import { LoginService } from '../service/login.service';
 import { User } from '../model/user';
 import { Observable } from 'rxjs';
 import { Incident } from '../model/incident';
+import {DataHelperService} from "../util/data-helper.service";
 
 @Component({
     templateUrl: '../view/login.component.html',
@@ -18,6 +19,7 @@ export class LoginComponent {
         private router: Router,
         private userService: UserService,
         private loginService: LoginService,
+        private dataHelper: DataHelperService
     ) {
         if (this.userService.isLoggedIn()){
             alert("You are already logged in!");
@@ -30,6 +32,7 @@ export class LoginComponent {
         .subscribe(
             (responseData) => {
                 this.data = responseData;
+                console.log("response data:");
                 console.log(this.data);
                 this.userService.authUser( this.data );
                 if ( this.userService.isLoggedIn() ) {

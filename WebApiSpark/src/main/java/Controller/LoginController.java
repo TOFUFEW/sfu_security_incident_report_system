@@ -1,14 +1,14 @@
 package Controller;
 
-import Model.*;
-import Util.*;
-import com.google.gson.Gson;
+import Model.User;
+import Util.DBHelper;
+import Util.DatabaseValues;
+import Util.JsonUtil;
 
 import java.sql.ResultSet;
-import java.util.*;
 
 import static Util.JsonUtil.json;
-import static spark.Spark.*;
+import static spark.Spark.post;
 
 public class LoginController {
 
@@ -48,7 +48,6 @@ public class LoginController {
         } catch ( Exception e ) {
             e.printStackTrace ();
         }
-
         return user;
     }
 
