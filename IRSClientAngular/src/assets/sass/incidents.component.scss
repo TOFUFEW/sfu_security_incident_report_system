@@ -1,0 +1,18 @@
+@import "settings";
+
+#incidents-table {
+    th {
+        padding: 8px 4px;
+    }
+    td {
+        padding: 4px;
+    }
+
+    td {
+        border-top: $border-default;
+    }
+
+    tbody {
+        overflow: auto;
+    }
+}
