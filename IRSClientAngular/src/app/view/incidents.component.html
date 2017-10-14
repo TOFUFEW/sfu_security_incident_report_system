@@ -2,21 +2,27 @@
   <thead>
     <tr>
       <th></th>
-      <th>ID</th>
+      <th>Report ID</th>
+      <th>Category</th>
+      <th>SubCategory</th>
+      <th>Type</th>
       <th>Description</th>
       <th>Location</th>
       <th>Assigned Staff</th>
-      <th>Timer</th>
+      <th>Date/Time Created</th>
     </tr>
   </thead>
   <tbody *ngFor="let incident of incidents">
     <tr>
       <td>!!!</td>
-      <td>{{incident.REPORT_ID}}</td>
+      <td>RID11283940<!-- {{incident.REPORT_ID}} --></td>
+      <td>Environmental</td>
+      <td>Accidental Spill/Release</td>
+      <td>Biological</td>
       <td>{{incident.DESCRIPTION}} </td>
-      <td></td>
+      <td>Burnaby AQ 3150</td>
       <td><a href="">Assign</a></td>
-      <td>4:44</td>
+      <td>08/13/2017 4:44</td>
     </tr>
   </tbody>
 </table>

@@ -1,7 +1,7 @@
 {
 "version": 3,
 "mappings": "AAGI,mBAAG;EACC,OAAO,EAAE,OAAO;AAEpB,mBAAG;EACC,OAAO,EAAE,GAAG;AAGhB,mBAAG;EACC,UAAU,ECSD,6BAA0B;ADNvC,sBAAM;EACF,QAAQ,EAAE,IAAI",
-"sources": ["incidents.component.scss","_settings.scss"],
+"sources": ["../sass/incidents.component.scss","../sass/_settings.scss"],
 "names": [],
 "file": "incidents.component.css"
 }

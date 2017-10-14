@@ -17,10 +17,14 @@ div#incidents-container {
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px; }
     div#incidents-container div#incidents-dashboard .panel-body {
-      padding: 0px !important; }
-  div#incidents-container div#bottom-panels {
+      padding: 0px !important;
+      height: 80%; }
+  div#incidents-container div#bottom-panels.row {
     height: 33%;
-    max-height: 33%; }
+    max-height: 33%;
+    overflow: hidden; }
+  div#incidents-container div.col {
+    height: 100%; }
   div#incidents-container div#incidents-list-panel, div#incidents-container div#staff-list-panel {
     height: 100%;
     background: #f5f5f5;
@@ -53,12 +57,14 @@ div.incidents-row {
   background-color: white;
   height: 100%;
   width: 100%;
-  overflow-x: auto; }
+  overflow-x: auto;
+  overflow-y: hidden; }
 
 div.quarter-box {
   height: 100%;
   width: 25%;
-  border-right: 8px double #d1d1d1; }
+  border-right: 8px double #d1d1d1;
+  overflow-y: auto; }
 
 div.incident-box {
   flex-direction: column;

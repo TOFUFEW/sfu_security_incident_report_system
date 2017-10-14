@@ -4,6 +4,7 @@ import { IncidentsService } from '../service/incidents.service';
 
 @Component( 
   {
+    selector: "new-incident-form",
     templateUrl: '../view/new-incident.component.html',
     styleUrls: ['../../assets/css/new-incident.component.css'],
     providers: [IncidentsService]

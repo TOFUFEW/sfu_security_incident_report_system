@@ -22,13 +22,17 @@ div#incidents-container {
 
         .panel-body{
             padding: 0px !important;
+            height: 80%;
         }
     }
 
-    div#bottom-panels {
+    div#bottom-panels.row {
         height: 33%;
         max-height: 33%;
+        overflow: hidden;
     }
+
+    div.col { height: 100%; }
 
     div#incidents-list-panel, div#staff-list-panel {
         height: 100%;
@@ -75,12 +79,14 @@ div.incidents-row {
     height: 100%;
     width: 100%;
     overflow-x: auto;
+    overflow-y: hidden;
 }
 
 div.quarter-box {
     height: 100%;
     width: 25%;
     border-right: 8px double $grey-dark;
+    overflow-y:auto;
 }
 
 div.incident-box {
