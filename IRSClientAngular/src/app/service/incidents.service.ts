@@ -7,7 +7,7 @@ import { Config } from '../util/config.service';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class IncidentsService 
+export class IncidentsService
 {
     private headers = new Headers({'Content-Type': 'application/json'});
     incidentsUrl = Config.IncidentsURI;
@@ -23,14 +23,14 @@ export class IncidentsService
     };
 
     create( incident: Incident ): Promise<Incident> {
-        incident.ACCOUNT_ID = 1;
-        incident.CATEGORY_ID = 1;
-        var _incident = this.dataHelper.toIncidentElement( Config.IncidentTable, incident );
+        incident.table = Config.IncidentTable;
+        incident.attributes.ACCOUNT_ID = 1;
+        incident.attributes.CATEGORY_ID = 1;
         var promise = this.http
                 .post( this.incidentsUrl, JSON.stringify( _incident ), { headers: this.headers } )
                 .toPromise()
-                .then( response => { 
-                    return ( response.json() as boolean ) ? incident : null 
+                .then( response => {
+                    return ( response.json() as boolean ) ? incident : null
                 })
                 .catch( this.handleError );
         return Promise.resolve( promise );
@@ -50,7 +50,7 @@ export class IncidentsService
         return Promise.resolve( promise );
     };
 
-    private handleError( error: any ) : Promise<any> 
+    private handleError( error: any ) : Promise<any>
     {
         alert( "An error occurred." );
         console.error( 'An error occurred' , error ); // for demo purposes only
