@@ -15,17 +15,21 @@ div#incidents-container {
     padding: $padding-lg;
 
     div#incidents-dashboard {
-        height: 67%;
+        height: 100%;
         margin: 0px;
         border-bottom-left-radius: 0px;
         border-bottom-right-radius: 0px;
 
         .panel-body{
             padding: 0px !important;
-            height: 80%;
+            height: 95%;
         }
     }
 
+    div#workspace.row {
+        height: 67%;
+        overflow: hidden;
+    }
     div#bottom-panels.row {
         height: 33%;
         max-height: 33%;
@@ -34,6 +38,9 @@ div#incidents-container {
 
     div.col { height: 100%; }
 
+    div#left-col { padding-right: 0px; }
+    div#right-col { padding-left: 0px; }
+    
     div#incidents-list-panel, div#staff-list-panel {
         height: 100%;
         background: $grey-lite;

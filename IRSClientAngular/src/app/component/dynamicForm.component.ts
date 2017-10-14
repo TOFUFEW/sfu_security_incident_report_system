@@ -5,6 +5,7 @@ import { LocationComponent } from './location.component';
 import { MyTestComponent } from './myTest.component';
 
 @Component({
+    selector: 'dynamic-form',
     templateUrl: '../view/dynamicForm.component.html',
 })
 

@@ -9,7 +9,6 @@ import { DynamicFormComponent } from './component/dynamicForm.component';
 export const router: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'new-incident', component: NewIncidentComponent },
     { path: 'login', component: LoginComponent },
     { path: 'form', component: DynamicFormComponent },
     { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },

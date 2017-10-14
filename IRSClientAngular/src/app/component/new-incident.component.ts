@@ -16,4 +16,17 @@ export class NewIncidentComponent {
   newIncident: Incident = new Incident();
   
   constructor( private incidentService: IncidentsService ){};
+
+  addIncident(): void {
+    console.log(this.newIncident);
+    this.incidentService.create( this.newIncident )
+        .then( returnedIncident => {
+            if ( returnedIncident != null  ) {
+              location.reload();
+            }
+            else alert( "Add failed." );
+        } );
+    delete this.newIncident;
+    this.newIncident = new Incident();
+  }
 }
