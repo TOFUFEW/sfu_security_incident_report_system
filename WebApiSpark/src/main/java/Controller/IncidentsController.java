@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Incident;
 import Util.DBHelper;
+import Util.DatabaseValues;
 import Util.JsonUtil;
 
 import java.util.ArrayList;
@@ -32,6 +33,9 @@ public class IncidentsController
         post ("/incidents", ( request, response ) ->
         {
             Incident newIncident = ( Incident ) parser.fromJson ( request.body() , Incident.class );
+            if ( newIncident.getColumnValue(DatabaseValues.DatabaseColumn.REPORT_ID) != null
+                    && DBHelper.selectIncident( newIncident ) )
+                return dbHelper.updateIncident( newIncident );
             return dbHelper.insertIncident( newIncident );
         }, json() );
 

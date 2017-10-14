@@ -15,6 +15,7 @@ public class DBHelper
     private static final String USERNAME = "sa";
     private static final String PASSWORD = "CMPT373Alpha";
     private static final String URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=master;";
+
     private static Connection connection = null;
 
     /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; REFACTORED methods ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
@@ -44,6 +45,18 @@ public class DBHelper
         return incidentList.toArray ( new Incident [ incidentList.size () ] );
     }
 
+    public static boolean selectIncident ( Incident incident ) {
+        String query = incident.toSelectSQL();
+
+        try {
+            return execute(query);
+        }
+        catch ( SQLException e ) {
+            e.printStackTrace();
+        }
+        return false ;
+    }
+
     public static boolean insertIncident ( Incident incident )
     {
         String incidentSQL = incident.toInsertSQL ();
@@ -65,6 +78,18 @@ public class DBHelper
             return false;
         }
         return true;
+    }
+
+    public static boolean updateIncident ( Incident incident ) {
+        String incidentSQL = incident.toUpdateSQL();
+        try {
+            return execute( incidentSQL );
+        }
+        catch ( SQLException e )
+        {
+            e.printStackTrace ();
+        }
+        return false;
     }
 
     public static boolean insertIncidentElement ( IncidentElement incidentElement )

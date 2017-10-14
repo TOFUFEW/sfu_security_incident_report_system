@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/WebApiSpark.iml" filepath="$PROJECT_DIR$/WebApiSpark.iml" />
+      <module fileurl="file://$PROJECT_DIR$/incident-report-system.iml" filepath="$PROJECT_DIR$/incident-report-system.iml" />
     </modules>
   </component>
 </project>
