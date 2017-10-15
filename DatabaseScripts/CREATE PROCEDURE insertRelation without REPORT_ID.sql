@@ -1,5 +1,5 @@
 CREATE PROCEDURE dbo.insertRelation
-	@table_name TEXT,
+	@table_name NVARCHAR,
 	@table_id INT,
 	@result BIT = 0 OUTPUT
 AS
