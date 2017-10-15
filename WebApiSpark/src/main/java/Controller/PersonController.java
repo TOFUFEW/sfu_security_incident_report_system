@@ -18,7 +18,7 @@ public class PersonController
             return JsonUtil.toJson(DBHelper.getPersons());
         });
 
-        post( "/locations" , ( request , response ) -> {
+        put( "/person" , ( request , response ) -> {
             Person person = ( Person ) JsonUtil.fromJson ( request.body () , Person.class );
 
             if ( !DBHelper.selectIncidentElement ( person ) )
@@ -29,6 +29,17 @@ public class PersonController
             return DBHelper.updateIncidentElement( person );
         } );
 
+        delete( "/person" , ( request , response) ->{
+
+            String id = request.params(":id");
+            Person person = new Person();
+            person.editColumnValue (
+                    DatabaseValues.DatabaseColumn.ACCOUNT_ID,
+                    request.params ( ":id" )
+            );
+
+            return DBHelper.deleteIncidentElement( person );
+        } );
     }
 
 

@@ -16,7 +16,7 @@ public class StaffController
 
     private void setupEndPoints ()
     {
-        get ( "/staffs" , ( request , response ) -> {
+        get ( "/staff" , ( request , response ) -> {
             return JsonUtil.toJson( DBHelper.getStaffs () );
         } );
 
