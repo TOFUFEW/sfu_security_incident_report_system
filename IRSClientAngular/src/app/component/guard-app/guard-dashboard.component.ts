@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Incident } from '../../model/incident';
 import { IncidentsService } from '../../service/incidents.service';
+import { Category } from '../../model/category';
+import { CategoryService } from '../../service/category.service';
 import { Location } from '../../model/location';
 import { LocationService } from '../../service/location.service';
 import { HttpClient } from '@angular/common/http';

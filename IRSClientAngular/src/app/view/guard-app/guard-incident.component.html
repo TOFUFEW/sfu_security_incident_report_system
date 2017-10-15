@@ -1,6 +1,7 @@
 <div class="panel panel-default test-panel">
   <div class="panel-heading text-center pb-0">
-    <h5>Incident #
+
+        <h5>Report #
       <span *ngFor="let incident of incidents">
         <span *ngIf="incident.REPORT_ID == 24">                      
           {{incident.REPORT_ID}}
@@ -18,7 +19,7 @@
           <div class="card m-1">
             <div class="card-header" role="tab" id="headingOne">
               <h6 class="mb-0">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <a class="card-text-primary" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                   Executive Summary
                 </a>
               </h6>
@@ -26,9 +27,9 @@
             <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
               <div class="card-block m-2">
                   <div *ngFor="let incident of incidents">
-                      <div *ngIf="incident.REPORT_ID == 24">
+                      <form *ngIf="incident.REPORT_ID == 24">
                         {{incident.EXECUTIVE_SUMMARY}} 
-                      </div>
+                      </form>
                    </div>
               </div>
             </div>
@@ -37,7 +38,7 @@
           <div class="card m-1">
             <div class="card-header" role="tab" id="headingTwo">
               <h6 class="mb-0">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <a class="card-text-primary collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                   Description
                 </a>
               </h6>
@@ -56,7 +57,7 @@
           <div class="card m-1">
             <div class="card-header" role="tab" id="headingThree">
               <h6 class="mb-0">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <a class="card-text-primary collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                   Report ID
                 </a>
               </h6>

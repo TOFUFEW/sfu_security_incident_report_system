@@ -15,10 +15,12 @@ import { IncidentsComponent } from './component/incidents.component';
 import { LoginComponent } from './component/login.component';
 import { GuardDashboard } from './component/guard-app/guard-dashboard.component';
 import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
+import { CategoryComponent } from './component/category-menu.component'
 
 /* Services */
 import { UserService } from './service/user.service';
 import { LoginService } from './service/login.service';
+import { CategoryService } from './service/category.service';
 
 @NgModule({
   imports: [
@@ -36,10 +38,11 @@ import { LoginService } from './service/login.service';
     IncidentsComponent,
     LoginComponent,
     GuardDashboard,
-    GuardIncidentComponent
+    GuardIncidentComponent,
+    CategoryComponent
   ],
 
-  providers: [ UserService, LoginService ],
+  providers: [ UserService, LoginService, CategoryService ],
   bootstrap: [ AppComponent ]
 })
 
