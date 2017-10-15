@@ -45,7 +45,6 @@ public class StorageObject
     public String toInsertSQL ()
     {
         DatabaseValues.DatabaseColumn [] columns = getColumnSet ();
-        System.out.println(columns);
         String columnList = "(";
         for ( DatabaseValues.DatabaseColumn column : columns )
         {

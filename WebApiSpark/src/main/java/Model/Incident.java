@@ -121,4 +121,8 @@ public class Incident extends StorageObject
 
         return sqlStatements.toArray ( new String [ incidentElements.size () ] );
     }
+
+    public ArrayList < IncidentElement > getIncidentElements() {
+        return this.incidentElements;
+    }
 }

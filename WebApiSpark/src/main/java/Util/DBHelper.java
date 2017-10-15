@@ -56,27 +56,75 @@ public class DBHelper
         return false ;
     }
 
-    public static boolean insertIncident ( Incident incident )
-    {
-        String incidentSQL = incident.toInsertSQL ();
-        String [] incidentElementInsertSQL = incident.incidentElementsToInsertSQL ();
-
-        // collect all sql in one array list to iterate
-        ArrayList < String > sqlArrList = new ArrayList <> ( Arrays.asList ( incidentElementInsertSQL ) );
-        sqlArrList.add ( incidentSQL );
-
+    public static boolean insertIncident ( String query , Incident incident ) {
+//        String [] incidentElementInsertSQL = incident.incidentElementsToInsertSQL ();
         try {
-            for ( String sql : sqlArrList )
-            {
-                execute ( sql );
+            initDB();
+            String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
+            CallableStatement stmt = connection.prepareCall ( query );
+            stmt.setString ( 1 , incident.getColumnValue(DatabaseValues.DatabaseColumn.ACCOUNT_ID ) );
+            stmt.setString ( 2 , incident.getColumnValue(DatabaseValues.DatabaseColumn.CATEGORY_ID ) );
+            stmt.setString ( 3 , incident.getColumnValue(DatabaseValues.DatabaseColumn.DESCRIPTION ) );
+            stmt.setString ( 4 , incident.getColumnValue(DatabaseValues.DatabaseColumn.EXECUTIVE_SUMMARY ) );
+            System.out.println(incident.getColumnValue(DatabaseValues.DatabaseColumn.ACCOUNT_ID));
+            System.out.println(incident.getColumnValue(DatabaseValues.DatabaseColumn.CATEGORY_ID));
+            System.out.println(incident.getColumnValue(DatabaseValues.DatabaseColumn.DESCRIPTION));
+            System.out.println(incident.getColumnValue(DatabaseValues.DatabaseColumn.EXECUTIVE_SUMMARY));
+            stmt.registerOutParameter ( 5 , Types.INTEGER );
+            System.out.println("Rdy TO RUN");
+            stmt.execute();
+            int output = stmt.getInt(5);
+            System.out.println("HELLO!!!!");
+            System.out.println (output);
+            System.out.println("HELLO!");
+            String relationSQL = "{ call dbo.insertRelation ( ? , ? , ? ) }";
+            for ( int i = 0 ; i < incident.getIncidentElements().size() ; i++ ) {
+                insertIncidentRelation ( relationSQL , incident.getIncidentElements().get (i) );
             }
+            if ( output != 0 ) {
+                return true;
+            }
+        } catch ( Exception e ) {
+//            return false;
+            e.printStackTrace();
         }
-        catch ( SQLException e )
-        {
-            e.printStackTrace ();
-            return false;
+        return false;
+    }
+
+    private static boolean insertIncidentRelation (String query, IncidentElement incidentElement) {
+        try {
+            initDB();
+            CallableStatement stmt = connection.prepareCall ( query );
+            String tableName = incidentElement.getTable().toString().substring(4);
+            System.out.println(tableName);
+            if ( tableName.compareTo ( "Staff" ) == 0) {
+                stmt.setString (1,  tableName);
+                System.out.println( incidentElement.getColumnValue ( DatabaseValues.DatabaseColumn.ACCOUNT_ID ) );
+                stmt.setString ( 2, incidentElement.getColumnValue ( DatabaseValues.DatabaseColumn.ACCOUNT_ID ) );
+            } else if ( tableName.compareTo ( "Location" ) == 0) {
+                System.out.println("HELLO!!!");
+                System.out.println("IM INSIDE LOCATION");
+                stmt.setString (1,  tableName);
+                System.out.println( incidentElement.getColumnValue ( DatabaseValues.DatabaseColumn.LOCATION_ID ) );
+                stmt.setString ( 2, incidentElement.getColumnValue ( DatabaseValues.DatabaseColumn.LOCATION_ID ) );
+            } else if ( tableName.compareTo ( "Person" ) == 0 ) {
+                stmt.setString (1,  tableName);
+                System.out.println( incidentElement.getColumnValue ( DatabaseValues.DatabaseColumn.PERSON_ID ) );
+                stmt.setString ( 2, incidentElement.getColumnValue ( DatabaseValues.DatabaseColumn.PERSON_ID ) );
+            }
+            stmt.registerOutParameter ( 3 , Types.INTEGER );
+            stmt.execute();
+            System.out.println("HELLO!!!");
+            int output = stmt.getInt(3 );
+            System.out.println(output);
+            if ( output != 0 ) {
+                return true;
+            }
+        } catch ( Exception e ) {
+//            return false;
+            e.printStackTrace();
         }
-        return true;
+        return false;
     }
 
     public static boolean updateIncident ( Incident incident ) {

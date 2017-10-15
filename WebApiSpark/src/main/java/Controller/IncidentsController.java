@@ -33,10 +33,9 @@ public class IncidentsController
         post ("/incidents", ( request, response ) ->
         {
             Incident newIncident = ( Incident ) parser.fromJson ( request.body() , Incident.class );
-            if ( newIncident.getColumnValue(DatabaseValues.DatabaseColumn.REPORT_ID) != null
-                    && DBHelper.selectIncident( newIncident ) )
-                return dbHelper.updateIncident( newIncident );
-            return dbHelper.insertIncident( newIncident );
+            System.out.println("HELLO!");
+            String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
+            return dbHelper.insertIncident ( incidentString , newIncident );
         }, json() );
 
     }
