@@ -28,6 +28,8 @@ export class LoginComponent {
     }
 
     onLogin() {
+      this.user.ACCOUNT_TYPE = 0;
+      console.log(this.user);
         this.loginService.doLogin( this.user )
         .subscribe(
             (responseData) => {
@@ -36,8 +38,14 @@ export class LoginComponent {
                 console.log(this.data);
                 this.userService.authUser( this.data );
                 if ( this.userService.isLoggedIn() ) {
-                    console.log("login success! Welcome " + this.userService.getCurrentUser().USERNAME);
-                    this.router.navigate([ 'dashboard' ] );
+                    if( this.userService.isAdmin() ) {
+                      this.router.navigate([ 'dashboard' ] );
+                    } else if( this.userService.isGuard() ) {
+                      //this will be routed to guard view later on
+                      this.router.navigate([ 'dashboard' ] );
+                    } else {
+                      alert("who are you and how did you get here?!?!");
+                    }
                 } else {
                     alert("Invalid login credentials!");
                     console.log("Invalid login credentials!");

@@ -11,6 +11,9 @@ export class DataHelperService
     constructor() {}
 
     extractAttribute( incidentElement: IncidentElement ): Object {
+        if( incidentElement == null ) {
+            return null;
+        }
         return incidentElement.attributes;
     }
 
@@ -24,7 +27,7 @@ export class DataHelperService
 
     toIncidentElement( table: string, object: Object): IncidentElement{
         var incidentElement: IncidentElement = new IncidentElement();
-     
+
         incidentElement.table = table;
         incidentElement.attributes = object;
         return incidentElement;

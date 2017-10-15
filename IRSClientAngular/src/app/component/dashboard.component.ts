@@ -42,8 +42,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.userService.getAccountType());
-    if( this.userService.getCurrentUser().ACCOUNT_TYPE == 2 ) {
+    //this is just a temporary split of views, will route to different guard view when set up upon login and this code will be deleted
+    if( this.userService.isGuard() ) {
       var staffComp = document.getElementById("staffComponent" );
       var locationComp = document.getElementById("locationComponent" );
       staffComp.style.visibility = "hidden";
