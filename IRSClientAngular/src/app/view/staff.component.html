@@ -1,35 +1,16 @@
-<div class="panel panel-default test-panel">
-    <div class="panel-heading"><h4>Staff</h4></div>
-    <div class="panel-body">  
-      <ul>
-          <li *ngFor="let staff of staffList">
-            Id: {{staff.ACCOUNT_ID}},
-            {{staff.CAMPUS_ID}}, 
-            {{staff.FIRST_NAME}}, 
-            {{staff.LAST_NAME}}
-            <br>
-            <input type="text" [(ngModel)]="staff.ACCOUNT_ID"/>
-            <input type="text" [(ngModel)]="staff.CAMPUS_ID"/>
-            <input type="text" [(ngModel)]="staff.FIRST_NAME"/>
-            <input type="text" [(ngModel)]="staff.LAST_NAME"/>
+<ul>
+  <li *ngFor="let staff of staffList">
+    Id: {{staff.ACCOUNT_ID}},
+    {{staff.CAMPUS_ID}}, 
+    {{staff.FIRST_NAME}}, 
+    {{staff.LAST_NAME}}
+    <br>
+    <input type="text" [(ngModel)]="staff.ACCOUNT_ID"/>
+    <input type="text" [(ngModel)]="staff.CAMPUS_ID"/>
+    <input type="text" [(ngModel)]="staff.FIRST_NAME"/>
+    <input type="text" [(ngModel)]="staff.LAST_NAME"/>
 
-            <span class="link" (click)="updateStaff(staff);">Save</span>
-            <span class="link" (click)="deleteStaff(staff.ACCOUNT_ID)">Delete</span>
-          </li>
-        </ul>
-  
-        <!-- <h4>Add a Staff: </h4>
-        <span class="field-title">Staff ID</span>
-        <input type="text" [(ngModel)]="newStaff.accountId" /> <br><br>
-        <span class="field-title">Campus</span>
-        <input type="text" [(ngModel)]="newStaff.campusId" /> <br><br>
-        <span class="field-title">First Name</span>
-        <input type="text" [(ngModel)]="newStaff.firstName" /> <br><br>
-        <span class="field-title">Last Name</span>
-        <input type="text" [(ngModel)]="newStaff.lastName" /> <br><br>
-        <button class="btn btn-primary"
-                (click)="addStaff();">
-          Submit
-        </button> -->
-    </div>
-  </div>
+    <span class="link" (click)="updateStaff(staff);">Save</span>
+    <span class="link" (click)="deleteStaff(staff.ACCOUNT_ID)">Delete</span>
+  </li>
+</ul>

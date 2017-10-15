@@ -21,28 +21,6 @@ public class Application
         StaffController staffController = new StaffController();
         IncidentsController incidentsController = new IncidentsController();
         LoginController loginController = new LoginController();
-
-
-        // TEST CODE WITHOUT DATABASE
-
-
-//        locationController.locationList.add( location1 );
-//
-//
-//        Staff testStaff = new Staff (
-//                Connector.getInstance (),
-//                "100",
-//                "1",
-//                "Bob",
-//                "B"
-//
-//        );
-//
-//
-//        staffController.staffList.add(testStaff);
-
-
-        // END TEST CODE
     }
 
     // CORS Filter

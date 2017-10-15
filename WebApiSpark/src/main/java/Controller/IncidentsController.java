@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Incident;
 import Util.DBHelper;
+import Util.DatabaseValues;
 import Util.JsonUtil;
 
 import java.util.ArrayList;
@@ -13,27 +14,24 @@ import static spark.Spark.post;
 
 public class IncidentsController
 {
-    JsonUtil parser = new JsonUtil();
-    DBHelper dbHelper = new DBHelper();
-    public IncidentsController()
+    public IncidentsController ()
     {
-        setupEndPoints();
+        setupEndPoints ();
     }
-
-    public List<Incident> incidentList = new ArrayList<>();
 
     private void setupEndPoints()
     {
-        get ("/incidents", ( request , response ) ->
+        get ("/incidents" , ( request , response ) ->
         {
-            return dbHelper.getIncidents();
-        }, json());
+            return JsonUtil.toJson ( DBHelper.getIncidents () );
+        } );
 
-        post ("/incidents", ( request, response ) ->
+        post ("/incidents" , ( request, response ) ->
         {
-            Incident newIncident = ( Incident ) parser.fromJson ( request.body() , Incident.class );
-            return dbHelper.insertIncident( newIncident );
-        }, json() );
+            Incident newIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
+            String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
+            return DBHelper.insertIncident ( incidentString , newIncident );
+        } );
 
     }
 }

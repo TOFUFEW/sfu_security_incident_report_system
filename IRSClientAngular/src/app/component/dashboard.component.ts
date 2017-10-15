@@ -8,11 +8,13 @@ import { StaffService } from '../service/staff.service';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../service/user.service';
-import {DataHelperService} from "../util/data-helper.service";
+import { Config } from '../util/config.service';
+import { DataHelperService } from '../util/data-helper.service';
 
 @Component({
   selector: 'dashboard',
   templateUrl: '../view/dashboard.component.html',
+  styleUrls: ['../../assets/css/dashboard.component.css'],
   providers: [LocationService, StaffService, IncidentsService]
 })
 
@@ -21,18 +23,56 @@ export class DashboardComponent implements OnInit {
   locationsList: Location[];
   staffList: Staff[];
   incidentsList: Incident[];
+  newIncident = new Incident();
 
   constructor(
     private router: Router,
     private http: HttpClient,
+    private incidentService: IncidentsService,
     private locationService: LocationService,
     private userService: UserService,
-    private staffService:StaffService
+    private staffService: StaffService,
+    private dataHelper: DataHelperService
   ) {
 
     if ( this.userService.isLoggedIn() == false ) {
       this.router.navigate( [ 'login' ] );
     }
+  }
+
+  addIncident(): void {
+    var loc1 = new Location();
+    loc1.BUILDING_NAME = "TEST1";
+    loc1.CAMPUS_ID = 1;
+    loc1.DEPARTMENT  = "SOSY";
+    loc1.ROOM_NUMBER = 4080;
+    var _loc1 = this.dataHelper.toIncidentElement( Config.LocationTable, loc1);
+
+    var loc2 = new Location();
+    loc2.BUILDING_NAME = "TEST2";
+    loc2.CAMPUS_ID = 1;
+    loc2.DEPARTMENT  = "SOSY";
+    loc2.ROOM_NUMBER = 4080;
+    var _loc2 = this.dataHelper.toIncidentElement( Config.LocationTable, loc2);
+
+    var inc = this.newIncident;
+    inc.attributes.ACCOUNT_ID = 1;
+    inc.attributes.CATEGORY_ID = 1;
+    inc.attributes.CLOSED = 0;
+    inc.attributes.DESCRIPTION = "TESTTTTTT";
+    inc.attributes.EXECUTIVE_SUMMARY = "SAMPLE EXECUTIVE SUMMARY";
+    inc.incidentElements.push( _loc1 );
+    inc.incidentElements.push( _loc2 );
+
+    this.incidentService.create( inc )
+        .then( returnedIncident => {
+            if ( returnedIncident != null  ) {
+              location.reload();
+            }
+            else alert( "Add failed." );
+        } );
+    delete this.newIncident;
+    this.newIncident = new Incident();
   }
 
   onLogout() {

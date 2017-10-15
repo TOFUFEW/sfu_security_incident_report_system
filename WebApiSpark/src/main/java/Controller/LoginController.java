@@ -1,14 +1,12 @@
 package Controller;
 
-import Model.User;
-import Util.DBHelper;
-import Util.DatabaseValues;
-import Util.JsonUtil;
+import Model.*;
+import Util.*;
 
 import java.sql.ResultSet;
 
 import static Util.JsonUtil.json;
-import static spark.Spark.post;
+import static spark.Spark.*;
 
 public class LoginController {
 
@@ -29,15 +27,15 @@ public class LoginController {
 
             String query = "" +
                     "select * from account acc" +
-                    " where acc.USERNAME = '" + user.getColumnValue ( DatabaseValues.DatabaseColumn.USERNAME ) + "'" +
-                    " AND acc.PASSWORD = '" + user.getColumnValue ( DatabaseValues.DatabaseColumn.PASSWORD ) + "'";
+                    " where acc.USERNAME = '" + user.getAttributeValue( DatabaseValues.Column.USERNAME ) + "'" +
+                    " AND acc.PASSWORD = '" + user.getAttributeValue( DatabaseValues.Column.PASSWORD ) + "'";
             ResultSet myRs = DBHelper.executeQuery ( query );
 
             if ( myRs.next () )
             {
-                user.editColumnValue (
-                        DatabaseValues.DatabaseColumn.ACCOUNT_TYPE,
-                        myRs.getString ( DatabaseValues.DatabaseColumn.ACCOUNT_TYPE.toString () )
+                user.updateAttributeValue(
+                        DatabaseValues.Column.ACCOUNT_TYPE,
+                        myRs.getString ( DatabaseValues.Column.ACCOUNT_TYPE.toString () )
                 );
             }
 
@@ -46,9 +44,12 @@ public class LoginController {
                 return null;
             }
 
-        } catch ( Exception e ) {
+        }
+        catch ( Exception e )
+        {
             e.printStackTrace ();
         }
+
         return user;
     }
 
