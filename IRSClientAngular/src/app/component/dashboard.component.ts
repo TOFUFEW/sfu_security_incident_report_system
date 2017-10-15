@@ -18,7 +18,7 @@ import { DataHelperService } from '../util/data-helper.service';
   providers: [LocationService, StaffService, IncidentsService]
 })
 
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
   title = 'SFU Incident Reporting System';
   locationsList: Location[];
   staffList: Staff[];
@@ -81,13 +81,4 @@ export class DashboardComponent implements OnInit {
       this.router.navigate([ 'login' ] );
   }
 
-  ngOnInit(): void {
-    //this is just a temporary split of views, will route to different guard view when set up upon login and this code will be deleted
-    if( this.userService.isGuard() ) {
-      var staffComp = document.getElementById("staffComponent" );
-      var locationComp = document.getElementById("locationComponent" );
-      staffComp.style.visibility = "hidden";
-      locationComp.style.visibility = "hidden";
-    }
-  }
 }

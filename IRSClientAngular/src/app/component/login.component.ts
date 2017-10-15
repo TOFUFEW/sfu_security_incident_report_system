@@ -40,9 +40,11 @@ export class LoginComponent {
                 if ( this.userService.isLoggedIn() ) {
                     if( this.userService.isAdmin() ) {
                       this.router.navigate([ 'dashboard' ] );
+                      alert("welcome admin");
                     } else if( this.userService.isGuard() ) {
                       //this will be routed to guard view later on
                       this.router.navigate([ 'dashboard' ] );
+                      alert("welcome guard");
                     } else {
                       alert("who are you and how did you get here?!?!");
                     }
