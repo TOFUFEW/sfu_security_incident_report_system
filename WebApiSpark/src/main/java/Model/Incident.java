@@ -29,46 +29,46 @@ public class Incident extends StorageObject
             String closed
     ) {
         super (
-                DatabaseValues.DatabaseTable.INCIDENT,
-                new DatabaseValues.DatabaseColumn []
+                DatabaseValues.Table.INCIDENT,
+                new DatabaseValues.Column[]
                 {
-                        DatabaseValues.DatabaseColumn.REPORT_ID,
-                        DatabaseValues.DatabaseColumn.ACCOUNT_ID,
-                        DatabaseValues.DatabaseColumn.CATEGORY_ID,
-                        DatabaseValues.DatabaseColumn.DESCRIPTION,
-                        DatabaseValues.DatabaseColumn.EXECUTIVE_SUMMARY,
-                        DatabaseValues.DatabaseColumn.CLOSED
+                        DatabaseValues.Column.REPORT_ID,
+                        DatabaseValues.Column.ACCOUNT_ID,
+                        DatabaseValues.Column.CATEGORY_ID,
+                        DatabaseValues.Column.DESCRIPTION,
+                        DatabaseValues.Column.EXECUTIVE_SUMMARY,
+                        DatabaseValues.Column.CLOSED
                 }
         );
 
-        editColumnValue (
-                DatabaseValues.DatabaseColumn.REPORT_ID,
+        updateAttributeValue(
+                DatabaseValues.Column.REPORT_ID,
                 reportID
         );
 
-        editColumnValue (
-                DatabaseValues.DatabaseColumn.ACCOUNT_ID,
+        updateAttributeValue(
+                DatabaseValues.Column.ACCOUNT_ID,
                 accountID
         );
 
 
-        editColumnValue (
-                DatabaseValues.DatabaseColumn.CATEGORY_ID,
+        updateAttributeValue(
+                DatabaseValues.Column.CATEGORY_ID,
                 categoryID
         );
 
-        editColumnValue (
-                DatabaseValues.DatabaseColumn.DESCRIPTION,
+        updateAttributeValue(
+                DatabaseValues.Column.DESCRIPTION,
                 description
         );
 
-        editColumnValue (
-                DatabaseValues.DatabaseColumn.EXECUTIVE_SUMMARY,
+        updateAttributeValue(
+                DatabaseValues.Column.EXECUTIVE_SUMMARY,
                 executiveSummary
         );
 
-        editColumnValue (
-                DatabaseValues.DatabaseColumn.CLOSED,
+        updateAttributeValue(
+                DatabaseValues.Column.CLOSED,
                 closed
         );
     }
@@ -122,7 +122,17 @@ public class Incident extends StorageObject
         return sqlStatements.toArray ( new String [ incidentElements.size () ] );
     }
 
-    public ArrayList < IncidentElement > getIncidentElements() {
-        return this.incidentElements;
+    public int numIncidentElements ()
+    {
+        return incidentElements.size ();
+    }
+
+    public IncidentElement getIncidentElement ( int i )
+    {
+        if ( i < incidentElements.size () )
+        {
+            return incidentElements.get ( i );
+        }
+        return null;
     }
 }

@@ -2,10 +2,8 @@ package Controller;
 
 import Model.*;
 import Util.*;
-import com.google.gson.Gson;
 
 import java.sql.ResultSet;
-import java.util.*;
 
 import static Util.JsonUtil.json;
 import static spark.Spark.*;
@@ -17,10 +15,10 @@ public class LoginController {
     }
 
     private void setupEndPoints() {
-        post( "/login", ( request, response ) -> {
-            User user = (User) JsonUtil.fromJson( request.body(), User.class );
-            return auth_account( user );
-        }, json());
+        post( "/login", ( request , response ) -> {
+            User user = ( User ) JsonUtil.fromJson ( request.body(), User.class );
+            return JsonUtil.toJson ( auth_account ( user ) );
+        } );
     }
 
     private User auth_account ( User user ) {
@@ -28,15 +26,15 @@ public class LoginController {
 
             String query = "" +
                     "select * from account acc" +
-                    " where acc.USERNAME = '" + user.getColumnValue ( DatabaseValues.DatabaseColumn.USERNAME ) + "'" +
-                    " AND acc.PASSWORD = '" + user.getColumnValue ( DatabaseValues.DatabaseColumn.PASSWORD ) + "'";
+                    " where acc.USERNAME = '" + user.getAttributeValue( DatabaseValues.Column.USERNAME ) + "'" +
+                    " AND acc.PASSWORD = '" + user.getAttributeValue( DatabaseValues.Column.PASSWORD ) + "'";
             ResultSet myRs = DBHelper.executeQuery ( query );
 
             if ( myRs.next () )
             {
-                user.editColumnValue (
-                        DatabaseValues.DatabaseColumn.ACCOUNT_TYPE,
-                        myRs.getString ( DatabaseValues.DatabaseColumn.ACCOUNT_TYPE.toString () )
+                user.updateAttributeValue(
+                        DatabaseValues.Column.ACCOUNT_TYPE,
+                        myRs.getString ( DatabaseValues.Column.ACCOUNT_TYPE.toString () )
                 );
             }
 
@@ -45,7 +43,9 @@ public class LoginController {
                 return null;
             }
 
-        } catch ( Exception e ) {
+        }
+        catch ( Exception e )
+        {
             e.printStackTrace ();
         }
 

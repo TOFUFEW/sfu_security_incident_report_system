@@ -9,16 +9,16 @@ import java.util.HashMap;
 
 public class StorageObject
 {
-    private DatabaseValues.DatabaseTable table;
-    private HashMap < DatabaseValues.DatabaseColumn , String > attributes = new HashMap ();
+    private DatabaseValues.Table table;
+    private HashMap <DatabaseValues.Column, String > attributes = new HashMap ();
 
     protected StorageObject (
-            DatabaseValues.DatabaseTable table,
-            DatabaseValues.DatabaseColumn [] columns
+            DatabaseValues.Table table,
+            DatabaseValues.Column[] columns
     ) {
         this.table = table;
 
-        for ( DatabaseValues.DatabaseColumn column : columns )
+        for ( DatabaseValues.Column column : columns )
         {
             attributes.put (
                 column,
@@ -27,28 +27,28 @@ public class StorageObject
         }
     }
 
-    public DatabaseValues.DatabaseTable getTable ()
+    public DatabaseValues.Table getTable ()
     {
         return table;
     }
 
-    public DatabaseValues.DatabaseColumn [] getColumnSet ()
+    public DatabaseValues.Column[] getColumnSet ()
     {
-        return attributes.keySet ().toArray( new DatabaseValues.DatabaseColumn [ attributes.size () ] );
+        return attributes.keySet ().toArray( new DatabaseValues.Column[ attributes.size () ] );
     }
 
-    public String getColumnValue ( DatabaseValues.DatabaseColumn column )
+    public String getAttributeValue(DatabaseValues.Column column )
     {
         return attributes.get ( column );
     }
 
     public String toInsertSQL ()
     {
-        DatabaseValues.DatabaseColumn [] columns = getColumnSet ();
+        DatabaseValues.Column [] columns = getColumnSet ();
         String columnList = "(";
-        for ( DatabaseValues.DatabaseColumn column : columns )
+        for ( DatabaseValues.Column column : columns )
         {
-            String value = getColumnValue ( column );
+            String value = getAttributeValue ( column );
 
             if ( value == null )
             {
@@ -57,7 +57,7 @@ public class StorageObject
 
             else
             {
-                columnList += column.toString() + ", ";
+                columnList += column.toString () + ", ";
             }
         }
 
@@ -69,10 +69,10 @@ public class StorageObject
         columnList += ")";
 
         String valueList = "VALUES(";
-        for ( DatabaseValues.DatabaseColumn column : columns )
+        for ( DatabaseValues.Column column : columns )
         {
-            String value = getColumnValue ( column );
-            System.out.println("column: " + column + " value: " + value);
+            String value = getAttributeValue( column );
+
             if ( value == null )
             {
                 // don't do anything with null string values - means it is auto-incremented by database
@@ -108,12 +108,12 @@ public class StorageObject
             return null;
         }
 
-        DatabaseValues.DatabaseColumn [] columns = getColumnSet ();
+        DatabaseValues.Column[] columns = getColumnSet ();
 
         String setSQL = "SET ";
-        for ( DatabaseValues.DatabaseColumn column : columns )
+        for ( DatabaseValues.Column column : columns )
         {
-            String value = getColumnValue ( column );
+            String value = getAttributeValue( column );
 
             if ( value == null )
             {
@@ -133,9 +133,9 @@ public class StorageObject
         );
 
         String whereSQL = "WHERE ";
-        for ( DatabaseValues.DatabaseColumn column : columns )
+        for ( DatabaseValues.Column column : columns )
         {
-            String value = getColumnValue ( column );
+            String value = getAttributeValue( column );
 
             if ( value == null )
             {
@@ -174,12 +174,12 @@ public class StorageObject
             return null;
         }
 
-        DatabaseValues.DatabaseColumn [] columns = getColumnSet ();
+        DatabaseValues.Column[] columns = getColumnSet ();
 
         String whereList = "WHERE ";
-        for ( DatabaseValues.DatabaseColumn column : columns )
+        for ( DatabaseValues.Column column : columns )
         {
-            String value = getColumnValue ( column );
+            String value = getAttributeValue( column );
 
             if ( value == null )
             {
@@ -188,7 +188,7 @@ public class StorageObject
 
             else if ( column.isPrimaryKeyOfTable ( table ) )
             {
-                whereList += column.toString () + " = " + "\'" + getColumnValue ( column ) + "\'" + " AND ";
+                whereList += column.toString () + " = " + "\'" + getAttributeValue( column ) + "\'" + " AND ";
             }
         }
 
@@ -209,12 +209,12 @@ public class StorageObject
             return null;
         }
 
-        DatabaseValues.DatabaseColumn [] columns = getColumnSet ();
+        DatabaseValues.Column[] columns = getColumnSet ();
 
         String whereList = "WHERE ";
-        for ( DatabaseValues.DatabaseColumn column : columns )
+        for ( DatabaseValues.Column column : columns )
         {
-            String value = getColumnValue ( column );
+            String value = getAttributeValue( column );
 
             if ( value == null )
             {
@@ -223,7 +223,7 @@ public class StorageObject
 
             else if ( column.isPrimaryKeyOfTable ( table ) )
             {
-                whereList += column.toString () + " = " + "\'" + getColumnValue ( column ) + "\'" + " AND ";
+                whereList += column.toString () + " = " + "\'" + getAttributeValue( column ) + "\'" + " AND ";
             }
         }
 
@@ -242,8 +242,8 @@ public class StorageObject
         return new Gson ().toJson ( this );
     }
 
-    public boolean editColumnValue (
-            DatabaseValues.DatabaseColumn column,
+    public boolean updateAttributeValue(
+            DatabaseValues.Column column,
             String value
     ) {
 
@@ -270,9 +270,9 @@ public class StorageObject
         return true;
     }
 
-    public void extractFromResultSet ( ResultSet resultSet ) throws SQLException
+    public void extractFromCurrentRow (ResultSet resultSet ) throws SQLException
     {
-        for ( DatabaseValues.DatabaseColumn column : getColumnSet () )
+        for ( DatabaseValues.Column column : getColumnSet () )
         {
             String dataType = column.getDataType ();
             String value = null;
@@ -299,7 +299,7 @@ public class StorageObject
             // edit column value if present
             if ( value != null )
             {
-                editColumnValue (
+                updateAttributeValue(
                         column,
                         value
                 );
@@ -307,9 +307,9 @@ public class StorageObject
         }
     }
 
-    public boolean validColumn ( DatabaseValues.DatabaseColumn column )
+    public boolean validColumn ( DatabaseValues.Column column )
     {
-        for ( DatabaseValues.DatabaseColumn existingColumn :  getColumnSet () )
+        for ( DatabaseValues.Column existingColumn :  getColumnSet () )
         {
             if ( existingColumn.equals ( column ) )
             {
@@ -322,11 +322,11 @@ public class StorageObject
     private boolean hasAllValidPrimaryKeyValues ()
     {
         boolean valid = false;
-        for ( DatabaseValues.DatabaseColumn column : getColumnSet () )
+        for ( DatabaseValues.Column column : getColumnSet () )
         {
             if ( column.isPrimaryKeyOfTable ( table ) )
             {
-                if ( getColumnValue ( column ) != null && !getColumnValue ( column ).isEmpty () )
+                if ( getAttributeValue( column ) != null && !getAttributeValue( column ).isEmpty () )
                 {
                     valid = true;
                 }
@@ -340,7 +340,7 @@ public class StorageObject
     }
 
     private String validateInput (
-        DatabaseValues.DatabaseColumn column,
+        DatabaseValues.Column column,
         String input
     ) {
         if ( input == null || input.isEmpty () )

@@ -5,8 +5,8 @@ import Util.DatabaseValues;
 public class IncidentElement extends StorageObject
 {
     protected IncidentElement (
-            DatabaseValues.DatabaseTable table,
-            DatabaseValues.DatabaseColumn [] requiredColumns
+            DatabaseValues.Table table,
+            DatabaseValues.Column[] requiredColumns
     ) {
         super (
                 table,
