@@ -19,7 +19,8 @@ public class LoginController {
     private void setupEndPoints() {
         post( "/login", ( request, response ) -> {
             User user = (User) JsonUtil.fromJson( request.body(), User.class );
-            return auth_account( user );
+            User _user = auth_account( user );
+            return _user;
         }, json());
     }
 

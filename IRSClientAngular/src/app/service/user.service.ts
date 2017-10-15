@@ -1,9 +1,13 @@
 import { Injectable } from "@angular/core";
 import { User } from '../model/user';
+import { DataHelperService } from '../util/data-helper.service';
+import { IncidentElement } from '../model/incident-element';
 
 @Injectable()
 export class UserService {
     private currentUser: string = 'currentUser';
+
+    constructor( private dataHelper: DataHelperService ) {}
 
     authUser( userString: string ) {
         if ( userString == null ) {
@@ -33,9 +37,11 @@ export class UserService {
 
     getCurrentUser(): User {
         let jsonString = sessionStorage.getItem( this.currentUser );
-        console.log("getCurrentUser jsonString = " + jsonString)
-        let currentUser = JSON.parse( jsonString ) as User;
-        console.log("getCurrentUser currentUser = " + currentUser);
+        let ie = JSON.parse( jsonString ) as IncidentElement ;
+        var currentUser = this.dataHelper.extractAttribute(ie) as User;
+
+        // HARDCODED
+        currentUser.ACCOUNT_TYPE = 1;
 
         if ( currentUser != null ) {
             return currentUser;
