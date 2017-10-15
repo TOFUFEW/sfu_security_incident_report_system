@@ -1,5 +1,6 @@
+--DROP PROCEDURE dbo.insertRelation
 CREATE PROCEDURE dbo.insertRelation
-	@table_name NVARCHAR,
+	@table_name NVARCHAR (30),
 	@table_id INT,
 	@result BIT = 0 OUTPUT
 AS
