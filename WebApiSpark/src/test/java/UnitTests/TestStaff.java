@@ -157,7 +157,7 @@ public class TestStaff
             Assert.assertTrue ( staff2.getColumnValue ( column ).equals ( staff1.getColumnValue ( column ) ) );
         }
     }
-    
+
 
     private static String DEBUG_getLargestStaffIDFromTable ()
     {

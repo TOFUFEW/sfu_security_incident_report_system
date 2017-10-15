@@ -23,11 +23,12 @@ export class IncidentsService
     };
 
     create( incident: Incident ): Promise<Incident> {
+        console.log(incident);
         incident.table = Config.IncidentTable;
         incident.attributes.ACCOUNT_ID = 1;
         incident.attributes.CATEGORY_ID = 1;
         var promise = this.http
-                .post( this.incidentsUrl, JSON.stringify( _incident ), { headers: this.headers } )
+                .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
                 .toPromise()
                 .then( response => {
                     return ( response.json() as boolean ) ? incident : null

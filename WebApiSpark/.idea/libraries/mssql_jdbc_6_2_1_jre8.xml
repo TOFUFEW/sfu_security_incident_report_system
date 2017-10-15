@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="mssql-jdbc-6.2.1.jre8">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../CMPT373Alpha/WebApiSpark/src/main/java/DBConnector/mssql-jdbc-6.2.1.jre8.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

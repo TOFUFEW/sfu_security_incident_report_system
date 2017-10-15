@@ -14,7 +14,6 @@ public class DBHelper
     private static final String USERNAME = "sa";
     private static final String PASSWORD = "CMPT373Alpha";
     private static final String URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=master;";
-
     private static Connection connection = null;
 
     /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; REFACTORED methods ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
@@ -44,18 +43,6 @@ public class DBHelper
         return incidentList.toArray ( new Incident [ incidentList.size () ] );
     }
 
-    public static boolean selectIncident ( Incident incident ) {
-        String query = incident.toSelectSQL();
-
-        try {
-            return execute(query);
-        }
-        catch ( SQLException e ) {
-            e.printStackTrace();
-        }
-        return false ;
-    }
-
     public static boolean insertIncident ( Incident incident )
     {
         String incidentSQL = incident.toInsertSQL ();
@@ -79,16 +66,27 @@ public class DBHelper
         return true;
     }
 
-    public static boolean updateIncident ( Incident incident ) {
-        String incidentSQL = incident.toUpdateSQL();
+    public static boolean updateIncident ( Incident incident )
+    {
+        String incidentSQL = incident.toUpdateSQL ();
+        String [] incidentElementInsertSQL = incident.incidentElementsToUpdateSQL ();
+
+        // collect all sql in one array list to iterate
+        ArrayList < String > sqlArrList = new ArrayList <> ( Arrays.asList ( incidentElementInsertSQL ) );
+        sqlArrList.add ( incidentSQL );
+
         try {
-            return execute( incidentSQL );
+            for ( String sql : sqlArrList )
+            {
+                execute ( sql );
+            }
         }
         catch ( SQLException e )
         {
             e.printStackTrace ();
+            return false;
         }
-        return false;
+        return true;
     }
 
     public static boolean insertIncidentElement ( IncidentElement incidentElement )
@@ -272,18 +270,24 @@ public class DBHelper
         return stmt.executeQuery ( query );
     }
 
-    public static ResultSet executeQuery (String query, ArrayList<String> parameters) {
+    public static boolean executeProcedure (String query, Incident incident) {
         try {
             initDB ();
-            PreparedStatement stmt = connection.prepareStatement(query);
-            for ( int i = 0 ; i < parameters.size() ; i++ ) {
-                stmt.setString(i + 1, parameters.get(i));
-            }
-            return stmt.executeQuery ( query );
+            CallableStatement stmt = connection.prepareCall ( query );
+            stmt.setString ( 1 , incident.getColumnValue ( DatabaseValues.DatabaseColumn.REPORT_ID ) );
+            stmt.setString ( 2 , incident.getColumnValue (DatabaseValues.DatabaseColumn.CATEGORY_ID) );
+            stmt.setString ( 3 , incident.getColumnValue (DatabaseValues.DatabaseColumn.DESCRIPTION) );
+            stmt.setString ( 4 , incident.getColumnValue (DatabaseValues.DatabaseColumn.EXECUTIVE_SUMMARY) );
+            stmt.setString ( 5 , incident.getColumnValue (DatabaseValues.DatabaseColumn.CLOSED) );
+            stmt.registerOutParameter ( 6 , Types.INTEGER );
+            stmt.execute();
+            int output = stmt.getInt (6);
+            System.out.println( output );
+            return true;
         } catch ( Exception e ) {
-            System.out.println ( e );
+            e.printStackTrace();
         }
-        return null;
+        return false;
     }
 
     private static void initDB ()
