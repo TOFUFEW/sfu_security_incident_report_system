@@ -3,5 +3,7 @@ export class Config {
     static IncidentsURI: string = "http://localhost:4567/incidents";
     static StaffURI: string = "http://localhost:4567/staff";
     static LoginURI: string = "http://localhost:4567/login";
-    static CategoryURI: string = "http://localhost:4567/incidents";
+    static MainCategoriesURI: string = "http://localhost:4567/main-categories";
+    static SubCategoriesURI: string = "http://localhost:4567/sub-categories";
+    static CategoryTypesURI: string = "http://localhost:4567/category-types";    
 }

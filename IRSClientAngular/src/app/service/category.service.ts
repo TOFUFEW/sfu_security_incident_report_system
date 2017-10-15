@@ -11,12 +11,14 @@ import 'rxjs/add/operator/toPromise';
 export class CategoryService 
 {
     private headers = new Headers({'Content-Type': 'application/json'});
-    categoryUrl = Config.CategoryURI;
+    mainCategoriesUrl = Config.MainCategoriesURI;
+    subCategoriesUrl = Config.SubCategoriesURI;
+    categoryTypesUrl = Config.CategoryTypesURI;
     
     constructor( private http: Http ) {}
 
     getMainCategories(): Promise<MainCategory[]> {
-        var mainCategories = this.http.get ( this.categoryUrl )
+        var mainCategories = this.http.get ( this.mainCategoriesUrl )
             .toPromise()
             .then ( response => response.json() as MainCategory[] )
             .catch ( this.handleError );
@@ -24,7 +26,7 @@ export class CategoryService
     };
 
     getSubCategories(): Promise<SubCategory[]> {
-        var subCategories =  this.http.get ( this.categoryUrl )
+        var subCategories =  this.http.get ( this.subCategoriesUrl )
         .toPromise()
         .then ( response => response.json() as SubCategory[] )
         .catch ( this.handleError );
@@ -32,7 +34,7 @@ export class CategoryService
     }
 
     getCategoryTypes(): Promise<CategoryType[]> {
-        var categoryTypes =  this.http.get ( this.categoryUrl )
+        var categoryTypes =  this.http.get ( this.categoryTypesUrl )
         .toPromise()
         .then ( response => response.json() as CategoryType[] )
         .catch ( this.handleError );
