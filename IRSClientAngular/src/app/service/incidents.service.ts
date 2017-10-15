@@ -12,12 +12,12 @@ export class IncidentsService
     private headers = new Headers({'Content-Type': 'application/json'});
     incidentsUrl = Config.IncidentsURI;
     tableName = "";
-    constructor( private http: Http, private dataHelper: DataHelperService ) {}
+    constructor( private http: Http ) {}
 
     getIncidents(): Promise<Incident[]> {
         var incidents = this.http.get( this.incidentsUrl )
             .toPromise()
-            .then( response => this.dataHelper.extractAttributes( response.json() ) as Incident[] )
+            .then( response => DataHelperService.extractAttributes( response.json() ) as Incident[] )
             .catch( this.handleError );
         return Promise.resolve( incidents );
     };

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router, RouterModule } from '@angular/router';
 import { Incident } from '../model/incident';
 import { IncidentsService } from '../service/incidents.service';
 import { Location } from '../model/location';
 import { LocationService } from '../service/location.service';
 import { Staff } from '../model/staff';
 import { StaffService } from '../service/staff.service';
-import { HttpClient } from '@angular/common/http';
-import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../service/user.service';
 import { Config } from '../util/config.service';
 import { DataHelperService } from '../util/data-helper.service';
@@ -32,7 +32,6 @@ export class DashboardComponent {
     private locationService: LocationService,
     private userService: UserService,
     private staffService: StaffService,
-    private dataHelper: DataHelperService
   ) {
 
     if ( this.userService.isLoggedIn() == false ) {
@@ -46,14 +45,14 @@ export class DashboardComponent {
     loc1.CAMPUS_ID = 1;
     loc1.DEPARTMENT  = "SOSY";
     loc1.ROOM_NUMBER = 4080;
-    var _loc1 = this.dataHelper.toIncidentElement( Config.LocationTable, loc1);
+    var _loc1 = DataHelperService.toIncidentElement( Config.LocationTable, loc1);
 
     var loc2 = new Location();
     loc2.BUILDING_NAME = "TEST2";
     loc2.CAMPUS_ID = 1;
     loc2.DEPARTMENT  = "SOSY";
     loc2.ROOM_NUMBER = 4080;
-    var _loc2 = this.dataHelper.toIncidentElement( Config.LocationTable, loc2);
+    var _loc2 = DataHelperService.toIncidentElement( Config.LocationTable, loc2);
 
     var inc = this.newIncident;
     inc.attributes.ACCOUNT_ID = 1;

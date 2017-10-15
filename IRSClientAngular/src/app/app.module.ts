@@ -18,7 +18,6 @@ import { DynamicFormComponent } from './component/dynamic-form.component';
 import { MyTestComponent } from './component/myTest.component';
 
 /* Services */
-import { DataHelperService } from './util/data-helper.service';
 import { UserService } from './service/user.service';
 import { LoginService } from './service/login.service';
 import { DomService } from './service/dom.service';
@@ -45,7 +44,7 @@ import { LocationService } from './service/location.service'
     MyTestComponent
   ],
   
-  providers: [UserService, LoginService, DomService, DataHelperService, LocationService],
+  providers: [UserService, LoginService, DomService, LocationService],
   bootstrap: [AppComponent],
   entryComponents: [ LocationComponent, MyTestComponent ]
 })

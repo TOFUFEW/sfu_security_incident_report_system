@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Config } from '../util/config.service';
 import { DataHelperService } from '../util/data-helper.service';
 import { User } from '../model/user';
+import { IncidentElement } from '../model/incident-element';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
@@ -12,15 +13,16 @@ import 'rxjs/add/operator/toPromise';
 export class LoginService {
     private headers = new Headers( { 'Content-Type': 'application/json' } );
     loginUrl = Config.LoginURI;
-    constructor( private http: Http, private dataHelper: DataHelperService ) { }
+    constructor( private http: Http ) { }
 
-    doLogin( user: User ): Observable<string> {
+    doLogin( user: User ): Observable<User> {
         let options = new RequestOptions( { headers: this.headers } );
-        var _user = this.dataHelper.toIncidentElement ( Config.AccountTable, user );
-        return this.http.post( this.loginUrl, 
-            JSON.stringify( _user ), 
-            options )
-                // response becomes a string
-                .map( ( response: Response ) => <string> response.json() );
+        var _user = DataHelperService.toIncidentElement ( Config.AccountTable, user );
+
+        // HTTP RESPONSE
+        return this.http
+            .post(this.loginUrl, JSON.stringify( _user ), options)
+            .map( ( response: Response ) => 
+            DataHelperService.extractAttribute( <IncidentElement>response.json() ) as User ); 
     }
 }
