@@ -42,11 +42,12 @@ div#incidents-container {
       padding-bottom: 0px; }
     div#incidents-container div#incidents-list-panel div#toolbar, div#incidents-container div#staff-list-panel div#toolbar {
       height: 20%; }
-    div#incidents-container div#incidents-list-panel div#incidents-list, div#incidents-container div#incidents-list-panel div#staff-list, div#incidents-container div#staff-list-panel div#incidents-list, div#incidents-container div#staff-list-panel div#staff-list {
-      height: 80%;
+    div#incidents-container div#incidents-list-panel div#incidents-list, div#incidents-container div#staff-list-panel div#incidents-list {
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
-      background-color: #d1d1d1;
+      background-color: #d1d1d1; }
+    div#incidents-container div#incidents-list-panel div#incidents-list, div#incidents-container div#incidents-list-panel div#staff-list, div#incidents-container div#staff-list-panel div#incidents-list, div#incidents-container div#staff-list-panel div#staff-list {
+      height: 80%;
       overflow: auto; }
   div#incidents-container div.panel {
     overflow: hidden; }

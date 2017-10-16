@@ -1,0 +1,51 @@
+@import "_settings";
+$card-height: 48px;
+$opacity-light: 0.8;
+
+.staff-card {
+    @include flex(flex-start, center);
+    height: $card-height;
+    width: 100%;
+    background-color: $white;
+    border: $border-default;
+}
+
+.status-indicator-container, .actions {
+    @include flex(center, center);
+    height: $card-height;
+    min-width: $card-height;
+    width: $card-height;
+    padding: 18px;
+
+    .status-indicator  {
+        height: 100%;
+        width: 100%;
+        background-color: green;
+        border-radius: 99px;
+    }
+}
+
+.name-plate {
+    @include flex(center, flex-start);
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 4px;
+    span.name {
+        font-size: 14px;
+    }
+
+    span.campus {
+        opacity: $opacity-light;
+    }
+}
+
+.actions {
+    span { 
+        opacity: $opacity-light; 
+        &:hover {
+            cursor: pointer;
+            opacity: 1;
+        }
+    }
+}

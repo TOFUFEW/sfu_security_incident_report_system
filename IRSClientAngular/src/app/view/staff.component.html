@@ -1,4 +1,4 @@
-<ul>
+<!-- <ul>
   <li *ngFor="let staff of staffList">
     Id: {{staff.ACCOUNT_ID}},
     {{staff.CAMPUS_ID}}, 
@@ -13,4 +13,19 @@
     <span class="link" (click)="updateStaff(staff);">Save</span>
     <span class="link" (click)="deleteStaff(staff.ACCOUNT_ID)">Delete</span>
   </li>
-</ul>
+</ul> -->
+
+<div class="row">
+  <div class="staff-card"  *ngFor="let staff of staffList">
+    <div class="status-indicator-container">
+      <div class="status-indicator"></div>
+    </div>
+    <div class="name-plate">
+      <span class="name">{{staff.LAST_NAME}}, {{staff.FIRST_NAME}}</span>
+      <span class="campus">Surrey</span>
+    </div>
+    <div class="actions">
+      <span class="glyphicon glyphicon-plus"></span>
+    </div>
+  </div>
+</div>

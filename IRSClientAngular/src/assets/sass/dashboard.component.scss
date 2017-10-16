@@ -55,11 +55,15 @@ div#incidents-container {
         div#toolbar {
             height: 20%;
         }
-        div#incidents-list, div#staff-list {
-            height: 80%;
+
+        div#incidents-list { 
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
-            background-color: $grey-dark;
+            background-color: $grey-dark; 
+        }
+        
+        div#incidents-list, div#staff-list {
+            height: 80%;
             overflow: auto;
         }
     }
