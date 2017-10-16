@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Category } from '../model/category';
 import { MainCategory } from '../model/category-main';
 import { SubCategory } from '../model/category-sub';
 import { CategoryType } from '../model/category-type';
@@ -11,11 +12,12 @@ import 'rxjs/add/operator/toPromise';
 export class CategoryService 
 {
     private headers = new Headers({'Content-Type': 'application/json'});
+    private subCategories;
     CategoriesUrl = Config.CategoriesURI;
     
     constructor( private http: Http ) {}
 
-    getMainCategories(): Promise<MainCategory[]> {
+    getMainCategories(): Promise< MainCategory[] > {
         var mainCategories = this.http.get ( this.CategoriesUrl )
             .toPromise()
             .then ( response => response.json() as MainCategory[] )

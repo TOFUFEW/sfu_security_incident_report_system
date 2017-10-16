@@ -12,7 +12,7 @@ export class GuardIncidentComponent implements OnInit {
   incidents: Incident[];  
   newIncident: Incident = new Incident();  
 
-  constructor( private incidentsService: IncidentsService ){};  
+  constructor ( private incidentsService: IncidentsService ) {};  
   
   getIncidents(): void {
     this.incidentsService.getIncidents().then( returnedIncidents => {
@@ -20,41 +20,31 @@ export class GuardIncidentComponent implements OnInit {
     } );    
   }
 
-  addIncident(): void {
-    this.incidentsService.create( this.newIncident )
-        .then( returnedIncident => {
-            if ( returnedIncident != null  ) {
-              this.incidents.push( returnedIncident );
-              alert( "Incident successfully added!" );
-            }
-            else alert( "Add failed." );
-        } );
-    delete this.newIncident;
-    this.newIncident = new Incident();
-  }
+//   addIncident(): void {
+//     this.incidentsService.create( this.newIncident )
+//         .then( returnedIncident => {
+//             if ( returnedIncident != null  ) {
+//               this.incidents.push( returnedIncident );
+//               alert( "Incident successfully added!" );
+//             }
+//             else alert( "Add failed." );
+//         } );
+//     delete this.newIncident;
+//     this.newIncident = new Incident();
+//   }
 
-  updateIncident( incident: Incident ): void {
-    this.incidentsService.update( incident )
-        .then( returnedIncident => {
-            if ( returnedIncident != null  ) {
-              var i = this.incidents.findIndex( inc => inc.REPORT_ID === returnedIncident.REPORT_ID );
-              // remove 1 object at index i, replace it with returnedLocation
-              this.incidents.splice( i, 1, returnedIncident );
-              alert( "Incident successfully edited!" );
-            }
-            else alert( "Edit failed." );
-        } );
-  }
-
-  deleteIncident( id: number ): void {
-    this.incidentsService.delete( id ).then( isDeleted => {
-        var msg = isDeleted ? "Incident successfully deleted!" : "Delete failed";
-        alert(msg);
-        var i = this.incidents.findIndex( loc => loc.REPORT_ID === id );
-        // remove 1 object at index i
-        this.incidents.splice( i, 1 );
-      });
-  }
+//   updateIncident( incident: Incident ): void {
+//     this.incidentsService.update( incident )
+//         .then( returnedIncident => {
+//             if ( returnedIncident != null  ) {
+//               var i = this.incidents.findIndex( inc => inc.REPORT_ID === returnedIncident.REPORT_ID );
+//               // remove 1 object at index i, replace it with returnedLocation
+//               this.incidents.splice( i, 1, returnedIncident );
+//               alert( "Incident successfully edited!" );
+//             }
+//             else alert( "Edit failed." );
+//         } );
+//   }
 
   ngOnInit() : void {
     this.getIncidents();
