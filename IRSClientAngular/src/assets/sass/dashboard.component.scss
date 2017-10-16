@@ -43,7 +43,6 @@ div#incidents-container {
     
     div#incidents-list-panel, div#staff-list-panel {
         height: 100%;
-        background: $grey-lite;
         border-top: 4px solid $grey-default;
         border-top-left-radius: 0px;
         border-top-right-radius: 0px;
@@ -59,7 +58,7 @@ div#incidents-container {
         div#incidents-list { 
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
-            background-color: $grey-dark; 
+            background-color: $grey-lite; 
         }
 
         div#incidents-list, div#staff-list {
