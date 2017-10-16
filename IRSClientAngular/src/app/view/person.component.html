@@ -1,0 +1,17 @@
+<ul>
+        <li *ngFor="let person of personList">
+          Id: {{person.PERSON_ID}}, 
+          {{person.FIRST_NAME}}, 
+          {{person.LAST_NAME}},
+          {{person.PHONE_NUMBER}}
+          
+          <br>
+          <input type="text" [(ngModel)]="person.PERSON_ID"/>
+          <input type="text" [(ngModel)]="person.FIRST_NAME"/>
+          <input type="text" [(ngModel)]="person.LAST_NAME"/>
+          <input type="text" [(ngModel)]="person.PHONE_NUMBER"/>
+      
+          <span class="link" (click)="updatePerson(person);">Save</span>
+          <span class="link" (click)="deletePerson(person.PERSON_ID)">Delete</span>
+        </li>
+      </ul>

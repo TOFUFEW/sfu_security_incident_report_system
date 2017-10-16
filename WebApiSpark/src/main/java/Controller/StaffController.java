@@ -16,8 +16,10 @@ public class StaffController
 
     private void setupEndPoints ()
     {
+
         get ( "/staff" , ( request , response ) -> {
             return JsonUtil.toJson( DBHelper.getStaffs () );
+
         } );
 
 
@@ -35,10 +37,9 @@ public class StaffController
 
 
         delete("/staff/:id", (request, response) -> {
-            String id = request.params(":id");
             Staff staff = new Staff();
-            staff.editColumnValue (
-                    DatabaseValues.DatabaseColumn.ACCOUNT_ID,
+            staff.updateAttributeValue (
+                    DatabaseValues.Column.ACCOUNT_ID,
                     request.params ( ":id" )
             );
 
