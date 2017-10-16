@@ -32,22 +32,6 @@ div#incidents-container {
     padding-right: 0px; }
   div#incidents-container div#right-col {
     padding-left: 0px; }
-  div#incidents-container div#incidents-list-panel, div#incidents-container div#staff-list-panel {
-    height: 100%;
-    border-top: 4px solid #f9f9f9;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px; }
-    div#incidents-container div#incidents-list-panel div.panel-body, div#incidents-container div#staff-list-panel div.panel-body {
-      padding-bottom: 0px; }
-    div#incidents-container div#incidents-list-panel div#toolbar, div#incidents-container div#staff-list-panel div#toolbar {
-      height: 20%; }
-    div#incidents-container div#incidents-list-panel div#incidents-list, div#incidents-container div#staff-list-panel div#incidents-list {
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
-      background-color: #fafafa; }
-    div#incidents-container div#incidents-list-panel div#incidents-list, div#incidents-container div#incidents-list-panel div#staff-list, div#incidents-container div#staff-list-panel div#incidents-list, div#incidents-container div#staff-list-panel div#staff-list {
-      height: 80%;
-      overflow: auto; }
   div#incidents-container div.panel {
     overflow: hidden; }
     div#incidents-container div.panel div.panel-heading {
@@ -144,7 +128,7 @@ div.side-container {
     max-width: 50%; }
 
 incidents-component {
-  height: auto; }
+  height: 100%; }
 
 .card {
   box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.07), 1px 2px 5px 0 rgba(0, 0, 0, 0.06); }

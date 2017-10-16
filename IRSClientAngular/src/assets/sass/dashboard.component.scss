@@ -40,32 +40,6 @@ div#incidents-container {
 
     div#left-col { padding-right: 0px; }
     div#right-col { padding-left: 0px; }
-    
-    div#incidents-list-panel, div#staff-list-panel {
-        height: 100%;
-        border-top: 4px solid $grey-default;
-        border-top-left-radius: 0px;
-        border-top-right-radius: 0px;
-        
-        div.panel-body {
-            padding-bottom: 0px;
-        }
-        
-        div#toolbar {
-            height: 20%;
-        }
-
-        div#incidents-list { 
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            background-color: $grey-lite; 
-        }
-
-        div#incidents-list, div#staff-list {
-            height: 80%;
-            overflow: auto;
-        }
-    }
 
     div.panel {
         overflow: hidden;
@@ -193,7 +167,7 @@ div.side-container {
 }
 
 incidents-component {
-    height: auto;
+    height: 100%;
 }
 
 .card {
