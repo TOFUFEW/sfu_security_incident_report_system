@@ -8,7 +8,7 @@ body {
 .main-container {
   height: calc(100vh - 50px);
   width: 100%;
-  background: #e9e9e9; }
+  background: #f9f9f9; }
 
 #main-navbar {
   height: 50px;
@@ -44,7 +44,7 @@ body {
   height: 100%;
   display: flex;
   overflow-x: auto;
-  background: #e9e9e9; }
+  background: #f9f9f9; }
 
 .sidebar {
   height: 100%;
@@ -110,7 +110,7 @@ body {
     border-color: #ddd; }
     .panel.panel-default .panel-heading {
       color: #333;
-      font-weight: 600;
+      font-weight: 300;
       background-color: #ffffff;
       border-color: #ddd; }
       .panel.panel-default .panel-heading .form-control {
@@ -130,7 +130,7 @@ body {
 span.panel-header, .glyphicon-heading {
   color: #333;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 300;
   opacity: 0.8; }
 
 span.glyphicon-fire {

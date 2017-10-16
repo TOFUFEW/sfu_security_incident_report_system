@@ -61,7 +61,7 @@ div#incidents-container {
             border-top-right-radius: 10px;
             background-color: $grey-dark; 
         }
-        
+
         div#incidents-list, div#staff-list {
             height: 80%;
             overflow: auto;
@@ -177,7 +177,6 @@ div#right-panels {
 div.side-container {
     flex-direction: column;
     padding: $padding-md;
-
     .panel {
         width: 100%;
         flex-grow: 1;
@@ -193,4 +192,8 @@ div.side-container {
 
 incidents-component {
     height: auto;
+}
+
+.card {
+    box-shadow: 1px 1px 1px 0 rgba(0,0,0,.07), 1px 2px 5px 0 rgba(0,0,0,.06);
 }
