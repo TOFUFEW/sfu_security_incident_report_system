@@ -1,28 +1,30 @@
 import { Injectable } from '@angular/core';
-import { IncidentElement } from '../model/incidentElement';
+import { IncidentElement } from '../model/incident-element';
 import { Location } from '../model/location';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
+import { DataHelperService } from '../util/data-helper.service';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class LocationService {
     private headers = new Headers({ 'Content-Type': 'application/json' });
     locationsUrl = Config.LocationsURI;
-    constructor( private http: Http ) {}
+    tableName = Config.LocationTable;
+    constructor( private http: Http, private dataHelper: DataHelperService ) {}
 
     getLocations(): Promise<Location[]> {
         var locations = this.http.get( this.locationsUrl )
             .toPromise()
-            .then( response => response.json() as Location[] )
+            .then( response => this.dataHelper.extractAttributes( response.json() ) as Location[] )
             .catch( this.handleError );
         return Promise.resolve( locations );
     };
 
     create( location: Location ) : Promise<Location> {
         var promise = this.http
-                .post( this.locationsUrl, JSON.stringify( location ), { headers: this.headers } )
+                .post( this.locationsUrl, JSON.stringify( this.dataHelper.toIncidentElement( this.tableName, location ) ), { headers: this.headers } )
                 .toPromise()
                 .then( response => response.json() as Location )
                 .catch( this.handleError );
@@ -31,7 +33,7 @@ export class LocationService {
 
     update( location: Location ) : Promise<Location> {
         var promise = this.http
-                .post( this.locationsUrl, JSON.stringify( location ), { headers: this.headers } )
+                .post( this.locationsUrl, JSON.stringify( this.dataHelper.toIncidentElement( this.tableName, location ) ), { headers: this.headers } )
                 .toPromise()
                 .then( response => response.json() as Location )
                 .catch( this.handleError );

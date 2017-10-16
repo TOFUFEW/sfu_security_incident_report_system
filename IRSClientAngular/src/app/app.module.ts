@@ -16,11 +16,17 @@ import { LoginComponent } from './component/login.component';
 import { GuardDashboard } from './component/guard-app/guard-dashboard.component';
 import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
 import { CategoryComponent } from './component/category-menu.component'
+import { NewIncidentComponent } from './component/new-incident.component';
+import { DynamicFormComponent } from './component/dynamic-form.component';
+import { MyTestComponent } from './component/myTest.component';
 
 /* Services */
+import { DataHelperService } from './util/data-helper.service';
 import { UserService } from './service/user.service';
 import { LoginService } from './service/login.service';
 import { CategoryService } from './service/category.service';
+import { DomService } from './service/dom.service';
+import { LocationService } from './service/location.service'
 
 @NgModule({
   imports: [
@@ -30,6 +36,7 @@ import { CategoryService } from './service/category.service';
     HttpClientModule,
     routes
   ],
+
   declarations: [
     AppComponent,
     DashboardComponent,
@@ -39,11 +46,15 @@ import { CategoryService } from './service/category.service';
     LoginComponent,
     GuardDashboard,
     GuardIncidentComponent,
-    CategoryComponent
+    CategoryComponent,
+    NewIncidentComponent,
+    DynamicFormComponent,
+    MyTestComponent
   ],
-
-  providers: [ UserService, LoginService, CategoryService ],
-  bootstrap: [ AppComponent ]
+  
+  providers: [ UserService, LoginService, DomService, DataHelperService, LocationService,  CategoryService ],
+  bootstrap: [ AppComponent ],
+  entryComponents: [ LocationComponent, MyTestComponent ]
 })
 
 export class AppModule { }

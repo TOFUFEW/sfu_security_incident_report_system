@@ -1,18 +1,47 @@
 package Model;
 
-public class User {
+import Util.DatabaseValues;
 
-    public User() {
+public class User  extends IncidentElement
+{
 
+    public User ( )
+    {
+        this (
+                "",
+                "",
+                ""
+        );
     };
 
-    public User(String username, String password, int accType){
-        this.username = username;
-        this.password = password;
-        this.accType = accType;
-    }
+    public User (
+            String username,
+            String password,
+            String accountType
+    ) {
+        super (
+                DatabaseValues.Table.ACCOUNT,
+                new DatabaseValues.Column[]
+                {
+                        DatabaseValues.Column.USERNAME,
+                        DatabaseValues.Column.PASSWORD,
+                        DatabaseValues.Column.ACCOUNT_TYPE
+                }
+        );
 
-     public String username;
-     public String password;
-     public int accType;
+        updateAttributeValue(
+            DatabaseValues.Column.USERNAME,
+            username
+        );
+
+        updateAttributeValue(
+            DatabaseValues.Column.PASSWORD,
+            password
+        );
+
+        updateAttributeValue(
+            DatabaseValues.Column.ACCOUNT_TYPE,
+            accountType
+        );
+    }
 }

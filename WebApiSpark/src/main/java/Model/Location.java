@@ -5,37 +5,59 @@ import Util.DatabaseValues;
 
 public class Location extends IncidentElement
 {
+    public Location ( )
+    {
+        this (
+                "",
+                "",
+                "",
+                "",
+                ""
+
+        );
+    }
+
     public Location (
             String locationID,
             String campusID,
-            String buildingNumber,
+            String buildingName,
             String roomNumber,
             String department
     ) {
-        super(DatabaseValues.DatabaseTable.LOCATION);
+        super (
+                DatabaseValues.Table.LOCATION,
+                new DatabaseValues.Column[]
+                {
+                        DatabaseValues.Column.LOCATION_ID,
+                        DatabaseValues.Column.CAMPUS_ID,
+                        DatabaseValues.Column.BUILDING_NAME,
+                        DatabaseValues.Column.ROOM_NUMBER,
+                        DatabaseValues.Column.DEPARTMENT,
+                }
+        );
 
-        super.putValue(
-                DatabaseValues.DatabaseColumn.LOCATION_ID,
+        updateAttributeValue(
+                DatabaseValues.Column.LOCATION_ID,
                 locationID
         );
 
-        super.putValue(
-                DatabaseValues.DatabaseColumn.CAMPUS_ID,
+        updateAttributeValue(
+                DatabaseValues.Column.CAMPUS_ID,
                 campusID
         );
 
-        super.putValue(
-                DatabaseValues.DatabaseColumn.BUILDING_NUMBER,
-                buildingNumber
+        updateAttributeValue(
+                DatabaseValues.Column.BUILDING_NAME,
+                buildingName
         );
 
-        super.putValue(
-                DatabaseValues.DatabaseColumn.ROOM_NUMBER,
+        updateAttributeValue(
+                DatabaseValues.Column.ROOM_NUMBER,
                 roomNumber
         );
 
-        super.putValue(
-                DatabaseValues.DatabaseColumn.DEPARTMENT,
+        updateAttributeValue(
+                DatabaseValues.Column.DEPARTMENT,
                 department
         );
     }

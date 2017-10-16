@@ -1,15 +1,195 @@
 <div class="main-container">
-    <div id="main-content" class="max-height-width">
-      <div class="row-container">
-        
-        <incidents-component class="container-fluid"></incidents-component>        
-  
-        <staff-component class="container-fluid"></staff-component>
-        
-        <location-component class="container-fluid"></location-component>
+  <div id="main-content" class="max-height-width">
+      <div id="incidents-container" class="col-md-8 col-lg-8">
+          <div id="workspace" class="row">
+              <div class="col-md-12 col-lg-12 col">
+                    <div id="incidents-dashboard" class="panel panel-default">
+                        <div class="panel-heading">
+                            <div>
+                                <span class="glyphicon glyphicon-dashboard glyphicon-heading"></span>
+                                <span class="panel-header">Workspace</span>
+                            </div>
+                            <div id="button-container">
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#new-incident-modal" (click)="addIncident();">New Incident</button>
+                                </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="incidents-row">
+                                <div class="quarter-box">
+                                    <new-incident-form></new-incident-form>
+                                </div>
+                                <div class="quarter-box">
+                                    <div class="incident-box">
+                                        <div class="incident-card">
+                                            <span class="glyphicon glyphicon-fire glyphicon-heading"></span>
+                                            <div class="incident-title">
+                                                <span class="incident-header">Hot Work</span>
+                                                <span class="incident-location">SURR 4080</span>
+                                                <span class="incident-id">Incident# 12345789</span>
+                                            </div>
+                                            <span class="incident-timer">4:44</span>
+                                        </div>
+                
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a href="#">Home</a></li>
+                                            <li><a href="#">Menu 1</a></li>
+                                            <li><a href="#">Menu 2</a></li>
+                                            <li><a href="#">Menu 3</a></li>
+                                        </ul>
+                
+                                        <div class="incident-element-container">
+                                            <div class="incident-element-header">
+                                                <span class="icon"></span>
+                                                <span class="incident-element-title">Description</span>
+                                            </div>
+                                            
+                                            <div>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et felis eros. Maecenas interdum cursus lectus, non sollicitudin lectus luctus eget. Integer ornare elementum tellus bibendum cursus. Sed justo nisl, volutpat eget luctus a, vehicula eget nisl. Ut tristique erat nisi, at pretium nunc consectetur eu. Duis ac leo lacinia, molestie libero ut, fringilla quam. Etiam nec nibh euismod ex sollicitudin sodales. Ut metus leo, congue eu orci quis, semper lobortis felis. Aliquam lacinia odio et tortor gravida, vitae blandit erat viverra. Donec vitae sagittis sapien. Nunc ut justo bibendum, lobortis tellus ac, efficitur tortor. Integer id dignissim libero. Proin vitae nisl sed orci egestas bibendum. 
+                                            </div>
+                                        </div>
+                
+                                        <div class="incident-element-container">
+                                            <div class="incident-element-header">
+                                                <span class="icon"></span>
+                                                <span class="incident-element-title">Executive Summary</span>
+                                            </div>
+                                            
+                                            <div>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et felis eros. Maecenas interdum cursus lectus, non sollicitudin lectus luctus eget. Integer ornare elementum tellus bibendum cursus. Sed justo nisl, volutpat eget luctus a, vehicula eget nisl. Ut tristique erat nisi, at pretium nunc consectetur eu. Duis ac leo lacinia, molestie libero ut, fringilla quam. Etiam nec nibh euismod ex sollicitudin sodales. Ut metus leo, congue eu orci quis, semper lobortis felis. Aliquam lacinia odio et tortor gravida, vitae blandit erat viverra. Donec vitae sagittis sapien. Nunc ut justo bibendum, lobortis tellus ac, efficitur tortor. Integer id dignissim libero. Proin vitae nisl sed orci egestas bibendum. 
+                                            </div>
+                                        </div>
+                
+                                        <div class="incident-element-container">
+                                            <div class="incident-element-header">
+                                                <span class="icon"></span>
+                                                <span class="incident-element-title">Vehicles</span>
+                                            </div>
+                                            
+                                            <div class="incident-element-details">
+                                                <span class="">Make: </span>
+                                                <span>Model: </span>
+                                                <span>Plate #: </span>
+                                            </div>
+                                        </div>
+                
+                                        <div class="incident-element-container">
+                                            <div class="incident-element-header">
+                                                <span class="icon"></span>
+                                                <span class="incident-element-title">More Stuff</span>
+                                            </div>
+                                            
+                                            <div>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et felis eros. Maecenas interdum cursus lectus, non sollicitudin lectus luctus eget. Integer ornare elementum tellus bibendum cursus. Sed justo nisl, volutpat eget luctus a, vehicula eget nisl. Ut tristique erat nisi, at pretium nunc consectetur eu. Duis ac leo lacinia, molestie libero ut, fringilla quam. Etiam nec nibh euismod ex sollicitudin sodales. Ut metus leo, congue eu orci quis, semper lobortis felis. Aliquam lacinia odio et tortor gravida, vitae blandit erat viverra. Donec vitae sagittis sapien. Nunc ut justo bibendum, lobortis tellus ac, efficitur tortor. Integer id dignissim libero. Proin vitae nisl sed orci egestas bibendum. 
+                                            </div>
+                                        </div>
+                
+                                        <div class="incident-element-container">
+                                            <div class="incident-element-header">
+                                                <span class="icon"></span>
+                                                <span class="incident-element-title">More Stuff</span>
+                                            </div>
+                                            
+                                            <div>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et felis eros. Maecenas interdum cursus lectus, non sollicitudin lectus luctus eget. Integer ornare elementum tellus bibendum cursus. Sed justo nisl, volutpat eget luctus a, vehicula eget nisl. Ut tristique erat nisi, at pretium nunc consectetur eu. Duis ac leo lacinia, molestie libero ut, fringilla quam. Etiam nec nibh euismod ex sollicitudin sodales. Ut metus leo, congue eu orci quis, semper lobortis felis. Aliquam lacinia odio et tortor gravida, vitae blandit erat viverra. Donec vitae sagittis sapien. Nunc ut justo bibendum, lobortis tellus ac, efficitur tortor. Integer id dignissim libero. Proin vitae nisl sed orci egestas bibendum. 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+          </div>
+          
+
+          <div id="bottom-panels" class="row">
+                <div id="left-col" class="col-md-8 col-lg-8 col">
+                    <div id="incidents-list-panel" class="panel panel-default">
+                        <div class="panel-body">
+                            <div id="toolbar" class="row">
+                                <div class="col-md-6 col-lg-6">
+                                    <div>
+                                        <span class="glyphicon glyphicon-list-alt glyphicon-heading"></span>
+                                        <span class="panel-header">Reports</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-lg-4 col-md-offset-2 col-lg-offset-2">
+                                    <input class="form-control" type="text" placeholder="Search for incidents...">
+                                </div>
+                            </div>
+                            <div id="incidents-list" class="col-md-12 col-lg-12">
+                                <incidents-component></incidents-component>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              <div id="right-col" class="col-md-4 col-lg-4 col">
+                  <div id="staff-list-panel" class="panel panel-default">
+                      <div class="panel-body">
+                            <div id="toolbar" class="row">
+                                <div class="col-md-6 col-lg-6">
+                                    <div>
+                                        <span class="glyphicon glyphicon-user glyphicon-heading"></span>
+                                        <span class="panel-header">Staff</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-lg-4 col-md-offset-2 col-lg-offset-2">
+                                    <input class="form-control" type="text" placeholder="Search for staff...">
+                                </div>
+                            </div>
+                            <div id="staff-list" class="col-md-12 col-lg-12">
+                                <staff-component></staff-component>
+                            </div>
+                      </div>
+                  </div>
+              </div>
+            
+          </div>
           
       </div>
-    </div>
+      
+
+      <div id="left-panels" class="col-md-2 col-lg-2 side-container">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <select class="form-control">
+                      <option value="0">Event Log</option>
+                  </select>
+              </div>
+              <div class="panel-body">
+                  
+              </div>
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <select class="form-control">
+                      <option value="0">Event Log</option>
+                  </select>
+              </div>
+              <div class="panel-body"></div>
+          </div>
+      </div>
+      
+      <div id="right-panels" class="col-md-2 col-lg-2 side-container">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <select class="form-control">
+                      <option value="0">Event Log</option>
+                  </select>
+              </div>
+              <div class="panel-body"></div>
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <select class="form-control">
+                      <option value="0">Event Log</option>
+                  </select>
+              </div>
+              <div class="panel-body">
+              </div>
+          </div>
+      </div>
+      
+  </div>
+    
 </div>
-  
-  

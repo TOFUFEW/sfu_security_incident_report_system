@@ -1,41 +1,138 @@
 package Model;
 
-public class Incident {
+import Util.DatabaseValues;
 
-    public Incident()
+import java.util.ArrayList;
+
+public class Incident extends StorageObject
+{
+    private ArrayList< IncidentElement > incidentElements = new ArrayList ();
+
+    public Incident ( )
     {
+        this (
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+        );
     }
 
-    public Incident(int reportID ,
-                    int accountID ,
-                    int categoryID ,
-                    String description ,
-                    String execSummary ,
-                    int closed )
-    {
-        this.reportID = reportID ;
-        this.accountID = accountID ;
-        this.categoryID = categoryID ;
-        this.description = description ;
-        this.execSummary = execSummary ;
-        this.closed = closed ;
+    public Incident (
+            String reportID,
+            String accountID,
+            String categoryID,
+            String description,
+            String executiveSummary,
+            String closed
+    ) {
+        super (
+                DatabaseValues.Table.INCIDENT,
+                new DatabaseValues.Column[]
+                {
+                        DatabaseValues.Column.REPORT_ID,
+                        DatabaseValues.Column.ACCOUNT_ID,
+                        DatabaseValues.Column.CATEGORY_ID,
+                        DatabaseValues.Column.DESCRIPTION,
+                        DatabaseValues.Column.EXECUTIVE_SUMMARY,
+                        DatabaseValues.Column.CLOSED
+                }
+        );
+
+        updateAttributeValue(
+                DatabaseValues.Column.REPORT_ID,
+                reportID
+        );
+
+        updateAttributeValue(
+                DatabaseValues.Column.ACCOUNT_ID,
+                accountID
+        );
+
+
+        updateAttributeValue(
+                DatabaseValues.Column.CATEGORY_ID,
+                categoryID
+        );
+
+        updateAttributeValue(
+                DatabaseValues.Column.DESCRIPTION,
+                description
+        );
+
+        updateAttributeValue(
+                DatabaseValues.Column.EXECUTIVE_SUMMARY,
+                executiveSummary
+        );
+
+        updateAttributeValue(
+                DatabaseValues.Column.CLOSED,
+                closed
+        );
     }
 
-    public int getReportID() { return reportID; };
-    public int getAccountID() { return accountID; };
-    public int getCategoryID() { return categoryID; };
-    public String getDescription()
+    public boolean addIncidentElement ( IncidentElement incidentElement )
     {
-        System.out.println("Description: " + description);
-        return description; };
-    public String getExecSummary() { return execSummary; };
-    public int getClosed() { return closed; };
+        if ( incidentElement == null)
+        {
+            return false;
+        }
+        incidentElements.add ( incidentElement );
+        return true;
+    }
 
-    private int reportID ;
-    private int accountID ;
-    private int categoryID ;
-    private String description ;
-    private String execSummary ;
-    private int closed ;
+    public String [] incidentElementsToInsertSQL ()
+    {
+        ArrayList < String > sqlStatements = new ArrayList ();
+        for ( IncidentElement incidentElement : incidentElements )
+        {
+            if ( incidentElement instanceof StorageObject ) {
+                sqlStatements.add ( ( ( StorageObject ) incidentElement ).toInsertSQL () );
+            }
+        }
 
+        return sqlStatements.toArray ( new String [ incidentElements.size () ] );
+    }
+
+    public String [] incidentElementsToUpdateSQL ()
+    {
+        ArrayList < String > sqlStatements = new ArrayList ();
+        for ( IncidentElement incidentElement : incidentElements )
+        {
+            if ( incidentElement instanceof StorageObject ) {
+                sqlStatements.add ( ( ( StorageObject ) incidentElement ).toUpdateSQL () );
+            }
+        }
+
+        return sqlStatements.toArray ( new String [ incidentElements.size () ] );
+    }
+
+    public String [] incidentElementsToDeleteSQL ()
+    {
+        ArrayList < String > sqlStatements = new ArrayList ();
+        for ( IncidentElement incidentElement : incidentElements )
+        {
+            if ( incidentElement instanceof StorageObject ) {
+                sqlStatements.add ( ( ( StorageObject ) incidentElement ).toDeleteSQL () );
+            }
+        }
+
+        return sqlStatements.toArray ( new String [ incidentElements.size () ] );
+    }
+
+    public int numIncidentElements ()
+    {
+        return incidentElements.size ();
+    }
+
+    public IncidentElement getIncidentElement ( int i )
+    {
+        if ( i < incidentElements.size () )
+        {
+            return incidentElements.get ( i );
+        }
+        return null;
+    }
 }

@@ -7,7 +7,8 @@ body {
 
 .main-container {
   height: 100vh;
-  width: 100%; }
+  width: 100%;
+  background: #e9e9e9; }
 
 #main-navbar {
   height: 50px;
@@ -17,9 +18,23 @@ body {
   border: none;
   border-radius: 0px !important;
   margin: 0px; }
-  #main-navbar .navbar-brand {
-    font-weight: 700;
+  #main-navbar a {
     color: #ffffff; }
+  #main-navbar .navbar-brand {
+    font-weight: 700; }
+  #main-navbar div.navbar-links, #main-navbar div.navbar-right {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100%;
+    width: auto; }
+  #main-navbar div.navbar-links a {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 14px;
+    padding-right: 14px; }
 
 .max-height-width {
   height: 100%;
@@ -27,7 +42,9 @@ body {
 
 #main-content {
   height: calc(100% - 50px);
-  display: flex; }
+  display: flex;
+  overflow-x: auto;
+  background: #e9e9e9; }
 
 .sidebar {
   height: 100%;
@@ -50,9 +67,11 @@ body {
   height: auto; }
 
 .field-title {
+  display: inline-block;
   width: auto;
   color: #696969;
-  font-size: 116%; }
+  font-size: 116%;
+  margin-bottom: 8px; }
 
 .card-text-primary {
   color: #54585A;
@@ -62,9 +81,23 @@ body {
   color: #696969;
   font-size: 100%; }
 
+.btn-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
 .btn-default {
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.16) !important; }
+
+.btn-primary {
+  background-color: #54585A !important;
+  border: 1px solid rgba(0, 0, 0, 0.16) !important;
+  border-color: #54585A !important; }
+  .btn-primary:hover {
+    cursor: pointer;
+    background-color: #434648 !important;
+    border-color: #434648 !important; }
 
 .panel {
   margin-bottom: 20px;
@@ -91,7 +124,11 @@ body {
   .panel .panel-body {
     padding: 15px; }
 
-/*# sourceMappingURL=styles.css.map */
+span.panel-header, .glyphicon-heading {
+  font-size: 18px; }
+
+span.glyphicon-fire {
+  color: #A6192E; }
 
 .link {
   text-decoration: underline;
@@ -112,3 +149,29 @@ body {
 .animate-show-hide.ng-hide-remove {
   transition: all linear 0.5s;
 }
+.green {
+  background: #cc0000; }
+
+.icon {
+  height: 24px;
+  width: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 99px; }
+
+.nav-tabs {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-top: 12px; }
+
+.nav-tabs > li.active > a {
+  border: none !important;
+  font-weight: 700; }
+
+.form-group {
+  margin-bottom: 20px !important; }
+
+.header {
+  font-size: 24px; }
+
+/*# sourceMappingURL=styles.css.map */

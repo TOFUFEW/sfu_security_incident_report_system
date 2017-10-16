@@ -2,38 +2,36 @@ package Controller;
 
 import Model.Incident;
 import Util.DBHelper;
+import Util.DatabaseValues;
 import Util.JsonUtil;
-import ViewModel.IncidentViewModel;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import static Util.JsonUtil.json;
-import static spark.Spark.*;
+import static spark.Spark.get;
+import static spark.Spark.post;
 
 public class IncidentsController
 {
-    JsonUtil parser = new JsonUtil();
-    DBHelper dbHelper = new DBHelper();
-    public IncidentsController()
+    public IncidentsController ()
     {
-        setupEndPoints();
+        setupEndPoints ();
     }
-
-    public List<Incident> incidentList = new ArrayList<>();
 
     private void setupEndPoints()
     {
-        get ("/incidents", ( request , response ) ->
+        get ("/incidents" , ( request , response ) ->
         {
-            return dbHelper.getIncidents();
-        }, json());
+            return JsonUtil.toJson ( DBHelper.getIncidents () );
+        } );
 
-        post ("/incidents", ( request, response ) ->
+        post ("/incidents" , ( request, response ) ->
         {
-            IncidentViewModel newIncident = ( IncidentViewModel ) parser.fromJson ( request.body() , IncidentViewModel.class );
-            System.out.println ( "request body: " + request.body() );
-            System.out.println ( newIncident );
-            return dbHelper.addIncident( newIncident );
-        }, json() );
+            Incident newIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
+            String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
+            return DBHelper.insertIncident ( incidentString , newIncident );
+        } );
 
     }
 }

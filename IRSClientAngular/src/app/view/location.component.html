@@ -5,11 +5,11 @@
       <ul>
         <li *ngFor="let location of locations">
           Id: {{location.LOCATION_ID}} , 
-          {{location.CITY}} , {{location.BUILDING_NAME}} , {{location.ROOM_NUMBER}} , {{location.DEPARTMENT}}
+          <!-- {{location.CITY}} , -->{{location.BUILDING_NAME}} , {{location.ROOM_NUMBER}} , {{location.DEPARTMENT}} 
           <br>
           
-          <span>City:</span>
-          <input type="text" [(ngModel)]="location.CITY"/>
+          <!-- <span>City:</span>
+          <input type="text" [(ngModel)]="location.CITY"/> -->
           <span>Building Name:</span>
           <input type="text" [(ngModel)]="location.BUILDING_NAME"/>
           <span>Room Number:</span>
@@ -22,8 +22,8 @@
       </ul>
 
       <h4>Add a Location: </h4>
-      <span class="field-title">Campus</span>
-      <input type="text" [(ngModel)]="newLocation.CITY" /> <br><br>
+      <!-- <span class="field-title">Campus</span>
+      <input type="text" [(ngModel)]="newLocation.CITY" /> <br><br> -->
       <span class="field-title">Building Number</span>
       <input type="text" [(ngModel)]="newLocation.BUILDING_NAME" /> <br><br>
       <span class="field-title">Room Number</span>

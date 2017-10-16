@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { DataHelperService } from '../util/data-helper.service';
 import { Incident } from '../model/incident';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
@@ -10,33 +11,33 @@ export class IncidentsService
 {
     private headers = new Headers({'Content-Type': 'application/json'});
     incidentsUrl = Config.IncidentsURI;
-    
-    constructor( private http: Http ) {}
+    tableName = "";
+    constructor( private http: Http, private dataHelper: DataHelperService ) {}
 
     getIncidents(): Promise<Incident[]> {
         var incidents = this.http.get( this.incidentsUrl )
             .toPromise()
-            .then( response => response.json() as Incident[] )
+            .then( response => this.dataHelper.extractAttributes( response.json() ) as Incident[] )
             .catch( this.handleError );
         return Promise.resolve( incidents );
     };
 
     create( incident: Incident ): Promise<Incident> {
+        incident.table = Config.IncidentTable;
+        incident.attributes.ACCOUNT_ID = 1;
+        incident.attributes.CATEGORY_ID = 1;
         var promise = this.http
                 .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
                 .toPromise()
-                .then( response => response.json() as Incident )
+                .then( response => { 
+                    return ( response.json() as boolean ) ? incident : null 
+                })
                 .catch( this.handleError );
         return Promise.resolve( promise );
     }
 
     update( incident: Incident ): Promise<Incident> {
-        var promise = this.http
-                .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
-                .toPromise()
-                .then( response => response.json() as Incident )
-                .catch( this.handleError );
-        return Promise.resolve( promise );
+        return this.create( incident );
     }
 
     delete( id: number ) : Promise<boolean> {

@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,sBAAuB;EACnB,MAAM,EAAE,GAAG;EACX,UAAU,ECQD,IAAI",
+"sources": ["../sass/new-incident.component.scss","../sass/_settings.scss"],
+"names": [],
+"file": "new-incident.component.css"
+}

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IncidentElement } from '../model/incidentElement';
+import { IncidentElement } from '../model/incident-element';
 import { Location } from '../model/location';
 import { LocationService } from '../service/location.service';
 import { Router, RouterModule } from '@angular/router';
@@ -15,7 +15,6 @@ export class LocationComponent implements OnInit {
 
   constructor (
     private locationService: LocationService,
-    private router: Router
   ) {
 
   };
@@ -27,8 +26,8 @@ export class LocationComponent implements OnInit {
   }
 
   addLocation(): void {
-    if (this.newLocation.CITY != null && this.newLocation.CITY.length == 0)
-      return;
+    // if (this.newLocation.CITY != null && this.newLocation.CITY.length == 0)
+    //   return;
     this.locationService.create(this.newLocation)
       .then(returnedLocation => {
         if (returnedLocation != null) {
@@ -42,8 +41,8 @@ export class LocationComponent implements OnInit {
   }
 
   updateLocation(location: Location): void {
-    if (this.newLocation.CITY != null && this.newLocation.CITY.length == 0)
-      return;
+    // if (this.newLocation.CITY != null && this.newLocation.CITY.length == 0)
+    //   return;
     this.locationService.update(location)
       .then(returnedLocation => {
         if (returnedLocation != null) {
@@ -68,7 +67,7 @@ export class LocationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getLocations();
+    //this.getLocations();
   }
 
 }

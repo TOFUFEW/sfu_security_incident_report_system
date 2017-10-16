@@ -1,409 +1,393 @@
 package Util;
 
-import DBConnector.Connector;
-import Model.*;
-import ViewModel.IncidentViewModel;
-import ViewModel.LocationViewModel;
+import Model.Incident;
+import Model.IncidentElement;
+import Model.Location;
+import Model.Staff;
 
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
-public class DBHelper {
-    public DBHelper() {
+public class DBHelper
+{
+    private static final String USERNAME = "sa";
+    private static final String PASSWORD = "CMPT373Alpha";
+    private static final String URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=master;";
+
+    private static Connection connection = null;
+
+    /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; REFACTORED methods ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
+
+    public static Incident [] getIncidents () {
+        ArrayList < Incident > incidentList = new ArrayList <> ();
+
+        try
+        {
+            ResultSet resultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.INCIDENT.toString() );
+
+            while ( resultSet.next () )
+            {
+                Incident incident = new Incident ();
+
+                incident.extractFromCurrentRow ( resultSet );
+
+                incidentList.add ( incident );
+            }
+        }
+
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+
+        return incidentList.toArray ( new Incident [ incidentList.size () ] );
     }
 
-    public static LocationViewModel getLocation(int id) {
+    public static boolean selectIncident ( Incident incident ) {
+        String query = incident.toSelectSQL ();
+
+        try
+        {
+            return execute ( query );
+        }
+        catch ( SQLException e )
+        {
+            e.printStackTrace();
+        }
+        return false ;
+    }
+
+    public static boolean insertIncident ( String query , Incident incident ) {
         try {
-            String query = "select "
-                    + "loc.LOCATION_ID, "
-                    + "loc.CAMPUS_ID, "
-                    + "loc.BUILDING_NAME, "
-                    + "loc.DEPARTMENT, "
-                    + "loc.ROOM_NUMBER, "
-                    + "camp.CITY, "
-                    + "camp.ADDRESS "
-                    + "from dbo.location as loc "
-                    + "inner join dbo.Campus as camp "
-                    + "on loc.CAMPUS_ID = camp.CAMPUS_ID "
-                    + "where loc.location_id = " + id;
-            ResultSet result = Connector.executeQuery(query);
+            initDB ();
+            String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
+            CallableStatement stmt = connection.prepareCall ( query );
+            stmt.setString (
+                    1,
+                    incident.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID )
+            );
+            stmt.setString (
+                    2,
+                    incident.getAttributeValue ( DatabaseValues.Column.CATEGORY_ID )
+            );
+            stmt.setString (
+                    3,
+                    incident.getAttributeValue ( DatabaseValues.Column.DESCRIPTION )
+            );
+            stmt.setString (
+                    4,
+                    incident.getAttributeValue ( DatabaseValues.Column.EXECUTIVE_SUMMARY )
+            );
 
-            while (result.next()) {
-                int locationId = result.getInt("location_id");
-                int campusId = result.getInt("campus_id");
-                String buildingName = result.getString("building_name");
-                int roomNumber = result.getInt("room_number");
-                String department = result.getString("department");
-                String city = result.getString("city");
-                String address = result.getString("address");
+            stmt.registerOutParameter (
+                    5,
+                    Types.INTEGER
+            );
 
-                return new LocationViewModel(
-                        locationId,
-                        campusId,
-                        buildingName,
-                        roomNumber,
-                        department,
-                        city,
-                        address
+            stmt.execute ();
+            int output = stmt.getInt ( 5 );
+
+            String relationSQL = "{ call dbo.insertRelation ( ? , ? , ? ) }";
+            for ( int i = 0 ; i < incident.numIncidentElements () ; i++ )
+            {
+                insertIncidentRelation (
+                        relationSQL,
+                        incident.getIncidentElement ( i )
                 );
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new LocationViewModel();
-    }
-
-    public static List<LocationViewModel> getLocations() {
-        List<LocationViewModel> locationList = new ArrayList<>();
-
-        try {
-            ResultSet result = Connector.executeQuery(buildGetLocationQuery());
-
-            while (result.next()) {
-                int locationId = result.getInt("location_id");
-                int campusId = result.getInt("campus_id");
-                String buildingName = result.getString("building_name");
-                int roomNumber = result.getInt("room_number");
-                String department = result.getString("department");
-                String city = result.getString("city");
-                String address = result.getString("address");
-
-                LocationViewModel loc = new LocationViewModel(
-                        locationId,
-                        campusId,
-                        buildingName,
-                        roomNumber,
-                        department,
-                        city,
-                        address
-                );
-                locationList.add(loc);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return locationList;
-    }
-
-    public static LocationViewModel addLocation(LocationViewModel location) {
-        try {
-            int i = Connector.executeUpdate(buildAddLocationQuery(location));
-
-            String query = "select top 1 " +
-                    "loc.LOCATION_ID, " +
-                    "loc.CAMPUS_ID, " +
-                    "loc.BUILDING_NAME, " +
-                    "loc.DEPARTMENT, " +
-                    "loc.ROOM_NUMBER, " +
-                    "camp.CITY, " +
-                    "camp.ADDRESS  " +
-                    "from dbo.location as loc  " +
-                    "inner join dbo.Campus as camp " +
-                    "on loc.CAMPUS_ID = camp.CAMPUS_ID " +
-                    "order by location_id desc";
-            ResultSet result = Connector.executeQuery(query);
-            while (result.next()) {
-                int locationId = result.getInt("location_id");
-                int campusId = result.getInt("campus_id");
-                String buildingName = result.getString("building_name");
-                int roomNumber = result.getInt("room_number");
-                String department = result.getString("department");
-                String city = result.getString("city");
-                String address = result.getString("address");
-
-                LocationViewModel loc = new LocationViewModel(
-                        locationId,
-                        campusId,
-                        buildingName,
-                        roomNumber,
-                        department,
-                        city,
-                        address
-                );
-                return loc;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return new LocationViewModel();
-    }
-
-    public static LocationViewModel editLocation(LocationViewModel location)
-    {
-        try {
-            // Check if campus exists. If not, create one and insert into the database
-            int id = getCampusId (location.CITY);
-
-            String query = "update location " +
-                    "set building_name = '" + location.BUILDING_NAME +
-                    "', room_number = " + location.ROOM_NUMBER +
-                    ", department = '" + location.DEPARTMENT +
-                    "', campus_id = " + id +
-                    " where location_id = " + location.LOCATION_ID;
-            int i = Connector.executeUpdate (query);
-            return getLocation(location.LOCATION_ID);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return new LocationViewModel();
-    }
-
-    public static boolean deleteLocation(int id) {
-        try {
-            String query = "delete from location where location_id = " + id;
-            int i = Connector.executeUpdate(query);
-            return i > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public static boolean isExistingLocation(int id) {
-        try {
-            String query = "select * from location where location_id = " + id;
-            ResultSet result = Connector.executeQuery(query);
-            while (result.next()) {
+            if ( output != 0 )
+            {
                 return true;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch ( Exception e )
+        {
+            e.printStackTrace ();
         }
         return false;
     }
 
-    private static String buildGetLocationQuery() {
-        return "select "
-                + "loc.LOCATION_ID,"
-                + "loc.CAMPUS_ID,"
-                + "loc.BUILDING_NAME,"
-                + "loc.DEPARTMENT,"
-                + "loc.ROOM_NUMBER,"
-                + "camp.CITY,"
-                + "camp.ADDRESS "
-                + "from dbo.location as loc "
-                + "inner join dbo.Campus as camp "
-                + "on loc.CAMPUS_ID = camp.CAMPUS_ID";
-    }
-
-    private static String buildAddLocationQuery(LocationViewModel location) {
-        // Check if campus exists
-        try {
-            int campusId = getCampusId (location.CITY);
-            return "insert into location (campus_id, building_name, room_number, department) "
-                    + "values ('" + campusId + "', '"
-                    + location.BUILDING_NAME + "', '"
-                    + location.ROOM_NUMBER + "', '"
-                    + location.DEPARTMENT + "')";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
-    private static int getCampusId(String city) {
-        try {
-            String checkCampus = "select * from campus " +
-                    "where campus.CITY = '" + city + "' ";
-            ResultSet campusResult = Connector.executeQuery(checkCampus);
-
-            int i = 0;
-            if (!campusResult.next()) {
-                // insert into campus db
-                String insertCampus = "insert into campus (city) values ('" + city + "')";
-                i = Connector.executeUpdate(insertCampus);
-            }
-
-            campusResult = Connector.executeQuery(checkCampus);
-
-            while (campusResult.next()) {
-                int id = campusResult.getInt("campus_id");
-                System.out.println(id);
-                return id;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-
-    //staff functions
-
-    public static List < Staff > getStaff () {
-        List<Staff> staffList = new ArrayList<>();
-
-        try {
-            ResultSet result = Connector.executeQuery("select * from Staff");
-
-            while (result.next()) {
-                int id = Integer.parseInt(result.getString("account_id"));
-                int campusId = Integer.parseInt(result.getString("campus_id"));
-                String firstName = result.getString("first_name");
-                String lastName = result.getString("last_name");
-
-                Staff staff = new Staff(
-                        id,
-                        campusId,
-                        firstName,
-                        lastName
-                );
-                staffList.add(staff);
-                System.out.print(Integer.toString(staff.getAccountId()) + Integer.toString(staff.getCampusId()) + staff.getFirstName() +"\n");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return staffList;
-    }
-
-
-//    public static Staff addStaff( Staff staff ) {
-//        try {
-//            String insertStaff = "insert into staff "
-//                    + "values (" + staff.getAccountId() + ", "
-//                    + staff.getCampusId() + ", "
-//                    + staff.getFirstName() + ", "
-//                    + staff.getLastName() + ")";
-//
-//            Connector.executeUpdate(insertStaff);
-//
-//        } catch ( Exception e ){
-//            e.printStackTrace();
-//        }
-//        return staff;
-//    }
-
-    public static boolean staffExists( int id ) {
-
-        try {
-            String existsQuery = "select 1 from Staff where account_id = " + Integer.toString(id);
-            ResultSet result = Connector.executeQuery((existsQuery));
-            while ( result.next() ){
-                return true;
-            }
-        } catch ( Exception e ){
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-
-    public static Staff editStaff( Staff staff ) {
-        try {
-            if (!staffExists( staff.getAccountId() )){
-                String editQuery = "update staff set "
-                        + "account_id = " + staff.getAccountId() + ", "
-                        + "campus_id = " + staff.getCampusId() + ", "
-                        + "first_name = " + staff.getFirstName() + ", "
-                        + "last_name = " + staff.getLastName() + " "
-                        + "where account_id = " + staff.getAccountId() + ";";
-                Connector.executeUpdate(editQuery);
-            } else {
-                return null;
-            }
-        } catch ( Exception e ){
-        e.printStackTrace();
-    }
-        return staff;
-    }
-
-    public static boolean deleteStaff(
-            int id
+    private static boolean insertIncidentRelation (
+            String query,
+            IncidentElement incidentElement
     ) {
         try {
-            if (staffExists(id)) {
-                String deleteQuery = "delete from staff where account_id = " + id + ";";
-                Connector.executeUpdate(deleteQuery);
-                return true;
-            } else {
-                return false;
+            initDB ();
+            CallableStatement stmt = connection.prepareCall ( query );
+            String tableName = incidentElement.getTable ().toString ().substring (4);
+            if ( tableName.compareTo ( "Staff" ) == 0 )
+            {
+                stmt.setString (
+                        1,
+                        tableName
+                );
+                stmt.setString (
+                        2,
+                        incidentElement.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID )
+                );
             }
-        } catch (Exception e){
-            e.printStackTrace();
+            else if ( tableName.compareTo ( "Location" ) == 0 )
+            {
+                stmt.setString (
+                        1,
+                        tableName
+                );
+                stmt.setString (
+                        2,
+                        incidentElement.getAttributeValue ( DatabaseValues.Column.LOCATION_ID )
+                );
+            }
+            else if ( tableName.compareTo ( "Person" ) == 0 )
+            {
+                stmt.setString (
+                        1,
+                        tableName
+                );
+                stmt.setString (
+                        2,
+                        incidentElement.getAttributeValue ( DatabaseValues.Column.PERSON_ID )
+                );
+            }
+            stmt.registerOutParameter (
+                    3,
+                    Types.INTEGER
+            );
+            stmt.execute ();
+
+            int output = stmt.getInt ( 3 );
+
+            if ( output != 0 )
+            {
+                return true;
+            }
+        }
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+        return false;
+    }
+
+    public static boolean updateIncident ( Incident incident ) {
+        String incidentSQL = incident.toUpdateSQL ();
+        try {
+            return execute ( incidentSQL );
+        }
+        catch ( SQLException e )
+        {
+            e.printStackTrace ();
+        }
+        return false;
+    }
+
+    public static boolean insertIncidentElement ( IncidentElement incidentElement )
+    {
+        String sql = incidentElement.toInsertSQL ();
+        try
+        {
+            execute ( sql );
+        }
+        catch ( SQLException e )
+        {
+            e.printStackTrace ();
+            return false;
         }
         return true;
     }
 
-    public static List<IncidentViewModel> getIncidents () {
-        List<IncidentViewModel> incidentList = new ArrayList<>();
+    public static boolean updateIncidentElement ( IncidentElement incidentElement )
+    {
+        String sql = incidentElement.toUpdateSQL ();
         try
         {
-            ResultSet results = Connector.executeQuery ( "SELECT * FROM Incident" );
-            while ( results.next() )
-            {
-                int reportID = results.getInt ( "report_id" );
-                int accountID = results.getInt ( "account_id" );
-                int categoryID = results.getInt ( "category_id" );
-                String description = results.getString ( "description" );
-                String execSummary = results.getString ( "executive_summary" );
-                boolean closed = results.getBoolean ("closed");
-                IncidentViewModel incident = new IncidentViewModel (
-                        reportID,
-                        accountID,
-                        categoryID,
-                        description,
-                        execSummary,
-                        closed,
-                        null
-                );
-                incidentList.add(incident);
-            }
+            execute ( sql );
         }
-        catch ( Exception e )
+        catch ( SQLException e )
         {
-            e.printStackTrace();
+            e.printStackTrace ();
+            return false;
         }
-        return incidentList;
+        return true;
     }
 
-    public static IncidentViewModel addIncident (
-            IncidentViewModel incidentToAdd
-    ) {
-        String query =  "EXEC dbo.createIncident " +
-                        "@creator_id = 1, " +
-                        "@category_id = 1, " +
-                        "@description = '" + incidentToAdd.DESCRIPTION + "', " +
-                        "@executive_summary = '" + incidentToAdd.EXECUTIVE_SUMMARY + "', " +
-                        "@location_id = 1, " +
-                        "@person_id = 1, " +
-                        "@staff_id = 1";
+    public static boolean deleteIncidentElement ( IncidentElement incidentElement )
+    {
+        String sql = incidentElement.toDeleteSQL ();
         try
         {
-            int i = Connector.executeUpdate ( query );
+            execute ( sql );
+        }
+        catch ( SQLException e )
+        {
+            e.printStackTrace ();
+            return false;
+        }
+        return true;
+    }
 
-            ResultSet results = Connector.executeQuery ( "SELECT TOP 1 FROM Incident"
-            );
-            while ( results.next() ) {
-                System.out.println("query result " + results.getString("executive_summary"));
-                int reportID = results.getInt("report_id");
-                int accountID = results.getInt("account_id");
-                int categoryID = results.getInt( "category_id");
-                String description = results.getString("description");
-                String execSummary = results.getString("executive_summary");
-                boolean closed = results.getBoolean("closed");
-                IncidentViewModel incident = new IncidentViewModel(
-                        reportID,
-                        accountID,
-                        categoryID,
-                        description,
-                        execSummary,
-                        closed,
-                        null
+    public static boolean selectIncidentElement ( IncidentElement incidentElement)
+    {
+        String sql = incidentElement.toSelectSQL ();
 
-                );
-                return new IncidentViewModel();
+        if ( sql == null )
+        {
+            return false;
+        }
+
+        try {
+            ResultSet resultSet = executeQuery ( sql );
+            if ( resultSet.next () )
+            {
+                incidentElement.extractFromCurrentRow ( resultSet );
+                return true;
+
             }
         }
+        catch ( SQLException e )
+        {
+            e.printStackTrace ();
+        }
+        return false;
+    }
+
+    public static IncidentElement [] getIncidentElements ( DatabaseValues.Table table )
+    {
+        ArrayList < IncidentElement > incidentElementList = new ArrayList ();
+
+        try
+        {
+            ResultSet resultSet = executeQuery ( "SELECT * FROM " + table.toString () );
+
+            while ( resultSet.next () )
+            {
+                IncidentElement incidentElement;
+                if ( table == DatabaseValues.Table.LOCATION )
+                {
+                    incidentElement = new Location ();
+                }
+                else if ( table == DatabaseValues.Table.STAFF )
+                {
+                    incidentElement = new Staff ();
+                }
+                else
+                {
+                    throw new IllegalStateException ( table.toString () + " does not have its Model implemented yet" );
+                }
+//                else if ( table == DatabaseValues.Table.ACCOUNT )
+//                {
+//                    //incidentElement = new Account ();
+//                }
+
+                incidentElement.extractFromCurrentRow( resultSet );
+
+                incidentElementList.add ( incidentElement );
+            }
+        }
+
         catch ( Exception e )
         {
-            e.printStackTrace();
+            e.printStackTrace ();
         }
-        return incidentToAdd;
+
+        return incidentElementList.toArray ( new IncidentElement [ incidentElementList.size () ] );
+    }
+
+    public static Location [] getLocations ()
+    {
+        ArrayList < Location > locationList = new ArrayList <> ();
+
+        try
+        {
+            ResultSet resultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.LOCATION.toString () );
+
+            while ( resultSet.next () )
+            {
+                Location location = new Location ();
+
+                location.extractFromCurrentRow ( resultSet );
+
+                locationList.add ( location );
+            }
+        }
+
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+
+        return locationList.toArray ( new Location [ locationList.size () ] );
+    }
+
+
+    // staff code
+    public static Staff [] getStaffs ()
+    {
+        ArrayList < Staff > staffList = new ArrayList ();
+
+        try
+        {
+            ResultSet resultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.STAFF.toString () );
+
+            while ( resultSet.next () )
+            {
+                Staff staff = new Staff ();
+
+                staff.extractFromCurrentRow ( resultSet );
+
+                staffList.add ( staff );
+
+            }
+        }
+
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+
+        return staffList.toArray ( new Staff [ staffList.size () ] );
+    }
+
+    public static boolean execute ( String query ) throws SQLException
+    {
+        initDB ();
+        Statement stmt = connection.createStatement ();
+        return stmt.execute ( query );
+    }
+
+    public static int executeUpdate ( String query ) throws SQLException
+    {
+        initDB ();
+        Statement stmt = connection.createStatement( );
+        return stmt.executeUpdate ( query );
+    }
+
+    public static ResultSet executeQuery ( String query ) throws SQLException
+    {
+        initDB ();
+        Statement stmt = connection.createStatement ();
+        return stmt.executeQuery ( query );
+    }
+
+    private static void initDB ()
+    {
+        if ( connection != null )
+        {
+            return;
+        }
+
+        try
+        {
+            Class.forName ( "com.microsoft.sqlserver.jdbc.SQLServerDriver" );
+            connection = DriverManager.getConnection (
+                    URL,
+                    USERNAME,
+                    PASSWORD
+            );
+        }
+
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+            connection = null;
+        }
     }
 }
