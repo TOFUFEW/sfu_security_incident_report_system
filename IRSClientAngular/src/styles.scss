@@ -134,7 +134,7 @@ body {
       color: #333;
       font-weight: $header-font-weight;
       background-color: $white;
-      border-color: #ddd;
+      //border-color: #ddd;
 
       .form-control {
           background-color: $white !important;
@@ -161,6 +161,10 @@ body {
   }
 }
 
+.glyphicon-heading {
+    margin-right: 4px;
+}
+
 span.panel-header, .glyphicon-heading {
     color: #333;
     font-size: $text-md;
@@ -183,7 +187,11 @@ span.glyphicon-fire {
 
 .nav-tabs {
     @include flex(space-around, flex-start);
-    margin-top: $padding-sm;
+    //margin-top: $padding-sm;
+
+    a {
+        color: #333;
+    }
 }
 
 .nav-tabs > li.active > a {

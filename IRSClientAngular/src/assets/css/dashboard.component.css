@@ -136,6 +136,8 @@ div.side-container {
   div.side-container .panel {
     width: 100%;
     flex-grow: 1; }
+  div.side-container .panel-body {
+    padding-top: 0px; }
   div.side-container .form-control {
     background-color: #fafafa;
     border: none;

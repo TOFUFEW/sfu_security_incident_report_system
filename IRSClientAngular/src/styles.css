@@ -111,8 +111,7 @@ body {
     .panel.panel-default .panel-heading {
       color: #333;
       font-weight: 300;
-      background-color: #ffffff;
-      border-color: #ddd; }
+      background-color: #ffffff; }
       .panel.panel-default .panel-heading .form-control {
         background-color: #ffffff !important; }
   .panel.panel-login {
@@ -126,6 +125,9 @@ body {
     border-top-right-radius: 3px; }
   .panel .panel-body {
     padding: 15px; }
+
+.glyphicon-heading {
+  margin-right: 4px; }
 
 span.panel-header, .glyphicon-heading {
   color: #333;
@@ -148,8 +150,9 @@ span.glyphicon-fire {
 .nav-tabs {
   display: flex;
   justify-content: space-around;
-  align-items: flex-start;
-  margin-top: 12px; }
+  align-items: flex-start; }
+  .nav-tabs a {
+    color: #333; }
 
 .nav-tabs > li.active > a {
   border: none !important;

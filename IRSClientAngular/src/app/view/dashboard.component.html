@@ -1,8 +1,8 @@
 <div class="main-container">
-  <div id="main-content" class="max-height-width">
-      <div id="incidents-container" class="col-md-8 col-lg-8">
-          <div id="workspace" class="row">
-              <div class="col-md-12 col-lg-12 col">
+    <div id="main-content" class="max-height-width">
+        <div id="incidents-container" class="col-md-8 col-lg-8">
+            <div id="workspace" class="row">
+                <div class="col-md-12 col-lg-12 col">
                     <div id="incidents-dashboard" class="panel panel-default">
                         <div class="panel-heading">
                             <div>
@@ -14,7 +14,7 @@
                                 </div>
                         </div>
                         <div class="panel-body">
-                            <div class="incidents-row">
+                            <!-- <div class="incidents-row">
                                 <div class="quarter-box">
                                     <new-incident-form></new-incident-form>
                                 </div>
@@ -95,37 +95,37 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-              </div>
-          </div>
-          
-
-          <div id="bottom-panels" class="row">
-                <div id="left-col" class="col-md-9 col-lg-9 col">
-                    <div id="incidents-list-panel" class="panel panel-default">
-                        <div class="panel-body">
-                            <div id="toolbar" class="row">
-                                <div class="col-md-6 col-lg-6">
-                                    <div>
-                                        <span class="glyphicon glyphicon-list-alt glyphicon-heading"></span>
-                                        <span class="panel-header">Reports</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-lg-4 col-md-offset-2 col-lg-offset-2">
-                                    <input class="form-control" type="text" placeholder="Search for incidents...">
-                                </div>
-                            </div>
-                            <div id="incidents-list" class="col-md-12 col-lg-12">
-                                <incidents-component></incidents-component>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
-              <div id="right-col" class="col-md-3 col-lg-3 col">
-                  <div id="staff-list-panel" class="panel panel-default">
-                      <div class="panel-body">
+            </div>
+            
+
+            <div id="bottom-panels" class="row">
+                    <div id="left-col" class="col-md-9 col-lg-9 col">
+                        <div id="incidents-list-panel" class="panel panel-default">
+                            <div class="panel-body">
+                                <div id="toolbar" class="row">
+                                    <div class="col-md-6 col-lg-6">
+                                        <div>
+                                            <span class="glyphicon glyphicon-list-alt glyphicon-heading"></span>
+                                            <span class="panel-header">Reports</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg-4 col-md-offset-2 col-lg-offset-2">
+                                        <input class="form-control" type="text" placeholder="Search for incidents...">
+                                    </div>
+                                </div>
+                                <div id="incidents-list" class="col-md-12 col-lg-12">
+                                    <incidents-component></incidents-component>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div id="right-col" class="col-md-3 col-lg-3 col">
+                    <div id="staff-list-panel" class="panel panel-default">
+                        <div class="panel-body">
                             <div id="toolbar" class="row">
                                 <div class="col-md-6 col-lg-6">
                                     <div>
@@ -140,55 +140,65 @@
                             <div id="staff-list" class="col-md-12 col-lg-12">
                                 <staff-component></staff-component>
                             </div>
-                      </div>
-                  </div>
-              </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
             
-          </div>
-          
-      </div>
+        </div>
       
 
-      <div id="left-panels" class="col-md-2 col-lg-2 side-container">
-          <div class="card panel panel-default">
-              <div class="panel-heading">
-                  <select class="form-control">
-                      <option value="0">Event Log</option>
-                  </select>
-              </div>
-              <div class="panel-body">
-                  
-              </div>
-          </div>
-          <div class="card panel panel-default">
-              <div class="panel-heading">
-                  <select class="form-control">
-                      <option value="0">Event Log</option>
-                  </select>
-              </div>
-              <div class="panel-body"></div>
-          </div>
-      </div>
+        <div id="left-panels" class="col-md-2 col-lg-2 side-container">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-alert glyphicon-heading"></span>
+                    <span class="panel-header">Watchlist</span>
+                </div>
+                <div class="panel-body">
+                    <select class="form-control" name="" id="">
+                        <option value="">Lone Worker</option>
+                    </select>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-tasks glyphicon-heading"></span>
+                    <span class="panel-header">Workflow Prompt</span>
+                </div>
+                <div class="panel-body"></div>
+            </div>
+        </div>
       
-      <div id="right-panels" class="col-md-2 col-lg-2 side-container">
-          <div class="card panel panel-default">
-              <div class="panel-heading">
-                  <select class="form-control">
-                      <option value="0">Event Log</option>
-                  </select>
-              </div>
-              <div class="panel-body"></div>
-          </div>
-          <div class="card panel panel-default">
-              <div class="panel-heading">
-                  <select class="form-control">
-                      <option value="0">Event Log</option>
-                  </select>
-              </div>
-              <div class="panel-body">
-              </div>
-          </div>
-      </div>
+        <div id="right-panels" class="col-md-2 col-lg-2 side-container">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-time glyphicon-heading"></span>
+                    <span class="panel-header">Event Log</span>
+                </div>
+                <div class="panel-body"></div>
+            </div>
+            <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-stats glyphicon-heading"></span>
+                        <span class="panel-header">Stats</span>
+                    </div>
+                    <div class="panel-body">
+                    </div>
+                </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-info-sign glyphicon-heading"></span>
+                    <span class="panel-header">Info</span>
+                </div>
+                <div class="panel-body">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#home">Resources</a></li>
+                        <li><a data-toggle="tab" href="#menu1">Notepad</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
       
   </div>
     
