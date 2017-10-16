@@ -6,13 +6,13 @@ body {
     min-width: 100vh;
     margin: 0;
     font-size: 12px !important;
+    background: $grey-default;
 }
 
 
 .main-container {
     height: calc(100vh - 50px);
     width: 100%;
-    background: $grey-default;
 }
 
 #main-navbar {
@@ -55,7 +55,6 @@ body {
     display: flex;
     //flex-direction: column;
     overflow-x: auto;
-    background: $grey-default;
 }
 
 .sidebar {

@@ -3,12 +3,12 @@ body {
   min-height: 100vh;
   min-width: 100vh;
   margin: 0;
-  font-size: 12px !important; }
+  font-size: 12px !important;
+  background: #f9f9f9; }
 
 .main-container {
   height: calc(100vh - 50px);
-  width: 100%;
-  background: #f9f9f9; }
+  width: 100%; }
 
 #main-navbar {
   height: 50px;
@@ -43,8 +43,7 @@ body {
 #main-content {
   height: 100%;
   display: flex;
-  overflow-x: auto;
-  background: #f9f9f9; }
+  overflow-x: auto; }
 
 .sidebar {
   height: 100%;
