@@ -8,7 +8,7 @@ import { CategoryService } from '../service/category.service';
 @Component( 
   {
   selector: 'category-component',
-  templateUrl: '../view/category-menu.component.html',
+  templateUrl: '../view/category.component.html',
   providers: [ CategoryService ]
   }
 )
@@ -39,13 +39,15 @@ export class CategoryComponent implements OnInit {
         this.categories.forEach ( item => {
 
             var newMainCategory: MainCategory;
+            console.log ( "name" + newMainCategory.NAME );
             var newSubCategory: SubCategory;
             var newCategoryType: CategoryType;
 
             // make a list of unique main categories
-            if ( newMainCategory.NAME == null ||  
+            if ( newMainCategory.NAME == undefined ||  
                  newMainCategory.NAME != item.MAIN_CATEGORY )
             {
+                console.log ( "adding main category " );
                 newMainCategory.ID = mainCtgryIndex;
                 newMainCategory.NAME = item.MAIN_CATEGORY;
                 this.mainCategories.push ( newMainCategory );
@@ -68,6 +70,8 @@ export class CategoryComponent implements OnInit {
             newCategoryType.SUB_CATEGORY = subCtgryIndex;            
             newCategoryType.NAME = item.INCIDENT_TYPE;
         } );
+        console.log ( "main categories: " + this.mainCategories );
+        
     }
 
     // filter subcategory and type lists according to selection of previous dropdown

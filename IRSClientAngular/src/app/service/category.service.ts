@@ -12,7 +12,6 @@ import 'rxjs/add/operator/toPromise';
 export class CategoryService 
 {
     private headers = new Headers({'Content-Type': 'application/json'});
-    private subCategories;
     CategoriesUrl = Config.CategoriesURI;
     
     constructor( private http: Http ) {}

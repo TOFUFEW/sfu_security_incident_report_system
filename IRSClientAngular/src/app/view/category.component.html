@@ -1,14 +1,14 @@
 <div class="dropdown">
     <label>Category</label>
-    <select [(ngModel)] ="selectedMainCategory.id" (change)="onSelect($event.target.value)">  
+    <select [(ngModel)] ="selectedMainCategory.ID" (change)="onSelect($event.target.value)">  
         <option value="0">--Select Category--</option>  
-        <option *ngFor="let maincategory of maincategories" value={{mainCategory.id}}>{{mainCategory.name}}</option>  
+        <option *ngFor="let mainCategory of mainCategories" value={{mainCategory.ID}}>{{mainCategory.NAME}}</option>  
     </select>
     <div>  
         <label>Subcategory</label>  
         <select>  
-            <option *ngIf='selectedMainCategory.id == 0' value="0">--Select Subcategory--</option>  
-            <option *ngFor="let subcategory of subcategories " value={{subCategory.id}}>{{subCategory.name}}</option>  
+            <option *ngIf='selectedMainCategory.ID == 0' value="0">--Select Subcategory--</option>  
+            <option *ngFor="let subCategory of subCategories " value={{subCategory.ID}}>{{subCategory.NAME}}</option>  
         </select>  
         </div> 
     <!-- Category -->

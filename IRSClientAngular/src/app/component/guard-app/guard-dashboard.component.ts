@@ -4,6 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 
 import { Incident } from '../../model/incident';
 import { IncidentsService } from '../../service/incidents.service';
+import { Category } from '../../model/category';
 import { MainCategory } from '../../model/category-main';
 import { SubCategory } from '../../model/category-sub';
 import { CategoryType } from '../../model/category-type';
@@ -15,7 +16,7 @@ import { UserService } from '../../service/user.service';
 
 @Component({
     selector: 'guard-dashboard',
-    templateUrl: '../../view/guard-app/guard-dashboard.component.html',
+    templateUrl: '../../view/guard-dashboard.component.html',
     providers: [ LocationService, IncidentsService, CategoryService ]
 })
 
@@ -32,6 +33,7 @@ export class GuardDashboard {
       private http: HttpClient,
       private locationService: LocationService,
       private userService: UserService,
+      private categoryService: CategoryService
   ) {
 
       if ( this.userService.isLoggedIn() == false ) {

@@ -15,7 +15,7 @@ import { IncidentsComponent } from './component/incidents.component';
 import { LoginComponent } from './component/login.component';
 import { GuardDashboard } from './component/guard-app/guard-dashboard.component';
 import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
-import { CategoryComponent } from './component/category-menu.component'
+import { CategoryComponent } from './component/category.component'
 import { NewIncidentComponent } from './component/new-incident.component';
 import { DynamicFormComponent } from './component/dynamic-form.component';
 import { MyTestComponent } from './component/myTest.component';
@@ -34,7 +34,7 @@ import { LocationService } from './service/location.service'
     FormsModule,
     HttpModule,
     HttpClientModule,
-    routes
+    routes, 
   ],
 
   declarations: [

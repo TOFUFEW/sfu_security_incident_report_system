@@ -5,7 +5,7 @@ import { IncidentsService } from '../../service/incidents.service';
 
 @Component({
   selector: 'guard-incident-component',
-  templateUrl: '../../view/guard-app/guard-incident.component.html',
+  templateUrl: '../../view/guard-incident.component.html',
 })
 
 export class GuardIncidentComponent implements OnInit {
