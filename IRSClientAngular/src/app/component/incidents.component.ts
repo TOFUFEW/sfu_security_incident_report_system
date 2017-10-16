@@ -7,7 +7,8 @@ import { IncidentsService } from '../service/incidents.service';
   {
     selector: 'incidents-component',
     templateUrl: '../view/incidents.component.html',
-    styleUrls: ['../../assets/css/incidents.component.css']
+    styleUrls: ['../../assets/css/incidents.component.css',
+                '../../assets/css/panels.css']
   }
 )
 

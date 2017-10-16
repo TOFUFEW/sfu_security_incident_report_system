@@ -16,30 +16,3 @@
         overflow: auto;
     }
 }
-
-div#incidents-list-panel, div#staff-list-panel {
-    height: 100%;
-    border-top: 4px solid $grey-default;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    
-    div.panel-heading {
-        display: flex;
-    }
-
-    div.panel-body {
-        height: 100%;
-        padding-bottom: 0px;
-    }
-
-    div#incidents-list { 
-        height: 100%;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        background-color: $grey-lite; 
-    }
-
-    div#incidents-list, div#staff-list {
-        overflow: auto;
-    }
-}
