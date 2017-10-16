@@ -14,22 +14,28 @@ import { CategoryService } from '../service/category.service';
 )
 
 export class CategoryComponent implements OnInit {
-    categories: Category[];
+    selectedMainCategory: MainCategory = new MainCategory ( 0, 'IncidentCategory' );
+    categories: Category[] = [];
     mainCategories: MainCategory[];
     subCategories: SubCategory[];
     categoryTypes: CategoryType[];
+    filteredSubCtgries: SubCategory[];
+    filteredCtgryTypes: CategoryType[];
   
     constructor ( private categoryService: CategoryService ) {};
 
     getCategories(): void {
 
-        var mainCtgryIndex: 0;
-        var subCtgryIndex: 0;
+        var categoryToAdd: Category;
+        var mainCtgryIndex: 1;
+        var subCtgryIndex: 1;
 
-        this.categoryService.getCategories().then( returnedCategories => {
+        this.categoryService.getCategories().then ( returnedCategories => {
             this.categories = returnedCategories;
+            console.log ( "returned categories " + returnedCategories ) ;   
+            console.log ( this.categories ) ;               
         } );
-
+        
         this.categories.forEach ( item => {
 
             var newMainCategory: MainCategory;
@@ -53,17 +59,27 @@ export class CategoryComponent implements OnInit {
                 newSubCategory.ID = subCtgryIndex;
                 newSubCategory.MAIN_CATEGORY = mainCtgryIndex;
                 newSubCategory.NAME = item.SUB_CATEGORY;
+                this.subCategories.push ( newSubCategory );
+                subCtgryIndex++;
             }
 
             // make a list of category types corresponding to main and subcategories
-            CategoryType.
-        });
+            newCategoryType.CATEGORY_ID = item.CATEGORY_ID;
+            newCategoryType.SUB_CATEGORY = subCtgryIndex;            
+            newCategoryType.NAME = item.INCIDENT_TYPE;
+        } );
     }
 
-    onSelect ( mainCategoryid ) {
-        this.categoryService.getSubCategories().then( returnedSubCategories => {
-            this.subCategories = returnedSubCategories.filter ( ( item ) => item.MAIN_CATEGORY == mainCategoryid );
-        } );
+    // filter subcategory and type lists according to selection of previous dropdown
+    onSelectMainCtgry ( mainCategoryid ) {
+        this.filteredSubCtgries = this.subCategories.filter ( item => 
+            item.MAIN_CATEGORY == mainCategoryid );
+        console.log( this.filteredSubCtgries );
+    }
+
+    onSelectSubCtgry ( subCategoryid ) {            
+        this.filteredCtgryTypes = this.categoryTypes.filter ( item => 
+                item.SUB_CATEGORY == subCategoryid );
     }
 
   ngOnInit() : void {

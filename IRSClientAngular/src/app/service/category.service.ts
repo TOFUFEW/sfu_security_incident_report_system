@@ -17,29 +17,37 @@ export class CategoryService
     
     constructor( private http: Http ) {}
 
-    getMainCategories(): Promise< MainCategory[] > {
-        var mainCategories = this.http.get ( this.CategoriesUrl )
+    getCategories(): Promise < Category[] > {
+        var categories = this.http.get ( this.CategoriesUrl )
             .toPromise()
-            .then ( response => response.json() as MainCategory[] )
+            .then ( response => response.json() as Category[] )
             .catch ( this.handleError );
-        return Promise.resolve ( mainCategories );
-    };
-
-    getSubCategories(): Promise<SubCategory[]> {
-        var subCategories =  this.http.get ( this.CategoriesUrl )
-        .toPromise()
-        .then ( response => response.json() as SubCategory[] )
-        .catch ( this.handleError );
-    return Promise.resolve ( subCategories );
+        return Promise.resolve ( categories );
     }
 
-    getCategoryTypes(): Promise<CategoryType[]> {
-        var categoryTypes =  this.http.get ( this.CategoriesUrl )
-        .toPromise()
-        .then ( response => response.json() as CategoryType[] )
-        .catch ( this.handleError );
-    return Promise.resolve ( categoryTypes );
-    }
+    // getMainCategories(): Promise< MainCategory[] > {
+    //     var mainCategories = this.http.get ( this.CategoriesUrl )
+    //         .toPromise()
+    //         .then ( response => response.json() as MainCategory[] )
+    //         .catch ( this.handleError );
+    //     return Promise.resolve ( mainCategories );
+    // };
+
+    // getSubCategories(): Promise<SubCategory[]> {
+    //     var subCategories =  this.http.get ( this.CategoriesUrl )
+    //     .toPromise()
+    //     .then ( response => response.json() as SubCategory[] )
+    //     .catch ( this.handleError );
+    // return Promise.resolve ( subCategories );
+    // }
+
+    // getCategoryTypes(): Promise<CategoryType[]> {
+    //     var categoryTypes =  this.http.get ( this.CategoriesUrl )
+    //     .toPromise()
+    //     .then ( response => response.json() as CategoryType[] )
+    //     .catch ( this.handleError );
+    // return Promise.resolve ( categoryTypes );
+    // }
 
     private handleError( error: any ) : Promise<any> 
     {

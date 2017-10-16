@@ -1,7 +1,18 @@
 <div class="dropdown">
-    
+    <label>Category</label>
+    <select [(ngModel)] ="selectedMainCategory.id" (change)="onSelect($event.target.value)">  
+        <option value="0">--Select Category--</option>  
+        <option *ngFor="let maincategory of maincategories" value={{mainCategory.id}}>{{mainCategory.name}}</option>  
+    </select>
+    <div>  
+        <label>Subcategory</label>  
+        <select>  
+            <option *ngIf='selectedMainCategory.id == 0' value="0">--Select Subcategory--</option>  
+            <option *ngFor="let subcategory of subcategories " value={{subCategory.id}}>{{subCategory.name}}</option>  
+        </select>  
+        </div> 
     <!-- Category -->
-    <button class="btn btn-default dropdown-toggle" type="button" id="category" data-toggle="dropdown">
+    <!-- <button class="btn btn-default dropdown-toggle" type="button" id="category" data-toggle="dropdown">
         Category
         <span class="caret"></span>
     </button>
@@ -10,10 +21,10 @@
         <li role="presentation" [ngClass]="{'active': selectedItem == item}" (click)="listClick($event, item)" *ngFor="let item of categories">
                 {{category.MAIN_CATEGORY}}
         </li>
-    </ul>
+    </ul> -->
 
     <!-- Subcategory -->
-    <button class="btn btn-default dropdown-toggle" type="button" id="category" data-toggle="dropdown">
+    <!-- <button class="btn btn-default dropdown-toggle" type="button" id="category" data-toggle="dropdown">
         Subcategory
         <span class="caret"></span>
     </button>
@@ -23,10 +34,10 @@
         <li role="presentation"><a role="menuitem" href="#">category 2 - get json</a></li>
         <li role="presentation"><a role="menuitem" href="#">category 3 - get json</a></li>
         <li role="presentation"><a role="menuitem" href="#">category 4 - get json</a></li>
-    </ul>
+    </ul> -->
 
     <!-- Type -->
-    <button class="btn btn-default dropdown-toggle" type="button" id="category" data-toggle="dropdown">
+    <!-- <button class="btn btn-default dropdown-toggle" type="button" id="category" data-toggle="dropdown">
         Type
         <span class="caret"></span>
     </button>
@@ -36,6 +47,6 @@
         <li role="presentation"><a role="menuitem" href="#">category 2 - get json</a></li>
         <li role="presentation"><a role="menuitem" href="#">category 3 - get json</a></li>
         <li role="presentation"><a role="menuitem" href="#">category 4 - get json</a></li>
-    </ul>        
+    </ul>         -->
 </div> 
 
