@@ -19,9 +19,9 @@ export class IncidentComponent implements OnInit {
   constructor( private incidentService: IncidentService ){};
 
   getIncidents(): void {
-    this.incidentService.getIncidents().then( returnedIncidents => {
-      this.incidents = returnedIncidents;
-    } );    
+      this.incidentService.getIncidents().then( returnedIncidents => {
+          this.incidents = returnedIncidents;
+      } );    
   }
 
   deleteIncident( id: number ): void {
@@ -35,7 +35,7 @@ export class IncidentComponent implements OnInit {
   }
 
   ngOnInit() : void {
-    //this.getIncidents();
+      this.getIncidents();
   }
   
 }

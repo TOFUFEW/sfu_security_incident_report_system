@@ -15,6 +15,7 @@ export class IncidentService
     constructor( private http: Http ) {}
 
     getIncidents(): Promise<Incident[]> {
+        console.log ("get incidents");
         var incidents = this.http.get( this.incidentsUrl )
             .toPromise()
             .then( response => DataHelperService.extractAttributesArray( response.json() ) as Incident[] )
