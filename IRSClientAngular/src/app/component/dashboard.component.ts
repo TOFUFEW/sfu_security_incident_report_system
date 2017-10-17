@@ -11,7 +11,6 @@ import { DataHelperService } from '../util/data-helper.service';
   selector: 'dashboard',
   templateUrl: '../view/dashboard.component.html',
   styleUrls: ['../../assets/css/dashboard.component.css'],
-  providers: [StaffService]
 })
 
 export class DashboardComponent {

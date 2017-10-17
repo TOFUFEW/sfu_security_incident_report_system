@@ -8,7 +8,6 @@ import { VehicleComponent } from './vehicle.component';
   {
     templateUrl: '../view/new-report.component.html',
     styleUrls: ['../../assets/css/new-incident.component.css'],
-    providers: [IncidentService]
   }
 )
 

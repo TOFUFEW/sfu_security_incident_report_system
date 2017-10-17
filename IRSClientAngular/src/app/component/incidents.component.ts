@@ -15,16 +15,16 @@ export class IncidentsComponent implements OnInit {
   incidents: Incident[];
   newIncident: Incident = new Incident();
   
-  constructor( private incidentsService: IncidentService ){};
+  constructor( private incidentService: IncidentService ){};
 
   getIncidents(): void {
-    this.incidentsService.getIncidents().then( returnedIncidents => {
+    this.incidentService.getIncidents().then( returnedIncidents => {
       this.incidents = returnedIncidents;
     } );    
   }
 
   deleteIncident( id: number ): void {
-    this.incidentsService.delete( id ).then( isDeleted => {
+    this.incidentService.delete( id ).then( isDeleted => {
         var msg = isDeleted ? "Incident successfully deleted!" : "Delete failed";
         alert(msg);
         var i = this.incidents.findIndex( loc => loc.attributes.REPORT_ID === id );
@@ -34,7 +34,7 @@ export class IncidentsComponent implements OnInit {
   }
 
   ngOnInit() : void {
-    this.getIncidents();
+    //this.getIncidents();
   }
   
 }
