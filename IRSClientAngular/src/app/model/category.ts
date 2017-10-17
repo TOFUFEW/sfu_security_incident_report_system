@@ -12,7 +12,7 @@ export class Category {
       }
   }
 
-export class CategoryDictionary {
+export class CategoryMapping {
     MAIN_CATEGORY: string;
     SUBCATEGORIES: SubCategory[] ;
 
