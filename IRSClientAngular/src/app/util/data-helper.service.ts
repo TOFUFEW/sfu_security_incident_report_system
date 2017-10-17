@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Incident, IncidentRaw } from '../model/incident';
+import { Incident } from '../model/incident';
 import { IncidentElement } from '../model/incident-element';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
@@ -10,11 +10,11 @@ export class DataHelperService
 {
     constructor() {}
 
-    static extractAttributes( incidentElement: IncidentElement ): Object {
+    static extractAttribute( incidentElement: IncidentElement ): Object {
         return incidentElement.attributes;
     }
 
-    static extractAttributesArray( incidentElements: IncidentElement[] ): Object[] {
+    static extractAttributes( incidentElements: IncidentElement[] ): Object[] {
         var arr = [];
         incidentElements.forEach( so => {
             arr.push( so.attributes );
@@ -28,47 +28,5 @@ export class DataHelperService
         incidentElement.table = table;
         incidentElement.attributes = object;
         return incidentElement;
-    }
-
-    static toIncidentRaw( incident: Incident): IncidentRaw {
-        var raw = new IncidentRaw();
-        if ( incident == null ) return raw;
-
-        raw.table = Config.IncidentTable;
-        raw.incidentElements = incident.incidentElements;
-        raw.attributes = incident;
-        delete raw.attributes.incidentElements;
-        return raw;
-    }
-
-    static toIncident( raw: IncidentRaw ): Incident {
-        var incident = new Incident();
-        if ( raw == null ) return incident;
-
-        incident.ACCOUNT_ID = raw.attributes.ACCOUNT_ID;
-        incident.CATEGORY_ID = raw.attributes.CATEGORY_ID;
-        incident.CLOSED = raw.attributes.CLOSED;
-        incident.DESCRIPTION = raw.attributes.DESCRIPTION;
-        incident.EXECUTIVE_SUMMARY = raw.attributes.EXECUTIVE_SUMMARY;
-        incident.REPORT_ID = raw.attributes.REPORT_ID;
-        
-        // incident.incidentElements = raw.incidentElements;
-        raw.incidentElements.forEach( ie => {
-            incident.incidentElements.push( ie );
-        });
-
-        return incident;
-    }
-
-    static toIncidentArray( rawArray: IncidentRaw[] ): Incident[] {
-        var arr = [];
-        if ( rawArray == null || rawArray.length == 0 ) return arr;
-
-        rawArray.forEach( raw => {
-            arr.push( this.toIncident( raw ) );
-        });
-
-        console.log(arr);
-        return arr;
     }
 }

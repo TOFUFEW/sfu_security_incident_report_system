@@ -17,15 +17,17 @@ export class IncidentsService
     getIncidents(): Promise<Incident[]> {
         var incidents = this.http.get( this.incidentsUrl )
             .toPromise()
-            .then( response => DataHelperService.toIncidentArray( response.json() ) )
+            .then( response => DataHelperService.extractAttributes( response.json() ) as Incident[] )
             .catch( this.handleError );
         return Promise.resolve( incidents );
     };
 
     create( incident: Incident ): Promise<Incident> {
-        var incidentRaw = DataHelperService.toIncidentRaw( incident );
+        incident.table = Config.IncidentTable;
+        incident.attributes.ACCOUNT_ID = 1;
+        incident.attributes.CATEGORY_ID = 1;
         var promise = this.http
-                .post( this.incidentsUrl, JSON.stringify( incidentRaw ), { headers: this.headers } )
+                .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
                 .toPromise()
                 .then( response => { 
                     return ( response.json() as boolean ) ? incident : null 

@@ -55,11 +55,11 @@ export class DashboardComponent {
     var _loc2 = DataHelperService.toIncidentElement( Config.LocationTable, loc2);
 
     var inc = this.newIncident;
-    inc.ACCOUNT_ID = 1;
-    inc.CATEGORY_ID = 1;
-    inc.CLOSED = 0;
-    inc.DESCRIPTION = "TESTTTTTT";
-    inc.EXECUTIVE_SUMMARY = "SAMPLE EXECUTIVE SUMMARY";
+    inc.attributes.ACCOUNT_ID = 1;
+    inc.attributes.CATEGORY_ID = 1;
+    inc.attributes.CLOSED = 0;
+    inc.attributes.DESCRIPTION = "TESTTTTTT";
+    inc.attributes.EXECUTIVE_SUMMARY = "SAMPLE EXECUTIVE SUMMARY";
     inc.incidentElements.push( _loc1 );
     inc.incidentElements.push( _loc2 );
 
