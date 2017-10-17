@@ -17,7 +17,7 @@ export class LocationService {
     getLocations(): Promise<Location[]> {
         var locations = this.http.get( this.locationsUrl )
             .toPromise()
-            .then( response => DataHelperService.extractAttributes( response.json() ) as Location[] )
+            .then( response => DataHelperService.extractAttributesArray( response.json() ) as Location[] )
             .catch( this.handleError );
         return Promise.resolve( locations );
     };
