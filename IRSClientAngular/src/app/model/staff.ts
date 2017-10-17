@@ -3,5 +3,4 @@ export class Staff {
     CAMPUS_ID: number;
     FIRST_NAME: string;
     LAST_NAME: string;
-
 }
