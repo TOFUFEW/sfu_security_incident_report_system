@@ -10,11 +10,11 @@ export class DataHelperService
 {
     constructor() {}
 
-    static extractAttribute( incidentElement: IncidentElement ): Object {
+    static extractAttributes( incidentElement: IncidentElement ): Object {
         return incidentElement.attributes;
     }
 
-    static extractAttributes( incidentElements: IncidentElement[] ): Object[] {
+    static extractAttributesArray( incidentElements: IncidentElement[] ): Object[] {
         var arr = [];
         incidentElements.forEach( so => {
             arr.push( so.attributes );
