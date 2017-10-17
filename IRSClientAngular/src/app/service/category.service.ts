@@ -6,24 +6,25 @@ import { CategoryType } from '../model/category-type';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
+import { DataHelperService } from '../util/data-helper.service';
+
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class CategoryService 
 {
-    private headers = new Headers({'Content-Type': 'application/json'});
-    CategoriesUrl = Config.CategoriesURI;
+    private headers = new Headers({ 'Content-Type': 'application/json' });
+    categoriesUrl = Config.CategoriesURI;
+    constructor( private http: Http, private dataHelper: DataHelperService ) {}
     
-    constructor( private http: Http ) {}
-
     getCategories(): Promise < Category[] > {
-        var categories = this.http.get ( this.CategoriesUrl )
-            .toPromise()
-            .then ( response => response.json() as Category[] )
-            .catch ( this.handleError );
-        return Promise.resolve ( categories );
-    }
-
+        var categories = this.http.get( this.categoriesUrl )
+        .toPromise()
+        .then( response => this.dataHelper.extractAttributes( response.json() ) as Category[] )
+        .catch( this.handleError );
+    return Promise.resolve( categories );
+    };
+    
     // getMainCategories(): Promise< MainCategory[] > {
     //     var mainCategories = this.http.get ( this.CategoriesUrl )
     //         .toPromise()
