@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Incident } from '../model/incident';
+import { Incident, IncidentRaw } from '../model/incident';
 import { IncidentElement } from '../model/incident-element';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
@@ -28,5 +28,16 @@ export class DataHelperService
         incidentElement.table = table;
         incidentElement.attributes = object;
         return incidentElement;
+    }
+
+    static toIncidentRaw( incident: Incident): IncidentRaw {
+        var raw = new IncidentRaw();
+        if ( incident == null ) return raw;
+
+        raw.table = Config.IncidentTable;
+        raw.incidentElements = incident.incidentElements;
+        raw.attributes = incident;
+        raw.attributes.incidentElements = null;
+        return raw;
     }
 }

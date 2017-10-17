@@ -27,7 +27,7 @@ export class IncidentsComponent implements OnInit {
     this.incidentsService.delete( id ).then( isDeleted => {
         var msg = isDeleted ? "Incident successfully deleted!" : "Delete failed";
         alert(msg);
-        var i = this.incidents.findIndex( loc => loc.attributes.REPORT_ID === id );
+        var i = this.incidents.findIndex( loc => loc.REPORT_ID === id );
         // remove 1 object at index i
         this.incidents.splice( i, 1 );
       });
