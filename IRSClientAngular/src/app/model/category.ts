@@ -11,3 +11,26 @@ export class Category {
         this.INCIDENT_TYPE = type;
       }
   }
+
+export class CategoryDictionary {
+    MAIN_CATEGORY: string;
+    SUBCATEGORIES: SubCategory[] ;
+
+    constructor () {
+        this.SUBCATEGORIES = [];
+    }
+}
+
+export class SubCategory {
+    SUB_CATEGORY: string;
+    TYPES: CategoryType[];
+
+    constructor () {
+        this.TYPES = [];
+    }
+}
+
+export class CategoryType {
+    CATEGORY_ID: number;
+    INCIDENT_TYPE: string;
+}

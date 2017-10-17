@@ -68,7 +68,8 @@ public class IncidentCategoryController {
 
     private void setUpEndPoints() {
         get("/categories", (request, response) -> {
-            return JsonUtil.toJson( getCategories() );
+            //return JsonUtil.toJson( getCategories() );
+            return getCategories();
         }, json());
 
 
