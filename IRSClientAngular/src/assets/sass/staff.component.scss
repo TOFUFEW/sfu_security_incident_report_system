@@ -4,10 +4,11 @@ $opacity-light: 0.8;
 
 .staff-card {
     @include flex(flex-start, center);
-    height: $card-height;
+    height: auto;
     width: 100%;
     background-color: $white;
-    border: $border-default;
+    border-top: $border-default;
+    border-bottom: $border-default;
 }
 
 .status-indicator-container, .actions {

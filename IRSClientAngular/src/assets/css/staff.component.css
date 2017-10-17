@@ -2,10 +2,11 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  height: 48px;
+  height: auto;
   width: 100%;
   background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.16); }
+  border-top: 1px solid rgba(0, 0, 0, 0.16);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.16); }
 
 .status-indicator-container, .actions {
   display: flex;

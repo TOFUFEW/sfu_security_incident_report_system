@@ -27,3 +27,17 @@ div#incidents-list-panel, div#staff-list-panel {
         overflow: auto;
     }
 }
+
+div#staff-list-panel {
+    display: flex;
+    flex-direction: column;
+    div.panel-heading {
+        height: auto !important;
+    }
+    div.panel-body {
+        padding-left: 0px; 
+        padding-right: 0px;
+        overflow: auto;
+    }
+
+}
