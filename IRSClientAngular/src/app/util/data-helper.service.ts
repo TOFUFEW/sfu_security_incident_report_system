@@ -37,7 +37,7 @@ export class DataHelperService
         raw.table = Config.IncidentTable;
         raw.incidentElements = incident.incidentElements;
         raw.attributes = incident;
-        raw.attributes.incidentElements = null;
+        delete raw.attributes.incidentElements;
         return raw;
     }
 
