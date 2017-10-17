@@ -118,7 +118,7 @@ body {
     min-width: 350px;
     margin-top: 50px; }
   .panel .panel-heading {
-    padding: 10px 15px;
+    padding: 20px 15px 10px 15px;
     border-bottom: 2px solid transparent;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px; }
