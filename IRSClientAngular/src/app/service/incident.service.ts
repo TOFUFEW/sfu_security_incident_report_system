@@ -7,7 +7,7 @@ import { Config } from '../util/config.service';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class IncidentsService 
+export class IncidentService 
 {
     private headers = new Headers({'Content-Type': 'application/json'});
     incidentsUrl = Config.IncidentsURI;

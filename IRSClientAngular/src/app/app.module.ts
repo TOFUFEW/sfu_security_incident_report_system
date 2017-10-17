@@ -13,9 +13,9 @@ import { LocationComponent } from './component/location.component';
 import { StaffComponent } from './component/staff.component';
 import { IncidentsComponent } from './component/incidents.component';
 import { LoginComponent } from './component/login.component';
-import { NewIncidentComponent } from './component/new-incident.component';
+import { NewReportComponent } from './component/new-report.component';
 import { DynamicFormComponent } from './component/dynamic-form.component';
-import { MyTestComponent } from './component/myTest.component';
+import { VehicleComponent } from './component/vehicle.component';
 
 /* Services */
 import { UserService } from './service/user.service';
@@ -39,14 +39,14 @@ import { LocationService } from './service/location.service'
     StaffComponent,
     IncidentsComponent,
     LoginComponent,
-    NewIncidentComponent,
+    NewReportComponent,
     DynamicFormComponent,
-    MyTestComponent
+    VehicleComponent,
   ],
   
   providers: [UserService, LoginService, DomService, LocationService],
   bootstrap: [AppComponent],
-  entryComponents: [ LocationComponent, MyTestComponent ]
+  entryComponents: [ LocationComponent, VehicleComponent ]
 })
 
 export class AppModule { }

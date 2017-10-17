@@ -2,15 +2,19 @@ import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './component/dashboard.component';
-import { NewIncidentComponent } from './component/new-incident.component';
+import { NewReportComponent } from './component/new-report.component';
 import { LoginComponent } from './component/login.component';
-import { DynamicFormComponent } from './component/dynamic-form.component';
 
 export const router: Routes = [
+    // Default
     { path: '', redirectTo: 'login', pathMatch: 'full' },
+
+    // /<path>
     { path: 'dashboard', component: DashboardComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'form', component: DynamicFormComponent },
+    { path: 'new-report', component: NewReportComponent },
+
+    // 404
     { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 
