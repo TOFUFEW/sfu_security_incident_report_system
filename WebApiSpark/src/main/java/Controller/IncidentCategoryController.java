@@ -49,7 +49,7 @@ public class IncidentCategoryController {
 
         categoryList.add(ic2);
 
-        categoryID = "2";
+        categoryID = "3";
         mainCategory = "Main Category 2";
         subCategory = "Sub Category 2";
         incidentType = "Category Type 1";
@@ -62,6 +62,19 @@ public class IncidentCategoryController {
         );
 
         categoryList.add(ic3);
+
+        categoryID = "4";
+        mainCategory = "Main Category 1";
+        subCategory = "Sub Category 1";
+
+        IncidentCategory ic4 = new IncidentCategory(
+                categoryID,
+                mainCategory,
+                subCategory,
+                null
+        );
+
+        categoryList.add(ic4);
 
         return categoryList.toArray(new IncidentCategory[categoryList.size()]);
     };

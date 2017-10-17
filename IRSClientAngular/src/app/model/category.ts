@@ -22,6 +22,7 @@ export class CategoryMapping {
 }
 
 export class SubCategory {
+    CATEGORY_ID: number;
     SUB_CATEGORY: string;
     TYPES: CategoryType[];
 
