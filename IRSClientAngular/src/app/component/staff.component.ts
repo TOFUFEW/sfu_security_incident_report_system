@@ -6,7 +6,9 @@ import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'staff-component',
-  templateUrl: '../view/staff.component.html'
+  templateUrl: '../view/staff.component.html',
+  styleUrls: ['../../assets/css/staff.component.css',
+              '../../assets/css/panels.css']
 })
 
 export class StaffComponent implements OnInit {
