@@ -1,51 +1,79 @@
 package Controller;
 
 import Model.IncidentCategory;
-import DBConnector.Connector;
-
-import Model.Location;
-import Util.*;
+import Util.DBHelper;
+import Util.DatabaseValues;
 import Util.JsonUtil;
-import ViewModel.LocationViewModel;
 
 import java.util.ArrayList;
 
 import java.sql.ResultSet;
-import java.util.*;
 import static Util.JsonUtil.json;
 import static spark.Spark.*;
 
 public class IncidentCategoryController {
 
-    public IncidentCategoryController () { setUpEndPoints(); }
+    public IncidentCategoryController() {
+        setUpEndPoints();
+    }
+
+    private IncidentCategory[] getCategories()
+    {
+        ArrayList<IncidentCategory> categoryList = new ArrayList<>();
+
+        String categoryID = "1";
+        String mainCategory = "Main Category 1";
+        String subCategory = "Sub Category 1";
+        String incidentType = "Category Type 1";
+
+        IncidentCategory ic = new IncidentCategory(
+                categoryID,
+                mainCategory,
+                subCategory,
+                incidentType
+        );
+
+        categoryList.add(ic);
+
+        categoryID = "2";
+        mainCategory = "Main Category 2";
+        subCategory = "Sub Category 1";
+        incidentType = "Category Type 0";
+
+        IncidentCategory ic2 = new IncidentCategory(
+                categoryID,
+                mainCategory,
+                subCategory,
+                incidentType
+        );
+
+        categoryList.add(ic2);
+
+        categoryID = "2";
+        mainCategory = "Main Category 2";
+        subCategory = "Sub Category 2";
+        incidentType = "Category Type 1";
+
+        IncidentCategory ic3 = new IncidentCategory(
+                categoryID,
+                mainCategory,
+                subCategory,
+                incidentType
+        );
+
+        categoryList.add(ic3);
+
+        return categoryList.toArray(new IncidentCategory[categoryList.size()]);
+    };
 
     private void setUpEndPoints() {
-        get( "/incidentCategory" , ( request , response ) -> {
-            ArrayList <IncidentCategory> incidentCategoryList = new ArrayList<>();
-            try {
-                ResultSet result = Connector.executeQuery ( "SELECT * FROM IncidentCategory");
+        get("/categories", (request, response) -> {
+            return JsonUtil.toJson( getCategories() );
+        }, json());
 
-                while ( result.next() ) {
-                    int catID = result.getInt ( "CATEGORY_ID" );
-                    String categoryID = catID + "";
-                    String mainCategory = result.getString ( "MAIN_CATEGORY" );
-                    String subCategory = result.getString ( "SUB_CATEGORY" );
-                    String incidentType = result.getString ( "INCIDENT_TYPE" );
 
-                    IncidentCategory ic = new IncidentCategory (
-                            categoryID,
-                            mainCategory,
-                            subCategory,
-                            incidentType
-                    );
-
-                    incidentCategoryList.add ( ic );
-                }
-            } catch ( Exception e ) {
-                e.printStackTrace();
-            }
-            return incidentCategoryList;
-        }, json() );
+    }
+}
 
 //        post( "/incidentCategory" , ( request , response ) -> {
 //
@@ -60,6 +88,3 @@ public class IncidentCategoryController {
 //        } , json() );
 //
 //        get( "/test" , ( request , response ) -> getClichedMessage() );
-    }
-
-}
