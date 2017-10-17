@@ -19,8 +19,8 @@ public class LocationController {
 
     private void setupEndPoints() {
         get ( "/locations" , ( request , response ) -> {
-            return DBHelper.getLocations();
-        }, json() );
+            return JsonUtil.toJson( DBHelper.getLocations () );
+        } );
 
         post( "/locations" , ( request , response ) -> {
             Location location = ( Location ) JsonUtil.fromJson ( request.body () , Location.class );
@@ -40,48 +40,22 @@ public class LocationController {
             {
                 return DBHelper.insertIncidentElement ( location );
             }
-            return DBHelper.updateIncidentElement( location );
+            return DBHelper.updateIncidentElement ( location );
         } );
 
         delete ( "/locations/:id", ( request , response ) -> {
             Location location = ( Location ) JsonUtil.fromJson ( request.body () , Location.class );
 
-            boolean delete = DBHelper.deleteIncidentElement ( location );
-            return delete;
+            return DBHelper.deleteIncidentElement ( location );
         } );
 
         get ( "/location/:id",  (request, response) -> {
             Location location = new Location();
-            location.editColumnValue (
-                    DatabaseValues.DatabaseColumn.LOCATION_ID,
+            location.updateAttributeValue(
+                    DatabaseValues.Column.LOCATION_ID,
                     request.params ( ":id" )
             );
             return DBHelper.selectIncidentElement ( location );
-        }, json () );
-
-        get( "/test" , ( request , response ) -> getClichedMessage() );
-    }
-
-    public String getClichedMessage ()
-    {
-        try
-        {
-            String query = "select * from employee";
-            ResultSet myRs = DBHelper.executeQuery ( query );
-
-            while( myRs.next () )
-            {
-                String fname = myRs.getString ( "fname" );
-                String lname = myRs.getString ( "lname" );
-                System.out.println ( fname + ' ' + lname );
-                String namePair = fname + ' ' + lname;
-                return namePair;
-            }
-        }
-        catch ( Exception e )
-        {
-            e.printStackTrace ();
-        }
-        return "Hello World";
+        } );
     }
 }

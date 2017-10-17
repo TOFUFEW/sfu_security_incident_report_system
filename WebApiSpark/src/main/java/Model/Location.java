@@ -25,44 +25,40 @@ public class Location extends IncidentElement
             String department
     ) {
         super (
-                DatabaseValues.DatabaseTable.LOCATION,
-                new DatabaseValues.DatabaseColumn []
+                DatabaseValues.Table.LOCATION,
+                new DatabaseValues.Column[]
                 {
-                        DatabaseValues.DatabaseColumn.LOCATION_ID,
-                        DatabaseValues.DatabaseColumn.CAMPUS_ID,
-                        DatabaseValues.DatabaseColumn.BUILDING_NAME,
-                        DatabaseValues.DatabaseColumn.ROOM_NUMBER,
-                        DatabaseValues.DatabaseColumn.DEPARTMENT,
+                        DatabaseValues.Column.LOCATION_ID,
+                        DatabaseValues.Column.CAMPUS_ID,
+                        DatabaseValues.Column.BUILDING_NAME,
+                        DatabaseValues.Column.ROOM_NUMBER,
+                        DatabaseValues.Column.DEPARTMENT,
                 }
         );
 
-        editColumnValue (
-                DatabaseValues.DatabaseColumn.LOCATION_ID,
+        updateAttributeValue(
+                DatabaseValues.Column.LOCATION_ID,
                 locationID
         );
 
-        editColumnValue (
-                DatabaseValues.DatabaseColumn.CAMPUS_ID,
+        updateAttributeValue(
+                DatabaseValues.Column.CAMPUS_ID,
                 campusID
         );
 
-        editColumnValue (
-                DatabaseValues.DatabaseColumn.BUILDING_NAME,
+        updateAttributeValue(
+                DatabaseValues.Column.BUILDING_NAME,
                 buildingName
         );
 
-        editColumnValue (
-                DatabaseValues.DatabaseColumn.ROOM_NUMBER,
+        updateAttributeValue(
+                DatabaseValues.Column.ROOM_NUMBER,
                 roomNumber
         );
 
-        editColumnValue (
-                DatabaseValues.DatabaseColumn.DEPARTMENT,
+        updateAttributeValue(
+                DatabaseValues.Column.DEPARTMENT,
                 department
         );
-    }
-
-    public DatabaseValues.DatabaseColumn getIDColumn () {
-        return DatabaseValues.DatabaseColumn.LOCATION_ID ;
     }
 }

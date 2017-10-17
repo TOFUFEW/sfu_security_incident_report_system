@@ -20,27 +20,27 @@ public class User  extends IncidentElement
             String accountType
     ) {
         super (
-                DatabaseValues.DatabaseTable.ACCOUNT,
-                new DatabaseValues.DatabaseColumn []
+                DatabaseValues.Table.ACCOUNT,
+                new DatabaseValues.Column[]
                 {
-                        DatabaseValues.DatabaseColumn.USERNAME,
-                        DatabaseValues.DatabaseColumn.PASSWORD,
-                        DatabaseValues.DatabaseColumn.ACCOUNT_TYPE
+                        DatabaseValues.Column.USERNAME,
+                        DatabaseValues.Column.PASSWORD,
+                        DatabaseValues.Column.ACCOUNT_TYPE
                 }
         );
 
-        editColumnValue (
-            DatabaseValues.DatabaseColumn.USERNAME,
+        updateAttributeValue(
+            DatabaseValues.Column.USERNAME,
             username
         );
 
-        editColumnValue (
-            DatabaseValues.DatabaseColumn.PASSWORD,
+        updateAttributeValue(
+            DatabaseValues.Column.PASSWORD,
             password
         );
 
-        editColumnValue (
-            DatabaseValues.DatabaseColumn.ACCOUNT_TYPE,
+        updateAttributeValue(
+            DatabaseValues.Column.ACCOUNT_TYPE,
             accountType
         );
     }

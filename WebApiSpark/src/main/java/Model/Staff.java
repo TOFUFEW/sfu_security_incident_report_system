@@ -21,40 +21,40 @@ public class Staff extends IncidentElement
             String lastName
     ) {
         super(
-                DatabaseValues.DatabaseTable.STAFF,
-                new DatabaseValues.DatabaseColumn[]
+                DatabaseValues.Table.STAFF,
+                new DatabaseValues.Column[]
                         {
-                                DatabaseValues.DatabaseColumn.ACCOUNT_ID,
-                                DatabaseValues.DatabaseColumn.CAMPUS_ID,
-                                DatabaseValues.DatabaseColumn.FIRST_NAME,
-                                DatabaseValues.DatabaseColumn.LAST_NAME,
+                                DatabaseValues.Column.ACCOUNT_ID,
+                                DatabaseValues.Column.CAMPUS_ID,
+                                DatabaseValues.Column.FIRST_NAME,
+                                DatabaseValues.Column.LAST_NAME,
 
                         }
         );
 
-        editColumnValue(
-                DatabaseValues.DatabaseColumn.ACCOUNT_ID,
+        updateAttributeValue(
+                DatabaseValues.Column.ACCOUNT_ID,
                 accountId
         );
 
-        editColumnValue(
-                DatabaseValues.DatabaseColumn.CAMPUS_ID,
+        updateAttributeValue(
+                DatabaseValues.Column.CAMPUS_ID,
                 campusId
         );
 
 
-        editColumnValue(
-                DatabaseValues.DatabaseColumn.FIRST_NAME,
+        updateAttributeValue(
+                DatabaseValues.Column.FIRST_NAME,
                 firstName
         );
 
-        editColumnValue(
-                DatabaseValues.DatabaseColumn.LAST_NAME,
+        updateAttributeValue(
+                DatabaseValues.Column.LAST_NAME,
                 lastName
         );
     }
 
-    public DatabaseValues.DatabaseColumn getIDColumn () {
-        return DatabaseValues.DatabaseColumn.ACCOUNT_ID ;
+    public DatabaseValues.Column getIDColumn () {
+        return DatabaseValues.Column.ACCOUNT_ID ;
     }
 }

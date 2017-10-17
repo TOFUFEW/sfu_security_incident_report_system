@@ -22,11 +22,11 @@ public class TestLocation
                 "Arts"
         );
 
-        String locationID = location.getColumnValue ( DatabaseValues.DatabaseColumn.LOCATION_ID );
-        String campusID = location.getColumnValue ( DatabaseValues.DatabaseColumn.CAMPUS_ID );
-        String buidingName = location.getColumnValue ( DatabaseValues.DatabaseColumn.BUILDING_NAME );
-        String roomNumber = location.getColumnValue ( DatabaseValues.DatabaseColumn.ROOM_NUMBER );
-        String department = location.getColumnValue ( DatabaseValues.DatabaseColumn.DEPARTMENT );
+        String locationID = location.getAttributeValue( DatabaseValues.Column.LOCATION_ID );
+        String campusID = location.getAttributeValue( DatabaseValues.Column.CAMPUS_ID );
+        String buidingName = location.getAttributeValue( DatabaseValues.Column.BUILDING_NAME );
+        String roomNumber = location.getAttributeValue( DatabaseValues.Column.ROOM_NUMBER );
+        String department = location.getAttributeValue( DatabaseValues.Column.DEPARTMENT );
 
 
         Assert.assertTrue ( locationID == null );
@@ -48,28 +48,28 @@ public class TestLocation
         );
 
         // change all values
-        location.editColumnValue (
-                DatabaseValues.DatabaseColumn.CAMPUS_ID,
+        location.updateAttributeValue(
+                DatabaseValues.Column.CAMPUS_ID,
                 "2"
         );
-        location.editColumnValue (
-                DatabaseValues.DatabaseColumn.BUILDING_NAME,
+        location.updateAttributeValue(
+                DatabaseValues.Column.BUILDING_NAME,
                 "Building A"
         );
-        location.editColumnValue (
-                DatabaseValues.DatabaseColumn.ROOM_NUMBER,
+        location.updateAttributeValue(
+                DatabaseValues.Column.ROOM_NUMBER,
                 "2000"
         );
-        location.editColumnValue (
-                DatabaseValues.DatabaseColumn.DEPARTMENT,
+        location.updateAttributeValue(
+                DatabaseValues.Column.DEPARTMENT,
                 "Science"
         );
 
-        String locationID = location.getColumnValue ( DatabaseValues.DatabaseColumn.LOCATION_ID );
-        String campusID = location.getColumnValue ( DatabaseValues.DatabaseColumn.CAMPUS_ID );
-        String buidingName = location.getColumnValue ( DatabaseValues.DatabaseColumn.BUILDING_NAME );
-        String roomNumber = location.getColumnValue ( DatabaseValues.DatabaseColumn.ROOM_NUMBER );
-        String department = location.getColumnValue ( DatabaseValues.DatabaseColumn.DEPARTMENT );
+        String locationID = location.getAttributeValue( DatabaseValues.Column.LOCATION_ID );
+        String campusID = location.getAttributeValue( DatabaseValues.Column.CAMPUS_ID );
+        String buidingName = location.getAttributeValue( DatabaseValues.Column.BUILDING_NAME );
+        String roomNumber = location.getAttributeValue( DatabaseValues.Column.ROOM_NUMBER );
+        String department = location.getAttributeValue( DatabaseValues.Column.DEPARTMENT );
 
         Assert.assertFalse ( campusID.equals ( "1" ) );
         Assert.assertFalse ( buidingName.equals ( "Building E" ) );
@@ -94,19 +94,19 @@ public class TestLocation
                 "Arts"
         );
 
-        // change with invalid values per DatabaseColumn
-        boolean updateCampusID = location.editColumnValue (
-                DatabaseValues.DatabaseColumn.CAMPUS_ID, // only excepts ints
+        // change with invalid values per Column
+        boolean updateCampusID = location.updateAttributeValue(
+                DatabaseValues.Column.CAMPUS_ID, // only excepts ints
                 "Burnaby"
         );
 
-        boolean updateFirstName = location.editColumnValue (
-                DatabaseValues.DatabaseColumn.FIRST_NAME, // Location is not associated with column FIRST_NAME
+        boolean updateFirstName = location.updateAttributeValue(
+                DatabaseValues.Column.FIRST_NAME, // Location is not associated with column FIRST_NAME
                 "Spiderman"
         );
 
-        boolean updateRoomNumber = location.editColumnValue (
-                DatabaseValues.DatabaseColumn.ROOM_NUMBER, // only excepts ints
+        boolean updateRoomNumber = location.updateAttributeValue(
+                DatabaseValues.Column.ROOM_NUMBER, // only excepts ints
                 "SUR-2300"
         );
 
@@ -114,17 +114,17 @@ public class TestLocation
         Assert.assertTrue ( !updateFirstName ); // failed
         Assert.assertTrue ( !updateRoomNumber ); // failed
 
-        String campusID = location.getColumnValue ( DatabaseValues.DatabaseColumn.CAMPUS_ID );
-        String firstName = location.getColumnValue ( DatabaseValues.DatabaseColumn.FIRST_NAME );
-        String roomNumber = location.getColumnValue ( DatabaseValues.DatabaseColumn.ROOM_NUMBER );
+        String campusID = location.getAttributeValue( DatabaseValues.Column.CAMPUS_ID );
+        String firstName = location.getAttributeValue( DatabaseValues.Column.FIRST_NAME );
+        String roomNumber = location.getAttributeValue( DatabaseValues.Column.ROOM_NUMBER );
 
         Assert.assertFalse ( campusID.equals ( "Burnaby" ) );
         Assert.assertFalse ( firstName != null && firstName.equals ( "Spiderman" ) );
         Assert.assertFalse ( roomNumber.equals ( "SUR-2300" ) );
 
-        Assert.assertTrue ( campusID.equals ( DatabaseValues.DatabaseColumn.CAMPUS_ID.getDefaultValue () ) );
+        Assert.assertTrue ( campusID.equals ( DatabaseValues.Column.CAMPUS_ID.getDefaultValue () ) );
         Assert.assertTrue ( firstName == null );
-        Assert.assertTrue ( roomNumber.equals ( DatabaseValues.DatabaseColumn.ROOM_NUMBER.getDefaultValue () ) );
+        Assert.assertTrue ( roomNumber.equals ( DatabaseValues.Column.ROOM_NUMBER.getDefaultValue () ) );
     }
 
     @Test
@@ -139,7 +139,7 @@ public class TestLocation
         );
 
         String insertSQL = location.toInsertSQL ();
-        Assert.assertTrue ( !insertSQL.contains ( DatabaseValues.DatabaseColumn.LOCATION_ID.toString () ) );
+        Assert.assertTrue ( !insertSQL.contains ( DatabaseValues.Column.LOCATION_ID.toString () ) );
 
         // Location's locationID is only useful for objects that are retrieved from the database and
         // brought to the front end, which are updated or deleted by the user. However, because it is null in value,
@@ -175,9 +175,9 @@ public class TestLocation
 
         Assert.assertTrue ( location2.getTable().equals ( location1.getTable() ) );
 
-        for ( DatabaseValues.DatabaseColumn column : location2.getColumnSet() )
+        for ( DatabaseValues.Column column : location2.getColumnSet() )
         {
-            Assert.assertTrue ( location2.getColumnValue ( column ).equals ( location1.getColumnValue ( column ) ) );
+            Assert.assertTrue ( location2.getAttributeValue( column ).equals ( location1.getAttributeValue( column ) ) );
         }
     }
 
@@ -206,8 +206,8 @@ public class TestLocation
         String locationID = DEBUG_getLargestLocationIDFromTable ();
 
         // add locationID
-        location.editColumnValue (
-                DatabaseValues.DatabaseColumn.LOCATION_ID, locationID
+        location.updateAttributeValue(
+                DatabaseValues.Column.LOCATION_ID, locationID
         );
 
         Assert.assertTrue ( DBHelper.deleteIncidentElement ( location ) );
@@ -229,13 +229,13 @@ public class TestLocation
         String locationID = DEBUG_getLargestLocationIDFromTable ();
 
         // add locationID
-        location.editColumnValue (
-                DatabaseValues.DatabaseColumn.LOCATION_ID, locationID
+        location.updateAttributeValue(
+                DatabaseValues.Column.LOCATION_ID, locationID
         );
 
         // update some value
-        location.editColumnValue (
-                DatabaseValues.DatabaseColumn.ROOM_NUMBER, "1000"
+        location.updateAttributeValue(
+                DatabaseValues.Column.ROOM_NUMBER, "1000"
         );
 
         Assert.assertTrue ( DBHelper.updateIncidentElement ( location ) );
@@ -243,20 +243,20 @@ public class TestLocation
         Location [] locations = DBHelper.getLocations ();
         for ( int i = 0 ; i < locations.length ; i++ )
         {
-            if ( locationID.equals ( locations [ i ].getColumnValue ( DatabaseValues.DatabaseColumn.LOCATION_ID ) ) )
+            if ( locationID.equals ( locations [ i ].getAttributeValue( DatabaseValues.Column.LOCATION_ID ) ) )
             {
                 location = locations [ i ];
                 i = locations.length;
             }
         }
 
-        Assert.assertTrue ( !location.getColumnValue ( DatabaseValues.DatabaseColumn.ROOM_NUMBER ).equals ( "4000" ) );
-        Assert.assertTrue ( location.getColumnValue ( DatabaseValues.DatabaseColumn.ROOM_NUMBER ).equals ( "1000" ) );
+        Assert.assertTrue ( !location.getAttributeValue( DatabaseValues.Column.ROOM_NUMBER ).equals ( "4000" ) );
+        Assert.assertTrue ( location.getAttributeValue( DatabaseValues.Column.ROOM_NUMBER ).equals ( "1000" ) );
 
         // clean up after test
         // add locationID
-        location.editColumnValue (
-                DatabaseValues.DatabaseColumn.LOCATION_ID, locationID
+        location.updateAttributeValue(
+                DatabaseValues.Column.LOCATION_ID, locationID
         );
 
         Assert.assertTrue ( DBHelper.deleteIncidentElement ( location ) );
@@ -281,8 +281,8 @@ public class TestLocation
         String locationID = DEBUG_getLargestLocationIDFromTable ();
 
         // add locationID
-        location.editColumnValue (
-                DatabaseValues.DatabaseColumn.LOCATION_ID, locationID
+        location.updateAttributeValue(
+                DatabaseValues.Column.LOCATION_ID, locationID
         );
 
         Assert.assertTrue ( DBHelper.deleteIncidentElement ( location ) );
@@ -308,20 +308,20 @@ public class TestLocation
         String locationID = DEBUG_getLargestLocationIDFromTable ();
 
         Location location2 = new Location ();
-        location2.editColumnValue (
-                DatabaseValues.DatabaseColumn.LOCATION_ID,
+        location2.updateAttributeValue(
+                DatabaseValues.Column.LOCATION_ID,
                 locationID
         );
 
         Assert.assertTrue( DBHelper.selectIncidentElement ( location2 ) );
-        Assert.assertTrue ( location2.getColumnValue ( DatabaseValues.DatabaseColumn.LOCATION_ID )
+        Assert.assertTrue ( location2.getAttributeValue( DatabaseValues.Column.LOCATION_ID )
                 .equals ( locationID )
         );
 
         // clean up after test
         // add locationID
-        location1.editColumnValue (
-                DatabaseValues.DatabaseColumn.LOCATION_ID, locationID
+        location1.updateAttributeValue(
+                DatabaseValues.Column.LOCATION_ID, locationID
         );
 
         Assert.assertTrue ( DBHelper.deleteIncidentElement ( location1 ) );
@@ -332,7 +332,7 @@ public class TestLocation
         try
         {
             ResultSet resultSet = DBHelper.executeQuery ( "SELECT MAX ( LOCATION_ID ) AS MaxLocationID FROM " +
-                    DatabaseValues.DatabaseTable.LOCATION.toString () );
+                    DatabaseValues.Table.LOCATION.toString () );
             while ( resultSet.next () )
             {
                 return "" + resultSet.getInt ( "MaxLocationID" );
