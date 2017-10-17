@@ -40,4 +40,35 @@ export class DataHelperService
         raw.attributes.incidentElements = null;
         return raw;
     }
+
+    static toIncident( raw: IncidentRaw ): Incident {
+        var incident = new Incident();
+        if ( raw == null ) return incident;
+
+        incident.ACCOUNT_ID = raw.attributes.ACCOUNT_ID;
+        incident.CATEGORY_ID = raw.attributes.CATEGORY_ID;
+        incident.CLOSED = raw.attributes.CLOSED;
+        incident.DESCRIPTION = raw.attributes.DESCRIPTION;
+        incident.EXECUTIVE_SUMMARY = raw.attributes.EXECUTIVE_SUMMARY;
+        incident.REPORT_ID = raw.attributes.REPORT_ID;
+        
+        // incident.incidentElements = raw.incidentElements;
+        raw.incidentElements.forEach( ie => {
+            incident.incidentElements.push( ie );
+        });
+
+        return incident;
+    }
+
+    static toIncidentArray( rawArray: IncidentRaw[] ): Incident[] {
+        var arr = [];
+        if ( rawArray == null || rawArray.length == 0 ) return arr;
+
+        rawArray.forEach( raw => {
+            arr.push( this.toIncident( raw ) );
+        });
+
+        console.log(arr);
+        return arr;
+    }
 }
