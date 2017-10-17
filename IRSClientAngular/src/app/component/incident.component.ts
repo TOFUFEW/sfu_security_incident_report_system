@@ -7,12 +7,11 @@ import { IncidentService } from '../service/incident.service';
   {
     selector: 'incidents-component',
     templateUrl: '../view/incidents.component.html',
-    styleUrls: ['../../assets/css/incidents.component.css'],
-    providers: [IncidentService]
+    styleUrls: ['../../assets/css/incidents.component.css']
   }
 )
 
-export class IncidentsComponent implements OnInit {
+export class IncidentComponent implements OnInit {
   incidents: Incident[];
   newIncident: Incident = new Incident();
   

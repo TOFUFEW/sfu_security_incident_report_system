@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './component/dashboard.component';
 import { LocationComponent } from './component/location.component';
 import { StaffComponent } from './component/staff.component';
-import { IncidentsComponent } from './component/incidents.component';
+import { IncidentComponent } from './component/incident.component';
 import { LoginComponent } from './component/login.component';
 import { NewReportComponent } from './component/new-report.component';
 import { DynamicFormComponent } from './component/dynamic-form.component';
@@ -39,7 +39,7 @@ import { StaffService } from './service/staff.service'
     DashboardComponent,
     LocationComponent,
     StaffComponent,
-    IncidentsComponent,
+    IncidentComponent,
     LoginComponent,
     NewReportComponent,
     DynamicFormComponent,
