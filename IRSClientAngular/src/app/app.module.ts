@@ -13,6 +13,9 @@ import { LocationComponent } from './component/location.component';
 import { StaffComponent } from './component/staff.component';
 import { IncidentsComponent } from './component/incidents.component';
 import { LoginComponent } from './component/login.component';
+import { GuardDashboard } from './component/guard-app/guard-dashboard.component';
+import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
+import { CategoryComponent } from './component/category.component'
 import { NewIncidentComponent } from './component/new-incident.component';
 import { DynamicFormComponent } from './component/dynamic-form.component';
 import { MyTestComponent } from './component/myTest.component';
@@ -21,6 +24,7 @@ import { MyTestComponent } from './component/myTest.component';
 import { DataHelperService } from './util/data-helper.service';
 import { UserService } from './service/user.service';
 import { LoginService } from './service/login.service';
+import { CategoryService } from './service/category.service';
 import { DomService } from './service/dom.service';
 import { LocationService } from './service/location.service'
 
@@ -30,7 +34,7 @@ import { LocationService } from './service/location.service'
     FormsModule,
     HttpModule,
     HttpClientModule,
-    routes
+    routes, 
   ],
 
   declarations: [
@@ -40,13 +44,16 @@ import { LocationService } from './service/location.service'
     StaffComponent,
     IncidentsComponent,
     LoginComponent,
+    GuardDashboard,
+    GuardIncidentComponent,
+    CategoryComponent,
     NewIncidentComponent,
     DynamicFormComponent,
     MyTestComponent
   ],
   
-  providers: [UserService, LoginService, DomService, DataHelperService, LocationService],
-  bootstrap: [AppComponent],
+  providers: [ UserService, LoginService, DomService, DataHelperService, LocationService,  CategoryService ],
+  bootstrap: [ AppComponent ],
   entryComponents: [ LocationComponent, MyTestComponent ]
 })
 

@@ -22,6 +22,7 @@ export class LocationComponent implements OnInit {
   getLocations(): void {
     this.locationService.getLocations().then(returnedLocations => {
       this.locations = returnedLocations;
+      console.log("returned locations" + returnedLocations);
     });
   }
 

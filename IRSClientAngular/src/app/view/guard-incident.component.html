@@ -1,0 +1,73 @@
+<div class="panel panel-default test-panel">
+  <div class="panel-heading text-center pb-0">
+
+        <h5>Report #
+      <span *ngFor="let incident of incidents">
+        <span *ngIf="incident.REPORT_ID == 24">                      
+          {{incident.REPORT_ID}}
+        </span>
+      </span>
+    </h5>
+    <p>Location:</p>
+  </div>
+  
+  <div class="panel-body">
+  
+
+      <div id="accordion" role="tablist" aria-multiselectable="true">
+
+          <div class="card m-1">
+            <div class="card-header" role="tab" id="headingOne">
+              <h6 class="mb-0">
+                <a class="card-text-primary" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Executive Summary
+                </a>
+              </h6>
+            </div>
+            <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+              <div class="card-block m-2">
+                  <div *ngFor="let incident of incidents">
+                      <form *ngIf="incident.REPORT_ID == 24">
+                        {{incident.EXECUTIVE_SUMMARY}} 
+                      </form>
+                   </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="card m-1">
+            <div class="card-header" role="tab" id="headingTwo">
+              <h6 class="mb-0">
+                <a class="card-text-primary collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Description
+                </a>
+              </h6>
+            </div>
+            <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+              <div class="card-block m-2">
+                  <div *ngFor="let incident of incidents">                      
+                    <div *ngIf="incident.REPORT_ID == 24">                      
+                      {{incident.DESCRIPTION}}               
+                    </div>
+                </div>   
+              </div>
+            </div>
+          </div>
+
+          <div class="card m-1">
+            <div class="card-header" role="tab" id="headingThree">
+              <h6 class="mb-0">
+                <a class="card-text-primary collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Report ID
+                </a>
+              </h6>
+            </div>
+            <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+              <div class="card-block m-2">
+
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
