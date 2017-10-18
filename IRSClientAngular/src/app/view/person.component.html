@@ -1,5 +1,9 @@
-<ul>
-        <li *ngFor="let person of personList">
+<div class="panel panel-default test-panel">
+  <div class="panel-heading"><h4>Locations</h4></div>
+  <div class="panel-body">
+
+    <ul>
+      <li *ngFor="let person of personList">
           Id: {{person.PERSON_ID}}, 
           {{person.FIRST_NAME}}, 
           {{person.LAST_NAME}},
@@ -11,7 +15,8 @@
           <input type="text" [(ngModel)]="person.LAST_NAME"/>
           <input type="text" [(ngModel)]="person.PHONE_NUMBER"/>
       
-          <span class="link" (click)="updatePerson(person);">Save</span>
-          <span class="link" (click)="deletePerson(person.PERSON_ID)">Delete</span>
-        </li>
-      </ul>
+          <span class="link" (click)="selectPerson(person);">Select/span>
+      </li>
+    </ul>
+  </div>
+</div>
