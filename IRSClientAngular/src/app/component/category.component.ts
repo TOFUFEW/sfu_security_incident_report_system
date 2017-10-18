@@ -4,7 +4,6 @@ import { MainCategory } from '../model/category-main';
 import { SubCategory } from '../model/category-sub';
 import { CategoryType } from '../model/category-type';
 import { CategoryService } from '../service/category.service';
-import { DataHelperService } from '../util/data-helper.service';
 
 @Component( 
   {
@@ -30,17 +29,15 @@ export class CategoryComponent implements OnInit {
     filterCategories ( returnedCategories ) {
         console.log ( "CATEGORIES IN FUNCTION " + this.categories );
         var attributeToCompare: string = "";
-        var categoryArray: Category[] =  returnedCategories;
-        Object.keys( categoryArray ).forEach ( function(key) {
-            console.log(key);
-        })
-        //     if ( attributeToCompare != category.MAIN_CATEGORY )
-        //     {
-        //         attributeToCompare = category.MAIN_CATEGORY;
-        //         console.log ( "adding " + category.MAIN_CATEGORY + "to mainCategories" );
-        //     }       
-        // } );
-        // console.log ( "main categories " + this.mainCategories );         
+        var categoryArray: Category[] = returnedCategories;
+        categoryArray.forEach ( category => {
+            if ( attributeToCompare != category.MAIN_CATEGORY )
+            {
+                attributeToCompare = category.MAIN_CATEGORY;
+                console.log ( "adding " + category.MAIN_CATEGORY + "to mainCategories" );
+            }       
+        } );
+        console.log ( "main categories " + this.mainCategories );         
     }
 
     getCategories(): void {

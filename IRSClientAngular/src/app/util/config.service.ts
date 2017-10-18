@@ -8,4 +8,5 @@ export class Config {
     static LocationTable: string = "LOCATION";
     static AccountTable: string = "ACCOUNT";
     static IncidentTable: string = "INCIDENT";
+    static CategoryTable: string = "INCIDENT_CATEGORY";
 }
