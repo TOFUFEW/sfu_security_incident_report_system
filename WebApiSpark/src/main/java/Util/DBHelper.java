@@ -23,14 +23,19 @@ public class DBHelper
 
         try
         {
-            ResultSet resultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.INCIDENT.toString() );
+            ResultSet incidentResultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.INCIDENT.toString());
 
-            while ( resultSet.next () )
+            while ( incidentResultSet.next () )
             {
                 Incident incident = new Incident ();
 
-                incident.extractFromCurrentRow ( resultSet );
+                incident.extractFromCurrentRow ( incidentResultSet );
 
+                ArrayList < IncidentElement > incidentElementsList = getIncidentElements ( Integer.parseInt (incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) ) );
+
+                incident.changeIncidentElementList ( incidentElementsList );
+                System.out.println(incident.getIncidentElement(0));
+                System.out.println(incident.getAttributeValue(DatabaseValues.Column.REPORT_ID));
                 incidentList.add ( incident );
             }
         }
@@ -41,6 +46,48 @@ public class DBHelper
         }
 
         return incidentList.toArray ( new Incident [ incidentList.size () ] );
+    }
+
+    private static ArrayList < IncidentElement > getIncidentElements ( int reportID ) {
+        ArrayList < IncidentElement > incidentElementsList = new ArrayList <> ();
+
+        try {
+            String getIncidentElementsQuery = "SELECT Location.* FROM HappensAt INNER JOIN Location ON (HappensAt.LOCATION_ID = Location.LOCATION_ID) WHERE HappensAt.REPORT_ID = " +
+                    reportID + "; SELECT Staff.* FROM AssignedTo INNER JOIN Staff ON (AssignedTo.ACCOUNT_ID = Staff.ACCOUNT_ID) WHERE AssignedTo.REPORT_ID = " +
+                    reportID + ";";
+
+            PreparedStatement stmt = connection.prepareStatement ( getIncidentElementsQuery );
+            boolean hasResults = stmt.execute();
+            int count = 0;
+            while ( hasResults ) {
+                ResultSet rs = stmt.getResultSet();
+                while ( rs.next() ) {
+                    IncidentElement incidentElement;
+                    if ( count == 0 )
+                    {
+                        incidentElement = new Location ();
+                    }
+                    else if ( count == 1 )
+                    {
+                        incidentElement = new Staff ();
+                    }
+                    else
+                    {
+//                    throw new IllegalStateException ( table.toString () + " does not have its Model implemented yet" );'
+                        break;
+                    }
+
+                    incidentElement.extractFromCurrentRow( rs );
+
+                    incidentElementsList.add ( incidentElement );
+                }
+                count++;
+                hasResults = stmt.getMoreResults();
+            }
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        }
+        return incidentElementsList;
     }
 
     public static boolean selectIncident ( Incident incident ) {
