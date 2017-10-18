@@ -24,7 +24,7 @@ export class CategoryComponent implements OnInit {
     filteredSubCtgries: SubCategory[] = [];
     filteredCtgryTypes: CategoryType[] = [];
   
-    constructor ( private categoryService: CategoryService ) {};
+    constructor ( private categoryService: CategoryService, private dataHelper: DataHelperService ) {};
 
     filterCategories ( returnedCategories ) {
         console.log ( "CATEGORIES IN FUNCTION " + this.categories );
@@ -54,6 +54,7 @@ export class CategoryComponent implements OnInit {
             console.log ( "CATEGORIES " + this.categories );            
             this.filterCategories( returnedCategories );               
 
+            this.dataHelper.toCategoryDictionary( returnedCategories); 
             // console.log ( "returned categories " + returnedCategories ) ;   
             // console.log ( this.categories ) ;
             // var index = 0;
