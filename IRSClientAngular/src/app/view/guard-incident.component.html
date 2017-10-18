@@ -1,21 +1,24 @@
 <div class="panel panel-default test-panel">
-  <div class="panel-heading text-center pb-0">
+    <div class="panel-heading text-center pb-0">
 
+        <!-- Create category object that matches with category incident ID -->
+        <!-- Create dialog w/ category cascading menu for editing categories -->
+        <h5>
+            <span class="m-2">Category, subcategory, type</span>
+            <button class="btn btn-default btn-xs pull-right"><span class="ml-1 glyphicon glyphicon-edit"></span></button>
+        </h5>
         <h5>Report #
-      <span *ngFor="let incident of incidents">
-        <span *ngIf="incident.REPORT_ID == 24">                      
-          {{incident.REPORT_ID}}
-        </span>
-      </span>
-    </h5>
-    <p>Location:</p>
-  </div>
+            <span *ngFor="let incident of incidents">
+                <span *ngIf="incident.REPORT_ID == 24">                      
+                    {{incident.REPORT_ID}}
+                </span>
+            </span>
+        </h5>
+        <p>Location:</p>
+    </div>
   
-  <div class="panel-body">
-  
-
-      <div id="accordion" role="tablist" aria-multiselectable="true">
-
+    <div class="panel-body">
+        <div id="accordion" role="tablist" aria-multiselectable="true">
           <div class="card m-1">
             <div class="card-header" role="tab" id="headingOne">
               <h6 class="mb-0">

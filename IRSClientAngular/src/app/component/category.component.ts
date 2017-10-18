@@ -31,22 +31,22 @@ export class CategoryComponent implements OnInit {
     }
 
     // filter subcategory and type lists according to selection of previous dropdown
-    onSelectCtgry ( categoryName ) {
+    onSelectCategory ( categoryName ) {
     console.log ( "selected category: " + categoryName );
     var index = this.categories.findIndex( item => 
-        item.MAIN_CATEGORY == categoryName);
+        item.MAIN_CATEGORY === categoryName);
     this.filteredSubcategories = this.categories[index].SUBCATEGORIES;
     console.log( "list of corresponding subcategories " + this.filteredSubcategories );
     }
 
-    onSelectSubCtgry ( subCategoryName ) {
+    onSelectSubCategory ( subCategoryName ) {
         var index = this.filteredSubcategories.findIndex( item => 
             item.SUB_CATEGORY == subCategoryName);
         this.filteredTypes = this.filteredSubcategories[index].TYPES;
         console.log("subcategory" + subCategoryName);
     }
 
-    onSelectTypeCtgry ( typeName ) {
+    onSelectTypeCategory ( typeName ) {
         console.log ( "category type " + typeName );
         this.categoryID = typeName;
     }
