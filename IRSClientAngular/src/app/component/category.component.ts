@@ -14,10 +14,12 @@ import { DataHelperService } from '../util/data-helper.service';
 export class CategoryComponent implements OnInit {
     selectedMainCategory: CategoryMapping = new CategoryMapping();
     selectedSubCategory: SubCategory = new SubCategory();
+    selectedType: CategoryType = new CategoryType();    
     categories: CategoryMapping[] = [];
     filteredSubcategories: SubCategory[] = [];
     filteredTypes: CategoryType[] = [];
-  
+    categoryID: number =  -1;
+
     constructor ( private categoryService: CategoryService, private dataHelper: DataHelperService ) {};
     
     getCategories(): void {     
@@ -29,23 +31,33 @@ export class CategoryComponent implements OnInit {
     }
 
     // filter subcategory and type lists according to selection of previous dropdown
-    onSelect ( mainCategoryName ) {
-        console.log ( mainCategoryName );
-        // if ( mainCategoryName.MAIN_CATEGORY != "" ) {
-        //     console.log ( "selected category: " + mainCategoryName );
-        //     var index = this.categories.findIndex( item => 
-        //         item.MAIN_CATEGORY == mainCategoryName);
-        //     this.filteredSubcategories = this.categories[index].SUBCATEGORIES;
-        //     console.log( "list of corresponding subcategories " + this.filteredSubcategories );
-        //     }
-        //     else if ( mainCategoryName.SUB_CATEGORY != "" ) {
-        //         var index = this.filteredSubcategories.findIndex( item => 
-        //             item.SUB_CATEGORY == mainCategoryName);
-        //         this.filteredTypes = this.filteredSubcategories[index].TYPES;
-        //         console.log("subcategory" + mainCategoryName);
-        //     }
-        }
+    onSelect1 ( categoryName ) {
+    console.log ( "selected category: " + categoryName );
+    var index = this.categories.findIndex( item => 
+        item.MAIN_CATEGORY == categoryName);
+    this.filteredSubcategories = this.categories[index].SUBCATEGORIES;
+    console.log( "list of corresponding subcategories " + this.filteredSubcategories );
+    }
 
+    onSelect2 ( subCategoryName ) {
+        var index = this.filteredSubcategories.findIndex( item => 
+            item.SUB_CATEGORY == subCategoryName);
+        this.filteredTypes = this.filteredSubcategories[index].TYPES;
+        console.log("subcategory" + subCategoryName);
+    }
+
+    onSelect3 ( typeName ) {
+        console.log ( "category type " + typeName );
+        var index = this.filteredTypes.findIndex( item => 
+            item.INCIDENT_TYPE == typeName);
+        this.categoryID = this.filteredTypes[index].CATEGORY_ID;
+    }
+
+    submitCategory () {
+        if (this.categoryID != -1 ) {
+            console.log ( "category id: " + this.categoryID );
+        }
+    }
     // onSelectSubCategory ( subCategoryName ) {            
     //     var index = this.filteredSubcategories.findIndex( item => 
     //         item.SUB_CATEGORY == subCategoryName);

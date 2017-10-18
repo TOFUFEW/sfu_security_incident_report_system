@@ -38,4 +38,8 @@ export class SubCategory {
 export class CategoryType {
     CATEGORY_ID: number;
     INCIDENT_TYPE: string;
+
+    constructor () {
+        this.INCIDENT_TYPE = "";
+    }
 }
