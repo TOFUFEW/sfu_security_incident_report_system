@@ -4,6 +4,7 @@ import { MainCategory } from '../model/category-main';
 import { SubCategory } from '../model/category-sub';
 import { CategoryType } from '../model/category-type';
 import { CategoryService } from '../service/category.service';
+import { DataHelperService } from '../util/data-helper.service';
 
 @Component( 
   {
