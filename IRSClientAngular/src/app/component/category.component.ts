@@ -48,12 +48,19 @@ export class CategoryComponent implements OnInit {
 
     onSelect3 ( typeName ) {
         console.log ( "category type " + typeName );
-        var index = this.filteredTypes.findIndex( item => 
-            item.INCIDENT_TYPE == typeName);
-        this.categoryID = this.filteredTypes[index].CATEGORY_ID;
+        this.categoryID = typeName;
     }
 
     submitCategory () {
+        if ( this.categoryID == -1 ) {
+            if ( this.filteredTypes[0].INCIDENT_TYPE == "" ) {
+                this.categoryID = this.filteredTypes[0].CATEGORY_ID;
+            }
+            else
+            {
+                console.log("Please select an incident type");
+            }
+        }
         if (this.categoryID != -1 ) {
             console.log ( "category id: " + this.categoryID );
         }
