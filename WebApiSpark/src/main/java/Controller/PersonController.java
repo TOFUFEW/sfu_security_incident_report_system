@@ -18,6 +18,17 @@ public class PersonController
             return JsonUtil.toJson(DBHelper.getPersons());
         });
 
+        post( "/person" , ( request , response ) -> {
+            Person person = ( Person ) JsonUtil.fromJson ( request.body () , Person.class );
+
+            if ( !DBHelper.selectIncidentElement ( person ) )
+            {
+                return DBHelper.insertIncidentElement ( person );
+            }
+
+            return false;
+        } );
+
         put( "/person" , ( request , response ) -> {
             Person person = ( Person ) JsonUtil.fromJson ( request.body () , Person.class );
 
@@ -33,8 +44,8 @@ public class PersonController
 
             String id = request.params(":id");
             Person person = new Person();
-            person.editColumnValue (
-                    DatabaseValues.DatabaseColumn.ACCOUNT_ID,
+            person.updateAttributeValue (
+                    DatabaseValues.Column.ACCOUNT_ID,
                     request.params ( ":id" )
             );
 

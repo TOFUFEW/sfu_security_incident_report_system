@@ -1,22 +1,43 @@
 <div class="panel panel-default test-panel">
-  <div class="panel-heading"><h4>Locations</h4></div>
+  <div class="panel-heading"><h4>Persons</h4></div>
   <div class="panel-body">
 
+    <h4>Search</h4>
+
+    <span class="field-title">First Name</span>
+    <input type="text" [(ngModel)]="newPerson.FIRST_NAME" /> <br>
+    <span class="field-title">Last Name</span>
+    <input type="text" [(ngModel)]="newPerson.LAST_NAME" /> <br>
+    <span class="field-title">Phone Number</span>
+    <input type="text" [(ngModel)]="newPerson.PHONE_NUMBER" /> <br>
+    <button class="btn btn-primary" (click)="findPerson();">
+        Search
+    </button>
+      
     <ul>
       <li *ngFor="let person of personList">
           Id: {{person.PERSON_ID}}, 
           {{person.FIRST_NAME}}, 
           {{person.LAST_NAME}},
-          {{person.PHONE_NUMBER}}
-          
-          <br>
-          <input type="text" [(ngModel)]="person.PERSON_ID"/>
-          <input type="text" [(ngModel)]="person.FIRST_NAME"/>
-          <input type="text" [(ngModel)]="person.LAST_NAME"/>
-          <input type="text" [(ngModel)]="person.PHONE_NUMBER"/>
-      
-          <span class="link" (click)="selectPerson(person);">Select/span>
+          {{person.PHONE_NUMBER}}   
+          <button class="btn btn-primary" (click)="selectPerson();">
+              Select
+          </button> 
       </li>
     </ul>
+
+    <h4>Add a Person</h4>
+    
+    <span class="field-title">First Name</span>
+    <input type="text" [(ngModel)]="newPerson.FIRST_NAME" /> <br>
+    <span class="field-title">Last Name</span>
+    <input type="text" [(ngModel)]="newPerson.LAST_NAME" /> <br>
+    <span class="field-title">Phone Number</span>
+    <input type="text" [(ngModel)]="newPerson.PHONE_NUMBER" /> <br>
+    <button class="btn btn-primary" (click)="addPerson();">
+        Submit
+    </button>
+
+
   </div>
 </div>

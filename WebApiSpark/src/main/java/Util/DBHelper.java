@@ -268,7 +268,7 @@ public class DBHelper
                 else if ( table == DatabaseValues.Table.STAFF )
                 {
                     incidentElement = new Staff ();
-                } else if ( table == DatabaseValues.DatabaseTable.PERSON )
+                } else if ( table == DatabaseValues.Table.PERSON )
                 {
                     incidentElement = new Person ();
                 }
@@ -356,11 +356,11 @@ public class DBHelper
 
         try
         {
-            ResultSet resultSet = executeQuery ( "SELECT * FROM" + DatabaseValues.DatabaseTable.PERSON.toString() );
+            ResultSet resultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.PERSON.toString() );
             while(resultSet.next () )
             {
                 Person person = new Person();
-                person.extractFromResultSet( resultSet );
+                person.extractFromCurrentRow( resultSet );
                 personList.add (person);
             }
         }

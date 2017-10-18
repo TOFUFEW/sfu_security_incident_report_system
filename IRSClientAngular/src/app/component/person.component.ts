@@ -22,7 +22,32 @@ export class PersonComponent implements OnInit {
     } );    
   }
 
-  updatePerson( person:Person ): void {
+  addPerson(): void {
+    this.personService.create(this.newPerson)
+      .then(returnedPerson => {
+        if (returnedPerson != null) {
+          this.personList.push(returnedPerson);
+          alert("Person successfully added!");
+        }
+        else alert("Add failed.");
+      });
+    delete this.newPerson;
+    this.newPerson = new Person();
+  }
+
+  findPerson(): void {
+    this.personService.search( this.newPerson )
+      .then(returnedPerson => {
+        if (returnedPerson != null) {
+          this.personList = returnedPerson;
+        }
+        else alert("Person Not Found");
+      });
+    delete this.newPerson;
+    this.newPerson = new Person();
+  }
+
+  updatePerson( person: Person ): void {
     this.personService.update( person )
         .then( returnedPerson => {
             if ( returnedPerson != null  ) {
@@ -33,6 +58,10 @@ export class PersonComponent implements OnInit {
             }
             else alert( "Edit failed." );  
         } );
+  }
+
+  selectPerson ( person: Person ): void {
+    this.personService.addToIncident( person );
   }
 
   deletePerson( id: number ): void {

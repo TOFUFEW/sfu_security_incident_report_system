@@ -20,39 +20,39 @@ public class Person extends IncidentElement{
             String phoneNumber
     ) {
         super (
-                DatabaseValues.DatabaseTable.PERSON,
-                new DatabaseValues.DatabaseColumn []
+                DatabaseValues.Table.PERSON,
+                new DatabaseValues.Column []
                         {
-                                DatabaseValues.DatabaseColumn.FIRST_NAME,
-                                DatabaseValues.DatabaseColumn.LAST_NAME,
-                                DatabaseValues.DatabaseColumn.PERSON_ID,
-                                DatabaseValues.DatabaseColumn.PHONE_NUMBER
+                                DatabaseValues.Column.FIRST_NAME,
+                                DatabaseValues.Column.LAST_NAME,
+                                DatabaseValues.Column.PERSON_ID,
+                                DatabaseValues.Column.PHONE_NUMBER
                         }
         );
 
 
-        editColumnValue (
-                DatabaseValues.DatabaseColumn.FIRST_NAME,
+        updateAttributeValue (
+                DatabaseValues.Column.FIRST_NAME,
                 firstName
         );
-        editColumnValue (
-                DatabaseValues.DatabaseColumn.LAST_NAME,
+        updateAttributeValue (
+                DatabaseValues.Column.LAST_NAME,
                 lastName
         );
-        editColumnValue (
-                DatabaseValues.DatabaseColumn.PERSON_ID,
+        updateAttributeValue (
+                DatabaseValues.Column.PERSON_ID,
                 personId
         );
-        editColumnValue (
-                DatabaseValues.DatabaseColumn.PHONE_NUMBER,
+        updateAttributeValue (
+                DatabaseValues.Column.PHONE_NUMBER,
                 phoneNumber
         );
 
     }
 
 
-    public DatabaseValues.DatabaseColumn getIDColumn () {
-        return DatabaseValues.DatabaseColumn.PERSON_ID ;
+    public DatabaseValues.Column getIDColumn () {
+        return DatabaseValues.Column.PERSON_ID ;
     }
 
 }

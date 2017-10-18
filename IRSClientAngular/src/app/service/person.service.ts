@@ -7,7 +7,7 @@ import { Config } from '../util/config.service';
 import { DataHelperService } from '../util/data-helper.service';
 import 'rxjs/add/operator/toPromise';
 
-@Injectable ()
+@Injectable()
 export class PersonService {
     private headers = new Headers({'Content-Type': 'application/json'});
     personUrl = Config.PersonURI;
@@ -22,6 +22,23 @@ export class PersonService {
         return Promise.resolve( personList );
     }
 
+    search( person: Person ) : Promise<Person[]> {
+        var personList = this.http.get( this.personUrl )
+            .toPromise()
+            .then( response => this.dataHelper.extractAttributes( response.json() ) as Person[] )
+            .catch(this.handleError );
+        return Promise.resolve( personList );
+    }
+
+    create( person: Person ) : Promise<Person> {
+        var promise = this.http
+                .put( this.personUrl, JSON.stringify( this.dataHelper.toIncidentElement( this.tableName, person ) ), { headers: this.headers } )
+                .toPromise()
+                .then( response => response.json() as Person )
+                .catch( this.handleError );
+        return Promise.resolve( promise );
+    };
+
     update( person: Person ) : Promise<Person> {
         var promise = this.http
             .put( this.personUrl, JSON.stringify( this.dataHelper.toIncidentElement(this.tableName, person) ), { headers: this.headers } )
@@ -30,6 +47,10 @@ export class PersonService {
             .catch( this.handleError );
         return Promise.resolve( promise );
     };
+
+
+    addToIncident( person: Person ) : void {
+    }
 
     
     delete( id: number ) : Promise<boolean> {
