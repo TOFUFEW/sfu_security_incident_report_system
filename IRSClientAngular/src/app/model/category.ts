@@ -13,10 +13,13 @@ export class Category {
   }
 
 export class CategoryMapping {
+    ID: number;
     MAIN_CATEGORY: string;
     SUBCATEGORIES: SubCategory[] ;
 
     constructor () {
+        this.ID = 0;
+        this.MAIN_CATEGORY = "";
         this.SUBCATEGORIES = [];
     }
 }
@@ -27,6 +30,7 @@ export class SubCategory {
     TYPES: CategoryType[];
 
     constructor () {
+        this.SUB_CATEGORY = "";
         this.TYPES = [];
     }
 }

@@ -1,23 +1,23 @@
 <div class="dropdown">
     <label>Category</label>
     <select [(ngModel)] ="selectedMainCategory.MAIN_CATEGORY" (change)="onSelect($event.target.value)">  
-        <option value="0">--Select Category--</option>  
-        <option *ngFor="let mainCategory of mainCategories" value={{mainCategory.ID}}>{{mainCategory.NAME}}</option>  
+        <option>--Select Category--</option>  
+        <option *ngFor="let category of categories" value={{category.MAIN_CATEGORY}}>{{category.MAIN_CATEGORY}}</option>  
     </select>
     <div>  
         <label>Subcategory</label>  
-        <select>  
-            <option *ngIf='selectedMainCategory.ID == 0' value="0">--Select Subcategory--</option>  
-            <option *ngFor="let subCategory of subCategories " value={{subCategory.ID}}>{{subCategory.NAME}}</option>  
+        <select [(ngModel)] ="selectedSubCategory.SUB_CATEGORY" (change)="onSelect($event.target.value)">                  
+            <option *ngIf='selectedMainCategory.MAIN_CATEGORY == ""' value='""'>--Select Subcategory--</option>  
+            <option *ngFor="let subcategory of filteredSubcategories" value={{subcategory.SUB_CATEGORY}}>{{subcategory.SUB_CATEGORY}}</option>  
     </select>  
     </div>
-    <div>
+    <!-- <div>
         <label>Type</label>  
         <select>  
             <option *ngIf='selectedSubCategory.ID == 0' value="0">--Select Type--</option>  
             <option *ngFor="let categoryType of categoryTypes " value={{categoryType.ID}}>{{categoryType.NAME}}</option>  
         </select>  
-    </div>
+    </div> -->
     <!-- Category -->
     <!-- <button class="btn btn-default dropdown-toggle" type="button" id="category" data-toggle="dropdown">
         Category

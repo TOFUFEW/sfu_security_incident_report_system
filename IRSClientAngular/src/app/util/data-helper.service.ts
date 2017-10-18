@@ -43,7 +43,6 @@ export class DataHelperService
         currentMap.MAIN_CATEGORY = "";
 
         var mainCategories = [];
-
         categories.forEach( cat => {
             if ( mainCategories.indexOf( cat.MAIN_CATEGORY ) < 0 ) {
                 mainCategories.push( cat.MAIN_CATEGORY );
@@ -65,8 +64,7 @@ export class DataHelperService
         categories.forEach( cat => {
             var subCategory = cat.SUB_CATEGORY;
             if ( subCategories.indexOf( subCategory ) < 0 ) {
-                subCategories.push( subCategory );
-                grouping.SUBCATEGORIES.push( this.insertSubCategory( grouping.MAIN_CATEGORY, subCategory, categories) );
+                grouping.SUBCATEGORIES.push( this.insertSubCategory( grouping.MAIN_CATEGORY, subCategory, categories ) );
             }
         });
 
