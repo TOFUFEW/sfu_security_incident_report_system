@@ -31,7 +31,7 @@ export class CategoryComponent implements OnInit {
     }
 
     // filter subcategory and type lists according to selection of previous dropdown
-    onSelect1 ( categoryName ) {
+    onSelectCtgry ( categoryName ) {
     console.log ( "selected category: " + categoryName );
     var index = this.categories.findIndex( item => 
         item.MAIN_CATEGORY == categoryName);
@@ -39,22 +39,24 @@ export class CategoryComponent implements OnInit {
     console.log( "list of corresponding subcategories " + this.filteredSubcategories );
     }
 
-    onSelect2 ( subCategoryName ) {
+    onSelectSubCtgry ( subCategoryName ) {
         var index = this.filteredSubcategories.findIndex( item => 
             item.SUB_CATEGORY == subCategoryName);
         this.filteredTypes = this.filteredSubcategories[index].TYPES;
         console.log("subcategory" + subCategoryName);
     }
 
-    onSelect3 ( typeName ) {
+    onSelectTypeCtgry ( typeName ) {
         console.log ( "category type " + typeName );
         this.categoryID = typeName;
     }
 
     submitCategory () {
+        console.log( "submitting category" );
         if ( this.categoryID == -1 ) {
-            if ( this.filteredTypes[0].INCIDENT_TYPE == "" ) {
-                this.categoryID = this.filteredTypes[0].CATEGORY_ID;
+            if ( this.filteredTypes.length == 0 ) {
+                this.categoryID = this.filteredSubcategories[0].CATEGORY_ID;
+                console.log ( "retrieved category id: " + this.categoryID );                
             }
             else
             {

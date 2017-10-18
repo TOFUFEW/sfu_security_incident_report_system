@@ -1,25 +1,25 @@
 <div class="dropdown">
     <label>Category</label>
-    <select [(ngModel)] ="selectedMainCategory.MAIN_CATEGORY" (change)="onSelect1($event.target.value)">  
+    <select [(ngModel)] ="selectedMainCategory.MAIN_CATEGORY" (change)="onSelectCtgry($event.target.value)">  
         <option>--Select Category--</option>  
         <option *ngFor="let category of categories" value={{category.MAIN_CATEGORY}}>{{category.MAIN_CATEGORY}}</option>  
     </select>
     <div>  
         <label>Subcategory</label>  
-        <select [(ngModel)] ="selectedSubCategory.SUB_CATEGORY" (change)="onSelect2($event.target.value)">                  
+        <select [(ngModel)] ="selectedSubCategory.SUB_CATEGORY" (change)="onSelectSubCtgry($event.target.value)">                  
             <option *ngIf='selectedMainCategory.MAIN_CATEGORY == ""'>--Select Subcategory--</option>  
             <option *ngFor="let subcategory of filteredSubcategories" value={{subcategory.SUB_CATEGORY}}>{{subcategory.SUB_CATEGORY}}</option>  
     </select>  
     </div>
     <div>
         <label>Type</label>  
-        <select [(ngModel)] ="selectedType.INCIDENT_TYPE" (change)="onSelect3($event.target.value)">                  
+        <select [(ngModel)] ="selectedType.INCIDENT_TYPE" (change)="onSelectTypeCtgry($event.target.value)">                  
             <option *ngIf='selectedSubCategory.ID == ""'>--Select Type--</option>  
             <option *ngFor="let type of filteredTypes " value={{type.CATEGORY_ID}}>{{type.INCIDENT_TYPE}}</option>  
         </select>  
     </div>
 
-    <button (click)="submitCategory">Set Category</button>  
+    <button (click)="submitCategory($event.target)">Set Category</button>  
 
     <!-- Category -->
     <!-- <button class="btn btn-default dropdown-toggle" type="button" id="category" data-toggle="dropdown">
