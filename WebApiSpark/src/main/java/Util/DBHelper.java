@@ -57,7 +57,7 @@ public class DBHelper
                     "WHERE AssignedTo.REPORT_ID = " + reportID + "; " +
                     "SELECT Person.* FROM Involves INNER JOIN Person ON (Involves.PERSON_ID = Person.PERSON_ID)" +
                     "WHERE Involves.REPORT_ID = " + reportID + "; " +
-                    "SELECT IncidentCateogry.* FROM Incident ON (Incident.CATEGORY_ID = IncidentCategory.CATEGORY_ID) " +
+                    "SELECT IncidentCategory.* FROM Incident INNER JOIN IncidentCategory ON (Incident.CATEGORY_ID = IncidentCategory.CATEGORY_ID) " +
                     "WHERE Incident.REPORT_ID = " + reportID + "; ";
 
             PreparedStatement stmt = connection.prepareStatement ( getIncidentElementsQuery );
