@@ -33,6 +33,5 @@ public class IncidentsController
             String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
             return DBHelper.insertIncident ( incidentString , newIncident );
         } );
-
     }
 }
