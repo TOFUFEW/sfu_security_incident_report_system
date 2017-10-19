@@ -1,43 +1,60 @@
-<h2>New Report</h2>
-
-<div>
-
-    <div>
-        <h4>Category</h4>
-        <select>
-            <option *ngFor="let category of categories" [value]="category">{{category}}</option>
-        </select>
-    </div>
-
-    <div>
-        <h4>Sub-Category</h4>
-        <select [(ngModel)]="dynamicTest" (change)="onSelectChangeEvent()">
-            <option *ngFor="let subCategory of subCategories" [value]="subCategory">{{subCategory}}</option>
-        </select>
-    </div>
-
-    <div>
-        <h4>Description</h4>
-        <textarea cols="50" rows="4" [(ngModel)]="newIncident.attributes.DESCRIPTION"></textarea>
-    </div>
-
-    <div>
-        <h4>Executive Summary</h4>
-        <textarea cols="50" rows="8" [(ngModel)]="newIncident.attributes.EXECUTIVE_SUMMARY"></textarea>
-    </div>
-
-
-    <!-- Dynamic Divs -->
-    <div *ngIf="dynamicTest == 'Vehicle'"> 
-
-        <span>Vehicle</span> <button (click)="addVehicleComp()"> [+] </button>
-        <div id ="dynamic">
-
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-8 col-sm-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div>
+                        <span class="glyphicon glyphicon-dashboard glyphicon-heading"></span>
+                        <span class="panel-header">New Report</span>
+                    </div>
+                </div>
+                <div class="panel-body">
+                        <div>
+                            <h4>Category</h4>
+                            <select>
+                                <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+                            </select>
+                        </div>
+                    
+                        <div>
+                            <h4>Sub-Category</h4>
+                            <select [(ngModel)]="dynamicTest" (change)="onSelectChangeEvent()">
+                                <option *ngFor="let subCategory of subCategories" [value]="subCategory">{{subCategory}}</option>
+                            </select>
+                        </div>
+                    
+                        <div>
+                            <h4>Description</h4>
+                            <textarea cols="50" rows="4" [(ngModel)]="newIncident.attributes.DESCRIPTION"></textarea>
+                        </div>
+                    
+                        <div>
+                            <h4>Executive Summary</h4>
+                            <textarea cols="50" rows="8" [(ngModel)]="newIncident.attributes.EXECUTIVE_SUMMARY"></textarea>
+                        </div>
+                    
+                    
+                        <!-- Dynamic Divs -->
+                        <div *ngIf="dynamicTest == 'Vehicle'"> 
+                    
+                            <span>Vehicle</span> <button (click)="addVehicleComp()"> [+] </button>
+                            <div id ="dynamic">
+                    
+                            </div>
+                        </div>
+                    
+                    
+                    
+                </div>
+            </div>
+            
+            
+                      
+            
         </div>
     </div>
-
-
-
+    
 </div>
 
-          
+
+

@@ -7,7 +7,7 @@ import { VehicleComponent } from './vehicle.component';
 @Component( 
   {
     templateUrl: '../view/new-report.component.html',
-    styleUrls: ['../../assets/css/new-incident.component.css'],
+    styleUrls: ['../../assets/css/new-report.component.css'],
   }
 )
 
