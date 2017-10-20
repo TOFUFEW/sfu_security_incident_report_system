@@ -30,11 +30,9 @@ export class LoginComponent {
         .subscribe( 
             (responseData) => {
                 this.user = responseData;
-                console.log(this.user);
                 this.userService.authUser(this.user);
                 
                 if ( this.userService.isLoggedIn() ) {
-                    console.log("login success! Welcome " + this.userService.getCurrentUser().USERNAME);
                     this.router.navigate([ 'dashboard' ] );
                 } else {
                     alert("Invalid login credentials!");
