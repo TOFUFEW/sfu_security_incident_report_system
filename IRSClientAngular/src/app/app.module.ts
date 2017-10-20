@@ -24,6 +24,7 @@ import { DomService } from './service/dom.service';
 import { LocationService } from './service/location.service'
 import { IncidentService } from './service/incident.service'
 import { StaffService } from './service/staff.service'
+import { NewReportService } from './service/new-report.service';
 
 @NgModule({
   imports: [
@@ -46,7 +47,7 @@ import { StaffService } from './service/staff.service'
     VehicleComponent,
   ],
   
-  providers: [UserService, LoginService, DomService, LocationService, IncidentService, StaffService],
+  providers: [UserService, LoginService, DomService, LocationService, IncidentService, StaffService, NewReportService],
   bootstrap: [AppComponent],
   entryComponents: [ LocationComponent, VehicleComponent ]
 })

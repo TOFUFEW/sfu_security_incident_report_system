@@ -14,9 +14,8 @@ import { Router, RouterModule } from '@angular/router';
 export class StaffComponent implements OnInit {
   staffList: Staff[];
   newStaff: Staff = new Staff();
-  
-  constructor( private staffService: StaffService ){};
 
+  constructor( private staffService: StaffService ){};
 
   getStaffs(): void {
     this.staffService.getStaffs().then( returnedStaffs => {

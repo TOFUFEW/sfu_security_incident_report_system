@@ -7,6 +7,8 @@ import {
     ApplicationRef,
     ViewContainerRef
 } from '@angular/core';
+import { Location } from '../model/location';
+import { LocationComponent } from '../component/location.component';
 import { VehicleComponent } from '../component/vehicle.component';
 
 @Injectable()
@@ -20,15 +22,11 @@ export class DomService {
 
     // **** ADD DYNAMIC COMPONENTS HERE **** //
 
-    addVehicle(divTag: string) {
-
+    addComponent(componentName: string, targetDomId: string) {
         // 1. Create a component
-        const componentRef = this.componentFactoryResolver
-            .resolveComponentFactory(VehicleComponent)
-            .create(this.injector);
+        const componentRef = this.createComponent( componentName );
 
-        console.log("component created");
-        this.addToDom(componentRef, divTag);
+        this.addToDom(componentRef, targetDomId);
         
         // 5. Save reference for later use
         componentRef.instance.reference = componentRef;
@@ -36,9 +34,7 @@ export class DomService {
 
     // **** END OF DYNAMIC COMPONENTS **** //
 
-
-
-    private addToDom(componentRef: any, divTag: string) {
+    private addToDom(componentRef: any, targetDomId: string) {
 
         // 2. Attach component to the appRef so that it's inside the ng component tree
         this.appRef.attachView(componentRef.hostView);
@@ -48,7 +44,21 @@ export class DomService {
             .rootNodes[0] as HTMLElement;
 
         // 4. Append DOM element to the div
-        let div = document.getElementById(divTag);
+        let div = document.getElementById( targetDomId );
         div.appendChild(domElement);
+    }
+
+    private createComponent( componentName: string ) : ComponentRef<any> {
+        if ( componentName === VehicleComponent.name ) {
+            return this.componentFactoryResolver
+            .resolveComponentFactory(VehicleComponent)
+            .create(this.injector);
+        }
+        else if ( componentName === LocationComponent.name ) {
+            return this.componentFactoryResolver
+            .resolveComponentFactory(LocationComponent)
+            .create(this.injector);
+        }
+        
     }
 }

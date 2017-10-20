@@ -1,42 +1,22 @@
 <div class="panel panel-default test-panel">
   
-  <div class="panel-heading">
-    <h4>Locations</h4>
-  </div>
+    <div class="panel-heading">
+      <h4>Locations</h4>
+    </div>
 
-  <div class="panel-body">
+    <div class="panel-body">
+        <h4>Add a Location: </h4>
+        <!-- <span class="field-title">Campus</span>
+        <input type="text" [(ngModel)]="newLocation.CITY" /> <br><br> -->
+        <span class="field-title">Building Number</span>
+        <input type="text" [(ngModel)]="newLocation.BUILDING_NAME" /> <br><br>
+        <span class="field-title">Room Number</span>
+        <input type="text" [(ngModel)]="newLocation.ROOM_NUMBER" /> <br><br>
+        <span class="field-title">Department</span>
+        <input type="text" [(ngModel)]="newLocation.DEPARTMENT" /> <br> <br>
+        <button class="btn btn-primary" (click)="addLocationToReport()">
+          Submit
+        </button>
 
-      <ul>
-        <li *ngFor="let location of locations">
-          Id: {{location.LOCATION_ID}} , 
-          <!-- {{location.CITY}} , -->{{location.BUILDING_NAME}} , {{location.ROOM_NUMBER}} , {{location.DEPARTMENT}} 
-          <br>
-          
-          <!-- <span>City:</span>
-          <input type="text" [(ngModel)]="location.CITY"/> -->
-          <span>Building Name:</span>
-          <input type="text" [(ngModel)]="location.BUILDING_NAME"/>
-          <span>Room Number:</span>
-          <input type="text" [(ngModel)]="location.ROOM_NUMBER"/>
-          <span>Department:</span>
-          <input type="text" [(ngModel)]="location.DEPARTMENT"/>
-          <span class="link" (click)="updateLocation(location);">Save</span>
-          <span class="link" (click)="deleteLocation(location.LOCATION_ID)">Delete</span>
-        </li>
-      </ul>
-
-      <h4>Add a Location: </h4>
-      <!-- <span class="field-title">Campus</span>
-      <input type="text" [(ngModel)]="newLocation.CITY" /> <br><br> -->
-      <span class="field-title">Building Number</span>
-      <input type="text" [(ngModel)]="newLocation.BUILDING_NAME" /> <br><br>
-      <span class="field-title">Room Number</span>
-      <input type="text" [(ngModel)]="newLocation.ROOM_NUMBER" /> <br><br>
-      <span class="field-title">Department</span>
-      <input type="text" [(ngModel)]="newLocation.DEPARTMENT" /> <br> <br>
-      <button class="btn btn-primary" (click)="addLocation();">
-        Submit
-      </button>
-
-  </div>
+    </div>
 </div>
