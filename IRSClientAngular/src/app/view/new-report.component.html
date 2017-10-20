@@ -41,8 +41,6 @@
                             <span>{{location.DEPARTMENT}}</span>
                         </div>
                     </div>
-
-                    
                     
                     
                     <div id="locations">
@@ -56,7 +54,9 @@
                     
                     <!-- Dynamic Divs -->
                     <div id="vehicles" *ngIf="dynamicTest == 'Vehicle'"> 
-                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" (click)="createIncident()">Create Report</button>
                 </div>
             </div>
         </div>

@@ -1,27 +1,38 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Location } from '../model/location';
+import { IncidentElement } from '../model/incident-element';
+import { DataHelperService } from '../util/data-helper.service';
+import { Config } from '../util/config.service';
 
 @Injectable()
 export class NewReportService {
-    constructor() {}
-
+    incidentElements: IncidentElement[];
     private locations = new BehaviorSubject<Location[]>([]);
     currentLocations = this.locations.asObservable();
 
+    constructor() {
+        this.incidentElements = [];
+    }
+    
     addLocation( obj: Location ) {
-        console.log("In NewReportService addLocation");
-        
         var arr = this.locations.getValue();
-        console.log("Before push: ");
-        console.log(arr);
 
+        /* HARDCODED */
+        obj.LOCATION_ID = 1 ;
+        obj.CAMPUS_ID = 1;
+        
         arr.push( obj );
-        console.log("After push: ");
-        console.log( arr);
-
         this.locations.next( arr );
-        console.log("currentLocations: ") 
-        console.log( this.locations.getValue());
+    }
+
+    collectIncidentElements() {
+        var locations = this.locations.getValue();
+        locations.forEach( loc => {
+            var locIE = DataHelperService.toIncidentElement( Config.LocationTable, loc );
+            this.incidentElements.push( locIE );
+        });
+
+        return this.incidentElements;
     }
 }

@@ -56,7 +56,8 @@ export class NewReportComponent implements OnInit {
     
 
     // HOLD OFF ON THIS
-    addIncident(): void {
+    createIncident(): void {
+        this.newIncident.incidentElements = this.newReportService.collectIncidentElements();
         console.log(this.newIncident);
         this.incidentService.create( this.newIncident )
             .then( returnedIncident => {
