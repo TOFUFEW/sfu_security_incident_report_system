@@ -132,7 +132,7 @@ body {
     border-color: #ddd;
   }
 
-  .panel-heading, .details-heading {
+  .panel-heading, .panel-footer, .details-heading {
     color: #333;
     font-weight: $header-font-weight;
     background-color: $white;
@@ -157,8 +157,12 @@ body {
     border-top-right-radius: 3px;
   }
 
-  .panel-body {
+  .panel-body, .panel-footer  {
     padding: 15px;
+  }
+
+  .panel-footer {
+      border: none;
   }
 }
 

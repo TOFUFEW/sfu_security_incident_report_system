@@ -108,11 +108,11 @@ body {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); }
   .panel.panel-default {
     border-color: #ddd; }
-  .panel .panel-heading, .panel .details-heading {
+  .panel .panel-heading, .panel .panel-footer, .panel .details-heading {
     color: #333;
     font-weight: 300;
     background-color: #ffffff; }
-    .panel .panel-heading .form-control, .panel .details-heading .form-control {
+    .panel .panel-heading .form-control, .panel .panel-footer .form-control, .panel .details-heading .form-control {
       background-color: #ffffff !important; }
   .panel.panel-login {
     width: 33%;
@@ -123,8 +123,10 @@ body {
     border-bottom: 2px solid transparent;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px; }
-  .panel .panel-body {
+  .panel .panel-body, .panel .panel-footer {
     padding: 15px; }
+  .panel .panel-footer {
+    border: none; }
 
 .details-container {
   display: flex;
