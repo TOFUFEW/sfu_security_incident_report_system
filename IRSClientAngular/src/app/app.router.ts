@@ -12,7 +12,7 @@ export const router: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'login', component: LoginComponent },
     // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
-    { path: 'mobile', component: GuardDashboardComponent },
+    { path: 'reporting', component: GuardDashboardComponent },
     { path: 'form', component: DynamicFormComponent },
 ];
 
