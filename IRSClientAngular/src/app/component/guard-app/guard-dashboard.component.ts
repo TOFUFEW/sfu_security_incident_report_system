@@ -21,7 +21,7 @@ import { UserService } from '../../service/user.service';
     styleUrls: [ '../../../assets/css/guard-dashboard.component.css' ]    
 })
 
-export class GuardDashboard {
+export class GuardDashboardComponent {
     title = 'SFU Incident Reporting System';
     locationsList: Location[];
     incidentsList: Incident[];
