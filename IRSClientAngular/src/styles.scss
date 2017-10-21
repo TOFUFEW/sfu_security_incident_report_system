@@ -3,7 +3,7 @@
 
 body {
     min-height: 100vh;
-    min-width: 100vh;
+    min-width: 100vw;
     margin: 0;
     font-size: 12px !important;
     background: $grey-default;
@@ -84,7 +84,8 @@ body {
     display: inline-block;
     width: auto;
     color: $field-title-color;
-    font-size: 116%;
+    font-weight: $field-title-font-weight;
+    font-size: 110%;
     margin-bottom: $field-title-margin-bottom;
 }
 
@@ -160,6 +161,39 @@ body {
     padding: 15px;
   }
 }
+
+.details-container {
+    display: flex;
+    flex-direction: column;
+    padding: $padding-md;
+
+    .details-heading {
+        span { font-size: $text-sm; }
+    }
+
+    .details-body {
+        @include flex(flex-start, flex-start);
+        flex-wrap: wrap;
+        padding: $padding-sm;
+        border-radius: 8px;
+        background-color: $grey-default;
+    }
+
+    .details-footer {
+        @include flex(flex-end, center);
+        padding: 8px;
+
+        .btn { 
+            margin-left: 12px;
+        }
+    }
+
+    .detail {
+        min-width: 250px;
+        padding: 10px 10px;
+    }
+}
+
 
 .glyphicon-heading {
     margin-right: 4px;

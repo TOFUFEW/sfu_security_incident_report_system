@@ -10,14 +10,21 @@ import { NewReportService } from '../service/new-report.service';
     templateUrl: '../view/location.component.html'
 })
 
-export class LocationComponent {
+export class LocationComponent implements OnInit {
+    campuses: number[] = [1, 2, 3];
     locations: Location[] = [];
     newLocation: Location = new Location();
 
     constructor (
         private locationService: LocationService,
         private reportService: NewReportService
-    ) { }
+    ) { 
+    }
+
+    ngOnInit() {
+        this.getLocations();
+        this.addLocationToReport();
+    }
 
     addLocationToReport(): void {
         console.log("In location component addLocationToReport: ")

@@ -62,7 +62,7 @@ export class NewReportComponent implements OnInit {
         this.incidentService.create( this.newIncident )
             .then( returnedIncident => {
                 if ( returnedIncident != null  ) {
-                  location.reload();
+                  //location.reload();
                 }
                 else alert( "Add failed." );
             } );

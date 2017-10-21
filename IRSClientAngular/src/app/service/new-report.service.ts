@@ -20,7 +20,6 @@ export class NewReportService {
 
         /* HARDCODED */
         obj.LOCATION_ID = 1 ;
-        obj.CAMPUS_ID = 1;
         
         arr.push( obj );
         this.locations.next( arr );
@@ -33,6 +32,7 @@ export class NewReportService {
             this.incidentElements.push( locIE );
         });
 
+        console.log(this.incidentElements);
         return this.incidentElements;
     }
 }

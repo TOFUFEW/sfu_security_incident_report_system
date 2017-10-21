@@ -1,22 +1,36 @@
-<div class="panel panel-default test-panel">
-  
-    <div class="panel-heading">
-      <h4>Locations</h4>
+<div class="details-container">
+    <div class="details-heading">
+        <span class="glyphicon glyphicon-map-marker glyphicon-heading"></span>
+        <span class="field-title">Location</span>
     </div>
-
-    <div class="panel-body">
-        <h4>Add a Location: </h4>
-        <!-- <span class="field-title">Campus</span>
-        <input type="text" [(ngModel)]="newLocation.CITY" /> <br><br> -->
-        <span class="field-title">Building Number</span>
-        <input type="text" [(ngModel)]="newLocation.BUILDING_NAME" /> <br><br>
-        <span class="field-title">Room Number</span>
-        <input type="text" [(ngModel)]="newLocation.ROOM_NUMBER" /> <br><br>
-        <span class="field-title">Department</span>
-        <input type="text" [(ngModel)]="newLocation.DEPARTMENT" /> <br> <br>
-        <button class="btn btn-primary" (click)="addLocationToReport()">
-          Submit
+    <div class="details-body">
+        <div class="detail col-12 col-sm-3">
+            <span class="field-title">WIP: Campus</span>
+            <select class="form-control" name="" id="" [(ngModel)]="newLocation.CAMPUS_ID">
+                <option *ngFor="let location of locations" [value]="location.CAMPUS_ID">{{location.CAMPUS_ID}}</option>
+            </select>
+        </div>
+        <div class="detail col-12 col-sm-3">
+            <span class="field-title">WIP: Building</span>
+            <select class="form-control" name="" id="" [(ngModel)]="newLocation.BUILDING_NAME">
+                <option *ngFor="let location of locations" [value]="location.BUILDING_NAME">{{location.BUILDING_NAME}}</option>
+            </select>
+        </div>
+        <div class="detail col-12 col-sm-3">
+            <span class="field-title">WIP: Room Number</span>
+            <select class="form-control" name="" id="" [(ngModel)]="newLocation.ROOM_NUMBER">
+                <option *ngFor="let location of locations" [value]="location.ROOM_NUMBER">{{location.ROOM_NUMBER}}</option>                    
+            </select>
+        </div>
+        <div class="detail col-12 col-sm-3">
+            <span class="field-title">WIP: Department</span>
+            <input class="form-control" type="text" [(ngModel)]="newLocation.DEPARTMENT" />
+        </div>
+    </div>
+    <!-- <div class="details-footer">
+        <a href="">Cancel</a>
+        <button class="btn btn-default" (click)="addLocationToReport()">
+            Add
         </button>
-
-    </div>
+    </div> -->
 </div>

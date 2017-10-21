@@ -1,6 +1,7 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12 col-sm-12 col-md-10 col-md-offset-1 col-md-offset-right-1">
+        <div class="col-12 col-sm-10 col-sm-offset-1 col-sm-offset-right-1 
+                    col-lg-6 col-lg-offset-3 col-lg-offset-right-3">
             <div id="new-report-panel" class="panel panel-default">
                 <div class="panel-heading">
                     <div>
@@ -12,58 +13,60 @@
 
                     <div class="details-container">
                         <div class="details-heading">
+                            <span class="glyphicon glyphicon-info-sign glyphicon-heading"></span>
                             <span class="field-title">Basic Information</span>
                         </div>
                         <div class="details-body">
-                            <div class="detail">
-                                <span class="field-title">Category</span>
+                            <div class="detail col-12 col-sm-3">
+                                <span class="field-title">WIP: Category</span>
                                 <select name="" id="" class="form-control">
                                 <option *ngFor="let category of categories" [value]="category">{{category}}</option>
                                 </select>
                             </div>
-                            <div class="detail">
-                                <span class="field-title">Sub Category</span>
+                            <div class="detail col-12 col-sm-3">
+                                <span class="field-title">WIP: Sub Category</span>
                                 <select class="form-control" [(ngModel)]="dynamicTest" (change)="onSelectChangeEvent()">
                                     <option *ngFor="let subCategory of subCategories" [value]="subCategory">{{subCategory}}</option>
                                 </select>
                             </div>
-                            <div class="detail">
-                                <span class="field-title">Type</span>
+                            <div class="detail col-12 col-sm-3">
+                                <span class="field-title">WIP: Type</span>
                                 <select name="" id="" class="form-control"></select>
                             </div>
-                            <div class="detail">
+                            <div class="detail col-12 col-sm-10">
                                 <span class="field-title">Description</span>
-                                <input type="text" class="form-control" [(ngModel)]="newIncident.attributes.DESCRIPTION" />
+                                <textarea class="form-control" cols="50" rows="1" [(ngModel)]="newIncident.attributes.DESCRIPTION"></textarea>
                             </div>
-                            <div class="detail">
+                            <div class="detail col-12 col-sm-10">
                                 <span class="field-title">Executive Summary</span>
                                 <textarea class="form-control" cols="50" rows="8" [(ngModel)]="newIncident.attributes.EXECUTIVE_SUMMARY"></textarea>                                
                             </div>
                         </div>
                     </div>
-                    
-                    <div>
-                        <h4>Locations</h4>
-                        <div *ngFor="let location of locations">
-                            <span>{{location.BUILDING_NAME}}, </span>
-                            <span>{{location.ROOM_NUMBER}}, </span>
-                            <span>{{location.DEPARTMENT}}</span>
+
+                    <div id="locations">
+                        <location-component></location-component> 
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-2 col-sm-offset-8">
+                            <button class="btn btn-default" (click)="addComponent(locationStr)">
+                                <span class="glyphicon glyphicon-plus"></span> New Location</button>                                
                         </div>
                     </div>
                     
-                    
-                    <div id="locations">
+                    <!-- <div id="locations">
                         <button class="btn btn-default" (click)="addComponent(locationStr)">Add Location</button>
                         <button class="btn btn-default" (click)="getLocations()">Get Locations</button>
                             
-                    </div>
+                    </div> -->
                     
 
-                    <button (click)="addComponent(dynamicTest)"> [+] </button>
+                    <!-- <button (click)="addComponent(dynamicTest)"> [+] </button> -->
                     
                     <!-- Dynamic Divs -->
-                    <div id="vehicles" *ngIf="dynamicTest == 'Vehicle'"> 
-                    </div>
+                    <!-- <div id="vehicles" *ngIf="dynamicTest == 'Vehicle'"> 
+                    </div> -->
 
                     <button class="btn btn-primary" (click)="createIncident()">Create Report</button>
                 </div>
