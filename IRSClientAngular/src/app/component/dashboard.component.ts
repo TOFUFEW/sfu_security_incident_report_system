@@ -42,6 +42,7 @@ export class DashboardComponent {
 
   addIncident(): void {
     var loc1 = new Location();
+    loc1.LOCATION_ID = 66; // hard-coded existing PK in table
     loc1.BUILDING_NAME = "TEST1";
     loc1.CAMPUS_ID = 1;
     loc1.DEPARTMENT  = "SOSY";
@@ -49,6 +50,7 @@ export class DashboardComponent {
     var _loc1 = this.dataHelper.toIncidentElement( Config.LocationTable, loc1);
 
     var loc2 = new Location();
+    loc2.LOCATION_ID = 67; // hard-coded existing PK in table
     loc2.BUILDING_NAME = "TEST2";
     loc2.CAMPUS_ID = 1;
     loc2.DEPARTMENT  = "SOSY";
