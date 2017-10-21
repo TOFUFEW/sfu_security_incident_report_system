@@ -30,6 +30,7 @@ div#incidents-container {
         height: 67%;
         overflow: hidden;
     }
+    
     div#bottom-panels.row {
         height: 33%;
         max-height: 33%;
@@ -40,29 +41,6 @@ div#incidents-container {
 
     div#left-col { padding-right: 0px; }
     div#right-col { padding-left: 0px; }
-    
-    div#incidents-list-panel, div#staff-list-panel {
-        height: 100%;
-        background: $grey-lite;
-        border-top: 4px solid $grey-default;
-        border-top-left-radius: 0px;
-        border-top-right-radius: 0px;
-        
-        div.panel-body {
-            padding-bottom: 0px;
-        }
-        
-        div#toolbar {
-            height: 20%;
-        }
-        div#incidents-list, div#staff-list {
-            height: 80%;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            background-color: $grey-dark;
-            overflow: auto;
-        }
-    }
 
     div.panel {
         overflow: hidden;
@@ -173,14 +151,16 @@ div#right-panels {
 div.side-container {
     flex-direction: column;
     padding: $padding-md;
-
     .panel {
         width: 100%;
         flex-grow: 1;
     }
 
+    //.panel-heading { padding-bottom: 0px; }
+    .panel-body { padding-top: 0px; }
+
     .form-control {
-        background-color: $grey-lite;
+        background-color: $grey-dark;
         border: none;
         box-shadow: none;
         max-width: 50%;
@@ -188,5 +168,9 @@ div.side-container {
 }
 
 incidents-component {
-    height: auto;
+    height: 100%;
+}
+
+.card {
+    box-shadow: 1px 1px 1px 0 rgba(0,0,0,.07), 1px 2px 5px 0 rgba(0,0,0,.06);
 }

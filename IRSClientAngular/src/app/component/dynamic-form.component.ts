@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { DomService } from '../service/dom.service';
 import { LocationComponent } from './location.component';
-import { MyTestComponent } from './myTest.component';
 
 @Component({
     selector: 'dynamic-form',
@@ -13,11 +12,9 @@ export class DynamicFormComponent {
 
     constructor(
         private domService: DomService,
-    ) {
-
-    }
+    ) {}
 
     addToDiv() {
-        this.domService.appendComponentToDiv(LocationComponent,"dynamic");
+        //this.domService.appendComponentToDiv(LocationComponent,"dynamic");
     }
  }

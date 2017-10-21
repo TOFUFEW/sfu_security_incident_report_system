@@ -12,12 +12,12 @@ export class StaffService {
     private headers = new Headers({'Content-Type': 'application/json'});
     staffUrl = Config.StaffURI;
     tableName = Config.StaffTable;
-    constructor(private http: Http, private dataHelper : DataHelperService) {}
+    constructor(private http: Http ) {}
 
     getStaffs(): Promise<Staff[]> {
         var staffList = this.http.get( this.staffUrl )
             .toPromise()
-            .then( response => this.dataHelper.extractAttributes( response.json() ) as Staff[] )
+            .then( response => DataHelperService.extractAttributesArray( response.json() ) as Staff[] )
             .catch( this.handleError );
         return Promise.resolve( staffList );
     };
@@ -26,7 +26,7 @@ export class StaffService {
 
     update( staff: Staff ) : Promise<Staff> {
         var promise = this.http
-                .put( this.staffUrl, JSON.stringify( this.dataHelper.toIncidentElement(this.tableName, staff) ), { headers: this.headers } )
+                .put( this.staffUrl, JSON.stringify( DataHelperService.toIncidentElement(this.tableName, staff) ), { headers: this.headers } )
                 .toPromise()
                 .then( response => response.json() as Staff )
                 .catch( this.handleError );

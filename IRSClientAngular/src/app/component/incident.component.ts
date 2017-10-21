@@ -1,30 +1,31 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Incident } from '../model/incident';
 import { Location } from '../model/location';
-import { IncidentsService } from '../service/incidents.service';
+import { IncidentService } from '../service/incident.service';
 
 @Component( 
   {
     selector: 'incidents-component',
     templateUrl: '../view/incidents.component.html',
-    styleUrls: ['../../assets/css/incidents.component.css']
+    styleUrls: ['../../assets/css/incidents.component.css',
+                '../../assets/css/panels.css']
   }
 )
 
-export class IncidentsComponent implements OnInit {
+export class IncidentComponent implements OnInit {
   incidents: Incident[];
   newIncident: Incident = new Incident();
   
-  constructor( private incidentsService: IncidentsService ){};
+  constructor( private incidentService: IncidentService ){};
 
   getIncidents(): void {
-    this.incidentsService.getIncidents().then( returnedIncidents => {
-      this.incidents = returnedIncidents;
-    } );    
+      this.incidentService.getIncidents().then( returnedIncidents => {
+          this.incidents = returnedIncidents;
+      } );    
   }
 
   deleteIncident( id: number ): void {
-    this.incidentsService.delete( id ).then( isDeleted => {
+    this.incidentService.delete( id ).then( isDeleted => {
         var msg = isDeleted ? "Incident successfully deleted!" : "Delete failed";
         alert(msg);
         var i = this.incidents.findIndex( loc => loc.attributes.REPORT_ID === id );
@@ -34,7 +35,7 @@ export class IncidentsComponent implements OnInit {
   }
 
   ngOnInit() : void {
-    this.getIncidents();
+      this.getIncidents();
   }
   
 }

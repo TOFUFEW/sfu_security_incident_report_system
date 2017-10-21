@@ -1,40 +1,47 @@
-<table id="incidents-table" class="max-height-width">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Report ID</th>
-      <th>Category</th>
-      <th>SubCategory</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Location</th>
-      <th>Assigned Staff</th>
-      <th>Date/Time Created</th>
-    </tr>
-  </thead>
-  <tbody *ngFor="let incident of incidents">
-    <tr>
-      <td>!!!</td>
-      <td>RID11283940<!-- {{incident.REPORT_ID}} --></td>
-      <td>Environmental</td>
-      <td>Accidental Spill/Release</td>
-      <td>Biological</td>
-      <td>{{incident.DESCRIPTION}} </td>
-      <td>Burnaby AQ 3150</td>
-      <td><a href="">Assign</a></td>
-      <td>08/13/2017 4:44</td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- <div class="row-container">
-  <span class="field-title">Description</span>
-  <textarea cols="50" rows="8" [(ngModel)]="newIncident.DESCRIPTION"></textarea>
+<div id="incidents-list-panel" class="panel panel-default">
+    <div class="panel-heading">
+        <div class="toolbar col-md-6 col-lg-6">
+            <div>
+                <span class="glyphicon glyphicon-list-alt glyphicon-heading"></span>
+                <span class="panel-header">Reports</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-md-offset-2 col-lg-offset-2">
+            <input class="form-control" type="text" placeholder="Search for incidents...">
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="incidents-list" class="col-md-12 col-lg-12">
+            <table id="incidents-table" class="max-height-width">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Report ID</th>
+                        <th>Category</th>
+                        <th>SubCategory</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Location</th>
+                        <th>Assigned To</th>
+                        <th>Assigned By</th>
+                        <th>Date/Time Created</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let incident of incidents">
+                    <tr>
+                        <td>!!!</td>
+                        <td>RID11283940<!-- {{incident.REPORT_ID}} --></td>
+                        <td>Environmental</td>
+                        <td>Accidental Spill/Release</td>
+                        <td>Biological</td>
+                        <td>{{incident.DESCRIPTION}} </td>
+                        <td>Burnaby AQ 3150</td>
+                        <td><a href="">Assign</a></td>
+                        <td>Dispatcher Name</td>
+                        <td>08/13/2017 4:44</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-
-<div class="row-container">
-  <span class="field-title">Executive Summary</span>
-  <textarea cols="50" rows="8" [(ngModel)]="newIncident.EXECUTIVE_SUMMARY"></textarea>
-</div>
-
-<button class="btn btn-primary" (click)="addIncident();">Submit</button> -->
