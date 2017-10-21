@@ -126,7 +126,11 @@ body {
   .panel .panel-body, .panel .panel-footer {
     padding: 15px; }
   .panel .panel-footer {
-    border: none; }
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border: none;
+    padding: 16px 32px 32px 32px; }
 
 .details-container {
   display: flex;

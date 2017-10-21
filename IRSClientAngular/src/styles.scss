@@ -162,7 +162,9 @@ body {
   }
 
   .panel-footer {
+      @include flex(flex-end, center);
       border: none;
+      padding: 16px 32px 32px 32px;
   }
 }
 
