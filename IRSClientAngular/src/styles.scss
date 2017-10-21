@@ -190,3 +190,25 @@ span.glyphicon-fire {
 .header {
     font-size: $text-lg;
 }
+
+.link {
+    text-decoration: underline;
+    color: #0645AD ; 
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+/****************************/
+/*  Guard app styles
+/****************************/
+
+.animate-show-hide.ng-hide {
+    opacity: 0;
+}
+
+.animate-show-hide.ng-hide-add,
+.animate-show-hide.ng-hide-remove {
+    transition: all linear 0.5s;
+}
