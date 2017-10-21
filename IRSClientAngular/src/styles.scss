@@ -129,15 +129,16 @@ body {
 
   &.panel-default {
     border-color: #ddd;
-    .panel-heading {
-      color: #333;
-      font-weight: $header-font-weight;
-      background-color: $white;
-      //border-color: #ddd;
+  }
 
-      .form-control {
-          background-color: $white !important;
-      }
+  .panel-heading, .details-heading {
+    color: #333;
+    font-weight: $header-font-weight;
+    background-color: $white;
+    //border-color: #ddd;
+
+    .form-control {
+        background-color: $white !important;
     }
   }
 

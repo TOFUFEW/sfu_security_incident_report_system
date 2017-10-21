@@ -9,28 +9,37 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div>
-                        <h4>Category</h4>
-                        <select>
-                            <option *ngFor="let category of categories" [value]="category">{{category}}</option>
-                        </select>
-                    </div>
-                    
-                    <div>
-                        <h4>Sub-Category</h4>
-                        <select [(ngModel)]="dynamicTest" (change)="onSelectChangeEvent()">
-                            <option *ngFor="let subCategory of subCategories" [value]="subCategory">{{subCategory}}</option>
-                        </select>
-                    </div>
-                    
-                    <div>
-                        <h4>Description</h4>
-                        <textarea cols="50" rows="4" [(ngModel)]="newIncident.attributes.DESCRIPTION"></textarea>
-                    </div>
-                
-                    <div>
-                        <h4>Executive Summary</h4>
-                        <textarea cols="50" rows="8" [(ngModel)]="newIncident.attributes.EXECUTIVE_SUMMARY"></textarea>
+
+                    <div class="details-container">
+                        <div class="details-heading">
+                            <span class="field-title">Basic Information</span>
+                        </div>
+                        <div class="details-body">
+                            <div class="detail">
+                                <span class="field-title">Category</span>
+                                <select name="" id="" class="form-control">
+                                <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+                                </select>
+                            </div>
+                            <div class="detail">
+                                <span class="field-title">Sub Category</span>
+                                <select class="form-control" [(ngModel)]="dynamicTest" (change)="onSelectChangeEvent()">
+                                    <option *ngFor="let subCategory of subCategories" [value]="subCategory">{{subCategory}}</option>
+                                </select>
+                            </div>
+                            <div class="detail">
+                                <span class="field-title">Type</span>
+                                <select name="" id="" class="form-control"></select>
+                            </div>
+                            <div class="detail">
+                                <span class="field-title">Description</span>
+                                <input type="text" class="form-control" [(ngModel)]="newIncident.attributes.DESCRIPTION" />
+                            </div>
+                            <div class="detail">
+                                <span class="field-title">Executive Summary</span>
+                                <textarea class="form-control" cols="50" rows="8" [(ngModel)]="newIncident.attributes.EXECUTIVE_SUMMARY"></textarea>                                
+                            </div>
+                        </div>
                     </div>
                     
                     <div>
