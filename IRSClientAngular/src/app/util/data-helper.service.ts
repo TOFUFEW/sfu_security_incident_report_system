@@ -35,24 +35,25 @@ export class DataHelperService
     toCategoryDictionary( categories: Category[] ) : CategoryMapping[] {
         // Assuming categories is unsorted by Main Category
         // Some SubCategories do not have Types
-        var mappings: CategoryMapping[] ;
-        mappings = [];
-        if ( categories == null ) return mappings;
+        var categoryMap: CategoryMapping[] ;
+        categoryMap = [];
+        if ( categories == null ) return categoryMap;
 
         var currentMap = new CategoryMapping();
         currentMap.MAIN_CATEGORY = "";
 
         var mainCategories = [];
-        categories.forEach( cat => {
-            if ( mainCategories.indexOf( cat.MAIN_CATEGORY ) < 0 ) {
-                mainCategories.push( cat.MAIN_CATEGORY );
-                mappings.push( this.insertMainCategory( cat.MAIN_CATEGORY, categories ));
+        categories.forEach( category => {
+            if ( mainCategories.indexOf( category.MAIN_CATEGORY ) < 0 ) {
+                console.log ( "main category index: " + mainCategories.indexOf(category.MAIN_CATEGORY));
+                mainCategories.push( category.MAIN_CATEGORY );
+                categoryMap.push( this.insertMainCategory( category.MAIN_CATEGORY, categories ));
             }
         });
 
         console.log("mappings: ");
-        console.log( mappings );
-        return mappings;
+        console.log( categoryMap );
+        return categoryMap;
     }
 
     insertMainCategory( mainCategory: string, categories: Category[] ): CategoryMapping {
@@ -61,10 +62,12 @@ export class DataHelperService
         grouping.MAIN_CATEGORY = mainCategory;
 
         var subCategories = [];
-        categories.forEach( cat => {
-            var subCategory = cat.SUB_CATEGORY;
-            if ( subCategories.indexOf( subCategory ) < 0 ) {
-                grouping.SUBCATEGORIES.push( this.insertSubCategory( grouping.MAIN_CATEGORY, subCategory, categories ) );
+        categories.forEach( category => {
+            if ( category.MAIN_CATEGORY == grouping.MAIN_CATEGORY ) {
+                var subCategory = category.SUB_CATEGORY;
+                if ( subCategories.indexOf( subCategory ) < 0 ) {
+                    grouping.SUBCATEGORIES.push( this.insertSubCategory( grouping.MAIN_CATEGORY, subCategory, categories ) );
+                }
             }
         });
 
