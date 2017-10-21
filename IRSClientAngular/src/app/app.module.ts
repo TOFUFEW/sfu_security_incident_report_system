@@ -13,7 +13,7 @@ import { LocationComponent } from './component/location.component';
 import { StaffComponent } from './component/staff.component';
 import { IncidentsComponent } from './component/incidents.component';
 import { LoginComponent } from './component/login.component';
-import { GuardDashboard } from './component/guard-app/guard-dashboard.component';
+import { GuardDashboardComponent } from './component/guard-app/guard-dashboard.component';
 import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
 import { CategoryComponent } from './component/category.component'
 import { NewIncidentComponent } from './component/new-incident.component';
@@ -44,7 +44,7 @@ import { LocationService } from './service/location.service'
     StaffComponent,
     IncidentsComponent,
     LoginComponent,
-    GuardDashboard,
+    GuardDashboardComponent,
     GuardIncidentComponent,
     CategoryComponent,
     NewIncidentComponent,
