@@ -35,9 +35,8 @@ export class CategoryService
         var mainCategories = [];
         categories.forEach( category => {
             if ( mainCategories.indexOf( category.MAIN_CATEGORY ) < 0 ) {
-                console.log ( "main category index: " + mainCategories.indexOf(category.MAIN_CATEGORY));
                 mainCategories.push( category.MAIN_CATEGORY );
-                categoryMap.push( this.insertMainCategory( category.MAIN_CATEGORY, categories ));
+                categoryMap.push( this.getMainCategory( category.MAIN_CATEGORY, categories ));
             }
         });
 
@@ -46,7 +45,7 @@ export class CategoryService
         return categoryMap;
     }
 
-    private insertMainCategory( mainCategory: string, categories: Category[] ): CategoryDictionary {
+    private getMainCategory( mainCategory: string, categories: Category[] ): CategoryDictionary {
         var grouping = new CategoryDictionary();
         if ( categories == null || categories.length == 0 ) return grouping;
         grouping.MAIN_CATEGORY = mainCategory;
@@ -56,7 +55,7 @@ export class CategoryService
             if ( category.MAIN_CATEGORY == grouping.MAIN_CATEGORY ) {
                 var subCategory = category.SUB_CATEGORY;
                 if ( subCategories.indexOf( subCategory ) < 0 ) {
-                    grouping.SUBCATEGORIES.push( this.insertSubCategory( grouping.MAIN_CATEGORY, subCategory, categories ) );
+                    grouping.SUBCATEGORIES.push( this.getSubCategory( grouping.MAIN_CATEGORY, subCategory, categories ) );
                 }
             }
         });
@@ -64,7 +63,7 @@ export class CategoryService
         return grouping;
     }
 
-    private insertSubCategory( mainCategory: string, subCategory: string, categories: Category[] ): SubCategory {
+    private getSubCategory( mainCategory: string, subCategory: string, categories: Category[] ): SubCategory {
         var grouping = new SubCategory();
         grouping.SUB_CATEGORY = subCategory;
 
