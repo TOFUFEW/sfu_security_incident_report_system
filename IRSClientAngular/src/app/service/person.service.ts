@@ -12,12 +12,12 @@ export class PersonService {
     private headers = new Headers({'Content-Type': 'application/json'});
     personUrl = Config.PersonURI;
     tableName = Config.PersonTable;
-    constructor(private http: Http, private dataHelper : DataHelperService) {}
+    constructor(private http: Http) {}
 
     getPersons(): Promise<Person[]> {
         var personList = this.http.get( this.personUrl )
             .toPromise()
-            .then( response => this.dataHelper.extractAttributes( response.json() ) as Person[] )
+            .then( response => DataHelperService.extractAttributesArray( response.json() ) as Person[] )
             .catch( this.handleError );
         return Promise.resolve( personList );
     }
@@ -25,14 +25,14 @@ export class PersonService {
     search( person: Person ) : Promise<Person[]> {
         var personList = this.http.get( this.personUrl )
             .toPromise()
-            .then( response => this.dataHelper.extractAttributes( response.json() ) as Person[] )
+            .then( response => DataHelperService.extractAttributes( response.json() ) as Person[] )
             .catch(this.handleError );
         return Promise.resolve( personList );
     }
 
     create( person: Person ) : Promise<Person> {
         var promise = this.http
-                .put( this.personUrl, JSON.stringify( this.dataHelper.toIncidentElement( this.tableName, person ) ), { headers: this.headers } )
+                .put( this.personUrl, JSON.stringify( DataHelperService.toIncidentElement( this.tableName, person ) ), { headers: this.headers } )
                 .toPromise()
                 .then( response => response.json() as Person )
                 .catch( this.handleError );
@@ -41,7 +41,7 @@ export class PersonService {
 
     update( person: Person ) : Promise<Person> {
         var promise = this.http
-            .put( this.personUrl, JSON.stringify( this.dataHelper.toIncidentElement(this.tableName, person) ), { headers: this.headers } )
+            .put( this.personUrl, JSON.stringify( DataHelperService.toIncidentElement(this.tableName, person) ), { headers: this.headers } )
             .toPromise()
             .then( response => response.json() as Person )
             .catch( this.handleError );
@@ -62,6 +62,25 @@ export class PersonService {
                 .catch( this.handleError );
         return Promise.resolve( promise );
     };
+
+    searchList(personList : Person[]) : void {
+
+        // Declare variables
+        var input, filter, ul, li;
+        input = document.getElementById('personInput');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("peopleDisplay");
+        li = ul.getElementsByTagName('li');
+        
+        // Loop through all list items, and hide those who don't match the search query
+        for (var i = 0; i < personList.length; i++ ){
+            if (personList[i].FIRST_NAME.toUpperCase().indexOf(filter) > -1 ){
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }        
+    }
 
     private handleError(error: any): Promise<any> {
         alert( "An error occurred." );

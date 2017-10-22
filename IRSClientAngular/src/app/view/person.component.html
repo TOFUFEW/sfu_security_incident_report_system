@@ -4,17 +4,9 @@
 
     <h4>Search</h4>
 
-    <span class="field-title">First Name</span>
-    <input type="text" [(ngModel)]="newPerson.FIRST_NAME" /> <br>
-    <span class="field-title">Last Name</span>
-    <input type="text" [(ngModel)]="newPerson.LAST_NAME" /> <br>
-    <span class="field-title">Phone Number</span>
-    <input type="text" [(ngModel)]="newPerson.PHONE_NUMBER" /> <br>
-    <button class="btn btn-primary" (click)="findPerson();">
-        Search
-    </button>
-      
-    <ul>
+    <input type="text" id="personInput" ng-keyup="findPerson()" placeholder="Search for people..">
+   
+    <ul id="peopleDisplay">
       <li *ngFor="let person of personList">
           Id: {{person.PERSON_ID}}, 
           {{person.FIRST_NAME}}, 

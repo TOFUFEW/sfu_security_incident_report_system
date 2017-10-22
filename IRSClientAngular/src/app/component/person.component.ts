@@ -36,15 +36,7 @@ export class PersonComponent implements OnInit {
   }
 
   findPerson(): void {
-    this.personService.search( this.newPerson )
-      .then(returnedPerson => {
-        if (returnedPerson != null) {
-          this.personList = returnedPerson;
-        }
-        else alert("Person Not Found");
-      });
-    delete this.newPerson;
-    this.newPerson = new Person();
+    this.personService.searchList( this.personList );
   }
 
   updatePerson( person: Person ): void {
