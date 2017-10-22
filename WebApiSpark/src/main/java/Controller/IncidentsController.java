@@ -23,7 +23,8 @@ public class IncidentsController
     {
         get ("/incidents" , ( request , response ) ->
         {
-            return JsonUtil.toJson ( DBHelper.getIncidents () );
+            Incident []  incidents = DBHelper.getIncidents ();
+            return JsonUtil.toJson ( incidents );
         } );
 
         post ("/incidents" , ( request, response ) ->
@@ -32,6 +33,5 @@ public class IncidentsController
             String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
             return DBHelper.insertIncident ( incidentString , newIncident );
         } );
-
     }
 }
