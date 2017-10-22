@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Incident} from "../model/incident";
 import {Location} from "../model/location";
-import {IncidentsService} from "../service/incidents.service";
+import {IncidentService} from "../service/incident.service";
 import {LocationService} from "../service/location.service";
 
 
@@ -9,14 +9,14 @@ import {LocationService} from "../service/location.service";
   selector: 'guard-dashboard',
   templateUrl: '../view/guard-dashboard.component.html',
   styleUrls: ['../../assets/css/guard-dashboard.component.css'],
-  providers: [ IncidentsService]
+  providers: [ IncidentService ]
 })
 
 export class GuardDashboardComponent implements OnInit {
   incidents: Incident[];
   newIncident: Incident = new Incident();
 
-  constructor( private incidentsService: IncidentsService){};
+  constructor( private incidentsService: IncidentService ) {};
 
   getIncidents(): void {
     this.incidentsService.getIncidents().then( returnedIncidents => {

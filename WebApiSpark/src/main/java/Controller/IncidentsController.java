@@ -2,13 +2,8 @@ package Controller;
 
 import Model.Incident;
 import Util.DBHelper;
-import Util.DatabaseValues;
 import Util.JsonUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static Util.JsonUtil.json;
 import static spark.Spark.get;
 import static spark.Spark.post;
 
