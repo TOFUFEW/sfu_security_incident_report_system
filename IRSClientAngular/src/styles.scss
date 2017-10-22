@@ -89,6 +89,14 @@ body {
     margin-bottom: $field-title-margin-bottom;
 }
 
+.field-value {
+    display: inline-block;
+    width: auto;
+    color: $sfu-black;
+    font-size: 120%;
+    margin-bottom: $field-title-margin-bottom;
+}
+
 .card-text-primary {
     color: $sfu-black;
     font-size: 115%;
@@ -121,8 +129,10 @@ body {
 }
 
 .panel {
+    background-color: $white;
+}
+.panel, .modal-dialog {
   margin-bottom: 20px;
-  background-color: $white;
   border: 1px solid transparent;
   border-radius: 4px;
   -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
@@ -168,6 +178,8 @@ body {
   }
 }
 
+.modal-header { border-bottom: none; }
+.modal-footer { border-top: none; }
 .details-container {
     display: flex;
     flex-direction: column;

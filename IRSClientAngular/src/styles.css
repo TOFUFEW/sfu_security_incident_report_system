@@ -73,6 +73,13 @@ body {
   font-size: 110%;
   margin-bottom: 8px; }
 
+.field-value {
+  display: inline-block;
+  width: auto;
+  color: #54585A;
+  font-size: 120%;
+  margin-bottom: 8px; }
+
 .card-text-primary {
   color: #54585A;
   font-size: 115%; }
@@ -100,37 +107,45 @@ body {
     border-color: #434648 !important; }
 
 .panel {
+  background-color: #ffffff; }
+
+.panel, .modal-dialog {
   margin-bottom: 20px;
-  background-color: #ffffff;
   border: 1px solid transparent;
   border-radius: 4px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); }
-  .panel.panel-default {
+  .panel.panel-default, .modal-dialog.panel-default {
     border-color: #ddd; }
-  .panel .panel-heading, .panel .panel-footer, .panel .details-heading, .panel .details-footer {
+  .panel .panel-heading, .panel .panel-footer, .panel .details-heading, .panel .details-footer, .modal-dialog .panel-heading, .modal-dialog .panel-footer, .modal-dialog .details-heading, .modal-dialog .details-footer {
     color: #333;
     font-weight: 300;
     background-color: #ffffff; }
-    .panel .panel-heading .form-control, .panel .panel-footer .form-control, .panel .details-heading .form-control, .panel .details-footer .form-control {
+    .panel .panel-heading .form-control, .panel .panel-footer .form-control, .panel .details-heading .form-control, .panel .details-footer .form-control, .modal-dialog .panel-heading .form-control, .modal-dialog .panel-footer .form-control, .modal-dialog .details-heading .form-control, .modal-dialog .details-footer .form-control {
       background-color: #ffffff !important; }
-  .panel.panel-login {
+  .panel.panel-login, .modal-dialog.panel-login {
     width: 33%;
     min-width: 350px;
     margin-top: 50px; }
-  .panel .panel-heading {
+  .panel .panel-heading, .modal-dialog .panel-heading {
     padding: 20px 15px 10px 15px;
     border-bottom: 2px solid transparent;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px; }
-  .panel .panel-body, .panel .panel-footer {
+  .panel .panel-body, .panel .panel-footer, .modal-dialog .panel-body, .modal-dialog .panel-footer {
     padding: 15px; }
-  .panel .panel-footer {
+  .panel .panel-footer, .modal-dialog .panel-footer {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     border: none;
     padding: 16px 32px 32px 32px; }
+
+.modal-header {
+  border-bottom: none; }
+
+.modal-footer {
+  border-top: none; }
 
 .details-container {
   display: flex;
