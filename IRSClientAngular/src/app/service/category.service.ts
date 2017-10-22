@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Category } from '../model/category';
-import { MainCategory } from '../model/category-main';
-import { SubCategory } from '../model/category-sub';
-import { CategoryType } from '../model/category-type';
+import { Category, CategoryDictionary, SubCategory, CategoryType } from '../model/category';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
@@ -25,29 +22,74 @@ export class CategoryService
     return Promise.resolve( categories );
     };
     
-    // getMainCategories(): Promise< MainCategory[] > {
-    //     var mainCategories = this.http.get ( this.CategoriesUrl )
-    //         .toPromise()
-    //         .then ( response => response.json() as MainCategory[] )
-    //         .catch ( this.handleError );
-    //     return Promise.resolve ( mainCategories );
-    // };
+    toCategoryDictionary( categories: Category[] ) : CategoryDictionary[] {
+        // Assuming categories is unsorted by Main Category
+        // Some SubCategories do not have Types
+        var categoryMap: CategoryDictionary[] ;
+        categoryMap = [];
+        if ( categories == null ) return categoryMap;
 
-    // getSubCategories(): Promise<SubCategory[]> {
-    //     var subCategories =  this.http.get ( this.CategoriesUrl )
-    //     .toPromise()
-    //     .then ( response => response.json() as SubCategory[] )
-    //     .catch ( this.handleError );
-    // return Promise.resolve ( subCategories );
-    // }
+        var currentMap = new CategoryDictionary();
+        currentMap.MAIN_CATEGORY = "";
 
-    // getCategoryTypes(): Promise<CategoryType[]> {
-    //     var categoryTypes =  this.http.get ( this.CategoriesUrl )
-    //     .toPromise()
-    //     .then ( response => response.json() as CategoryType[] )
-    //     .catch ( this.handleError );
-    // return Promise.resolve ( categoryTypes );
-    // }
+        var mainCategories = [];
+        categories.forEach( category => {
+            if ( mainCategories.indexOf( category.MAIN_CATEGORY ) < 0 ) {
+                console.log ( "main category index: " + mainCategories.indexOf(category.MAIN_CATEGORY));
+                mainCategories.push( category.MAIN_CATEGORY );
+                categoryMap.push( this.insertMainCategory( category.MAIN_CATEGORY, categories ));
+            }
+        });
+
+        console.log("mappings: ");
+        console.log( categoryMap );
+        return categoryMap;
+    }
+
+    private insertMainCategory( mainCategory: string, categories: Category[] ): CategoryDictionary {
+        var grouping = new CategoryDictionary();
+        if ( categories == null || categories.length == 0 ) return grouping;
+        grouping.MAIN_CATEGORY = mainCategory;
+
+        var subCategories = [];
+        categories.forEach( category => {
+            if ( category.MAIN_CATEGORY == grouping.MAIN_CATEGORY ) {
+                var subCategory = category.SUB_CATEGORY;
+                if ( subCategories.indexOf( subCategory ) < 0 ) {
+                    grouping.SUBCATEGORIES.push( this.insertSubCategory( grouping.MAIN_CATEGORY, subCategory, categories ) );
+                }
+            }
+        });
+
+        return grouping;
+    }
+
+    private insertSubCategory( mainCategory: string, subCategory: string, categories: Category[] ): SubCategory {
+        var grouping = new SubCategory();
+        grouping.SUB_CATEGORY = subCategory;
+
+        var types = [];
+        categories.forEach( cat => {
+            if ( cat.MAIN_CATEGORY === mainCategory && cat.SUB_CATEGORY === grouping.SUB_CATEGORY ) {
+                if ( cat.INCIDENT_TYPE == null || cat.INCIDENT_TYPE.length == 0 ) {
+                    console.log( "No Type: " + cat.CATEGORY_ID);
+                    grouping.CATEGORY_ID = cat.CATEGORY_ID;
+                    grouping.TYPES = [];
+                    return grouping;
+                }
+
+                if ( types.indexOf( cat.INCIDENT_TYPE ) < 0 ) {
+                    types.push ( cat.INCIDENT_TYPE ); 
+                    var type = new CategoryType();
+                    type.CATEGORY_ID = cat.CATEGORY_ID;
+                    type.INCIDENT_TYPE = cat.INCIDENT_TYPE;
+                    grouping.TYPES.push( type );
+                }
+            }
+        });
+
+        return grouping;
+    }
 
     private handleError( error: any ) : Promise<any> 
     {
