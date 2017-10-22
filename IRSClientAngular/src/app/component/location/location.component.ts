@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IncidentElement } from '../model/incident-element';
-import { Location } from '../model/location';
-import { LocationService } from '../service/location.service';
 import { Router, RouterModule } from '@angular/router';
-import { NewReportService } from '../service/new-report.service';
+import { LocationService } from '../../service/location.service';
+import { NewReportService } from '../../service/new-report.service';
+import { IncidentElement } from '../report/incident-element';
+import { Location } from './location';
 
 @Component({
     selector: 'location-component',
-    templateUrl: '../view/location.component.html'
+    templateUrl: './location.component.html'
 })
 
 export class LocationComponent {
