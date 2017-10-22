@@ -327,7 +327,7 @@ public class TestLocation
         Assert.assertTrue ( DBHelper.deleteIncidentElement ( location1 ) );
     }
 
-    private static String DEBUG_getLargestLocationIDFromTable ()
+    public static String DEBUG_getLargestLocationIDFromTable ()
     {
         try
         {
