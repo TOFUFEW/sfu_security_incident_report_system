@@ -5,9 +5,10 @@ import { DataHelperService } from '../util/data-helper.service';
 
 @Component( 
   {
-  selector: 'category-component',
-  templateUrl: '../view/category.component.html',
-  providers: [ CategoryService ]
+    selector: 'category-component',
+    templateUrl: '../view/category.component.html',
+    styleUrls: ['../../assets/css/incidents.component.css'],  
+    providers: [ CategoryService ]
   }
 )
 
@@ -25,7 +26,7 @@ export class CategoryComponent implements OnInit {
     getCategories(): void {     
 
         this.categoryService.getCategories().then ( returnedCategories => {             
-            this.categories = this.dataHelper.toCategoryDictionary( returnedCategories );
+            this.categories = this.dataHelper.toCategoryDictionary ( returnedCategories );
             console.log ( this.categories[0].SUBCATEGORIES[0].SUB_CATEGORY );
         } );
     }
@@ -36,14 +37,14 @@ export class CategoryComponent implements OnInit {
     var index = this.categories.findIndex( item => 
         item.MAIN_CATEGORY === categoryName);
     this.filteredSubcategories = this.categories[index].SUBCATEGORIES;
-    console.log( "list of corresponding subcategories " + this.filteredSubcategories );
+    console.log ( "list of corresponding subcategories " + this.filteredSubcategories );
     }
 
     onSelectSubCategory ( subCategoryName ) {
         var index = this.filteredSubcategories.findIndex( item => 
-            item.SUB_CATEGORY == subCategoryName);
+            item.SUB_CATEGORY == subCategoryName );
         this.filteredTypes = this.filteredSubcategories[index].TYPES;
-        console.log("subcategory" + subCategoryName);
+        console.log ( "subcategory" + subCategoryName );
     }
 
     onSelectTypeCategory ( typeName ) {
@@ -52,7 +53,7 @@ export class CategoryComponent implements OnInit {
     }
 
     submitCategory () {
-        console.log( "submitting category" );
+        console.log ( "submitting category" );
         if ( this.categoryID == -1 ) {
             if ( this.filteredTypes.length == 0 ) {
                 this.categoryID = this.filteredSubcategories[0].CATEGORY_ID;
@@ -60,21 +61,15 @@ export class CategoryComponent implements OnInit {
             }
             else
             {
-                console.log("Please select an incident type");
+                console.log ( "Please select an incident type" );
             }
         }
-        if (this.categoryID != -1 ) {
+        if ( this.categoryID != -1 ) {
             console.log ( "category id: " + this.categoryID );
         }
     }
-    // onSelectSubCategory ( subCategoryName ) {            
-    //     var index = this.filteredSubcategories.findIndex( item => 
-    //         item.SUB_CATEGORY == subCategoryName);
-    //     this.filteredTypes = this.filteredSubcategories[index].TYPES;
-    //     console.log(subCategoryName);
-    // }
 
-  ngOnInit(): void {
-    this.getCategories();
-  }
+    ngOnInit(): void {
+        this.getCategories();
+    }
 }
