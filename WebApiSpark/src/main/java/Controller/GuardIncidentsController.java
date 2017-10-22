@@ -10,7 +10,7 @@ import static spark.Spark.post;
 
 public class GuardIncidentsController
 {
-    public GuardIncidentsController()
+    public GuardIncidentsController ()
     {
         setupEndPoints ();
     }
@@ -19,8 +19,8 @@ public class GuardIncidentsController
     {
         post ( "/guardIncidents",  ( request , response ) ->
         {
-            User user = (User) JsonUtil.fromJson( request.body(), User.class );
-            int accountID = Integer.parseInt( user.getAttributeValue(DatabaseValues.Column.ACCOUNT_ID));
+            User user = ( User ) JsonUtil.fromJson ( request.body(), User.class );
+            int accountID = Integer.parseInt ( user.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID ) );
             Incident [] incidents = DBHelper.getGuardIncidents ( accountID );
             return JsonUtil.toJson ( incidents );
         });
