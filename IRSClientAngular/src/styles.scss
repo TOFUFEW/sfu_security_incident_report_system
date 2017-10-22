@@ -180,6 +180,7 @@ body {
     .details-body {
         @include flex(flex-start, flex-start);
         flex-wrap: wrap;
+        margin-bottom: 8px;
         padding: $padding-sm;
         border-radius: 8px;
         background-color: $grey-default;

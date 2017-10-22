@@ -108,11 +108,11 @@ body {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); }
   .panel.panel-default {
     border-color: #ddd; }
-  .panel .panel-heading, .panel .panel-footer, .panel .details-heading {
+  .panel .panel-heading, .panel .panel-footer, .panel .details-heading, .panel .details-footer {
     color: #333;
     font-weight: 300;
     background-color: #ffffff; }
-    .panel .panel-heading .form-control, .panel .panel-footer .form-control, .panel .details-heading .form-control {
+    .panel .panel-heading .form-control, .panel .panel-footer .form-control, .panel .details-heading .form-control, .panel .details-footer .form-control {
       background-color: #ffffff !important; }
   .panel.panel-login {
     width: 33%;
@@ -143,6 +143,7 @@ body {
     justify-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;
+    margin-bottom: 8px;
     padding: 12px;
     border-radius: 8px;
     background-color: #f9f9f9; }
