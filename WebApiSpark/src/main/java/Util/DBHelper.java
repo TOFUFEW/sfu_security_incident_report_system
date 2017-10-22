@@ -23,14 +23,17 @@ public class DBHelper
 
         try
         {
-            ResultSet resultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.INCIDENT.toString() );
+            ResultSet incidentResultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.INCIDENT.toString());
 
-            while ( resultSet.next () )
+            while ( incidentResultSet.next () )
             {
                 Incident incident = new Incident ();
 
-                incident.extractFromCurrentRow ( resultSet );
+                incident.extractFromCurrentRow ( incidentResultSet );
 
+                ArrayList < IncidentElement > incidentElementsList = getIncidentElements ( Integer.parseInt (incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) ) );
+
+                incident.changeIncidentElementList ( incidentElementsList );
                 incidentList.add ( incident );
             }
         }
@@ -41,6 +44,54 @@ public class DBHelper
         }
 
         return incidentList.toArray ( new Incident [ incidentList.size () ] );
+    }
+
+    private static ArrayList < IncidentElement > getIncidentElements ( int reportID ) {
+        ArrayList < IncidentElement > incidentElementsList = new ArrayList <> ();
+
+        try {
+            String getIncidentElementsQuery =
+                    "SELECT Location.* FROM HappensAt INNER JOIN Location ON (HappensAt.LOCATION_ID = Location.LOCATION_ID) " +
+                    "WHERE HappensAt.REPORT_ID = " + reportID + "; " +
+                    "SELECT Staff.* FROM AssignedTo INNER JOIN Staff ON (AssignedTo.ACCOUNT_ID = Staff.ACCOUNT_ID) " +
+                    "WHERE AssignedTo.REPORT_ID = " + reportID + "; " +
+                    "SELECT Person.* FROM Involves INNER JOIN Person ON (Involves.PERSON_ID = Person.PERSON_ID)" +
+                    "WHERE Involves.REPORT_ID = " + reportID + "; " +
+                    "SELECT IncidentCategory.* FROM Incident INNER JOIN IncidentCategory ON (Incident.CATEGORY_ID = IncidentCategory.CATEGORY_ID) " +
+                    "WHERE Incident.REPORT_ID = " + reportID + "; ";
+
+            PreparedStatement stmt = connection.prepareStatement ( getIncidentElementsQuery );
+            boolean hasResults = stmt.execute();
+            int count = 0;
+            while ( hasResults ) {
+                ResultSet rs = stmt.getResultSet();
+                while ( rs.next() ) {
+                    IncidentElement incidentElement = null;
+                    if ( count == 0 ) {
+                        incidentElement = new Location ();
+                    } else if ( count == 1 ) {
+                        incidentElement = new Staff ();
+                    } else if ( count == 2 ) {
+//                        incidentElement = new Person();
+                    } else if ( count == 3 ) {
+//                        incidentElement = new IncidentCategory();
+                    } else {
+//                    throw new IllegalStateException ( table.toString () + " does not have its Model implemented yet" );'
+                        break;
+                    }
+                    if ( incidentElement != null ) {
+                        incidentElement.extractFromCurrentRow( rs );
+
+                        incidentElementsList.add ( incidentElement );
+                    }
+                }
+                count++;
+                hasResults = stmt.getMoreResults();
+            }
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        }
+        return incidentElementsList;
     }
 
     public static boolean selectIncident ( Incident incident ) {
