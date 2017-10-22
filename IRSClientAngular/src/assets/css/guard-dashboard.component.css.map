@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "AAEA,iBAAgB;EAAC,KAAK,EAAC,IAAI",
-"sources": ["guard-dashboard.component.scss"],
+"mappings": "AAEA,iBAAgB;EACZ,KAAK,EAAC,IAAI",
+"sources": ["../sass/guard-dashboard.component.scss"],
 "names": [],
 "file": "guard-dashboard.component.css"
 }

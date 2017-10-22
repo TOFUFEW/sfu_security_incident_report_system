@@ -12,12 +12,12 @@ export class CategoryService
 {
     private headers = new Headers({ 'Content-Type': 'application/json' });
     categoriesUrl = Config.CategoriesURI;
-    constructor( private http: Http, private dataHelper: DataHelperService ) {}
+    constructor( private http: Http ) {}
     
     getCategories(): Promise < Category[] > {
         var categories = this.http.get( this.categoriesUrl )
         .toPromise()
-        .then( response => this.dataHelper.extractAttributes( response.json() ) as Category[] )
+        .then( response => DataHelperService.extractAttributesArray( response.json() ) as Category[] )
         .catch( this.handleError );
     return Promise.resolve( categories );
     };

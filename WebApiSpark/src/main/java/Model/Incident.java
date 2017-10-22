@@ -73,6 +73,10 @@ public class Incident extends StorageObject
         );
     }
 
+    public void changeIncidentElementList ( ArrayList < IncidentElement > incidentElementsList ) {
+        this.incidentElements = incidentElementsList;
+    }
+
     public boolean addIncidentElement ( IncidentElement incidentElement )
     {
         if ( incidentElement == null)

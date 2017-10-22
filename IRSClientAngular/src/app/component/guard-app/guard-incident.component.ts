@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Incident } from '../../model/incident';
-import { IncidentsService } from '../../service/incidents.service';
+import { IncidentService } from '../../service/incident.service';
 
 
 @Component({
@@ -12,7 +12,7 @@ export class GuardIncidentComponent implements OnInit {
   incidents: Incident[];  
   newIncident: Incident = new Incident();  
 
-  constructor ( private incidentsService: IncidentsService ) {};  
+  constructor ( private incidentsService: IncidentService ) {};  
   
   getIncidents(): void {
     this.incidentsService.getIncidents().then( returnedIncidents => {
