@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IncidentElement } from '../model/incident-element';
-import { Location } from '../model/location';
+import { Location, LocationMapping, Building, Room } from '../model/location';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
@@ -49,6 +49,49 @@ export class LocationService {
                 .catch( this.handleError );
         return Promise.resolve( promise );
     };
+
+    toLocationMapping( locations: Location[] ) : LocationMapping[] {
+        // Assuming 'locations' is not sorted
+        let locationMap: LocationMapping[] = [];
+        if ( locations == null ) return locationMap;
+
+        var campusArr = [];
+        locations.forEach( loc => {
+            if ( campusArr.indexOf( loc.CAMPUS_ID ) < 0 ) {
+                campusArr.push( loc.CAMPUS_ID );
+                locationMap.push( this.createCampusMap( loc.CAMPUS_ID, locations ) );
+            }
+        } );
+        return locationMap;
+    }
+
+    private createCampusMap( campusId: number, locations: Location[] ): LocationMapping {
+        var map = new LocationMapping();
+        map.CAMPUS_ID = campusId;
+        var buildings = [];
+        locations.forEach( loc => {
+            if ( loc.CAMPUS_ID == campusId && buildings.indexOf( loc.BUILDING_NAME ) < 0 ) {
+                buildings.push( loc.BUILDING_NAME );
+                map.BUILDINGS.push( this.createBuildingMap( loc.BUILDING_NAME, locations ) );
+            }
+        });
+
+        return map;
+    }
+
+    private createBuildingMap( buildingName: string, locations: Location[] ): Building {
+        var building = new Building();
+        building.BUILDING_NAME = buildingName;
+
+        var rooms = []
+        locations.forEach ( loc => {
+            if ( rooms.indexOf( loc.ROOM_NUMBER ) < 0 && loc.BUILDING_NAME === buildingName ) {
+                rooms.push( loc.ROOM_NUMBER );
+                building.ROOMS.push( new Room( loc.LOCATION_ID, loc.ROOM_NUMBER ) ) ;
+            }
+        } );
+        return building;
+    }
 
     private handleError(error: any): Promise<any> {
         alert( "An error occurred." );

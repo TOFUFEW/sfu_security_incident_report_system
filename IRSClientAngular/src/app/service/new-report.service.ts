@@ -19,7 +19,7 @@ export class NewReportService {
         var arr = this.locations.getValue();
 
         /* HARDCODED */
-        obj.LOCATION_ID = 1 ;
+        //obj.LOCATION_ID = 67;
         
         arr.push( obj );
         this.locations.next( arr );
@@ -29,6 +29,7 @@ export class NewReportService {
         var locations = this.locations.getValue();
         locations.forEach( loc => {
             var locIE = DataHelperService.toIncidentElement( Config.LocationTable, loc );
+            console.log(locIE);
             this.incidentElements.push( locIE );
         });
 

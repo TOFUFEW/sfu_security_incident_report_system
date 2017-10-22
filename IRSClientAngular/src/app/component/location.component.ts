@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IncidentElement } from '../model/incident-element';
-import { Location } from '../model/location';
+import { Location, LocationMapping, Building, Room } from '../model/location';
 import { LocationService } from '../service/location.service';
 import { Router, RouterModule } from '@angular/router';
 import { NewReportService } from '../service/new-report.service';
@@ -11,8 +11,11 @@ import { NewReportService } from '../service/new-report.service';
 })
 
 export class LocationComponent implements OnInit {
-    campuses: number[] = [1, 2, 3];
     locations: Location[] = [];
+    locationMap: LocationMapping[] = [];
+    buildings: Building[] = [];
+    rooms: Room[] = [];
+    selectedCampus: LocationMapping = new LocationMapping();
     newLocation: Location = new Location();
 
     constructor (
@@ -21,22 +24,33 @@ export class LocationComponent implements OnInit {
     ) { 
     }
 
-    ngOnInit() {
-        this.getLocations();
-        this.addLocationToReport();
-    }
-
     addLocationToReport(): void {
-        console.log("In location component addLocationToReport: ")
-        console.log(this.newLocation);
         this.reportService.addLocation(this.newLocation);
     }
 
     getLocations(): void {
         this.locationService.getLocations().then(returnedLocations => {
             this.locations = returnedLocations;
+            this.locationMap = this.locationService.toLocationMapping( this.locations );
         });
     }
+
+    onSelectCampus(): void {
+        this.locationMap.forEach( campus => {
+            if ( campus.CAMPUS_ID == this.newLocation.CAMPUS_ID ) 
+                this.buildings = campus.BUILDINGS;
+        } );
+    }
+
+    onSelectBuilding(): void {
+        this.buildings.forEach( bldg => {
+            if ( bldg.BUILDING_NAME == this.newLocation.BUILDING_NAME )
+                this.rooms = bldg.ROOMS;
+        });
+    }
+
+
+
 
     addLocation(): void {
         // if (this.newLocation.CITY != null && this.newLocation.CITY.length == 0)
@@ -77,6 +91,10 @@ export class LocationComponent implements OnInit {
             // remove 1 object at index i
             this.locations.splice(i, 1);
         });
-    
+    }
+
+    ngOnInit() {
+        this.getLocations();
+        this.addLocationToReport();
     }
 }

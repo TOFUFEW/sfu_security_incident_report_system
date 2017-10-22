@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Location } from '../model/location';
 import { Incident } from '../model/incident';
 import { IncidentElement } from '../model/incident-element';
 import { Http, Headers } from '@angular/http';
