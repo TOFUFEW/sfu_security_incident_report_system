@@ -1,0 +1,30 @@
+div#incidents-list-panel, div#staff-list-panel {
+  height: 100%;
+  border-top: 4px solid #f9f9f9;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px; }
+  div#incidents-list-panel div.panel-heading, div#staff-list-panel div.panel-heading {
+    display: flex;
+    height: 20%; }
+  div#incidents-list-panel div.panel-body, div#staff-list-panel div.panel-body {
+    height: 80%;
+    padding-bottom: 0px; }
+  div#incidents-list-panel div#incidents-list, div#staff-list-panel div#incidents-list {
+    height: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #fafafa; }
+  div#incidents-list-panel div#incidents-list, div#incidents-list-panel div#staff-list, div#staff-list-panel div#incidents-list, div#staff-list-panel div#staff-list {
+    overflow: auto; }
+
+div#staff-list-panel {
+  display: flex;
+  flex-direction: column; }
+  div#staff-list-panel div.panel-heading {
+    height: auto !important; }
+  div#staff-list-panel div.panel-body {
+    padding-left: 0px;
+    padding-right: 0px;
+    overflow: auto; }
+
+/*# sourceMappingURL=panels.css.map */

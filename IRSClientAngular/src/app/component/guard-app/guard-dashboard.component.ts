@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
 
 import { Incident } from '../../model/incident';
-import { IncidentsService } from '../../service/incidents.service';
+import { IncidentService } from '../../service/incident.service';
 import { Category } from '../../model/category';
 import { MainCategory } from '../../model/category-main';
 import { SubCategory } from '../../model/category-sub';
@@ -17,7 +17,7 @@ import { UserService } from '../../service/user.service';
 @Component({
     selector: 'guard-dashboard',
     templateUrl: '../../view/guard-dashboard.component.html',
-    providers: [ LocationService, IncidentsService, CategoryService ],
+    providers: [ LocationService, IncidentService, CategoryService ],
     styleUrls: [ '../../../assets/css/guard-dashboard.component.css' ]    
 })
 

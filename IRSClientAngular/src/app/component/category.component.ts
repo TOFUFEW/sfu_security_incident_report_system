@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CategoryMapping, Category, SubCategory, CategoryType } from '../model/category';
+import { CategoryDictionary, Category, SubCategory, CategoryType } from '../model/category';
 import { CategoryService } from '../service/category.service';
 import { DataHelperService } from '../util/data-helper.service';
 
@@ -13,10 +13,10 @@ import { DataHelperService } from '../util/data-helper.service';
 )
 
 export class CategoryComponent implements OnInit {
-    selectedMainCategory: CategoryMapping = new CategoryMapping();
+    selectedMainCategory: CategoryDictionary = new CategoryDictionary();
     selectedSubCategory: SubCategory = new SubCategory();
     selectedType: CategoryType = new CategoryType();    
-    categories: CategoryMapping[] = [];
+    categories: CategoryDictionary[] = [];
     filteredSubcategories: SubCategory[] = [];
     filteredTypes: CategoryType[] = [];
     categoryID: number =  -1;
@@ -26,7 +26,7 @@ export class CategoryComponent implements OnInit {
     getCategories(): void {     
 
         this.categoryService.getCategories().then ( returnedCategories => {             
-            this.categories = this.dataHelper.toCategoryDictionary ( returnedCategories );
+            this.categories = this.categoryService.toCategoryDictionary( returnedCategories );
             console.log ( this.categories[0].SUBCATEGORIES[0].SUB_CATEGORY );
         } );
     }

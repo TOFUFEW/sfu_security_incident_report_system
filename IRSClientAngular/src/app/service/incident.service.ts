@@ -7,17 +7,18 @@ import { Config } from '../util/config.service';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class IncidentsService 
+export class IncidentService 
 {
     private headers = new Headers({'Content-Type': 'application/json'});
     incidentsUrl = Config.IncidentsURI;
     tableName = "";
-    constructor( private http: Http, private dataHelper: DataHelperService ) {}
+    constructor( private http: Http ) {}
 
     getIncidents(): Promise<Incident[]> {
+        console.log ("get incidents");
         var incidents = this.http.get( this.incidentsUrl )
             .toPromise()
-            .then( response => this.dataHelper.extractAttributes( response.json() ) as Incident[] )
+            .then( response => DataHelperService.extractAttributesArray( response.json() ) as Incident[] )
             .catch( this.handleError );
         return Promise.resolve( incidents );
     };
