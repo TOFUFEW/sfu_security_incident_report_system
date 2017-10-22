@@ -36,7 +36,7 @@ export class PersonComponent implements OnInit {
   }
 
   findPerson(): void {
-    this.personService.searchList( this.personList );
+    //this.personService.searchList( this.personList );
   }
 
   updatePerson( person: Person ): void {

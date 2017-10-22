@@ -66,20 +66,22 @@ export class PersonService {
     searchList(personList : Person[]) : void {
 
         // Declare variables
-        var input, filter, ul, li;
-        input = document.getElementById('personInput');
-        filter = input.value.toUpperCase();
-        ul = document.getElementById("peopleDisplay");
-        li = ul.getElementsByTagName('li');
+        //apparently document.getElementbyId() does not work
         
-        // Loop through all list items, and hide those who don't match the search query
-        for (var i = 0; i < personList.length; i++ ){
-            if (personList[i].FIRST_NAME.toUpperCase().indexOf(filter) > -1 ){
-                li[i].style.display = "";
-            } else {
-                li[i].style.display = "none";
-            }
-        }        
+        // var input, filter, ul, li;
+        // input = document.getElementById('personInput');
+        // filter = input.value.toUpperCase();
+        // ul = document.getElementById("peopleDisplay");
+        // li = ul.getElementsByTagName('li');
+        
+        // // Loop through all list items, and hide those who don't match the search query
+        // for (var i = 0; i < personList.length; i++ ){
+        //     if (personList[i].FIRST_NAME.toUpperCase().indexOf(filter) > -1 ){
+        //         li[i].style.display = "";
+        //     } else {
+        //         li[i].style.display = "none";
+        //     }
+        // }        
     }
 
     private handleError(error: any): Promise<any> {

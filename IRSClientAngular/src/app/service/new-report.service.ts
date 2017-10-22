@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Location } from '../model/location';
+import { Person } from '../model/person'
 import { IncidentElement } from '../model/incident-element';
 import { DataHelperService } from '../util/data-helper.service';
 import { Config } from '../util/config.service';
@@ -9,6 +10,7 @@ import { Config } from '../util/config.service';
 export class NewReportService {
     incidentElements: IncidentElement[];
     private locations = new BehaviorSubject<Location[]>([]);
+    private persons = new BehaviorSubject<Person[]> ([]);
     currentLocations = this.locations.asObservable();
 
     constructor() {
@@ -24,6 +26,14 @@ export class NewReportService {
         
         arr.push( obj );
         this.locations.next( arr );
+    }
+
+    addPerson( obj: Person){
+        var arr = this.persons.getValue();
+
+        arr.push( obj );
+        this.persons.next( arr );
+
     }
 
     collectIncidentElements() {
