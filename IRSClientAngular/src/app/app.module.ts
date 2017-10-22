@@ -23,6 +23,7 @@ import { UserService } from './service/user.service';
 import { LoginService } from './service/login.service';
 import { DomService } from './service/dom.service';
 import { LocationService } from './service/location.service'
+import {GuardDashboardComponent} from "./component/guard-dashboard.component";
 
 @NgModule({
   imports: [
@@ -42,9 +43,10 @@ import { LocationService } from './service/location.service'
     LoginComponent,
     NewIncidentComponent,
     DynamicFormComponent,
-    MyTestComponent
+    MyTestComponent,
+    GuardDashboardComponent
   ],
-  
+
   providers: [UserService, LoginService, DomService, DataHelperService, LocationService],
   bootstrap: [AppComponent],
   entryComponents: [ LocationComponent, MyTestComponent ]

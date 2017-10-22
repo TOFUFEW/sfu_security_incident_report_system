@@ -5,12 +5,14 @@ import { DashboardComponent } from './component/dashboard.component';
 import { NewIncidentComponent } from './component/new-incident.component';
 import { LoginComponent } from './component/login.component';
 import { DynamicFormComponent } from './component/dynamic-form.component';
+import {GuardDashboardComponent} from "./component/guard-dashboard.component";
 
 export const router: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent },
     { path: 'login', component: LoginComponent },
     { path: 'form', component: DynamicFormComponent },
+    { path: 'guard', component: GuardDashboardComponent},
     { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 
