@@ -22,7 +22,7 @@ export class LoginService {
         // HTTP RESPONSE
         return this.http
             .post(this.loginUrl, JSON.stringify( _user ), options)
-            .map( ( response: Response ) => 
-            DataHelperService.extractAttributes( <IncidentElement>response.json() ) as User ); 
+            .map( ( response: Response ) =>
+            DataHelperService.extractAttributes( <IncidentElement>response.json() ) as User );
     }
 }

@@ -1,12 +1,13 @@
 package Controller;
 
-import Model.*;
-import Util.*;
+import Model.User;
+import Util.DBHelper;
+import Util.DatabaseValues;
+import Util.JsonUtil;
 
 import java.sql.ResultSet;
 
-import static Util.JsonUtil.json;
-import static spark.Spark.*;
+import static spark.Spark.post;
 
 public class LoginController {
 
@@ -35,6 +36,11 @@ public class LoginController {
                 user.updateAttributeValue(
                         DatabaseValues.Column.ACCOUNT_TYPE,
                         myRs.getString ( DatabaseValues.Column.ACCOUNT_TYPE.toString () )
+                );
+
+                user.updateAttributeValue(
+                        DatabaseValues.Column.ACCOUNT_ID,
+                        myRs.getString ( DatabaseValues.Column.ACCOUNT_ID.toString() )
                 );
             }
 

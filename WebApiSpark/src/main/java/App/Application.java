@@ -22,6 +22,7 @@ public class Application
         StaffController staffController = new StaffController();
         IncidentsController incidentsController = new IncidentsController();
         LoginController loginController = new LoginController();
+        GuardIncidentsController guardIncidentsController = new GuardIncidentsController();
     }
 
     // CORS Filter

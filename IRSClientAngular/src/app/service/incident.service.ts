@@ -5,12 +5,14 @@ import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
 import 'rxjs/add/operator/toPromise';
+import {User} from "../model/user";
 
 @Injectable()
-export class IncidentService 
+export class IncidentService
 {
     private headers = new Headers({'Content-Type': 'application/json'});
     incidentsUrl = Config.IncidentsURI;
+    guardIncidentsUrl = Config.GuardIncidentsURI;
     tableName = "";
     constructor( private http: Http ) {}
 
@@ -23,6 +25,16 @@ export class IncidentService
         return Promise.resolve( incidents );
     };
 
+    getGuardIncidents( user: User ): Promise<Incident[]> {
+        var _user = DataHelperService.toIncidentElement ( Config.AccountTable, user );
+        var incidents = this.http
+            .post( this.guardIncidentsUrl, JSON.stringify( _user ), { headers: this.headers } )
+            .toPromise()
+            .then( response => DataHelperService.extractAttributesArray( response.json() ) as Incident[] )
+            .catch( this.handleError );
+        return Promise.resolve( incidents );
+    }
+
     create( incident: Incident ): Promise<Incident> {
         incident.table = Config.IncidentTable;
         incident.attributes.ACCOUNT_ID = 1;
@@ -30,8 +42,8 @@ export class IncidentService
         var promise = this.http
                 .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
                 .toPromise()
-                .then( response => { 
-                    return ( response.json() as boolean ) ? incident : null 
+                .then( response => {
+                    return ( response.json() as boolean ) ? incident : null
                 })
                 .catch( this.handleError );
         return Promise.resolve( promise );
@@ -51,7 +63,7 @@ export class IncidentService
         return Promise.resolve( promise );
     };
 
-    private handleError( error: any ) : Promise<any> 
+    private handleError( error: any ) : Promise<any>
     {
         alert( "An error occurred." );
         console.error( 'An error occurred' , error ); // for demo purposes only

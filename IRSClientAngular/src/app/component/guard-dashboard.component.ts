@@ -3,6 +3,8 @@ import {Incident} from "../model/incident";
 import {Location} from "../model/location";
 import {IncidentService} from "../service/incident.service";
 import {LocationService} from "../service/location.service";
+import {User} from "../model/user";
+import {UserService} from "../service/user.service";
 
 
 @Component({
@@ -15,11 +17,16 @@ import {LocationService} from "../service/location.service";
 export class GuardDashboardComponent implements OnInit {
   incidents: Incident[];
   newIncident: Incident = new Incident();
+  user: User;
 
-  constructor( private incidentsService: IncidentService ) {};
+  constructor( private incidentsService: IncidentService,
+               private userService: UserService) {
+  };
 
   getIncidents(): void {
-    this.incidentsService.getIncidents().then( returnedIncidents => {
+    this.user = this.userService.getCurrentUser();
+    console.log(this.user);
+    this.incidentsService.getGuardIncidents( this.user ).then( returnedIncidents => {
       this.incidents = returnedIncidents;
     } );
   }

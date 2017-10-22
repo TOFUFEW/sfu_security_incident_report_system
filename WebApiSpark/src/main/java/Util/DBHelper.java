@@ -46,6 +46,34 @@ public class DBHelper
         return incidentList.toArray ( new Incident [ incidentList.size () ] );
     }
 
+    public static Incident [] getGuardIncidents ( int accountID ) {
+        ArrayList < Incident > incidentList = new ArrayList <> ();
+
+        try
+        {
+            ResultSet incidentResultSet = executeQuery( "SELECT Incident.*\n" +
+                    "FROM Incident  INNER JOIN AssignedTo  ON Incident.REPORT_ID = AssignedTo.REPORT_ID\n" +
+                    "WHERE AssignedTo.ACCOUNT_ID = " + accountID + " and Incident.CLOSED = 0" );
+
+            while ( incidentResultSet.next () )
+            {
+                Incident incident = new Incident ();
+
+                incident.extractFromCurrentRow ( incidentResultSet );
+
+                ArrayList < IncidentElement > incidentElementsList = getIncidentElements ( Integer.parseInt (incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) ) );
+
+                incident.changeIncidentElementList ( incidentElementsList );
+                incidentList.add ( incident );
+            }
+        }
+        catch ( Exception e)
+        {
+            e.printStackTrace();
+        }
+        return incidentList.toArray ( new Incident [ incidentList.size () ] );
+    }
+
     private static ArrayList < IncidentElement > getIncidentElements ( int reportID ) {
         ArrayList < IncidentElement > incidentElementsList = new ArrayList <> ();
 
