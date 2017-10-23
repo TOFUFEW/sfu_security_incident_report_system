@@ -260,6 +260,15 @@ span.glyphicon-fire {
     font-size: $text-lg;
 }
 
+.link {
+    color: $link-color;
+    &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+        color: $link-color-hover;
+    }
+}
+
 /* RIGHT OFFSETS */
 .col-xs-offset-right-12 { margin-right: 100%; }
 .col-xs-offset-right-11 { margin-right: 91.66666667%; }

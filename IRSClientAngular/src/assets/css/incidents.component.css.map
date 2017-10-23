@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAGI,mBAAG;EACC,OAAO,EAAE,OAAO;AAEpB,mBAAG;EACC,OAAO,EAAE,GAAG;AAGhB,mBAAG;EACC,UAAU,ECYD,6BAA0B;ADTvC,sBAAM;EACF,QAAQ,EAAE,IAAI",
+"mappings": "AAGI,mBAAG;EACC,OAAO,EAAE,OAAO;AAGpB,mBAAG;EACC,OAAO,EAAE,GAAG;EACZ,UAAU,ECcD,6BAA0B;EDbnC,SAAS,EAAE,KAAK;AAGpB,sBAAM;EACF,QAAQ,EAAE,IAAI",
 "sources": ["../sass/incidents.component.scss","../sass/_settings.scss"],
 "names": [],
 "file": "incidents.component.css"

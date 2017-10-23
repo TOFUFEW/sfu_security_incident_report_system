@@ -4,12 +4,11 @@
     th {
         padding: 8px 4px;
     }
-    td {
-        padding: 4px;
-    }
 
     td {
+        padding: 4px;
         border-top: $border-default;
+        max-width: 125px;
     }
 
     tbody {

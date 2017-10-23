@@ -22,6 +22,8 @@ $field-title-margin-bottom: 8px;
 $field-title-font-weight: 300;
 $navbar-height: 50px;
 $border-default: 1px solid rgba(0,0,0,0.16);
+$link-color: #0645AD;
+$link-color-hover: #0B0080;
 
 @mixin flex($x, $y) {
     display: flex;
