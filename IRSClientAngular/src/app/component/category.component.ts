@@ -76,7 +76,8 @@ export class CategoryComponent implements OnInit {
         if ( this.categoryID == -1 ) {
             if ( this.filteredTypes.length == 0 ) {
                 this.categoryID = this.filteredSubcategories[0].CATEGORY_ID;
-                console.log ( "retrieved category id: " + this.categoryID );                
+                console.log ( "retrieved category id: " + this.categoryID );
+                this.hide();              
             }
             else
             {
@@ -85,6 +86,7 @@ export class CategoryComponent implements OnInit {
         }
         if ( this.categoryID != -1 ) {
             console.log ( "category id: " + this.categoryID );
+            this.hide();
         }
     }
 
