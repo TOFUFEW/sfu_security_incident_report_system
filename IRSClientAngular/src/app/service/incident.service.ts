@@ -21,12 +21,11 @@ export class IncidentService
 
     addToWorkspace( incident: Incident ): void {
         var arr = this.activeReports.getValue();
-        arr.push( incident );
+        arr.splice(0, 0, incident );
         this.activeReports.next( arr );
     }
     
     getIncidents(): Promise<Incident[]> {
-        console.log ("get incidents");
         var incidents = this.http.get( this.incidentsUrl )
             .toPromise()
             .then( response => response.json() as Incident[] )
