@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '../model/location';
+import { Person } from '../model/person';
 import { Incident } from '../model/incident';
 import { IncidentService } from '../service/incident.service';
 import { DomService } from '../service/dom.service';
 import { NewReportService } from '../service/new-report.service';
 import { LocationComponent } from './location.component';
 import { VehicleComponent } from './vehicle.component';
+import { PersonComponent } from './person.component';
 
 @Component( 
   {
@@ -41,6 +43,10 @@ export class NewReportComponent implements OnInit {
             setTimeout(() => {
               this.domService.addComponent(VehicleComponent.name, "vehicles");
             }, 100);
+        } else if ( this.dynamicTest == 'Person') {
+            setTimeout(() => {
+                this.domService.addComponent(PersonComponent.name, "person" );
+            }, 100);
         }
     }
 
@@ -50,6 +56,8 @@ export class NewReportComponent implements OnInit {
         else if ( componentName === this.locationStr ) {
             console.log("in addComponent: location");
             this.domService.addComponent( LocationComponent.name, "locations" );            
+        } else if ( componentName == 'Person'){
+            this.domService.addComponent( PersonComponent.name, "Person" );
         }
     }
     // END OF TEST CODE //
