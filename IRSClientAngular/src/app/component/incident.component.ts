@@ -20,6 +20,7 @@ export class IncidentComponent implements OnInit {
 
   getIncidents(): void {
       this.incidentService.getIncidents().then( returnedIncidents => {
+          console.log( returnedIncidents);
           this.incidents = returnedIncidents;
       } );    
   }
