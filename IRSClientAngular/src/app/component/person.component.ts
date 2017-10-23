@@ -3,6 +3,7 @@ import { IncidentElement } from '../model/incident-element';
 import { Person } from '../model/person';
 import { PersonService } from '../service/person.service';
 import { Router, RouterModule } from '@angular/router';
+import { NewReportService } from '../service/new-report.service';
 
 @Component({
   selector: 'person-component',
@@ -13,8 +14,14 @@ export class PersonComponent implements OnInit {
   personList: Person[];
   newPerson: Person = new Person();
   
-  constructor( private personService: PersonService ){};
+  constructor( 
+      private personService: PersonService,
+      private reportService: NewReportService
+  ){};
 
+  addPersonToReport(): void {
+    this.reportService.addPerson(this.newPerson);
+  }
 
   getPersons(): void {
     this.personService.getPersons().then( returnedPersons => {
@@ -53,7 +60,7 @@ export class PersonComponent implements OnInit {
   }
 
   selectPerson ( person: Person ): void {
-    this.personService.addToIncident( person );
+    //add to incident here
   }
 
   deletePerson( id: number ): void {

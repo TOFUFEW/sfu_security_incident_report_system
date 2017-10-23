@@ -18,6 +18,7 @@ import { PersonComponent } from './person.component';
 
 export class NewReportComponent implements OnInit {
     locationStr: string = LocationComponent.name;
+    personStr: string = PersonComponent.name;
     newIncident: Incident = new Incident();
     locations: Location[] = [];
 
@@ -56,8 +57,8 @@ export class NewReportComponent implements OnInit {
         else if ( componentName === this.locationStr ) {
             console.log("in addComponent: location");
             this.domService.addComponent( LocationComponent.name, "locations" );            
-        } else if ( componentName == 'Person'){
-            this.domService.addComponent( PersonComponent.name, "Person" );
+        } else if ( componentName === this.personStr){
+            this.domService.addComponent( PersonComponent.name, "person" );
         }
     }
     // END OF TEST CODE //

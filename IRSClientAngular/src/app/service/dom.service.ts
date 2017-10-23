@@ -10,6 +10,7 @@ import {
 import { Location } from '../model/location';
 import { LocationComponent } from '../component/location.component';
 import { VehicleComponent } from '../component/vehicle.component';
+import { PersonComponent } from '../component/person.component';
 
 @Injectable()
 export class DomService {
@@ -58,6 +59,10 @@ export class DomService {
             return this.componentFactoryResolver
             .resolveComponentFactory(LocationComponent)
             .create(this.injector);
+        } else if ( componentName === PersonComponent.name ) {
+            return this.componentFactoryResolver
+            .resolveComponentFactory( PersonComponent )
+            .create( this.injector );
         }
         
     }

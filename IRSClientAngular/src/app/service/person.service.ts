@@ -10,16 +10,17 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class PersonService {
     private headers = new Headers({'Content-Type': 'application/json'});
+    personList;
     personUrl = Config.PersonURI;
     tableName = Config.PersonTable;
     constructor(private http: Http) {}
 
     getPersons(): Promise<Person[]> {
-        var personList = this.http.get( this.personUrl )
+        this.personList = this.http.get( this.personUrl )
             .toPromise()
             .then( response => DataHelperService.extractAttributesArray( response.json() ) as Person[] )
             .catch( this.handleError );
-        return Promise.resolve( personList );
+        return Promise.resolve( this.personList );
     }
 
     search( person: Person ) : Promise<Person[]> {
@@ -47,11 +48,6 @@ export class PersonService {
             .catch( this.handleError );
         return Promise.resolve( promise );
     };
-
-
-    addToIncident( person: Person ) : void {
-    }
-
     
     delete( id: number ) : Promise<boolean> {
         var url = `${this.personUrl}/${id}`;
@@ -63,9 +59,10 @@ export class PersonService {
         return Promise.resolve( promise );
     };
 
-    searchList(personList : Person[]) : void {
+    searchList() : void {
 
         // Declare variables
+
         //apparently document.getElementbyId() does not work
         
         // var input, filter, ul, li;

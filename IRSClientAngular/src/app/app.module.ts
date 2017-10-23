@@ -53,7 +53,7 @@ import { NewReportService } from './service/new-report.service';
   
   providers: [UserService, LoginService, DomService, LocationService, IncidentService, StaffService, NewReportService, PersonService],
   bootstrap: [AppComponent],
-  entryComponents: [ LocationComponent, VehicleComponent ]
+  entryComponents: [ LocationComponent, VehicleComponent, PersonComponent ]
 })
 
 export class AppModule { }
