@@ -13,7 +13,7 @@ export class CategoryService
     private headers = new Headers({ 'Content-Type': 'application/json' });
     categoriesUrl = Config.CategoriesURI;
     constructor( private http: Http ) {}
-    
+
     getCategories(): Promise < Category[] > {
         var categories = this.http.get( this.categoriesUrl )
         .toPromise()

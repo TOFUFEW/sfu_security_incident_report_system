@@ -7,7 +7,7 @@ import { DataHelperService } from '../util/data-helper.service';
   {
     selector: 'category-component',
     templateUrl: '../view/category.component.html',
-    styleUrls: ['../../assets/css/incidents.component.css'],  
+    styleUrls: ['../../assets/css/guard-dashboard.component.css'],  
     providers: [ CategoryService ]
   }
 )
@@ -20,6 +20,9 @@ export class CategoryComponent implements OnInit {
     filteredSubcategories: SubCategory[] = [];
     filteredTypes: CategoryType[] = [];
     categoryID: number =  -1;
+    
+    public visible = false;
+    private visibleAnimate = false;
 
     constructor ( private categoryService: CategoryService, private dataHelper: DataHelperService ) {};
     
@@ -29,6 +32,22 @@ export class CategoryComponent implements OnInit {
             this.categories = this.categoryService.toCategoryDictionary( returnedCategories );
             console.log ( this.categories[0].SUBCATEGORIES[0].SUB_CATEGORY );
         } );
+    }
+  
+    public show(): void {
+      this.visible = true;
+      setTimeout(() => this.visibleAnimate = true, 100);
+    }
+  
+    public hide(): void {
+      this.visibleAnimate = false;
+      setTimeout(() => this.visible = false, 300);
+    }
+  
+    public onContainerClicked(event: MouseEvent): void {
+      if ((<HTMLElement>event.target).classList.contains('modal')) {
+        this.hide();
+      }
     }
 
     // filter subcategory and type lists according to selection of previous dropdown

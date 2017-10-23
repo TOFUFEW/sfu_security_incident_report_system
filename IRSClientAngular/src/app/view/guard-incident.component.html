@@ -4,8 +4,9 @@
         <!-- Create category object that matches with category incident ID -->
         <!-- Create dialog w/ category cascading menu for editing categories -->
         <h5>
-            <span class="mr-5">Category, subcategory, type  </span>
-            <button class="btn btn-default btn-xs pull-right"><span class="p-2 glyphicon glyphicon-edit"></span></button>
+            <span class="mr-5" style="display:block">Category, subcategory, type  </span>
+            <button class="btn btn-default btn-xs pull-right" (click)="modal1.show()"><span class="p-2 glyphicon glyphicon-edit"></span></button>
+            <category-component #modal1></category-component>            
         </h5>
         <h5>Report #
             <span *ngFor="let incident of incidents">

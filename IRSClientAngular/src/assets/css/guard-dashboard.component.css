@@ -1,4 +1,12 @@
 .container > .row {
   clear: both; }
 
+.mt-2 {
+    margin-top: 2em;
+}
+
+.modal-header {
+    padding: 2em !important;
+}
+
 /*# sourceMappingURL=guard-dashboard.component.css.map */
