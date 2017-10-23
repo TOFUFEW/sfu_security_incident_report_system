@@ -20,7 +20,9 @@ div#incidents-container {
       height: 20%; }
     div#incidents-container div#incidents-dashboard .panel-body {
       padding: 0px !important;
-      height: 80%; }
+      height: 80%;
+      display: flex;
+      border-top: 2px solid #f9f9f9; }
   div#incidents-container div#workspace.row {
     height: 67%;
     overflow: hidden; }
@@ -47,8 +49,7 @@ div#incidents-container {
       height: 100%;
       width: 100%;
       overflow-x: auto;
-      overflow-y: hidden;
-      display: flex; }
+      overflow-y: hidden; }
 
 div.quarter-box {
   height: 100%;

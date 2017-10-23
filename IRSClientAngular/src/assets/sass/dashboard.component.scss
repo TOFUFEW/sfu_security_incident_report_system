@@ -26,6 +26,8 @@ div#incidents-container {
         .panel-body{
             padding: 0px !important;
             height: 80%;
+            display: flex;
+            border-top: 2px solid $grey-default;
         }
     }
 
@@ -61,7 +63,6 @@ div#incidents-container {
             width: 100%;
             overflow-x: auto;
             overflow-y: hidden;
-            display: flex;
         }
     }
 }
