@@ -15,7 +15,9 @@
                         </div>
                         <div class="panel-body">
                             <div class="incidents-row">
-                                <div class="quarter-box">
+                                <div class="quarter-box" *ngFor="let report of reportsInWorkspace">
+                                    {{report.attributes.REPORT_ID}}, 
+                                    {{report.attributes.DESCRIPTION}}
                                 </div>
                             </div>
                         </div>

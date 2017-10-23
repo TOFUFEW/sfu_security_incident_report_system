@@ -15,7 +15,6 @@ import { IncidentService } from '../service/incident.service';
 export class IncidentComponent implements OnInit {
   incidents: Incident[];
   incidentsInWorkspace: Incident[];
-  newIncident: Incident = new Incident();
   
   constructor( private incidentService: IncidentService ){};
 
@@ -25,8 +24,9 @@ export class IncidentComponent implements OnInit {
       } );    
   }
 
-  addToWorkspace(): void {
-      alert("it workss");
+  addToWorkspace( incident: Incident ): void {
+      alert("Report added to workspace");
+      this.incidentService.addToWorkspace( incident );
   }
 
   deleteIncident( id: number ): void {

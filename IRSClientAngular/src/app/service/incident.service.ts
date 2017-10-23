@@ -4,6 +4,7 @@ import { Incident } from '../model/incident';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -12,13 +13,23 @@ export class IncidentService
     private headers = new Headers({'Content-Type': 'application/json'});
     incidentsUrl = Config.IncidentsURI;
     tableName = "";
+
+    private activeReports = new BehaviorSubject<Incident[]>([]);
+    reportsToAddToWorkspace = this.activeReports.asObservable();
+
     constructor( private http: Http ) {}
 
+    addToWorkspace( incident: Incident ): void {
+        var arr = this.activeReports.getValue();
+        arr.push( incident );
+        this.activeReports.next( arr );
+    }
+    
     getIncidents(): Promise<Incident[]> {
         console.log ("get incidents");
         var incidents = this.http.get( this.incidentsUrl )
             .toPromise()
-            .then( response => DataHelperService.extractAttributesArray( response.json() ) as Incident[] )
+            .then( response => response.json() as Incident[] )
             .catch( this.handleError );
         return Promise.resolve( incidents );
     };

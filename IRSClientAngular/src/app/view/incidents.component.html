@@ -35,12 +35,12 @@
                         <td>Environmental</td>
                         <td>Accidental Spill/Release</td>
                         <td>Biological</td>
-                        <td>{{incident.DESCRIPTION}} </td>
+                        <td>{{incident.attributes.DESCRIPTION}} </td>
                         <td>Burnaby AQ 3150</td>
                         <td><span class="link" data-toggle="modal" data-target="#dispatchModal">Assign</span></td>
                         <td>Dispatcher Name</td>
                         <td>08/13/2017 4:44</td>
-                        <td><span class="link" (click)="addToWorkspace()">Add To Workspace</span></td>
+                        <td><span class="link" (click)="addToWorkspace(incident)">Add To Workspace</span></td>
                     </tr>
                 </tbody>
             </table>
