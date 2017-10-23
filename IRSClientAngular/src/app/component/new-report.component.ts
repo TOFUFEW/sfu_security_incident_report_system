@@ -62,7 +62,8 @@ export class NewReportComponent implements OnInit {
         this.incidentService.create( this.newIncident )
             .then( returnedIncident => {
                 if ( returnedIncident != null  ) {
-                  location.reload();
+                    alert("Report successfully created!");
+                    setTimeout(function(){location.reload()}, 300);
                 }
                 else alert( "Add failed." );
             } );
