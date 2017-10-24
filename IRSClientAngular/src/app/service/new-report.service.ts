@@ -3,12 +3,14 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { DataHelperService } from '../util/data-helper.service';
 import { Config } from '../util/config.service';
 import { Location } from '../component/location/location';
+import { Person } from '../component/person/person';
 import { IncidentElement } from '../component/report/incident-element';
 
 @Injectable()
 export class NewReportService {
     incidentElements: IncidentElement[];
     private locations = new BehaviorSubject<Location[]>([]);
+    private persons = new BehaviorSubject<Person[]> ([]);
     currentLocations = this.locations.asObservable();
 
     constructor() {
@@ -26,6 +28,13 @@ export class NewReportService {
         var i = arr.findIndex( l => l.LOCATION_ID == id );
         arr.splice( i, 1 );
         this.locations.next( arr );
+    }
+
+    addPerson( obj: Person ) {
+        var arr = this.persons.getValue();
+
+        arr.push( obj );
+        this.persons.next( arr );
     }
 
     collectIncidentElements() {
