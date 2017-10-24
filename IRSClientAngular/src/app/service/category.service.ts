@@ -55,6 +55,7 @@ export class CategoryService
             if ( category.MAIN_CATEGORY == grouping.MAIN_CATEGORY ) {
                 var subCategory = category.SUB_CATEGORY;
                 if ( subCategories.indexOf( subCategory ) < 0 ) {
+                    subCategories.push( subCategory );
                     grouping.SUBCATEGORIES.push( this.getSubCategory( grouping.MAIN_CATEGORY, subCategory, categories ) );
                 }
             }
