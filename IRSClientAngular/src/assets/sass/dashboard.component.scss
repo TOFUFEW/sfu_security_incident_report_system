@@ -51,7 +51,7 @@ div#incidents-container {
         overflow: hidden;
 
         div.panel-heading {
-            @include flex(space-between, center);
+            @include flex(space-between, flex-start);
             
             input {
                 min-width: 250px;

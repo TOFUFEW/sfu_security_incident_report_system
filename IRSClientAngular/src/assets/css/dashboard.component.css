@@ -41,7 +41,7 @@ div#incidents-container {
     div#incidents-container div.panel div.panel-heading {
       display: flex;
       justify-content: space-between;
-      align-items: center; }
+      align-items: flex-start; }
       div#incidents-container div.panel div.panel-heading input {
         min-width: 250px;
         width: 350px; }
