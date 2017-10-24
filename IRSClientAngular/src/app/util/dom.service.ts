@@ -7,10 +7,10 @@ import {
     ApplicationRef,
     ViewContainerRef
 } from '@angular/core';
-import { Location } from '../model/location';
-import { LocationComponent } from '../component/location.component';
-import { VehicleComponent } from '../component/vehicle.component';
-import { PersonComponent } from '../component/person.component';
+import { Location } from '../component/location/location';
+import { LocationComponent } from '../component/location/location.component';
+import { VehicleComponent } from '../component/vehicle/vehicle.component';
+import { PersonComponent } from '../component/person/person.component';
 
 @Injectable()
 export class DomService {
@@ -21,19 +21,15 @@ export class DomService {
         private injector: Injector,
     ) {}
 
-    // **** ADD DYNAMIC COMPONENTS HERE **** //
-
-    addComponent(componentName: string, targetDomId: string) {
+    addComponent(component: any, targetDomId: string) {
         // 1. Create a component
-        const componentRef = this.createComponent( componentName );
+        const componentRef = this.createComponent( component );
 
         this.addToDom(componentRef, targetDomId);
         
         // 5. Save reference for later use
         componentRef.instance.reference = componentRef;
     }
-
-    // **** END OF DYNAMIC COMPONENTS **** //
 
     private addToDom(componentRef: any, targetDomId: string) {
 
@@ -59,7 +55,8 @@ export class DomService {
             return this.componentFactoryResolver
             .resolveComponentFactory(LocationComponent)
             .create(this.injector);
-        } else if ( componentName === PersonComponent.name ) {
+        } 
+        else if ( componentName === PersonComponent.name ) {
             return this.componentFactoryResolver
             .resolveComponentFactory( PersonComponent )
             .create( this.injector );

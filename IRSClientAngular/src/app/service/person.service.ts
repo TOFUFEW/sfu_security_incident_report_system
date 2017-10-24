@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Person } from '../model/person';
-import { IncidentElement } from '../model/incident-element';
+import { Person } from '../component/person/person';
+import { IncidentElement } from '../component/report/incident-element';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';

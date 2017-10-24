@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IncidentElement } from '../model/incident-element';
-import { Person } from '../model/person';
-import { PersonService } from '../service/person.service';
+import { IncidentElement } from '../report/incident-element';
+import { Person } from '../person/person';
+import { PersonService } from '../../service/person.service';
 import { Router, RouterModule } from '@angular/router';
-import { NewReportService } from '../service/new-report.service';
+import { NewReportService } from '../../service/new-report.service';
 
 @Component({
   selector: 'person-component',
-  templateUrl: '../view/person.component.html'
+  templateUrl: './person.component.html'
 })
 
 export class PersonComponent implements OnInit {

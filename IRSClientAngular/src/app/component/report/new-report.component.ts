@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '../model/location';
-import { Person } from '../model/person';
-import { Incident } from '../model/incident';
-import { IncidentService } from '../service/incident.service';
-import { DomService } from '../service/dom.service';
-import { NewReportService } from '../service/new-report.service';
-import { LocationComponent } from './location.component';
-import { VehicleComponent } from './vehicle.component';
-import { PersonComponent } from './person.component';
+import { IncidentService } from '../../service/incident.service';
+import { DomService } from '../../util/dom.service';
+import { NewReportService } from '../../service/new-report.service';
+import { Location } from '../location/location';
+import { Person } from '../person/person';
+import { Incident } from '../report/incident';
+import { LocationComponent } from '../location/location.component';
+import { VehicleComponent } from '../vehicle/vehicle.component';
+import { PersonComponent } from '../person/person.component';
 
 @Component( 
   {
-    templateUrl: '../view/new-report.component.html',
-    styleUrls: ['../../assets/css/new-report.component.css'],
+    templateUrl: './new-report.component.html',
+    styleUrls: ['../../../assets/css/new-report.component.css'],
   }
 )
 
@@ -42,7 +42,7 @@ export class NewReportComponent implements OnInit {
     onSelectChangeEvent(){
         if(this.dynamicTest == 'Vehicle') {
             setTimeout(() => {
-              this.domService.addComponent(VehicleComponent.name, "vehicles");
+              this.domService.addComponent(VehicleComponent, "vehicles");
             }, 100);
         } else if ( this.dynamicTest == 'Person') {
             setTimeout(() => {
@@ -53,7 +53,7 @@ export class NewReportComponent implements OnInit {
 
     addComponent( componentName: string ) {
         if ( this.dynamicTest == 'Vehicle' )
-            this.domService.addComponent( VehicleComponent.name, "vehicles" );
+            this.domService.addComponent( VehicleComponent, "vehicles" );
         else if ( componentName === this.locationStr ) {
             console.log("in addComponent: location");
             this.domService.addComponent( LocationComponent.name, "locations" );            

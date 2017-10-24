@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Location } from '../model/location';
-import { Person } from '../model/person'
-import { IncidentElement } from '../model/incident-element';
 import { DataHelperService } from '../util/data-helper.service';
 import { Config } from '../util/config.service';
+import { Location } from '../component/location/location';
+import { Person } from '../component/person/person';
+import { IncidentElement } from '../component/report/incident-element';
 
 @Injectable()
 export class NewReportService {
