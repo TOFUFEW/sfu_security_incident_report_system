@@ -11,6 +11,7 @@ import { NewReportService } from '../service/new-report.service';
 })
 
 export class LocationComponent implements OnInit {
+    public reference : any;
     locations: Location[] = [];
     locationMap: LocationMapping[] = [];
     buildings: Building[] = [];
@@ -26,6 +27,17 @@ export class LocationComponent implements OnInit {
 
     addLocationToReport(): void {
         this.reportService.addLocation(this.newLocation);
+    }
+
+    removeLocationFromReport(): void {
+        if ( this.reference == null ) {
+            console.log("must have a location!");
+            return;
+        }
+            
+        if ( this.newLocation != null && this.newLocation.LOCATION_ID > 0 ) 
+            this.reportService.removeLocation( this.newLocation.LOCATION_ID );
+        this.reference.destroy();
     }
 
     getLocations(): void {

@@ -218,6 +218,15 @@ body {
     margin-right: 4px;
 }
 
+.glyphicon-btn {
+    color: $sfu-black;
+    opacity: 0.85;
+    &:hover {
+        opacity: 1;
+        cursor: pointer;
+    }
+}
+
 span.panel-header, .glyphicon-heading {
     color: #333;
     font-size: $text-md;

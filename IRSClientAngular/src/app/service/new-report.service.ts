@@ -17,12 +17,18 @@ export class NewReportService {
     
     addLocation( obj: Location ) {
         var arr = this.locations.getValue();
-
-        /* HARDCODED */
-        //obj.LOCATION_ID = 67;
-        
         arr.push( obj );
         this.locations.next( arr );
+    }
+
+    removeLocation( id: number ) {
+        var arr = this.locations.getValue();
+        var i = arr.findIndex( l => l.LOCATION_ID == id );
+        console.log(arr);
+        console.log(i);
+        arr.splice( i, 1 );
+        this.locations.next( arr );
+        console.log(arr);
     }
 
     collectIncidentElements() {

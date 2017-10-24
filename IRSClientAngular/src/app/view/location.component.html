@@ -4,12 +4,9 @@
         <span class="field-title">Location</span>
     </div> -->
     <div class="details-body">
-        <!-- <div class="detail col-12 col-sm-3">
-            <span class="field-title">Debug: Location</span>
-            <select class="form-control" name="" id="" [(ngModel)]="newLocation.LOCATION_ID">
-                <option *ngFor="let location of locations" [ngValue]="location.LOCATION_ID">{{location.LOCATION_ID}}</option>
-            </select>
-        </div> -->
+        <div class="detail col-sm-1 col-sm-offset-11">
+            <span class="glyphicon glyphicon-remove glyphicon-btn" (click)="removeLocationFromReport()"></span>
+        </div>
         <div class="detail col-12 col-sm-3">
             <span class="field-title">Campus</span>
             <select class="form-control" name="" id="" [(ngModel)]="newLocation.CAMPUS_ID" (change)="onSelectCampus()">

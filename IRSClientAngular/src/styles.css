@@ -176,6 +176,13 @@ body {
 .glyphicon-heading {
   margin-right: 4px; }
 
+.glyphicon-btn {
+  color: #54585A;
+  opacity: 0.85; }
+  .glyphicon-btn:hover {
+    opacity: 1;
+    cursor: pointer; }
+
 span.panel-header, .glyphicon-heading {
   color: #333;
   font-size: 18px;
