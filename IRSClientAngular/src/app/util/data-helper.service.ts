@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Location } from '../model/location';
-import { Incident } from '../model/incident';
-import { IncidentElement } from '../model/incident-element';
+import { Location } from '../component/location/location';
+import { Incident } from '../component/report/incident';
+import { IncidentElement } from '../component/report/incident-element';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';

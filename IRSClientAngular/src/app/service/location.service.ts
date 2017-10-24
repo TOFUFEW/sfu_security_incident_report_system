@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { IncidentElement } from '../model/incident-element';
-import { Location, LocationMapping, Building, Room } from '../model/location';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
 import { DataHelperService } from '../util/data-helper.service';
 import 'rxjs/add/operator/toPromise';
+import { IncidentElement } from '../component/report/incident-element';
+import { Location, LocationMapping, Building, Room } from '../component/location/location';
 
 @Injectable()
 export class LocationService {

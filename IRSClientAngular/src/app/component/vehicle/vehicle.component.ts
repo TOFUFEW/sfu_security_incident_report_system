@@ -3,7 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 
 @Component({
     selector: 'vehicle-component',
-    templateUrl: '../view/vehicle.component.html'
+    templateUrl: './vehicle.component.html'
 })
 
 export class VehicleComponent {

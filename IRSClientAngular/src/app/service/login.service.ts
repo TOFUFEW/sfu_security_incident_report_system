@@ -3,10 +3,11 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { Config } from '../util/config.service';
 import { DataHelperService } from '../util/data-helper.service';
-import { User } from '../model/user';
-import { IncidentElement } from '../model/incident-element';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import { User } from '../component/login/user';
+import { IncidentElement } from '../component/report/incident-element';
+
 
 
 @Injectable()
