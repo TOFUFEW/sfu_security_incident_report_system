@@ -35,61 +35,6 @@ public class IncidentCategoryController {
 
         ArrayList<IncidentCategory> categoryList = new ArrayList<>();
 
-        String categoryID = "1";
-        String mainCategory = "Main Category 1";
-        String subCategory = "Sub Category 1";
-        String incidentType = "Category Type 1";
-
-        IncidentCategory ic = new IncidentCategory(
-                categoryID,
-                mainCategory,
-                subCategory,
-                incidentType
-        );
-
-        insertCategory(mainCategory, subCategory, incidentType);
-        categoryList.add(ic);
-
-        categoryID = "2";
-        mainCategory = "Main Category 2";
-        subCategory = "Sub Category 1";
-        incidentType = "Category Type 0";
-
-        IncidentCategory ic2 = new IncidentCategory(
-                categoryID,
-                mainCategory,
-                subCategory,
-                incidentType
-        );
-
-        categoryList.add(ic2);
-
-        categoryID = "3";
-        mainCategory = "Main Category 2";
-        subCategory = "Sub Category 2";
-        incidentType = "Category Type 1";
-
-        IncidentCategory ic3 = new IncidentCategory(
-                categoryID,
-                mainCategory,
-                subCategory,
-                incidentType
-        );
-
-        categoryList.add(ic3);
-
-        categoryID = "4";
-        mainCategory = "Main Category 1";
-        subCategory = "Sub Category 1";
-
-        IncidentCategory ic4 = new IncidentCategory(
-                categoryID,
-                mainCategory,
-                subCategory,
-                null
-        );
-
-        categoryList.add(ic4);
 
         insertCategories();
         return categoryList.toArray(new IncidentCategory[categoryList.size()]);
@@ -106,6 +51,7 @@ public class IncidentCategoryController {
 
     private void insertCategories() {
 
+        /*
         insertCategory("Access Control", "Access Provided", null);
         insertCategory("Access Control", "Insecure Area", "Door");
         insertCategory("Access Control", "Insecure Area", "Closing Delinquent");
@@ -116,6 +62,7 @@ public class IncidentCategoryController {
         insertCategory("Access Control", "Lost Sfu Key", null);
         insertCategory("Access Control", "Unauthorized Access", null);
 //insertCategory("Alarms", "False", null);
+
         insertCategory("Alarms", "Fire", "Contractor");
         insertCategory("Alarms", "Fire", "Cooking");
         insertCategory("Alarms", "Fire", "False");
@@ -162,6 +109,8 @@ public class IncidentCategoryController {
         insertCategory("Alarms", "Supervisory", "Student");
         insertCategory("Alarms", "Supervisory", "System Fault");
         insertCategory("Alarms", "Supervisory", "Testing");
+
+
         insertCategory("Assistance", "Animal Calls", null);
         insertCategory("Assistance", "Animal Calls", null);
         insertCategory("Assistance", "Elevator Entrapment", null);
@@ -191,20 +140,24 @@ public class IncidentCategoryController {
         insertCategory("Assistance", "To Public", "Secure Door");
         insertCategory("Assistance", "To Residence", "Guest Check-In");
         insertCategory("Assistance", "Unusual Smell", null);
+
+
         insertCategory("Bio Hazard Threat", "Bio Hazard Threat", null);
         insertCategory("Community Engagement", "Presentation", null);
-        insertCategory("Community Engagement", "Sfu Event Presentation", null);
-        insertCategory("Complaints", "Against Security Contractors", "Traffic");
+        //*********insertCategory("Community Engagement", "Sfu Event Presentation", null);
+        //*********insertCategory("Complaints", "Against Security Contractors", "Traffic");
         insertCategory("Complaints", "Against Sfu Faculty", null);
         insertCategory("Complaints", "Against Sfu Staff", null);
-        insertCategory("Complaints", "Against Simon Fraser University", "Parking Enforcement");
+        //*********insertCategory("Complaints", "Against Simon Fraser University", "Parking Enforcement");
+
+
         insertCategory("Criminal", "Assault", "Causing Bodily Harm");
         insertCategory("Criminal", "Assault", "Common");
         insertCategory("Criminal", "Assault", "Sexual");
         insertCategory("Criminal", "Bomb Threat", null);
         insertCategory("Criminal", "Break And Enter", "Attempted");
-        insertCategory("Criminal", "Controlled Drugs And Substances", "Distribution");
-        insertCategory("Criminal", "Controlled Drugs And Substances", "Possession");
+        //*********insertCategory("Criminal", "Controlled Drugs And Substances", "Distribution");
+        //*********insertCategory("Criminal", "Controlled Drugs And Substances", "Possession");
         insertCategory("Criminal", "Domestic Dispute", null);
         insertCategory("Criminal", "Extortion", null);
         insertCategory("Criminal", "Fraud", null);
@@ -213,7 +166,7 @@ public class IncidentCategoryController {
         insertCategory("Criminal", "Indecent Acts", null);
         insertCategory("Criminal", "Kidnapping", null);
         insertCategory("Criminal", "Other", null);
-        insertCategory("Criminal", "Possession Of A Weapon", null);
+        //*********insertCategory("Criminal", "Possession Of A Weapon", null);
         insertCategory("Criminal", "Riot", null);
         insertCategory("Criminal", "Robbery", "Attempted");
         insertCategory("Criminal", "Robbery", "In Progress");
@@ -223,42 +176,44 @@ public class IncidentCategoryController {
         insertCategory("Criminal", "Theft", "Attempted");
         insertCategory("Criminal", "Theft", "In Progress");
         insertCategory("Criminal", "Vandalisim", null);
-        insertCategory("Daily Occurances", "Bookstore Closing", null);
-        insertCategory("Daily Occurances", "Breaks", null);
-        insertCategory("Daily Occurances", "Cash Count", null);
-        insertCategory("Daily Occurances", "Cash Escort", "Bookstore");
-        insertCategory("Daily Occurances", "Cash Escort", "Kiosk Duties");
-        insertCategory("Daily Occurances", "Cash Escort", "Library");
-        insertCategory("Daily Occurances", "Cash Escort", "Parking Services");
-        insertCategory("Daily Occurances", "Cash Escort", "Tvm Duties");
-        insertCategory("Daily Occurances", "Equipment Check", null);
-        insertCategory("Daily Occurances", "First Aid Duties", "Medical Bags/Equipment Check");
-        insertCategory("Daily Occurances", "First Aid Duties", "Oxygen Tank Levels");
-        insertCategory("Daily Occurances", "Key Count", null);
-        insertCategory("Daily Occurances", "Officer Check-In", null);
-        insertCategory("Daily Occurances", "Officer Transport", null);
-        insertCategory("Daily Occurances", "Pass On Log", null);
-        insertCategory("Daily Occurances", "Pickup/Delivery", null);
-        insertCategory("Daily Occurances", "Report Writing", null);
-        insertCategory("Daily Occurances", "Shift Engineer Check-In", null);
-        insertCategory("Daily Occurances", "Tvm Service", null);
-        insertCategory("Daily Occurances", "Vehicle Maintence", "Fueling");
-        insertCategory("Daily Occurances", "Vehicle Maintence", "Kilometers");
-        insertCategory("Daily Occurances", "Vehicle Maintence", "Maintence Check");
-        insertCategory("Daily Occurances", "Vehicle Maintence", "Off Site");
-        insertCategory("Daily Occurances", "Vehicle Maintence", "Washing");
+
+
+        insertCategory("Daily Occurences", "Bookstore Closing", null);
+        insertCategory("Daily Occurences", "Breaks", null);
+        insertCategory("Daily Occurences", "Cash Count", null);
+        insertCategory("Daily Occurences", "Cash Escort", "Bookstore");
+        insertCategory("Daily Occurences", "Cash Escort", "Kiosk Duties");
+        insertCategory("Daily Occurences", "Cash Escort", "Library");
+        insertCategory("Daily Occurences", "Cash Escort", "Parking Services");
+        insertCategory("Daily Occurences", "Cash Escort", "Tvm Duties");
+        insertCategory("Daily Occurences", "Equipment Check", null);
+        //*********insertCategory("Daily Occurences", "First Aid Duties", "Medical Bags/Equipment Check");
+        insertCategory("Daily Occurences", "First Aid Duties", "Oxygen Tank Levels");
+        insertCategory("Daily Occurences", "Key Count", null);
+        insertCategory("Daily Occurences", "Officer Check-In", null);
+        insertCategory("Daily Occurences", "Officer Transport", null);
+        insertCategory("Daily Occurences", "Pass On Log", null);
+        insertCategory("Daily Occurences", "Pickup/Delivery", null);
+        insertCategory("Daily Occurences", "Report Writing", null);
+        //*********insertCategory("Daily Occurences", "Shift Engineer Check-In", null);
+        insertCategory("Daily Occurences", "Tvm Service", null);
+        insertCategory("Daily Occurences", "Vehicle Maintence", "Fueling");
+        insertCategory("Daily Occurences", "Vehicle Maintence", "Kilometers");
+        insertCategory("Daily Occurences", "Vehicle Maintence", "Maintence Check");
+        insertCategory("Daily Occurences", "Vehicle Maintence", "Off Site");
+        insertCategory("Daily Occurences", "Vehicle Maintence", "Washing");
         insertCategory("Damage", "Property", "Commercial");
         insertCategory("Damage", "Property", "Personal");
         insertCategory("Damage", "Property", "Sfu");
         insertCategory("Damage", "Vandalisim", "Graffiti");
-        insertCategory("Damage", "Vehicle", "Campus Security Vehicle");
+        //*********insertCategory("Damage", "Vehicle", "Campus Security Vehicle");
         insertCategory("Death", "Accidetnal ", null);
-        insertCategory("Death", "Motor Vehicle Accident", null);
+        //*********insertCategory("Death", "Motor Vehicle Accident", null);
         insertCategory("Death", "Suicide", null);
-        insertCategory("Demonstrations/Protests", "Labour Dispute", null);
-        insertCategory("Enviromental", "Accidental Spill/Release", "Biological");
-        insertCategory("Enviromental", "Accidental Spill/Release", "Chemical");
-        insertCategory("Enviromental", "Accidental Spill/Release", "Gas Leak");
+        //*********insertCategory("Demonstrations/Protests", "Labour Dispute", null);
+        //*********insertCategory("Enviromental", "Accidental Spill/Release", "Biological");
+        //*********insertCategory("Enviromental", "Accidental Spill/Release", "Chemical");
+        //*********insertCategory("Enviromental", "Accidental Spill/Release", "Gas Leak");
         insertCategory("Enviromental", "Air Pollution", null);
         insertCategory("Enviromental", "Community Complaints", null);
         insertCategory("Enviromental", "Disease Outbreak", null);
@@ -267,7 +222,7 @@ public class IncidentCategoryController {
         insertCategory("Enviromental", "Forest Fire", null);
         insertCategory("Enviromental", "Heatwave", null);
         insertCategory("Enviromental", "Hurricane/Typhoon", null);
-        insertCategory("Enviromental", "Intentionional Chemical Release/Dumping", null);
+        //*********insertCategory("Enviromental", "Intentionional Chemical Release/Dumping", null);
         insertCategory("Enviromental", "Power Outage", null);
         insertCategory("Enviromental", "Severe Weather", null);
         insertCategory("Enviromental", "Tsunami", null);
@@ -285,49 +240,49 @@ public class IncidentCategoryController {
         insertCategory("Parking Enforcement", "Counterfiet Tvm", null);
         insertCategory("Parking Enforcement", "Failure To Pay", null);
         insertCategory("Parking Enforcement", "Impoundment", null);
-        insertCategory("Parking Enforcement", "Misuse Of Permit/Tvm Receipt", null);
+        //*********insertCategory("Parking Enforcement", "Misuse Of Permit/Tvm Receipt", null);
         insertCategory("Parking Enforcement", "Parking Offense", null);
         insertCategory("Parking Enforcement", "Parknig Suspension", null);
         insertCategory("Parking Enforcement", "Permit/Access Card", "Lost");
         insertCategory("Parking Enforcement", "Permit/Access Card", "Stolen");
         insertCategory("Patrol", "Camera Patrol", null);
         insertCategory("Patrol", "Special Patrol", null);
-        insertCategory("Personal Safety", "Harassment", "Assist Harassment Resoloution");
-        insertCategory("Personal Safety", "Harassment", "Bullying/Intimindation");
+        //*********insertCategory("Personal Safety", "Harassment", "Assist Harassment Resoloution");
+        //*********insertCategory("Personal Safety", "Harassment", "Bullying/Intimindation");
         insertCategory("Personal Safety", "Harassment", "Sexual");
         insertCategory("Personal Safety", "Harassment", "Stalking");
         insertCategory("Personal Safety", "Harassment", "Verbal");
         insertCategory("Personal Safety", "Information /Consult", null);
-        insertCategory("Personal Safety", "Violence In The Workplace", null);
+        //*********insertCategory("Personal Safety", "Violence In The Workplace", null);
         insertCategory("Policy", "Student Code ", null);
         insertCategory("Policy", "Student Code ", "Cheating");
         insertCategory("Policy", "Student Code ", "Personal Conduct");
         insertCategory("Policy", "Student Code ", "Residence Contract");
-        insertCategory("Provincial Statutes", "Liquor Control/Licensing Act", "Intoxicated Person(S)");
-        insertCategory("Provincial Statutes", "Liquor Control/Licensing Act", "Public Consumption");
-        insertCategory("Provincial Statutes", "Liquor Control/Licensing Act", "Special Occasion License Violation(S)");
+        //*********insertCategory("Provincial Statutes", "Liquor Control/Licensing Act", "Intoxicated Person(S)");
+        //*********insertCategory("Provincial Statutes", "Liquor Control/Licensing Act", "Public Consumption");
+        //*********insertCategory("Provincial Statutes", "Liquor Control/Licensing Act", "Special Occasion License Violation(S)");
         insertCategory("Provincial Statutes", "Litter Act", null);
         insertCategory("Provincial Statutes", "Mental Health Act", null);
         insertCategory("Provincial Statutes", "Motor Vehicle Act", null);
         insertCategory("Provincial Statutes", "Other", null);
         insertCategory("Provincial Statutes", "Trespass Act", null);
         insertCategory("Provincial Statutes", "University Act", null);
-        insertCategory("Saftey", "Contact With Electricity", null);
+        //*********insertCategory("Saftey", "Contact With Electricity", null);
         insertCategory("Saftey", "Ehrs Incident", null);
         insertCategory("Saftey", "Excercises/Drills", "Fire Alarm Drill");
         insertCategory("Saftey", "Explosion", null);
-        insertCategory("Saftey", "Fall On Same Level, Slip/Trip", null);
+        //*********insertCategory("Saftey", "Fall On Same Level, Slip/Trip", null);
         insertCategory("Saftey", "Fire", "Accidental");
         insertCategory("Saftey", "Fire", "Cooking");
         insertCategory("Saftey", "Fire", "Electrical");
         insertCategory("Saftey", "Fire", "Heating");
         insertCategory("Saftey", "Fire", "Natural Gas Leak");
         insertCategory("Saftey", "Fire", "Smoking");
-        insertCategory("Saftey", "Hazardous Material Spill", null);
+        //*********insertCategory("Saftey", "Hazardous Material Spill", null);
         insertCategory("Saftey", "Near Miss", null);
         insertCategory("Saftey", "Other", null);
         insertCategory("Saftey", "Other Bodily Motion", null);
-        insertCategory("Saftey", "Overexertion, Ergonomics", null);
+        //*********insertCategory("Saftey", "Overexertion, Ergonomics", null);
         insertCategory("Saftey", "Violations", null);
         insertCategory("Saftey", "Violations", null);
         insertCategory("Shifts", "Contract Security", "Dispatch");
@@ -363,17 +318,17 @@ public class IncidentCategoryController {
         insertCategory("Threats", "Physical", "Phone");
         insertCategory("Threats", "Verbal", "Email");
         insertCategory("Threats", "Verbal", "Phone");
-        insertCategory("Traffic", "Motor Vehicle Accident", "Accidental");
-        insertCategory("Traffic", "Motor Vehicle Accident", "Hit And Run");
-        insertCategory("Traffic", "Motor Vehicle Accident", "Train Derailment");
+        //*********insertCategory("Traffic", "Motor Vehicle Accident", "Accidental");
+        //*********insertCategory("Traffic", "Motor Vehicle Accident", "Hit And Run");
+        //*********insertCategory("Traffic", "Motor Vehicle Accident", "Train Derailment");
         insertCategory("Traffic", "Moving Violation", "Failure To Pay");
         insertCategory("Traffic", "Moving Violation", "Speeding");
         insertCategory("Traffic", "Moving Violation", "Traffic Control");
         insertCategory("Traffic", "Recklass Driving", null);
         insertCategory("Training", "Training", null);
         insertCategory("Weather", "Hazardous Conditions", null);
-        insertCategory("Weather", "Update The Road And Traffic Report", null);
-
+        //*********insertCategory("Weather", "Update The Road And Traffic Report", null);
+        */
     }
 
     private void insertCategory(String main, String sub, String type) {
