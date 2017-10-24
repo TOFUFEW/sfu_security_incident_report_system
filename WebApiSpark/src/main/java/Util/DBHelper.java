@@ -9,7 +9,8 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class DBHelper
-{/*
+{
+    /*
     private static final String USERNAME = "cmpt373alpha";
     private static final String PASSWORD = "cmpt373alpha";
     private static final String URL = "jdbc:sqlserver://sfuirsdb.czoee5rkbxlk.us-west-1.rds.amazonaws.com:1433;DatabaseName=IRS;";
