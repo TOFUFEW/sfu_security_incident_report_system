@@ -17,35 +17,32 @@ import static spark.Spark.post;
 
 public class IncidentsController
 {
-    JsonUtil parser = new JsonUtil();
-    DBHelper dbHelper = new DBHelper();
-    public IncidentsController()
+    public IncidentsController ()
     {
-        setupEndPoints();
+        setupEndPoints ();
     }
-
-    public List<Incident> incidentList = new ArrayList<>();
 
     private void setupEndPoints()
     {
-        get ("/incidents", ( request , response ) ->
+        get ("/incidents" , ( request , response ) ->
         {
-            return dbHelper.getIncidents();
-        }, json());
+            Incident []  incidents = DBHelper.getIncidents ();
+            return JsonUtil.toJson ( incidents );
+        } );
 
-        post ("/incidents", ( request, response ) ->
+        post ("/incidents" , ( request, response ) ->
         {
-            System.out.println(request.body());
-            Incident newIncident = ( Incident ) parser.fromJson ( request.body() , Incident.class );
-            return dbHelper.insertIncident( newIncident );
+            Incident newIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
+            String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
+            return DBHelper.insertIncident ( incidentString , newIncident );
         }, json() );
 
         post ("/updateIncident", ( request , response ) ->
         {
             try {
 
-                Incident updatedIncident = (Incident) parser.fromJson ( request.body(), Incident.class );
-                boolean rs = dbHelper.executeProcedure (
+                Incident updatedIncident = (Incident) JsonUtil.fromJson ( request.body(), Incident.class );
+                boolean rs = DBHelper.executeProcedure (
                         "{ call dbo.updateIncident ( ? , ? , ? , ? , ? , ? ) }"
                         , updatedIncident);
                 return true;
@@ -56,6 +53,5 @@ public class IncidentsController
 //                e.printStackTrace ();
             }
         }, json());
-
     }
 }

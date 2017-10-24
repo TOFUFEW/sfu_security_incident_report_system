@@ -6,16 +6,15 @@ import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
 import 'rxjs/add/operator/toPromise';
 
-@Injectable()
 export class DataHelperService
 {
     constructor() {}
 
-    extractAttribute( incidentElement: IncidentElement ): Object {
+    static extractAttributes( incidentElement: IncidentElement ): Object {
         return incidentElement.attributes;
     }
 
-    extractAttributes( incidentElements: IncidentElement[] ): Object[] {
+    static extractAttributesArray( incidentElements: IncidentElement[] ): Object[] {
         var arr = [];
         incidentElements.forEach( so => {
             arr.push( so.attributes );
@@ -23,7 +22,7 @@ export class DataHelperService
         return arr;
     }
 
-    toIncidentElement( table: string, object: Object): IncidentElement {
+    static toIncidentElement( table: string, object: Object): IncidentElement {
         var incidentElement: IncidentElement = new IncidentElement();
 
         incidentElement.table = table;

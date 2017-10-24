@@ -3,47 +3,62 @@ import {
     Injector,
     ComponentFactoryResolver,
     EmbeddedViewRef,
+    ComponentRef,
     ApplicationRef,
     ViewContainerRef
 } from '@angular/core';
-
-import { DynamicFormComponent } from '../component/dynamic-form.component';
+import { Location } from '../model/location';
+import { LocationComponent } from '../component/location.component';
+import { VehicleComponent } from '../component/vehicle.component';
 
 @Injectable()
 export class DomService {
-
 
     constructor(
         private componentFactoryResolver: ComponentFactoryResolver,
         private appRef: ApplicationRef,
         private injector: Injector,
-    ) { }
+    ) {}
 
-    appendComponentToDiv(component: any, tag: string) {
+    // **** ADD DYNAMIC COMPONENTS HERE **** //
 
-        // 1. Create a component reference from the component 
-        const componentRef = this.componentFactoryResolver
-        .resolveComponentFactory(component)
-        .create(this.injector);
+    addComponent(componentName: string, targetDomId: string) {
+        // 1. Create a component
+        const componentRef = this.createComponent( componentName );
 
-        /*
-        const factory = this.componentFactoryResolver.resolveComponentFactory(component);
-        console.log("we are here");
-        let rootViewContainer = viewContainerRef;
-        rootViewContainer.clear();
-        let componentRef = factory.create(rootViewContainer.parentInjector);
-        */
+        this.addToDom(componentRef, targetDomId);
+        
+        // 5. Save reference for later use
+        componentRef.instance.reference = componentRef;
+    }
 
-        console.log("component created");
+    // **** END OF DYNAMIC COMPONENTS **** //
+
+    private addToDom(componentRef: any, targetDomId: string) {
+
         // 2. Attach component to the appRef so that it's inside the ng component tree
         this.appRef.attachView(componentRef.hostView);
-
+        
         // 3. Get DOM element from component
         const domElement = (componentRef.hostView as EmbeddedViewRef<any>)
             .rootNodes[0] as HTMLElement;
 
         // 4. Append DOM element to the div
-        let div = document.getElementById(tag);
+        let div = document.getElementById( targetDomId );
         div.appendChild(domElement);
+    }
+
+    private createComponent( componentName: string ) : ComponentRef<any> {
+        if ( componentName === VehicleComponent.name ) {
+            return this.componentFactoryResolver
+            .resolveComponentFactory(VehicleComponent)
+            .create(this.injector);
+        }
+        else if ( componentName === LocationComponent.name ) {
+            return this.componentFactoryResolver
+            .resolveComponentFactory(LocationComponent)
+            .create(this.injector);
+        }
+        
     }
 }

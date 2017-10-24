@@ -21,10 +21,10 @@ public class TestStaff
                 "Doe"
         );
 
-        String accountID = staff.getColumnValue ( DatabaseValues.DatabaseColumn.ACCOUNT_ID );
-        String campusID = staff.getColumnValue ( DatabaseValues.DatabaseColumn.CAMPUS_ID );
-        String firstName = staff.getColumnValue ( DatabaseValues.DatabaseColumn.FIRST_NAME );
-        String lastName = staff.getColumnValue ( DatabaseValues.DatabaseColumn.LAST_NAME );
+        String accountID = staff.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID );
+        String campusID = staff.getAttributeValue( DatabaseValues.Column.CAMPUS_ID );
+        String firstName = staff.getAttributeValue( DatabaseValues.Column.FIRST_NAME );
+        String lastName = staff.getAttributeValue( DatabaseValues.Column.LAST_NAME );
 
 
         Assert.assertTrue ( accountID == null );
@@ -44,23 +44,23 @@ public class TestStaff
         );
 
         // change all values
-        staff.editColumnValue (
-                DatabaseValues.DatabaseColumn.CAMPUS_ID,
+        staff.updateAttributeValue(
+                DatabaseValues.Column.CAMPUS_ID,
                 "2"
         );
-        staff.editColumnValue (
-                DatabaseValues.DatabaseColumn.FIRST_NAME,
+        staff.updateAttributeValue(
+                DatabaseValues.Column.FIRST_NAME,
                 "Max"
         );
-        staff.editColumnValue (
-                DatabaseValues.DatabaseColumn.LAST_NAME,
+        staff.updateAttributeValue(
+                DatabaseValues.Column.LAST_NAME,
                 "Mustermann"
         );
 
-        String accountID = staff.getColumnValue ( DatabaseValues.DatabaseColumn.ACCOUNT_ID );
-        String campusID = staff.getColumnValue ( DatabaseValues.DatabaseColumn.CAMPUS_ID );
-        String firstName = staff.getColumnValue ( DatabaseValues.DatabaseColumn.FIRST_NAME );
-        String lastName = staff.getColumnValue ( DatabaseValues.DatabaseColumn.LAST_NAME );
+        String accountID = staff.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID );
+        String campusID = staff.getAttributeValue( DatabaseValues.Column.CAMPUS_ID );
+        String firstName = staff.getAttributeValue( DatabaseValues.Column.FIRST_NAME );
+        String lastName = staff.getAttributeValue( DatabaseValues.Column.LAST_NAME );
 
         Assert.assertFalse ( campusID.equals ( "1" ) );
         Assert.assertFalse ( firstName.equals ( "John" ) );
@@ -82,27 +82,27 @@ public class TestStaff
                 "Doe"
         );
 
-        // change with invalid values per DatabaseColumn
-        boolean updateCampusID = staff.editColumnValue (
-                DatabaseValues.DatabaseColumn.CAMPUS_ID, // only excepts ints
+        // change with invalid values per Column
+        boolean updateCampusID = staff.updateAttributeValue(
+                DatabaseValues.Column.CAMPUS_ID, // only excepts ints
                 "Burnaby"
         );
 
-        boolean updateRoomNumber = staff.editColumnValue (
-                DatabaseValues.DatabaseColumn.ROOM_NUMBER, // // Staff is not associated with column Room Number
+        boolean updateRoomNumber = staff.updateAttributeValue(
+                DatabaseValues.Column.ROOM_NUMBER, // // Staff is not associated with column Room Number
                 "2300"
         );
 
         Assert.assertTrue ( !updateCampusID ); // failed
         Assert.assertTrue ( !updateRoomNumber ); // failed
 
-        String campusID = staff.getColumnValue ( DatabaseValues.DatabaseColumn.CAMPUS_ID );
-        String roomNumber = staff.getColumnValue ( DatabaseValues.DatabaseColumn.ROOM_NUMBER );
+        String campusID = staff.getAttributeValue( DatabaseValues.Column.CAMPUS_ID );
+        String roomNumber = staff.getAttributeValue( DatabaseValues.Column.ROOM_NUMBER );
 
         Assert.assertFalse ( campusID.equals ( "Burnaby" ) );
         Assert.assertFalse ( roomNumber != null && roomNumber.equals (2300) );
 
-        Assert.assertTrue ( campusID.equals ( DatabaseValues.DatabaseColumn.CAMPUS_ID.getDefaultValue () ) );
+        Assert.assertTrue ( campusID.equals ( DatabaseValues.Column.CAMPUS_ID.getDefaultValue () ) );
         Assert.assertTrue ( roomNumber == null );
     }
 
@@ -117,7 +117,7 @@ public class TestStaff
         );
 
         String insertSQL = staff.toInsertSQL ();
-        Assert.assertTrue ( !insertSQL.contains ( DatabaseValues.DatabaseColumn.ACCOUNT_ID.toString () ) );
+        Assert.assertTrue ( !insertSQL.contains ( DatabaseValues.Column.ACCOUNT_ID.toString () ) );
 
         // Staff's accountID is only useful for objects that are retrieved from the database and
         // brought to the front end, which are updated or deleted by the user. However, because it is null in value,
@@ -152,9 +152,9 @@ public class TestStaff
 
         Assert.assertTrue ( staff2.getTable().equals ( staff1.getTable() ) );
 
-        for ( DatabaseValues.DatabaseColumn column : staff2.getColumnSet() )
+        for ( DatabaseValues.Column column : staff2.getColumnSet() )
         {
-            Assert.assertTrue ( staff2.getColumnValue ( column ).equals ( staff1.getColumnValue ( column ) ) );
+            Assert.assertTrue ( staff2.getAttributeValue( column ).equals ( staff1.getAttributeValue( column ) ) );
         }
     }
 
@@ -164,7 +164,7 @@ public class TestStaff
         try
         {
             ResultSet resultSet = DBHelper.executeQuery ( "SELECT MAX ( ACCOUNT_ID ) AS MaxStaffID FROM " +
-                    DatabaseValues.DatabaseTable.STAFF.toString () );
+                    DatabaseValues.Table.STAFF.toString () );
             while ( resultSet.next () )
             {
                 return "" + resultSet.getInt ( "MaxStaffID" );
