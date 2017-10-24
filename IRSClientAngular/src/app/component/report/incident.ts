@@ -1,4 +1,4 @@
-import { IncidentElement } from '../model/incident-element';
+import { IncidentElement } from './incident-element';
 
 export class Incident {
     table: string;

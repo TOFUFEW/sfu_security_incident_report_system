@@ -1,14 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Incident } from '../model/incident';
-import { Location } from '../model/location';
-import { IncidentService } from '../service/incident.service';
+import { IncidentService } from '../../service/incident.service';
+import { Incident } from './incident';
+import { Location } from '../location/location';
+
 
 @Component( 
   {
     selector: 'incidents-component',
-    templateUrl: '../view/incidents.component.html',
-    styleUrls: ['../../assets/css/incidents.component.css',
-                '../../assets/css/panels.css']
+    templateUrl: './incidents.component.html',
+    styleUrls: ['../../../assets/css/incidents.component.css',
+                '../../../assets/css/panels.css']
   }
 )
 
