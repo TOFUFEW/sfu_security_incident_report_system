@@ -7,18 +7,18 @@
     <input type="text" id="personInputFirst" (keyup)="findPerson('first')" placeholder="First Name">
     <input type="text" id="personInputLast" (keyup)="findPerson('last')" placeholder="Last Name">
     <input type="text" id="personInputPhone" (keyup)="findPerson('number')" placeholder="Phone Number">
-    
-    <ul id="peopleDisplay">
-      <li *ngFor="let person of personList">
-          Id: {{person.PERSON_ID}}, 
-          {{person.FIRST_NAME}}, 
-          {{person.LAST_NAME}},
-          {{person.PHONE_NUMBER}}   
-          <button class="btn btn-primary" (click)="selectPerson();">
-              Select
-          </button> 
-      </li>
-    </ul>
+
+    <br><br>
+    <div class="panel panel-default test-panel" style="overflow-y:scroll; height:200px; width: 500px;">
+      <ul id="peopleDisplay">
+        <li *ngFor="let person of personList">
+            {{person.FIRST_NAME}},
+            {{person.LAST_NAME}},
+            {{person.PHONE_NUMBER}}   
+            <button class=" glyphicon glyphicon-plus" (click)="selectPerson();"></button> 
+        </li>
+      </ul>
+    </div>
 
     <h4>Add a Person</h4>
     
