@@ -16,8 +16,34 @@
                         <div class="panel-body">
                             <div class="quarter-box" *ngFor="let report of reportsInWorkspace">
                                 <div class="incident-container">
-                                    {{report.attributes.REPORT_ID}}, 
-                                    {{report.attributes.DESCRIPTION}}
+                                    <div class="details-container">
+                                        <div class="details-heading">
+                                            <span class="glyphicon glyphicon-info-sign glyphicon-heading"></span>
+                                            <span class="field-title">Basic Information</span>
+                                        </div>
+                                        <div class="details-body">
+                                            <div class="detail detail-lg col-12">
+                                                <span class="field-title">WIP: Category: </span>
+                                                <span class="field-value">Category1</span>
+                                            </div>
+                                            <div class="detail detail-lg col-12">
+                                                <span class="field-title">WIP: Sub Category: </span>
+                                                <span class="field-value">SubCategory1</span>
+                                            </div>
+                                            <div class="detail detail-lg col-12">
+                                                <span class="field-title">WIP: Type: </span>
+                                                <span class="field-value">Type1</span>
+                                            </div>
+                                            <div class="detail detail-lg col-12">
+                                                <span class="field-title">Description</span>
+                                                <span class="field-value">{{report.attributes.DESCRIPTION}}</span>
+                                            </div>
+                                            <div class="detail detail-lg col-12">
+                                                <span class="field-title">Executive Summary</span>
+                                                <span class="field-value">{{report.attributes.EXECUTIVE_SUMMARY}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

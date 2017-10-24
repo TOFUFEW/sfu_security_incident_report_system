@@ -69,6 +69,7 @@ div#incidents-container {
 
 div.quarter-box {
     height: 100%;
+    width: 25%;
     min-width: 25%;
     border-right: 8px double $grey-dark;
     overflow-y:auto;
@@ -80,7 +81,6 @@ div.incident-container {
     height: 100%;
     width: 100%;
     min-width: 25%;
-    background-color: $grey-default;
     //border: $border-default;
     overflow: auto;
 

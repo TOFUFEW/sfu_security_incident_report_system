@@ -172,6 +172,8 @@ body {
   .details-container .detail {
     min-width: 250px;
     padding: 10px 10px; }
+  .details-container .detail-lg {
+    min-width: 0px !important; }
 
 .glyphicon-heading {
   margin-right: 4px; }
