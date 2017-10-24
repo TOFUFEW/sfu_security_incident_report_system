@@ -1,9 +1,6 @@
 package Util;
 
-import Model.Incident;
-import Model.IncidentElement;
-import Model.Location;
-import Model.Staff;
+import Model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -323,6 +320,10 @@ public class DBHelper
                 else if ( table == DatabaseValues.Table.STAFF )
                 {
                     incidentElement = new Staff ();
+                }
+                else if ( table == DatabaseValues.Table.INCIDENT_CATEGORY )
+                {
+                    incidentElement = new IncidentCategory();
                 }
                 else
                 {

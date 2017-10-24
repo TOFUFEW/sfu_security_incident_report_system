@@ -17,16 +17,9 @@ public class IncidentCategoryController {
         setUpEndPoints();
     }
 
-    private IncidentCategory[] getCategories()
-    {
-        ArrayList<IncidentCategory> categoryList = new ArrayList<>();
-        return categoryList.toArray(new IncidentCategory[categoryList.size()]);
-    };
-
     private void setUpEndPoints() {
         get("/categories", (request, response) -> {
-            //return JsonUtil.toJson( getCategories() );
-            return getCategories();
+            return DBHelper.getIncidentElements( DatabaseValues.Table.INCIDENT_CATEGORY );
         }, json());
 
 
