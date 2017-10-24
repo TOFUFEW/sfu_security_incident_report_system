@@ -19,6 +19,20 @@ public class IncidentCategoryController {
 
     private IncidentCategory[] getCategories()
     {
+        /* DEBUG */
+        try {
+            ResultSet r = DBHelper.executeQuery("Select * from IncidentCategory");
+            while ( r.next() ) {
+                System.out.println( r.getString("MAIN_CATEGORY"));
+                System.out.println( r.getString("SUB_CATEGORY"));
+                System.out.println( r.getString("INCIDENT_TYPE"));
+            }
+        }
+        catch(Exception e ) {
+            e.printStackTrace();
+        }
+        /* END DEBUG */
+
         ArrayList<IncidentCategory> categoryList = new ArrayList<>();
 
         String categoryID = "1";
@@ -33,6 +47,7 @@ public class IncidentCategoryController {
                 incidentType
         );
 
+        insertCategory(mainCategory, subCategory, incidentType);
         categoryList.add(ic);
 
         categoryID = "2";
@@ -86,6 +101,15 @@ public class IncidentCategoryController {
         }, json());
 
 
+    }
+
+    private void insertCategory(String main, String sub, String type) {
+        String query = "insert into IncidentCategory (MAIN_CATEGORY, SUB_CATEGORY, INCIDENT_TYPE) values (";
+        query += "'" + main + "', ";
+        query += "'" + sub + "', ";
+        query += "'" + type + "');";
+
+        System.out.println(query);
     }
 }
 
