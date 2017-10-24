@@ -10,17 +10,16 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class PersonService {
     private headers = new Headers({'Content-Type': 'application/json'});
-    personList;
     personUrl = Config.PersonURI;
     tableName = Config.PersonTable;
     constructor(private http: Http) {}
 
     getPersons(): Promise<Person[]> {
-        this.personList = this.http.get( this.personUrl )
+        var personList = this.http.get( this.personUrl )
             .toPromise()
             .then( response => DataHelperService.extractAttributesArray( response.json() ) as Person[] )
             .catch( this.handleError );
-        return Promise.resolve( this.personList );
+        return Promise.resolve( personList );
     }
 
     search( person: Person ) : Promise<Person[]> {
@@ -59,26 +58,43 @@ export class PersonService {
         return Promise.resolve( promise );
     };
 
-    searchList() : void {
-
-        // Declare variables
-
-        //apparently document.getElementbyId() does not work
+    searchList( type : string, personList : Person[]) : void {
+        var input, filter, ul, li;
+        ul = document.getElementById("peopleDisplay");
+        li = ul.getElementsByTagName('li');
         
-        // var input, filter, ul, li;
-        // input = document.getElementById('personInput');
-        // filter = input.value.toUpperCase();
-        // ul = document.getElementById("peopleDisplay");
-        // li = ul.getElementsByTagName('li');
-        
-        // // Loop through all list items, and hide those who don't match the search query
-        // for (var i = 0; i < personList.length; i++ ){
-        //     if (personList[i].FIRST_NAME.toUpperCase().indexOf(filter) > -1 ){
-        //         li[i].style.display = "";
-        //     } else {
-        //         li[i].style.display = "none";
-        //     }
-        // }        
+        // Loop through all list items, and hide those who don't match the search query
+        if ( type == "first" ) {
+            input = document.getElementById('personInputFirst');
+            filter = input.value.toUpperCase();
+            for (var i = 0; i < personList.length; i++ ){
+                if (personList[i].FIRST_NAME.toUpperCase().indexOf(filter) > -1 ){
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }   
+        } else if ( type == "last" ) {
+            input = document.getElementById('personInputLast');
+            filter = input.value.toUpperCase();
+            for (var i = 0; i < personList.length; i++ ){
+                if (personList[i].LAST_NAME.toUpperCase().indexOf(filter) > -1 ){
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }   
+        } else if ( type == "number" ) {
+            input = document.getElementById('personInputPhone');
+            filter = input.value.toString();
+            for (var i = 0; i < personList.length; i++ ){
+                if (personList[i].PHONE_NUMBER.toString().indexOf(filter) > -1 ){
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }   
     }
 
     private handleError(error: any): Promise<any> {

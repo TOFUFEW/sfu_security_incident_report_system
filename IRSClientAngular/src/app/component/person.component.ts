@@ -42,8 +42,8 @@ export class PersonComponent implements OnInit {
     this.newPerson = new Person();
   }
 
-  findPerson(): void {
-    //this.personService.searchList( this.personList );
+  findPerson( type : string ): void {
+    this.personService.searchList( type, this.personList );
   }
 
   updatePerson( person: Person ): void {
