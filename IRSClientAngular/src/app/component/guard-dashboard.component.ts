@@ -29,18 +29,9 @@ export class GuardDashboardComponent implements OnInit {
     } );
   }
 
-  viewReport( id: number ) : void {
-    alert("view report" + id);
-    console.log("view report");
-    console.log(id);
-    var i = 0;
-    for(i;i<this.incidents.length; i++) {
-      console.log(this.incidents[i]);
-      if(this.incidents[i].attributes.REPORT_ID == id) {
-        this.newIncident = this.incidents[i];
-      }
-    }
-    console.log(this.newIncident.attributes.REPORT_ID);
+  viewReport( incident: Incident ) : void {
+    //change to actually view report when feature is added
+    console.log(incident.attributes.REPORT_ID);
     this.router.navigate(['guard']);
   }
 
