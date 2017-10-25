@@ -36,7 +36,7 @@ export class LocationComponent implements OnInit {
             return;
         }
             
-        if ( this.newLocation != null && this.newLocation.LOCATION_ID > 0 ) 
+        if ( this.newLocation != null && this.newLocation.attributes.LOCATION_ID > 0 ) 
             this.reportService.removeIncidentElement( this.newLocation, Config.LocationTable );
         this.reference.destroy();
     }
@@ -50,15 +50,16 @@ export class LocationComponent implements OnInit {
 
     onSelectCampus(): void {
         this.locationMap.forEach( campus => {
-            if ( campus.CAMPUS_ID == this.newLocation.CAMPUS_ID ) 
+            if ( campus.CAMPUS_ID == this.newLocation.attributes.CAMPUS_ID ) 
                 this.buildings = campus.BUILDINGS;
         } );
     }
 
     onSelectBuilding(): void {
         this.buildings.forEach( bldg => {
-            if ( bldg.BUILDING_NAME == this.newLocation.BUILDING_NAME )
+            if ( bldg.BUILDING_NAME === this.newLocation.attributes.BUILDING_NAME )
                 this.rooms = bldg.ROOMS;
+            
         });
     }
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { DataHelperService } from '../util/data-helper.service';
 import { Config } from '../util/config.service';
-import { Location } from '../component/location/location';
+import { Location, LocationAttributes } from '../component/location/location';
 import { Person } from '../component/person/person';
 import { IncidentElement } from '../component/report/incident-element';
 
@@ -44,7 +44,7 @@ export class NewReportService {
         var index = -1;
 
         if ( table === Config.LocationTable ) {
-            var id = ( obj as Location ).LOCATION_ID;
+            var id = ( obj as Location ).attributes.LOCATION_ID;
             behaviorSubject = this.locations;
             arr = behaviorSubject.getValue() as Location[];
             index = arr.findIndex( x => x.LOCATION_ID == id );
@@ -72,8 +72,13 @@ export class NewReportService {
 
     private unwrapObservable( behaviorSubject: any, table: string ) {
         var arr = behaviorSubject.getValue();
-        arr.forEach( elem => {
-            var _elem = DataHelperService.toIncidentElement( table, elem );
+        if ( table === Config.LocationTable ) {
+            arr = DataHelperService.extractAttributesArray( arr ) as LocationAttributes[];
+        }
+
+        console.log(arr);
+        arr.forEach( element => {
+            var _elem = DataHelperService.toIncidentElement( table, element );
             this.incidentElements.push( _elem );
         });
     }

@@ -17,7 +17,7 @@ export class LocationService {
     getLocations(): Promise<Location[]> {
         var locations = this.http.get( this.locationsUrl )
             .toPromise()
-            .then( response => DataHelperService.extractAttributesArray( response.json() ) as Location[] )
+            .then( response => response.json() as Location[] )
             .catch( this.handleError );
         return Promise.resolve( locations );
     };
@@ -57,9 +57,9 @@ export class LocationService {
 
         var campusArr = [];
         locations.forEach( loc => {
-            if ( campusArr.indexOf( loc.CAMPUS_ID ) < 0 ) {
-                campusArr.push( loc.CAMPUS_ID );
-                locationMap.push( this.createCampusMap( loc.CAMPUS_ID, locations ) );
+            if ( campusArr.indexOf( loc.attributes.CAMPUS_ID ) < 0 ) {
+                campusArr.push( loc.attributes.CAMPUS_ID );
+                locationMap.push( this.createCampusMap( loc.attributes.CAMPUS_ID, locations ) );
             }
         } );
         return locationMap;
@@ -70,9 +70,9 @@ export class LocationService {
         map.CAMPUS_ID = campusId;
         var buildings = [];
         locations.forEach( loc => {
-            if ( loc.CAMPUS_ID == campusId && buildings.indexOf( loc.BUILDING_NAME ) < 0 ) {
-                buildings.push( loc.BUILDING_NAME );
-                map.BUILDINGS.push( this.createBuildingMap( loc.BUILDING_NAME, locations ) );
+            if ( loc.attributes.CAMPUS_ID == campusId && buildings.indexOf( loc.attributes.BUILDING_NAME ) < 0 ) {
+                buildings.push( loc.attributes.BUILDING_NAME );
+                map.BUILDINGS.push( this.createBuildingMap( loc.attributes.BUILDING_NAME, locations ) );
             }
         });
 
@@ -85,9 +85,9 @@ export class LocationService {
 
         var rooms = []
         locations.forEach ( loc => {
-            if ( rooms.indexOf( loc.ROOM_NUMBER ) < 0 && loc.BUILDING_NAME === buildingName ) {
-                rooms.push( loc.ROOM_NUMBER );
-                building.ROOMS.push( new Room( loc.LOCATION_ID, loc.ROOM_NUMBER ) ) ;
+            if ( rooms.indexOf( loc.attributes.ROOM_NUMBER ) < 0 && loc.attributes.BUILDING_NAME === buildingName ) {
+                rooms.push( loc.attributes.ROOM_NUMBER );
+                building.ROOMS.push( new Room( loc.attributes.LOCATION_ID, loc.attributes.ROOM_NUMBER ) ) ;
             }
         } );
         return building;

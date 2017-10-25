@@ -47,10 +47,10 @@ export class Building {
 }
 
 export class Room {
-    ROOM_NUMBER: number;
+    ROOM_NUMBER: string;
     LOCATION_ID: number;
 
-    constructor( locationId: number, roomNumber: number ) {
+    constructor( locationId: number, roomNumber: string ) {
         this.ROOM_NUMBER = roomNumber;
         this.LOCATION_ID = locationId;
     }

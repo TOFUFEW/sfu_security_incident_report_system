@@ -4,19 +4,19 @@
     </div>
     <div class="detail col-12 col-sm-3">
         <span class="field-title">Campus</span>
-        <select class="form-control" name="" id="" [(ngModel)]="newLocation.CAMPUS_ID" (change)="onSelectCampus()">
+        <select class="form-control" name="" id="" [(ngModel)]="newLocation.attributes.CAMPUS_ID" (change)="onSelectCampus()">
             <option *ngFor="let campus of locationMap" [value]="campus.CAMPUS_ID">{{campus.CAMPUS_ID}}</option>
         </select>
     </div>
     <div class="detail col-12 col-sm-3">
         <span class="field-title">Building</span>
-        <select class="form-control" name="" id="" [(ngModel)]="newLocation.BUILDING_NAME" (change)="onSelectBuilding()">
+        <select class="form-control" name="" id="" [(ngModel)]="newLocation.attributes.BUILDING_NAME" (change)="onSelectBuilding()">
             <option *ngFor="let building of buildings" [value]="building.BUILDING_NAME">{{building.BUILDING_NAME}}</option>
         </select>
     </div>
     <div class="detail col-12 col-sm-3">
         <span class="field-title">Room Number</span>
-        <select class="form-control" name="" id="" [(ngModel)]="newLocation.LOCATION_ID">
+        <select class="form-control" name="" id="" [(ngModel)]="newLocation.attributes.LOCATION_ID">
             <option *ngFor="let room of rooms" [value]="room.LOCATION_ID">{{room.ROOM_NUMBER}}</option>                    
         </select>
     </div> 
