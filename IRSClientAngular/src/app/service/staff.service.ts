@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Staff } from '../model/staff';
-import { IncidentElement } from '../model/incident-element';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
 import { DataHelperService } from '../util/data-helper.service';
 import 'rxjs/add/operator/toPromise';
+import { Staff } from '../component/staff/staff';
+import { IncidentElement } from '../component/report/incident-element';
 
 @Injectable()
 export class StaffService {

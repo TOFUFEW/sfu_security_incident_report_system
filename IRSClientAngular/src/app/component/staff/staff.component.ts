@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IncidentElement } from '../model/incident-element';
-import { Staff } from '../model/staff';
-import { StaffService } from '../service/staff.service';
 import { Router, RouterModule } from '@angular/router';
+import { IncidentElement } from '../report/incident-element';
+import { Staff } from './staff';
+import { StaffService } from '../../service/staff.service';
 
 @Component({
   selector: 'staff-component',
-  templateUrl: '../view/staff.component.html',
-  styleUrls: ['../../assets/css/staff.component.css',
-              '../../assets/css/panels.css']
+  templateUrl: './staff.component.html',
+  styleUrls: ['../../../assets/css/staff.component.css',
+              '../../../assets/css/panels.css']
 })
 
 export class StaffComponent implements OnInit {

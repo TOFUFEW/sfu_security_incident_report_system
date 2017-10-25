@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
-import { Staff } from '../model/staff';
-import { StaffService } from '../service/staff.service';
-import { UserService } from '../service/user.service';
-import { Config } from '../util/config.service';
-import { DataHelperService } from '../util/data-helper.service';
+import { StaffService } from '../../service/staff.service';
+import { UserService } from '../../service/user.service';
+import { Config } from '../../util/config.service';
+import { DataHelperService } from '../../util/data-helper.service';
+import { Staff } from '../staff/staff';
+
 
 @Component({
     selector: 'dashboard',
-    templateUrl: '../view/dashboard.component.html',
-    styleUrls: ['../../assets/css/dashboard.component.css'],
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['../../../assets/css/dashboard.component.css'],
 })
 
 export class DashboardComponent {

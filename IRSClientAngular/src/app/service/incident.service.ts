@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { DataHelperService } from '../util/data-helper.service';
-import { Incident } from '../model/incident';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
 import 'rxjs/add/operator/toPromise';
+import { Incident } from '../component/report/incident';
 
 @Injectable()
 export class IncidentsService
