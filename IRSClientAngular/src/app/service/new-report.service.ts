@@ -44,15 +44,16 @@ export class NewReportService {
         var index = -1;
 
         if ( table === Config.LocationTable ) {
-            var id = ( obj as Location ).attributes.LOCATION_ID;
             behaviorSubject = this.locations;
             arr = behaviorSubject.getValue() as Location[];
-            index = arr.findIndex( x => x.LOCATION_ID == id );
+            var id = ( obj as Location ).attributes.LOCATION_ID;
+            index = arr.findIndex( x => x.attributes.LOCATION_ID == id );
+            console.log(index);
         }
         else if ( table === Config.PersonTable ) {
-            var person = obj as Person;
             behaviorSubject = this.persons;
             arr = behaviorSubject.getValue() as Person[];
+            var person = obj as Person;
             index = arr.findIndex( x => x.FIRST_NAME === person.FIRST_NAME
                                         && x.LAST_NAME === person.LAST_NAME 
                                         && x.PHONE_NUMBER === person.PHONE_NUMBER ) ;
@@ -76,7 +77,6 @@ export class NewReportService {
             arr = DataHelperService.extractAttributesArray( arr ) as LocationAttributes[];
         }
 
-        console.log(arr);
         arr.forEach( element => {
             var _elem = DataHelperService.toIncidentElement( table, element );
             this.incidentElements.push( _elem );
