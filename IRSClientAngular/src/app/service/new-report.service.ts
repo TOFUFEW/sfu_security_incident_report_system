@@ -19,8 +19,8 @@ export class NewReportService {
         var arr = this.locations.getValue();
 
         /* HARDCODED */
-        obj.LOCATION_ID = 1 ;
-        obj.CAMPUS_ID = 1;
+        obj.attributes.LOCATION_ID = 1 ;
+        obj.attributes.CAMPUS_ID = 1;
         
         arr.push( obj );
         this.locations.next( arr );
