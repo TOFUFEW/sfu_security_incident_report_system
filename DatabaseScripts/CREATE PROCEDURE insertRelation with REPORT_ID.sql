@@ -1,4 +1,4 @@
-CREATE PROCEDURE dbo.insertRelation
+CREATE PROCEDURE dbo.insertRelationWithTableName
 	@report_id INT,
 	@table_name NVARCHAR (30),
 	@table_id INT,
@@ -26,5 +26,8 @@ BEGIN
 		INSERT INTO Involves (REPORT_ID, PERSON_ID) VALUES (@report_id, @table_id);
 		SELECT @result = 1;
 	END
-	SELECT @result = 0;
+	ELSE
+	BEGIN
+		SELECT @result = 0;
+	END
 END;

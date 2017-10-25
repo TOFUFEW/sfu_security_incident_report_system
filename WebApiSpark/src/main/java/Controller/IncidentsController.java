@@ -42,10 +42,8 @@ public class IncidentsController
             try {
 
                 Incident updatedIncident = (Incident) JsonUtil.fromJson ( request.body(), Incident.class );
-                boolean rs = DBHelper.executeProcedure (
-                        "{ call dbo.updateIncident ( ? , ? , ? , ? , ? , ? ) }"
-                        , updatedIncident);
-                return true;
+                boolean rs = DBHelper.updateIncident ( updatedIncident  );
+                return rs;
             }
             catch ( Exception e )
             {

@@ -220,17 +220,85 @@ public class DBHelper
         return false;
     }
 
-    public static boolean updateIncident (
+    private static int updateIncidentRelation (
             String query,
-            Incident incident
+            IncidentElement incidentElement,
+            String reportID
     ) {
         try {
             initDB ();
-            String incidentString = "{ call dbo.updateIncident ( ? , ? , ? , ? , ? ) } ";
             CallableStatement stmt = connection.prepareCall ( query );
+            String tableName = incidentElement.getTable ().toString ().substring (4);
+            if ( tableName.compareTo ( "Staff" ) == 0 )
+            {
+                stmt.setString (
+                        1,
+                        reportID
+                );
+                stmt.setString (
+                        2,
+                        tableName
+                );
+                stmt.setString (
+                        3,
+                        incidentElement.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID )
+                );
+            }
+            else if ( tableName.compareTo ( "Location" ) == 0 )
+            {
+                stmt.setString (
+                        1,
+                        reportID
+                );
+                stmt.setString (
+                        2,
+                        tableName
+                );
+                stmt.setString (
+                        3,
+                        incidentElement.getAttributeValue ( DatabaseValues.Column.LOCATION_ID )
+                );
+            }
+            else if ( tableName.compareTo ( "Person" ) == 0 )
+            {
+                stmt.setString (
+                        1,
+                        reportID
+                );
+                stmt.setString (
+                        2,
+                        tableName
+                );
+                stmt.setString (
+                        3,
+                        incidentElement.getAttributeValue ( DatabaseValues.Column.PERSON_ID )
+                );
+            }
+            stmt.registerOutParameter (
+                    4,
+                    Types.INTEGER
+            );
+            stmt.execute ();
+
+            int output = stmt.getInt ( 4 );
+
+            return output;
+        }
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+        return 0;
+    }
+
+    public static boolean updateIncident ( Incident incident ) {
+        try {
+            initDB ();
+            String incidentString = "{ call dbo.updateIncident ( ? , ? , ? , ? , ? , ? ) } ";
+            CallableStatement stmt = connection.prepareCall ( incidentString );
             stmt.setString (
                     1,
-                    incident.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID )
+                    incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID )
             );
             stmt.setString (
                     2,
@@ -244,32 +312,55 @@ public class DBHelper
                     4,
                     incident.getAttributeValue ( DatabaseValues.Column.EXECUTIVE_SUMMARY )
             );
+            stmt.setString (
+                    5,
+                    incident.getAttributeValue ( DatabaseValues.Column.CLOSED )
+            );
+
 
             stmt.registerOutParameter (
-                    5,
+                    6,
                     Types.INTEGER
             );
 
             stmt.execute ();
-            int output = stmt.getInt ( 5 );
-
-            String relationSQL = "{ call dbo.insertRelation ( ? , ? , ? ) }";
-            for ( int i = 0 ; i < incident.numIncidentElements () ; i++ )
-            {
-                insertIncidentRelation (
-                        relationSQL,
-                        incident.getIncidentElement ( i )
-                );
-            }
-            if ( output != 0 )
-            {
+            int output = stmt.getInt ( 6 );
+            boolean deletedRelations = deleteAllRelations ( incident.getAttributeValue( DatabaseValues.Column.REPORT_ID ) );
+            if ( deletedRelations && output == 1) {
+                String relationSQL = "{ call dbo.insertRelationWithTableName ( ? , ? , ? , ? ) }";
+                for (int i = 0; i < incident.numIncidentElements(); i++) {
+                    updateIncidentRelation(
+                            relationSQL,
+                            incident.getIncidentElement(i),
+                            incident.getAttributeValue(DatabaseValues.Column.REPORT_ID)
+                    );
+                }
                 return true;
+            } else {
+                return false;
             }
         } catch ( Exception e )
         {
             e.printStackTrace ();
         }
         return false;
+    }
+
+    private static boolean deleteAllRelations (
+            String reportID
+    ) {
+        try {
+            String incidentString = "{ call dbo.deleteAllRelations ( ? ) } ";
+            CallableStatement stmt = connection.prepareCall ( incidentString );
+            stmt.setString(
+                    1,
+                    reportID
+            );
+            stmt.execute ();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     public static boolean insertIncidentElement ( IncidentElement incidentElement )
