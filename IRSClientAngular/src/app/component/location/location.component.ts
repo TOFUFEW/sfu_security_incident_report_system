@@ -52,7 +52,7 @@ export class LocationComponent {
         this.locationService.update(location)
             .then(returnedLocation => {
                 if (returnedLocation != null) {
-                    var i = this.locations.findIndex(loc => loc.LOCATION_ID === returnedLocation.LOCATION_ID);
+                    var i = this.locations.findIndex(loc => loc.attributes.LOCATION_ID === returnedLocation.attributes.LOCATION_ID);
                     // remove 1 object at index i, replace it with returnedLocation
                     this.locations.splice(i, 1, returnedLocation);
                     alert("Location successfully edited!");
@@ -65,7 +65,7 @@ export class LocationComponent {
         this.locationService.delete(id).then(isDeleted => {
             var msg = isDeleted ? "Location successfully deleted!" : "Delete failed";
             alert(msg);
-            var i = this.locations.findIndex(loc => loc.LOCATION_ID === id);
+            var i = this.locations.findIndex(loc => loc.attributes.LOCATION_ID === id);
             console.log("delete successful");
             // remove 1 object at index i
             this.locations.splice(i, 1);
