@@ -81,4 +81,9 @@ export class NewReportComponent implements OnInit {
         delete this.newIncident;
         this.newIncident = new Incident();
     }
+
+    review() {
+        console.log(this.locations);
+        console.log(this.persons);
+    }
 }

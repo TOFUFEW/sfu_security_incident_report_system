@@ -82,7 +82,7 @@
                 </div>
 
                 <div class="panel-footer">
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#confirmationModal">Next</button>                                
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#confirmationModal" (click)="review()">Next</button>                                
                 </div>
             </div>
         </div>
@@ -123,6 +123,46 @@
                         <div class="detail col-12 col-sm-10">
                             <span class="field-title">Executive Summary</span>
                             <span class="field-value">{{newIncident.attributes.EXECUTIVE_SUMMARY}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="details-container">
+                    <div class="details-heading">
+                        <span class="glyphicon glyphicon-map-marker glyphicon-heading"></span>
+                        <span class="field-title">Location</span>
+                    </div>
+                    <div class="details-body" *ngFor="let location of locations">
+                        <div class="detail col-12 col-sm-3">
+                            <span class="field-title">Campus: </span>
+                            <span class="field-value">{{location.attributes.CAMPUS_ID}}</span>
+                        </div>
+                        <div class="detail col-12 col-sm-3">
+                            <span class="field-title">Building: </span>
+                            <span class="field-value">{{location.attributes.BUILDING_NAME}}</span>
+                        </div>
+                        <div class="detail col-12 col-sm-3">
+                            <span class="field-title">Room Number: </span>
+                            <span class="field-value">{{location.attributes.ROOM_NUMBER}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="details-container">
+                    <div class="details-heading">
+                        <span class="glyphicon glyphicon-user glyphicon-heading"></span>
+                        <span class="field-title">Involved Persons</span>
+                    </div>
+                    <div class="details-body" *ngFor="let person of persons">
+                        <div class="detail col-12 col-sm-3">
+                            <span class="field-title">First Name: </span>
+                            <span class="field-value">{{person.FIRST_NAME}}</span>
+                        </div>
+                        <div class="detail col-12 col-sm-3">
+                            <span class="field-title">Last Name: </span>
+                            <span class="field-value">{{person.LAST_NAME}}</span>
+                        </div>
+                        <div class="detail col-12 col-sm-3">
+                            <span class="field-title">Phone Number: </span>
+                            <span class="field-value">{{person.PHONE_NUMBER}}</span>
                         </div>
                     </div>
                 </div>

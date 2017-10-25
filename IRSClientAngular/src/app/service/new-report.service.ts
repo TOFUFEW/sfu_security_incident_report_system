@@ -21,7 +21,10 @@ export class NewReportService {
     }
 
     addIncidentElement( obj: any, table: string ) {
-        if ( obj == null ) return;
+        if ( obj == null ) {
+            console.log("ERROR: " + table + " is undefined and cannot be added.");
+            return;
+        }
 
         var behaviorSubject = null;
         var arr = [];
@@ -48,7 +51,6 @@ export class NewReportService {
             arr = behaviorSubject.getValue() as Location[];
             var id = ( obj as Location ).attributes.LOCATION_ID;
             index = arr.findIndex( x => x.attributes.LOCATION_ID == id );
-            console.log(index);
         }
         else if ( table === Config.PersonTable ) {
             behaviorSubject = this.persons;
@@ -63,6 +65,9 @@ export class NewReportService {
             arr.splice( index, 1 );
             behaviorSubject.next( arr );
         }
+        else {
+            console.log("ERROR: index < 0. Element not found in array");
+        }
     }
 
     collectIncidentElements() {
@@ -73,6 +78,10 @@ export class NewReportService {
 
     private unwrapObservable( behaviorSubject: any, table: string ) {
         var arr = behaviorSubject.getValue();
+        if ( arr == null ) {
+            console.log("ERROR: Array is undefined");
+        }
+
         if ( table === Config.LocationTable ) {
             arr = DataHelperService.extractAttributesArray( arr ) as LocationAttributes[];
         }

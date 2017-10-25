@@ -63,7 +63,10 @@ export class LocationComponent implements OnInit {
         });
     }
 
-
+    onSelectRoom(): void {
+        var index = this.locations.findIndex( loc => loc.attributes.LOCATION_ID == this.newLocation.attributes.LOCATION_ID);
+        this.newLocation.attributes.ROOM_NUMBER = this.locations[index].attributes.ROOM_NUMBER;
+    }
 
 
     addLocation(): void {
