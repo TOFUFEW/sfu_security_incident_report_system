@@ -33,12 +33,15 @@
                         <textarea cols="50" rows="8" [(ngModel)]="newIncident.attributes.EXECUTIVE_SUMMARY"></textarea>
                     </div>
                     
-                    <div>
-                        <h4>Locations</h4>
-                        <div *ngFor="let location of locations">
-                            <span>{{location.attributes.BUILDING_NAME}}, </span>
-                            <span>{{location.attributes.ROOM_NUMBER}}, </span>
-                            <span>{{location.attributes.DEPARTMENT}}</span>
+
+                    <div id="locations">
+                        <location-component></location-component> 
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-sm-offset-8 col-sm-offset-right-1
+                                    col-lg-3 col-lg-offset-9">
+                            <button class="btn btn-default" (click)="addComponent(locationStr)">
+                                <span class="glyphicon glyphicon-plus"></span> New Location</button>                                
                         </div>
                     </div>
                     
