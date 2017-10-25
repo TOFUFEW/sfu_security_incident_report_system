@@ -24,7 +24,7 @@ import { LocationService } from './service/location.service'
 import { IncidentService } from './service/incident.service'
 import { StaffService } from './service/staff.service'
 import { NewReportService } from './service/new-report.service';
-import {GuardDashboardComponent} from "./component/guard-dashboard.component";
+import {GuardDashboardComponent} from "./component/guard/guard-dashboard.component";
 
 @NgModule({
   imports: [
@@ -47,8 +47,8 @@ import {GuardDashboardComponent} from "./component/guard-dashboard.component";
     GuardDashboardComponent
   ],
 
-  providers: [UserService, LoginService, DomService, LocationService, IncidentService, StaffService, NewReportService],
-  bootstrap: [AppComponent],
+  providers: [ UserService, LoginService, DomService, LocationService, IncidentService, StaffService, NewReportService ],
+  bootstrap: [ AppComponent ],
   entryComponents: [ LocationComponent, VehicleComponent ]
 })
 

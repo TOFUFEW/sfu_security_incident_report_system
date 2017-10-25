@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
 import 'rxjs/add/operator/toPromise';
 import { Incident } from '../component/report/incident';
+import {User} from "../component/login/user";
 
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import {GuardDashboardComponent} from "./component/guard-dashboard.component";
+import {GuardDashboardComponent} from "./component/guard/guard-dashboard.component";
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { NewReportComponent } from './component/report/new-report.component';
 import { LoginComponent } from './component/login/login.component';

@@ -1,14 +1,14 @@
 import {Component, OnInit} from "@angular/core";
-import {Incident} from "../model/incident";
-import {IncidentService} from "../service/incident.service";
-import {User} from "../model/user";
-import {UserService} from "../service/user.service";
+import {IncidentService} from "../../service/incident.service";
+import {UserService} from "../../service/user.service";
 import { Router, RouterModule } from '@angular/router';
+import {Incident} from "../report/incident";
+import {User} from "../login/user";
 
 @Component({
   selector: 'guard-dashboard',
-  templateUrl: '../view/guard-dashboard.component.html',
-  styleUrls: ['../../assets/css/guard-dashboard.component.css'],
+  templateUrl: './guard-dashboard.component.html',
+  styleUrls: ['../../../assets/css/guard-dashboard.component.css'],
   providers: [ IncidentService ]
 })
 
@@ -30,9 +30,10 @@ export class GuardDashboardComponent implements OnInit {
   }
 
   viewReport( incident: Incident ) : void {
+    //TO BE CHANGED
     //change to actually view report when feature is added
-    console.log(incident.attributes.REPORT_ID);
-    this.router.navigate(['guard']);
+    console.log( incident.attributes.REPORT_ID );
+    this.router.navigate([ 'guard' ] );
   }
 
   ngOnInit() : void {
