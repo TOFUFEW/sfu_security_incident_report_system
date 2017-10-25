@@ -16,7 +16,7 @@ export class IncidentComponent implements OnInit {
   incidents: Incident[];
   newIncident: Incident = new Incident();
 
-  constructor( private incidentsService: IncidentsService ){};
+  constructor( private incidentService: IncidentService ){};
 
   getIncidents(): void {
       this.incidentService.getIncidents().then( returnedIncidents => {
