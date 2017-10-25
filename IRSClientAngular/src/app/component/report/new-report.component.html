@@ -33,17 +33,29 @@
                         <textarea cols="50" rows="8" [(ngModel)]="newIncident.attributes.EXECUTIVE_SUMMARY"></textarea>
                     </div>
                     
-                    <div>
-                        <h4>Locations</h4>
-                        <div *ngFor="let location of locations">
-                            <span>{{location.BUILDING_NAME}}, </span>
-                            <span>{{location.ROOM_NUMBER}}, </span>
-                            <span>{{location.DEPARTMENT}}</span>
+
+                    <div id="locations">
+                        <location-component></location-component> 
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-sm-offset-8 col-sm-offset-right-1
+                                    col-lg-3 col-lg-offset-9">
+                            <button class="btn btn-default" (click)="addComponent(locationStr)">
+                                <span class="glyphicon glyphicon-plus"></span> New Location</button>                                
                         </div>
                     </div>
                     
-                    
-                    <div id="locations">
+                    <div id="person">
+                        <person-component></person-component>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-sm-offset-8 col-sm-offset-right-1
+                                    col-lg-3 col-lg-offset-9">
+                            <button class="btn btn-default" (click)="addComponent(personStr)">
+                                <span class="glyphicon glyphicon-plus"></span> New Person</button>                                
+                        </div>
+                    </div>
+                    <!-- <div id="locations">
                         <button class="btn btn-default" (click)="addComponent(locationStr)">Add Location</button>
                         <button class="btn btn-default" (click)="getLocations()">Get Locations</button>
                             
@@ -53,8 +65,8 @@
                     <button (click)="addComponent(dynamicTest)"> [+] </button>
                     
                     <!-- Dynamic Divs -->
-                    <div id="vehicles" *ngIf="dynamicTest == 'Vehicle'"> 
-                    </div>
+                    <!-- <div id="vehicles" *ngIf="dynamicTest == 'Vehicle'"> 
+                    </div> --> 
 
                     <button class="btn btn-primary" (click)="createIncident()">Create Report</button>
                 </div>
