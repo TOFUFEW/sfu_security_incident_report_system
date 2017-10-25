@@ -198,6 +198,12 @@ body {
         background-color: $grey-default;
     }
 
+    .x-container {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+    }
+
     .details-footer {
         @include flex(flex-end, center);
         padding: 8px;

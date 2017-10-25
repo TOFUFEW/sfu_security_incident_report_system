@@ -162,6 +162,10 @@ body {
     padding: 12px;
     border-radius: 8px;
     background-color: #f9f9f9; }
+  .details-container .x-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%; }
   .details-container .details-footer {
     display: flex;
     justify-content: flex-end;

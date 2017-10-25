@@ -11,6 +11,7 @@ import { Config } from '../../util/config.service';
 })
 
 export class PersonComponent implements OnInit {
+    private reference: any;
     personList: Person[];
     newPerson: Person = new Person();
     
@@ -21,6 +22,17 @@ export class PersonComponent implements OnInit {
 
     addPersonToReport(): void {
         this.reportService.addIncidentElement( this.newPerson, Config.PersonTable );
+    }
+
+    removePersonFromReport(): void {
+        if ( this.reference == null ) {
+            console.log("must have a person involved!");
+            return;
+        }
+            
+        if ( this.newPerson != null ) 
+            this.reportService.removeIncidentElement( this.newPerson, Config.PersonTable );
+        this.reference.destroy();
     }
 
     getPersons(): void {

@@ -38,11 +38,30 @@ export class NewReportService {
         behaviorSubject.next( arr );
     }
 
-    removeLocation( id: number ) {
-        var arr = this.locations.getValue();
-        var i = arr.findIndex( l => l.LOCATION_ID == id );
-        arr.splice( i, 1 );
-        this.locations.next( arr );
+    removeIncidentElement( obj: any, table: string) {
+        var behaviorSubject = null;
+        var arr = [];
+        var index = -1;
+
+        if ( table === Config.LocationTable ) {
+            var id = ( obj as Location ).LOCATION_ID;
+            behaviorSubject = this.locations;
+            arr = behaviorSubject.getValue() as Location[];
+            index = arr.findIndex( x => x.LOCATION_ID == id );
+        }
+        else if ( table === Config.PersonTable ) {
+            var person = obj as Person;
+            behaviorSubject = this.persons;
+            arr = behaviorSubject.getValue() as Person[];
+            index = arr.findIndex( x => x.FIRST_NAME === person.FIRST_NAME
+                                        && x.LAST_NAME === person.LAST_NAME 
+                                        && x.PHONE_NUMBER === person.PHONE_NUMBER ) ;
+        }
+
+        if ( index >= 0 ) {
+            arr.splice( index, 1 );
+            behaviorSubject.next( arr );
+        }
     }
 
     collectIncidentElements() {
