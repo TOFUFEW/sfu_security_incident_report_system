@@ -3,7 +3,6 @@ import { IncidentService } from '../../service/incident.service';
 import { Incident } from './incident';
 import { Location } from '../location/location';
 
-
 @Component(
   {
     selector: 'incidents-component',
