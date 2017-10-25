@@ -16,6 +16,7 @@ import { LoginComponent } from './component/login/login.component';
 import { NewReportComponent } from './component/report/new-report.component';
 import { VehicleComponent } from './component/vehicle/vehicle.component';
 import { SearchComponent } from './component/search/search.component';
+import { PersonComponent } from './component/person/person.component';
 
 /* Services */
 import { UserService } from './service/user.service';
@@ -24,6 +25,7 @@ import { DomService } from './util/dom.service';
 import { LocationService } from './service/location.service'
 import { IncidentService } from './service/incident.service'
 import { StaffService } from './service/staff.service'
+import { PersonService } from './service/person.service';
 import { NewReportService } from './service/new-report.service';
 
 import { FilterPipe } from './util/filter.pipe';
@@ -47,6 +49,7 @@ import { FilterPipe } from './util/filter.pipe';
     NewReportComponent,
     VehicleComponent,
     SearchComponent,
+    PersonComponent,
     FilterPipe
   ],
   
@@ -57,12 +60,16 @@ import { FilterPipe } from './util/filter.pipe';
     LocationService, 
     IncidentService, 
     StaffService, 
-    NewReportService],
+    NewReportService,
+    PersonService
+  ],
+
   bootstrap: [AppComponent],
 
   entryComponents: [ 
     LocationComponent, 
-    VehicleComponent, ]
+    VehicleComponent,
+    PersonComponent, ]
 })
 
 export class AppModule { }

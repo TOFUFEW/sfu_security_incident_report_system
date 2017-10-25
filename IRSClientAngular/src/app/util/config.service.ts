@@ -3,10 +3,12 @@ export class Config {
     static IncidentsURI: string = "http://localhost:4567/incidents"
     static StaffURI: string = "http://localhost:4567/staff";
     static LoginURI: string = "http://localhost:4567/login";
+    static PersonURI: string = "http://localhost:4567/person";
 
 
     static StaffTable: string = "STAFF";
     static LocationTable: string = "LOCATION";
     static AccountTable: string = "ACCOUNT";
     static IncidentTable: string = "INCIDENT";
+    static PersonTable: string = "PERSON";
 }
