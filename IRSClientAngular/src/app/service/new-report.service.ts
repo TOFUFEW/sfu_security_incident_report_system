@@ -9,18 +9,33 @@ import { IncidentElement } from '../component/report/incident-element';
 @Injectable()
 export class NewReportService {
     incidentElements: IncidentElement[];
+    
     private locations = new BehaviorSubject<Location[]>([]);
-    private persons = new BehaviorSubject<Person[]> ([]);
     currentLocations = this.locations.asObservable();
+    
+    private persons = new BehaviorSubject<Person[]> ([]);
+    currentPersons = this.persons.asObservable();
 
     constructor() {
         this.incidentElements = [];
     }
-    
-    addLocation( obj: Location ) {
-        var arr = this.locations.getValue();
+
+    addIncidentElement( obj: any, table: string ) {
+        if ( obj == null ) return;
+
+        var behaviorSubject = null;
+        var arr = [];
+        if ( table === Config.LocationTable ) {
+            behaviorSubject = this.locations;
+            arr = behaviorSubject.getValue() as Location[];
+        }
+        else if ( table === Config.PersonTable ) {
+            behaviorSubject = this.persons;
+            arr = behaviorSubject.getValue() as Person[];
+        }
+
         arr.push( obj );
-        this.locations.next( arr );
+        behaviorSubject.next( arr );
     }
 
     removeLocation( id: number ) {
@@ -30,20 +45,17 @@ export class NewReportService {
         this.locations.next( arr );
     }
 
-    addPerson( obj: Person ) {
-        var arr = this.persons.getValue();
-
-        arr.push( obj );
-        this.persons.next( arr );
+    collectIncidentElements() {
+        this.unwrapObservable( this.locations, Config.LocationTable );
+        this.unwrapObservable( this.persons, Config.PersonTable );
+        return this.incidentElements;
     }
 
-    collectIncidentElements() {
-        var locations = this.locations.getValue();
-        locations.forEach( loc => {
-            var locIE = DataHelperService.toIncidentElement( Config.LocationTable, loc );
-            this.incidentElements.push( locIE );
+    private unwrapObservable( behaviorSubject: any, table: string ) {
+        var arr = behaviorSubject.getValue();
+        arr.forEach( elem => {
+            var _elem = DataHelperService.toIncidentElement( table, elem );
+            this.incidentElements.push( _elem );
         });
-
-        return this.incidentElements;
     }
 }

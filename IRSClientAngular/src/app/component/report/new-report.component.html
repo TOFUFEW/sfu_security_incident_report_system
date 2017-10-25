@@ -53,39 +53,32 @@
                             <location-component></location-component> 
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-sm-3 col-sm-offset-8 col-sm-offset-right-1
                                     col-lg-3 col-lg-offset-9">
                             <button class="btn btn-default" (click)="addComponent(locationStr)">
-                                <span class="glyphicon glyphicon-plus"></span> New Location</button>                                
+                                <span class="glyphicon glyphicon-plus"></span> Add Location</button>                                
                         </div>
                     </div>
                     
-                    <div id="person">
-                        <person-component></person-component>
+                    <div class="details-container">
+                        <div class="details-heading">
+                            <span class="glyphicon glyphicon-user glyphicon-heading"></span>
+                            <span class="field-title">Involved Persons</span>
+                        </div>
+                        <div id="persons">
+                            <person-component></person-component>
+                        </div>
                     </div>
+
                     <div class="row">
                         <div class="col-sm-3 col-sm-offset-8 col-sm-offset-right-1
                                     col-lg-3 col-lg-offset-9">
                             <button class="btn btn-default" (click)="addComponent(personStr)">
-                                <span class="glyphicon glyphicon-plus"></span> New Person</button>                                
+                                <span class="glyphicon glyphicon-plus"></span> Add Person</button>                                
                         </div>
                     </div>
-                    <!-- <div id="locations">
-                        <button class="btn btn-default" (click)="addComponent(locationStr)">Add Location</button>
-                        <button class="btn btn-default" (click)="getLocations()">Get Locations</button>
-                            
-                    </div> -->
-                    
-
-                    <!-- <button (click)="addComponent(dynamicTest)"> [+] </button> -->
-                    
-                    <!-- Dynamic Divs -->
-                    <!-- <div id="vehicles" *ngIf="dynamicTest == 'Vehicle'"> 
-                    </div> -->
-
-                    
-
                 </div>
 
                 <div class="panel-footer">

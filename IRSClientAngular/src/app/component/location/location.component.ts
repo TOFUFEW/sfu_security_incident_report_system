@@ -4,6 +4,7 @@ import { LocationService } from '../../service/location.service';
 import { NewReportService } from '../../service/new-report.service';
 import { IncidentElement } from '../report/incident-element';
 import { Location, LocationMapping, Building, Room } from './location';
+import { Config } from '../../util/config.service';
 
 @Component({
     selector: 'location-component',
@@ -26,7 +27,7 @@ export class LocationComponent implements OnInit {
     }
 
     addLocationToReport(): void {
-        this.reportService.addLocation(this.newLocation);
+        this.reportService.addIncidentElement( this.newLocation, Config.LocationTable );
     }
 
     removeLocationFromReport(): void {

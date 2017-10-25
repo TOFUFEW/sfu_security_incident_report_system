@@ -21,6 +21,7 @@ export class NewReportComponent implements OnInit {
     personStr: string = PersonComponent.name;
     newIncident: Incident = new Incident();
     locations: Location[] = [];
+    persons: Person[] = [];
 
     constructor( 
       private incidentService: IncidentService,
@@ -31,6 +32,8 @@ export class NewReportComponent implements OnInit {
     ngOnInit() {
         this.newReportService.currentLocations
             .subscribe( locations => this.locations = locations);
+        this.newReportService.currentPersons
+            .subscribe( persons => this.persons = persons );
     }
     
     
@@ -50,6 +53,7 @@ export class NewReportComponent implements OnInit {
             }, 100);
         }
     }
+    // END OF TEST CODE //
 
     addComponent( componentName: string ) {
         if ( this.dynamicTest == 'Vehicle' )
@@ -58,13 +62,11 @@ export class NewReportComponent implements OnInit {
             console.log("in addComponent: location");
             this.domService.addComponent( LocationComponent.name, "locations" );            
         } else if ( componentName === this.personStr){
-            this.domService.addComponent( PersonComponent.name, "person" );
+            this.domService.addComponent( PersonComponent.name, "persons" );
         }
     }
-    // END OF TEST CODE //
     
 
-    // HOLD OFF ON THIS
     createIncident(): void {
         this.newIncident.incidentElements = this.newReportService.collectIncidentElements();
         console.log(this.newIncident);
@@ -78,9 +80,5 @@ export class NewReportComponent implements OnInit {
             } );
         delete this.newIncident;
         this.newIncident = new Incident();
-    }
-
-    getLocations() {
-        console.log(this.locations);
     }
 }
