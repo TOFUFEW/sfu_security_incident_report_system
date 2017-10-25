@@ -17,7 +17,9 @@ export class DataHelperService
 
     static extractAttributesArray( incidentElements: IncidentElement[] ): Object[] {
         var arr = [];
+        //debugger;
         incidentElements.forEach( so => {
+            //console.log(so);
             arr.push( so.attributes );
         });
         return arr;

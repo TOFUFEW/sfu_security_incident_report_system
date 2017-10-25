@@ -15,9 +15,8 @@ import { IncidentComponent } from './component/report/incident.component';
 import { LoginComponent } from './component/login/login.component';
 import { NewReportComponent } from './component/report/new-report.component';
 import { VehicleComponent } from './component/vehicle/vehicle.component';
-// import { DynamicFormComponent } from './component/dynamic-form.component';
+import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
-
 
 /* Services */
 import { UserService } from './service/user.service';
@@ -28,6 +27,8 @@ import { IncidentService } from './service/incident.service'
 import { StaffService } from './service/staff.service'
 import { PersonService } from './service/person.service';
 import { NewReportService } from './service/new-report.service';
+
+import { FilterPipe } from './util/filter.pipe';
 
 @NgModule({
   imports: [
@@ -46,13 +47,29 @@ import { NewReportService } from './service/new-report.service';
     IncidentComponent,
     LoginComponent,
     NewReportComponent,
+    VehicleComponent,
+    SearchComponent,
     PersonComponent,
-    VehicleComponent
+    FilterPipe
   ],
   
-  providers: [UserService, LoginService, DomService, LocationService, IncidentService, StaffService, NewReportService, PersonService],
+  providers: [
+    UserService, 
+    LoginService, 
+    DomService, 
+    LocationService, 
+    IncidentService, 
+    StaffService, 
+    NewReportService,
+    PersonService
+  ],
+
   bootstrap: [AppComponent],
-  entryComponents: [ LocationComponent, VehicleComponent, PersonComponent ]
+
+  entryComponents: [ 
+    LocationComponent, 
+    VehicleComponent,
+    PersonComponent, ]
 })
 
 export class AppModule { }
