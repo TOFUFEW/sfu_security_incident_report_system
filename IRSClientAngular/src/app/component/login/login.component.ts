@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { UserService } from '../service/user.service';
-import { LoginService } from '../service/login.service';
-import { User } from '../model/user';
 import { Observable } from 'rxjs';
-import { Incident } from '../model/incident';
-import { DataHelperService } from '../util/data-helper.service';
+import { DataHelperService } from '../../util/data-helper.service';
+import { UserService } from '../../service/user.service';
+import { LoginService } from '../../service/login.service';
+import { Incident } from '../report/incident';
+import { User } from './user';
 
 @Component({
-    templateUrl: '../view/login.component.html',
+    templateUrl: './login.component.html',
 })
 
 export class LoginComponent {

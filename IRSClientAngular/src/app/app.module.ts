@@ -8,19 +8,18 @@ import { routes } from './app.router';
 /* Components */
 import { AppComponent } from './app.component';
 
-import { DashboardComponent } from './component/dashboard.component';
-import { LocationComponent } from './component/location.component';
-import { StaffComponent } from './component/staff.component';
-import { IncidentComponent } from './component/incident.component';
-import { LoginComponent } from './component/login.component';
-import { NewReportComponent } from './component/new-report.component';
-import { DynamicFormComponent } from './component/dynamic-form.component';
-import { VehicleComponent } from './component/vehicle.component';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { LocationComponent } from './component/location/location.component';
+import { StaffComponent } from './component/staff/staff.component';
+import { IncidentComponent } from './component/report/incident.component';
+import { LoginComponent } from './component/login/login.component';
+import { NewReportComponent } from './component/report/new-report.component';
+import { VehicleComponent } from './component/vehicle/vehicle.component';
 
 /* Services */
 import { UserService } from './service/user.service';
 import { LoginService } from './service/login.service';
-import { DomService } from './service/dom.service';
+import { DomService } from './util/dom.service';
 import { LocationService } from './service/location.service'
 import { IncidentService } from './service/incident.service'
 import { StaffService } from './service/staff.service'
@@ -44,7 +43,6 @@ import {GuardDashboardComponent} from "./component/guard-dashboard.component";
     IncidentComponent,
     LoginComponent,
     NewReportComponent,
-    DynamicFormComponent,
     VehicleComponent,
     GuardDashboardComponent
   ],

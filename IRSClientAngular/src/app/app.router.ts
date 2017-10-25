@@ -1,10 +1,10 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { DashboardComponent } from './component/dashboard.component';
-import { NewReportComponent } from './component/new-report.component';
-import { LoginComponent } from './component/login.component';
 import {GuardDashboardComponent} from "./component/guard-dashboard.component";
+import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { NewReportComponent } from './component/report/new-report.component';
+import { LoginComponent } from './component/login/login.component';
 
 export const router: Routes = [
     // Default

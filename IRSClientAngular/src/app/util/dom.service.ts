@@ -7,9 +7,9 @@ import {
     ApplicationRef,
     ViewContainerRef
 } from '@angular/core';
-import { Location } from '../model/location';
-import { LocationComponent } from '../component/location.component';
-import { VehicleComponent } from '../component/vehicle.component';
+import { Location } from '../component/location/location';
+import { LocationComponent } from '../component/location/location.component';
+import { VehicleComponent } from '../component/vehicle/vehicle.component';
 
 @Injectable()
 export class DomService {
@@ -20,19 +20,15 @@ export class DomService {
         private injector: Injector,
     ) {}
 
-    // **** ADD DYNAMIC COMPONENTS HERE **** //
-
-    addComponent(componentName: string, targetDomId: string) {
+    addComponent(component: any, targetDomId: string) {
         // 1. Create a component
-        const componentRef = this.createComponent( componentName );
+        const componentRef = this.createComponent( component );
 
         this.addToDom(componentRef, targetDomId);
         
         // 5. Save reference for later use
         componentRef.instance.reference = componentRef;
     }
-
-    // **** END OF DYNAMIC COMPONENTS **** //
 
     private addToDom(componentRef: any, targetDomId: string) {
 
@@ -48,17 +44,9 @@ export class DomService {
         div.appendChild(domElement);
     }
 
-    private createComponent( componentName: string ) : ComponentRef<any> {
-        if ( componentName === VehicleComponent.name ) {
-            return this.componentFactoryResolver
-            .resolveComponentFactory(VehicleComponent)
-            .create(this.injector);
-        }
-        else if ( componentName === LocationComponent.name ) {
-            return this.componentFactoryResolver
-            .resolveComponentFactory(LocationComponent)
-            .create(this.injector);
-        }
-        
+    private createComponent( component: any ) : ComponentRef<any> {
+        return this.componentFactoryResolver
+        .resolveComponentFactory(component)
+        .create(this.injector);
     }
 }
