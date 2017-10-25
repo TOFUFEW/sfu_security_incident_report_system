@@ -3,9 +3,11 @@ import { IncidentService } from '../../service/incident.service';
 import { DomService } from '../../util/dom.service';
 import { NewReportService } from '../../service/new-report.service';
 import { Location } from '../location/location';
+import { Person } from '../person/person';
 import { Incident } from '../report/incident';
 import { LocationComponent } from '../location/location.component';
 import { VehicleComponent } from '../vehicle/vehicle.component';
+import { PersonComponent } from '../person/person.component';
 
 @Component( 
   {
@@ -16,6 +18,7 @@ import { VehicleComponent } from '../vehicle/vehicle.component';
 
 export class NewReportComponent implements OnInit {
     locationStr: string = LocationComponent.name;
+    personStr: string = PersonComponent.name;
     newIncident: Incident = new Incident();
     locations: Location[] = [];
 
@@ -41,6 +44,10 @@ export class NewReportComponent implements OnInit {
             setTimeout(() => {
               this.domService.addComponent(VehicleComponent, "vehicles");
             }, 100);
+        } else if ( this.dynamicTest == 'Person') {
+            setTimeout(() => {
+                this.domService.addComponent(PersonComponent.name, "person" );
+            }, 100);
         }
     }
 
@@ -49,7 +56,9 @@ export class NewReportComponent implements OnInit {
             this.domService.addComponent( VehicleComponent, "vehicles" );
         else if ( componentName === this.locationStr ) {
             console.log("in addComponent: location");
-            this.domService.addComponent( LocationComponent, "locations" );            
+            this.domService.addComponent( LocationComponent.name, "locations" );            
+        } else if ( componentName === this.personStr){
+            this.domService.addComponent( PersonComponent.name, "person" );
         }
     }
     // END OF TEST CODE //
