@@ -30,6 +30,7 @@ export class GuardDashboardComponent implements OnInit {
   }
 
   viewReport( id: number ) : void {
+    alert("view report" + id);
     console.log("view report");
     console.log(id);
     var i = 0;

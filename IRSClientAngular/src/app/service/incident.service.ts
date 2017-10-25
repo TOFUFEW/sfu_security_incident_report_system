@@ -20,7 +20,7 @@ export class IncidentService
         console.log ("get incidents");
         var incidents = this.http.get( this.incidentsUrl )
             .toPromise()
-            .then( response => DataHelperService.extractAttributesArray( response.json() ) as Incident[] )
+            .then( response => response.json() as Incident[] )
             .catch( this.handleError );
         return Promise.resolve( incidents );
     };
@@ -30,7 +30,7 @@ export class IncidentService
         var incidents = this.http
             .post( this.guardIncidentsUrl, JSON.stringify( _user ), { headers: this.headers } )
             .toPromise()
-            .then( response => DataHelperService.extractAttributesArray( response.json() ) as Incident[] )
+            .then( response => response.json() as Incident[] )
             .catch( this.handleError );
         return Promise.resolve( incidents );
     }

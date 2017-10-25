@@ -1,5 +1,5 @@
 <div class="flex-container">
-    <div class="flex-item" *ngFor="let incident of incidents" (click)="viewReport(incident.REPORT_ID)">
-      {{incident.REPORT_ID}} <br> <br> {{incident.DESCRIPTION}}
+    <div class="flex-item" *ngFor="let incident of incidents" (click)="viewReport(incident.attributes.REPORT_ID)">
+      {{incident.attributes.REPORT_ID}} <br> <br> {{incident.attributes.DESCRIPTION}}
     </div>
 </div>
