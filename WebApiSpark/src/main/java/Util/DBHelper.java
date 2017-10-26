@@ -184,7 +184,7 @@ public class DBHelper
         return new Incident();
     }
 
-    private static boolean relationExists( String reportId, IncidentElement incidentElement) {
+    private static boolean relationExists( String reportId, IncidentElement incidentElement ) {
         try {
             initDB();
             String tableName = incidentElement.getTable().toString();

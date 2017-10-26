@@ -63,68 +63,9 @@ public class TestIncident
 
         // incident1 has 1 extra (duplicate) location
         Assert.assertTrue( newlyInsertedIncident.numIncidentElements() < incident1.numIncidentElements() );
-
-
-
-        /*
-        Location location1 = new Location (
-                null, // notice how this is null? Tells class to ignore the column and its value when creating Insert SQL
-                "1",
-                "TEST BLDG 1",
-                "4000",
-                "SOSY"
-        );
-
-        Assert.assertTrue ( DBHelper.insertIncidentElement ( location1 ) );
-        String location1ID = TestLocation.DEBUG_getLargestLocationIDFromTable ();
-        location1.updateAttributeValue (
-                Column.LOCATION_ID,
-                location1ID
-        );
-
-        Location location2 = new Location (
-                null, // notice how this is null? Tells class to ignore the column and its value when creating Insert SQL
-                "1",
-                "TEST BLDG 2",
-                "4000",
-                "CMPT"
-        );
-
-        Assert.assertTrue ( DBHelper.insertIncidentElement ( location2 ) );
-        String location2ID = TestLocation.DEBUG_getLargestLocationIDFromTable ();
-        location2.updateAttributeValue (
-                Column.LOCATION_ID,
-                location2ID
-        );
-
-        IncidentElement [] staff = DBHelper.getIncidentElements ( DatabaseValues.Table.STAFF );
-        Assert.assertTrue ( staff.length > 0 );
-
-
-        Incident incident = new Incident ();
-        incident.updateAttributeValue ( Column.REPORT_ID, null );
-        incident.updateAttributeValue ( DatabaseValues.Column.ACCOUNT_ID, "1" );
-        incident.updateAttributeValue ( Column.CATEGORY_ID, "1" );
-        incident.updateAttributeValue ( DatabaseValues.Column.DESCRIPTION, "TEST DESCRIPTION" );
-        incident.updateAttributeValue ( DatabaseValues.Column.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
-        incident.updateAttributeValue ( DatabaseValues.Column.CLOSED, "0" );
-        incident.addIncidentElement( location1 );
-        incident.addIncidentElement( location2 );
-        incident.addIncidentElement( location1 ); // Duplicate location
-
-        int currentSize = getNumberOfIncidents ();
-        String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
-        DBHelper.insertIncident(
-                incidentString,
-                incident
-        );
-        Incident [] incidents = DBHelper.getIncidents ();
-
-        Assert.assertTrue( currentSize < incidents.length );
-        */
     }
 
-    /*
+
     @Test
     public void testUpdateIncident ()
     {
@@ -160,7 +101,7 @@ public class TestIncident
 
         Assert.assertTrue( DBHelper.selectIncident( incident ) );
     }
-*/
+
     public int getNumberOfIncidents ()
     {
         String query = "SELECT COUNT (distinct REPORT_ID) as 'size' FROM dbo.Incident";
