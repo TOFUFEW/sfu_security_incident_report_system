@@ -12,6 +12,7 @@ export class Incident {
     // TEMP CODE
     locationList: Location[];
     staffList: Staff[];
+    category: Category;
     // END OF TEMP CODE
 
     constructor() {

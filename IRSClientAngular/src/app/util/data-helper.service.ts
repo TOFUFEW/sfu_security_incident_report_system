@@ -27,17 +27,6 @@ export class DataHelperService
         return arr;
     }
 
-    // static initIncidents( incidents: Incident[] ): Incident[] {
-    //     incidents.forEach( i => {
-    //         i.incidentElements.forEach( ie => {
-    //             if ( ie.table === Config.CategoryTable ) {
-    //                 i.attributes.CATEGORY = this.extractAttributes( ie ) as Category;
-    //             }
-    //         });
-    //     });
-    //     return incidents;
-    // }
-
     static toIncidentElement( table: string, object: Object): IncidentElement {
         var incidentElement: IncidentElement = new IncidentElement();
      

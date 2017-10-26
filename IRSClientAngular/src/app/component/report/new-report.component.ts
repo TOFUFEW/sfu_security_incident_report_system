@@ -79,6 +79,7 @@ export class NewReportComponent implements OnInit {
                 var type = this.categoryTypes[index];
                 this.selectedCategory.CATEGORY_ID = type.CATEGORY_ID;
                 this.selectedCategory.INCIDENT_TYPE = type.INCIDENT_TYPE;
+                this.newIncident.attributes.CATEGORY_ID = this.selectedCategory.CATEGORY_ID;
             }
         }
     }
@@ -103,8 +104,7 @@ export class NewReportComponent implements OnInit {
     
 
     createIncident(): void {
-        this.newIncident.incidentElements = this.newReportService.collectIncidentElements();
-        this.newIncident.incidentElements.push( DataHelperService.toIncidentElement(Config.CategoryTable, this.selectedCategory ) )
+        this.newIncident.incidentElements = this.newReportService.collectIncidentElements( this.selectedCategory );
         this.incidentService.create( this.newIncident )
             .then( returnedIncident => {
                 if ( returnedIncident != null  ) {

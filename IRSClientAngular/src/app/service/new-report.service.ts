@@ -4,6 +4,7 @@ import { DataHelperService } from '../util/data-helper.service';
 import { Config } from '../util/config.service';
 import { Location, LocationAttributes } from '../component/location/location';
 import { Person } from '../component/person/person';
+import { Category } from '../component/category/category';
 import { IncidentElement } from '../component/report/incident-element';
 
 @Injectable()
@@ -70,9 +71,12 @@ export class NewReportService {
         }
     }
 
-    collectIncidentElements() {
+    collectIncidentElements( category: Category ) {
         this.unwrapObservable( this.locations, Config.LocationTable );
         this.unwrapObservable( this.persons, Config.PersonTable );
+        this.incidentElements.push( DataHelperService.toIncidentElement( Config.CategoryTable, category ) );
+        console.log( this.incidentElements) ;
+        
         return this.incidentElements;
     }
 
