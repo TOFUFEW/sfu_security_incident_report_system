@@ -141,12 +141,15 @@ public class DBHelper
             int output = stmt.getInt ( 5 );
 
             String relationSQL = "{ call dbo.insertRelation ( ? , ? , ? ) }";
+            Incident lastIncident = getLastIncident();
             for ( int i = 0 ; i < incident.numIncidentElements () ; i++ )
             {
-                insertIncidentRelation (
-                        relationSQL,
-                        incident.getIncidentElement ( i )
-                );
+                if ( !relationExists( lastIncident.getAttributeValue( DatabaseValues.Column.REPORT_ID) , incident.getIncidentElement(i) ) ) {
+                    insertIncidentRelation(
+                            relationSQL,
+                            incident.getIncidentElement(i)
+                    );
+                }
             }
             if ( output != 0 )
             {
@@ -155,6 +158,49 @@ public class DBHelper
         } catch ( Exception e )
         {
             e.printStackTrace ();
+        }
+        return false;
+    }
+
+    private static Incident getLastIncident() {
+        try {
+            initDB();
+            String query = "select top (1) * from Incident order by report_id desc;";
+            ResultSet result = DBHelper.executeQuery( query );
+            while ( result.next() ) {
+                Incident incident = new Incident();
+
+                incident.extractFromCurrentRow ( result );
+
+                ArrayList < IncidentElement > incidentElementsList = getIncidentElements ( Integer.parseInt (incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) ) );
+
+                incident.changeIncidentElementList ( incidentElementsList );
+                return incident;
+            }
+        }
+        catch ( Exception e ) {
+
+        }
+        return new Incident();
+    }
+
+    private static boolean relationExists( String reportId, IncidentElement incidentElement) {
+        try {
+            initDB();
+            String tableName = incidentElement.getTable().toString();
+            String query = "select * from ";
+
+            if ( tableName.contains( "Location" ) ) {
+                String locationId = incidentElement.getAttributeValue( DatabaseValues.Column.LOCATION_ID );
+                query += " HappensAt where REPORT_ID = '" + reportId + "' AND LOCATION_ID = '" + locationId + "';";
+                ResultSet result = executeQuery( query );
+                while( result.next() ) {
+                    return true;
+                }
+            }
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
         }
         return false;
     }
@@ -191,6 +237,9 @@ public class DBHelper
             }
             else if ( tableName.compareTo ( "Person" ) == 0 )
             {
+                if ( !selectIncidentElement( incidentElement ) )
+                    insertIncidentElement( incidentElement );
+
                 stmt.setString (
                         1,
                         tableName
@@ -198,6 +247,17 @@ public class DBHelper
                 stmt.setString (
                         2,
                         incidentElement.getAttributeValue ( DatabaseValues.Column.PERSON_ID )
+                );
+            }
+            else if ( tableName.compareTo ( "IncidentCategory" ) == 0 )
+            {
+                stmt.setString (
+                        1,
+                        tableName
+                );
+                stmt.setString (
+                        2,
+                        incidentElement.getAttributeValue ( DatabaseValues.Column.CATEGORY_ID )
                 );
             }
             stmt.registerOutParameter (
