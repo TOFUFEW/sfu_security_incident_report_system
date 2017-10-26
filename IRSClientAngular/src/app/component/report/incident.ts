@@ -17,6 +17,8 @@ export class Incident {
 
     constructor() {
         this.incidentElements = [];
+        this.locationList = [];
+        this.staffList = [];
         this.attributes = new IncidentAttributes();
     }
 }
