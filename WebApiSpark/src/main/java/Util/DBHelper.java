@@ -237,9 +237,9 @@ public class DBHelper
             }
             else if ( tableName.compareTo ( "Person" ) == 0 )
             {
-                if ( !selectIncidentElement( incidentElement ) )
+                if ( !selectIncidentElement( incidentElement ) ) {
                     insertIncidentElement( incidentElement );
-
+                }
                 stmt.setString (
                         1,
                         tableName

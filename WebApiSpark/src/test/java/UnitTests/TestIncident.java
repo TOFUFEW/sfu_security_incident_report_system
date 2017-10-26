@@ -29,6 +29,19 @@ public class TestIncident
         String selectedCategoryId = selectedCategory.getAttributeValue( Column.CATEGORY_ID );
         Assert.assertTrue( !selectedCategoryId.isEmpty() );
 
+
+        Person person1 = new Person();
+        person1.updateAttributeValue( Column.PERSON_ID, null );
+        person1.updateAttributeValue( Column.FIRST_NAME, "Ralph");
+        person1.updateAttributeValue( Column.LAST_NAME, "G1");
+        person1.updateAttributeValue( Column.PHONE_NUMBER, "7788899393");
+
+        Person person2 = new Person();
+        person2.updateAttributeValue( Column.PERSON_ID, null );
+        person2.updateAttributeValue( Column.FIRST_NAME, "Ralph");
+        person2.updateAttributeValue( Column.LAST_NAME, "G2");
+        person2.updateAttributeValue( Column.PHONE_NUMBER, "6049989898");
+
         Incident incident1 = new Incident();
         incident1.updateAttributeValue ( Column.REPORT_ID, null );
         incident1.updateAttributeValue ( Column.ACCOUNT_ID, "1" );
@@ -47,17 +60,40 @@ public class TestIncident
         // Add duplicate location. This should not be inserted in relation table
         incident1.addIncidentElement( locations[0] );
 
+        incident1.addIncidentElement( person1 );
+        incident1.addIncidentElement( person2 );
+
+        // Add duplicate person. This should not be inserted in relation table
+        //incident1.addIncidentElement( person1 );
+
         int currentSize = getNumberOfIncidents ();
         String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
         DBHelper.insertIncident(
                 incidentString,
                 incident1
         );
+
         Incident [] incidents = DBHelper.getIncidents ();
 
         Assert.assertTrue( currentSize < incidents.length );
 
         Incident newlyInsertedIncident = incidents[ incidents.length - 1 ];
+
+        ArrayList<Person> persons = new ArrayList<>();
+        for (int i = 0; i < newlyInsertedIncident.numIncidentElements() ; i+=1 ) {
+            if ( DatabaseValues.Table.PERSON.toString()
+                    .contains( newlyInsertedIncident.getIncidentElement(i).getTable().toString() )
+                ) {
+                persons.add( (Person)newlyInsertedIncident.getIncidentElement(i) );
+            }
+        }
+
+        /*
+
+        Assert.assertTrue( newlyInsertedIncident.numIncidentElements() == 5);
+        Assert.assertTrue( persons.size() > 0 );
+        Assert.assertTrue( persons.size() == 2 );
+        */
         Assert.assertTrue( newlyInsertedIncident.getAttributeValue( Column.CATEGORY_ID ).equals( selectedCategoryId ) );
         Assert.assertTrue( newlyInsertedIncident.numIncidentElements() > 0 );
 
