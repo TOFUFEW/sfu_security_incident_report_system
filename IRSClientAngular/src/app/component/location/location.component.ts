@@ -59,7 +59,6 @@ export class LocationComponent implements OnInit {
         this.buildings.forEach( bldg => {
             if ( bldg.BUILDING_NAME === this.newLocation.attributes.BUILDING_NAME )
                 this.rooms = bldg.ROOMS;
-            
         });
     }
 

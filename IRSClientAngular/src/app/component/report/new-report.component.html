@@ -18,20 +18,22 @@
                         </div>
                         <div class="details-body">
                             <div class="detail col-12 col-sm-3">
-                                <span class="field-title">WIP: Category</span>
-                                <select name="" id="" class="form-control">
-                                <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+                                <span class="field-title">Category</span>
+                                <select name="" id="" class="form-control" [(ngModel)]="selectedCategory.MAIN_CATEGORY" (change)="onSelectCategory()">
+                                    <option *ngFor="let category of categories" [value]="category.MAIN_CATEGORY">{{category.MAIN_CATEGORY}}</option>
                                 </select>
                             </div>
                             <div class="detail col-12 col-sm-3">
-                                <span class="field-title">WIP: Sub Category</span>
-                                <select class="form-control" [(ngModel)]="dynamicTest" (change)="onSelectChangeEvent()">
-                                    <option *ngFor="let subCategory of subCategories" [value]="subCategory">{{subCategory}}</option>
+                                <span class="field-title">Sub Category</span>
+                                <select class="form-control" [(ngModel)]="selectedCategory.SUB_CATEGORY" (change)="onSelectSubCategory()">
+                                    <option *ngFor="let subCategory of subCategories" [value]="subCategory.SUB_CATEGORY">{{subCategory.SUB_CATEGORY}}</option>
                                 </select>
                             </div>
-                            <div class="detail col-12 col-sm-3">
-                                <span class="field-title">WIP: Type</span>
-                                <select name="" id="" class="form-control"></select>
+                            <div class="detail col-12 col-sm-3"  *ngIf="categoryTypes.length > 0">
+                                <span class="field-title">Type</span>
+                                <select class="form-control" [(ngModel)]="selectedCategory.INCIDENT_TYPE" (change)="onSelectType()">
+                                    <option *ngFor="let type of categoryTypes" [value]="type.INCIDENT_TYPE">{{type.INCIDENT_TYPE}}</option>
+                                </select>
                             </div>
                             <div class="detail col-12 col-sm-10">
                                 <span class="field-title">Description</span>
@@ -105,16 +107,16 @@
                     </div>
                     <div class="details-body">
                         <div class="detail col-12 col-sm-3">
-                            <span class="field-title">WIP: Category: </span>
-                            <span class="field-value">Category1</span>
+                            <span class="field-title">Category: </span>
+                            <span class="field-value">{{selectedCategory.MAIN_CATEGORY}}</span>
                         </div>
                         <div class="detail col-12 col-sm-3">
-                            <span class="field-title">WIP: Sub Category: </span>
-                            <span class="field-value">SubCategory1</span>
+                            <span class="field-title">Sub Category: </span>
+                            <span class="field-value">{{selectedCategory.SUB_CATEGORY}}</span>
                         </div>
-                        <div class="detail col-12 col-sm-3">
-                            <span class="field-title">WIP: Type: </span>
-                            <span class="field-value">Type1</span>
+                        <div class="detail col-12 col-sm-3" *ngIf="selectedCategory.INCIDENT_TYPE != null ">
+                            <span class="field-title">Type: </span>
+                            <span class="field-value">{{selectedCategory.INCIDENT_TYPE}}</span>
                         </div>
                         <div class="detail col-12 col-sm-10">
                             <span class="field-title">Description</span>

@@ -275,6 +275,27 @@ span.glyphicon-fire {
     font-size: $text-lg;
 }
 
+.link {
+    text-decoration: underline;
+    color: #0645AD ; 
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+/****************************/
+/*  Guard app styles
+/****************************/
+
+.animate-show-hide.ng-hide {
+    opacity: 0;
+}
+
+.animate-show-hide.ng-hide-add,
+.animate-show-hide.ng-hide-remove {
+    transition: all linear 0.5s;
+}
 /* RIGHT OFFSETS */
 .col-xs-offset-right-12 { margin-right: 100%; }
 .col-xs-offset-right-11 { margin-right: 91.66666667%; }
@@ -336,4 +357,10 @@ span.glyphicon-fire {
     .col-lg-offset-right-2 { margin-right: 16.66666667%; }
     .col-lg-offset-right-1 { margin-right: 8.33333333%; }
     .col-lg-offset-right-0 { margin-right: 0; }
+}
+
+.navbar-sm { display: none ;}
+@media (max-width: 768px) {
+    .navbar-sm { display: block; }
+    .navbar-lg { display: none; }
 }
