@@ -18,7 +18,7 @@ export class IncidentService
         console.log ("get incidents");
         var incidents = this.http.get( this.incidentsUrl )
             .toPromise()
-            .then( response => ( response.json() ) as Incident[] )
+            .then( response => /*DataHelperService.initIncidents*/( response.json() ) as Incident[] )
             .catch( this.handleError );
         return Promise.resolve( incidents );
     };

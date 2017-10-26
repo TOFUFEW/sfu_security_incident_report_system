@@ -74,9 +74,9 @@ public class DBHelper
                     } else if ( count == 1 ) {
                         incidentElement = new Staff ();
                     } else if ( count == 2 ) {
-//                        incidentElement = new Person();
+                        incidentElement = new Person();
                     } else if ( count == 3 ) {
-//                        incidentElement = new IncidentCategory();
+                        incidentElement = new IncidentCategory();
                     } else {
 //                    throw new IllegalStateException ( table.toString () + " does not have its Model implemented yet" );'
                         break;
