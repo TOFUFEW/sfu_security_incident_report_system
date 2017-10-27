@@ -138,12 +138,12 @@ public class DBHelper
             );
 
             String lastIncidentId1 = getLastIncidentId(); // debug
-            System.out.println( lastIncidentId1 );
+            System.out.println( "Last Report ID before insert: " + lastIncidentId1 );
 
             stmt.execute ();
 
             String lastIncidentId = getLastIncidentId(); // debug
-            System.out.println( lastIncidentId );
+            System.out.println( "Last Report ID after insert: " + lastIncidentId );
 
             if ( lastIncidentId.equals(lastIncidentId1) )
                 System.out.println("ERROR: Incident insert failed");
