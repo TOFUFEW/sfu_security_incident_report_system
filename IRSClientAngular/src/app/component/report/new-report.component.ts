@@ -8,8 +8,9 @@ import { Incident } from '../report/incident';
 import { LocationComponent } from '../location/location.component';
 import { VehicleComponent } from '../vehicle/vehicle.component';
 import { PersonComponent } from '../person/person.component';
+import { AttachmentComponent } from '../attachment/attachment.component';
 
-@Component( 
+@Component(
   {
     templateUrl: './new-report.component.html',
     styleUrls: ['../../../assets/css/new-report.component.css'],
@@ -22,7 +23,7 @@ export class NewReportComponent implements OnInit {
     newIncident: Incident = new Incident();
     locations: Location[] = [];
 
-    constructor( 
+    constructor(
       private incidentService: IncidentService,
       private domService: DomService,
       private newReportService: NewReportService
@@ -32,8 +33,8 @@ export class NewReportComponent implements OnInit {
         this.newReportService.currentLocations
             .subscribe( locations => this.locations = locations);
     }
-    
-    
+
+
     // TEST CODE //
     categories = ['Access Control', 'Alarms', 'Suspicious Activity'];
     subCategories = ['Person', 'Vehicle' /*, 'Location'*/];
@@ -56,13 +57,13 @@ export class NewReportComponent implements OnInit {
             this.domService.addComponent( VehicleComponent, "vehicles" );
         else if ( componentName === this.locationStr ) {
             console.log("in addComponent: location");
-            this.domService.addComponent( LocationComponent.name, "locations" );            
+            this.domService.addComponent( LocationComponent.name, "locations" );
         } else if ( componentName === this.personStr){
             this.domService.addComponent( PersonComponent.name, "person" );
         }
     }
     // END OF TEST CODE //
-    
+
 
     // HOLD OFF ON THIS
     createIncident(): void {

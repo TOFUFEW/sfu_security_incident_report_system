@@ -17,7 +17,7 @@ import { NewReportComponent } from './component/report/new-report.component';
 import { VehicleComponent } from './component/vehicle/vehicle.component';
 import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
-import { AttachmentComponent } from './component/attachment.component';
+import { AttachmentComponent } from './component/attachment/attachment.component';
 
 
 /* Services */

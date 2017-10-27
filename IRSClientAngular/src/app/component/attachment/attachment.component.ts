@@ -1,13 +1,11 @@
 import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { AttachmentService } from '../service/attachment.service';
 import { Observable } from 'rxjs';
-import { DataHelperService } from '../util/data-helper.service';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'attachment-component',
-  templateUrl: '../view/attachment.component.html'
+  templateUrl: './attachment.component.html'
 })
 
 export class AttachmentComponent implements OnInit {
@@ -15,9 +13,7 @@ export class AttachmentComponent implements OnInit {
   @ViewChild('fileInput') inputEl: ElementRef;
 
   constructor (
-    private attachmentService: AttachmentService,
     private http: Http,
-    private dataHelper: DataHelperService,
   ) {
 
   };
