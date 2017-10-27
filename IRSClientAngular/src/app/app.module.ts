@@ -8,22 +8,29 @@ import { routes } from './app.router';
 /* Components */
 import { AppComponent } from './app.component';
 
-import { DashboardComponent } from './component/dashboard.component';
-import { LocationComponent } from './component/location.component';
-import { StaffComponent } from './component/staff.component';
-import { IncidentsComponent } from './component/incidents.component';
-import { LoginComponent } from './component/login.component';
-import { NewIncidentComponent } from './component/new-incident.component';
-import { DynamicFormComponent } from './component/dynamic-form.component';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { LocationComponent } from './component/location/location.component';
+import { StaffComponent } from './component/staff/staff.component';
+import { IncidentComponent } from './component/report/incident.component';
+import { LoginComponent } from './component/login/login.component';
+import { NewReportComponent } from './component/report/new-report.component';
+import { VehicleComponent } from './component/vehicle/vehicle.component';
+import { SearchComponent } from './component/search/search.component';
+import { PersonComponent } from './component/person/person.component';
 import { AttachmentComponent } from './component/attachment.component';
-import { MyTestComponent } from './component/myTest.component';
+
 
 /* Services */
-import { DataHelperService } from './util/data-helper.service';
 import { UserService } from './service/user.service';
 import { LoginService } from './service/login.service';
-import { DomService } from './service/dom.service';
+import { DomService } from './util/dom.service';
 import { LocationService } from './service/location.service'
+import { IncidentService } from './service/incident.service'
+import { StaffService } from './service/staff.service'
+import { PersonService } from './service/person.service';
+import { NewReportService } from './service/new-report.service';
+
+import { FilterPipe } from './util/filter.pipe';
 
 @NgModule({
   imports: [
@@ -39,17 +46,33 @@ import { LocationService } from './service/location.service'
     DashboardComponent,
     LocationComponent,
     StaffComponent,
-    IncidentsComponent,
-    NewIncidentComponent,
+    IncidentComponent,
     LoginComponent,
-    DynamicFormComponent,
+    NewReportComponent,
+    VehicleComponent,
+    SearchComponent,
+    PersonComponent,
     AttachmentComponent,
-    MyTestComponent
+    FilterPipe
   ],
 
-  providers: [UserService, LoginService, DomService, DataHelperService, LocationService],
+  providers: [
+    UserService,
+    LoginService,
+    DomService,
+    LocationService,
+    IncidentService,
+    StaffService,
+    NewReportService,
+    PersonService
+  ],
+
   bootstrap: [AppComponent],
-  entryComponents: [ LocationComponent, MyTestComponent ]
+
+  entryComponents: [
+    LocationComponent,
+    VehicleComponent,
+    PersonComponent, ]
 })
 
 export class AppModule { }

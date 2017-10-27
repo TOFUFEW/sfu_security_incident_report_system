@@ -1,16 +1,16 @@
 import { Injectable } from "@angular/core";
-import { User } from '../model/user';
+import { User } from '../component/login/user';
 
 @Injectable()
 export class UserService {
     private currentUser: string = 'currentUser';
 
-    authUser(userString: string) {
-        if (userString == null) {
+    authUser(user: User) {
+        if (user == null) {
             return;
         }
-        console.log("local storage added user");
-        sessionStorage.setItem(this.currentUser, JSON.stringify(userString));
+        console.log("local storage added user" + JSON.stringify(user));
+        sessionStorage.setItem(this.currentUser, JSON.stringify(user));
     }
     
     isLoggedIn(): boolean {
@@ -32,3 +32,4 @@ export class UserService {
         return null;
     }
 }
+//

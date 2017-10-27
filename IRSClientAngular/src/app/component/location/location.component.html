@@ -1,0 +1,22 @@
+<div class="panel panel-default test-panel">
+  
+    <div class="panel-heading">
+      <h4>Locations</h4>
+    </div>
+
+    <div class="panel-body">
+        <h4>Add a Location: </h4>
+        <!-- <span class="field-title">Campus</span>
+        <input type="text" [(ngModel)]="newLocation.CITY" /> <br><br> -->
+        <span class="field-title">Building Number</span>
+        <input type="text" [(ngModel)]="newLocation.attributes.BUILDING_NAME" /> <br><br>
+        <span class="field-title">Room Number</span>
+        <input type="text" [(ngModel)]="newLocation.attributes.ROOM_NUMBER" /> <br><br>
+        <span class="field-title">Department</span>
+        <input type="text" [(ngModel)]="newLocation.attributes.DEPARTMENT" /> <br> <br>
+        <button class="btn btn-primary" (click)="addLocationToReport()">
+          Submit
+        </button>
+
+    </div>
+</div>
