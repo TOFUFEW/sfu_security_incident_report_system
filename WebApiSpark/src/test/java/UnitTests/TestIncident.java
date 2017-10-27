@@ -18,9 +18,6 @@ public class TestIncident
     @Test
     public void testInsertIncident ()
     {
-        Location[] locations = DBHelper.getLocations();
-        Assert.assertTrue( locations.length > 0);
-
         IncidentElement[] categories = DBHelper.getIncidentElements( DatabaseValues.Table.INCIDENT_CATEGORY );
         Assert.assertTrue( categories.length > 0);
 
@@ -30,20 +27,6 @@ public class TestIncident
         String selectedCategoryId = selectedCategory.getAttributeValue( Column.CATEGORY_ID );
         Assert.assertTrue( !selectedCategoryId.isEmpty() );
 
-        int elementCount = 0;
-
-        Person person1 = new Person();
-        person1.updateAttributeValue( Column.PERSON_ID, null );
-        person1.updateAttributeValue( Column.FIRST_NAME, "Ralph");
-        person1.updateAttributeValue( Column.LAST_NAME, "G1");
-        person1.updateAttributeValue( Column.PHONE_NUMBER, "7788899393");
-
-        Person person2 = new Person();
-        person2.updateAttributeValue( Column.PERSON_ID, null );
-        person2.updateAttributeValue( Column.FIRST_NAME, "Ralph");
-        person2.updateAttributeValue( Column.LAST_NAME, "G2");
-        person2.updateAttributeValue( Column.PHONE_NUMBER, "6049989898");
-
         Incident incident1 = new Incident();
         incident1.updateAttributeValue ( Column.REPORT_ID, null );
         incident1.updateAttributeValue ( Column.ACCOUNT_ID, "1" );
@@ -52,11 +35,16 @@ public class TestIncident
         incident1.updateAttributeValue ( Column.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
         incident1.updateAttributeValue ( Column.CLOSED, "0" );
 
+
+        int elementCount = 0;
+        Random rand = new Random();
+
         incident1.addIncidentElement( selectedCategory );
         elementCount++;
 
-        Random rand = new Random();
-
+        /***** LOCATIONS *****/
+        Location[] locations = DBHelper.getLocations();
+        Assert.assertTrue( locations.length > 0);
         incident1.addIncidentElement( locations[ rand.nextInt( locations.length ) ] );
         elementCount++;
 
@@ -68,21 +56,34 @@ public class TestIncident
         incident1.addIncidentElement( duplicateLoc );
 
 
-
-/*
-        incident1.addIncidentElement( person1 );
-        elementCount++;
-        incident1.addIncidentElement( person2 );
-        elementCount++;
-        */
+        /***** PERSONS *****/
         Person[] persons = DBHelper.getPersons();
-        if ( persons.length > 0 ) {
-            incident1.addIncidentElement( persons[0] );
-            elementCount++;
-        }
+        incident1.addIncidentElement( persons[ rand.nextInt(persons.length)] );
+        elementCount++;
+
+        Person duplicatePerson = persons[ rand.nextInt(persons.length)];
+        incident1.addIncidentElement( duplicatePerson );
+        elementCount++ ;
 
         // Add duplicate person. This should not be inserted in relation table
-        //incident1.addIncidentElement( person1 );
+        incident1.addIncidentElement( duplicatePerson );
+
+        Person newPerson1 = new Person();
+        newPerson1.updateAttributeValue( Column.PERSON_ID, null );
+        newPerson1.updateAttributeValue( Column.FIRST_NAME, "Ralph");
+        newPerson1.updateAttributeValue( Column.LAST_NAME, "G1");
+        newPerson1.updateAttributeValue( Column.PHONE_NUMBER, "7788899393");
+
+        Person newPerson2 = new Person();
+        newPerson2.updateAttributeValue( Column.PERSON_ID, null );
+        newPerson2.updateAttributeValue( Column.FIRST_NAME, "Ralph");
+        newPerson2.updateAttributeValue( Column.LAST_NAME, "G2");
+        newPerson2.updateAttributeValue( Column.PHONE_NUMBER, "6049989898");
+
+        incident1.addIncidentElement( newPerson1 );
+        elementCount++;
+        incident1.addIncidentElement( newPerson2 );
+        elementCount++;
 
         int currentSize = getNumberOfIncidents ();
         String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
@@ -93,11 +94,12 @@ public class TestIncident
         Assert.assertTrue( currentSize < incidents.length );
 
         Incident newlyInsertedIncident = incidents[ incidents.length - 1 ];
+        Assert.assertTrue( elementCount == newlyInsertedIncident.numIncidentElements() );
 
         ArrayList<Person> _persons = new ArrayList<>();
         for (int i = 0; i < newlyInsertedIncident.numIncidentElements() ; i+=1 ) {
-            if ( DatabaseValues.Table.PERSON.toString()
-                    .contains( newlyInsertedIncident.getIncidentElement(i).getTable().toString() )
+            if ( DatabaseValues.Table.PERSON.toString().toLowerCase()
+                    .contains( newlyInsertedIncident.getIncidentElement(i).getTable().toString().toLowerCase() )
                 ) {
                 _persons.add( (Person)newlyInsertedIncident.getIncidentElement(i) );
             }

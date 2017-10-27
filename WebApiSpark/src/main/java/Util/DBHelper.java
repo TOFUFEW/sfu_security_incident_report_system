@@ -155,7 +155,7 @@ public class DBHelper
             for ( int i = 0 ; i < incident.numIncidentElements () ; i++ )
             {
                 if ( !relationExists( lastIncidentId , incident.getIncidentElement(i) ) ) {
-                    System.out.println("Inserting relation for " + incident.getIncidentElement(i).getTable().toString());
+                    debug_printInsertRelationLog( incident.getIncidentElement( i ) );
                     insertIncidentRelation(
                             relationSQL,
                             incident.getIncidentElement(i)
@@ -190,28 +190,73 @@ public class DBHelper
     }
 
     private static boolean relationExists( String reportId, IncidentElement incidentElement ) {
+        System.out.println("Checking if relation already exists for " + incidentElement.getTable().toString());
         try {
             initDB();
-            String tableName = incidentElement.getTable().toString();
+            String tableName = incidentElement.getTable().toString().toLowerCase();
             String query = "select * from ";
 
-            if ( tableName.contains( "Location" ) ) {
-                String locationId = incidentElement.getAttributeValue( DatabaseValues.Column.LOCATION_ID );
-                query += " HappensAt where REPORT_ID = '" + reportId + "' AND LOCATION_ID = '" + locationId + "';";
-                ResultSet result = executeQuery( query );
-                System.out.println( query );
-                while( result.next() ) {
-                    System.out.println("WARNING -- DUPLICATE DETECTED: ");
-                    System.out.println( "REPORT_ID: " + result.getString("REPORT_ID"));
-                    System.out.println( "LOCATION_ID: " + result.getString("LOCATION_ID"));
-                    return true;
-                }
+            String relationTable = "";
+            String idString = " where REPORT_ID = '" + reportId + "' AND ";
+            if (DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase().contains(tableName))
+                return false;
+
+            if ( DatabaseValues.Table.LOCATION.toString().toLowerCase().contains( tableName ) ) {
+                relationTable = "HappensAt";
+                String id = incidentElement.getAttributeValue( DatabaseValues.Column.LOCATION_ID );
+                if (id == null || id.equals("null"))
+                    return false;
+                idString += "LOCATION_ID = '" + id + "';";
+            }
+            else if ( DatabaseValues.Table.PERSON.toString().toLowerCase().contains( tableName ) ) {
+                relationTable = "Involves";
+                String id = incidentElement.getAttributeValue( DatabaseValues.Column.PERSON_ID );
+                if (id == null || id.equals("null"))
+                    return false;
+                idString += "PERSON_ID = '" + id + "';";
+            }
+
+            query += relationTable + idString;
+            System.out.println( query );
+            ResultSet result = executeQuery( query );
+            while( result.next() ) {
+                System.out.println("WARNING -- DUPLICATE DETECTED: ");
+                System.out.println(query);
+                return true;
             }
         }
         catch ( Exception e ) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private static void debug_printInsertRelationLog( IncidentElement incidentElement ) {
+        if ( incidentElement == null ) return;
+
+        String tableName = incidentElement.getTable().name().toLowerCase();
+
+        String msg = "Inserting relation for " + tableName ;
+        if ( DatabaseValues.Table.PERSON.toString().toLowerCase().contains( tableName ) ) {
+            msg += " where FIRST_NAME = " + incidentElement.getAttributeValue( DatabaseValues.Column.FIRST_NAME ) +
+                    " , LAST_NAME = " + incidentElement.getAttributeValue( DatabaseValues.Column.LAST_NAME ) +
+                    " , PHONE_NUMBER = " + incidentElement.getAttributeValue( DatabaseValues.Column.PHONE_NUMBER ) +
+                    " , PERSON_ID = " + incidentElement.getAttributeValue(DatabaseValues.Column.PERSON_ID);
+        }
+        else if ( DatabaseValues.Table.LOCATION.toString().toLowerCase().contains( tableName) ) {
+            msg += " where CAMPUS_ID = " + incidentElement.getAttributeValue( DatabaseValues.Column.CAMPUS_ID ) +
+                    " , BUILDING_NAME = " + incidentElement.getAttributeValue( DatabaseValues.Column.BUILDING_NAME ) +
+                    " , ROOM_NUMBER = " + incidentElement.getAttributeValue( DatabaseValues.Column.ROOM_NUMBER ) +
+                    " , LOCATION_ID = " + incidentElement.getAttributeValue(DatabaseValues.Column.LOCATION_ID);
+        }
+        else if ( DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase().contains( tableName ) ) {
+            msg += " where MAIN_CATEGORY = " + incidentElement.getAttributeValue( DatabaseValues.Column.MAIN_CATEGORY ) +
+                    " , SUB_CATEGORY = " + incidentElement.getAttributeValue( DatabaseValues.Column.SUB_CATEGORY ) +
+                    " , INCIDENT_TYPE = " + incidentElement.getAttributeValue( DatabaseValues.Column.INCIDENT_TYPE ) +
+                    " , CATEGORY_ID = " + incidentElement.getAttributeValue(DatabaseValues.Column.CATEGORY_ID);
+        }
+
+        System.out.println( msg );
     }
 
     private static boolean insertIncidentRelation (
@@ -246,12 +291,6 @@ public class DBHelper
             }
             else if ( tableName.compareTo ( "Person" ) == 0 )
             {
-                /*
-                if ( !selectIncidentElement( incidentElement ) ) {
-                    insertIncidentElement( incidentElement );
-                }
-                Person person = getPerson( incidentElement );
-                */
                 stmt.setString (
                         1,
                         tableName
@@ -291,28 +330,7 @@ public class DBHelper
         }
         return false;
     }
-
-    /*
-    private static Person getPerson( IncidentElement incidentElement ) {
-        try {
-            String query = "select top 1 * from Person where " +
-                        " FIRST_NAME = '" + incidentElement.getAttributeValue(DatabaseValues.Column.FIRST_NAME) + "' AND" +
-                    " LAST_NAME = '" + incidentElement.getAttributeValue(DatabaseValues.Column.LAST_NAME) + "' AND" +
-                    " PHONE_NUMBER = '" + incidentElement.getAttributeValue(DatabaseValues.Column.PHONE_NUMBER) + "';";
-            System.out.println(query);
-            ResultSet result = executeQuery( query );
-            while ( result.next() ) {
-                Person person = new Person();
-                person.
-            }
-        }
-        catch ( Exception e ) {
-
-        }
-
-        return null;
-    }
-    */
+    
     public static boolean updateIncident ( Incident incident ) {
         String incidentSQL = incident.toUpdateSQL ();
         try {
