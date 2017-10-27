@@ -5,6 +5,7 @@ import { Location } from '../model/location';
 import { LocationService } from '../service/location.service';
 import { Staff } from '../model/staff';
 import { StaffService } from '../service/staff.service';
+import { AttachmentService } from '../service/attachment.service';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../service/user.service';
@@ -15,7 +16,7 @@ import { DataHelperService } from '../util/data-helper.service';
   selector: 'dashboard',
   templateUrl: '../view/dashboard.component.html',
   styleUrls: ['../../assets/css/dashboard.component.css'],
-  providers: [LocationService, StaffService, IncidentsService]
+  providers: [LocationService, StaffService, IncidentsService, AttachmentService]
 })
 
 export class DashboardComponent {
@@ -32,6 +33,7 @@ export class DashboardComponent {
     private locationService: LocationService,
     private userService: UserService,
     private staffService: StaffService,
+    private attachmentService: AttachmentService,
     private dataHelper: DataHelperService
   ) {
 

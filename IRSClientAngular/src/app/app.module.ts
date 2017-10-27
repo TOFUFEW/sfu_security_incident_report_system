@@ -15,6 +15,7 @@ import { IncidentsComponent } from './component/incidents.component';
 import { LoginComponent } from './component/login.component';
 import { NewIncidentComponent } from './component/new-incident.component';
 import { DynamicFormComponent } from './component/dynamic-form.component';
+import { AttachmentComponent } from './component/attachment.component';
 import { MyTestComponent } from './component/myTest.component';
 
 /* Services */
@@ -39,12 +40,13 @@ import { LocationService } from './service/location.service'
     LocationComponent,
     StaffComponent,
     IncidentsComponent,
-    LoginComponent,
     NewIncidentComponent,
+    LoginComponent,
     DynamicFormComponent,
+    AttachmentComponent,
     MyTestComponent
   ],
-  
+
   providers: [UserService, LoginService, DomService, DataHelperService, LocationService],
   bootstrap: [AppComponent],
   entryComponents: [ LocationComponent, MyTestComponent ]
