@@ -26,8 +26,6 @@ public class IncidentsController
     {
         get ("/incidents" , ( request , response ) ->
         {
-            Location[] locations = DBHelper.getLocations();
-            Person[] persons = DBHelper.getPersons();
             Incident []  incidents = DBHelper.getIncidents ();
             return JsonUtil.toJson ( incidents );
         } );

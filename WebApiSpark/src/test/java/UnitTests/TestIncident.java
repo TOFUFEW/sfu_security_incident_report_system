@@ -21,15 +21,20 @@ public class TestIncident
         IncidentElement[] categories = DBHelper.getIncidentElements( DatabaseValues.Table.INCIDENT_CATEGORY );
         Assert.assertTrue( categories.length > 0);
 
-        IncidentElement selectedCategory = categories[categories.length-1];
+        Random rand = new Random();
+
+        IncidentElement selectedCategory = categories[ rand.nextInt( categories.length-1 )];
         Assert.assertTrue( ( DatabaseValues.Table.INCIDENT_CATEGORY ).toString().contains( selectedCategory.getTable().toString() ) );
 
         String selectedCategoryId = selectedCategory.getAttributeValue( Column.CATEGORY_ID );
         Assert.assertTrue( !selectedCategoryId.isEmpty() );
 
+        IncidentElement[] staffList = DBHelper.getIncidentElements( DatabaseValues.Table.STAFF );
+        IncidentElement staff = staffList[ rand.nextInt( staffList.length ) ];
+
         Incident incident1 = new Incident();
         incident1.updateAttributeValue ( Column.REPORT_ID, null );
-        incident1.updateAttributeValue ( Column.ACCOUNT_ID, "1" );
+        incident1.updateAttributeValue ( Column.ACCOUNT_ID, staff.getAttributeValue( Column.ACCOUNT_ID ) );
         incident1.updateAttributeValue ( Column.CATEGORY_ID, selectedCategoryId );
         incident1.updateAttributeValue ( Column.DESCRIPTION, "TEST DESCRIPTION" );
         incident1.updateAttributeValue ( Column.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
@@ -37,9 +42,13 @@ public class TestIncident
 
 
         int elementCount = 0;
-        Random rand = new Random();
+
 
         incident1.addIncidentElement( selectedCategory );
+        elementCount++;
+
+        /***** STAFF *****/
+        incident1.addIncidentElement( staff );
         elementCount++;
 
         /***** LOCATIONS *****/
@@ -93,8 +102,8 @@ public class TestIncident
 
         Assert.assertTrue( currentSize < incidents.length );
 
-        Incident newlyInsertedIncident = incidents[ incidents.length - 1 ];
-        Assert.assertTrue( elementCount == newlyInsertedIncident.numIncidentElements() );
+        Incident newlyInsertedIncident = getLastIncident();
+        //Assert.assertTrue( elementCount == newlyInsertedIncident.numIncidentElements() );
 
         ArrayList<Person> _persons = new ArrayList<>();
         for (int i = 0; i < newlyInsertedIncident.numIncidentElements() ; i+=1 ) {
@@ -155,7 +164,7 @@ public class TestIncident
         Assert.assertTrue( DBHelper.selectIncident( incident ) );
     }
 
-    public int getNumberOfIncidents ()
+    private int getNumberOfIncidents ()
     {
         String query = "SELECT COUNT (distinct REPORT_ID) as 'size' FROM dbo.Incident";
         try {
@@ -170,4 +179,27 @@ public class TestIncident
         }
         return 0;
     }
+
+    private Incident getLastIncident() {
+        String query = "SELECT top 1 * FROM dbo.Incident order by REPORT_ID desc;";
+        try {
+            ResultSet result = DBHelper.executeQuery ( query );
+            while ( result.next() )
+            {
+                Incident incident = new Incident ();
+
+                incident.extractFromCurrentRow ( result );
+
+                ArrayList < IncidentElement > incidentElementsList = DBHelper.getIncidentElements ( Integer.parseInt (incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) ) );
+
+                incident.changeIncidentElementList ( incidentElementsList );
+                return incident;
+            }
+        }
+        catch ( Exception e ) {
+            e.printStackTrace ();
+        }
+        return null;
+    }
+
 }

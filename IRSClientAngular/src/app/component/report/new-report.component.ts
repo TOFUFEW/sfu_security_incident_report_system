@@ -66,6 +66,7 @@ export class NewReportComponent implements OnInit {
         var subcategories = this.subCategories[index];
         if ( subcategories.TYPES.length == 0 ) {
             this.selectedCategory.CATEGORY_ID = subcategories.CATEGORY_ID;
+            this.newIncident.attributes.CATEGORY_ID = this.selectedCategory.CATEGORY_ID;
             this.selectedCategory.INCIDENT_TYPE = null;
         }
         this.categoryTypes = subcategories.TYPES;

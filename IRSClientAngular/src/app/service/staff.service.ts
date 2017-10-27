@@ -45,8 +45,7 @@ export class StaffService {
     };
 
     private handleError(error: any): Promise<any> {
-        alert( "An error occurred." );
-        console.error( 'An error occurred' , error ); // for demo purposes only
+        console.error( 'An error occurred in staff service' , error ); // for demo purposes only
         return Promise.reject( error.message || error );
     }
 }

@@ -48,7 +48,7 @@ public class DBHelper
         return incidentList.toArray ( new Incident [ incidentList.size () ] );
     }
 
-    private static ArrayList < IncidentElement > getIncidentElements ( int reportID ) {
+    public static ArrayList < IncidentElement > getIncidentElements ( int reportID ) {
         ArrayList < IncidentElement > incidentElementsList = new ArrayList <> ();
 
         try {
@@ -137,16 +137,28 @@ public class DBHelper
                     Types.INTEGER
             );
 
-            String lastIncidentId1 = getLastIncidentId(); // debug
-            System.out.println( "Last Report ID before insert: " + lastIncidentId1 );
+            String before_lastIncidentId = ""; // debug
+            String lastIncidentId = "";
+            int maxTries = 5;
+            int tries = 0;
+            do {
+                before_lastIncidentId = getLastIncidentId();
+                System.out.println( "Last Report ID before insert: " + before_lastIncidentId );
 
-            stmt.execute ();
+                stmt.execute ();
+                tries++;
 
-            String lastIncidentId = getLastIncidentId(); // debug
-            System.out.println( "Last Report ID after insert: " + lastIncidentId );
+                lastIncidentId = getLastIncidentId(); // debug
+                System.out.println( "Last Report ID after insert: " + lastIncidentId );
 
-            if ( lastIncidentId.equals(lastIncidentId1) )
-                System.out.println("ERROR: Incident insert failed");
+                if ( lastIncidentId.equals( before_lastIncidentId ) )
+                    System.out.println( "ERROR: Incident insert failed" );
+
+                if ( tries >= maxTries ) {
+                    return false;
+                }
+            } while ( lastIncidentId.equals( before_lastIncidentId ) && tries < maxTries );
+
 
             int output = stmt.getInt ( 5 );
 
@@ -190,6 +202,7 @@ public class DBHelper
     }
 
     private static boolean relationExists( String reportId, IncidentElement incidentElement ) {
+        System.out.println("");
         System.out.println("Checking if relation already exists for " + incidentElement.getTable().toString());
         try {
             initDB();
@@ -215,12 +228,14 @@ public class DBHelper
                     return false;
                 idString += "PERSON_ID = '" + id + "';";
             }
+            else
+                return false;
 
             query += relationTable + idString;
-            System.out.println( query );
+            System.out.println("Query: " + query );
             ResultSet result = executeQuery( query );
             while( result.next() ) {
-                System.out.println("WARNING -- DUPLICATE DETECTED: ");
+                System.out.println("****** WARNING -- DUPLICATE DETECTED: ");
                 System.out.println(query);
                 return true;
             }
@@ -228,6 +243,7 @@ public class DBHelper
         catch ( Exception e ) {
             e.printStackTrace();
         }
+        System.out.println("");
         return false;
     }
 
@@ -330,7 +346,7 @@ public class DBHelper
         }
         return false;
     }
-    
+
     public static boolean updateIncident ( Incident incident ) {
         String incidentSQL = incident.toUpdateSQL ();
         try {
