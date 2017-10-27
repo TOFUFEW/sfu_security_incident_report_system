@@ -1,6 +1,8 @@
 package Controller;
 
 import Model.Incident;
+import Model.Location;
+import Model.Person;
 import Util.DBHelper;
 import Util.DatabaseValues;
 import Util.JsonUtil;
@@ -24,6 +26,8 @@ public class IncidentsController
     {
         get ("/incidents" , ( request , response ) ->
         {
+            Location[] locations = DBHelper.getLocations();
+            Person[] persons = DBHelper.getPersons();
             Incident []  incidents = DBHelper.getIncidents ();
             return JsonUtil.toJson ( incidents );
         } );

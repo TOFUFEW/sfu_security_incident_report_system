@@ -7,6 +7,7 @@ import Util.DatabaseValues.Column;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,6 +30,7 @@ public class TestIncident
         String selectedCategoryId = selectedCategory.getAttributeValue( Column.CATEGORY_ID );
         Assert.assertTrue( !selectedCategoryId.isEmpty() );
 
+        int elementCount = 0;
 
         Person person1 = new Person();
         person1.updateAttributeValue( Column.PERSON_ID, null );
@@ -51,27 +53,40 @@ public class TestIncident
         incident1.updateAttributeValue ( Column.CLOSED, "0" );
 
         incident1.addIncidentElement( selectedCategory );
-        incident1.addIncidentElement( locations[0] );
+        elementCount++;
 
-        if ( !( locations.length == 1 )) {
-            incident1.addIncidentElement( locations[ locations.length-1 ]);
-        }
+        Random rand = new Random();
+
+        incident1.addIncidentElement( locations[ rand.nextInt( locations.length ) ] );
+        elementCount++;
+
+        Location duplicateLoc = locations[ rand.nextInt( locations.length ) ];
+        incident1.addIncidentElement( duplicateLoc );
+        elementCount++;
 
         // Add duplicate location. This should not be inserted in relation table
-        incident1.addIncidentElement( locations[0] );
+        incident1.addIncidentElement( duplicateLoc );
 
+
+
+/*
         incident1.addIncidentElement( person1 );
+        elementCount++;
         incident1.addIncidentElement( person2 );
+        elementCount++;
+        */
+        Person[] persons = DBHelper.getPersons();
+        if ( persons.length > 0 ) {
+            incident1.addIncidentElement( persons[0] );
+            elementCount++;
+        }
 
         // Add duplicate person. This should not be inserted in relation table
         //incident1.addIncidentElement( person1 );
 
         int currentSize = getNumberOfIncidents ();
         String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
-        DBHelper.insertIncident(
-                incidentString,
-                incident1
-        );
+        DBHelper.insertIncident( incidentString,  incident1 );
 
         Incident [] incidents = DBHelper.getIncidents ();
 
@@ -79,19 +94,19 @@ public class TestIncident
 
         Incident newlyInsertedIncident = incidents[ incidents.length - 1 ];
 
-        ArrayList<Person> persons = new ArrayList<>();
+        ArrayList<Person> _persons = new ArrayList<>();
         for (int i = 0; i < newlyInsertedIncident.numIncidentElements() ; i+=1 ) {
             if ( DatabaseValues.Table.PERSON.toString()
                     .contains( newlyInsertedIncident.getIncidentElement(i).getTable().toString() )
                 ) {
-                persons.add( (Person)newlyInsertedIncident.getIncidentElement(i) );
+                _persons.add( (Person)newlyInsertedIncident.getIncidentElement(i) );
             }
         }
 
+        //Assert.assertTrue( _persons.size() > 0 );
+        //Assert.assertTrue( newlyInsertedIncident.numIncidentElements() == elementCount);
         /*
 
-        Assert.assertTrue( newlyInsertedIncident.numIncidentElements() == 5);
-        Assert.assertTrue( persons.size() > 0 );
         Assert.assertTrue( persons.size() == 2 );
         */
         Assert.assertTrue( newlyInsertedIncident.getAttributeValue( Column.CATEGORY_ID ).equals( selectedCategoryId ) );

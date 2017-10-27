@@ -137,14 +137,25 @@ public class DBHelper
                     Types.INTEGER
             );
 
+            String lastIncidentId1 = getLastIncidentId(); // debug
+            System.out.println( lastIncidentId1 );
+
             stmt.execute ();
+
+            String lastIncidentId = getLastIncidentId(); // debug
+            System.out.println( lastIncidentId );
+
+            if ( lastIncidentId.equals(lastIncidentId1) )
+                System.out.println("ERROR: Incident insert failed");
+
             int output = stmt.getInt ( 5 );
 
             String relationSQL = "{ call dbo.insertRelation ( ? , ? , ? ) }";
-            Incident lastIncident = getLastIncident();
+
             for ( int i = 0 ; i < incident.numIncidentElements () ; i++ )
             {
-                if ( !relationExists( lastIncident.getAttributeValue( DatabaseValues.Column.REPORT_ID) , incident.getIncidentElement(i) ) ) {
+                if ( !relationExists( lastIncidentId , incident.getIncidentElement(i) ) ) {
+                    System.out.println("Inserting relation for " + incident.getIncidentElement(i).getTable().toString());
                     insertIncidentRelation(
                             relationSQL,
                             incident.getIncidentElement(i)
@@ -162,26 +173,20 @@ public class DBHelper
         return false;
     }
 
-    private static Incident getLastIncident() {
+    private static String getLastIncidentId() {
         try {
             initDB();
             String query = "select top (1) * from Incident order by report_id desc;";
             ResultSet result = DBHelper.executeQuery( query );
             while ( result.next() ) {
-                Incident incident = new Incident();
 
-                incident.extractFromCurrentRow ( result );
-
-                ArrayList < IncidentElement > incidentElementsList = getIncidentElements ( Integer.parseInt (incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) ) );
-
-                incident.changeIncidentElementList ( incidentElementsList );
-                return incident;
+                return result.getString("REPORT_ID");
             }
         }
         catch ( Exception e ) {
 
         }
-        return new Incident();
+        return null;
     }
 
     private static boolean relationExists( String reportId, IncidentElement incidentElement ) {
@@ -194,7 +199,11 @@ public class DBHelper
                 String locationId = incidentElement.getAttributeValue( DatabaseValues.Column.LOCATION_ID );
                 query += " HappensAt where REPORT_ID = '" + reportId + "' AND LOCATION_ID = '" + locationId + "';";
                 ResultSet result = executeQuery( query );
+                System.out.println( query );
                 while( result.next() ) {
+                    System.out.println("WARNING -- DUPLICATE DETECTED: ");
+                    System.out.println( "REPORT_ID: " + result.getString("REPORT_ID"));
+                    System.out.println( "LOCATION_ID: " + result.getString("LOCATION_ID"));
                     return true;
                 }
             }
@@ -237,9 +246,12 @@ public class DBHelper
             }
             else if ( tableName.compareTo ( "Person" ) == 0 )
             {
+                /*
                 if ( !selectIncidentElement( incidentElement ) ) {
                     insertIncidentElement( incidentElement );
                 }
+                Person person = getPerson( incidentElement );
+                */
                 stmt.setString (
                         1,
                         tableName
@@ -280,6 +292,27 @@ public class DBHelper
         return false;
     }
 
+    /*
+    private static Person getPerson( IncidentElement incidentElement ) {
+        try {
+            String query = "select top 1 * from Person where " +
+                        " FIRST_NAME = '" + incidentElement.getAttributeValue(DatabaseValues.Column.FIRST_NAME) + "' AND" +
+                    " LAST_NAME = '" + incidentElement.getAttributeValue(DatabaseValues.Column.LAST_NAME) + "' AND" +
+                    " PHONE_NUMBER = '" + incidentElement.getAttributeValue(DatabaseValues.Column.PHONE_NUMBER) + "';";
+            System.out.println(query);
+            ResultSet result = executeQuery( query );
+            while ( result.next() ) {
+                Person person = new Person();
+                person.
+            }
+        }
+        catch ( Exception e ) {
+
+        }
+
+        return null;
+    }
+    */
     public static boolean updateIncident ( Incident incident ) {
         String incidentSQL = incident.toUpdateSQL ();
         try {
