@@ -178,6 +178,12 @@ body {
   }
 }
 
+.x-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
 .modal-header { border-bottom: none; }
 .modal-footer { border-top: none; }
 .details-container {
@@ -196,12 +202,6 @@ body {
         padding: $padding-sm;
         border-radius: 8px;
         background-color: $grey-default;
-    }
-
-    .x-container {
-        display: flex;
-        justify-content: flex-end;
-        width: 100%;
     }
 
     .details-footer {
