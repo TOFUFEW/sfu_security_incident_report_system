@@ -1,5 +1,6 @@
 import { Staff } from '../staff/staff';
 import { Location } from '../location/location';
+import { Person } from '../person/person';
 import { IncidentElement } from './incident-element';
 import { Category } from '../category/category';
 import { Observable } from 'rxjs/Observable';
@@ -13,6 +14,8 @@ export class Incident {
     // TEMP CODE
     locationList: Location[];
     staffList: Staff[];
+
+    personList: Person[];
     category: Category;
     // END OF TEMP CODE
 
@@ -22,8 +25,9 @@ export class Incident {
         this.incidentElements = [];
         this.locationList = [];
         this.staffList = [];
+        this.personList = [];
         this.attributes = new IncidentAttributes();
-
+        this.category = new Category(null, null, null, null);
         this.inWorkspace = false;
     }
 }
