@@ -13,7 +13,7 @@ public class DatabaseValues
         CAMPUS ( "dbo.Campus" ),
         HAPPENS_AT ( "dbo.HappensAt" ),
         INCIDENT ( "dbo.Incident" ),
-        INCIDENT_CATEGORY ( "IncidentCategory" ),
+        INCIDENT_CATEGORY ( "dbo.IncidentCategory" ),
         INVOLVES ( "dbo.Involves" ),
         LOCATION ( "dbo.Location" ),
         PERSON ( "dbo.Person" ),

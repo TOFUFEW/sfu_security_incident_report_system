@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Location } from '../model/location';
-import { Incident } from '../model/incident';
-import { IncidentElement } from '../model/incident-element';
+import { Location } from '../component/location/location';
+import { Incident } from '../component/report/incident';
+import { IncidentElement } from '../component/report/incident-element';
+import { Category } from '../component/category/category';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
@@ -16,8 +17,12 @@ export class DataHelperService
     }
 
     static extractAttributesArray( incidentElements: IncidentElement[] ): Object[] {
+        console.log(" in extract attributes array ");
+        console.log(incidentElements);
         var arr = [];
+        //debugger;
         incidentElements.forEach( so => {
+            //console.log(so);
             arr.push( so.attributes );
         });
         return arr;

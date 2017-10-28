@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Staff } from '../model/staff';
-import { IncidentElement } from '../model/incident-element';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
 import { DataHelperService } from '../util/data-helper.service';
 import 'rxjs/add/operator/toPromise';
+import { Staff } from '../component/staff/staff';
+import { IncidentElement } from '../component/report/incident-element';
 
 @Injectable()
 export class StaffService {
@@ -45,8 +45,7 @@ export class StaffService {
     };
 
     private handleError(error: any): Promise<any> {
-        alert( "An error occurred." );
-        console.error( 'An error occurred' , error ); // for demo purposes only
+        console.error( 'An error occurred in staff service' , error ); // for demo purposes only
         return Promise.reject( error.message || error );
     }
 }

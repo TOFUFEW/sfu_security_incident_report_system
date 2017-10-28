@@ -6,8 +6,6 @@ import Util.JsonUtil;
 
 import static spark.Spark.*;
 
-
-
 public class StaffController
 {
 
@@ -18,12 +16,9 @@ public class StaffController
 
     private void setupEndPoints ()
     {
-        get ( "/staffs" , ( request , response ) -> {
-            return JsonUtil.toJson ( DBHelper.getStaffs () );
-        } );
 
-        get("/staff", (request, response) -> {
-            return JsonUtil.toJson ( DBHelper.getStaffs () );
+        get ( "/staff" , ( request , response ) -> {
+            return JsonUtil.toJson( DBHelper.getIncidentElements( DatabaseValues.Table.STAFF ) );
         } );
 
 

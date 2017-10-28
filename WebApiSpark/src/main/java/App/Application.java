@@ -2,6 +2,7 @@ package App;
 
 
 import Controller.*;
+
 import static spark.Spark.*;
 
 
@@ -22,6 +23,8 @@ public class Application
         StaffController staffController = new StaffController();
         IncidentsController incidentsController = new IncidentsController();
         LoginController loginController = new LoginController();
+        PersonController personController = new PersonController();
+        IncidentCategoryController categoryController = new IncidentCategoryController();
     }
 
     // CORS Filter

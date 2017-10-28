@@ -198,6 +198,12 @@ body {
         background-color: $grey-default;
     }
 
+    .x-container {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+    }
+
     .details-footer {
         @include flex(flex-end, center);
         padding: 8px;
@@ -220,6 +226,15 @@ body {
 
 .glyphicon-heading {
     margin-right: 4px;
+}
+
+.glyphicon-btn {
+    color: $sfu-black;
+    opacity: 0.85;
+    &:hover {
+        opacity: 1;
+        cursor: pointer;
+    }
 }
 
 span.panel-header, .glyphicon-heading {
@@ -271,6 +286,19 @@ span.glyphicon-fire {
         text-decoration: underline;
         color: $link-color-hover;
     }
+}
+
+/****************************/
+/*  Guard app styles
+/****************************/
+
+.animate-show-hide.ng-hide {
+    opacity: 0;
+}
+
+.animate-show-hide.ng-hide-add,
+.animate-show-hide.ng-hide-remove {
+    transition: all linear 0.5s;
 }
 
 /* RIGHT OFFSETS */
@@ -334,4 +362,10 @@ span.glyphicon-fire {
     .col-lg-offset-right-2 { margin-right: 16.66666667%; }
     .col-lg-offset-right-1 { margin-right: 8.33333333%; }
     .col-lg-offset-right-0 { margin-right: 0; }
+}
+
+.navbar-sm { display: none ;}
+@media (max-width: 768px) {
+    .navbar-sm { display: block; }
+    .navbar-lg { display: none; }
 }
