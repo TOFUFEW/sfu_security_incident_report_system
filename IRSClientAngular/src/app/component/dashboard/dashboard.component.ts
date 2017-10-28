@@ -37,10 +37,6 @@ export class DashboardComponent implements OnInit {
         window.open("new-report", "_blank");
     }
 
-    removeFromWorkspace( id: number ): void {
-        this.incidentService.removeFromWorkspace( id );
-    }
-
     ngOnInit() {
         this.incidentService.reportsToAddToWorkspace
             .subscribe( reports => {

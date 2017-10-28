@@ -20,6 +20,7 @@ import { PersonComponent } from './component/person/person.component';
 import { GuardDashboardComponent } from './component/guard-app/guard-dashboard.component';
 import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
 import { CategoryComponent } from './component/category/category.component'
+import { ReportSummaryComponent } from './component/report/report-summary.component';
 
 /* Services */
 import { UserService } from './service/user.service';
@@ -58,7 +59,8 @@ import { FilterPipe } from './util/filter.pipe';
     VehicleComponent,
     SearchComponent,
     PersonComponent,
-    FilterPipe
+    FilterPipe,
+    ReportSummaryComponent
   ],
 
   providers: [
