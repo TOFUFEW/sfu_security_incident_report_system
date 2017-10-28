@@ -51,3 +51,24 @@
         </div>
     </div>
 </div>
+
+<div class="details-container" *ngIf="report.personList.length > 0">
+    <div class="details-heading">
+        <span class="glyphicon glyphicon-user glyphicon-heading"></span>
+        <span class="field-title">Involved Persons</span>
+    </div>
+    <div class="details-body" *ngFor="let person of report.personList">
+        <div class="detail col-12 col-sm-3">
+            <span class="field-title">First Name: </span>
+            <span class="field-value">{{person.FIRST_NAME}}</span>
+        </div>
+        <div class="detail col-12 col-sm-3">
+            <span class="field-title">Last Name: </span>
+            <span class="field-value">{{person.LAST_NAME}}</span>
+        </div>
+        <div class="detail col-12 col-sm-3">
+            <span class="field-title">Phone Number: </span>
+            <span class="field-value">{{person.PHONE_NUMBER}}</span>
+        </div>
+    </div>
+</div>

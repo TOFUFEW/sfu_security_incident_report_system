@@ -4,10 +4,11 @@ import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/toPromise';
 import { Incident } from '../component/report/incident';
 import { Category } from '../component/category/category';
 import { Location } from '../component/location/location';
+import { Person } from '../component/person/person'; 
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class IncidentService 
@@ -54,13 +55,14 @@ export class IncidentService
                     i.category = e.attributes as Category;
                 }
                 else if ( e.table === Config.LocationTable ) {
-                    
-                    i.locationList.push( e as Location )
+                    i.locationList.push( e as Location );
+                }
+                else if ( e.table === Config.PersonTable ) {
+                    i.personList.push ( e.attributes as Person );
                 }
 
             });
         });
-        console.log( incidents[incidents.length-1] );
         return incidents;
     }
 
