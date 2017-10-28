@@ -41,10 +41,12 @@
                                 [ {{location.attributes.CAMPUS_ID}} {{location.attributes.BUILDING_NAME}} {{location.attributes.ROOM_NUMBER}} ]
                             </span>
                         </td>
-                        <td><a href="">Assign</a></td>
+                        <td><span class="link">Assign</span></td>
                         <td>Dispatcher Name</td>
                         <td>08/13/2017 4:44</td>
-                        <td><span class="link" (click)="addToWorkspace(incident)">Add To Workspace</span></td>
+                        <td>
+                            <span *ngIf="!incident.inWorkspace" class="link" (click)="addToWorkspace(incident)">Add To Workspace</span>
+                        </td>
                     </tr>
                 </tbody>
             </table>

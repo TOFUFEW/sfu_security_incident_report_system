@@ -72,15 +72,15 @@ export class NewReportService {
     }
 
     collectIncidentElements( category: Category ) {
-        this.unwrapObservable( this.locations, Config.LocationTable );
-        this.unwrapObservable( this.persons, Config.PersonTable );
+        this.unwrapSubject( this.locations, Config.LocationTable );
+        this.unwrapSubject( this.persons, Config.PersonTable );
         this.incidentElements.push( DataHelperService.toIncidentElement( Config.CategoryTable, category ) );
         console.log( this.incidentElements) ;
         
         return this.incidentElements;
     }
 
-    private unwrapObservable( behaviorSubject: any, table: string ) {
+    private unwrapSubject( behaviorSubject: any, table: string ) {
         var arr = behaviorSubject.getValue();
         if ( arr == null ) {
             console.log("ERROR: Array is undefined");

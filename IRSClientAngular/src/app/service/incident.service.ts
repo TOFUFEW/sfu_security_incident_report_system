@@ -16,15 +16,26 @@ export class IncidentService
     incidentsUrl = Config.IncidentsURI;
     tableName = "";
 
-    private activeReports = new BehaviorSubject<Incident[]>([]);
-    reportsToAddToWorkspace = this.activeReports.asObservable();
+    private bs_reportsToAddToWorkspace = new BehaviorSubject<Incident[]>( [] );
+    reportsToAddToWorkspace = this.bs_reportsToAddToWorkspace.asObservable();
+
+    private bs_lastRemovedId = new BehaviorSubject<number>( 0 );
+    lastRemovedId = this.bs_lastRemovedId.asObservable();
 
     constructor( private http: Http ) {}
 
     addToWorkspace( incident: Incident ): void {
-        var arr = this.activeReports.getValue();
+        var arr = this.bs_reportsToAddToWorkspace.getValue();
         arr.splice(0, 0, incident );
-        this.activeReports.next( arr );
+        this.bs_reportsToAddToWorkspace.next( arr );
+    }
+
+    removeFromWorkspace( id: number ) : void {
+        this.bs_lastRemovedId.next( id );
+        var arr = this.bs_reportsToAddToWorkspace.getValue();
+        var index = arr.findIndex( i => i.attributes.REPORT_ID == id );
+        arr.splice( index, 1 );
+        this.bs_reportsToAddToWorkspace.next( arr );
     }
     
     getIncidents(): Promise<Incident[]> {

@@ -94,6 +94,7 @@ public class TestIncident
         incident1.addIncidentElement( newPerson2 );
         elementCount++;
 
+        System.out.println( incident1.toJson() );
         int currentSize = getNumberOfIncidents ();
         String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
         DBHelper.insertIncident( incidentString,  incident1 );

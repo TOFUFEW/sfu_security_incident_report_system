@@ -18,6 +18,9 @@
                             <div class="quarter-box" *ngFor="let report of reportsInWorkspace">
                                 <div class="incident-container">
                                     <div class="details-container">
+                                        <div class="x-container">
+                                            <span class="glyphicon glyphicon-remove glyphicon-btn" (click)="removeFromWorkspace( report.attributes.REPORT_ID )"></span>        
+                                        </div>
                                         <div class="details-heading">
                                             <span class="glyphicon glyphicon-info-sign glyphicon-heading"></span>
                                             <span class="field-title">Basic Information</span>
