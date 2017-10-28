@@ -1,27 +1,22 @@
 import { Injectable } from "@angular/core";
-import { User } from '../model/user';
-import { DataHelperService } from '../util/data-helper.service';
-import { IncidentElement } from '../model/incident-element';
+import { User } from '../component/login/user';
 
 @Injectable()
 export class UserService {
     private currentUser: string = 'currentUser';
 
-    constructor( private dataHelper: DataHelperService ) {}
-
-    authUser( userString: string ) {
-        if ( userString == null ) {
+    authUser(user: User) {
+        if (user == null) {
             return;
         }
-        console.log("local storage added user");
-        console.log("authUser userString = " + userString);
-        sessionStorage.setItem( this.currentUser, JSON.stringify( userString ) );
+        console.log("local storage added user" + JSON.stringify(user));
+        sessionStorage.setItem(this.currentUser, JSON.stringify(user));
     }
 
     isLoggedIn(): boolean {
         let currentUser = this.getCurrentUser();
 
-        if ( currentUser != null ) {
+        if (currentUser != null) {
             return true;
         }
         return false;

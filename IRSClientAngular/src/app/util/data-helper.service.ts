@@ -1,32 +1,33 @@
 import { Injectable } from '@angular/core';
-import { Incident } from '../model/incident';
-import { IncidentElement } from '../model/incident-element';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
+import { Incident } from '../component/report/incident';
+import { IncidentElement } from '../component/report/incident-element';
 import 'rxjs/add/operator/toPromise';
 
-@Injectable()
 export class DataHelperService
 {
     constructor() {}
 
-    extractAttribute( incidentElement: IncidentElement ): Object {
+    static extractAttributes( incidentElement: IncidentElement ): Object {
         if( incidentElement == null ) {
             return null;
         }
         return incidentElement.attributes;
     }
 
-    extractAttributes( incidentElements: IncidentElement[] ): Object[] {
+    static extractAttributesArray( incidentElements: IncidentElement[] ): Object[] {
         var arr = [];
+        //debugger;
         incidentElements.forEach( so => {
+            //console.log(so);
             arr.push( so.attributes );
         });
         return arr;
     }
 
-    toIncidentElement( table: string, object: Object): IncidentElement {
+    static toIncidentElement( table: string, object: Object): IncidentElement {
         var incidentElement: IncidentElement = new IncidentElement();
 
         incidentElement.table = table;
