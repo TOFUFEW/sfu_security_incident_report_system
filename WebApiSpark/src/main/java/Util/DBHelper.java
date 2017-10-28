@@ -111,6 +111,10 @@ public class DBHelper
     }
 
     public static boolean insertIncident ( String query , Incident incident ) {
+        if ( !allFieldsValid( incident ) ) {
+            return false;
+        }
+
         try {
             initDB ();
             String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
@@ -183,6 +187,27 @@ public class DBHelper
             e.printStackTrace ();
         }
         return false;
+    }
+
+    /* Validate incidents attributes */
+    private static boolean allFieldsValid( Incident incident ) {
+        if ( incident.getAttributeValue(DatabaseValues.Column.DESCRIPTION ).isEmpty() )
+            System.out.println( "*** WARNING: Description is empty...");
+
+        if ( incident.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY).isEmpty() )
+            System.out.println("*** WARNING: Executive Summary is empty...");
+
+        String categoryId = incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) ;
+        if ( categoryId == null || categoryId.isEmpty() ) {
+            System.out.println( "*** ERROR: CATEGORY_ID cannot be null. Exiting...");
+            return false;
+        }
+
+        String accountId = incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID );
+         if ( accountId == null || accountId.isEmpty() )
+             System.out.println("*** WARNING: ACCOUNT_ID is not set.");
+
+        return true;
     }
 
     private static String getLastIncidentId() {
