@@ -41,8 +41,7 @@ export class DashboardComponent implements OnInit {
         this.incidentService.reportsToAddToWorkspace
             .subscribe( reports => {
                 this.reportsInWorkspace = reports as Incident[];
-                console.log(reports );
-                console.log(this.reportsInWorkspace );
+                console.log(this.reportsInWorkspace);
             });
     }
 }

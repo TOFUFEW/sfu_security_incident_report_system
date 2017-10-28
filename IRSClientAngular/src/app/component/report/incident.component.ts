@@ -29,6 +29,8 @@ export class IncidentComponent implements OnInit {
     addToWorkspace( incident: Incident ): void {
         alert("Report added to workspace");
         incident.inWorkspace = true ;
+        console.log("adding to workspace...");
+        console.log(incident);
         this.incidentService.addToWorkspace( incident );
     }
 
@@ -36,7 +38,7 @@ export class IncidentComponent implements OnInit {
         if ( this.incidents == null || this.incidents.length == 0 ) return;
         console.log(" removing " + id);
         var index = this.incidents.findIndex( i => i.attributes.REPORT_ID == id );
-        console.log( index );
+        console.log( "index: " + index );
         this.incidents[ index ].inWorkspace = false;
     }
 

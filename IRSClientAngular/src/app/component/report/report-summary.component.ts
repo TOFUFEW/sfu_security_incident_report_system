@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Config } from '../../util/config.service';
 import { Incident } from '../report/incident';
 import { IncidentService } from '../../service/incident.service';
@@ -8,15 +8,23 @@ import { IncidentService } from '../../service/incident.service';
     templateUrl: './report-summary.component.html'
 })
 
-export class ReportSummaryComponent {
-    @Input() report: Incident;
+export class ReportSummaryComponent implements OnInit {
+    @Input() inputReport: Incident;
+    report: Incident;
 
     constructor (
         private incidentService: IncidentService
     ) { 
+        this.report = new Incident();
     }
 
     removeFromWorkspace( id: number ): void {
         this.incidentService.removeFromWorkspace( id );
+    }
+
+    ngOnInit(): void {
+        if ( this.inputReport != null)
+            this.report = this.inputReport;
+        console.log( this.report )
     }
 }
