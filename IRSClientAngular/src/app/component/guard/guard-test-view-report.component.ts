@@ -19,7 +19,10 @@ export class GuardTestViewReportComponent implements OnInit {
   ngOnInit(): void {
       this.router.paramMap
         .switchMap((params: ParamMap) => this.incidentsService.getIncident(+params.get('id')))
-        .subscribe(incident => this.incident = incident);
-      console.log(this.incident.attributes.REPORT_ID);
+        .subscribe(incident => {
+          console.log(incident);
+          this.incident = incident;
+        });
+      
   }
 }

@@ -42,10 +42,14 @@ export class IncidentService
     }
 
     getIncident( id: number ): Promise<Incident> {
-      var currentIncident = this.getGuardIncidents()
-        .then(incidents => incidents.find(incident => incident.attributes.REPORT_ID === id));
-      console.log("getIncident current = " + currentIncident);
-      return currentIncident;
+        var incident = new Incident();
+        incident.attributes.REPORT_ID = id ;
+        var returnIncident = this.http
+            .post( Config.GetIncidentURI, JSON.stringify( incident ), { headers: this.headers } )
+            .toPromise()
+            .then( response => response.json() as Incident )
+            .catch( this.handleError );
+        return Promise.resolve( returnIncident );
     }
 
     create( incident: Incident ): Promise<Incident> {

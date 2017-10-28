@@ -54,6 +54,21 @@ public class DBHelper
         return incidentList.toArray ( new Incident [ incidentList.size () ] );
     }
 
+    public static Incident getIncident( String reportId ) {
+        ArrayList < Incident > incidentList = new ArrayList <> ();
+        try {
+            String query = "select top 1 * from Incident where REPORT_ID = '" + reportId + "';";
+            ResultSet result = executeQuery( query );
+            fillListWithIncidentsFromResultSet( incidentList, result );
+            return incidentList.get(0);
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     private static void fillListWithIncidentsFromResultSet ( ArrayList < Incident > list, ResultSet set) {
         try
         {
