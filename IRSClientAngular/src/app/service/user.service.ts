@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { User } from '../component/login/user';
+import {IncidentElement} from "../component/report/incident-element";
 
 @Injectable()
 export class UserService {
@@ -32,8 +33,7 @@ export class UserService {
 
     getCurrentUser(): User {
         let jsonString = sessionStorage.getItem( this.currentUser );
-        let ie = JSON.parse( jsonString ) as IncidentElement ;
-        var currentUser = this.dataHelper.extractAttribute( ie ) as User;
+        let currentUser = JSON.parse( jsonString ) as User;
 
         if ( currentUser != null ) {
             return currentUser;

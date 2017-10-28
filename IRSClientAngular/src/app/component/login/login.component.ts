@@ -26,7 +26,7 @@ export class LoginComponent {
     }
 
     onLogin() {
-        this.user.ACCOUNT_TYPE = "";
+        this.user.ACCOUNT_TYPE = 0;
         this.loginService.doLogin(this.user)
         .subscribe(
             (responseData) => {
@@ -34,7 +34,14 @@ export class LoginComponent {
                 this.userService.authUser(this.user);
 
                 if ( this.userService.isLoggedIn() ) {
-                    this.router.navigate([ 'dashboard' ] );
+                    if(this.userService.isAdmin()) {
+                      this.router.navigate([ 'dashboard' ] );
+                      alert("welcome dispatcher");
+                    } else if(this.userService.isGuard()) {
+                      //to be changed
+                      this.router.navigate([ 'dashboard' ] );
+                      alert("welcome guard");
+                    }
                 } else {
                     alert("Invalid login credentials!");
                     console.log("Invalid login credentials!");

@@ -27,6 +27,7 @@ import { IncidentService } from './service/incident.service'
 import { StaffService } from './service/staff.service'
 import { PersonService } from './service/person.service';
 import { NewReportService } from './service/new-report.service';
+import { DataHelperService} from "./util/data-helper.service";
 
 import { FilterPipe } from './util/filter.pipe';
 
@@ -52,22 +53,23 @@ import { FilterPipe } from './util/filter.pipe';
     PersonComponent,
     FilterPipe
   ],
-  
+
   providers: [
-    UserService, 
-    LoginService, 
-    DomService, 
-    LocationService, 
-    IncidentService, 
-    StaffService, 
+    UserService,
+    LoginService,
+    DomService,
+    LocationService,
+    IncidentService,
+    StaffService,
     NewReportService,
-    PersonService
+    PersonService,
+    DataHelperService
   ],
 
   bootstrap: [AppComponent],
 
-  entryComponents: [ 
-    LocationComponent, 
+  entryComponents: [
+    LocationComponent,
     VehicleComponent,
     PersonComponent, ]
 })
