@@ -25,6 +25,7 @@ import { IncidentService } from './service/incident.service'
 import { StaffService } from './service/staff.service'
 import { NewReportService } from './service/new-report.service';
 import {GuardDashboardComponent} from "./component/guard/guard-dashboard.component";
+import {GuardTestViewReportComponent} from "./component/guard/guard-test-view-report.component";
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import {GuardDashboardComponent} from "./component/guard/guard-dashboard.compone
     LoginComponent,
     NewReportComponent,
     VehicleComponent,
-    GuardDashboardComponent
+    GuardDashboardComponent,
+    GuardTestViewReportComponent
   ],
 
   providers: [ UserService, LoginService, DomService, LocationService, IncidentService, StaffService, NewReportService ],

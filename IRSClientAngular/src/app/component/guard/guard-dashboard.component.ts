@@ -14,7 +14,6 @@ import {User} from "../login/user";
 
 export class GuardDashboardComponent implements OnInit {
   incidents: Incident[];
-  newIncident: Incident = new Incident();
   user: User;
 
   constructor( private incidentsService: IncidentService,
@@ -24,7 +23,7 @@ export class GuardDashboardComponent implements OnInit {
 
   getIncidents(): void {
     this.user = this.userService.getCurrentUser();
-    this.incidentsService.getGuardIncidents( this.user ).then( returnedIncidents => {
+    this.incidentsService.getGuardIncidents( ).then( returnedIncidents => {
       this.incidents = returnedIncidents;
     } );
   }
@@ -32,8 +31,8 @@ export class GuardDashboardComponent implements OnInit {
   viewReport( incident: Incident ) : void {
     //TO BE CHANGED
     //change to actually view report when feature is added
-    console.log( incident.attributes.REPORT_ID );
-    this.router.navigate([ 'guard' ] );
+    console.log("view report id = " + incident.attributes.REPORT_ID );
+    this.router.navigate([ 'report', incident.attributes.REPORT_ID ] );
   }
 
   ngOnInit() : void {

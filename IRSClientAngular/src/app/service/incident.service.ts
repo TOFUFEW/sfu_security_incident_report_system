@@ -6,6 +6,9 @@ import { Config } from '../util/config.service';
 import 'rxjs/add/operator/toPromise';
 import { Incident } from '../component/report/incident';
 import {User} from "../component/login/user";
+import {UserService} from "./user.service";
+
+
 
 
 @Injectable()
@@ -14,6 +17,7 @@ export class IncidentService
     private headers = new Headers({'Content-Type': 'application/json'});
     incidentsUrl = Config.IncidentsURI;
     guardIncidentsUrl = Config.GuardIncidentsURI;
+    private userService = new UserService;
     tableName = "";
     constructor( private http: Http ) {}
 
@@ -26,7 +30,8 @@ export class IncidentService
         return Promise.resolve( incidents );
     };
 
-    getGuardIncidents( user: User ): Promise<Incident[]> {
+    getGuardIncidents(): Promise<Incident[]> {
+        var user = this.userService.getCurrentUser();
         var _user = DataHelperService.toIncidentElement ( Config.AccountTable, user );
         var incidents = this.http
             .post( this.guardIncidentsUrl, JSON.stringify( _user ), { headers: this.headers } )
@@ -34,6 +39,13 @@ export class IncidentService
             .then( response => response.json() as Incident[] )
             .catch( this.handleError );
         return Promise.resolve( incidents );
+    }
+
+    getIncident( id: number ): Promise<Incident> {
+      var currentIncident = this.getGuardIncidents()
+        .then(incidents => incidents.find(incident => incident.attributes.REPORT_ID === id));
+      console.log("getIncident current = " + currentIncident);
+      return currentIncident;
     }
 
     create( incident: Incident ): Promise<Incident> {
