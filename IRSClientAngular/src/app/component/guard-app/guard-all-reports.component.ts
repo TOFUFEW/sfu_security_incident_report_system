@@ -1,23 +1,26 @@
-import {Component, OnInit} from "@angular/core";
-import {IncidentService} from "../../service/incident.service";
-import {UserService} from "../../service/user.service";
+import { Component, OnInit } from "@angular/core";
+import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
-import {Incident} from "../report/incident";
-import {User} from "../login/user";
+
+import { IncidentService } from "../../service/incident.service";
+import { UserService } from "../../service/user.service";
+import { Incident } from "../report/incident";
+import { User } from "../login/user";
 
 @Component({
-  selector: 'guard-dashboard',
-  templateUrl: './guard-dashboard.component.html',
-  styleUrls: ['../../../assets/css/guard-dashboard.component.css'],
+  selector: 'guard-all-reports',
+  templateUrl: './guard-all-reports.component.html',
+  styleUrls: ['../../../assets/css/guard-app.css'],
   providers: [ IncidentService ]
 })
 
-export class GuardDashboardComponent implements OnInit {
+export class GuardAllReportsComponent implements OnInit {
   incidents: Incident[];
   user: User;
 
   constructor( private incidentsService: IncidentService,
                private userService: UserService,
+               private http: HttpClient,               
                private router: Router) {
   };
 
@@ -32,7 +35,7 @@ export class GuardDashboardComponent implements OnInit {
     //TO BE CHANGED
     //change to actually view report when feature is added
     console.log("view report id = " + incident.attributes.REPORT_ID );
-    this.router.navigate([ 'report', incident.attributes.REPORT_ID ] );
+    this.router.navigate([ 'guard-app/report/', incident.attributes.REPORT_ID ] );
   }
 
   ngOnInit() : void {

@@ -1,7 +1,7 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { GuardDashboardComponent } from "./component/guard-app/guard-dashboard.component";
+import { GuardAllReportsComponent } from "./component/guard-app/guard-all-reports.component";
 import { GuardIncidentComponent } from "./component/guard-app/guard-incident.component";
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { NewReportComponent } from './component/report/new-report.component';
@@ -16,11 +16,11 @@ export const router: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'login', component: LoginComponent },
     // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
-    { path: 'reporting', component: GuardDashboardComponent },
+    { path: 'guard-app/reports-all', component: GuardAllReportsComponent },
     { path: 'search', component: SearchComponent },
-    { path: 'guard', component: GuardDashboardComponent},
+    // { path: 'guard', component: GuardDashboardComponent},
     { path: 'new-report', component: NewReportComponent },
-    { path: 'report/:id', component: GuardIncidentComponent},
+    { path: 'guard-app/report/:id', component: GuardIncidentComponent},
 
     // 404
     { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },

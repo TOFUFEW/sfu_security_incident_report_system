@@ -7,7 +7,7 @@ import { DataHelperService } from '../../util/data-helper.service';
   {
     selector: 'category-component',
     templateUrl: './category.component.html',
-    styleUrls: ['../../../assets/css/guard-dashboard.component.css'],  
+    styleUrls: ['../../../assets/css/guard-app.css'],  
     providers: [ CategoryService ]
   }
 )

@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,iBAAgB;EACZ,KAAK,EAAC,IAAI",
+"sources": ["../sass/guard-app.scss","../sass/_settings.scss"],
+"names": [],
+"file": "guard-app.css"
+}
