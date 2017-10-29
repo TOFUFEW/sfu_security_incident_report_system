@@ -19,32 +19,37 @@ public class AttachmentController {
     }
 
     private void setupEndPoints() {
-        post("/upload", "multipart/form-data", (request, response) -> {
+        post("/upload", "multipart/form-data", ( request , response ) -> {
             try {
                 Path currentPath = Paths.get("").toAbsolutePath();
 
-                final File upload = new File(currentPath +
+                final File upload = new File(
+                        currentPath +
                         "/src/main/resources/public/uploads"
                 );
-                System.out.println(upload);
-                if (!upload.exists() && !upload.mkdirs()) {
+
+                if ( !upload.exists() && !upload.mkdirs() ) {
                     throw new RuntimeException("Failed to create directory " + upload.getAbsolutePath());
                 }
 
                 // apache commons-fileupload to handle file upload
                 DiskFileItemFactory factory = new DiskFileItemFactory();
-                factory.setRepository(upload);
-                ServletFileUpload fileUpload = new ServletFileUpload(factory);
-                List<FileItem> items = fileUpload.parseRequest(request.raw());
+                factory.setRepository( upload );
+                ServletFileUpload fileUpload = new ServletFileUpload( factory );
+                List<FileItem> items = fileUpload.parseRequest( request.raw() );
 
-                // image is the field name that we want to save
+                // uploadField is the field name that we want to save
+                String uploadField = "files[]";
                 FileItem item = items.stream()
-                        .filter(e -> "files[]".equals(e.getFieldName()))
+                        .filter(e -> uploadField.equals(e.getFieldName()))
                         .findFirst().get();
                 String fileName = item.getName();
-                item.write(new File(upload, fileName));
+                item.write ( new File (
+                        upload,
+                        fileName
+                ));
                 return true;
-            }catch (Exception e) {
+            }catch ( Exception e ) {
                     e.printStackTrace();
             }
             return false;
