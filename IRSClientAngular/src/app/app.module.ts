@@ -52,22 +52,22 @@ import { FilterPipe } from './util/filter.pipe';
     PersonComponent,
     FilterPipe
   ],
-  
+
   providers: [
-    UserService, 
-    LoginService, 
-    DomService, 
-    LocationService, 
-    IncidentService, 
-    StaffService, 
+    UserService,
+    LoginService,
+    DomService,
+    LocationService,
+    IncidentService,
+    StaffService,
     NewReportService,
     PersonService
   ],
 
   bootstrap: [AppComponent],
 
-  entryComponents: [ 
-    LocationComponent, 
+  entryComponents: [
+    LocationComponent,
     VehicleComponent,
     PersonComponent, ]
 })

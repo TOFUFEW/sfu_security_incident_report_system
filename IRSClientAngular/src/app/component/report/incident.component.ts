@@ -3,8 +3,7 @@ import { IncidentService } from '../../service/incident.service';
 import { Incident } from './incident';
 import { Location } from '../location/location';
 
-
-@Component( 
+@Component(
   {
     selector: 'incidents-component',
     templateUrl: './incidents.component.html',
@@ -16,13 +15,13 @@ import { Location } from '../location/location';
 export class IncidentComponent implements OnInit {
   incidents: Incident[];
   newIncident: Incident = new Incident();
-  
+
   constructor( private incidentService: IncidentService ){};
 
   getIncidents(): void {
       this.incidentService.getIncidents().then( returnedIncidents => {
           this.incidents = returnedIncidents;
-      } );    
+      } );
   }
 
   deleteIncident( id: number ): void {
@@ -38,5 +37,5 @@ export class IncidentComponent implements OnInit {
   ngOnInit() : void {
       this.getIncidents();
   }
-  
+
 }
