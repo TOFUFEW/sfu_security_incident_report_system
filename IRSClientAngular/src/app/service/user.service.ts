@@ -10,7 +10,6 @@ export class UserService {
         if (user == null) {
             return;
         }
-        console.log("local storage added user" + JSON.stringify(user));
         sessionStorage.setItem(this.currentUser, JSON.stringify(user));
     }
 

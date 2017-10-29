@@ -26,5 +26,33 @@ export class LocationAttributes {
     DEPARTMENT: string;
         // CITY: string;
     // ADDRESS: string;
+}
+
+export class LocationMapping {
+    CAMPUS_ID: number;
+    BUILDINGS: Building[];
+
+    constructor() {
+        this.BUILDINGS = [];
+    }
+}
+
+export class Building {
+    BUILDING_NAME: string;
+    ROOMS: Room[];
+
+    constructor() {
+        this.ROOMS = [];
+    }
+}
+
+export class Room {
+    ROOM_NUMBER: string;
+    LOCATION_ID: number;
+
+    constructor( locationId: number, roomNumber: string ) {
+        this.ROOM_NUMBER = roomNumber;
+        this.LOCATION_ID = locationId;
+    }
 
 }

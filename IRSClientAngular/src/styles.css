@@ -1,7 +1,7 @@
 /* Contains general css rules for the entire app */
 body {
   min-height: 100vh;
-  min-width: 100vh;
+  min-width: 100vw;
   margin: 0;
   font-size: 12px !important;
   background: #f9f9f9; }
@@ -68,8 +68,16 @@ body {
 .field-title {
   display: inline-block;
   width: auto;
-  color: #696969;
-  font-size: 116%;
+  color: #333;
+  font-weight: 300;
+  font-size: 110%;
+  margin-bottom: 8px; }
+
+.field-value {
+  display: inline-block;
+  width: auto;
+  color: #54585A;
+  font-size: 120%;
   margin-bottom: 8px; }
 
 .card-text-primary {
@@ -77,7 +85,7 @@ body {
   font-size: 115%; }
 
 .card-text-secondary {
-  color: #696969;
+  color: #333;
   font-size: 100%; }
 
 .btn-row {
@@ -99,34 +107,85 @@ body {
     border-color: #434648 !important; }
 
 .panel {
+  background-color: #ffffff; }
+
+.panel, .modal-dialog {
   margin-bottom: 20px;
-  background-color: #ffffff;
   border: 1px solid transparent;
   border-radius: 4px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); }
-  .panel.panel-default {
+  .panel.panel-default, .modal-dialog.panel-default {
     border-color: #ddd; }
-    .panel.panel-default .panel-heading {
-      color: #333;
-      font-weight: 300;
-      background-color: #ffffff; }
-      .panel.panel-default .panel-heading .form-control {
-        background-color: #ffffff !important; }
-  .panel.panel-login {
+  .panel .panel-heading, .panel .panel-footer, .panel .details-heading, .panel .details-footer, .modal-dialog .panel-heading, .modal-dialog .panel-footer, .modal-dialog .details-heading, .modal-dialog .details-footer {
+    color: #333;
+    font-weight: 300;
+    background-color: #ffffff; }
+    .panel .panel-heading .form-control, .panel .panel-footer .form-control, .panel .details-heading .form-control, .panel .details-footer .form-control, .modal-dialog .panel-heading .form-control, .modal-dialog .panel-footer .form-control, .modal-dialog .details-heading .form-control, .modal-dialog .details-footer .form-control {
+      background-color: #ffffff !important; }
+  .panel.panel-login, .modal-dialog.panel-login {
     width: 33%;
     min-width: 350px;
     margin-top: 50px; }
-  .panel .panel-heading {
+  .panel .panel-heading, .modal-dialog .panel-heading {
     padding: 20px 15px 10px 15px;
     border-bottom: 2px solid transparent;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px; }
-  .panel .panel-body {
+  .panel .panel-body, .panel .panel-footer, .modal-dialog .panel-body, .modal-dialog .panel-footer {
     padding: 15px; }
+  .panel .panel-footer, .modal-dialog .panel-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border: none;
+    padding: 16px 32px 32px 32px; }
+
+.modal-header {
+  border-bottom: none; }
+
+.modal-footer {
+  border-top: none; }
+
+.details-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px; }
+  .details-container .details-heading span {
+    font-size: 14px; }
+  .details-container .details-body {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: #f9f9f9; }
+  .details-container .x-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%; }
+  .details-container .details-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 8px; }
+    .details-container .details-footer .btn {
+      margin-left: 12px; }
+  .details-container .detail {
+    min-width: 250px;
+    padding: 10px 10px; }
 
 .glyphicon-heading {
   margin-right: 4px; }
+
+.glyphicon-btn {
+  color: #54585A;
+  opacity: 0.85; }
+  .glyphicon-btn:hover {
+    opacity: 1;
+    cursor: pointer; }
 
 span.panel-header, .glyphicon-heading {
   color: #333;
@@ -162,6 +221,22 @@ span.glyphicon-fire {
 
 .header {
   font-size: 24px; }
+
+.link {
+  text-decoration: underline;
+  color: #0645AD; }
+  .link:hover {
+    cursor: pointer; }
+
+/****************************/
+/*  Guard app styles
+/****************************/
+.animate-show-hide.ng-hide {
+  opacity: 0; }
+
+.animate-show-hide.ng-hide-add,
+.animate-show-hide.ng-hide-remove {
+  transition: all linear 0.5s; }
 
 /* RIGHT OFFSETS */
 .col-xs-offset-right-12 {
@@ -320,5 +395,14 @@ span.glyphicon-fire {
 
   .col-lg-offset-right-0 {
     margin-right: 0; } }
+.navbar-sm {
+  display: none; }
+
+@media (max-width: 768px) {
+  .navbar-sm {
+    display: block; }
+
+  .navbar-lg {
+    display: none; } }
 
 /*# sourceMappingURL=styles.css.map */
