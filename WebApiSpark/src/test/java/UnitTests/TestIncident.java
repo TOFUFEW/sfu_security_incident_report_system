@@ -127,6 +127,84 @@ public class TestIncident
         Assert.assertTrue( newlyInsertedIncident.numIncidentElements() < incident1.numIncidentElements() );
     }
 
+    @Test
+    public void testInsertWithoutCategoryId() {
+        IncidentElement[] categories = DBHelper.getIncidentElements( DatabaseValues.Table.INCIDENT_CATEGORY );
+        Assert.assertTrue( categories.length > 0);
+
+        Random rand = new Random();
+
+        IncidentElement[] staffList = DBHelper.getIncidentElements( DatabaseValues.Table.STAFF );
+        IncidentElement staff = staffList[ rand.nextInt( staffList.length ) ];
+
+        Incident incident1 = new Incident();
+        incident1.updateAttributeValue ( Column.REPORT_ID, null );
+        incident1.updateAttributeValue ( Column.ACCOUNT_ID, staff.getAttributeValue( Column.ACCOUNT_ID ) );
+        incident1.updateAttributeValue ( Column.CATEGORY_ID, null ); // VALUE TO TEST
+        incident1.updateAttributeValue ( Column.DESCRIPTION, "TEST DESCRIPTION" );
+        incident1.updateAttributeValue ( Column.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
+        incident1.updateAttributeValue ( Column.CLOSED, "0" );
+
+        int currentSize = getNumberOfIncidents ();
+        String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
+        DBHelper.insertIncident( incidentString,  incident1 );
+
+        Incident [] incidents = DBHelper.getIncidents ();
+
+        Assert.assertTrue( currentSize == incidents.length );
+
+        IncidentElement selectedCategory = categories[ rand.nextInt( categories.length-1 )];
+        Assert.assertTrue( ( DatabaseValues.Table.INCIDENT_CATEGORY ).toString().contains( selectedCategory.getTable().toString() ) );
+
+        String selectedCategoryId = selectedCategory.getAttributeValue( Column.CATEGORY_ID );
+        Assert.assertTrue( !selectedCategoryId.isEmpty() );
+    }
+
+    @Test
+    public void testInsertWithoutCategoryIdButCategoryInsideArray() {
+        IncidentElement[] categories = DBHelper.getIncidentElements( DatabaseValues.Table.INCIDENT_CATEGORY );
+        Assert.assertTrue( categories.length > 0);
+
+        Random rand = new Random();
+
+        IncidentElement[] staffList = DBHelper.getIncidentElements( DatabaseValues.Table.STAFF );
+        IncidentElement staff = staffList[ rand.nextInt( staffList.length ) ];
+
+        Incident incident1 = new Incident();
+        incident1.updateAttributeValue ( Column.REPORT_ID, null );
+        incident1.updateAttributeValue ( Column.ACCOUNT_ID, staff.getAttributeValue( Column.ACCOUNT_ID ) );
+        incident1.updateAttributeValue ( Column.CATEGORY_ID, null ); // VALUE TO TEST
+        incident1.updateAttributeValue ( Column.DESCRIPTION, "TEST DESCRIPTION" );
+        incident1.updateAttributeValue ( Column.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
+        incident1.updateAttributeValue ( Column.CLOSED, "0" );
+
+        IncidentElement selectedCategory = categories[ rand.nextInt( categories.length-1 )];
+        Assert.assertTrue( ( DatabaseValues.Table.INCIDENT_CATEGORY ).toString().contains( selectedCategory.getTable().toString() ) );
+
+        incident1.addIncidentElement( selectedCategory );
+
+        Assert.assertTrue( incident1.numIncidentElements() > 0 );
+
+        int currentSize = getNumberOfIncidents ();
+        String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
+        DBHelper.insertIncident( incidentString,  incident1 );
+
+        Incident [] incidents = DBHelper.getIncidents ();
+
+        Assert.assertTrue( currentSize < incidents.length );
+
+        Incident newlyAddedIncident = incidents[ incidents.length - 1 ];
+
+        Assert.assertTrue( incident1.numIncidentElements() > 0 );
+
+        IncidentElement incidentCategory = newlyAddedIncident.getIncidentElement( 0 );
+
+        Assert.assertTrue( incidentCategory.getAttributeValue( Column.CATEGORY_ID ).toLowerCase()
+                            .contains( selectedCategory.getAttributeValue( Column.CATEGORY_ID ).toLowerCase() ));
+
+        Assert.assertTrue( incidentCategory.getAttributeValue( Column.CATEGORY_ID ).toLowerCase()
+                            .contains( newlyAddedIncident.getAttributeValue( Column.CATEGORY_ID ).toLowerCase() ));
+    }
 
     @Test
     public void testUpdateIncident ()
