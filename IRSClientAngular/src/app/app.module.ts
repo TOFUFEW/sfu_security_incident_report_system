@@ -41,7 +41,7 @@ import { FilterPipe } from './util/filter.pipe';
     FormsModule,
     HttpModule,
     HttpClientModule,
-    routes, 
+    routes
   ],
 
   declarations: [
@@ -62,21 +62,21 @@ import { FilterPipe } from './util/filter.pipe';
   ],
 
   providers: [
-    UserService, 
-    LoginService, 
-    DomService, 
-    DataHelperService, 
-    LocationService, 
-    IncidentService, 
-    StaffService, 
+    UserService,
+    LoginService,
+    DomService,
+    DataHelperService,
+    LocationService,
+    IncidentService,
+    StaffService,
     PersonService,
     NewReportService,
     CategoryService],
 
   bootstrap: [AppComponent],
 
-  entryComponents: [ 
-    LocationComponent, 
+  entryComponents: [
+    LocationComponent,
     VehicleComponent,
     PersonComponent, ]
 })

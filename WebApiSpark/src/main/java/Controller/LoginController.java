@@ -15,10 +15,11 @@ public class LoginController {
     }
 
     private void setupEndPoints() {
-        post( "/login", ( request , response ) -> {
-            User user = ( User ) JsonUtil.fromJson ( request.body(), User.class );
-            return JsonUtil.toJson ( auth_account ( user ) );
-        } );
+        post( "/login", ( request, response ) -> {
+            User user = (User) JsonUtil.fromJson( request.body(), User.class );
+            User _user = auth_account( user );
+            return _user;
+        }, json());
     }
 
     private User auth_account ( User user ) {
