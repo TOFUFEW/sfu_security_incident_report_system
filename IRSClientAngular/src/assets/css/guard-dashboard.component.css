@@ -2,7 +2,6 @@
   clear: both; }
 
 
-
 .mb-1 {
     margin-bottom: 1em !important;
 }
@@ -49,8 +48,8 @@ select.category-field {
     width: 80%;
 }
 
-.field-label {
-    padding-left: 15%;
+.modal-field-title {
+    padding-left: 10%;
 }
 
 /*# sourceMappingURL=guard-dashboard.component.css.map */

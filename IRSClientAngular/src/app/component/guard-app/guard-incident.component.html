@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12 col-lg-6 col-lg-offset-3">
+        <div class="col-12 col-lg-12 col-lg-offset-3">
           <div class="panel panel-default test-panel">
             <div class="panel-heading text-center pb-0">
         
@@ -13,12 +13,20 @@
                 </h5>
                 <h5>Report #
                     <span *ngFor="let incident of incidents">
-                        <span *ngIf="incident.REPORT_ID == 24">                      
-                            {{incident.REPORT_ID}}
+                        <span *ngIf="incident.attributes.REPORT_ID == 24">                      
+                            {{incident.attributes.REPORT_ID}}
                         </span>
                     </span>
                 </h5>
-                <p>Location:</p>
+                <p>Location: 
+                    <span *ngFor="let incident of incidents">
+                        <span *ngIf="incident.attributes.REPORT_ID == 24">
+                            <span *ngFor="let location of incident.locationList">
+                                {{location.attributes.BUILDING_NAME}}    
+                            </span>
+                        </span>
+                    </span>
+                </p>
             </div>
           
             <div class="panel-body">

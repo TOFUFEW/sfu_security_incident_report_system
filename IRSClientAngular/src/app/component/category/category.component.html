@@ -17,7 +17,7 @@
         
                 <!-- Category Picker -->
                 <div class="mt-2">
-                    <label class="field-label">Category</label>
+                    <label class="field-title modal-field-title">Category</label>
                     <select class="form-control category-field" 
                             ng-model="selectedMainCategory.MAIN_CATEGORY" 
                             (change)="onSelectCategory($event.target.value)">  
@@ -29,7 +29,7 @@
 
                 <!-- Subcategory Picker -->
                 <div class="mt-2">  
-                    <label class="field-label">Subcategory</label>  
+                    <label class="field-title modal-field-title">Subcategory</label>  
                     <select class="form-control category-field" 
                             [(ngModel)] ="selectedSubCategory.SUB_CATEGORY" 
                             (change)="onSelectSubCategory($event.target.value)">                  
@@ -40,7 +40,7 @@
 
                 <!-- Type Picker -->
                 <div class="mt-2">
-                    <label class="field-label">Type</label>  
+                    <label class="field-title modal-field-title">Type</label>  
                     <select class="form-control category-field" 
                             [(ngModel)] ="selectedType.INCIDENT_TYPE" 
                             (change)="onSelectTypeCategory($event.target.value)">                  
