@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IncidentService } from '../../service/incident.service';
 import { Incident } from './incident';
 import { Location } from '../location/location';
+import {Staff} from "../staff/staff";
+import {StaffService} from "../../service/staff.service";
 
 @Component(
   {
@@ -14,13 +16,21 @@ import { Location } from '../location/location';
 
 export class IncidentComponent implements OnInit {
   incidents: Incident[];
+  staffs: Staff[];
   newIncident: Incident = new Incident();
 
-  constructor( private incidentService: IncidentService ){};
+  constructor( private incidentService: IncidentService,
+               private staffService: StaffService ){};
 
   getIncidents(): void {
       this.incidentService.getIncidents().then( returnedIncidents => {
           this.incidents = returnedIncidents;
+      } );
+  }
+
+  getStaff() : void {
+      this.staffService.getStaffs().then( returnedStaffs => {
+          this.staffs = returnedStaffs;
       } );
   }
 
@@ -36,6 +46,7 @@ export class IncidentComponent implements OnInit {
 
   ngOnInit() : void {
       this.getIncidents();
+      this.getStaff();
   }
 
 }

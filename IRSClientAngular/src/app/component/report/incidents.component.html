@@ -37,7 +37,7 @@
                         <td>Biological</td>
                         <td>{{incident.attributes.DESCRIPTION}} </td>
                         <td>Burnaby AQ 3150</td>
-                        <td><a href="">Assign</a></td>
+                        <td><a data-toggle="modal" data-target="#dispatchModal">Assign</a></td>
                         <td>Dispatcher Name</td>
                         <td>08/13/2017 4:44</td>
                     </tr>
@@ -45,4 +45,27 @@
             </table>
         </div>
     </div>
+</div>
+
+<!-- Modal -->
+<div id="dispatchModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="glyphicon glyphicon-tag glyphicon-heading"></span>
+        <span class="panel-header">Dispatch Guard</span>
+      </div>
+      <div class="modal-body">
+        <h4>Staff</h4>
+        <select>
+          <option *ngFor="let staff of staffs">{{staff.FIRST_NAME}}</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button class="btn btn-primary">Dispatch</button>
+      </div>
+    </div>
+  </div>
 </div>
