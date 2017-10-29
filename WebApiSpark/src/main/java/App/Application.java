@@ -25,6 +25,7 @@ public class Application
         IncidentsController incidentsController = new IncidentsController();
         LoginController loginController = new LoginController();
         PersonController personController = new PersonController();
+        IncidentCategoryController categoryController = new IncidentCategoryController();
         AttachmentController attachmentController = new AttachmentController();
 
 
