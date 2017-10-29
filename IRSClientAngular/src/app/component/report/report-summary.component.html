@@ -1,74 +1,77 @@
+<div *ngIf="report">
 
-<div class="x-container">
-    <span class="glyphicon glyphicon-remove glyphicon-btn" (click)="removeFromWorkspace( report.attributes.REPORT_ID )"></span>        
-</div>
-<div class="details-container">
-    <div class="details-heading">
-        <span class="glyphicon glyphicon-info-sign glyphicon-heading"></span>
-        <span class="field-title">Basic Information</span>
+    <div class="x-container">
+        <span class="glyphicon glyphicon-remove glyphicon-btn" (click)="removeFromWorkspace( report.attributes.REPORT_ID )"></span>        
     </div>
-    <div class="details-body">
-        <div class="detail detail-lg col-12">
-            <span class="field-title">Category: </span>
-            <span class="field-value">{{report.category.MAIN_CATEGORY}}</span>
+    <div class="details-container">
+        <div class="details-heading">
+            <span class="glyphicon glyphicon-info-sign glyphicon-heading"></span>
+            <span class="field-title">Basic Information</span>
         </div>
-        <div class="detail detail-lg col-12">
-            <span class="field-title">Sub Category: </span>
-            <span class="field-value">{{report.category.SUB_CATEGORY}}</span>
-        </div>
-        <div class="detail detail-lg col-12">
-            <span class="field-title">Type: </span>
-            <span class="field-value">{{report.category.INCIDENT_TYPE}}</span>
-        </div>
-        <div class="detail detail-lg col-12">
-            <span class="field-title">Description</span>
-            <span class="field-value">{{report.attributes.DESCRIPTION}}</span>
-        </div>
-        <div class="detail detail-lg col-12">
-            <span class="field-title">Executive Summary</span>
-            <span class="field-value">{{report.attributes.EXECUTIVE_SUMMARY}}</span>
-        </div>
-    </div>
-</div>
-
-<div class="details-container" *ngIf="report.locationList.length > 0">
-    <div class="details-heading">
-        <span class="glyphicon glyphicon-map-marker glyphicon-heading"></span>
-        <span class="field-title">Location</span>
-    </div>
-    <div class="details-body" *ngFor="let location of report.locationList">
-        <div class="detail col-12 col-sm-3">
-            <span class="field-title">Campus: </span>
-            <span class="field-value">{{location.attributes.CAMPUS_ID}}</span>
-        </div>
-        <div class="detail col-12 col-sm-3">
-            <span class="field-title">Building: </span>
-            <span class="field-value">{{location.attributes.BUILDING_NAME}}</span>
-        </div>
-        <div class="detail col-12 col-sm-3">
-            <span class="field-title">Room Number: </span>
-            <span class="field-value">{{location.attributes.ROOM_NUMBER}}</span>
+        <div class="details-body">
+            <div class="detail detail-lg col-12">
+                <span class="field-title">Category: </span>
+                <span class="field-value">{{report.category.MAIN_CATEGORY}}</span>
+            </div>
+            <div class="detail detail-lg col-12">
+                <span class="field-title">Sub Category: </span>
+                <span class="field-value">{{report.category.SUB_CATEGORY}}</span>
+            </div>
+            <div class="detail detail-lg col-12">
+                <span class="field-title">Type: </span>
+                <span class="field-value">{{report.category.INCIDENT_TYPE}}</span>
+            </div>
+            <div class="detail detail-lg col-12">
+                <span class="field-title">Description</span>
+                <span class="field-value">{{report.attributes.DESCRIPTION}}</span>
+            </div>
+            <div class="detail detail-lg col-12">
+                <span class="field-title">Executive Summary</span>
+                <span class="field-value">{{report.attributes.EXECUTIVE_SUMMARY}}</span>
+            </div>
         </div>
     </div>
-</div>
-
-<div class="details-container" *ngIf="report.personList.length > 0">
-    <div class="details-heading">
-        <span class="glyphicon glyphicon-user glyphicon-heading"></span>
-        <span class="field-title">Involved Persons</span>
+    
+    <!-- <div class="details-container" *ngIf="report.locationList.length > 0">
+        <div class="details-heading">
+            <span class="glyphicon glyphicon-map-marker glyphicon-heading"></span>
+            <span class="field-title">Location</span>
+        </div>
+        <div class="details-body" *ngFor="let location of report.locationList">
+            <div class="detail col-12 col-sm-3">
+                <span class="field-title">Campus: </span>
+                <span class="field-value">{{location.attributes.CAMPUS_ID}}</span>
+            </div>
+            <div class="detail col-12 col-sm-3">
+                <span class="field-title">Building: </span>
+                <span class="field-value">{{location.attributes.BUILDING_NAME}}</span>
+            </div>
+            <div class="detail col-12 col-sm-3">
+                <span class="field-title">Room Number: </span>
+                <span class="field-value">{{location.attributes.ROOM_NUMBER}}</span>
+            </div>
+        </div>
     </div>
-    <div class="details-body" *ngFor="let person of report.personList">
-        <div class="detail col-12 col-sm-3">
-            <span class="field-title">First Name: </span>
-            <span class="field-value">{{person.FIRST_NAME}}</span>
+    
+    <div class="details-container" *ngIf="report.personList.length > 0">
+        <div class="details-heading">
+            <span class="glyphicon glyphicon-user glyphicon-heading"></span>
+            <span class="field-title">Involved Persons</span>
         </div>
-        <div class="detail col-12 col-sm-3">
-            <span class="field-title">Last Name: </span>
-            <span class="field-value">{{person.LAST_NAME}}</span>
+        <div class="details-body" *ngFor="let person of report.personList">
+            <div class="detail col-12 col-sm-3">
+                <span class="field-title">First Name: </span>
+                <span class="field-value">{{person.FIRST_NAME}}</span>
+            </div>
+            <div class="detail col-12 col-sm-3">
+                <span class="field-title">Last Name: </span>
+                <span class="field-value">{{person.LAST_NAME}}</span>
+            </div>
+            <div class="detail col-12 col-sm-3">
+                <span class="field-title">Phone Number: </span>
+                <span class="field-value">{{person.PHONE_NUMBER}}</span>
+            </div>
         </div>
-        <div class="detail col-12 col-sm-3">
-            <span class="field-title">Phone Number: </span>
-            <span class="field-value">{{person.PHONE_NUMBER}}</span>
-        </div>
-    </div>
+    </div> -->
+    
 </div>

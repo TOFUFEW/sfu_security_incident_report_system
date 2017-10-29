@@ -15,7 +15,8 @@ export class ReportSummaryComponent implements OnInit {
     constructor (
         private incidentService: IncidentService
     ) { 
-        this.report = new Incident();
+        //this.report = new Incident();
+        console.log(this.report);
     }
 
     removeFromWorkspace( id: number ): void {
