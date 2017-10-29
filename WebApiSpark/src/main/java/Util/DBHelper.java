@@ -446,11 +446,11 @@ public class DBHelper
         try {
             initDB ();
             CallableStatement stmt = connection.prepareCall ( query );
-            stmt.setString ( 1 , incident.getColumnValue ( DatabaseValues.DatabaseColumn.REPORT_ID ) );
-            stmt.setString ( 2 , incident.getColumnValue (DatabaseValues.DatabaseColumn.CATEGORY_ID) );
-            stmt.setString ( 3 , incident.getColumnValue (DatabaseValues.DatabaseColumn.DESCRIPTION) );
-            stmt.setString ( 4 , incident.getColumnValue (DatabaseValues.DatabaseColumn.EXECUTIVE_SUMMARY) );
-            stmt.setString ( 5 , incident.getColumnValue (DatabaseValues.DatabaseColumn.CLOSED) );
+            stmt.setString ( 1 , incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) );
+            stmt.setString ( 2 , incident.getAttributeValue (DatabaseValues.Column.CATEGORY_ID) );
+            stmt.setString ( 3 , incident.getAttributeValue (DatabaseValues.Column.DESCRIPTION) );
+            stmt.setString ( 4 , incident.getAttributeValue (DatabaseValues.Column.EXECUTIVE_SUMMARY) );
+            stmt.setString ( 5 , incident.getAttributeValue (DatabaseValues.Column.CLOSED) );
             stmt.registerOutParameter ( 6 , Types.INTEGER );
             stmt.execute();
             int output = stmt.getInt (6);
