@@ -31,12 +31,15 @@
                 <tbody *ngFor="let incident of incidents">
                     <tr>
                         <td>!!!</td>
-                        <td>RID11283940<!-- {{incident.REPORT_ID}} --></td>
-                        <td>Environmental</td>
-                        <td>Accidental Spill/Release</td>
-                        <td>Biological</td>
+                        <td>{{incident.attributes.REPORT_ID}}</td>
+                        <td>{{incident.category.MAIN_CATEGORY}}</td>
+                        <td>{{incident.category.SUB_CATEGORY}}</td>
+                        <td><span *ngIf="incident.category.INCIDENT_TYPE != null">{{incident.category.INCIDENT_TYPE}}</span></td>
                         <td>{{incident.attributes.DESCRIPTION}} </td>
-                        <td>Burnaby AQ 3150</td>
+                        <td><span *ngFor="let location of incident.locationList">
+                                [ {{location.attributes.CAMPUS_ID}} {{location.attributes.BUILDING_NAME}} {{location.attributes.ROOM_NUMBER}} ]
+                            </span>
+                        </td>
                         <td><a data-toggle="modal" data-target="#dispatchModal">Assign</a></td>
                         <td>Dispatcher Name</td>
                         <td>08/13/2017 4:44</td>

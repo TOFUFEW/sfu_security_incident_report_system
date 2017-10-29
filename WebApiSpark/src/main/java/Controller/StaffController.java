@@ -18,8 +18,7 @@ public class StaffController
     {
 
         get ( "/staff" , ( request , response ) -> {
-            return JsonUtil.toJson( DBHelper.getStaffs () );
-
+            return JsonUtil.toJson( DBHelper.getIncidentElements( DatabaseValues.Table.STAFF ) );
         } );
 
 

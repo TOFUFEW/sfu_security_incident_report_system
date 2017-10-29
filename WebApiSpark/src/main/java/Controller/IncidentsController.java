@@ -1,6 +1,8 @@
 package Controller;
 
 import Model.Incident;
+import Model.Location;
+import Model.Person;
 import Model.IncidentElement;
 import Model.Location;
 import Util.DBHelper;

@@ -5,6 +5,7 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { NewReportComponent } from './component/report/new-report.component';
 import { SearchComponent } from './component/search/search.component';
 import { LoginComponent } from './component/login/login.component';
+import { GuardDashboardComponent } from './component/guard-app/guard-dashboard.component';
 
 export const router: Routes = [
     // Default
@@ -13,6 +14,8 @@ export const router: Routes = [
     // /<path>
     { path: 'dashboard', component: DashboardComponent },
     { path: 'login', component: LoginComponent },
+    // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
+    { path: 'reporting', component: GuardDashboardComponent },
     { path: 'new-report', component: NewReportComponent },
     { path: 'search', component: SearchComponent },
 

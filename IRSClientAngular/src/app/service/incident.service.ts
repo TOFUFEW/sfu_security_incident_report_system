@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
 import 'rxjs/add/operator/toPromise';
 import { Incident } from '../component/report/incident';
+import { Category } from '../component/category/category';
+import { Location } from '../component/location/location';
 
 @Injectable()
 export class IncidentService
@@ -18,15 +20,32 @@ export class IncidentService
         console.log ("get incidents");
         var incidents = this.http.get( this.incidentsUrl )
             .toPromise()
-            .then( response => ( response.json() ) as Incident[] )
+            .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
             .catch( this.handleError );
         return Promise.resolve( incidents );
     };
 
+    private initIncidents( incidents: Incident[] ): Incident[] {
+        incidents.forEach(i => {
+            i.locationList = [];
+            i.incidentElements.forEach( e => {
+                if ( e.table === Config.CategoryTable ) {
+                    i.category = e.attributes as Category;
+                }
+                else if ( e.table === Config.LocationTable ) {
+                    
+                    i.locationList.push( e as Location )
+                }
+
+            });
+        });
+        console.log( incidents[incidents.length-1] );
+        return incidents;
+    }
+
     create( incident: Incident ): Promise<Incident> {
         incident.table = Config.IncidentTable;
         incident.attributes.ACCOUNT_ID = 1;
-        incident.attributes.CATEGORY_ID = 1;
         var promise = this.http
                 .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
                 .toPromise()

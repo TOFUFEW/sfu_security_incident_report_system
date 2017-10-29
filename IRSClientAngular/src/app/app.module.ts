@@ -17,16 +17,21 @@ import { NewReportComponent } from './component/report/new-report.component';
 import { VehicleComponent } from './component/vehicle/vehicle.component';
 import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
+import { GuardDashboardComponent } from './component/guard-app/guard-dashboard.component';
+import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
+import { CategoryComponent } from './component/category/category.component'
 
 /* Services */
 import { UserService } from './service/user.service';
 import { LoginService } from './service/login.service';
+import { CategoryService } from './service/category.service';
 import { DomService } from './util/dom.service';
 import { LocationService } from './service/location.service'
 import { IncidentService } from './service/incident.service'
 import { StaffService } from './service/staff.service'
 import { PersonService } from './service/person.service';
 import { NewReportService } from './service/new-report.service';
+import { DataHelperService } from './util/data-helper.service';
 
 import { FilterPipe } from './util/filter.pipe';
 
@@ -46,6 +51,9 @@ import { FilterPipe } from './util/filter.pipe';
     StaffComponent,
     IncidentComponent,
     LoginComponent,
+    GuardDashboardComponent,
+    GuardIncidentComponent,
+    CategoryComponent,
     NewReportComponent,
     VehicleComponent,
     SearchComponent,
@@ -57,12 +65,13 @@ import { FilterPipe } from './util/filter.pipe';
     UserService,
     LoginService,
     DomService,
+    DataHelperService,
     LocationService,
     IncidentService,
     StaffService,
+    PersonService,
     NewReportService,
-    PersonService
-  ],
+    CategoryService],
 
   bootstrap: [AppComponent],
 
