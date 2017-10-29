@@ -2,8 +2,8 @@ package App;
 
 
 import Controller.*;
-import static spark.Spark.*;
 
+import static spark.Spark.*;
 
 // Class that initializes each controller at start - up
 public class Application
@@ -22,6 +22,8 @@ public class Application
         StaffController staffController = new StaffController();
         IncidentsController incidentsController = new IncidentsController();
         LoginController loginController = new LoginController();
+        PersonController personController = new PersonController();
+        IncidentCategoryController categoryController = new IncidentCategoryController();
         GuardIncidentsController guardIncidentsController = new GuardIncidentsController();
     }
 

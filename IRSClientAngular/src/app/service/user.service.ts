@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { User } from '../component/login/user';
+import {IncidentElement} from "../component/report/incident-element";
 
 @Injectable()
 export class UserService {
@@ -9,7 +10,6 @@ export class UserService {
         if (user == null) {
             return;
         }
-        console.log("local storage added user" + JSON.stringify(user));
         sessionStorage.setItem(this.currentUser, JSON.stringify(user));
     }
 
@@ -22,16 +22,29 @@ export class UserService {
         return false;
     }
 
+    getAccountType() : number {
+        return this.getCurrentUser().ACCOUNT_TYPE;
+    }
+
+    logout() {
+        sessionStorage.setItem( this.currentUser , null );
+    }
+
     getCurrentUser(): User {
-        let jsonString = sessionStorage.getItem(this.currentUser);
-        let currentUser = JSON.parse(jsonString) as User;
+        let jsonString = sessionStorage.getItem( this.currentUser );
+        let currentUser = JSON.parse( jsonString ) as User;
 
-        console.log(jsonString);
-
-        if (currentUser != null) {
+        if ( currentUser != null ) {
             return currentUser;
         }
         return null;
     }
+
+    isGuard() : boolean {
+        return this.getAccountType() == 2;
+    }
+
+    isAdmin() : boolean {
+        return this.getAccountType() == 1;
+    }
 }
-//

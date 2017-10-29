@@ -1,0 +1,52 @@
+<!-- <div class="panel-body">
+
+  <h4>Search</h4>
+
+  <input type="text" id="personInputFirst" (keyup)="findPerson('first')" placeholder="First Name">
+  <input type="text" id="personInputLast" (keyup)="findPerson('last')" placeholder="Last Name">
+  <input type="text" id="personInputPhone" (keyup)="findPerson('number')" placeholder="Phone Number">
+
+  <br><br>
+  <div class="panel panel-default test-panel" style="overflow-y:scroll; height:200px; width: 500px;">
+    <ul id="peopleDisplay">
+      <li *ngFor="let person of personList">
+          {{person.FIRST_NAME}},
+          {{person.LAST_NAME}},
+          {{person.PHONE_NUMBER}}   
+          <button class=" glyphicon glyphicon-plus" (click)="selectPerson();"></button> 
+      </li>
+    </ul>
+  </div>
+
+  <h4>Add a Person</h4>
+  
+  <span class="field-title">First Name</span>
+  <input type="text" [(ngModel)]="newPerson.FIRST_NAME" /> <br>
+  <span class="field-title">Last Name</span>
+  <input type="text" [(ngModel)]="newPerson.LAST_NAME" /> <br>
+  <span class="field-title">Phone Number</span>
+  <input type="text" [(ngModel)]="newPerson.PHONE_NUMBER" /> <br>
+  <button class="btn btn-primary" (click)="addPerson();">
+      Submit
+  </button>
+
+
+</div> -->
+
+<div class="details-body">
+    <div class="x-container">
+        <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removePersonFromReport()"></span>        
+    </div>
+    <div class="detail col-12 col-sm-3">
+        <span class="field-title">First Name</span>
+        <input class="form-control" type="text" [(ngModel)]="newPerson.FIRST_NAME" />
+    </div>
+    <div class="detail col-12 col-sm-3">
+      <span class="field-title">Last Name</span>
+      <input class="form-control" type="text" [(ngModel)]="newPerson.LAST_NAME" />
+    </div>
+    <div class="detail col-12 col-sm-3">
+      <span class="field-title">Phone Number</span>
+      <input class="form-control" type="text" [(ngModel)]="newPerson.PHONE_NUMBER" />
+    </div> 
+</div> 

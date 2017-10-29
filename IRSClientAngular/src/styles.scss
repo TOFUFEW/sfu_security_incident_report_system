@@ -3,7 +3,7 @@
 
 body {
     min-height: 100vh;
-    min-width: 100vh;
+    min-width: 100vw;
     margin: 0;
     font-size: 12px !important;
     background: $grey-default;
@@ -84,7 +84,16 @@ body {
     display: inline-block;
     width: auto;
     color: $field-title-color;
-    font-size: 116%;
+    font-weight: $field-title-font-weight;
+    font-size: 110%;
+    margin-bottom: $field-title-margin-bottom;
+}
+
+.field-value {
+    display: inline-block;
+    width: auto;
+    color: $sfu-black;
+    font-size: 120%;
     margin-bottom: $field-title-margin-bottom;
 }
 
@@ -120,8 +129,10 @@ body {
 }
 
 .panel {
+    background-color: $white;
+}
+.panel, .modal-dialog {
   margin-bottom: 20px;
-  background-color: $white;
   border: 1px solid transparent;
   border-radius: 4px;
   -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
@@ -129,15 +140,16 @@ body {
 
   &.panel-default {
     border-color: #ddd;
-    .panel-heading {
-      color: #333;
-      font-weight: $header-font-weight;
-      background-color: $white;
-      //border-color: #ddd;
+  }
 
-      .form-control {
-          background-color: $white !important;
-      }
+  .panel-heading, .panel-footer, .details-heading, .details-footer {
+    color: #333;
+    font-weight: $header-font-weight;
+    background-color: $white;
+    //border-color: #ddd;
+
+    .form-control {
+        background-color: $white !important;
     }
   }
 
@@ -155,13 +167,70 @@ body {
     border-top-right-radius: 3px;
   }
 
-  .panel-body {
+  .panel-body, .panel-footer  {
     padding: 15px;
+  }
+
+  .panel-footer {
+      @include flex(flex-end, center);
+      border: none;
+      padding: 16px 32px 32px 32px;
   }
 }
 
+.modal-header { border-bottom: none; }
+.modal-footer { border-top: none; }
+.details-container {
+    display: flex;
+    flex-direction: column;
+    padding: $padding-md;
+
+    .details-heading {
+        span { font-size: $text-sm; }
+    }
+
+    .details-body {
+        @include flex(flex-start, flex-start);
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+        padding: $padding-sm;
+        border-radius: 8px;
+        background-color: $grey-default;
+    }
+
+    .x-container {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+    }
+
+    .details-footer {
+        @include flex(flex-end, center);
+        padding: 8px;
+
+        .btn { 
+            margin-left: 12px;
+        }
+    }
+
+    .detail {
+        min-width: 250px;
+        padding: 10px 10px;
+    }
+}
+
+
 .glyphicon-heading {
     margin-right: 4px;
+}
+
+.glyphicon-btn {
+    color: $sfu-black;
+    opacity: 0.85;
+    &:hover {
+        opacity: 1;
+        cursor: pointer;
+    }
 }
 
 span.panel-header, .glyphicon-heading {
@@ -206,6 +275,27 @@ span.glyphicon-fire {
     font-size: $text-lg;
 }
 
+.link {
+    text-decoration: underline;
+    color: #0645AD ; 
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+/****************************/
+/*  Guard app styles
+/****************************/
+
+.animate-show-hide.ng-hide {
+    opacity: 0;
+}
+
+.animate-show-hide.ng-hide-add,
+.animate-show-hide.ng-hide-remove {
+    transition: all linear 0.5s;
+}
 /* RIGHT OFFSETS */
 .col-xs-offset-right-12 { margin-right: 100%; }
 .col-xs-offset-right-11 { margin-right: 91.66666667%; }
@@ -267,4 +357,10 @@ span.glyphicon-fire {
     .col-lg-offset-right-2 { margin-right: 16.66666667%; }
     .col-lg-offset-right-1 { margin-right: 8.33333333%; }
     .col-lg-offset-right-0 { margin-right: 0; }
+}
+
+.navbar-sm { display: none ;}
+@media (max-width: 768px) {
+    .navbar-sm { display: block; }
+    .navbar-lg { display: none; }
 }

@@ -1,9 +1,16 @@
 package Controller;
 
 import Model.Incident;
+import Model.Location;
+import Model.Person;
 import Util.DBHelper;
 import Util.JsonUtil;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import static Util.JsonUtil.json;
 import static spark.Spark.get;
 import static spark.Spark.post;
 

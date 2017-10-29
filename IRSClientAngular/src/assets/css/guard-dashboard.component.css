@@ -1,3 +1,4 @@
+
 .flex-container {
   display: -webkit-flex;
   display: flex;
@@ -12,3 +13,61 @@
   height: 100px;
   margin: 10px;
 }
+
+.container > .row {
+  clear: both; }
+
+
+
+.mb-1 {
+    margin-bottom: 1em !important;
+}
+
+.mb-2 {
+    margin-bottom: 2em !important;
+}
+
+.ml-1 {
+    margin-left: 1em;
+}
+
+.mt-1 {
+    margin-top: 1em !important;
+}
+
+.mt-2 {
+    margin-top: 2em !important;
+}
+
+.pt-1 {
+    padding-top: 1em !important;
+}
+
+.pt-2 {
+    padding-top: 2em !important;
+}
+
+.modal-body {
+    text-align: left;
+}
+
+.modal-header {
+    padding: 1em !important;
+}
+
+.modal-title {
+    margin-top: 1em !important;
+}
+
+select.category-field {
+    padding: 0.5em;
+    margin: 0 auto;
+    width: 80%;
+}
+
+.field-label {
+    padding-left: 15%;
+}
+
+/*# sourceMappingURL=guard-dashboard.component.css.map */
+>>>>>>> e1354a1481aca11e3d9357d524ce3c27372c68e8

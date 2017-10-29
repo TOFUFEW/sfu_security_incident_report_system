@@ -19,6 +19,9 @@ export class GuardDashboardComponent implements OnInit {
   constructor( private incidentsService: IncidentService,
                private userService: UserService,
                private router: Router) {
+    if ( this.userService.isLoggedIn() == false ) {
+      this.router.navigate([ 'login' ] );
+    }
   };
 
   getIncidents(): void {
