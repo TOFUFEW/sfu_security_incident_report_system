@@ -19,26 +19,25 @@ public class IncidentsController
 {
     JsonUtil parser = new JsonUtil();
     DBHelper dbHelper = new DBHelper();
-    public IncidentsController()
+    public IncidentsController ()
     {
-        setupEndPoints();
+        setupEndPoints ();
     }
-
-    public List<Incident> incidentList = new ArrayList<>();
 
     private void setupEndPoints()
     {
-        get ("/incidents", ( request , response ) ->
+        get ("/incidents" , ( request , response ) ->
         {
-            return dbHelper.getIncidents();
-        }, json());
+            Incident []  incidents = DBHelper.getIncidents ();
+            return JsonUtil.toJson ( incidents );
+        } );
 
-        post ("/incidents", ( request, response ) ->
+        post ("/incidents" , ( request, response ) ->
         {
-            System.out.println(request.body());
-            Incident newIncident = ( Incident ) parser.fromJson ( request.body() , Incident.class );
-            return dbHelper.insertIncident( newIncident );
-        }, json() );
+            Incident newIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
+            String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
+            return DBHelper.insertIncident ( incidentString , newIncident );
+        } );
 
         post ("/updateIncident", ( request , response ) ->
         {

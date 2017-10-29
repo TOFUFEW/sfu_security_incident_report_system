@@ -1,14 +1,12 @@
 package Util;
 
-import javax.xml.crypto.Data;
-
 public class DatabaseValues
 {
     private static final String DEFAULT_STRING_VALUE = "null";
     private static final String DEFAULT_INT_VALUE = "-1";
     private static final String DEFAULT_BIT_VALUE = "0";
 
-    public static enum DatabaseTable
+    public enum Table
     {
         ACCOUNT ( "dbo.Account" ),
         ASSIGNED_TO ( "dbo.AssignedTo" ),
@@ -23,7 +21,7 @@ public class DatabaseValues
 
         private String table;
 
-        DatabaseTable ( String table )
+        Table(String table )
         {
             this.table = table;
         }
@@ -35,18 +33,18 @@ public class DatabaseValues
         }
     }
 
-    public static enum DatabaseColumn
+    public enum Column
     {
         // Associated Tables: Account, AssignedTo, Incident, Staff
         ACCOUNT_ID (
                 "ACCOUNT_ID" ,
                 "INT",
                 DEFAULT_INT_VALUE,
-                new DatabaseTable []
+                new Table[]
                         {
-                                DatabaseTable.ACCOUNT,
-                                DatabaseTable.ASSIGNED_TO,
-                                DatabaseTable.STAFF
+                                Table.ACCOUNT,
+                                Table.ASSIGNED_TO,
+                                Table.STAFF
 
                         }
         ),
@@ -80,9 +78,9 @@ public class DatabaseValues
                 "CAMPUS_ID" ,
                 "INT" ,
                 DEFAULT_INT_VALUE,
-                new DatabaseTable []
+                new Table[]
                         {
-                                DatabaseTable.CAMPUS
+                                Table.CAMPUS
                         }
         ),
 
@@ -91,9 +89,9 @@ public class DatabaseValues
                 "CATEGORY_ID" ,
                 "INT",
                 DEFAULT_INT_VALUE,
-                new DatabaseTable []
+                new Table[]
                         {
-                                DatabaseTable.INCIDENT_CATEGORY
+                                Table.INCIDENT_CATEGORY
                         }
         ),
 
@@ -167,10 +165,10 @@ public class DatabaseValues
                 "LOCATION_ID" ,
                 "INT",
                 DEFAULT_INT_VALUE,
-                new DatabaseTable []
+                new Table[]
                         {
-                                DatabaseTable.HAPPENS_AT,
-                                DatabaseTable.LOCATION
+                                Table.HAPPENS_AT,
+                                Table.LOCATION
                         }
         ),
 
@@ -203,10 +201,10 @@ public class DatabaseValues
                 "PERSON_ID" ,
                 "INT",
                 DEFAULT_INT_VALUE,
-                new DatabaseTable []
+                new Table[]
                         {
-                                DatabaseTable.INVOLVES,
-                                DatabaseTable.PERSON
+                                Table.INVOLVES,
+                                Table.PERSON
                         }
         ),
 
@@ -223,12 +221,12 @@ public class DatabaseValues
                 "REPORT_ID" ,
                 "INT",
                 DEFAULT_INT_VALUE,
-                new DatabaseTable []
+                new Table[]
                         {
-                                DatabaseTable.ASSIGNED_TO,
-                                DatabaseTable.HAPPENS_AT,
-                                DatabaseTable.INCIDENT,
-                                DatabaseTable.INVOLVES
+                                Table.ASSIGNED_TO,
+                                Table.HAPPENS_AT,
+                                Table.INCIDENT,
+                                Table.INVOLVES
                         }
         ),
 
@@ -259,13 +257,13 @@ public class DatabaseValues
         private String column;
         private String dataType;
         private String defaultValue;
-        private DatabaseTable [] primaryKeyOfTables;
+        private Table[] primaryKeyOfTables;
 
-        DatabaseColumn (
+        Column(
                 String column,
                 String dataType,
                 String defaultValue,
-                DatabaseTable [] primaryKeyOfTables
+                Table[] primaryKeyOfTables
         ) {
             this.column = column;
             this.dataType = dataType;
@@ -289,14 +287,14 @@ public class DatabaseValues
             return defaultValue;
         }
 
-        public boolean isPrimaryKeyOfTable ( DatabaseTable table)
+        public boolean isPrimaryKeyOfTable ( Table table)
         {
             if ( primaryKeyOfTables == null || primaryKeyOfTables.length == 0 )
             {
                 return false;
             }
 
-            for ( DatabaseTable primaryKeyOfTable : primaryKeyOfTables )
+            for ( Table primaryKeyOfTable : primaryKeyOfTables )
             {
                 if ( table.equals ( primaryKeyOfTable ) )
                 {
