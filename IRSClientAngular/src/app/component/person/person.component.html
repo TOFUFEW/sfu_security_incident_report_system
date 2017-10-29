@@ -46,7 +46,7 @@
       <input class="form-control" type="text" [(ngModel)]="newPerson.LAST_NAME" />
     </div>
     <div class="detail col-12 col-sm-3">
-      <span class="field-title">Phone Number</span>
-      <input class="form-control" type="text" [(ngModel)]="newPerson.PHONE_NUMBER" />
+      <span class="field-title">Phone Number (no dashes or spaces)</span>
+      <input class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' [(ngModel)]="newPerson.PHONE_NUMBER" />
     </div> 
 </div> 
