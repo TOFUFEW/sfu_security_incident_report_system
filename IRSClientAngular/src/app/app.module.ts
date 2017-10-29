@@ -19,6 +19,7 @@ import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
 import { GuardDashboardComponent } from './component/guard-app/guard-dashboard.component';
 import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
+import { GuardTestViewReportComponent } from "./component/guard-app/guard-test-view-report.component";
 import { CategoryComponent } from './component/category/category.component'
 
 /* Services */
@@ -31,8 +32,6 @@ import { IncidentService } from './service/incident.service'
 import { StaffService } from './service/staff.service'
 import { PersonService } from './service/person.service';
 import { NewReportService } from './service/new-report.service';
-import {GuardDashboardComponent} from "./component/guard/guard-dashboard.component";
-import {GuardTestViewReportComponent} from "./component/guard/guard-test-view-report.component";
 import { DataHelperService } from './util/data-helper.service';
 
 import { FilterPipe } from './util/filter.pipe';
