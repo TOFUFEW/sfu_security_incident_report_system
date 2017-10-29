@@ -5,9 +5,9 @@ div#incidents-list-panel, div#staff-list-panel {
   border-top-right-radius: 0px; }
   div#incidents-list-panel div.panel-heading, div#staff-list-panel div.panel-heading {
     display: flex;
-    height: 20%; }
+    height: 10%; }
   div#incidents-list-panel div.panel-body, div#staff-list-panel div.panel-body {
-    height: 80%;
+    height: 90%;
     padding-bottom: 0px; }
   div#incidents-list-panel div#incidents-list, div#staff-list-panel div#incidents-list {
     height: 100%;

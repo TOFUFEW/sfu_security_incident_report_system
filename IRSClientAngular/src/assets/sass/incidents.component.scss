@@ -1,5 +1,11 @@
 @import "settings";
 
+div.incident-card {
+    background-color: white;
+    border: $border-default;
+    width: auto;
+}
+
 #incidents-table {
     th {
         padding: 8px 4px;

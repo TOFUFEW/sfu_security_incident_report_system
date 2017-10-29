@@ -1,19 +1,41 @@
 
 <div id="incidents-list-panel" class="panel panel-default">
     <div class="panel-heading">
-        <div class="toolbar col-md-6 col-lg-6">
+        <div class="toolbar col-sm-6">
             <div>
                 <span class="glyphicon glyphicon-list-alt glyphicon-heading"></span>
                 <span class="panel-header">Reports</span>
             </div>
         </div>
-        <div class="col-md-4 col-lg-4 col-md-offset-2 col-lg-offset-2">
+        <div class="col-sm-6">
             <input class="form-control" type="text" placeholder="Search for incidents...">
         </div>
     </div>
     <div class="panel-body">
         <div id="incidents-list" class="col-md-12 col-lg-12">
-            <table id="incidents-table" class="max-height-width">
+            <div class="incident-card" *ngFor="let incident of incidents">
+                <div class="detail-row">
+                    <span>{{incident.attributes.REPORT_ID}}</span>
+                    <span>08/15/2017 4:44</span>
+                </div>
+                <div class="detail-row">
+                    <span class="card-text-primary">
+                        {{incident.attributes.DESCRIPTION}}
+                    </span>
+                </div>
+                <div class="detail-row">
+                    <span>
+                        {{incident.category.MAIN_CATEGORY}}: {{incident.category.SUB_CATEGORY}} ({{incident.category.INCIDENT_TYPE}})
+                    </span>
+                </div>
+                <div class="detail-row">
+                    <span>
+                        Burnaby AQ 3150
+                    </span>
+                    <span class="glyphicon glyphicon-plus glyphicon-btn" *ngIf="!incident.inWorkspace" (click)="addToWorkspace(incident)"></span>
+                </div>
+            </div>
+            <!-- <table id="incidents-table" class="max-height-width">
                 <thead>
                     <tr>
                         <th></th>
@@ -49,7 +71,7 @@
                         </td>
                     </tr>
                 </tbody>
-            </table>
+            </table> -->
         </div>
     </div>
 </div>
