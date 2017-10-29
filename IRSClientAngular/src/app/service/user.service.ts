@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { User } from '../component/login/user';
+import {IncidentElement} from "../component/report/incident-element";
 
 @Injectable()
 export class UserService {
@@ -11,7 +12,7 @@ export class UserService {
         }
         sessionStorage.setItem(this.currentUser, JSON.stringify(user));
     }
-    
+
     isLoggedIn(): boolean {
         let currentUser = this.getCurrentUser();
 
@@ -21,14 +22,29 @@ export class UserService {
         return false;
     }
 
-    getCurrentUser(): User {
-        let jsonString = sessionStorage.getItem(this.currentUser);
-        let currentUser = JSON.parse(jsonString) as User;
+    getAccountType() : number {
+        return this.getCurrentUser().ACCOUNT_TYPE;
+    }
 
-        if (currentUser != null) {
+    logout() {
+        sessionStorage.setItem( this.currentUser , null );
+    }
+
+    getCurrentUser(): User {
+        let jsonString = sessionStorage.getItem( this.currentUser );
+        let currentUser = JSON.parse( jsonString ) as User;
+
+        if ( currentUser != null ) {
             return currentUser;
         }
         return null;
     }
+
+    isGuard() : boolean {
+        return this.getAccountType() == 2;
+    }
+
+    isAdmin() : boolean {
+        return this.getAccountType() == 1;
+    }
 }
-//

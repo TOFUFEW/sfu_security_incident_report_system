@@ -5,7 +5,6 @@ import Controller.*;
 
 import static spark.Spark.*;
 
-
 // Class that initializes each controller at start - up
 public class Application
 {

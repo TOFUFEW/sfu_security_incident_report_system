@@ -112,7 +112,26 @@ public class DBHelper
 
     public static boolean insertIncident ( String query , Incident incident ) {
         if ( !allFieldsValid( incident ) ) {
-            return false;
+            System.out.println( "Attempting to find IncidentCategory in incidentElements array...");
+
+            for ( int i = 0; i < incident.numIncidentElements() ; i += 1 ) {
+                IncidentElement ie = incident.getIncidentElement( i );
+
+                if (DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase()
+                        .contains( ie.getTable().toString().toLowerCase() ) ) {
+
+                    String id = ie.getAttributeValue( DatabaseValues.Column.CATEGORY_ID );
+                    if ( id != null && !id.isEmpty() ) {
+                        incident.updateAttributeValue( DatabaseValues.Column.CATEGORY_ID, id );
+                        System.out.println("IncidentCategory FOUND! CATEGORY_ID: " + id );
+                    }
+                }
+            }
+
+            if ( incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) == null ) {
+                System.out.println("***** ERROR: IncidentCategory not found. Exiting...");
+                return false;
+            }
         }
 
         try {
@@ -161,8 +180,7 @@ public class DBHelper
                 if ( tries >= maxTries ) {
                     return false;
                 }
-            } while ( lastIncidentId != null && lastIncidentId.equals( before_lastIncidentId ) && tries < maxTries );
-
+            } while ( lastIncidentId != null && lastIncidentId.equals( before_lastIncidentId ) );
 
             int output = stmt.getInt ( 5 );
 
@@ -170,8 +188,12 @@ public class DBHelper
 
             for ( int i = 0 ; i < incident.numIncidentElements () ; i++ )
             {
-                if ( !relationExists( lastIncidentId , incident.getIncidentElement(i) ) ) {
-                    debug_printInsertRelationLog( incident.getIncidentElement( i ) );
+                IncidentElement incidentElement = incident.getIncidentElement( i );
+                System.out.println( "ColumnSet length for table " + incidentElement.getTable().toString() + ": " + (incidentElement.getColumnSet().length ) );
+                boolean hasAttributes = incidentElement.getColumnSet().length > 0;
+
+                if ( hasAttributes && !relationExists( lastIncidentId , incidentElement ) ) {
+                    debug_printInsertRelationLog( incidentElement );
                     insertIncidentRelation(
                             relationSQL,
                             incident.getIncidentElement(i)
@@ -191,15 +213,17 @@ public class DBHelper
 
     /* Validate incidents attributes */
     private static boolean allFieldsValid( Incident incident ) {
-        if ( incident.getAttributeValue(DatabaseValues.Column.DESCRIPTION ).isEmpty() )
+        if ( incident.getAttributeValue(DatabaseValues.Column.DESCRIPTION ) == null ||
+                incident.getAttributeValue(DatabaseValues.Column.DESCRIPTION ).isEmpty() )
             System.out.println( "*** WARNING: Description is empty...");
 
-        if ( incident.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY).isEmpty() )
+        if ( incident.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY) == null ||
+        incident.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY).isEmpty() )
             System.out.println("*** WARNING: Executive Summary is empty...");
 
         String categoryId = incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) ;
         if ( categoryId == null || categoryId.isEmpty() ) {
-            System.out.println( "*** ERROR: CATEGORY_ID cannot be null. Exiting...");
+            System.out.println( "*** WARNING: CATEGORY_ID cannot be null.");
             return false;
         }
 
@@ -212,7 +236,7 @@ public class DBHelper
 
     private static boolean relationExists( String reportId, IncidentElement incidentElement ) {
         System.out.println("");
-        System.out.println("Checking if relation already exists for " + incidentElement.getTable().toString());
+        System.out.println("Checking if relation already exists for " + incidentElement.getTable().toString() + "... ");
         try {
             initDB();
             String tableName = incidentElement.getTable().toString().toLowerCase();
@@ -248,6 +272,8 @@ public class DBHelper
                 System.out.println(query);
                 return true;
             }
+
+            System.out.println(" false. Ok to insert relation...");
         }
         catch ( Exception e ) {
             e.printStackTrace();
