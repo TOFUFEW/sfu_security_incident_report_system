@@ -24,8 +24,10 @@ export class ReportSummaryComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if ( this.inputReport != null)
+        if ( this.inputReport != null) {
             this.report = this.inputReport;
+        }
+            
         console.log( this.report )
     }
 }
