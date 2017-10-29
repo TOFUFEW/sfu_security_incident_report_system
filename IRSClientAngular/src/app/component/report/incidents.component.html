@@ -1,14 +1,12 @@
 
 <div id="incidents-list-panel" class="panel panel-default">
     <div class="panel-heading">
-        <div class="toolbar col-sm-6">
-            <div>
+        <div class="toolbar">
+            <div class="flex">
                 <span class="glyphicon glyphicon-list-alt glyphicon-heading"></span>
                 <span class="panel-header">Reports</span>
             </div>
-        </div>
-        <div class="col-sm-6">
-            <input class="form-control" type="text" placeholder="Search for incidents...">
+            <input class="form-control" type="text" placeholder="Search for reports...">
         </div>
     </div>
     <div class="panel-body">
@@ -36,7 +34,7 @@
                     </div>
                 </div>
                 <div id="action">
-                    <span class="glyphicon glyphicon-plus glyphicon-btn" *ngIf="!incident.inWorkspace" (click)="addToWorkspace(incident)"></span>                        
+                    <span class="glyphicon glyphicon-new-window glyphicon-btn" *ngIf="!incident.inWorkspace" (click)="addToWorkspace(incident)"></span>                        
                 </div>
                 
             </div>

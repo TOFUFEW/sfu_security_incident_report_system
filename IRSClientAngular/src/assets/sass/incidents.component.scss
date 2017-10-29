@@ -7,7 +7,7 @@ div.incident-card {
     border-bottom: none;
     width: 100%;
     //height: 72px;
-    padding: 8px;
+    padding: 16px;
 
     #main-content {
         @include flex(center, flex-start);
@@ -18,7 +18,7 @@ div.incident-card {
 
     #action {
         @include flex(center, center);
-        height: 100%;
+        height: 60px;
         width: 20%;
     }
 }

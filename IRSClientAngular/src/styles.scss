@@ -184,6 +184,15 @@ body {
   }
 }
 
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .form-control {
+        margin-left: 20px;
+    }
+}
 .x-container {
     display: flex;
     justify-content: flex-end;
@@ -292,6 +301,10 @@ span.glyphicon-fire {
         text-decoration: underline;
         color: $link-color-hover;
     }
+}
+
+.flex {
+    display: flex;
 }
 
 /****************************/

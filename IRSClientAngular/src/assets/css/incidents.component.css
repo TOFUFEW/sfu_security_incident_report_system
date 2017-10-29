@@ -6,7 +6,7 @@ div.incident-card {
   border-top: 1px solid rgba(0, 0, 0, 0.16);
   border-bottom: none;
   width: 100%;
-  padding: 8px; }
+  padding: 16px; }
   div.incident-card #main-content {
     display: flex;
     justify-content: center;
@@ -18,7 +18,7 @@ div.incident-card {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: 60px;
     width: 20%; }
 
 #incidents-table th {
