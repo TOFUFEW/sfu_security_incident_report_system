@@ -1,24 +1,40 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router, RouterModule } from '@angular/router';
+
 import { Incident } from '../report/incident';
 import { IncidentService } from '../../service/incident.service';
+import { UserService } from '../../service/user.service';
 
 
-@Component({
+@Component ({
   selector: 'guard-incident-component',
   templateUrl: './guard-incident.component.html',
 })
 
 export class GuardIncidentComponent implements OnInit {
-  incidents: Incident[];  
-  newIncident: Incident = new Incident();  
+    title = 'SFU Incident Reporting System';
+    incidents: Incident[];  
+    newIncident: Incident = new Incident();  
 
-  constructor ( private incidentsService: IncidentService ) {};  
+  constructor ( 
+        private incidentsService: IncidentService, 
+        private router: Router,
+        private http: HttpClient,
+        private userService: UserService,
+    ) {
+  
+        if ( this.userService.isLoggedIn() == false ) {
+            this.router.navigate([ 'login' ] );
+      }
+    }; 
   
   getIncidents(): void {
     this.incidentsService.getIncidents().then( returnedIncidents => {
       this.incidents = returnedIncidents;
     } );    
   }
+
 
 //   addIncident(): void {
 //     this.incidentsService.create( this.newIncident )

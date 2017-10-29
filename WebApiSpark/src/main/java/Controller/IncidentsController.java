@@ -4,14 +4,16 @@ import Model.Incident;
 import Model.Location;
 import Model.Person;
 import Util.DBHelper;
-import Util.DatabaseValues;
 import Util.JsonUtil;
 
+<<<<<<< HEAD
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 import static Util.JsonUtil.json;
+=======
+>>>>>>> 37-guard-get-and-display-assigned-incidents
 import static spark.Spark.get;
 import static spark.Spark.post;
 

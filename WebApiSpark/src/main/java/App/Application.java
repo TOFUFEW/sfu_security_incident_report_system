@@ -23,8 +23,12 @@ public class Application
         StaffController staffController = new StaffController();
         IncidentsController incidentsController = new IncidentsController();
         LoginController loginController = new LoginController();
+<<<<<<< HEAD
         PersonController personController = new PersonController();
         IncidentCategoryController categoryController = new IncidentCategoryController();
+=======
+        GuardIncidentsController guardIncidentsController = new GuardIncidentsController();
+>>>>>>> 37-guard-get-and-display-assigned-incidents
     }
 
     // CORS Filter

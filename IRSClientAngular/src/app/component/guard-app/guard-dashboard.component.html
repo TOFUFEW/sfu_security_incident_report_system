@@ -1,12 +1,11 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<div class="container-fluid main-content">
-    <div class="row">
-        <div class="col-xs-12">
-                
-            <guard-incident-component class="container"></guard-incident-component>        
-        
-    
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-10 col-md-offset-1 col-md-offset-right-1">
+      <div class="flex-container">
+        <div class="flex-item" *ngFor="let incident of incidents" (click)="viewReport(incident)">
+          {{incident.attributes.REPORT_ID}} <br> <br> {{incident.attributes.DESCRIPTION}}
         </div>
+      </div>
     </div>
+  </div>
 </div>

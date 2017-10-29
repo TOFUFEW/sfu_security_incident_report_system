@@ -53,6 +53,7 @@ import { FilterPipe } from './util/filter.pipe';
     LoginComponent,
     GuardDashboardComponent,
     GuardIncidentComponent,
+    GuardIncidentComponent,
     CategoryComponent,
     NewReportComponent,
     VehicleComponent,
@@ -78,7 +79,10 @@ import { FilterPipe } from './util/filter.pipe';
   entryComponents: [ 
     LocationComponent, 
     VehicleComponent,
-    PersonComponent, ]
+    PersonComponent,
+    GuardDashboardComponent,
+    GuardTestViewReportComponent
+  ],
 })
 
 export class AppModule { }

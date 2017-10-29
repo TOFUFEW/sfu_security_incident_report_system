@@ -11,7 +11,7 @@ export class UserService {
         }
         sessionStorage.setItem(this.currentUser, JSON.stringify(user));
     }
-    
+
     isLoggedIn(): boolean {
         let currentUser = this.getCurrentUser();
 
@@ -24,6 +24,8 @@ export class UserService {
     getCurrentUser(): User {
         let jsonString = sessionStorage.getItem(this.currentUser);
         let currentUser = JSON.parse(jsonString) as User;
+
+        console.log(jsonString);
 
         if (currentUser != null) {
             return currentUser;
