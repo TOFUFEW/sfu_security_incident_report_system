@@ -49,6 +49,6 @@
       <span class="field-title">Phone Number (no dashes or spaces)</span>
       <!-- only allows inputs: numbers 0-9, backspace, left arrow, right arrow, delete -->
       <input class="form-control" type="text" maxlength="10" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) 
-          || event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 127' [(ngModel)]="newPerson.PHONE_NUMBER" />
+          || event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46' [(ngModel)]="newPerson.PHONE_NUMBER" />
     </div> 
 </div> 
