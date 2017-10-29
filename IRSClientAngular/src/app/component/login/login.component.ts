@@ -21,10 +21,7 @@ export class LoginComponent {
         private dataHelper: DataHelperService,
         private appComponent: AppComponent
     ) {
-        if (this.userService.isLoggedIn()){
-            alert("You are already logged in!");
-            this.router.navigate([ 'dashboard' ] );
-        }
+        this.checkLogin();
     }
 
     onLogin() {
@@ -42,7 +39,7 @@ export class LoginComponent {
                       this.router.navigate([ 'dashboard' ] );
                       alert( "welcome dispatcher" );
                     } else if( this.userService.isGuard() ) {
-                      this.router.navigate([ 'reporting' ] );
+                      this.router.navigate([ 'guard' ] );
                       alert( "welcome guard" );
                     } else {
                       alert( "unknown person" );
@@ -54,5 +51,16 @@ export class LoginComponent {
                 }
             },
         );
+    }
+
+    checkLogin() {
+      if ( this.userService.isLoggedIn() ) {
+        alert("You are already logged in!");
+        if( this.userService.isAdmin() ) {
+          this.router.navigate([ 'dashboard' ] );
+        } else if( this.userService.isGuard() ) {
+          this.router.navigate( [ 'guard' ] );
+        }
+      }
     }
 }
