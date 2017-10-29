@@ -6,6 +6,7 @@ import { UserService } from '../../service/user.service';
 import { LoginService } from '../../service/login.service';
 import { Incident } from '../report/incident';
 import { User } from './user';
+import {AppComponent} from "../../app.component";
 
 @Component({
     templateUrl: './login.component.html',
@@ -17,7 +18,8 @@ export class LoginComponent {
         private router: Router,
         private userService: UserService,
         private loginService: LoginService,
-        private dataHelper: DataHelperService
+        private dataHelper: DataHelperService,
+        private appComponent: AppComponent
     ) {
         if (this.userService.isLoggedIn()){
             alert("You are already logged in!");
@@ -34,6 +36,7 @@ export class LoginComponent {
                 this.userService.authUser(this.user);
 
                 if ( this.userService.isLoggedIn() ) {
+                    this.appComponent.showLogoutButton();
                     if(this.userService.isAdmin()) {
                       this.router.navigate([ 'dashboard' ] );
                       alert("welcome dispatcher");

@@ -9,19 +9,19 @@ import { Router, RouterModule } from '@angular/router';
 
 export class AppComponent {
   constructor(
-    private router: Router
-  ) {
-    // var button = document.getElementById("logout");
-    // button.style.visibility = "hidden";
+    private router: Router,
+    private userService: UserService) {
   }
 
-  // showLogoutButton() {
-  //   var button = document.getElementById("logout");
-  //   button.style.visibility = "visible";
-  // }
+  showLogoutButton() {
+    var button = document.getElementById("logout");
+    button.style.visibility = "visible";
+  }
 
   onLogout() {
-    console.log("logging out");
+    var button = document.getElementById("logout");
+    button.style.visibility = "hidden";
+    this.userService.logout();
     this.router.navigate(['login']);
   }
 
