@@ -1,6 +1,5 @@
 div#incidents-list-panel, div#staff-list-panel {
   height: 100%;
-  border-top: 4px solid #f9f9f9;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
   display: flex;
