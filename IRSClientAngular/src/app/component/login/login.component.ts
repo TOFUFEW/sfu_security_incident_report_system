@@ -41,8 +41,7 @@ export class LoginComponent {
                       this.router.navigate([ 'dashboard' ] );
                       alert("welcome dispatcher");
                     } else if(this.userService.isGuard()) {
-                      //to be changed
-                      this.router.navigate([ 'dashboard' ] );
+                      this.router.navigate([ 'reporting' ] );
                       alert("welcome guard");
                     }
                 } else {
