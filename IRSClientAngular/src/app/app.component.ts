@@ -8,21 +8,20 @@ import { Router, RouterModule } from '@angular/router';
 })
 
 export class AppComponent {
-  constructor(
-    private router: Router,
-    private userService: UserService) {
+  constructor( private router: Router,
+               private userService: UserService ) {
   }
 
   showLogoutButton() {
-    var button = document.getElementById("logout");
+    var button = document.getElementById("logout" );
     button.style.visibility = "visible";
   }
 
   onLogout() {
-    var button = document.getElementById("logout");
+    var button = document.getElementById("logout" );
     button.style.visibility = "hidden";
     this.userService.logout();
-    this.router.navigate(['login']);
+    this.router.navigate([ 'login' ] );
   }
 
 }

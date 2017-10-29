@@ -29,20 +29,23 @@ export class LoginComponent {
 
     onLogin() {
         this.user.ACCOUNT_TYPE = 0;
-        this.loginService.doLogin(this.user)
+        this.loginService.doLogin( this.user )
         .subscribe(
             (responseData) => {
                 this.user = responseData;
-                this.userService.authUser(this.user);
+                this.userService.authUser( this.user );
 
                 if ( this.userService.isLoggedIn() ) {
                     this.appComponent.showLogoutButton();
-                    if(this.userService.isAdmin()) {
+                    if( this.userService.isAdmin() ) {
                       this.router.navigate([ 'dashboard' ] );
-                      alert("welcome dispatcher");
-                    } else if(this.userService.isGuard()) {
+                      alert( "welcome dispatcher" );
+                    } else if( this.userService.isGuard() ) {
                       this.router.navigate([ 'reporting' ] );
-                      alert("welcome guard");
+                      alert( "welcome guard" );
+                    } else {
+                      alert( "unknown person" );
+                      this.userService.logout();
                     }
                 } else {
                     alert("Invalid login credentials!");
