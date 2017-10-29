@@ -14,26 +14,31 @@
     <div class="panel-body">
         <div id="incidents-list" class="col-md-12 col-lg-12">
             <div class="incident-card" *ngFor="let incident of incidents">
-                <div class="detail-row">
-                    <span>{{incident.attributes.REPORT_ID}}</span>
-                    <span>08/15/2017 4:44</span>
+                <div id="main-content">
+                    <div class="detail-row">
+                        <span class="card-text-secondary">{{incident.attributes.REPORT_ID}}-3ASH7LKNB90</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="card-text-primary">
+                            {{incident.attributes.DESCRIPTION}}
+                        </span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="card-text-secondary">
+                            {{incident.category.MAIN_CATEGORY}}: {{incident.category.SUB_CATEGORY}} {{incident.category.INCIDENT_TYPE}}
+                        </span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="card-text-tertiary">
+                            Burnaby AQ 3150
+                        </span>
+                        <span class="card-text-tertiary">08/15/2017 4:44</span>
+                    </div>
                 </div>
-                <div class="detail-row">
-                    <span class="card-text-primary">
-                        {{incident.attributes.DESCRIPTION}}
-                    </span>
+                <div id="action">
+                    <span class="glyphicon glyphicon-plus glyphicon-btn" *ngIf="!incident.inWorkspace" (click)="addToWorkspace(incident)"></span>                        
                 </div>
-                <div class="detail-row">
-                    <span>
-                        {{incident.category.MAIN_CATEGORY}}: {{incident.category.SUB_CATEGORY}} ({{incident.category.INCIDENT_TYPE}})
-                    </span>
-                </div>
-                <div class="detail-row">
-                    <span>
-                        Burnaby AQ 3150
-                    </span>
-                    <span class="glyphicon glyphicon-plus glyphicon-btn" *ngIf="!incident.inWorkspace" (click)="addToWorkspace(incident)"></span>
-                </div>
+                
             </div>
             <!-- <table id="incidents-table" class="max-height-width">
                 <thead>

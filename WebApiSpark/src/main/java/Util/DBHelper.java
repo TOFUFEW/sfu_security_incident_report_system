@@ -602,6 +602,26 @@ public class DBHelper
         return stmt.executeQuery ( query );
     }
 
+    /* FOR DEVELOPMENT ONLY */
+    private static boolean deleteAllIncidents() {
+        try {
+            initDB();
+            String query = "delete from HappensAt;";
+            boolean deleted = execute( query );
+            query =  "delete from Involves;";
+            deleted = execute( query );
+            query = "delete from Incident";
+            deleted = execute( query );
+            Incident[] result = getIncidents();
+            return result.length == 0;
+        }
+        catch( Exception e ) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     private static void initDB ()
     {
         if ( connection != null )

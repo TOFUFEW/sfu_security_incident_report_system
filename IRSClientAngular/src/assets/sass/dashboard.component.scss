@@ -20,14 +20,15 @@ div#incidents-container {
         border-bottom-left-radius: 0px;
         border-bottom-right-radius: 0px;
 
-        // .panel-heading {
-        //     height: 20%;
-        // }
+        .panel-heading {
+            height: auto;
+        }
         .panel-body{
             padding: 12px !important;
-            height: 100%;
+            height: 94%;
             display: flex;
-            border: 2px solid #d6d6d6;
+            flex-wrap: wrap;
+            //border: 2px solid #d6d6d6;
             border-bottom: none;
             background-color: $grey-dark;
         }
@@ -38,11 +39,11 @@ div#incidents-container {
         overflow: hidden;
     }
     
-    div#bottom-panels.row {
-        height: 33%;
-        max-height: 33%;
-        overflow: hidden;
-    }
+    // div#bottom-panels.row {
+    //     height: 33%;
+    //     max-height: 33%;
+    //     overflow: hidden;
+    // }
 
     div.col { height: 100%; }
 
@@ -63,81 +64,20 @@ div#incidents-container {
         div.panel-body {
             height: 100%;
             width: 100%;
-            overflow-x: auto;
-            overflow-y: hidden;
+            overflow: auto;
         }
     }
 }
 
 div.quarter-box {
-    height: 100%;
-    width: 25%;
+    height: 50%;
+    width: 49%;
     min-width: 300px;
-    margin-left: 4px;
-    margin-right: 4px;
+    margin: 4px;
     //border-right: 8px double $grey-dark;
     overflow-y:auto;
     padding: 8px;
     background-color: white;
-}
-
-div.incident-container {
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    min-width: 25%;
-    //border: $border-default;
-    overflow: auto;
-
-    .incident-header {
-        font-size: $text-lg;
-    }
-}
-
-div.incident-card {
-    @include flex(space-between, center);
-    padding-bottom: $padding-lg;
-    border-bottom: $border-default;
-
-    div.incident-icon {
-        height: 36px;
-        width: 36px;
-        border: $border-default;
-        border-radius: 99px;
-    }
-
-    div.incident-title {
-        @include flex(flex-start, center);
-        flex-direction: column;
-    }
-
-    .incident-timer {
-        float: right;
-        font-size: $text-md;
-    }
-}
-
-div.incident-element-container {
-    flex-direction: column;
-    padding-top: $padding-sm;
-    padding-bottom: $padding-sm;
-
-    .incident-element-header {
-        width: 100%;
-        padding-bottom: $padding-sm;
-    }
-
-    .icon { margin-right: 8px; }
-    .incident-element-title {
-        font-size: $text-md;
-    }
-
-    .incident-element-details {
-        
-        flex-direction: column;
-    }
-    width: 100%;
-    height: auto;
 }
 
 div#left-panels {
@@ -175,6 +115,10 @@ div.side-container {
 
 .card {
     box-shadow: 1px 1px 1px 0 rgba(0,0,0,.07), 1px 2px 5px 0 rgba(0,0,0,.06);
+}
+
+#workspace-main {
+    height: 100%;
 }
 
 #workspace-data {

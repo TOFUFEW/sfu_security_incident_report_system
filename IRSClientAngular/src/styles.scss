@@ -98,13 +98,18 @@ body {
 }
 
 .card-text-primary {
-    color: $sfu-black;
-    font-size: 115%;
+    //color: $sfu-black;
+    font-size: 14px;
 }
 
 .card-text-secondary {
     color: $field-title-color;
-    font-size: 100%;
+    font-size: 12px;
+}
+
+.card-text-tertiary {
+    color: $field-title-color;
+    font-size: 10px;
 }
 
 .btn-row {

@@ -1,7 +1,25 @@
 div.incident-card {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
   background-color: white;
-  border: 1px solid rgba(0, 0, 0, 0.16);
-  width: auto; }
+  border-top: 1px solid rgba(0, 0, 0, 0.16);
+  border-bottom: none;
+  width: 100%;
+  padding: 8px; }
+  div.incident-card #main-content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    height: 100%;
+    width: 100%; }
+  div.incident-card #action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 20%; }
 
 #incidents-table th {
   padding: 8px 4px; }

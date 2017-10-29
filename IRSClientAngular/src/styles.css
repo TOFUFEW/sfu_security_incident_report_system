@@ -67,7 +67,7 @@ body {
 .field-title {
   display: inline-block;
   width: auto;
-  color: #333;
+  color: #657786;
   font-weight: 300;
   font-size: 110%;
   margin-bottom: 8px; }
@@ -80,12 +80,15 @@ body {
   margin-bottom: 8px; }
 
 .card-text-primary {
-  color: #54585A;
-  font-size: 115%; }
+  font-size: 14px; }
 
 .card-text-secondary {
-  color: #333;
-  font-size: 100%; }
+  color: #657786;
+  font-size: 12px; }
+
+.card-text-tertiary {
+  color: #657786;
+  font-size: 10px; }
 
 .btn-row {
   display: flex;
