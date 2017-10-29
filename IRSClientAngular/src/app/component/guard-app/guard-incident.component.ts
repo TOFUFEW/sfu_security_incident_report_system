@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute, ParamMap } from '@angular/router';
+import 'rxjs/add/operator/switchMap';
 
 import { Incident } from '../report/incident';
 import { IncidentService } from '../../service/incident.service';
@@ -14,26 +15,26 @@ import { UserService } from '../../service/user.service';
 
 export class GuardIncidentComponent implements OnInit {
     title = 'SFU Incident Reporting System';
-    incidents: Incident[];  
-    newIncident: Incident = new Incident();  
+    incident: Incident;  
 
   constructor ( 
         private incidentsService: IncidentService, 
         private router: Router,
         private http: HttpClient,
         private userService: UserService,
+        private route: ActivatedRoute
     ) {
   
         if ( this.userService.isLoggedIn() == false ) {
             this.router.navigate([ 'login' ] );
-      }
+        }
     }; 
   
-  getIncidents(): void {
-    this.incidentsService.getIncidents().then( returnedIncidents => {
-      this.incidents = returnedIncidents;
-    } );    
-  }
+//   getIncident( params ): void {
+//     this.incidentsService.getIncidents().then( returnedIncidents => {
+//       this.incidents = returnedIncidents;
+//     } );    
+//   }
 
 
 //   addIncident(): void {
@@ -62,9 +63,13 @@ export class GuardIncidentComponent implements OnInit {
 //         } );
 //   }
 
-  ngOnInit() : void {
-    this.getIncidents();
-  }
+    ngOnInit() : void {
+        console.log("in guard incident on init");
+        this.route.paramMap
+        .switchMap (( params: ParamMap ) => 
+            this.incidentsService.getIncident ( +params.get ( 'id' )))
+        .subscribe ( returnedIncident => {
+            this.incident = returnedIncident;
+        });
+    }
 }
-
-  

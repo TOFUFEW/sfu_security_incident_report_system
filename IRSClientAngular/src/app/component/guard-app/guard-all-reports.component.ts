@@ -35,7 +35,7 @@ export class GuardAllReportsComponent implements OnInit {
     //TO BE CHANGED
     //change to actually view report when feature is added
     console.log("view report id = " + incident.attributes.REPORT_ID );
-    this.router.navigate([ 'guard-app/report/', incident.attributes.REPORT_ID ] );
+    this.router.navigate([ 'guard-app/report', incident.attributes.REPORT_ID ] );
   }
 
   ngOnInit() : void {

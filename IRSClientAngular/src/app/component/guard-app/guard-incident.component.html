@@ -7,8 +7,7 @@
     <div class="row">
         <div class="col-12 col-lg-12 col-lg-offset-3">
           <div class="panel panel-default test-panel">
-            <div class="panel-heading text-center pb-0">
-        
+            <div class="panel-heading text-center pb-0" *ngIf="incident">
                 <!-- Create category object that matches with category incident ID -->
                 <!-- Create dialog w/ category cascading menu for editing categories -->
                 <h5>
@@ -16,21 +15,16 @@
                     <button class="btn btn-default btn-xs pull-right" (click)="modal1.show()"><span class="p-2 glyphicon glyphicon-edit"></span></button>
                     <category-component #modal1></category-component>            
                 </h5>
-                <h5>Report #
-                    <span *ngFor="let incident of incidents">
-                        <span *ngIf="incident.attributes.REPORT_ID == 24">                      
-                            {{incident.attributes.REPORT_ID}}
-                        </span>
-                    </span>
+                <h5>Report # {{incident.attributes.REPORT_ID}}
                 </h5>
                 <p>Location: 
-                    <span *ngFor="let incident of incidents">
-                        <span *ngIf="incident.attributes.REPORT_ID == 24">
-                            <span *ngFor="let location of incident.locationList">
-                                {{location.attributes.BUILDING_NAME}}    
-                            </span>
-                        </span>
-                    </span>
+                    <!-- <span *ngFor="let incident of incidents">
+                        <span *ngIf="incident.attributes.REPORT_ID == 24"> -->
+                            <!-- <span *ngFor="let location of incident.locationList"> -->
+                                <!-- {{location.attributes.BUILDING_NAME}}     -->
+                            <!-- </span> -->
+                        <!-- </span>
+                    </span> -->
                 </p>
             </div>
           
@@ -45,12 +39,8 @@
                       </h6>
                     </div>
                     <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-                      <div class="card-block m-2">
-                          <div *ngFor="let incident of incidents">
-                              <form *ngIf="incident.REPORT_ID == 24">
-                                {{incident.EXECUTIVE_SUMMARY}} 
-                              </form>
-                           </div>
+                      <div class="card-block m-2" *ngIf="incident">
+                                {{incident.attributes.EXECUTIVE_SUMMARY}} 
                       </div>
                     </div>
                   </div>
@@ -64,12 +54,8 @@
                       </h6>
                     </div>
                     <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-                      <div class="card-block m-2">
-                          <div *ngFor="let incident of incidents">                      
-                            <div *ngIf="incident.REPORT_ID == 24">                      
-                              {{incident.DESCRIPTION}}               
-                            </div>
-                        </div>   
+                      <div class="card-block m-2" *ngIf="incident">
+                              {{incident.attributes.DESCRIPTION}}           
                       </div>
                     </div>
                   </div>
@@ -87,9 +73,9 @@
         
                       </div>
                     </div>
+                    </div>
                   </div>
                 </div>
-          </div>
         </div>
         
         </div>

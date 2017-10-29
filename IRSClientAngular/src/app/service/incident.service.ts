@@ -63,6 +63,7 @@ export class IncidentService
 
     getIncident( id: number ): Promise<Incident> {
         var incident = new Incident();
+        console.log("report id: ", id);
         incident.attributes.REPORT_ID = id ;
         var returnIncident = this.http
             .post( Config.GetIncidentURI, JSON.stringify( incident ), { headers: this.headers } )
@@ -74,6 +75,7 @@ export class IncidentService
 
     create( incident: Incident ): Promise<Incident> {
         incident.table = Config.IncidentTable;
+        console.log("table name " + Config.IncidentTable);
         incident.attributes.ACCOUNT_ID = 1;
         var promise = this.http
                 .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
