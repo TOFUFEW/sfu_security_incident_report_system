@@ -33,7 +33,7 @@
                         <textarea cols="50" rows="8" [(ngModel)]="newIncident.attributes.EXECUTIVE_SUMMARY"></textarea>
                     </div>
 
-                    <attachment-component #fu (change)="fu.upload()" [multiple]="true"></attachment-component>
+                    <attachment-component #files (change)="files.upload()" [multiple]="true"></attachment-component>
 
                     <div id="locations">
                         <location-component></location-component>
