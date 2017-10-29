@@ -5,19 +5,19 @@ import { IncidentService } from '../../service/incident.service';
 
 @Component({
   selector: 'guard-incident-component',
-  templateUrl: '../../view/guard-incident.component.html',
+  templateUrl: './guard-incident.component.html',
 })
 
 export class GuardIncidentComponent implements OnInit {
-  incidents: Incident[];  
-  newIncident: Incident = new Incident();  
+  incidents: Incident[];
+  newIncident: Incident = new Incident();
 
-  constructor ( private incidentsService: IncidentService ) {};  
-  
+  constructor ( private incidentsService: IncidentService ) {};
+
   getIncidents(): void {
     this.incidentsService.getIncidents().then( returnedIncidents => {
       this.incidents = returnedIncidents;
-    } );    
+    } );
   }
 
 //   addIncident(): void {
@@ -51,4 +51,3 @@ export class GuardIncidentComponent implements OnInit {
   }
 }
 
-  
