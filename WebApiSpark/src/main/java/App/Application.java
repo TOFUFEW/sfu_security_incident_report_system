@@ -2,6 +2,7 @@ package App;
 
 
 import Controller.*;
+
 import static spark.Spark.*;
 
 
@@ -23,28 +24,7 @@ public class Application
         IncidentsController incidentsController = new IncidentsController();
         LoginController loginController = new LoginController();
         PersonController personController = new PersonController();
-
-        // TEST CODE WITHOUT DATABASE
-
-
-//        locationController.locationList.add( location1 );
-//
-//
-//        Staff testStaff = new Staff (
-//                Connector.getInstance (),
-//                "100",
-//                "1",
-//                "Bob",
-//                "B"
-//
-//        );
-//
-//
-//        staffController.staffList.add(testStaff);
-
-
-        // END TEST CODE
-
+        IncidentCategoryController categoryController = new IncidentCategoryController();
     }
 
     // CORS Filter
