@@ -46,6 +46,8 @@
                         </div>
                     </div>
 
+                     <attachment-component #files (change)="files.upload()" [multiple]="true"></attachment-component>
+
                     <div class="details-container">
                         <div class="details-heading">
                             <span class="glyphicon glyphicon-map-marker glyphicon-heading"></span>
@@ -176,5 +178,3 @@
         </div>
     </div>
 </div>
-
-

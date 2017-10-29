@@ -24,7 +24,7 @@ public class AttachmentController {
                 Path currentPath = Paths.get("").toAbsolutePath();
 
                 final File upload = new File(currentPath +
-                        "/WebApiSpark/src/main/resources/public/uploads"
+                        "/src/main/resources/public/uploads"
                 );
                 System.out.println(upload);
                 if (!upload.exists() && !upload.mkdirs()) {

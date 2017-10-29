@@ -48,6 +48,7 @@ import { FilterPipe } from './util/filter.pipe';
 
   declarations: [
     AppComponent,
+    AttachmentComponent,
     DashboardComponent,
     LocationComponent,
     StaffComponent,
