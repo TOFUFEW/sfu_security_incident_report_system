@@ -27,10 +27,9 @@ export class NewReportComponent implements OnInit {
 
     categories: CategoryDictionary[] = [];
     subCategories: SubCategory[] = [];
-    categoryTypes: CategoryType[] = [];
-    reportReady: boolean = true;
-    
+    categoryTypes: CategoryType[] = [];    
 
+    reportReady: boolean = false; 
     constructor( 
       private incidentService: IncidentService,
       private domService: DomService,
@@ -107,10 +106,11 @@ export class NewReportComponent implements OnInit {
 
     prepareReport(): void {
         this.newIncident.incidentElements = this.newReportService.collectIncidentElements( this.newIncident.category );
+        this.reportReady = this.isReportValid();
     }
 
-    createIncident(): void {
-        if(this.reportReady){
+    createReport(): void {
+        if( this.reportReady ){
             //this.newIncident.incidentElements = this.newReportService.collectIncidentElements( this.selectedCategory );
             this.incidentService.create( this.newIncident )
                 .then( returnedIncident => {
@@ -127,11 +127,7 @@ export class NewReportComponent implements OnInit {
         }
     }
 
-    review() {
-        this.reportReady = true;
-    }
-
-    reportNotReady() {
-        this.reportReady = false;
+    private isReportValid(): boolean {
+        return this.newReportService.validateReport( this.newIncident );
     }
 }

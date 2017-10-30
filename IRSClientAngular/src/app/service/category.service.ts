@@ -39,9 +39,6 @@ export class CategoryService
                 categoryMap.push( this.getMainCategory( category.MAIN_CATEGORY, categories ));
             }
         });
-
-        console.log( categoryMap );
-
         return categoryMap;
     }
 
@@ -72,7 +69,6 @@ export class CategoryService
         categories.forEach( cat => {
             if ( cat.MAIN_CATEGORY === mainCategory && cat.SUB_CATEGORY === grouping.SUB_CATEGORY ) {
                 if ( cat.INCIDENT_TYPE == null || cat.INCIDENT_TYPE.length == 0 ) {
-                    console.log( "No Type: " + cat.CATEGORY_ID);
                     grouping.CATEGORY_ID = cat.CATEGORY_ID;
                     grouping.TYPES = [];
                     return grouping;
