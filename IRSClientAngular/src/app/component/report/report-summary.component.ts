@@ -5,7 +5,8 @@ import { IncidentService } from '../../service/incident.service';
 
 @Component({
     selector: 'report-summary',
-    templateUrl: './report-summary.component.html'
+    templateUrl: './report-summary.component.html',
+    styleUrls: ['../../../assets/css/report-summary.component.css']
 })
 
 export class ReportSummaryComponent implements OnInit {

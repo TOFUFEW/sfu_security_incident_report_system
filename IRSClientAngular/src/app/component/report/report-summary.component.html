@@ -3,6 +3,9 @@
     <div class="x-container">
         <span class="glyphicon glyphicon-remove glyphicon-btn" (click)="removeFromWorkspace( report.attributes.REPORT_ID )"></span>        
     </div>
+    <div class="report-header">
+        <span class="report-id">{{report.attributes.REPORT_ID}}</span>
+    </div>
     <ul class="nav nav-tabs">
         <li class="active">
             <a data-toggle="tab" [href]="'#basic-info-' + report.attributes.REPORT_ID">
