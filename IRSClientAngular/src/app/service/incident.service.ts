@@ -52,12 +52,16 @@ export class IncidentService
 
     getGuardIncidents(): Promise<Incident[]> {
         var user = this.userService.getCurrentUser();
+        // ** remove this after user authentication is set up that fetches user ID from database
+        // user.ACCOUNT_ID = 5;
+        console.log("guard", user);
         var _user = DataHelperService.toIncidentElement ( Config.AccountTable, user );
         var incidents = this.http
             .post( this.guardIncidentsUrl, JSON.stringify( _user ), { headers: this.headers } )
             .toPromise()
             .then( response => response.json() as Incident[] )
             .catch( this.handleError );
+        console.log("got incidents");            
         return Promise.resolve( incidents );
     }
 
@@ -70,13 +74,14 @@ export class IncidentService
             .toPromise()
             .then( response => response.json() as Incident )
             .catch( this.handleError );
+        console.log("got one incident");
         return Promise.resolve( returnIncident );
     }
 
     create( incident: Incident ): Promise<Incident> {
         incident.table = Config.IncidentTable;
         console.log("table name " + Config.IncidentTable);
-        incident.attributes.ACCOUNT_ID = 1;
+        incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().ACCOUNT_ID;
         var promise = this.http
                 .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
                 .toPromise()
@@ -84,6 +89,7 @@ export class IncidentService
                     return ( response.json() as boolean ) ? incident : null
                 })
                 .catch( this.handleError );
+        console.log("created");                
         return Promise.resolve( promise );
     }
 

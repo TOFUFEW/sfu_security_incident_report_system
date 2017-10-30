@@ -27,13 +27,12 @@ export class GuardAllReportsComponent implements OnInit {
   getIncidents(): void {
     this.user = this.userService.getCurrentUser();
     this.incidentsService.getGuardIncidents( ).then( returnedIncidents => {
+        console.log("returned incidents: ", returnedIncidents);
       this.incidents = returnedIncidents;
     } );
   }
 
   viewReport( incident: Incident ) : void {
-    //TO BE CHANGED
-    //change to actually view report when feature is added
     console.log("view report id = " + incident.attributes.REPORT_ID );
     this.router.navigate([ 'guard-app/report', incident.attributes.REPORT_ID ] );
   }
