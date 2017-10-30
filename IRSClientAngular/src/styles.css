@@ -71,7 +71,8 @@ body {
   color: #333;
   font-weight: 300;
   font-size: 110%;
-  margin-bottom: 8px; }
+  margin-bottom: 8px; 
+}
 
 .field-value {
   display: inline-block;
@@ -82,11 +83,15 @@ body {
 
 .card-text-primary {
   color: #54585A;
-  font-size: 115%; }
+  display: inline-block;
+  font-size: 115%;     
+}
 
 .card-text-secondary {
   color: #333;
-  font-size: 100%; }
+  display: inline-block;
+  font-size: 100%; 
+}
 
 .btn-row {
   display: flex;
@@ -187,7 +192,7 @@ body {
     opacity: 1;
     cursor: pointer; }
 
-span.panel-header, .glyphicon-heading {
+span.panel-header, .panel-header, .glyphicon-heading {
   color: #333;
   font-size: 18px;
   font-weight: 300;

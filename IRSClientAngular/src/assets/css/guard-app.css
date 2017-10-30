@@ -17,6 +17,10 @@
     margin-left: 1em;
 }
 
+.mt-sm {
+    margin-top: 0.5em !important;
+}
+
 .mt-1 {
     margin-top: 1em !important;
 }
@@ -25,6 +29,9 @@
     margin-top: 2em !important;
 }
 
+.p-0, ul.p-0 {
+    padding: 0 !important;
+}
 .pt-1 {
     padding-top: 1em !important;
 }
@@ -73,7 +80,18 @@ select.category-field {
 }
 
 .panel-body {
-    word-break:break-all;
+    height: 100%;
+    padding-bottom: 1em;
+    word-break:break-all;     
 }
+
+ul {
+    height: 100%;
+    padding-bottom: 1em; 
+    overflow: scroll;
+    text-overflow: ellipsis;
+}
+
+
 /*# sourceMappingURL=guard-app.css.map */
 
