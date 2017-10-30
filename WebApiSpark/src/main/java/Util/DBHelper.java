@@ -230,7 +230,7 @@ public class DBHelper
             for ( int i = 0 ; i < incident.numIncidentElements () ; i++ )
             {
                 IncidentElement incidentElement = incident.getIncidentElement( i );
-                System.out.println( "ColumnSet length for table " + incidentElement.getTable().toString() + ": " + (incidentElement.getColumnSet().length ) );
+                System.out.println( "\nColumnSet length for table " + incidentElement.getTable().toString() + ": " + (incidentElement.getColumnSet().length ) );
                 boolean hasAttributes = incidentElement.getColumnSet().length > 0;
 
                 if ( hasAttributes && !relationExists( lastIncidentId , incidentElement ) ) {
