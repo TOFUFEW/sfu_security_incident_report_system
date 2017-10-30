@@ -10,6 +10,7 @@ public class User  extends IncidentElement
         this (
                 "",
                 "",
+                "",
                 ""
         );
     };
@@ -17,7 +18,8 @@ public class User  extends IncidentElement
     public User (
             String username,
             String password,
-            String accountType
+            String accountType,
+            String accountID
     ) {
         super (
                 DatabaseValues.Table.ACCOUNT,
@@ -25,7 +27,8 @@ public class User  extends IncidentElement
                 {
                         DatabaseValues.Column.USERNAME,
                         DatabaseValues.Column.PASSWORD,
-                        DatabaseValues.Column.ACCOUNT_TYPE
+                        DatabaseValues.Column.ACCOUNT_TYPE,
+                        DatabaseValues.Column.ACCOUNT_ID
                 }
         );
 
@@ -42,6 +45,11 @@ public class User  extends IncidentElement
         updateAttributeValue(
             DatabaseValues.Column.ACCOUNT_TYPE,
             accountType
+        );
+
+        updateAttributeValue(
+            DatabaseValues.Column.ACCOUNT_ID,
+            accountID
         );
     }
 }

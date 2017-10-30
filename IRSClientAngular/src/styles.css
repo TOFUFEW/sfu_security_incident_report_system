@@ -226,7 +226,12 @@ span.glyphicon-fire {
   text-decoration: underline;
   color: #0645AD; }
   .link:hover {
-    cursor: pointer; }
+    cursor: pointer; } 
+
+  
+.alertText {
+  color:red;
+}
 
 /****************************/
 /*  Guard app styles

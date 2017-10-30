@@ -2,8 +2,8 @@ package App;
 
 
 import Controller.*;
-import static spark.Spark.*;
 
+import static spark.Spark.*;
 
 // Class that initializes each controller at start - up
 public class Application
@@ -27,29 +27,7 @@ public class Application
         PersonController personController = new PersonController();
         IncidentCategoryController categoryController = new IncidentCategoryController();
         AttachmentController attachmentController = new AttachmentController();
-
-
-        // TEST CODE WITHOUT DATABASE
-
-
-//        locationController.locationList.add( location1 );
-//
-//
-//        Staff testStaff = new Staff (
-//                Connector.getInstance (),
-//                "100",
-//                "1",
-//                "Bob",
-//                "B"
-//
-//        );
-//
-//
-//        staffController.staffList.add(testStaff);
-
-
-        // END TEST CODE
-
+        GuardIncidentsController guardIncidentsController = new GuardIncidentsController();
     }
 
     // CORS Filter
