@@ -212,7 +212,7 @@ public class DBHelper
     }
 
     public static boolean insertAssignedGuard( int reportID, int accountID ) {
-        String query = "INSERT INTO AssignedTo (REPORT_ID, ACCOUNT_ID)\n" +
+        String query = "INSERT INTO AssignedTo (REPORT_ID, ACCOUNT_ID) " +
                 "VALUES (" + reportID + ", " + accountID + ")";
         try
         {
