@@ -15,7 +15,7 @@ import { UserService } from '../../service/user.service';
     selector: 'guard-dashboard',
     templateUrl: './guard-dashboard.component.html',
     providers: [ LocationService, IncidentService, CategoryService ],
-    styleUrls: [ '../../../assets/css/guard-dashboard.component.css' ]    
+    styleUrls: [ '../../../assets/css/guard-dashboard.component.css' ]
 })
 
 export class GuardDashboardComponent {

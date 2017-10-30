@@ -63,6 +63,7 @@ export class GuardIncidentComponent implements OnInit {
 //         } );
 //   }
 
+<<<<<<< HEAD
     ngOnInit() : void {
         console.log("in guard incident on init");
         this.route.paramMap
@@ -73,3 +74,10 @@ export class GuardIncidentComponent implements OnInit {
         });
     }
 }
+=======
+  ngOnInit() : void {
+    this.getIncidents();
+  }
+}
+
+>>>>>>> origin/master
