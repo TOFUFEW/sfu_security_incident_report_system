@@ -32,7 +32,47 @@ export class IncidentService
         return Promise.resolve( incidents );
     };
 
+    getGuardIncidents(): Promise<Incident[]> {
+        var user = this.userService.getCurrentUser();
+        console.log("guard", user);
+        var _user = DataHelperService.toIncidentElement ( Config.AccountTable, user );
+        var incidents = this.http
+            .post( this.guardIncidentsUrl, JSON.stringify( _user ), { headers: this.headers } )
+            .toPromise()
+            .then( response => response.json() as Incident[] )
+            .catch( this.handleError );
+        console.log("got incidents");            
+        return Promise.resolve( incidents );
+    }
+
+    getIncident( id: number ): Promise<Incident> {
+        var incidentToGet = new Incident();
+        console.log("report id: ", id);
+        incidentToGet.attributes.REPORT_ID = id ;
+        var returnedIncident = this.http
+            .post( Config.GetIncidentURI, JSON.stringify( incidentToGet ), { headers: this.headers } )
+            .toPromise()
+            .then( response => this.initializeIncident( response.json() as Incident ) as Incident )
+            .catch( this.handleError );
+        console.log("got one incident");
+        return Promise.resolve( returnedIncident );
+    }
+
+    private initializeIncident( incident: Incident ): Incident {
+            incident.locationList = [];
+            incident.incidentElements.forEach( e => {
+                if ( e.table === Config.CategoryTable ) {
+                    incident.category = e.attributes as Category;
+                }
+                else if ( e.table === Config.LocationTable ) {
+                    incident.locationList.push( e as Location )
+                }
+            });
+        return incident;
+    }
+
     private initIncidents( incidents: Incident[] ): Incident[] {
+        console.log ( "returned incident: ", incidents );
         incidents.forEach(i => {
             i.locationList = [];
             i.incidentElements.forEach( e => {
@@ -48,34 +88,6 @@ export class IncidentService
         });
         console.log( incidents[incidents.length-1] );
         return incidents;
-    }
-
-    getGuardIncidents(): Promise<Incident[]> {
-        var user = this.userService.getCurrentUser();
-        // ** remove this after user authentication is set up that fetches user ID from database
-        // user.ACCOUNT_ID = 5;
-        console.log("guard", user);
-        var _user = DataHelperService.toIncidentElement ( Config.AccountTable, user );
-        var incidents = this.http
-            .post( this.guardIncidentsUrl, JSON.stringify( _user ), { headers: this.headers } )
-            .toPromise()
-            .then( response => response.json() as Incident[] )
-            .catch( this.handleError );
-        console.log("got incidents");            
-        return Promise.resolve( incidents );
-    }
-
-    getIncident( id: number ): Promise<Incident> {
-        var incident = new Incident;
-        console.log("report id: ", id);
-        incident.attributes.REPORT_ID = id ;
-        var returnIncident = this.http
-            .post( Config.GetIncidentURI, JSON.stringify( incident ), { headers: this.headers } )
-            .toPromise()
-            .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
-            .catch( this.handleError );
-        console.log("got one incident");
-        return Promise.resolve( returnIncident );
     }
 
     create( incident: Incident ): Promise<Incident> {
