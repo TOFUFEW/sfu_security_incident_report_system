@@ -30,6 +30,7 @@ export class NewReportComponent implements OnInit {
     subCategories: SubCategory[] = [];
     categoryTypes: CategoryType[] = [];
     selectedCategory: Category;
+    reportReady: boolean = true;
     
 
     constructor( 
@@ -105,21 +106,30 @@ export class NewReportComponent implements OnInit {
     
 
     createIncident(): void {
-        this.newIncident.incidentElements = this.newReportService.collectIncidentElements( this.selectedCategory );
-        this.incidentService.create( this.newIncident )
-            .then( returnedIncident => {
-                if ( returnedIncident != null  ) {
-                    alert("Report successfully created!");
-                    setTimeout(function(){location.reload()}, 300);
-                }
-                else alert( "Add failed." );
-            } );
-        delete this.newIncident;
-        this.newIncident = new Incident();
+        if(this.reportReady){
+            this.newIncident.incidentElements = this.newReportService.collectIncidentElements( this.selectedCategory );
+            this.incidentService.create( this.newIncident )
+                .then( returnedIncident => {
+                    if ( returnedIncident != null  ) {
+                        alert("Report successfully created!");
+                        setTimeout(function(){location.reload()}, 300);
+                    }
+                    else alert( "Add failed." );
+                } );
+            delete this.newIncident;
+            this.newIncident = new Incident();
+        } else {
+            alert("Please fill in the required fields");
+        }
     }
 
     review() {
+        this.reportReady = true;
         console.log(this.locations);
         console.log(this.persons);
+    }
+
+    reportNotReady() {
+        this.reportReady = false;
     }
 }
