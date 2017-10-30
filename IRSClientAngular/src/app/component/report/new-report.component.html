@@ -18,29 +18,29 @@
                         </div>
                         <div class="details-body">
                             <div class="detail col-12 col-sm-3">
-                                <span class="field-title">Category</span>
+                                <span class="field-title">Category <span class="required-asterisk">*</span></span>
                                 <select name="" id="" class="form-control" [(ngModel)]="newIncident.category.MAIN_CATEGORY" (change)="onSelectCategory()">
                                     <option *ngFor="let category of categories" [value]="category.MAIN_CATEGORY">{{category.MAIN_CATEGORY}}</option>
                                 </select>
                             </div>
                             <div class="detail col-12 col-sm-3">
-                                <span class="field-title">Sub Category</span>
+                                <span class="field-title">Sub Category <span class="required-asterisk">*</span></span>
                                 <select class="form-control" [(ngModel)]="newIncident.category.SUB_CATEGORY" (change)="onSelectSubCategory()">
                                     <option *ngFor="let subCategory of subCategories" [value]="subCategory.SUB_CATEGORY">{{subCategory.SUB_CATEGORY}}</option>
                                 </select>
                             </div>
                             <div class="detail col-12 col-sm-3"  *ngIf="categoryTypes.length > 0">
-                                <span class="field-title">Type</span>
+                                <span class="field-title">Type <span class="required-asterisk">*</span></span>
                                 <select class="form-control" [(ngModel)]="newIncident.category.INCIDENT_TYPE" (change)="onSelectType()">
                                     <option *ngFor="let type of categoryTypes" [value]="type.INCIDENT_TYPE">{{type.INCIDENT_TYPE}}</option>
                                 </select>
                             </div>
                             <div class="detail col-12 col-sm-10">
-                                <span class="field-title">Description</span>
+                                <span class="field-title">Description <span class="required-asterisk">*</span></span>
                                 <textarea class="form-control" cols="50" rows="1" [(ngModel)]="newIncident.attributes.DESCRIPTION"></textarea>
                             </div>
                             <div class="detail col-12 col-sm-10">
-                                <span class="field-title">Executive Summary</span>
+                                <span class="field-title">Executive Summary <span class="required-asterisk">*</span></span>
                                 <textarea class="form-control" cols="50" rows="8" [(ngModel)]="newIncident.attributes.EXECUTIVE_SUMMARY"></textarea>                                
                             </div>
                         </div>
@@ -211,7 +211,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="cancelReview()">Cancel</button>
                 <button class="btn btn-primary" (click)="createIncident()">Create Report</button>   
             </div>
         </div>

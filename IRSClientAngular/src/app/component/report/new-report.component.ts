@@ -101,6 +101,9 @@ export class NewReportComponent implements OnInit {
         }
     }
     
+    cancelReview() : void {
+        this.newIncident.incidentElements = this.newReportService.removeAllIncidentElements();
+    }
 
     prepareReport(): void {
         this.newIncident.incidentElements = this.newReportService.collectIncidentElements( this.newIncident.category );

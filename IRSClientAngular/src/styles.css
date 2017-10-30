@@ -200,6 +200,10 @@ body {
     opacity: 1;
     cursor: pointer; }
 
+span.required-asterisk {
+  color: red;
+  font-size: 16px; }
+
 span.panel-header, .glyphicon-heading {
   color: #333;
   font-size: 18px;

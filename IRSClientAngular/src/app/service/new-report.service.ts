@@ -80,6 +80,11 @@ export class NewReportService {
         return this.incidentElements;
     }
 
+    removeAllIncidentElements(): IncidentElement[] {
+        this.incidentElements.splice(0, this.incidentElements.length );
+        return this.incidentElements;
+    }
+
     private unwrapSubject( behaviorSubject: any, table: string ) {
         var arr = behaviorSubject.getValue();
         if ( arr == null ) {
