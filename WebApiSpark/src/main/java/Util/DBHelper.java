@@ -27,17 +27,7 @@ public class DBHelper
         {
             ResultSet incidentResultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.INCIDENT.toString());
 
-            while ( incidentResultSet.next () )
-            {
-                Incident incident = new Incident ();
-
-                incident.extractFromCurrentRow ( incidentResultSet );
-
-                ArrayList < IncidentElement > incidentElementsList = getIncidentElements ( Integer.parseInt (incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) ) );
-
-                incident.changeIncidentElementList ( incidentElementsList );
-                incidentList.add ( incident );
-            }
+            fillListWithIncidentsFromResultSet ( incidentList , incidentResultSet );
         }
 
         catch ( Exception e )
@@ -46,6 +36,57 @@ public class DBHelper
         }
 
         return incidentList.toArray ( new Incident [ incidentList.size () ] );
+    }
+
+    public static Incident [] getGuardIncidents ( int accountID ) {
+        ArrayList < Incident > incidentList = new ArrayList <> ();
+
+        try
+        {
+            ResultSet incidentResultSet = executeQuery( "SELECT Incident.*\n" +
+                    "FROM Incident  INNER JOIN AssignedTo  ON Incident.REPORT_ID = AssignedTo.REPORT_ID\n" +
+                    "WHERE AssignedTo.ACCOUNT_ID = " + accountID + " and Incident.CLOSED = 0" );
+
+            fillListWithIncidentsFromResultSet ( incidentList , incidentResultSet );
+        }
+        catch ( Exception e)
+        {
+            e.printStackTrace ();
+        }
+        return incidentList.toArray ( new Incident [ incidentList.size () ] );
+    }
+
+    public static Incident getIncident( String reportId ) {
+        ArrayList < Incident > incidentList = new ArrayList <> ();
+        try {
+            String query = "select top 1 * from Incident where REPORT_ID = '" + reportId + "';";
+            ResultSet result = executeQuery( query );
+            fillListWithIncidentsFromResultSet( incidentList, result );
+            return incidentList.get(0);
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private static void fillListWithIncidentsFromResultSet ( ArrayList < Incident > list, ResultSet set) {
+        try
+        {
+            while( set.next () )
+            {
+                Incident incident = new Incident ();
+                incident.extractFromCurrentRow ( set );
+                ArrayList < IncidentElement > incidentElementsList = getIncidentElements ( Integer.parseInt (incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) ) );
+                incident.changeIncidentElementList ( incidentElementsList );
+                list.add ( incident );
+            }
+        }
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
     }
 
     public static ArrayList < IncidentElement > getIncidentElements ( int reportID ) {

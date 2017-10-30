@@ -9,12 +9,19 @@ import { Category } from '../component/category/category';
 import { Location } from '../component/location/location';
 import { Person } from '../component/person/person'; 
 import 'rxjs/add/operator/toPromise';
+import {User} from "../component/login/user";
+import {UserService} from "./user.service";
+
+
+
 
 @Injectable()
-export class IncidentService 
+export class IncidentService
 {
     private headers = new Headers({'Content-Type': 'application/json'});
     incidentsUrl = Config.IncidentsURI;
+    guardIncidentsUrl = Config.GuardIncidentsURI;
+    private userService = new UserService;
     tableName = "";
 
     private bs_reportsToAddToWorkspace = new BehaviorSubject<Incident[]>( [] );
@@ -66,14 +73,36 @@ export class IncidentService
         return incidents;
     }
 
+    getGuardIncidents(): Promise<Incident[]> {
+        var user = this.userService.getCurrentUser();
+        var _user = DataHelperService.toIncidentElement ( Config.AccountTable, user );
+        var incidents = this.http
+            .post( this.guardIncidentsUrl, JSON.stringify( _user ), { headers: this.headers } )
+            .toPromise()
+            .then( response => response.json() as Incident[] )
+            .catch( this.handleError );
+        return Promise.resolve( incidents );
+    }
+
+    getIncident( id: number ): Promise<Incident> {
+        var incident = new Incident();
+        incident.attributes.REPORT_ID = id ;
+        var returnIncident = this.http
+            .post( Config.GetIncidentURI, JSON.stringify( incident ), { headers: this.headers } )
+            .toPromise()
+            .then( response => response.json() as Incident )
+            .catch( this.handleError );
+        return Promise.resolve( returnIncident );
+    }
+
     create( incident: Incident ): Promise<Incident> {
         incident.table = Config.IncidentTable;
         incident.attributes.ACCOUNT_ID = 1;
         var promise = this.http
                 .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
                 .toPromise()
-                .then( response => { 
-                    return ( response.json() as boolean ) ? incident : null 
+                .then( response => {
+                    return ( response.json() as boolean ) ? incident : null
                 })
                 .catch( this.handleError );
         return Promise.resolve( promise );
@@ -93,7 +122,7 @@ export class IncidentService
         return Promise.resolve( promise );
     };
 
-    private handleError( error: any ) : Promise<any> 
+    private handleError( error: any ) : Promise<any>
     {
         alert( "An error occurred." );
         console.error( 'An error occurred' , error ); // for demo purposes only

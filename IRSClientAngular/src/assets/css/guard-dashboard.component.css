@@ -1,3 +1,19 @@
+
+.flex-container {
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-wrap: wrap;
+}
+
+.flex-item {
+  background-color: cornflowerblue;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+}
+
 .container > .row {
   clear: both; }
 
@@ -30,4 +46,3 @@ select.category-field {
 label.field-label {
   padding-left: 1em; }
 
-/*# sourceMappingURL=guard-dashboard.component.css.map */
