@@ -315,6 +315,21 @@ span.glyphicon-fire {
     color:red;
 }
 
+div.phone-input {
+    @include flex(flex-start, center);
+    input, span {
+        margin-right: 8px;
+    }
+}
+
+.phone-3 {
+    width: 50px !important ;
+}
+
+.phone-4 {
+    width: 60px !important ;
+}
+
 /****************************/
 /*  Guard app styles
 /****************************/

@@ -252,6 +252,19 @@ span.glyphicon-fire {
 .alertText {
   color: red; }
 
+div.phone-input {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
+  div.phone-input input, div.phone-input span {
+    margin-right: 8px; }
+
+.phone-3 {
+  width: 50px !important; }
+
+.phone-4 {
+  width: 60px !important; }
+
 /****************************/
 /*  Guard app styles
 /****************************/

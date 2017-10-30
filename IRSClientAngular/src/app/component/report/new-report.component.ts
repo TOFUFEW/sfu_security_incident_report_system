@@ -24,7 +24,7 @@ export class NewReportComponent implements OnInit {
     locationStr: string = LocationComponent.name;
     personStr: string = PersonComponent.name;
     newIncident: Incident = new Incident();
-
+    
     categories: CategoryDictionary[] = [];
     subCategories: SubCategory[] = [];
     categoryTypes: CategoryType[] = [];    
@@ -126,6 +126,18 @@ export class NewReportComponent implements OnInit {
             alert("Please fill in the required fields");
         }
     }
+
+    // formatPhoneNumber( number: string ) {
+    //     var str = "(";
+    //     for (var i = 0 ; i < number.length ; i += 1) {
+    //         str += number.charAt( i ) + "" ;
+    //         if ( i == 2 )
+    //             str += ")" + "" ;
+    //         if ( i < 6 && (i+1) % 3 == 0 )
+    //             str += " - " + "";
+    //     }
+    //     return str;
+    // }
 
     private isReportValid(): boolean {
         return this.newReportService.validateReport( this.newIncident );

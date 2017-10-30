@@ -117,15 +117,15 @@ export class NewReportService {
     private validateReportAttributes( report: Incident ): boolean {
         var isValid = true;
         if ( report.attributes.CATEGORY_ID == null ) {
-            this.debug_printErrorMsg( "CATEGORY_ID");
+            this.debug_printErrorMsg( "CATEGORY_ID" );
             isValid = false;
         }
-        if ( report.attributes.DESCRIPTION == null || report.attributes.DESCRIPTION.length == 0) {
-            this.debug_printErrorMsg( "DESCRIPTION");
+        if ( report.attributes.DESCRIPTION == null || report.attributes.DESCRIPTION.length == 0 ) {
+            this.debug_printErrorMsg( "DESCRIPTION" );
             isValid = false;
         }
-        if ( report.attributes.EXECUTIVE_SUMMARY == null || report.attributes.EXECUTIVE_SUMMARY.length == 0) {
-            this.debug_printErrorMsg( "EXECUTIVE_SUMMARY");
+        if ( report.attributes.EXECUTIVE_SUMMARY == null || report.attributes.EXECUTIVE_SUMMARY.length == 0 ) {
+            this.debug_printErrorMsg( "EXECUTIVE_SUMMARY" );
             isValid = false;
         }
         return isValid;
@@ -146,7 +146,7 @@ export class NewReportService {
     private validateLocation( location: Location ): boolean {
         var attr = location.attributes;
         if ( attr.LOCATION_ID == null ) {
-            this.debug_printErrorMsg( "LOCATION_ID");
+            this.debug_printErrorMsg( "LOCATION_ID" );
             return false;
         }
 
@@ -155,15 +155,15 @@ export class NewReportService {
 
     private validatePerson( person: Person ): boolean {
         var isValid = true ; 
-        if ( person.FIRST_NAME == null || person.FIRST_NAME.length == 0) {
+        if ( person.FIRST_NAME == null || person.FIRST_NAME.length == 0 ) {
             this.debug_printErrorMsg( "FIRST_NAME");
             isValid = false;
         }
-        if ( person.LAST_NAME == null || person.LAST_NAME.length == 0) {
+        if ( person.LAST_NAME == null || person.LAST_NAME.length == 0 ) {
             this.debug_printErrorMsg( "LAST_NAME");
             isValid = false;
         }
-        if ( person.PHONE_NUMBER == null || person.PHONE_NUMBER.length == 0) {
+        if ( person.PHONE_NUMBER == null || person.PHONE_NUMBER.length == 0 ) {
             this.debug_printErrorMsg( "PHONE_NUMBER");
             isValid = false;
         }
@@ -171,6 +171,6 @@ export class NewReportService {
     }
 
     private debug_printErrorMsg( field: String ) {
-        console.log( "***** REPORT INVALID ERROR: " + field + " cannot be null or empty ");        
+        console.log( "***** REPORT INVALID ERROR: " + field + " cannot be null or empty " );        
     }
 }
