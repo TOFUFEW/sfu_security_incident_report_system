@@ -19,59 +19,63 @@ import {AssignGuardService} from "../../service/assign-guard.service";
 )
 
 export class IncidentComponent implements OnInit {
-  incidents: Incident[];
-  staffs: Staff[];
-  newIncident: Incident = new Incident();
-  newUser: User = new User();
+    incidents: Incident[];
+    staffs: Staff[];
+    incidentToAssign: Incident = new Incident();
+    newUser: User = new User();
 
-  constructor( private incidentService: IncidentService,
-               private staffService: StaffService,
-               private assignGuardService: AssignGuardService ) {};
+    constructor( private incidentService: IncidentService,
+                private staffService: StaffService,
+                private assignGuardService: AssignGuardService ) {};
 
-  getIncidents(): void {
-      this.incidentService.getIncidents().then( returnedIncidents => {
-          this.incidents = returnedIncidents;
-      } );
-  }
+    getIncidents(): void {
+        this.incidentService.getIncidents().then( returnedIncidents => {
+            this.incidents = returnedIncidents;
+        } );
+    }
 
-  getStaff() : void {
-      this.staffService.getStaffs().then( returnedStaffs => {
-          this.staffs = returnedStaffs;
-      } );
-  }
+    getStaff() : void {
+        this.staffService.getStaffs().then( returnedStaffs => {
+            this.staffs = returnedStaffs;
+        } );
+    }
 
-  deleteIncident( id: number ): void {
-      this.incidentService.delete( id ).then( isDeleted => {
-          var msg = isDeleted ? "Incident successfully deleted!" : "Delete failed";
-          alert(msg);
-          var i = this.incidents.findIndex( loc => loc.attributes.REPORT_ID === id );
-          // remove 1 object at index i
-          this.incidents.splice( i, 1 );
-      } );
-  }
+    deleteIncident( id: number ): void {
+        this.incidentService.delete( id ).then( isDeleted => {
+            var msg = isDeleted ? "Incident successfully deleted!" : "Delete failed";
+            alert(msg);
+            var i = this.incidents.findIndex( loc => loc.attributes.REPORT_ID === id );
+            // remove 1 object at index i
+            this.incidents.splice( i, 1 );
+        } );
+    }
 
-  setCurrentIncident( incident: Incident ) : void {
-      this.newIncident = incident;
-      console.log( "set incident id = " + this.newIncident.attributes.REPORT_ID);
-  }
+    setCurrentIncident( incident: Incident ) : void {
+        this.incidentToAssign = incident;
+        console.log( "set incident id = " + this.incidentToAssign.attributes.REPORT_ID);
+    }
 
-  assignGuard() {
-      console.log("assign staff id = " + this.newUser.ACCOUNT_ID);
-      console.log("assign staff incident id = " + this.newIncident.attributes.REPORT_ID);
-      this.newIncident.attributes.ACCOUNT_ID = this.newUser.ACCOUNT_ID;
-      this.assignGuardService.assignGuard( this.newIncident )
-        .then( isAssigned => {
+    assignGuard() {
+        console.log("assign staff id = " + this.newUser.ACCOUNT_ID);
+        console.log("assign staff incident id = " + this.incidentToAssign.attributes.REPORT_ID);
+        this.incidentToAssign.attributes.ACCOUNT_ID = this.newUser.ACCOUNT_ID;
+        this.assignGuardService.assignGuard( this.incidentToAssign )
+          .then( isAssigned => {
             if( isAssigned ) {
-                alert("successfuly assigned");
+              alert("successfuly assigned");
             } else {
-                alert("assigning failed");
+              alert("assigning failed");
             }
-        });
-  }
+          });
 
-  ngOnInit() : void {
-      this.getIncidents();
-      this.getStaff();
-  }
+        // flush
+        delete this.incidentToAssign;
+        this.incidentToAssign = new Incident();
+    }
+
+    ngOnInit() : void {
+        this.getIncidents();
+        this.getStaff();
+    }
 
 }
