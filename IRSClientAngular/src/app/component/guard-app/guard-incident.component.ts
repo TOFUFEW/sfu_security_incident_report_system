@@ -11,11 +11,12 @@ import { UserService } from '../../service/user.service';
 @Component ({
   selector: 'guard-incident-component',
   templateUrl: './guard-incident.component.html',
+  styleUrls: ['../../../assets/css/guard-app.css'],  
 })
 
 export class GuardIncidentComponent implements OnInit {
     title = 'SFU Incident Reporting System';
-    incident: Incident;  
+    incident: Incident; 
 
   constructor ( 
         private incidentsService: IncidentService, 
@@ -70,6 +71,7 @@ export class GuardIncidentComponent implements OnInit {
             this.incidentsService.getIncident ( +params.get ( 'id' )))
         .subscribe ( returnedIncident => {
             this.incident = returnedIncident;
+            console.log("returned incident" , this.incident);            
         });
     }
 }

@@ -81,13 +81,13 @@ body {
   font-size: 120%;
   margin-bottom: 8px; }
 
-.card-text-primary {
+.card-text-primary, a.card-text-primary {
   color: #54585A;
   display: inline-block;
   font-size: 115%;     
 }
 
-.card-text-secondary {
+.card-text-secondary a.card-text-primary {
   color: #333;
   display: inline-block;
   font-size: 100%; 

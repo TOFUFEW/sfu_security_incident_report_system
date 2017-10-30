@@ -66,13 +66,13 @@ export class IncidentService
     }
 
     getIncident( id: number ): Promise<Incident> {
-        var incident = new Incident();
+        var incident = new Incident;
         console.log("report id: ", id);
         incident.attributes.REPORT_ID = id ;
         var returnIncident = this.http
             .post( Config.GetIncidentURI, JSON.stringify( incident ), { headers: this.headers } )
             .toPromise()
-            .then( response => response.json() as Incident )
+            .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
             .catch( this.handleError );
         console.log("got one incident");
         return Promise.resolve( returnIncident );
