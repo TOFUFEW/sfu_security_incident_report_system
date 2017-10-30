@@ -59,7 +59,14 @@ export class IncidentComponent implements OnInit {
       console.log("assign staff id = " + this.newUser.ACCOUNT_ID);
       console.log("assign staff incident id = " + this.newIncident.attributes.REPORT_ID);
       this.newIncident.attributes.ACCOUNT_ID = this.newUser.ACCOUNT_ID;
-      this.assignGuardService.assignGuard( this.newIncident );
+      this.assignGuardService.assignGuard( this.newIncident )
+        .then( isAssigned => {
+            if( isAssigned ) {
+                alert("successfuly assigned");
+            } else {
+                alert("assigning failed");
+            }
+        });
   }
 
   ngOnInit() : void {

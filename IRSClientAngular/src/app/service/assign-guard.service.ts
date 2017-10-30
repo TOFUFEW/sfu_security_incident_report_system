@@ -10,13 +10,13 @@ export class AssignGuardService {
 
     constructor( private http: Http ) {}
 
-    assignGuard( incident: Incident ) : Promise<Incident> {
+    assignGuard( incident: Incident ) : Promise<boolean> {
         console.log("service assignGuard staff id = " + incident.attributes.ACCOUNT_ID);
         var promise = this.http
           .post( this.assignGuardUrl, JSON.stringify( incident ), { headers: this.headers } )
           .toPromise()
           .then( response => {
-              return( response.json() as boolean ) ? incident : null
+              return( response.json() as boolean )
           })
           .catch( this.handleError );
         return Promise.resolve( promise );
