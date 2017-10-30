@@ -109,7 +109,7 @@ export class NewReportComponent implements OnInit {
 
     createIncident(): void {
         if(this.reportReady){
-            this.newIncident.incidentElements = this.newReportService.collectIncidentElements( this.selectedCategory );
+            //this.newIncident.incidentElements = this.newReportService.collectIncidentElements( this.selectedCategory );
             this.incidentService.create( this.newIncident )
                 .then( returnedIncident => {
                     if ( returnedIncident != null  ) {
