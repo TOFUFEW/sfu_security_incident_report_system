@@ -38,6 +38,7 @@ export class NewReportComponent implements OnInit {
       private newReportService: NewReportService,
       private categoryService: CategoryService
     ) {
+        this.selectedCategory = new Category(null, null, null, null);
     }
 
     ngOnInit() {

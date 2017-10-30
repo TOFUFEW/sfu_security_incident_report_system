@@ -19,19 +19,19 @@
                         <div class="details-body">
                             <div class="detail col-12 col-sm-3">
                                 <span class="field-title">Category</span>
-                                <select name="" id="" class="form-control" [(ngModel)]="this.newIncident.category.MAIN_CATEGORY" (change)="onSelectCategory()">
+                                <select name="" id="" class="form-control" [(ngModel)]="newIncident.category.MAIN_CATEGORY" (change)="onSelectCategory()">
                                     <option *ngFor="let category of categories" [value]="category.MAIN_CATEGORY">{{category.MAIN_CATEGORY}}</option>
                                 </select>
                             </div>
                             <div class="detail col-12 col-sm-3">
                                 <span class="field-title">Sub Category</span>
-                                <select class="form-control" [(ngModel)]="this.newIncident.category.SUB_CATEGORY" (change)="onSelectSubCategory()">
+                                <select class="form-control" [(ngModel)]="newIncident.category.SUB_CATEGORY" (change)="onSelectSubCategory()">
                                     <option *ngFor="let subCategory of subCategories" [value]="subCategory.SUB_CATEGORY">{{subCategory.SUB_CATEGORY}}</option>
                                 </select>
                             </div>
                             <div class="detail col-12 col-sm-3"  *ngIf="categoryTypes.length > 0">
                                 <span class="field-title">Type</span>
-                                <select class="form-control" [(ngModel)]="this.newIncident.category.INCIDENT_TYPE" (change)="onSelectType()">
+                                <select class="form-control" [(ngModel)]="newIncident.category.INCIDENT_TYPE" (change)="onSelectType()">
                                     <option *ngFor="let type of categoryTypes" [value]="type.INCIDENT_TYPE">{{type.INCIDENT_TYPE}}</option>
                                 </select>
                             </div>
@@ -109,8 +109,8 @@
                     <div class="details-body">
                         <div class="detail col-12 col-sm-3">
                             <span class="field-title">Category: </span>
-                            <span class="field-value">{{selectedCategory.MAIN_CATEGORY}}</span>
-                            <div class="alertText" *ngIf="selectedCategory.MAIN_CATEGORY == null">
+                            <span class="field-value">{{newIncident.MAIN_CATEGORY}}</span>
+                            <div class="alertText" *ngIf="newIncident.category.MAIN_CATEGORY == null">
                                 {{reportNotReady()}}
                                 Please select a category
                             </div>
@@ -118,15 +118,15 @@
                         <div class="detail col-12 col-sm-3">
                             <span class="field-title">Sub Category: </span>
                             <span class="field-value">{{selectedCategory.SUB_CATEGORY}}</span>
-                            <div class="alertText" *ngIf="selectedCategory.SUB_CATEGORY == null">
+                            <div class="alertText" *ngIf="newIncident.category.SUB_CATEGORY == null">
                                     {{reportNotReady()}}
                                     Please select a sub category
                             </div>
                         </div>
-                        <div class="detail col-12 col-sm-3" *ngIf="selectedCategory.INCIDENT_TYPE != null ">
+                        <div class="detail col-12 col-sm-3" *ngIf="this.newIncident.category.INCIDENT_TYPE != null ">
                             <span class="field-title">Type: </span>
-                            <span class="field-value">{{selectedCategory.INCIDENT_TYPE}}</span>
-                            <div class="alertText" *ngIf="selectedCategory.INCIDENT_TYPE == null">
+                            <span class="field-value">{{newIncident.category.INCIDENT_TYPE}}</span>
+                            <div class="alertText" *ngIf="newIncident.category.INCIDENT_TYPE == null">
                                     {{reportNotReady()}}
                                     Please select an incident type
                             </div>
