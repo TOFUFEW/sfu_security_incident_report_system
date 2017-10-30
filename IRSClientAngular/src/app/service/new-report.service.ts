@@ -50,8 +50,11 @@ export class NewReportService {
         if ( table === Config.LocationTable ) {
             behaviorSubject = this.locations;
             arr = behaviorSubject.getValue() as Location[];
-            var id = ( obj as Location ).attributes.LOCATION_ID;
-            index = arr.findIndex( x => x.attributes.LOCATION_ID == id );
+            var loc = obj as Location ;
+            index = arr.findIndex( x => x.attributes.CAMPUS_ID == obj.attributes.CAMPUS_ID
+                && x.attributes.LOCATION_ID == obj.attributes.LOCATION_ID
+                && x.attributes.BUILDING_NAME == obj.attributes.BUILDING_NAME
+                && x.attributes.ROOM_NUMBER == obj.attributes.ROOM_NUMBER );
         }
         else if ( table === Config.PersonTable ) {
             behaviorSubject = this.persons;
