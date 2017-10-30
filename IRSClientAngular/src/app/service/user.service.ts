@@ -48,7 +48,3 @@ export class UserService {
         return this.getAccountType() == 1;
     }
 }
-<<<<<<< HEAD
-//
-=======
->>>>>>> origin/master
