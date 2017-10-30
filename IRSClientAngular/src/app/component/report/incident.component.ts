@@ -4,6 +4,10 @@ import { Incident } from './incident';
 import { Location } from '../location/location';
 import {Staff} from "../staff/staff";
 import {StaffService} from "../../service/staff.service";
+import {User} from "../login/user";
+import {DataHelperService} from "../../util/data-helper.service";
+import {Config} from "../../util/config.service";
+import {AssignGuardService} from "../../service/assign-guard.service";
 
 @Component(
   {
@@ -18,9 +22,11 @@ export class IncidentComponent implements OnInit {
   incidents: Incident[];
   staffs: Staff[];
   newIncident: Incident = new Incident();
+  newUser: User = new User();
 
   constructor( private incidentService: IncidentService,
-               private staffService: StaffService ){};
+               private staffService: StaffService,
+               private assignGuardService: AssignGuardService ) {};
 
   getIncidents(): void {
       this.incidentService.getIncidents().then( returnedIncidents => {
@@ -35,13 +41,27 @@ export class IncidentComponent implements OnInit {
   }
 
   deleteIncident( id: number ): void {
-    this.incidentService.delete( id ).then( isDeleted => {
-        var msg = isDeleted ? "Incident successfully deleted!" : "Delete failed";
-        alert(msg);
-        var i = this.incidents.findIndex( loc => loc.attributes.REPORT_ID === id );
-        // remove 1 object at index i
-        this.incidents.splice( i, 1 );
-      });
+      this.incidentService.delete( id ).then( isDeleted => {
+          var msg = isDeleted ? "Incident successfully deleted!" : "Delete failed";
+          alert(msg);
+          var i = this.incidents.findIndex( loc => loc.attributes.REPORT_ID === id );
+          // remove 1 object at index i
+          this.incidents.splice( i, 1 );
+      } );
+  }
+
+  setCurrentIncident( incident: Incident ) : void {
+      this.newIncident = incident;
+      console.log( "set incident id = " + this.newIncident.attributes.REPORT_ID);
+  }
+
+  assignGuard() {
+      console.log("assign staff id = " + this.newUser.ACCOUNT_ID);
+      console.log("assign staff incident id = " + this.newIncident.attributes.REPORT_ID);
+      var user = DataHelperService.toIncidentElement( Config.AccountTable, this.newUser );
+      this.newIncident.incidentElements.push( user );
+      console.log( "assign user id = " + this.newUser);
+      //this.assignGuardService.assignGuard( this.newIncident );
   }
 
   ngOnInit() : void {

@@ -40,7 +40,7 @@
                                 [ {{location.attributes.CAMPUS_ID}} {{location.attributes.BUILDING_NAME}} {{location.attributes.ROOM_NUMBER}} ]
                             </span>
                         </td>
-                        <td><a data-toggle="modal" data-target="#dispatchModal">Assign</a></td>
+                        <td><a data-toggle="modal" data-target="#dispatchModal" (click)="setCurrentIncident(incident)">Assign</a></td>
                         <td>Dispatcher Name</td>
                         <td>08/13/2017 4:44</td>
                     </tr>
@@ -61,13 +61,13 @@
       </div>
       <div class="modal-body">
         <h4>Staff</h4>
-        <select>
-          <option *ngFor="let staff of staffs">{{staff.FIRST_NAME}}</option>
+        <select class="form-control" [(ngModel)]="newUser.ACCOUNT_ID">
+          <option *ngFor="let staff of staffs" [value]="staff.ACCOUNT_ID">{{staff.FIRST_NAME}}</option>
         </select>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button class="btn btn-primary">Dispatch</button>
+        <button class="btn btn-primary" (click)="assignGuard()" data-dismiss="modal">Assign</button>
       </div>
     </div>
   </div>

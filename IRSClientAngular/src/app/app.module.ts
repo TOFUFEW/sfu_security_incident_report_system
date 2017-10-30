@@ -34,6 +34,7 @@ import { NewReportService } from './service/new-report.service';
 import { DataHelperService } from './util/data-helper.service';
 
 import { FilterPipe } from './util/filter.pipe';
+import {AssignGuardService} from "./service/assign-guard.service";
 
 @NgModule({
   imports: [
@@ -71,7 +72,8 @@ import { FilterPipe } from './util/filter.pipe';
     StaffService,
     PersonService,
     NewReportService,
-    CategoryService],
+    CategoryService,
+    AssignGuardService],
 
   bootstrap: [AppComponent],
 

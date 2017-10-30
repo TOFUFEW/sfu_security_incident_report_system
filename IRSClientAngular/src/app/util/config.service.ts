@@ -4,6 +4,7 @@ export class Config {
     static StaffURI: string = "http://localhost:4567/staff";
     static LoginURI: string = "http://localhost:4567/login";
     static PersonURI: string = "http://localhost:4567/person";
+    static AssignGuardURI: string = "http://localhost:4567/assignGuard";
 
 
     static CategoriesURI: string = "http://localhost:4567/categories";

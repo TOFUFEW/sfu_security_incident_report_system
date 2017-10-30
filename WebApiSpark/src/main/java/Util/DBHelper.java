@@ -211,6 +211,19 @@ public class DBHelper
         return false;
     }
 
+    public static boolean insertAssignedGuard( int reportID, int accountID ) {
+        String query = "INSERT INTO AssignedTo (REPORT_ID, ACCOUNT_ID)\n" +
+                "VALUES (" + reportID + ", " + accountID + ")";
+        try
+        {
+            return execute ( query );
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     /* Validate incidents attributes */
     private static boolean allFieldsValid( Incident incident ) {
         if ( incident.getAttributeValue(DatabaseValues.Column.DESCRIPTION ) == null ||
