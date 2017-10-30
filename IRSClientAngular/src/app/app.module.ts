@@ -19,6 +19,7 @@ import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
 import { GuardDashboardComponent } from './component/guard-app/guard-dashboard.component';
 import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
+import { GuardTestViewReportComponent } from "./component/guard-app/guard-test-view-report.component";
 import { CategoryComponent } from './component/category/category.component'
 
 /* Services */
@@ -58,7 +59,8 @@ import { FilterPipe } from './util/filter.pipe';
     VehicleComponent,
     SearchComponent,
     PersonComponent,
-    FilterPipe
+    FilterPipe,
+    GuardTestViewReportComponent
   ],
 
   providers: [

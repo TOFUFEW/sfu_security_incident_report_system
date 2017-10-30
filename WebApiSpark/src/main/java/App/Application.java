@@ -24,6 +24,7 @@ public class Application
         LoginController loginController = new LoginController();
         PersonController personController = new PersonController();
         IncidentCategoryController categoryController = new IncidentCategoryController();
+        GuardIncidentsController guardIncidentsController = new GuardIncidentsController();
     }
 
     // CORS Filter
