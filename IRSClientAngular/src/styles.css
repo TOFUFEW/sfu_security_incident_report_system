@@ -135,6 +135,8 @@ body {
     border-bottom: 2px solid transparent;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px; }
+  .panel .panel-body, .modal-dialog .panel-body {
+    height: 100%; }
   .panel .panel-body, .panel .panel-footer, .modal-dialog .panel-body, .modal-dialog .panel-footer {
     padding: 15px; }
   .panel .panel-footer, .modal-dialog .panel-footer {

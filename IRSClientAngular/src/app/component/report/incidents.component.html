@@ -6,7 +6,6 @@
                 <span class="glyphicon glyphicon-list-alt glyphicon-heading"></span>
                 <span class="panel-header">Reports</span>
             </div>
-            <input class="form-control" type="text" placeholder="Search for reports...">
         </div>
     </div>
     <div class="panel-body">
@@ -38,44 +37,10 @@
                 </div>
                 
             </div>
-            <!-- <table id="incidents-table" class="max-height-width">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Report ID</th>
-                        <th>Category</th>
-                        <th>SubCategory</th>
-                        <th>Type</th>
-                        <th>Description</th>
-                        <th>Location</th>
-                        <th>Assigned To</th>
-                        <th>Assigned By</th>
-                        <th>Date/Time Created</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let incident of incidents">
-                    <tr>
-                        <td>!!!</td>
-                        <td>{{incident.attributes.REPORT_ID}}</td>
-                        <td>{{incident.category.MAIN_CATEGORY}}</td>
-                        <td>{{incident.category.SUB_CATEGORY}}</td>
-                        <td><span *ngIf="incident.category.INCIDENT_TYPE != null">{{incident.category.INCIDENT_TYPE}}</span></td>
-                        <td>{{incident.attributes.DESCRIPTION}} </td>
-                        <td><span *ngFor="let location of incident.locationList">
-                                [ {{location.attributes.CAMPUS_ID}} {{location.attributes.BUILDING_NAME}} {{location.attributes.ROOM_NUMBER}} ]
-                            </span>
-                        </td>
-                        <td><span class="link">Assign</span></td>
-                        <td>Dispatcher Name</td>
-                        <td>08/13/2017 4:44</td>
-                        <td>
-                            <span *ngIf="!incident.inWorkspace" class="link" (click)="addToWorkspace(incident)">Add To Workspace</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table> -->
         </div>
+    </div>
+    <div class="panel-footer">
+        <input class="form-control" type="text" placeholder="Search for reports...">            
     </div>
 </div>
 

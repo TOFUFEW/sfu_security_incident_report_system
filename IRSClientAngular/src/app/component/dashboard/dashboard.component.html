@@ -3,12 +3,14 @@
         <div id="incidents-container" class="col-sm-8">
             <div id="workspace" class="row">
                 <div id="workspace-data" class="col-sm-3">
+                    <div id="button-container">
+                        <button class="btn btn-primary" (click)="newReport();">New Report</button>
+                    </div>
                     <incidents-component></incidents-component>
-                    <staff-component></staff-component>
                 </div>
                 <div id="workspace-main" class="col-sm-9">
                     <div id="incidents-dashboard" class="panel panel-default">
-                        <div class="panel-heading">
+                        <!-- <div class="panel-heading">
 
                             <div>
                                 <span class="glyphicon glyphicon-dashboard glyphicon-heading"></span>
@@ -17,7 +19,7 @@
                             <div id="button-container">
                                 <button class="btn btn-primary" (click)="newReport();">New Report</button>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="panel-body">
                             <div class="quarter-box" *ngFor="let report of reportsInWorkspace">
                                 <report-summary [inputReport]="report"></report-summary>
@@ -25,36 +27,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-md-12 col-lg-12 col">
-                    <div id="incidents-dashboard" class="panel panel-default">
-                        <div class="panel-heading">
-
-                            <div>
-                                <span class="glyphicon glyphicon-dashboard glyphicon-heading"></span>
-                                <span class="panel-header">Workspace</span>
-                            </div>
-                            <div id="button-container">
-                                <button class="btn btn-primary" (click)="newReport();">New Report</button>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <div class="quarter-box" *ngFor="let report of reportsInWorkspace">
-                                <report-summary [inputReport]="report"></report-summary>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
             </div>
-
-
-            <!-- <div id="bottom-panels" class="row">
-                <div id="left-col" class="col-md-9 col-lg-9 col">
-                    <incidents-component></incidents-component>
-                </div>
-                <div id="right-col" class="col-md-3 col-lg-3 col">
-                    <staff-component></staff-component>
-                </div>
-            </div> -->
         </div>
       
 
@@ -69,14 +42,11 @@
                         <option value="">Lone Worker</option>
                     </select>
                 </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <span class="glyphicon glyphicon-list-alt glyphicon-heading"></span>
-                    <span class="panel-header">Dispatch List</span>
+                <div class="panel-footer">
+                    
                 </div>
-                <div class="panel-body"></div>
             </div>
+            <staff-component></staff-component>
         </div>
       
         <div id="right-panels" class="col-sm-2 side-container">
