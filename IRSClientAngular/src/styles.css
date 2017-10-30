@@ -238,21 +238,15 @@ span.glyphicon-fire {
 .link {
   color: #0645AD; }
   .link:hover {
-<<<<<<< HEAD
     cursor: pointer;
     text-decoration: underline;
     color: #0B0080; }
 
 .flex {
   display: flex; }
-=======
-    cursor: pointer; } 
 
-  
 .alertText {
-  color:red;
-}
->>>>>>> master
+  color: red; }
 
 /****************************/
 /*  Guard app styles

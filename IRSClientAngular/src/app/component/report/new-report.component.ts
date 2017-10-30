@@ -53,6 +53,7 @@ export class NewReportComponent implements OnInit {
         this.categoryService.getCategories().then ( returnedCategories => {             
             this.categories = this.categoryService.toCategoryDictionary( returnedCategories );
         });
+        console.log( this.categories );
     }
     
     //filter subcategory and type lists according to selection of previous dropdown
