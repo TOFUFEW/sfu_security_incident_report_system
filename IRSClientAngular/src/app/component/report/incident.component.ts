@@ -58,10 +58,8 @@ export class IncidentComponent implements OnInit {
   assignGuard() {
       console.log("assign staff id = " + this.newUser.ACCOUNT_ID);
       console.log("assign staff incident id = " + this.newIncident.attributes.REPORT_ID);
-      var user = DataHelperService.toIncidentElement( Config.AccountTable, this.newUser );
-      this.newIncident.incidentElements.push( user );
-      console.log( "assign user id = " + this.newUser);
-      //this.assignGuardService.assignGuard( this.newIncident );
+      this.newIncident.attributes.ACCOUNT_ID = this.newUser.ACCOUNT_ID;
+      this.assignGuardService.assignGuard( this.newIncident );
   }
 
   ngOnInit() : void {
