@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule, ActivatedRoute, ParamMap } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
@@ -7,6 +7,7 @@ import { Incident } from '../report/incident';
 import { IncidentService } from '../../service/incident.service';
 import { UserService } from '../../service/user.service';
 import { NewReportService } from '../../service/new-report.service';
+import { LocationModalComponent } from '../location/location-modal.component';
 
 
 @Component ({
@@ -16,6 +17,7 @@ import { NewReportService } from '../../service/new-report.service';
 })
 
 export class GuardIncidentComponent implements OnInit {
+    @ViewChild(LocationModalComponent) locationModal: LocationModalComponent
     title = 'SFU Incident Reporting System';
     incident: Incident; 
 
@@ -80,12 +82,27 @@ export class GuardIncidentComponent implements OnInit {
         }
     }
 
+    changeLocation( edit ) : void {
+        var locationToRemoveIndex : number;
+        this.incident.locationList.map( (location, key) => {
+            if ( location.attributes.LOCATION_ID == this.locationModal.button_id ) {
+                locationToRemoveIndex = this.incident.locationList.indexOf(location);     
+            } 
+        });
+        console.log(locationToRemoveIndex);
+        var locationToAdd = this.locationModal.locationComponent.newLocation;        
+        this.incident.locationList.splice(locationToRemoveIndex, 1, locationToAdd);
+        // this.incident.locationList.push(locationToAdd);
+        console.log( this.incident.locationList );
+    }
+
     initializeReportService () : void {
         this.incident.incidentElements = this.reportService.collectIncidentElements( this.incident.category );              
         console.log(this.incident.category);          
         this.reportService.currentLocations
         .subscribe ( locations => {
             this.incident.locationList = locations;
+            console.log( "locations in new service ", this.incident.locationList);            
         });   
     }
 

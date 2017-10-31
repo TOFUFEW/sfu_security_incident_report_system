@@ -39,6 +39,7 @@ export class NewReportService {
         }
 
         arr.push( obj );
+        console.log("new report service array", arr);
         behaviorSubject.next( arr );
     }
 
