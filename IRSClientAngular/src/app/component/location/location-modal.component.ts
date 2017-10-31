@@ -6,6 +6,7 @@
 
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { LocationService } from '../../service/location.service';
 import { Location } from './location';
 
 @Component({
@@ -15,13 +16,19 @@ import { Location } from './location';
 })
 
 export class LocationModalComponent implements OnInit {
-    @Input() currentLocation: string;
+    private currentLocationID: number;
     public visible = false;
+    public button_id;
     private visibleAnimate = false;
 
     constructor () {}
 
-    public show(): void {
+    public show( event ): void {
+        var target = event.target || event.srcElement || event.currentTarget;
+        var idAttr = target.attributes.id;
+        this.currentLocationID = idAttr.value;
+        console.log(this.currentLocationID);
+        this.button_id = this.currentLocationID;
         this.visible = true;
         setTimeout(() => this.visibleAnimate = true, 100);
     }
@@ -37,6 +44,10 @@ export class LocationModalComponent implements OnInit {
         }
     }
 
+    public submitChanges(id): void {
+        console.log(id);
+    }
+    
     ngOnInit() {
         // Hide the remove location button from the location component
         document.getElementById("removeLocation").style.visibility = "hidden";
