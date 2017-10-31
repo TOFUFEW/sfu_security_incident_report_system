@@ -11,9 +11,10 @@ import { Category, SubCategory, CategoryType, CategoryDictionary } from '../cate
 import { LocationComponent } from '../location/location.component';
 import { VehicleComponent } from '../vehicle/vehicle.component';
 import { PersonComponent } from '../person/person.component';
+import { AttachmentComponent } from '../attachment/attachment.component';
 import { Config } from '../../util/config.service';
 
-@Component( 
+@Component(
   {
     templateUrl: './new-report.component.html',
     styleUrls: ['../../../assets/css/new-report.component.css'],
@@ -31,9 +32,9 @@ export class NewReportComponent implements OnInit {
     categoryTypes: CategoryType[] = [];
     selectedCategory: Category;
     reportReady: boolean = true;
-    
 
-    constructor( 
+
+    constructor(
       private incidentService: IncidentService,
       private domService: DomService,
       private newReportService: NewReportService,
@@ -48,11 +49,11 @@ export class NewReportComponent implements OnInit {
         this.newReportService.currentPersons
             .subscribe( persons => this.persons = persons );
 
-        this.categoryService.getCategories().then ( returnedCategories => {             
+        this.categoryService.getCategories().then ( returnedCategories => {
             this.categories = this.categoryService.toCategoryDictionary( returnedCategories );
         });
     }
-    
+
     //filter subcategory and type lists according to selection of previous dropdown
     onSelectCategory () {
         var index = this.categories.findIndex( item => item.MAIN_CATEGORY === this.selectedCategory.MAIN_CATEGORY );
@@ -98,12 +99,12 @@ export class NewReportComponent implements OnInit {
           //  this.domService.addComponent( VehicleComponent, "vehicles" );
         /*else*/ if ( componentName === this.locationStr ) {
             console.log("in addComponent: location");
-            this.domService.addComponent( LocationComponent.name, "locations" );            
+            this.domService.addComponent( LocationComponent.name, "locations" );
         } else if ( componentName === this.personStr){
             this.domService.addComponent( PersonComponent.name, "persons" );
         }
     }
-    
+
 
     createIncident(): void {
         if(this.reportReady){

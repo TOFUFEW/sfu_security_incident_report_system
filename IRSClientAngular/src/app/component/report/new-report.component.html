@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12 col-sm-10 col-sm-offset-1 col-sm-offset-right-1 
+        <div class="col-12 col-sm-10 col-sm-offset-1 col-sm-offset-right-1
                     col-lg-6 col-lg-offset-3 col-lg-offset-right-3">
             <div id="new-report-panel" class="panel panel-default">
                 <div class="panel-heading">
@@ -41,10 +41,12 @@
                             </div>
                             <div class="detail col-12 col-sm-10">
                                 <span class="field-title">Executive Summary</span>
-                                <textarea class="form-control" cols="50" rows="8" [(ngModel)]="newIncident.attributes.EXECUTIVE_SUMMARY"></textarea>                                
+                                <textarea class="form-control" cols="50" rows="8" [(ngModel)]="newIncident.attributes.EXECUTIVE_SUMMARY"></textarea>
                             </div>
                         </div>
                     </div>
+
+                     <attachment-component #files (change)="files.upload()" [multiple]="true"></attachment-component>
 
                     <div class="details-container">
                         <div class="details-heading">
@@ -52,7 +54,7 @@
                             <span class="field-title">Location</span>
                         </div>
                         <div id="locations">
-                            <location-component></location-component> 
+                            <location-component></location-component>
                         </div>
                     </div>
 
@@ -60,10 +62,10 @@
                         <div class="col-sm-3 col-sm-offset-8 col-sm-offset-right-1
                                     col-lg-3 col-lg-offset-9">
                             <button class="btn btn-default" (click)="addComponent(locationStr)">
-                                <span class="glyphicon glyphicon-plus"></span> Add Location</button>                                
+                                <span class="glyphicon glyphicon-plus"></span> Add Location</button>
                         </div>
                     </div>
-                    
+
                     <div class="details-container">
                         <div class="details-heading">
                             <span class="glyphicon glyphicon-user glyphicon-heading"></span>
@@ -72,19 +74,19 @@
                         <div id="persons">
                             <person-component></person-component>
                         </div>
-                    </div> 
+                    </div>
 
                     <div class="row">
                         <div class="col-sm-3 col-sm-offset-8 col-sm-offset-right-1
                                     col-lg-3 col-lg-offset-9">
                             <button class="btn btn-default" (click)="addComponent(personStr)">
-                                <span class="glyphicon glyphicon-plus"></span> Add Person</button>                                
+                                <span class="glyphicon glyphicon-plus"></span> Add Person</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="panel-footer">
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#confirmationModal" (click)="review()">Next</button>                                
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#confirmationModal" (click)="review()">Next</button>
                 </div>
             </div>
         </div>
@@ -211,10 +213,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary" (click)="createIncident()">Create Report</button>   
+                <button class="btn btn-primary" (click)="createIncident()">Create Report</button>
             </div>
         </div>
     </div>
 </div>
-
-
