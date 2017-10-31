@@ -4,6 +4,7 @@ export class Config {
     static StaffURI: string = "http://localhost:4567/staff";
     static LoginURI: string = "http://localhost:4567/login";
     static PersonURI: string = "http://localhost:4567/person";
+    static TimerURI: string = "http://localhost:4567/timer";
 
     static GuardIncidentsURI: string = "http://localhost:4567/guardIncidents";
     static GetIncidentURI: string = "http://localhost:4567/getIncident"
@@ -15,4 +16,5 @@ export class Config {
     static IncidentTable: string = "INCIDENT";
     static PersonTable: string = "PERSON";
     static CategoryTable: string = "INCIDENT_CATEGORY";
+    static TimerTable: string = "TIMER";
 }

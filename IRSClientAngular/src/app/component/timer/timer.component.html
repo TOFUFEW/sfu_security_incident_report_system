@@ -1,0 +1,28 @@
+<div id="timer-list-panel" class="panel panel-default">
+    <div class="panel-heading">
+        <div class="toolbar">
+            <div class="flex">
+                <span class="glyphicon glyphicon-user glyphicon-heading"></span>
+                <span class="panel-header">Timer</span>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="staff-list" class="col-md-12 col-lg-12">
+            <div class="row">
+                <div class="timer-card"  *ngFor="let timer of timerList">
+                  <div class="status-indicator-container">
+                    <div class="status-indicator"></div>
+                  </div>
+                  <div class="name-plate">
+                    <span class="card-text-primary">{{timer.START_TIME | date: "mediumTime"}}, {{timer.END_TIME | date: "mediumTime"}}</span>
+                    <span class="card-text-secondary">Surrey</span>
+                  </div>
+                  <div class="actions">
+                    <span class="glyphicon glyphicon-tag"></span>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>

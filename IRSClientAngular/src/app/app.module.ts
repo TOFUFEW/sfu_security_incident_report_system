@@ -18,6 +18,7 @@ import { VehicleComponent } from './component/vehicle/vehicle.component';
 import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
 import { AttachmentComponent } from './component/attachment/attachment.component';
+import { TimerComponent } from './component/timer/timer.component';
 
 import { GuardDashboardComponent } from './component/guard-app/guard-dashboard.component';
 import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
@@ -35,6 +36,7 @@ import { IncidentService } from './service/incident.service'
 import { StaffService } from './service/staff.service'
 import { PersonService } from './service/person.service';
 import { NewReportService } from './service/new-report.service';
+import { TimerService } from './service/timer.service';
 import { DataHelperService } from './util/data-helper.service';
 
 import { FilterPipe } from './util/filter.pipe';
@@ -65,7 +67,8 @@ import { FilterPipe } from './util/filter.pipe';
     PersonComponent,
     FilterPipe,
     ReportSummaryComponent,
-    GuardTestViewReportComponent
+    GuardTestViewReportComponent,
+    TimerComponent
   ],
 
   providers: [
@@ -78,7 +81,9 @@ import { FilterPipe } from './util/filter.pipe';
     StaffService,
     PersonService,
     NewReportService,
-    CategoryService],
+    CategoryService,
+    TimerService
+  ],
 
   bootstrap: [AppComponent],
 
