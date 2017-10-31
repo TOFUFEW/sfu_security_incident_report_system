@@ -1,51 +1,70 @@
 
 <div id="incidents-list-panel" class="panel panel-default">
     <div class="panel-heading">
-        <div class="toolbar col-md-6 col-lg-6">
-            <div>
+        <div class="toolbar">
+            <div class="flex">
                 <span class="glyphicon glyphicon-list-alt glyphicon-heading"></span>
                 <span class="panel-header">Reports</span>
             </div>
         </div>
-        <div class="col-md-4 col-lg-4 col-md-offset-2 col-lg-offset-2">
-            <input class="form-control" type="text" placeholder="Search for incidents...">
-        </div>
     </div>
     <div class="panel-body">
         <div id="incidents-list" class="col-md-12 col-lg-12">
-            <table id="incidents-table" class="max-height-width">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Report ID</th>
-                        <th>Category</th>
-                        <th>SubCategory</th>
-                        <th>Type</th>
-                        <th>Description</th>
-                        <th>Location</th>
-                        <th>Assigned To</th>
-                        <th>Assigned By</th>
-                        <th>Date/Time Created</th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let incident of incidents">
-                    <tr>
-                        <td>!!!</td>
-                        <td>{{incident.attributes.REPORT_ID}}</td>
-                        <td>{{incident.category.MAIN_CATEGORY}}</td>
-                        <td>{{incident.category.SUB_CATEGORY}}</td>
-                        <td><span *ngIf="incident.category.INCIDENT_TYPE != null">{{incident.category.INCIDENT_TYPE}}</span></td>
-                        <td>{{incident.attributes.DESCRIPTION}} </td>
-                        <td><span *ngFor="let location of incident.locationList">
-                                [ {{location.attributes.CAMPUS_ID}} {{location.attributes.BUILDING_NAME}} {{location.attributes.ROOM_NUMBER}} ]
-                            </span>
-                        </td>
-                        <td><a href="">Assign</a></td>
-                        <td>Dispatcher Name</td>
-                        <td>08/13/2017 4:44</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="incident-card" *ngFor="let incident of incidents">
+                <div class="main-content">
+                    <div class="detail-row">
+                        <span class="card-text-secondary">Report ID: {{incident.attributes.REPORT_ID}}</span>
+                    </div>
+                    <div class="detail-row description">
+                        <span class="card-text-primary">
+                            {{incident.attributes.DESCRIPTION}}
+                        </span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="card-text-secondary">
+                            {{incident.category.MAIN_CATEGORY}}: {{incident.category.SUB_CATEGORY}} {{incident.category.INCIDENT_TYPE}}
+                        </span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="card-text-tertiary">
+                            Burnaby AQ 3150
+                        </span>
+                        <span class="card-text-tertiary">08/15/2017 4:44</span>
+                    </div>
+                </div>
+                <div class="bottom">
+                    <div class="action">
+                        <span class="glyphicon glyphicon-new-window glyphicon-btn" data-toggle="tooltip" title="Add to Workspace"
+                                 [ngClass]="{'transparent': incident.inWorkspace}" (click)="incident.inWorkspace || addToWorkspace(incident)"></span>
+                        <span class="glyphicon glyphicon-tag glyphicon-btn" data-toggle="tooltip" title="Assign to Guard"></span>                        
+                                 
+                    </div>
+                                                                
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <input class="form-control" type="text" placeholder="Search for reports...">            
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="actionsModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="glyphicon glyphicon-tag glyphicon-heading"></span>
+                <span class="panel-header">Actions</span>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary">Add To Workspace</button>   
+            </div>
         </div>
     </div>
 </div>

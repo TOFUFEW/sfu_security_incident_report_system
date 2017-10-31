@@ -9,9 +9,20 @@ div.side-container .panel-heading {
     @include flex(flex-start, flex-start);
 }
 
+@media (max-width: 1800px) {
+    div#incidents-container { 
+        width: 100vw;
+        height: 100%;
+    }
+
+    div.side-container {
+        width: 50%;
+        height: 150vh;
+    }
+}
 
 div#incidents-container {
-    order: 2;
+    order: 1;
     padding: $padding-lg;
 
     div#incidents-dashboard {
@@ -19,34 +30,31 @@ div#incidents-container {
         margin: 0px;
         border-bottom-left-radius: 0px;
         border-bottom-right-radius: 0px;
-
+        background-color: $grey-dark;
+        .panel-heading {
+            height: auto;
+        }
         .panel-body{
-            padding: 0px !important;
-            height: 95%;
+            padding: 12px !important;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            //border: 2px solid #d6d6d6;
+            border-bottom: none;
         }
     }
 
     div#workspace.row {
-        height: 67%;
+        height: 100%;
+        display: flex;
         overflow: hidden;
     }
-    
-    div#bottom-panels.row {
-        height: 33%;
-        max-height: 33%;
-        overflow: hidden;
-    }
-
-    div.col { height: 100%; }
-
-    div#left-col { padding-right: 0px; }
-    div#right-col { padding-left: 0px; }
 
     div.panel {
         overflow: hidden;
 
         div.panel-heading {
-            @include flex(space-between, center);
+            @include flex(space-between, flex-start);
             
             input {
                 min-width: 250px;
@@ -55,87 +63,30 @@ div#incidents-container {
         }
         div.panel-body {
             height: 100%;
+            width: 100%;
+            overflow: auto;
         }
     }
 }
 
-div.incidents-row {
-    background-color: white;
-    height: 100%;
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
-
 div.quarter-box {
-    height: 100%;
-    width: 25%;
-    border-right: 8px double $grey-dark;
+    height: 49%;
+    width: 49%;
+    min-width: 300px;
+    margin: 4px;
+    border-radius: 4px;
+    border: 1px solid #b3b3b3;
     overflow-y:auto;
-}
+    padding: 8px;
+    background-color: white;
 
-div.incident-box {
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    min-width: 25%;
-    padding: $padding-lg;
-    //border: $border-default;
-    overflow: auto;
-
-    .incident-header {
-        font-size: $text-lg;
+    @media (max-height: 900px) {
+        height: 100%;
     }
-}
-
-div.incident-card {
-    @include flex(space-between, center);
-    padding-bottom: $padding-lg;
-    border-bottom: $border-default;
-
-    div.incident-icon {
-        height: 36px;
-        width: 36px;
-        border: $border-default;
-        border-radius: 99px;
-    }
-
-    div.incident-title {
-        @include flex(flex-start, center);
-        flex-direction: column;
-    }
-
-    .incident-timer {
-        float: right;
-        font-size: $text-md;
-    }
-}
-
-div.incident-element-container {
-    flex-direction: column;
-    padding-top: $padding-sm;
-    padding-bottom: $padding-sm;
-
-    .incident-element-header {
-        width: 100%;
-        padding-bottom: $padding-sm;
-    }
-
-    .icon { margin-right: 8px; }
-    .incident-element-title {
-        font-size: $text-md;
-    }
-
-    .incident-element-details {
-        
-        flex-direction: column;
-    }
-    width: 100%;
-    height: auto;
 }
 
 div#left-panels {
-    order: 1;
+    order: 2;
 
     #button-container {
         flex-grow: 0.1;
@@ -151,6 +102,7 @@ div#right-panels {
 div.side-container {
     flex-direction: column;
     padding: $padding-md;
+    min-width: 300px;
     .panel {
         width: 100%;
         flex-grow: 1;
@@ -161,16 +113,39 @@ div.side-container {
 
     .form-control {
         background-color: $grey-dark;
-        border: none;
+        //border: none;
         box-shadow: none;
         max-width: 50%;
     }
 }
 
-incidents-component {
+.card {
+    box-shadow: 1px 1px 1px 0 rgba(0,0,0,.07), 1px 2px 5px 0 rgba(0,0,0,.06);
+}
+
+#workspace-main {
     height: 100%;
 }
 
-.card {
-    box-shadow: 1px 1px 1px 0 rgba(0,0,0,.07), 1px 2px 5px 0 rgba(0,0,0,.06);
+#workspace-data {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-width: 300px;
+    max-width: 400px;
+    incidents-component {
+        height: 91%;
+    }
+}
+
+#button-container {
+    padding-bottom: 12px;
+    button {
+        width: 50%;
+    }
+}
+
+staff-component {
+    height: 50%;
+    width: 100%;
 }

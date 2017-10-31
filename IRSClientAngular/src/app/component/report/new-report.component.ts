@@ -25,73 +25,69 @@ export class NewReportComponent implements OnInit {
     locationStr: string = LocationComponent.name;
     personStr: string = PersonComponent.name;
     newIncident: Incident = new Incident();
-    locations: Location[] = [];
-    persons: Person[] = [];
+    
     categories: CategoryDictionary[] = [];
     subCategories: SubCategory[] = [];
-    categoryTypes: CategoryType[] = [];
-    selectedCategory: Category;
-    reportReady: boolean = true;
+    categoryTypes: CategoryType[] = [];    
 
-
-    constructor(
+    reportReady: boolean = false; 
+    constructor( 
       private incidentService: IncidentService,
       private domService: DomService,
       private newReportService: NewReportService,
       private categoryService: CategoryService
     ) {
-        this.selectedCategory = new Category(null, null, null, null);
     }
 
     ngOnInit() {
         this.newReportService.currentLocations
-            .subscribe( locations => this.locations = locations);
+            .subscribe( locations =>  { 
+                this.newIncident.locationList = locations;
+             });
         this.newReportService.currentPersons
-            .subscribe( persons => this.persons = persons );
+            .subscribe( persons =>  { 
+                this.newIncident.personList = persons;
+            } );
 
         this.categoryService.getCategories().then ( returnedCategories => {
             this.categories = this.categoryService.toCategoryDictionary( returnedCategories );
         });
+        console.log( this.categories );
     }
 
     //filter subcategory and type lists according to selection of previous dropdown
     onSelectCategory () {
-        var index = this.categories.findIndex( item => item.MAIN_CATEGORY === this.selectedCategory.MAIN_CATEGORY );
+        var index = this.categories.findIndex( item => item.MAIN_CATEGORY === this.newIncident.category.MAIN_CATEGORY );
         if ( index < 0 ) return ;
         this.subCategories = this.categories[index].SUBCATEGORIES;
         this.categoryTypes = [];
+        this.newIncident.category.MAIN_CATEGORY = this.categories[index].MAIN_CATEGORY; // for report summary
     }
 
     onSelectSubCategory () {
-        var index = this.subCategories.findIndex( item => item.SUB_CATEGORY == this.selectedCategory.SUB_CATEGORY );
+        var index = this.subCategories.findIndex( item => item.SUB_CATEGORY == this.newIncident.category.SUB_CATEGORY );
         if ( index < 0 ) return ;
         var subcategories = this.subCategories[index];
         if ( subcategories.TYPES.length == 0 ) {
-            this.selectedCategory.CATEGORY_ID = subcategories.CATEGORY_ID;
-            this.newIncident.attributes.CATEGORY_ID = this.selectedCategory.CATEGORY_ID;
-            this.selectedCategory.INCIDENT_TYPE = null;
+            this.newIncident.category.CATEGORY_ID = subcategories.CATEGORY_ID;
+            this.newIncident.attributes.CATEGORY_ID = this.newIncident.category.CATEGORY_ID;
+            this.newIncident.category.INCIDENT_TYPE = null;
         }
         this.categoryTypes = subcategories.TYPES;
     }
 
     onSelectType() {
-        if ( this.selectedCategory.INCIDENT_TYPE != null ) {
-            var index = this.categoryTypes.findIndex( item => item.INCIDENT_TYPE === this.selectedCategory.INCIDENT_TYPE );
+        if ( this.newIncident.category.INCIDENT_TYPE != null ) {
+            var index = this.categoryTypes.findIndex( item => item.INCIDENT_TYPE ===this.newIncident.category.INCIDENT_TYPE );
 
             if ( index >= 0 ) {
                 var type = this.categoryTypes[index];
-                this.selectedCategory.CATEGORY_ID = type.CATEGORY_ID;
-                this.selectedCategory.INCIDENT_TYPE = type.INCIDENT_TYPE;
-                this.newIncident.attributes.CATEGORY_ID = this.selectedCategory.CATEGORY_ID;
+                this.newIncident.category.CATEGORY_ID = type.CATEGORY_ID;
+                this.newIncident.attributes.CATEGORY_ID = this.newIncident.category.CATEGORY_ID;
+                this.newIncident.category.INCIDENT_TYPE = type.INCIDENT_TYPE; // for report summary
             }
         }
     }
-
-
-
-
-
-
 
 
     addComponent( componentName: string ) {
@@ -104,11 +100,19 @@ export class NewReportComponent implements OnInit {
             this.domService.addComponent( PersonComponent.name, "persons" );
         }
     }
+    
+    cancelReview() : void {
+        this.newIncident.incidentElements = this.newReportService.removeAllIncidentElements();
+    }
 
+    prepareReport(): void {
+        this.newIncident.incidentElements = this.newReportService.collectIncidentElements( this.newIncident.category );
+        this.reportReady = this.isReportValid();
+    }
 
-    createIncident(): void {
-        if(this.reportReady){
-            this.newIncident.incidentElements = this.newReportService.collectIncidentElements( this.selectedCategory );
+    createReport(): void {
+        if( this.reportReady ){
+            //this.newIncident.incidentElements = this.newReportService.collectIncidentElements( this.selectedCategory );
             this.incidentService.create( this.newIncident )
                 .then( returnedIncident => {
                     if ( returnedIncident != null  ) {
@@ -124,13 +128,19 @@ export class NewReportComponent implements OnInit {
         }
     }
 
-    review() {
-        this.reportReady = true;
-        console.log(this.locations);
-        console.log(this.persons);
-    }
+    // formatPhoneNumber( number: string ) {
+    //     var str = "(";
+    //     for (var i = 0 ; i < number.length ; i += 1) {
+    //         str += number.charAt( i ) + "" ;
+    //         if ( i == 2 )
+    //             str += ")" + "" ;
+    //         if ( i < 6 && (i+1) % 3 == 0 )
+    //             str += " - " + "";
+    //     }
+    //     return str;
+    // }
 
-    reportNotReady() {
-        this.reportReady = false;
+    private isReportValid(): boolean {
+        return this.newReportService.validateReport( this.newIncident );
     }
 }

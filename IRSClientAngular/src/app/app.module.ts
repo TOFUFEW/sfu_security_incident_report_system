@@ -23,6 +23,7 @@ import { GuardDashboardComponent } from './component/guard-app/guard-dashboard.c
 import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
 import { GuardTestViewReportComponent } from "./component/guard-app/guard-test-view-report.component";
 import { CategoryComponent } from './component/category/category.component'
+import { ReportSummaryComponent } from './component/report/report-summary.component';
 
 /* Services */
 import { UserService } from './service/user.service';
@@ -63,6 +64,7 @@ import { FilterPipe } from './util/filter.pipe';
     SearchComponent,
     PersonComponent,
     FilterPipe,
+    ReportSummaryComponent,
     GuardTestViewReportComponent
   ],
 
