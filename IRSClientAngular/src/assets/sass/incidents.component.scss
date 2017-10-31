@@ -2,6 +2,7 @@
 
 div.incident-card {
     @include flex(flex-start, flex-start);
+    flex-direction: column;
     background-color: white;
     border-top: $border-default;
     border-bottom: none;
@@ -9,17 +10,43 @@ div.incident-card {
     //height: 72px;
     padding: 16px;
 
-    #main-content {
+    .main-content {
         @include flex(center, flex-start);
         flex-direction: column;
+        overflow-x: hidden;
+        white-space: nowrap;
         height: 100%;
+        width: 100%;
+
+        .detail-row {
+            margin-bottom: 4px;
+        }
+    }
+
+    .bottom {
+        @include flex(space-between, center);
+        //height: 60px;
+        width: 100%;
+        padding-top: $padding-sm;
+
+        .detail-row {
+            width: 75%;
+        }
+    }
+
+    .action {
+        @include flex(space-around, center);
+        //height: 60px;
         width: 100%;
     }
 
-    #action {
-        @include flex(center, center);
-        height: 60px;
-        width: 20%;
+    .description {
+        width: 100%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+        display: block;
+        overflow: hidden
     }
 }
 

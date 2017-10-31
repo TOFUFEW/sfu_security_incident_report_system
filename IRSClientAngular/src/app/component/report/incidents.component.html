@@ -11,11 +11,11 @@
     <div class="panel-body">
         <div id="incidents-list" class="col-md-12 col-lg-12">
             <div class="incident-card" *ngFor="let incident of incidents">
-                <div id="main-content">
+                <div class="main-content">
                     <div class="detail-row">
-                        <span class="card-text-secondary">{{incident.attributes.REPORT_ID}}</span>
+                        <span class="card-text-secondary">Report ID: {{incident.attributes.REPORT_ID}}</span>
                     </div>
-                    <div class="detail-row">
+                    <div class="detail-row description">
                         <span class="card-text-primary">
                             {{incident.attributes.DESCRIPTION}}
                         </span>
@@ -25,15 +25,20 @@
                             {{incident.category.MAIN_CATEGORY}}: {{incident.category.SUB_CATEGORY}} {{incident.category.INCIDENT_TYPE}}
                         </span>
                     </div>
+                </div>
+                <div class="bottom">
                     <div class="detail-row">
                         <span class="card-text-tertiary">
                             Burnaby AQ 3150
                         </span>
                         <span class="card-text-tertiary">08/15/2017 4:44</span>
                     </div>
-                </div>
-                <div id="action">
-                    <span class="glyphicon glyphicon-new-window glyphicon-btn" *ngIf="!incident.inWorkspace" (click)="addToWorkspace(incident)"></span>                        
+                    <div class="action">
+                        <span class="glyphicon glyphicon-tag glyphicon-btn"></span>                        
+                        <span class="glyphicon glyphicon-new-window glyphicon-btn"
+                                 [ngClass]="{'transparent': incident.inWorkspace}" (click)="incident.inWorkspace || addToWorkspace(incident)"></span>
+                    </div>
+                                                                
                 </div>
                 
             </div>
@@ -45,20 +50,19 @@
 </div>
 
 <!-- Modal -->
-<div id="dispatchModal" class="modal fade" role="dialog">
+<div id="actionsModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
-        <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <span class="glyphicon glyphicon-tag glyphicon-heading"></span>
-                <span class="panel-header">Dispatch Guard</span>
+                <span class="panel-header">Actions</span>
             </div>
             <div class="modal-body">
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary">Dispatch</button>   
+                <button class="btn btn-primary">Add To Workspace</button>   
             </div>
         </div>
     </div>

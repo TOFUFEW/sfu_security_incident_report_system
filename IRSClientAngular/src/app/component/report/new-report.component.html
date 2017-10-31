@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="panel-footer">
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#confirmationModal" (click)="prepareReport()">Next</button>                                
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#confirmationModal" (click)="prepareReport()">Proceed to Review</button>                                
                 </div>
             </div>
         </div>
@@ -138,6 +138,9 @@
                         <div class="detail col-12 col-sm-10">
                             <span class="field-title">Executive Summary</span>
                             <span class="field-value">{{newIncident.attributes.EXECUTIVE_SUMMARY}}</span>
+                            <div class="alertText" *ngIf="newIncident.attributes.EXECUTIVE_SUMMARY == null">
+                                    Please enter a summary
+                            </div>
                         </div>
                     </div>
                 </div>

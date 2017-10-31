@@ -210,7 +210,7 @@ body {
     padding: $padding-md;
 
     .details-heading {
-        span { font-size: $text-sm; }
+        span { font-size: $text-md; }
     }
 
     .details-body {
@@ -314,8 +314,17 @@ span.glyphicon-fire {
 .flex {
     display: flex;
 }
+
 .alertText {
     color:red;
+}
+
+.invisible {
+    visibility: none;
+}
+
+.transparent {
+    opacity: .3 !important;
 }
 
 div.phone-input {

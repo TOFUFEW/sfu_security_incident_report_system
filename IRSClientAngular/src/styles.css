@@ -169,7 +169,7 @@ body {
   flex-direction: column;
   padding: 16px; }
   .details-container .details-heading span {
-    font-size: 14px; }
+    font-size: 18px; }
   .details-container .details-body {
     display: flex;
     justify-content: flex-start;
@@ -253,6 +253,12 @@ span.glyphicon-fire {
 
 .alertText {
   color: red; }
+
+.invisible {
+  visibility: none; }
+
+.transparent {
+  opacity: .3 !important; }
 
 div.phone-input {
   display: flex;

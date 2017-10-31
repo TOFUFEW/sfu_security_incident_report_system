@@ -2,24 +2,43 @@ div.incident-card {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+  flex-direction: column;
   background-color: white;
   border-top: 1px solid rgba(0, 0, 0, 0.16);
   border-bottom: none;
   width: 100%;
   padding: 16px; }
-  div.incident-card #main-content {
+  div.incident-card .main-content {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
+    overflow-x: hidden;
+    white-space: nowrap;
     height: 100%;
     width: 100%; }
-  div.incident-card #action {
+    div.incident-card .main-content .detail-row {
+      margin-bottom: 4px; }
+  div.incident-card .bottom {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    height: 60px;
-    width: 20%; }
+    width: 100%;
+    padding-top: 12px; }
+    div.incident-card .bottom .detail-row {
+      width: 75%; }
+  div.incident-card .action {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%; }
+  div.incident-card .description {
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    display: block;
+    overflow: hidden; }
 
 #incidents-table th {
   padding: 8px 4px; }
