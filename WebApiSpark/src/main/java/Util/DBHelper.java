@@ -25,7 +25,7 @@ public class DBHelper
 
         try
         {
-            ResultSet incidentResultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.INCIDENT.toString());
+            ResultSet incidentResultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.INCIDENT.toString() + " ORDER BY REPORT_ID DESC");
 
             fillListWithIncidentsFromResultSet ( incidentList , incidentResultSet );
         }

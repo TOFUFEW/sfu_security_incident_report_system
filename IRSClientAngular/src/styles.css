@@ -1,4 +1,7 @@
 /* Contains general css rules for the entire app */
+span, a, button {
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif; }
+
 body {
   min-height: 100vh;
   min-width: 100vw;
@@ -16,24 +19,33 @@ body {
   background-color: #A6192E;
   border: none;
   border-radius: 0px !important;
-  margin: 0px; }
-  #main-navbar a {
+  margin: 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+  #main-navbar a, #main-navbar .link {
     color: #ffffff; }
   #main-navbar .navbar-brand {
     font-weight: 700; }
+  #main-navbar div.navbar-left-items {
+    width: 100%; }
+  #main-navbar div.navbar-right-items {
+    width: auto;
+    padding-right: 20px; }
+  #main-navbar div.navbar-left-items, #main-navbar div.navbar-right-items {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    font-size: 14px; }
+    #main-navbar div.navbar-left-items:hover, #main-navbar div.navbar-right-items:hover {
+      cursor: pointer; }
   #main-navbar div.navbar-links, #main-navbar div.navbar-right {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     height: 100%;
     width: auto; }
-  #main-navbar div.navbar-links a {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: 14px;
-    padding-right: 14px; }
 
 .max-height-width {
   height: 100%;
@@ -65,30 +77,38 @@ body {
   width: 100%;
   height: auto; }
 
+.primary-text, .field-value, .card-text-primary {
+  color: #000000;
+  opacity: 0.87; }
+
+.secondary-text, .field-title, .card-text-secondary, .card-text-tertiary {
+  color: #000000;
+  opacity: 0.54; }
+
+.hint-text {
+  color: #000000;
+  opacity: 0.38; }
+
 .field-title {
   display: inline-block;
   width: auto;
-  color: #657786;
   font-weight: 300;
-  font-size: 110%;
+  font-size: 12px;
   margin-bottom: 8px; }
 
 .field-value {
   display: inline-block;
   width: auto;
-  color: #54585A;
-  font-size: 120%;
+  font-size: 14px;
   margin-bottom: 8px; }
 
 .card-text-primary {
   font-size: 14px; }
 
 .card-text-secondary {
-  color: #657786;
   font-size: 12px; }
 
 .card-text-tertiary {
-  color: #657786;
   font-size: 10px; }
 
 .btn-row {
@@ -258,7 +278,7 @@ span.glyphicon-fire {
   visibility: none; }
 
 .transparent {
-  opacity: .3 !important; }
+  opacity: .38 !important; }
 
 div.phone-input {
   display: flex;

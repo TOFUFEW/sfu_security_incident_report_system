@@ -1,6 +1,10 @@
 /* Contains general css rules for the entire app */
 @import "assets/sass/_settings";
 
+span, a, button {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+}
+
 body {
     min-height: 100vh;
     min-width: 100vw;
@@ -8,7 +12,6 @@ body {
     font-size: 12px !important;
     background: $grey-default;
 }
-
 
 .main-container {
     height: calc(100vh - 50px);
@@ -23,26 +26,39 @@ body {
     border: none;
     border-radius: 0px !important;
     margin: 0px;
-    
-    a { color: $white; }
+    @include flex(space-between, center);
+    a, .link { 
+        color: $white; 
+    }
 
     .navbar-brand {
         font-weight: 700;
+    }
+
+    div.navbar-left-items {
+        width: 100%;
+    }
+
+    div.navbar-right-items {
+        width: auto;
+        padding-right: 20px;
+    }
+
+    div.navbar-left-items, div.navbar-right-items {
+        @include flex(flex-start, center);
+        height: 100%;
+
+        font-size: 14px;
+        &:hover {
+            cursor: pointer;
+        }
     }
 
     div.navbar-links, div.navbar-right {
         @include flex(flex-start, flex-start);
         height: 100%;
         width: auto;
-    }
-    div.navbar-links {
-        a {
-            height: 100%;
-            @include flex(center, center);
-            padding-left: 14px;
-            padding-right: 14px;
-        }
-    }
+    }    
 }
 
 .max-height-width {
@@ -81,35 +97,52 @@ body {
     height: auto;
 }
 
+// https://material.io/guidelines/style/color.html#color-usability
+.primary-text {
+    color: #000000;
+    opacity: 0.87;
+}
+
+.secondary-text {
+    color: #000000;
+    opacity: 0.54;
+}
+
+.hint-text {
+    color: #000000;
+    opacity: 0.38;
+}
+
 .field-title {
+    @extend .secondary-text;
     display: inline-block;
     width: auto;
-    color: $field-title-color;
+    //color: $field-title-color;
     font-weight: $field-title-font-weight;
-    font-size: 110%;
+    font-size: 12px;
     margin-bottom: $field-title-margin-bottom;
 }
 
 .field-value {
+    @extend .primary-text;
     display: inline-block;
     width: auto;
-    color: $sfu-black;
-    font-size: 120%;
+    font-size: 14px;
     margin-bottom: $field-title-margin-bottom;
 }
 
 .card-text-primary {
-    //color: $sfu-black;
+    @extend .primary-text;
     font-size: 14px;
 }
 
 .card-text-secondary {
-    color: $field-title-color;
+    @extend .secondary-text;
     font-size: 12px;
 }
 
 .card-text-tertiary {
-    color: $field-title-color;
+    @extend .secondary-text;
     font-size: 10px;
 }
 
@@ -324,7 +357,7 @@ span.glyphicon-fire {
 }
 
 .transparent {
-    opacity: .3 !important;
+    opacity: .38 !important;
 }
 
 div.phone-input {

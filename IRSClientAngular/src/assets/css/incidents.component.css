@@ -17,8 +17,16 @@ div.incident-card {
     white-space: nowrap;
     height: 100%;
     width: 100%; }
-    div.incident-card .main-content .detail-row {
-      margin-bottom: 4px; }
+  div.incident-card .detail-row {
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    display: block;
+    overflow: hidden; }
+  div.incident-card .description {
+    margin-top: 8px;
+    margin-bottom: 8px; }
   div.incident-card .bottom {
     display: flex;
     justify-content: space-between;
@@ -32,21 +40,5 @@ div.incident-card {
     justify-content: space-around;
     align-items: center;
     width: 100%; }
-  div.incident-card .description {
-    width: 100%;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    width: 100%;
-    display: block;
-    overflow: hidden; }
-
-#incidents-table th {
-  padding: 8px 4px; }
-#incidents-table td {
-  padding: 4px;
-  border-top: 1px solid rgba(0, 0, 0, 0.16);
-  max-width: 125px; }
-#incidents-table tbody {
-  overflow: auto; }
 
 /*# sourceMappingURL=incidents.component.css.map */

@@ -17,10 +17,20 @@ div.incident-card {
         white-space: nowrap;
         height: 100%;
         width: 100%;
+    }
 
-        .detail-row {
-            margin-bottom: 4px;
-        }
+    .detail-row {
+        width: 100%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+        display: block;
+        overflow: hidden;
+    }
+
+    .description {
+        margin-top: 8px;
+        margin-bottom: 8px;
     }
 
     .bottom {
@@ -40,28 +50,5 @@ div.incident-card {
         width: 100%;
     }
 
-    .description {
-        width: 100%;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        width: 100%;
-        display: block;
-        overflow: hidden
-    }
-}
-
-#incidents-table {
-    th {
-        padding: 8px 4px;
-    }
-
-    td {
-        padding: 4px;
-        border-top: $border-default;
-        max-width: 125px;
-    }
-
-    tbody {
-        overflow: auto;
-    }
+    
 }

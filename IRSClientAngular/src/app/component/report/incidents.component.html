@@ -25,18 +25,19 @@
                             {{incident.category.MAIN_CATEGORY}}: {{incident.category.SUB_CATEGORY}} {{incident.category.INCIDENT_TYPE}}
                         </span>
                     </div>
-                </div>
-                <div class="bottom">
                     <div class="detail-row">
                         <span class="card-text-tertiary">
                             Burnaby AQ 3150
                         </span>
                         <span class="card-text-tertiary">08/15/2017 4:44</span>
                     </div>
+                </div>
+                <div class="bottom">
                     <div class="action">
-                        <span class="glyphicon glyphicon-tag glyphicon-btn"></span>                        
-                        <span class="glyphicon glyphicon-new-window glyphicon-btn"
+                        <span class="glyphicon glyphicon-new-window glyphicon-btn" data-toggle="tooltip" title="Add to Workspace"
                                  [ngClass]="{'transparent': incident.inWorkspace}" (click)="incident.inWorkspace || addToWorkspace(incident)"></span>
+                        <span class="glyphicon glyphicon-tag glyphicon-btn" data-toggle="tooltip" title="Assign to Guard"></span>                        
+                                 
                     </div>
                                                                 
                 </div>
