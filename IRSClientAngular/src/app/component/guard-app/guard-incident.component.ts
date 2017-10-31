@@ -63,6 +63,23 @@ export class GuardIncidentComponent implements OnInit {
 //             else alert( "Edit failed." );
 //         } );
 //   }
+      
+    public show(): void {
+        var locationModal: HTMLElement = document.getElementById("modalLocation");
+        locationModal.style.visibility = "true";
+        // setTimeout(() => locationModal.visibleAnimate = true, 100);
+    }
+
+    public hide(): void {
+        var locationModal: HTMLElement = document.getElementById("modalLocation");
+        setTimeout(() => locationModal.style.visibility = "false", 300);
+    }
+
+    public onContainerClicked(event: MouseEvent): void {
+        if ((<HTMLElement>event.target).classList.contains('modal')) {
+        this.hide();
+        }
+    }
 
     ngOnInit() : void {
         console.log("in guard incident on init");

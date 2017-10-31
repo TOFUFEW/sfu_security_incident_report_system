@@ -97,13 +97,15 @@ body {
     margin-bottom: $field-title-margin-bottom;
 }
 
-.card-text-primary {
+.card-text-primary, a.card-text-primary {
     color: $sfu-black;
+    display: inline-block;    
     font-size: 115%;
 }
 
-.card-text-secondary {
+.card-text-secondary, a.card-text-secondary {
     color: $field-title-color;
+    display: inline-block;    
     font-size: 100%;
 }
 
@@ -282,6 +284,14 @@ span.glyphicon-fire {
     &:hover {
         cursor: pointer;
     }
+}
+
+#logout {
+    background-color: transparent;
+    position: absolute; 
+    right: 0.5em;
+    margin-top: 0.5em;
+    color: #f9f9f9;
 }
 
 /****************************/

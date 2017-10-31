@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { LocationComponent } from './component/location/location.component';
+import { LocationModalComponent } from './component/location/location-modal.component';
 import { StaffComponent } from './component/staff/staff.component';
 import { IncidentComponent } from './component/report/incident.component';
 import { LoginComponent } from './component/login/login.component';
@@ -48,6 +49,7 @@ import { FilterPipe } from './util/filter.pipe';
         AppComponent,
         DashboardComponent,
         LocationComponent,
+        LocationModalComponent,
         StaffComponent,
         IncidentComponent,
         LoginComponent,

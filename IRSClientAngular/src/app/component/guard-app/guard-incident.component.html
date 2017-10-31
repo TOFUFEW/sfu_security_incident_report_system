@@ -41,9 +41,12 @@
                                     {{location.attributes.BUILDING_NAME}},    
                                     {{location.attributes.ROOM_NUMBER}},    
                                     {{location.attributes.DEPARTMENT}} 
-                                    <!-- <button class="btn btn-default btn-xs pull-right" (click)="modalLocation.show()"><span class="p-2 glyphicon glyphicon-edit"></span></button> -->
                                     <br>                                       
                                 </span>
+                                <button class="btn btn-default btn-sm pull-right" (click)="modalLocation.show()">
+                                    <span class="glyphicon glyphicon-plus"></span> Add Location
+                                </button>
+                                <location-modal-component #modalLocation></location-modal-component>
                             </div>
                         </div>
                     </div>
@@ -59,7 +62,7 @@
                             </h4>
                         </div>
                         <div id="collapseTwo" class="panel-collapse collapse in">
-                            <div class="panel-body" *ngIf="incident" (dblclick)="">
+                            <div class="panel-body" *ngIf="incident">
                                 {{incident.attributes.EXECUTIVE_SUMMARY}}
                                 <!-- <button class="btn btn-default btn-xs pull-right"><span class="p-2 glyphicon glyphicon-edit"></span></button>                                 -->
                             </div>

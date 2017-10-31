@@ -7,7 +7,7 @@ import { Location, LocationMapping, Building, Room } from './location';
 import { Config } from '../../util/config.service';
 
 @Component({
-    selector: 'location-component',
+    selector: 'location-component', 
     templateUrl: './location.component.html'
 })
 
