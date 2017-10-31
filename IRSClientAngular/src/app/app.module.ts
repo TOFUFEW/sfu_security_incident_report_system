@@ -17,6 +17,8 @@ import { NewReportComponent } from './component/report/new-report.component';
 import { VehicleComponent } from './component/vehicle/vehicle.component';
 import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
+import { AttachmentComponent } from './component/attachment/attachment.component';
+
 import { GuardDashboardComponent } from './component/guard-app/guard-dashboard.component';
 import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
 import { GuardTestViewReportComponent } from "./component/guard-app/guard-test-view-report.component";
@@ -48,6 +50,7 @@ import { FilterPipe } from './util/filter.pipe';
 
   declarations: [
     AppComponent,
+    AttachmentComponent,
     DashboardComponent,
     LocationComponent,
     StaffComponent,

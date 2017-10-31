@@ -12,6 +12,8 @@ public class Application
     public static void main ( String [] args )
     {
         // STARTUP METHODS
+        staticFileLocation("/public");
+
         enableCORS (
                 "*",
                 "GET, " + "POST, PUT, DELETE, OPTIONS, HEAD",
@@ -24,6 +26,7 @@ public class Application
         LoginController loginController = new LoginController();
         PersonController personController = new PersonController();
         IncidentCategoryController categoryController = new IncidentCategoryController();
+        AttachmentController attachmentController = new AttachmentController();
         GuardIncidentsController guardIncidentsController = new GuardIncidentsController();
     }
 
