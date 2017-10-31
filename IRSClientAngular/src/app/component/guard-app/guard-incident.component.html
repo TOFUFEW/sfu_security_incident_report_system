@@ -1,106 +1,105 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <div class="container-fluid main-content">
-<div class="row">
-<div class="container-fluid">
     <div class="row">
-        <div class="col-12 col-lg-12 col-lg-offset-3">
-            <div class="panel panel-default mt-1">
-                <div class="panel-heading pb-0 pt-1" *ngIf="incident">
-                    <!-- Create category object that matches with category incident ID -->
-                    <!-- Create dialog w/ category cascading menu for editing categories -->
-                    <h5>Report # {{incident.attributes.REPORT_ID}}
-                    </h5>
-                    <h5>
-                        <span class="mr-5" style="display:block" (dblclick)="modalCategory.show()">
-                            {{incident.category.MAIN_CATEGORY}} 
-                            <!-- <button class="btn btn-default btn-xs pull-right" (dblclick)="modalCategory.show()"><span class="p-2 glyphicon glyphicon-edit"></span></button> -->
-                            <br> 
-                            {{incident.category.SUB_CATEGORY}} <br>
-                            {{incident.category.INCIDENT_TYPE}}  
-                        </span>
-                        <category-component #modalCategory></category-component>            
-                    </h5>
-                </div>
-          
-                <div class="panel-group" id="accordion">
-                    <div class="panel panel-default ml-1 mr-1">
-                        <div class="panel-heading collapsable-heading">
-                            <h4 class="panel-title">
-                                <a  class="accordion-toggle" 
-                                    data-toggle="collapse" 
-                                    href="#collapseOne">
-                                    Location
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseOne" class="panel-collapse collapse in">
-                            <div class="panel-body lh-1" *ngIf="incident">
-                                <span *ngFor="let location of incident.locationList" (dblclick)="modalLocation.show()">
-                                    {{location.attributes.CAMPUS_ID}},                                            
-                                    {{location.attributes.BUILDING_NAME}},    
-                                    {{location.attributes.ROOM_NUMBER}},    
-                                    {{location.attributes.DEPARTMENT}} 
-                                    <br>                                       
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-lg-12 col-lg-offset-3">
+                    <div class="panel panel-default flex-container mt-1">
+                        <div class="panel-heading pb-0 pt-1" *ngIf="incident">
+                            <h5>Report # {{incident.attributes.REPORT_ID}}</h5>
+                            <h5>
+                                <span class="mr-5" style="display:block" (dblclick)="modalCategory.show()">
+                                    {{incident.category.MAIN_CATEGORY}} 
+                                    <!-- <button class="btn btn-default btn-xs pull-right" (dblclick)="modalCategory.show()"><span class="p-2 glyphicon glyphicon-edit"></span></button> -->
+                                    <br> 
+                                    {{incident.category.SUB_CATEGORY}} <br>
+                                    {{incident.category.INCIDENT_TYPE}}  
                                 </span>
-                                <button class="btn btn-default btn-sm pull-right" (click)="modalLocation.show()">
-                                    <span class="glyphicon glyphicon-plus"></span> Add Location
-                                </button>
-                                <location-modal-component #modalLocation></location-modal-component>
-                            </div>
+                                <category-component #modalCategory></category-component>            
+                            </h5>
                         </div>
-                    </div>
-
-                    <div class="panel panel-default ml-1 mr-1">
-                        <div class="panel-heading collapsable-heading">
-                            <h4 class="panel-title">
-                                <a  class="accordion-toggle" 
-                                    data-toggle="collapse" 
-                                    href="#collapseTwo">
-                                    Executive Summary                                                            
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseTwo" class="panel-collapse collapse in">
-                            <div class="panel-body" *ngIf="incident">
-                                {{incident.attributes.EXECUTIVE_SUMMARY}}
-                                <!-- <button class="btn btn-default btn-xs pull-right"><span class="p-2 glyphicon glyphicon-edit"></span></button>                                 -->
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="panel panel-default ml-1 mr-1">
-                        <div class="panel-heading collapsable-heading">
-                            <!-- <span class="glyphicon card-text-secondary mr-1" [ngClass]="{'glyphicon-chevron-up': openedPanel , 'glyphicon-chevron-down': !openedPanel }" aria-hidden="true" style="float: right;"></span>                             -->
-                            <h4 class="panel-title">
-                                <a  class="accordion-toggle" 
-                                    data-toggle="collapse" 
-                                    href="#collapseThree">
-                                    Description
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseThree" class="panel-collapse collapse">
-                            <div class="panel-body" *ngIf="incident">
-                                {{incident.attributes.DESCRIPTION}}           
-                            </div>
-                        </div>
-                    </div>
-        
-                    <div class="panel panel-default ml-1 mr-1">
-                        <div class="panel-heading collapsable-heading">
-                            <!-- <span class="glyphicon card-text-secondary mr-1" [ngClass]="{'glyphicon-chevron-up': openedPanel , 'glyphicon-chevron-down': !openedPanel }" aria-hidden="true" style="float: right;"></span>                             -->
-                            <h4 class="panel-title">
-                                <a  class="accordion-toggle" 
-                                    data-toggle="collapse" 
-                                    href="#collapseFour">
-                                    Persons
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseFour" class="panel-collapse collapse">
-                            <div class="panel-body">
                 
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default ml-1 mr-1">
+                                <div class="panel-heading collapsable-heading">
+                                    <h4 class="panel-title">
+                                        <a  class="accordion-toggle" 
+                                            data-toggle="collapse" 
+                                            href="#collapseOne">
+                                            Location
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in">
+                                    <div class="panel-body lh-1" *ngIf="incident">
+                                        <span *ngFor="let location of incident.locationList" (dblclick)="modalLocation.show()">
+                                            {{location.attributes.CAMPUS_ID}},                                            
+                                            {{location.attributes.BUILDING_NAME}},    
+                                            {{location.attributes.ROOM_NUMBER}},    
+                                            {{location.attributes.DEPARTMENT}} 
+                                            <br>                                       
+                                        </span>
+                                        <button class="btn btn-default btn-sm pull-right" (click)="modalLocation.show()">
+                                            <span class="glyphicon glyphicon-plus"></span> Add Location
+                                        </button>
+                                        <location-modal-component #modalLocation></location-modal-component>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default ml-1 mr-1">
+                                <div class="panel-heading collapsable-heading">
+                                    <h4 class="panel-title">
+                                        <a  class="accordion-toggle" 
+                                            data-toggle="collapse" 
+                                            href="#collapseTwo">
+                                            Executive Summary                                                            
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse in">
+                                    <div class="panel-body" *ngIf="incident">
+                                        {{incident.attributes.EXECUTIVE_SUMMARY}}
+                                        <!-- <button class="btn btn-default btn-xs pull-right"><span class="p-2 glyphicon glyphicon-edit"></span></button>                                 -->
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="panel panel-default ml-1 mr-1">
+                                <div class="panel-heading collapsable-heading">
+                                    <!-- <span class="glyphicon card-text-secondary mr-1" [ngClass]="{'glyphicon-chevron-up': openedPanel , 'glyphicon-chevron-down': !openedPanel }" aria-hidden="true" style="float: right;"></span>                             -->
+                                    <h4 class="panel-title">
+                                        <a  class="accordion-toggle" 
+                                            data-toggle="collapse" 
+                                            href="#collapseThree">
+                                            Description
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse">
+                                    <div class="panel-body" *ngIf="incident">
+                                        {{incident.attributes.DESCRIPTION}}           
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="panel panel-default ml-1 mr-1">
+                                <div class="panel-heading collapsable-heading">
+                                    <!-- <span class="glyphicon card-text-secondary mr-1" [ngClass]="{'glyphicon-chevron-up': openedPanel , 'glyphicon-chevron-down': !openedPanel }" aria-hidden="true" style="float: right;"></span>                             -->
+                                    <h4 class="panel-title">
+                                        <a  class="accordion-toggle" 
+                                            data-toggle="collapse" 
+                                            href="#collapseFour">
+                                            Persons
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseFour" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                        
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -108,8 +107,24 @@
             </div>
         </div>
     </div>
-</div>
-</div>
+    <div class="row">
+        <footer class="panel panel-default guard-app-menu">
+            <button class="button guard-menu-button field-title" (click)="saveReport()">
+                <span class="glyphicon glyphicon-save"></span> 
+                Save
+            </button>
+            <button class="button guard-menu-button field-title ml-1">
+                <span class="glyphicon glyphicon-plus"></span> 
+                New
+            </button>
+            <a routerLink="../../reports-all">
+                <button class="button guard-menu-button field-title ml-1">
+                <span class="glyphicon glyphicon-th-large"></span> 
+                View All
+                </button>
+            </a>
+        </footer>
+    </div>
 </div>
 
 

@@ -12,8 +12,6 @@
                 </button>
                 <h4 class="modal-title mt-2">Select Incident Category</h4>
             </div>
-
-            <div class="modal-body">
         
                 <!-- Category Picker -->
                 <div class="mt-2">
@@ -48,13 +46,12 @@
                         <option *ngFor="let type of filteredTypes " value={{type.CATEGORY_ID}}>{{type.INCIDENT_TYPE}}</option>  
                     </select>  
                 </div>
-            </div> 
 
             <div class="modal-footer mt-2 pt-2 mb-1">
                 <button type="button" class="btn btn-primary" (click)="submitCategory($event.target)">Save changes</button>
                 <button type="button" class="btn btn-secondary ml-1" (click)="hide()">Close</button>
             </div>
-        </div>
+        </div>         
     </div>
 </div>
     

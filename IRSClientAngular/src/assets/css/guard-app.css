@@ -4,6 +4,9 @@
 .centre-container {
   margin: 0 auto; }
 
+.outer-container {
+  position: relative; }
+
 .m-1 {
   margin: 1em !important; }
 
@@ -67,7 +70,7 @@ select.category-field {
   display: -webkit-flex;
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: -4em;
+  margin-bottom: 4.5em;
   position: relative;
   min-height: 100%;
   width: 100%; }
@@ -95,7 +98,7 @@ footer {
   margin-bottom: 0;
   height: 4em;
   width: 100%;
-  position: absolute;
+  position: fixed;
   text-align: center; }
 
 .guard-menu-button {

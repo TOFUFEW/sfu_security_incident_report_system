@@ -1,3 +1,9 @@
+/* 
+*  Location Modal Component: 
+*  displays the location component within a modal 
+*  to add/change locations in a report 
+*/
+
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Location } from './location';
@@ -32,6 +38,7 @@ export class LocationModalComponent implements OnInit {
     }
 
     ngOnInit() {
+        // Hide the remove location button from the location component
         document.getElementById("removeLocation").style.visibility = "hidden";
     }
 }
