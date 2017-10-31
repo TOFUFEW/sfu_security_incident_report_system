@@ -6,6 +6,7 @@ import 'rxjs/add/operator/switchMap';
 import { Incident } from '../report/incident';
 import { IncidentService } from '../../service/incident.service';
 import { UserService } from '../../service/user.service';
+import { NewReportService } from '../../service/new-report.service';
 
 
 @Component ({
@@ -20,9 +21,10 @@ export class GuardIncidentComponent implements OnInit {
 
   constructor ( 
         private incidentsService: IncidentService, 
+        private reportService: NewReportService,
+        private userService: UserService,        
         private router: Router,
         private http: HttpClient,
-        private userService: UserService,
         private route: ActivatedRoute
     ) {
   
@@ -61,31 +63,43 @@ export class GuardIncidentComponent implements OnInit {
             } );
     }
       
-    public show(): void {
+    public show() : void {
         var locationModal: HTMLElement = document.getElementById("modalLocation");
         locationModal.style.visibility = "true";
         // setTimeout(() => locationModal.visibleAnimate = true, 100);
     }
 
-    public hide(): void {
+    public hide() : void {
         var locationModal: HTMLElement = document.getElementById("modalLocation");
         setTimeout(() => locationModal.style.visibility = "false", 300);
     }
 
-    public onContainerClicked(event: MouseEvent): void {
+    public onContainerClicked ( event: MouseEvent ) : void {
         if ((<HTMLElement>event.target).classList.contains('modal')) {
         this.hide();
         }
     }
 
+    initializeReportService () : void {
+        this.incident.incidentElements = this.reportService.collectIncidentElements( this.incident.category );              
+        console.log(this.incident.category);          
+        this.reportService.currentLocations
+        .subscribe ( locations => {
+            this.incident.locationList = locations;
+        });   
+    }
+
     ngOnInit() : void {
-        console.log("in guard incident on init");
+        console.log ( "in guard incident on init" );
         this.route.paramMap
         .switchMap (( params: ParamMap ) => 
             this.incidentsService.getIncident ( +params.get ( 'id' )))
         .subscribe ( returnedIncident => {
             this.incident = returnedIncident;
-            console.log("returned incident" , this.incident);            
+            console.log("returned incident" , this.incident);        
+        }, 
+        () => {
+            this.initializeReportService();
         });
     }
 }

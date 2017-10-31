@@ -7,6 +7,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { LocationService } from '../../service/location.service';
+import { LocationComponent } from './location.component';
 import { Location } from './location';
 
 @Component({
@@ -17,6 +18,7 @@ import { Location } from './location';
 
 export class LocationModalComponent implements OnInit {
     private currentLocationID: number;
+    private location: LocationComponent;
     public visible = false;
     public button_id;
     private visibleAnimate = false;
@@ -46,6 +48,8 @@ export class LocationModalComponent implements OnInit {
 
     public submitChanges(id): void {
         console.log(id);
+        this.location.addLocationToReport();
+        this.hide();
     }
     
     ngOnInit() {
