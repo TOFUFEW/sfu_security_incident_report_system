@@ -15,7 +15,6 @@ public class DBHelper
     private static final String USERNAME = "sa";
     private static final String PASSWORD = "CMPT373Alpha";
     private static final String URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=master;";
-
     private static Connection connection = null;
 
     /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; REFACTORED methods ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
@@ -248,6 +247,19 @@ public class DBHelper
         } catch ( Exception e )
         {
             e.printStackTrace ();
+        }
+        return false;
+    }
+
+    public static boolean insertAssignedGuard( int reportID, int accountID ) {
+        String query = "INSERT INTO AssignedTo (REPORT_ID, ACCOUNT_ID) " +
+                "VALUES (" + reportID + ", " + accountID + ")";
+        try
+        {
+            return execute ( query );
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
         }
         return false;
     }
@@ -675,17 +687,35 @@ public class DBHelper
             initDB();
             String query = "delete from HappensAt;";
             boolean deleted = execute( query );
-            query =  "delete from Involves;";
+            query = "delete from Involves;";
             deleted = execute( query );
             query = "delete from Incident";
             deleted = execute( query );
             Incident[] result = getIncidents();
             return result.length == 0;
-        }
-        catch( Exception e ) {
+        } catch ( Exception e ) {
             e.printStackTrace();
         }
+        return false;
+    }
 
+    public static boolean executeProcedure (String query, Incident incident) {
+        try {
+            initDB ();
+            CallableStatement stmt = connection.prepareCall ( query );
+            stmt.setString ( 1 , incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) );
+            stmt.setString ( 2 , incident.getAttributeValue (DatabaseValues.Column.CATEGORY_ID) );
+            stmt.setString ( 3 , incident.getAttributeValue (DatabaseValues.Column.DESCRIPTION) );
+            stmt.setString ( 4 , incident.getAttributeValue (DatabaseValues.Column.EXECUTIVE_SUMMARY) );
+            stmt.setString ( 5 , incident.getAttributeValue (DatabaseValues.Column.CLOSED) );
+            stmt.registerOutParameter ( 6 , Types.INTEGER );
+            stmt.execute();
+            int output = stmt.getInt (6);
+            System.out.println( output );
+            return true;
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
         return false;
     }
 

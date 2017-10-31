@@ -68,3 +68,32 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div id="dispatchModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header">
+            <span class="glyphicon glyphicon-tag glyphicon-heading"></span>
+            <span class="panel-header">Assign Incident {{incidentToAssign.attributes.REPORT_ID}} To Guard</span>
+        </div>
+        <div class="modal-body">
+            <div class="details-container">
+                <div class="details-body">
+                    <div class="detail col-sm-8">
+                        <span class="field-title">Staff: </span>
+                        <select class="form-control" [(ngModel)]="newUser.ACCOUNT_ID">
+                            <option *ngFor="let staff of staffs" [value]="staff.ACCOUNT_ID">{{staff.FIRST_NAME}} {{staff.LAST_NAME}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary" (click)="assignGuard()" data-dismiss="modal">Assign</button>
+        </div>
+        </div>
+    </div>
+</div>
