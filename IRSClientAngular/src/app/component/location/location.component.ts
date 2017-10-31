@@ -112,5 +112,6 @@ export class LocationComponent implements OnInit {
     ngOnInit() {
         this.getLocations();
         this.addLocationToReport();
+        console.log("initializing location component");
     }
 }

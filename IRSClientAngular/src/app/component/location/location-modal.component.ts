@@ -4,11 +4,13 @@
 *  to add/change locations in a report 
 */
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Directive, ViewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { LocationService } from '../../service/location.service';
 import { LocationComponent } from './location.component';
 import { Location } from './location';
+import { NewReportService } from '../../service/new-report.service';
+import { Config } from '../../util/config.service';
 
 @Component({
     selector: 'location-modal-component', 
@@ -17,13 +19,16 @@ import { Location } from './location';
 })
 
 export class LocationModalComponent implements OnInit {
+    @ViewChild(LocationComponent) locationComponent: LocationComponent
+    
     private currentLocationID: number;
-    private location: LocationComponent;
     public visible = false;
     public button_id;
     private visibleAnimate = false;
 
-    constructor () {}
+    constructor (
+        private reportService: NewReportService,
+    ) {}
 
     public show( event ): void {
         var target = event.target || event.srcElement || event.currentTarget;
@@ -48,7 +53,7 @@ export class LocationModalComponent implements OnInit {
 
     public submitChanges(id): void {
         console.log(id);
-        this.location.addLocationToReport();
+        this.reportService.addIncidentElement( this.locationComponent.newLocation, Config.LocationTable );        
         this.hide();
     }
     
