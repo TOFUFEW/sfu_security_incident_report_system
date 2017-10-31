@@ -3,6 +3,10 @@ package App;
 
 import Controller.*;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import static spark.Spark.*;
 
 // Class that initializes each controller at start - up
@@ -13,6 +17,29 @@ public class Application
     {
         // STARTUP METHODS
         staticFileLocation("/public");
+
+        port ( 9876 );
+
+        Path currentPath = Paths.get ( "" ).toAbsolutePath ();
+
+        File keyStoreFile = new File (
+                currentPath +
+                        "/src/main/resources/public/self_signed_certificate/keystore.jks"
+        );
+        String keyStorePassword = "changeit";
+
+        File trustStoreFile = new File (
+            currentPath +
+                    "/src/main/resources/public/self_signed_certificate/cacerts.jks"
+        );
+        String trustoreStorePassword = "changeit";
+
+        secure (
+                keyStoreFile.getPath (),
+                keyStorePassword,
+                trustStoreFile.getPath (),
+                trustoreStorePassword
+        );
 
         enableCORS (
                 "*",
