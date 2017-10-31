@@ -61,7 +61,12 @@ export class GuardIncidentComponent implements OnInit {
             } );
     }
       
-    public show(): void {
+    public show(event): void {
+        console.log("event");
+        var target = event.target || event.srcElement || event.currentTarget;
+        var idAttr = target.attributes.id;
+        var value = idAttr.nodeValue;
+        console.log(value);
         var locationModal: HTMLElement = document.getElementById("modalLocation");
         locationModal.style.visibility = "true";
         // setTimeout(() => locationModal.visibleAnimate = true, 100);

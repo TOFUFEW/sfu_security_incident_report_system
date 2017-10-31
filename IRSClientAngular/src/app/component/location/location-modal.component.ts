@@ -15,7 +15,7 @@ import { Location } from './location';
 })
 
 export class LocationModalComponent implements OnInit {
-    
+    @Input() currentLocation: string;
     public visible = false;
     private visibleAnimate = false;
 
