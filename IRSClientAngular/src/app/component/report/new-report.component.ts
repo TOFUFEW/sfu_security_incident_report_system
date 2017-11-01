@@ -110,6 +110,7 @@ export class NewReportComponent implements OnInit {
 
     createReport(): void {
         if( this.reportReady ){
+            console.log( this.newIncident );
             this.incidentService.create( this.newIncident )
                 .then( returnedIncident => {
                     if ( returnedIncident != null  ) {

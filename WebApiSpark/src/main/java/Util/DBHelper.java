@@ -535,16 +535,26 @@ public class DBHelper
                     Types.INTEGER
             );
             stmt.execute();
-            deleteAllRelations ( incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) );
+
+            String reportId = incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID );
+            deleteAllRelations ( reportId );
             String relationSQL = "{ call dbo.insertRelationWithTableName ( ? , ? , ? , ? ) }";
 
             for ( int i = 0 ; i < incident.numIncidentElements () ; i++ ) {
+
                 IncidentElement incidentElement = incident.getIncidentElement( i );
-                insertIncidentRelation(
-                        relationSQL,
-                        incidentElement,
-                        incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID )
-                );
+                boolean hasAttributes = incidentElement.getColumnSet().length > 0;
+
+                if ( hasAttributes && !relationExists( reportId , incidentElement ) ) {
+                    debug_printInsertRelationLog( incidentElement );
+                    insertIncidentRelation(
+                            relationSQL,
+                            incidentElement,
+                            reportId
+                    );
+                }
+
+
             }
             return true;
         } catch ( Exception e ) {
