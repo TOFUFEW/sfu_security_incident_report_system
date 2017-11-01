@@ -1,24 +1,50 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import 'rxjs/add/operator/switchMap';
+
 import { Incident } from '../report/incident';
+import { Router, RouterModule, ActivatedRoute, ParamMap } from '@angular/router';
 import { IncidentService } from '../../service/incident.service';
+import { UserService } from '../../service/user.service'; 
+import { NewReportService } from '../../service/new-report.service'; 
+import { Location } from '../location/location'; 
+import { LocationModalComponent } from '../location/location-modal.component'; 
+import { CategoryComponent } from '../category/category.component'; 
+import { Config } from '../../util/config.service';
 
 
 @Component({
   selector: 'guard-incident-component',
   templateUrl: './guard-incident.component.html',
+  styleUrls: ['../../../assets/css/guard-app.css'],  
 })
 
-export class GuardIncidentComponent implements OnInit {
-  incidents: Incident[];
-  newIncident: Incident = new Incident();
+export class GuardIncidentComponent implements OnInit {     
+    @ViewChild(LocationModalComponent) locationModal: LocationModalComponent     
+    @ViewChild(CategoryComponent) categoryModal: CategoryComponent        
+    title = 'SFU Incident Reporting System';     
+    incident: Incident;   
+    
+    constructor (         
+        private incidentsService: IncidentService,         
+        private reportService: NewReportService,         
+        private userService: UserService,                
+        private router: Router,         
+        private http: HttpClient,         
+        private route: ActivatedRoute     
+    ) {
 
-  constructor ( private incidentsService: IncidentService ) {};
+        if ( this.userService.isLoggedIn() == false ) 
+        {             
+            this.router.navigate([ 'login' ] );         
+        }     
+    }; 
 
-  getIncidents(): void {
-    this.incidentsService.getIncidents().then( returnedIncidents => {
-      this.incidents = returnedIncidents;
-    } );
-  }
+//   getIncidents(): void {
+//     this.incidentsService.getIncidents().then( returnedIncidents => {
+//       this.incidents = returnedIncidents;
+//     } );
+//   }
 
 //   addIncident(): void {
 //     this.incidentsService.create( this.newIncident )
@@ -33,7 +59,6 @@ export class GuardIncidentComponent implements OnInit {
 //     this.newIncident = new Incident();
 //   }
 
-<<<<<<< HEAD
     saveReport(): void {
         this.incidentsService.update( this.incident )
             .then( returnedIncident => {
@@ -105,23 +130,16 @@ export class GuardIncidentComponent implements OnInit {
         console.log("change category in incident", newCategoryID);
         this.incident.category.CATEGORY_ID = newCategoryID;
     }
-=======
-//   updateIncident( incident: Incident ): void {
-//     this.incidentsService.update( incident )
-//         .then( returnedIncident => {
-//             if ( returnedIncident != null  ) {
-//               var i = this.incidents.findIndex( inc => inc.REPORT_ID === returnedIncident.REPORT_ID );
-//               // remove 1 object at index i, replace it with returnedLocation
-//               this.incidents.splice( i, 1, returnedIncident );
-//               alert( "Incident successfully edited!" );
-//             }
-//             else alert( "Edit failed." );
-//         } );
-//   }
->>>>>>> origin/master
 
-  ngOnInit() : void {
-    this.getIncidents();
-  }
+    ngOnInit() : void {         
+        console.log ( "in guard incident on init" );         
+        this.route.paramMap         
+            .switchMap (( params: ParamMap ) =>             
+            this.incidentsService.getIncident ( +params.get ( 'id' )))         
+            .subscribe ( returnedIncident => {             
+                this.incident = returnedIncident;             
+        console.log("returned incident" , this.incident);           
+     })     
+    }
 }
 
