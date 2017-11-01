@@ -123,7 +123,19 @@ export class IncidentService
     }
 
     update( incident: Incident ): Promise<Incident> {
-        return this.create( incident );
+        if ( incident.attributes.ACCOUNT_ID == null ) {
+            incident.attributes.ACCOUNT_ID = 7;
+        }
+
+        incident.table = Config.IncidentTable;
+        var promise = this.http
+                .post( Config.UpdateIncidentURI, JSON.stringify( incident ), { headers: this.headers } )
+                .toPromise()
+                .then( response => {
+                    return ( response.json() as boolean ) ? incident : null
+                })
+                .catch( this.handleError );
+        return Promise.resolve( promise );
     }
 
     delete( id: number ) : Promise<boolean> {

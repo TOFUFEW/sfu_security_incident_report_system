@@ -3,6 +3,7 @@ import { IncidentService } from '../../service/incident.service';
 import { StaffService } from '../../service/staff.service';
 import { Incident } from './incident';
 import { Location } from '../location/location';
+import { Staff } from '../staff/staff';
 
 @Component( 
     {
@@ -14,9 +15,16 @@ import { Location } from '../location/location';
 )
 
 export class IncidentComponent implements OnInit {
+    staffArr: Staff[] = [];
+    selectedStaffId: number = 7;
     incidents: Incident[];
+    incidentToAssign: Incident = new Incident();
     lastRemovedId: number = 0;
-    constructor( private incidentService: IncidentService ){
+
+    constructor( private incidentService: IncidentService, private staffService: StaffService ){
+        this.staffService.getStaffs().then( returnedArr => {
+            this.staffArr = returnedArr;
+        });
         this.incidentService.lastRemovedId
             .subscribe( value => this.removeFromWorkspace( value ) );
     };
@@ -41,6 +49,26 @@ export class IncidentComponent implements OnInit {
         var index = this.incidents.findIndex( i => i.attributes.REPORT_ID == id );
         console.log( "index: " + index );
         this.incidents[ index ].inWorkspace = false;
+    }
+
+    setIncidentToAssign( id: number ) {
+        console.log(id);
+        if ( id == null ) return;
+        var index = this.incidents.findIndex( x => x.attributes.REPORT_ID == id );
+        if ( index >= 0 ) {
+            this.incidentToAssign = this.incidents[ index ];
+        }
+    }
+
+    onSelectStaff(): void {
+        var index = this.staffArr.findIndex( x => x.attributes.ACCOUNT_ID == this.incidentToAssign.attributes.ACCOUNT_ID );
+        if ( index >= 0 )
+            this.selectedStaffId = this.staffArr[ index ].attributes.ACCOUNT_ID;
+    }
+
+    assignToStaff() {
+        this.incidentToAssign.attributes.ACCOUNT_ID = this.selectedStaffId;
+        this.incidentService.update( this.incidentToAssign ).then();
     }
 
     deleteIncident( id: number ): void {
