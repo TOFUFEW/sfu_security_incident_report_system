@@ -77,7 +77,7 @@ export class IncidentComponent implements OnInit {
                 console.log (returnedIncident);
                 if ( returnedIncident != null ) {
                     var index = this.incidents.findIndex( x => x.attributes.ACCOUNT_ID == returnedIncident.attributes.ACCOUNT_ID );
-                    this.incidents[ index ] = returnedIncident;
+                    this.incidents.splice( index, 1, returnedIncident );
                     this.incidents[ index ].incidentElements.forEach( elem => {
                         if ( elem.table == Config.StaffTable ) {
                             this.incidents[ index ].guard = elem as Staff;
