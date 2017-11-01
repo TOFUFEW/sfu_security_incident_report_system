@@ -138,6 +138,23 @@ export class IncidentService
         return Promise.resolve( promise );
     }
 
+    assignToStaff( incident: Incident ): Promise<Incident> {
+        if ( incident.attributes.ACCOUNT_ID == null ) {
+            incident.attributes.ACCOUNT_ID = 7;
+        }
+
+        incident.table = Config.IncidentTable;
+        var promise = this.http
+                .post( Config.AssignIncidentURI, JSON.stringify( incident ), { headers: this.headers } )
+                .toPromise()
+                .then( response => {
+                    console.log (response.json());
+                    return ( response.json() as boolean ) ? incident : null
+                })
+                .catch( this.handleError );
+        return Promise.resolve( promise );
+    }
+
     delete( id: number ) : Promise<boolean> {
         var url = `${this.incidentsUrl}/${id}`;
         var promise = this.http

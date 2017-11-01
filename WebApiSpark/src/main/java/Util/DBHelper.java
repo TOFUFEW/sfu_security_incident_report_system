@@ -570,6 +570,23 @@ public class DBHelper
         return false;
     }
 
+    public static boolean assignIncident( Incident incident ) {
+        try {
+            String query = "update Incident set account_id = '" + incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID )
+                    + "' where report_id = " + incident.getAttributeValue( DatabaseValues.Column.REPORT_ID );
+
+            boolean success = execute( query );
+
+            Incident updatedIncident = getIncident( incident.getAttributeValue( DatabaseValues.Column.REPORT_ID ));
+            return updatedIncident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ).equals( incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ));
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
 //    public static boolean updateIncident ( Incident incident ) {
 //        String incidentSQL = incident.toUpdateSQL ();
 //        try {

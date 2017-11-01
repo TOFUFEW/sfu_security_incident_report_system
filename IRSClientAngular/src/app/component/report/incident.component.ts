@@ -4,6 +4,7 @@ import { StaffService } from '../../service/staff.service';
 import { Incident } from './incident';
 import { Location } from '../location/location';
 import { Staff } from '../staff/staff';
+import { Config } from '../../util/config.service';
 
 @Component( 
     {
@@ -68,7 +69,30 @@ export class IncidentComponent implements OnInit {
 
     assignToStaff() {
         this.incidentToAssign.attributes.ACCOUNT_ID = this.selectedStaffId;
-        this.incidentService.update( this.incidentToAssign ).then();
+        var index = this.staffArr.findIndex( x => x.attributes.ACCOUNT_ID == this.incidentToAssign.attributes.ACCOUNT_ID );
+        if ( index >= 0 )
+            this.incidentToAssign.incidentElements.push( this.staffArr[ index ] );
+        this.incidentService.assignToStaff( this.incidentToAssign ).then(
+            returnedIncident => {
+                console.log (returnedIncident);
+                if ( returnedIncident != null ) {
+                    var index = this.incidents.findIndex( x => x.attributes.ACCOUNT_ID == returnedIncident.attributes.ACCOUNT_ID );
+                    this.incidents[ index ] = returnedIncident;
+                    this.incidents[ index ].incidentElements.forEach( elem => {
+                        if ( elem.table == Config.StaffTable ) {
+                            this.incidents[ index ].guard = elem as Staff;
+                        }
+                    });
+                    alert("Success! Incident has been assigned.");                                    
+                }
+                else {
+                    console.log("Assign failed.");
+                }
+                
+                delete this.incidentToAssign;
+                this.incidentToAssign = new Incident();
+            }
+        );
     }
 
     deleteIncident( id: number ): void {
