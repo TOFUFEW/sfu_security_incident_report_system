@@ -14,6 +14,11 @@ public class Application
         // STARTUP METHODS
         staticFileLocation("/public");
 
+        webSocket (
+                "/login",
+                IncidentWebSocket.class
+        );
+
         enableCORS (
                 "*",
                 "GET, " + "POST, PUT, DELETE, OPTIONS, HEAD",

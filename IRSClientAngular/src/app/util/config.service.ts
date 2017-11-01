@@ -15,4 +15,6 @@ export class Config {
     static IncidentTable: string = "INCIDENT";
     static PersonTable: string = "PERSON";
     static CategoryTable: string = "INCIDENT_CATEGORY";
+
+    static WebSocketURI: string = "ws://localhost:4567/login";
 }
