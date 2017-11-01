@@ -395,17 +395,175 @@ public class DBHelper
         return false;
     }
 
-    public static boolean updateIncident ( Incident incident ) {
-        String incidentSQL = incident.toUpdateSQL ();
+    private static boolean insertIncidentRelation (
+            String query,
+            IncidentElement incidentElement,
+            String reportID
+    ) {
         try {
-            return execute ( incidentSQL );
+            initDB ();
+            CallableStatement stmt = connection.prepareCall ( query );
+            String tableName = incidentElement.getTable ().toString ().substring (4);
+            if ( tableName.compareTo ( "Staff" ) == 0 )
+            {
+                stmt.setString (
+                        1,
+                        reportID
+                );
+                stmt.setString (
+                        2,
+                        tableName
+
+                );
+                stmt.setString (
+                        3,
+                        incidentElement.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID )
+                );
+            }
+            else if ( tableName.compareTo ( "Location" ) == 0 )
+            {
+                stmt.setString (
+                        1,
+                        reportID
+                );
+                stmt.setString (
+                        2,
+                        tableName
+
+                );
+                stmt.setString (
+                        3,
+                        incidentElement.getAttributeValue ( DatabaseValues.Column.LOCATION_ID )
+                );
+            }
+            else if ( tableName.compareTo ( "Person" ) == 0 )
+            {
+                stmt.setString (
+                        1,
+                        reportID
+                );
+                stmt.setString (
+                        2,
+                        tableName
+
+                );
+                stmt.setString (
+                        3,
+                        incidentElement.getAttributeValue ( DatabaseValues.Column.PERSON_ID )
+                );
+            }
+            else if ( tableName.compareTo ( "IncidentCategory" ) == 0 )
+            {
+                stmt.setString (
+                        1,
+                        reportID
+                );
+                stmt.setString (
+                        2,
+                        tableName
+
+                );
+                stmt.setString (
+                        3,
+                        incidentElement.getAttributeValue ( DatabaseValues.Column.CATEGORY_ID )
+                );
+            }
+            stmt.registerOutParameter (
+                    4,
+                    Types.INTEGER
+            );
+            stmt.execute ();
+
+            int output = stmt.getInt ( 4 );
+
+            if ( output != 0 )
+            {
+                return true;
+            }
         }
-        catch ( SQLException e )
+        catch ( Exception e )
         {
             e.printStackTrace ();
         }
         return false;
     }
+
+    private static void deleteAllRelations ( String reportID ) {
+        try {
+            initDB();
+            String query = "{ call dbo.deleteAllRelations ( ? ) }";
+            CallableStatement stmt = connection.prepareCall ( query );
+            stmt.setString (
+                    1,
+                    reportID
+            );
+            stmt.execute();
+            return;
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    public static boolean updateIncident ( Incident incident ) {
+        try {
+            initDB ();
+            String query = "{ call dbo.updateIncident ( ? , ? , ? , ? , ? , ? ) } ";
+            CallableStatement stmt = connection.prepareCall ( query );
+            stmt.setString (
+                    1,
+                    incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID )
+            );
+            stmt.setString (
+                    2,
+                    incident.getAttributeValue ( DatabaseValues.Column.CATEGORY_ID )
+            );
+            stmt.setString (
+                    3,
+                    incident.getAttributeValue ( DatabaseValues.Column.DESCRIPTION )
+            );
+            stmt.setString (
+                    4,
+                    incident.getAttributeValue ( DatabaseValues.Column.EXECUTIVE_SUMMARY )
+            );
+            stmt.setString (
+                    5,
+                    incident.getAttributeValue ( DatabaseValues.Column.CLOSED )
+            );
+
+            stmt.registerOutParameter (
+                    6,
+                    Types.INTEGER
+            );
+            stmt.execute();
+            deleteAllRelations ( incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) );
+            String relationSQL = "{ call dbo.insertRelationWithTableName ( ? , ? , ? , ? ) }";
+
+            for ( int i = 0 ; i < incident.numIncidentElements () ; i++ ) {
+                IncidentElement incidentElement = incident.getIncidentElement( i );
+                insertIncidentRelation(
+                        relationSQL,
+                        incidentElement,
+                        incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID )
+                );
+            }
+            return true;
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+//    public static boolean updateIncident ( Incident incident ) {
+//        String incidentSQL = incident.toUpdateSQL ();
+//        try {
+//            return execute ( incidentSQL );
+//        }
+//        catch ( SQLException e )
+//        {
+//            e.printStackTrace ();
+//        }
+//        return false;
+//    }
 
     public static boolean insertIncidentElement ( IncidentElement incidentElement )
     {
