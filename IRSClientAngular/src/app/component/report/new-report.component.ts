@@ -52,6 +52,7 @@ export class NewReportComponent implements OnInit {
         this.categoryService.getCategories().then ( returnedCategories => {
             this.categories = this.categoryService.toCategoryDictionary( returnedCategories );
         });
+        console.log( this.categories );
     }
 
     //filter subcategory and type lists according to selection of previous dropdown
@@ -93,6 +94,7 @@ export class NewReportComponent implements OnInit {
         //if ( this.dynamicTest == 'Vehicle' )
           //  this.domService.addComponent( VehicleComponent, "vehicles" );
         /*else*/ if ( componentName === this.locationStr ) {
+            console.log("in addComponent: location");
             this.domService.addComponent( LocationComponent.name, "locations" );
         } else if ( componentName === this.personStr){
             this.domService.addComponent( PersonComponent.name, "persons" );
@@ -110,6 +112,7 @@ export class NewReportComponent implements OnInit {
 
     createReport(): void {
         if( this.reportReady ){
+            //this.newIncident.incidentElements = this.newReportService.collectIncidentElements( this.selectedCategory );
             this.incidentService.create( this.newIncident )
                 .then( returnedIncident => {
                     if ( returnedIncident != null  ) {
@@ -118,6 +121,8 @@ export class NewReportComponent implements OnInit {
                     }
                     else alert( "Add failed." );
                 } );
+            delete this.newIncident;
+            this.newIncident = new Incident();
         } else {
             alert("Please fill in the required fields");
         }
