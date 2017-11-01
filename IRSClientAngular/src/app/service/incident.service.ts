@@ -57,6 +57,8 @@ export class IncidentService
     private initIncidents( incidents: Incident[] ): Incident[] {
         incidents.forEach(i => {
             i.locationList = [];
+            i.personList = [];
+            i.staffList = [];
             i.incidentElements.forEach( e => {
                 if ( e.table === Config.CategoryTable ) {
                     i.category = e.attributes as Category;
