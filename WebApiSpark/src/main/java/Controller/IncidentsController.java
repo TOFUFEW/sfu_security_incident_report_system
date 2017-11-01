@@ -6,20 +6,11 @@ import Model.Person;
 import Util.DBHelper;
 import Util.JsonUtil;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> origin/master
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 import static Util.JsonUtil.json;
-<<<<<<< HEAD
-=======
->>>>>>> 37-guard-get-and-display-assigned-incidents
-=======
->>>>>>> origin/master
 import static spark.Spark.get;
 import static spark.Spark.post;
 
@@ -50,5 +41,11 @@ public class IncidentsController
             Incident updatedIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
             return DBHelper.updateIncident ( updatedIncident );
         } );
+
+        post ( "/assignIncident", ( request, response ) ->
+        {
+            Incident incident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
+            return DBHelper.assignIncident( incident );
+        }) ;
     }
 }

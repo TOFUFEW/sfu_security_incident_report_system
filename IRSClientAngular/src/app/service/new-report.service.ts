@@ -22,11 +22,6 @@ export class NewReportService {
         this.incidentElements = [];
     }
 
-    addElementsFromIncident( incidentElements, locations ) {
-        this.incidentElements = incidentElements;
-        this.currentLocations = locations;
-    }
-
     addIncidentElement( obj: any, table: string ) {
         if ( obj == null ) {
             console.log("ERROR: " + table + " is undefined and cannot be added.");
@@ -45,7 +40,6 @@ export class NewReportService {
         }
 
         arr.push( obj );
-        console.log("new report service array", arr);
         behaviorSubject.next( arr );
     }
 
@@ -84,7 +78,7 @@ export class NewReportService {
     collectIncidentElements( category: Category ) {
         this.unwrapSubject( this.locations, Config.LocationTable );
         this.unwrapSubject( this.persons, Config.PersonTable );
-        this.incidentElements.push( DataHelperService.toIncidentElement( Config.CategoryTable, category ) );
+        this.incidentElements.push( DataHelperService.toIncidentElement( Config.CategoryTable, category ) );  
         console.log( this.incidentElements) ;
         
         return this.incidentElements;

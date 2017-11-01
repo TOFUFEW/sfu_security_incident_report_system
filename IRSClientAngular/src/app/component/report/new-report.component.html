@@ -91,6 +91,23 @@
                             <attachment-component #files (change)="files.upload()" [multiple]="true"></attachment-component>                                            
                         </div>
                     </div>
+
+                    <div class="details-container">
+                        <div class="details-heading">
+                            <span class="glyphicon glyphicon-tag glyphicon-heading"></span>
+                            <span class="field-title">Assign Guard</span>
+                        </div>
+                        <div>
+                            <div class="details-body">
+                                <div class="detail col-12 col-sm-3">
+                                    <select class="form-control" name="" id="" [(ngModel)]="newIncident.attributes.ACCOUNT_ID" (change)="onSelectStaff()">
+                                        <option *ngFor="let staff of staffList" [value]="staff.attributes.ACCOUNT_ID">{{staff.attributes.FIRST_NAME}} {{staff.attributes.LAST_NAME}}</option>
+                                    </select>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+
                 </div>
 
                 
@@ -210,6 +227,18 @@
                             <div class="alertText" *ngIf="person.PHONE_NUMBER == null || person.PHONE_NUMBER.length != 10">
                                     Please enter a valid phone number
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="details-container">
+                    <div class="details-heading">
+                        <span class="glyphicon glyphicon-tag glyphicon-heading"></span>
+                        <span class="field-title">Assigned Guard</span>
+                    </div>
+                    <div class="details-body">
+                        <div class="detail col-12 col-sm-3">
+                            <span class="field-title">Name: </span>
+                            <span class="field-value">{{selectedStaff.attributes.FIRST_NAME}} {{selectedStaff.attributes.LAST_NAME}}</span>
                         </div>
                     </div>
                 </div>

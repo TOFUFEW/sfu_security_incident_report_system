@@ -4,9 +4,11 @@ import { DomService } from '../../util/dom.service';
 import { NewReportService } from '../../service/new-report.service';
 import { CategoryService } from '../../service/category.service';
 import { DataHelperService } from '../../util/data-helper.service';
+import { StaffService } from '../../service/staff.service';
 import { Location } from '../location/location';
 import { Person } from '../person/person';
 import { Incident } from '../report/incident';
+import { Staff } from '../staff/staff';
 import { Category, SubCategory, CategoryType, CategoryDictionary } from '../category/category';
 import { LocationComponent } from '../location/location.component';
 import { VehicleComponent } from '../vehicle/vehicle.component';
@@ -30,13 +32,28 @@ export class NewReportComponent implements OnInit {
     subCategories: SubCategory[] = [];
     categoryTypes: CategoryType[] = [];    
 
+    staffList: Staff[] = [];
+    selectedStaff: Staff = new Staff();
+
     reportReady: boolean = false; 
+
     constructor( 
       private incidentService: IncidentService,
       private domService: DomService,
       private newReportService: NewReportService,
-      private categoryService: CategoryService
+      private categoryService: CategoryService,
+      private staffService: StaffService
     ) {
+        this.staffService.getStaffs().then( returnedStaffs => {
+            this.staffList = returnedStaffs.sort( 
+                function( a, b ) {
+                    return a.attributes.FIRST_NAME < b.attributes.FIRST_NAME ? -1 : 1;
+                } );
+
+            var index = this.staffList.findIndex( x => x.attributes.LAST_NAME.length == 0 && x.attributes.FIRST_NAME.length == 0 );
+            if ( index >= 0 )
+                this.selectedStaff = this.staffList[ index ]; // default is dummy staff
+          } ); 
     }
 
     ngOnInit() {
@@ -88,6 +105,12 @@ export class NewReportComponent implements OnInit {
         }
     }
 
+    onSelectStaff(): void {
+        var index = this.staffList.findIndex( x => x.attributes.ACCOUNT_ID == this.newIncident.attributes.ACCOUNT_ID );
+        if ( index >= 0 )
+            this.selectedStaff = this.staffList[ index ];
+    }
+
     addComponent( componentName: string ) {
         //if ( this.dynamicTest == 'Vehicle' )
           //  this.domService.addComponent( VehicleComponent, "vehicles" );
@@ -109,6 +132,8 @@ export class NewReportComponent implements OnInit {
 
     createReport(): void {
         if( this.reportReady ){
+            this.newIncident.attributes.ACCOUNT_ID = this.selectedStaff.attributes.ACCOUNT_ID;
+            console.log( this.newIncident );
             this.incidentService.create( this.newIncident )
                 .then( returnedIncident => {
                     if ( returnedIncident != null  ) {

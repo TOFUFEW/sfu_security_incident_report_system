@@ -8,6 +8,8 @@ export class Config {
     static GetIncidentURI: string = "http://localhost:4567/get-incident"
     static CategoriesURI: string = "http://localhost:4567/categories";
     static UpdateIncidentsURI: string = "http://localhost:4567/updateIncident";
+    static UpdateIncidentURI: string = "http://localhost:4567/updateIncident";
+    static AssignIncidentURI: string = "http://localhost:4567/assignIncident";
 
     static StaffTable: string = "STAFF";
     static LocationTable: string = "LOCATION";

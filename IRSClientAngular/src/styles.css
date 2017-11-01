@@ -470,12 +470,4 @@ div.phone-input {
   .navbar-lg {
     display: none; } }
 
-#logout {
-    background-color: transparent;
-    position: absolute; 
-    right: 0.5em;
-    margin-top: 0.5em;
-    color: #f9f9f9;
-}
-
 /*# sourceMappingURL=styles.css.map */
