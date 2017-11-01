@@ -375,6 +375,27 @@ div.phone-input {
     width: 60px !important ;
 }
 
+
+#logout {
+    background-color: transparent;
+    position: absolute; 
+    right: 0.5em;
+    margin-top: 0.5em;
+    color: #f9f9f9;
+}
+
+// .card-text-primary, a.card-text-primary {
+//     color: $sfu-black;
+//     display: inline-block;    
+//     font-size: 115%;
+// }
+
+// .card-text-secondary, a.card-text-secondary {
+//     color: $field-title-color;
+//     display: inline-block;    
+//     font-size: 100%;
+
+
 /****************************/
 /*  Guard app styles
 /****************************/

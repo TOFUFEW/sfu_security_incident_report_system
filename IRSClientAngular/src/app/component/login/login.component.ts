@@ -27,7 +27,7 @@ export class LoginComponent {
     onLogin() {
         this.user.ACCOUNT_TYPE = 0;
         this.user.ACCOUNT_ID = 0;
-        this.loginService.doLogin(this.user)
+        this.loginService.doLogin ( this.user )
         .subscribe(
             (responseData) => {
                 this.user = responseData;
@@ -39,8 +39,8 @@ export class LoginComponent {
                       this.router.navigate([ 'dashboard' ] );
                       //alert( "welcome dispatcher" );
                     } else if( this.userService.isGuard() ) {
-                      this.router.navigate([ 'guard' ] );
-                      //alert( "welcome guard" );
+                      this.router.navigate([ 'guard-app/reports-all' ] );
+                    //   alert( "welcome guard" );
                     } else {
                       //alert( "unknown person" );
                       this.userService.logout();

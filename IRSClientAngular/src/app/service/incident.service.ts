@@ -92,29 +92,49 @@ export class IncidentService
 
     getGuardIncidents(): Promise<Incident[]> {
         var user = this.userService.getCurrentUser();
+        console.log("guard", user);
         var _user = DataHelperService.toIncidentElement ( Config.AccountTable, user );
         var incidents = this.http
             .post( this.guardIncidentsUrl, JSON.stringify( _user ), { headers: this.headers } )
             .toPromise()
             .then( response => response.json() as Incident[] )
             .catch( this.handleError );
+        console.log("got incidents");            
         return Promise.resolve( incidents );
     }
 
     getIncident( id: number ): Promise<Incident> {
-        var incident = new Incident();
-        incident.attributes.REPORT_ID = id ;
-        var returnIncident = this.http
-            .post( Config.GetIncidentURI, JSON.stringify( incident ), { headers: this.headers } )
+        var incidentToGet = new Incident();
+        console.log("report id: ", id);
+        incidentToGet.attributes.REPORT_ID = id ;
+        var returnedIncident = this.http
+            .post( Config.GetIncidentURI, JSON.stringify( incidentToGet ), { headers: this.headers } )
             .toPromise()
-            .then( response => response.json() as Incident )
+            .then( response => this.initializeIncident( response.json() as Incident ) as Incident )
             .catch( this.handleError );
-        return Promise.resolve( returnIncident );
+        console.log("got one incident");
+        return Promise.resolve( returnedIncident );
     }
+
+    private initializeIncident( incident: Incident ): Incident {
+            incident.locationList = [];
+            incident.incidentElements.forEach( e => {
+                if ( e.table === Config.CategoryTable ) {
+                    incident.category = e.attributes as Category;
+                }
+                else if ( e.table === Config.LocationTable ) {
+                    incident.locationList.push( e as Location )
+                }
+            });
+        return incident;
+    }
+
+
 
     create( incident: Incident ): Promise<Incident> {
         incident.table = Config.IncidentTable;
-        incident.attributes.ACCOUNT_ID = 1;
+        console.log("table name " + Config.IncidentTable);
+        incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().ACCOUNT_ID;
         var promise = this.http
                 .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
                 .toPromise()
@@ -122,6 +142,7 @@ export class IncidentService
                     return ( response.json() as boolean ) ? incident : null
                 })
                 .catch( this.handleError );
+        console.log("created");                
         return Promise.resolve( promise );
     }
 

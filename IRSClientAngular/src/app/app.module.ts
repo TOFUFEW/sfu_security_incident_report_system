@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { LocationComponent } from './component/location/location.component';
+import { LocationModalComponent } from './component/location/location-modal.component';
 import { StaffComponent } from './component/staff/staff.component';
 import { IncidentComponent } from './component/report/incident.component';
 import { LoginComponent } from './component/login/login.component';
@@ -17,9 +18,9 @@ import { NewReportComponent } from './component/report/new-report.component';
 import { VehicleComponent } from './component/vehicle/vehicle.component';
 import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
+import { GuardAllReportsComponent } from './component/guard-app/guard-all-reports.component';
 import { AttachmentComponent } from './component/attachment/attachment.component';
 
-import { GuardDashboardComponent } from './component/guard-app/guard-dashboard.component';
 import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
 import { GuardTestViewReportComponent } from "./component/guard-app/guard-test-view-report.component";
 import { CategoryComponent } from './component/category/category.component'
@@ -40,52 +41,58 @@ import { DataHelperService } from './util/data-helper.service';
 import { FilterPipe } from './util/filter.pipe';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    HttpClientModule,
-    routes
-  ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        HttpClientModule,
+        routes, 
+    ],
 
-  declarations: [
-    AppComponent,
-    AttachmentComponent,
-    DashboardComponent,
-    LocationComponent,
-    StaffComponent,
-    IncidentComponent,
-    LoginComponent,
-    GuardDashboardComponent,
-    GuardIncidentComponent,
-    CategoryComponent,
-    NewReportComponent,
-    VehicleComponent,
-    SearchComponent,
-    PersonComponent,
-    FilterPipe,
-    ReportSummaryComponent,
-    GuardTestViewReportComponent
-  ],
+    declarations: [
+        AppComponent,
+        DashboardComponent,
+        AttachmentComponent,        
+        LocationComponent,
+        LocationModalComponent,
+        StaffComponent,
+        IncidentComponent,
+        LoginComponent,
+        GuardAllReportsComponent,
+        GuardIncidentComponent,
+        GuardIncidentComponent,
+        CategoryComponent,
+        NewReportComponent,
+        VehicleComponent,
+        SearchComponent,
+        PersonComponent,
+        FilterPipe,
+        ReportSummaryComponent,
+        GuardTestViewReportComponent
+    ],
 
-  providers: [
-    UserService,
-    LoginService,
-    DomService,
-    DataHelperService,
-    LocationService,
-    IncidentService,
-    StaffService,
-    PersonService,
-    NewReportService,
-    CategoryService],
+    providers: [
+        UserService, 
+        LoginService, 
+        DomService, 
+        DataHelperService, 
+        LocationService, 
+        IncidentService, 
+        StaffService, 
+        PersonService,
+        NewReportService,
+        CategoryService
+    ],
+  
 
-  bootstrap: [AppComponent],
+    bootstrap: [AppComponent],
 
-  entryComponents: [
-    LocationComponent,
-    VehicleComponent,
-    PersonComponent, ]
+    entryComponents: [
+        LocationComponent,
+        VehicleComponent,
+        PersonComponent, 
+        GuardAllReportsComponent
+    ]
 })
 
 export class AppModule { }

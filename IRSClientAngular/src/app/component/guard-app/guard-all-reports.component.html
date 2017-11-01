@@ -1,0 +1,28 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-10 col-md-offset-1 col-md-offset-right-1">
+            <div class="flex-container">
+                <div class="flex-item panel panel-default" *ngFor="let incident of incidents" (click)="viewReport(incident)">
+                    <div class="panel-body">
+                        <ul class="p-0">
+                            <li class="card-text-primary">
+                                #{{incident.attributes.REPORT_ID}}
+                            </li>
+                            <li class="card-text-secondary mt-sm">
+                                {{incident.attributes.DESCRIPTION}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <footer class="panel panel-default guard-app-menu">
+            <button class="button guard-menu-button card-text-primary">
+                <span class="glyphicon glyphicon-plus"></span> 
+                New Report
+            </button>            
+        </footer>
+    </div>
+</div>

@@ -88,7 +88,6 @@ export class NewReportComponent implements OnInit {
         }
     }
 
-
     addComponent( componentName: string ) {
         //if ( this.dynamicTest == 'Vehicle' )
           //  this.domService.addComponent( VehicleComponent, "vehicles" );
