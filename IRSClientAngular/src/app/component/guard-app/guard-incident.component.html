@@ -1,5 +1,4 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <div class="container-fluid main-content">
     <div class="row">
         <div class="container-fluid">
@@ -24,7 +23,7 @@
                                 </span> -->
                             <!-- </h5> -->
                         </div>
-                
+                        <category-component #modalCategory (categorySaved)="changeCategory($event)"></category-component>             
                         <div class="panel-group" id="accordion">
                                 <div class="panel panel-default ml-1 mr-1">
                                         <div class="panel-heading collapsable-heading">
@@ -35,17 +34,17 @@
                                                     Category
                                                 </a>
                                             </h4>
-                                        </div>       
+                                        </div>
                                         <div id="collapseCategory" class="panel-collapse collapse in">
-                                            <div class="panel-body lh-1" *ngIf="incident">
+                                            <div class="panel-body lh-1" *ngIf="incident">                                                    
                                                 <span [id]="incident.category.CATEGORY_ID" 
-                                                    (dblclick)="modalCategory.show($event)">
+                                                    (dblclick)="modalCategory.show()">
                                                     {{incident.category.MAIN_CATEGORY}},  
+                                                    <!-- keep the span below in line to prevent insertion of space before comma -->
                                                     {{incident.category.SUB_CATEGORY}}<span *ngIf="incident.category.INCIDENT_TYPE">,
                                                         {{incident.category.INCIDENT_TYPE}}
                                                     </span>
-                                                </span>
-                                                <category-component #modalCategory></category-component> 
+                                                </span>                                                
                                             </div>
                                         </div>
                                     </div>
@@ -140,10 +139,10 @@
     </div>
     <div class="row">
         <footer class="panel panel-default guard-app-menu">
-            <button class="button guard-menu-button field-title" (click)="saveReport()">
+            <!-- <button class="button guard-menu-button field-title" (click)="saveReport()">
                 <span class="glyphicon glyphicon-save"></span> 
                 Save
-            </button>
+            </button> -->
             <button class="button guard-menu-button field-title ml-1">
                 <span class="glyphicon glyphicon-plus"></span> 
                 New

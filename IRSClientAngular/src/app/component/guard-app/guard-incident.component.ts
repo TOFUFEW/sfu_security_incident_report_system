@@ -9,6 +9,7 @@ import { UserService } from '../../service/user.service';
 import { NewReportService } from '../../service/new-report.service';
 import { Location } from '../location/location';
 import { LocationModalComponent } from '../location/location-modal.component';
+import { CategoryComponent } from '../category/category.component';
 import { Config } from '../../util/config.service';
 
 @Component ({
@@ -19,6 +20,7 @@ import { Config } from '../../util/config.service';
 
 export class GuardIncidentComponent implements OnInit {
     @ViewChild(LocationModalComponent) locationModal: LocationModalComponent
+    @ViewChild(CategoryComponent) categoryModal: CategoryComponent    
     title = 'SFU Incident Reporting System';
     incident: Incident; 
 
@@ -120,6 +122,11 @@ export class GuardIncidentComponent implements OnInit {
         console.log( "new location list", this.incident.incidentElements );
         // this.incidentsService.update( this.incident );
         console.log(this.incident);
+    }
+
+    changeCategory( newCategoryID ) : void {
+        console.log("change category in incident", newCategoryID);
+        this.incident.category.CATEGORY_ID = newCategoryID;
     }
 
     initializeReportService () : void {
