@@ -24,6 +24,8 @@ div.incident-card {
     width: 100%;
     display: block;
     overflow: hidden; }
+    div.incident-card .detail-row.tertiary {
+      margin-top: 8px; }
   div.incident-card .description {
     margin-top: 8px;
     margin-bottom: 8px; }
