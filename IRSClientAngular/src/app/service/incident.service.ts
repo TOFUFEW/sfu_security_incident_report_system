@@ -65,6 +65,7 @@ export class IncidentService
                 i.guard = this.staffArr[ index ];
             }
 
+            this.initArrays(i);
             i.locationList = [];
             i.personList = [];
             i.staffList = [];
@@ -82,6 +83,21 @@ export class IncidentService
         });
         console.log (incidents);
         return incidents;
+    }
+
+    private initArrays(incident: Incident) {
+        
+        if (incident.locationList === undefined) {
+            incident.locationList = new Array;
+        }
+
+        if (incident.staffList === undefined) {
+            incident.staffList = new Array;
+        }
+
+        if (incident.personList === undefined) {
+            incident.personList = new Array;
+        }
     }
 
     getGuardIncidents(): Promise<Incident[]> {
