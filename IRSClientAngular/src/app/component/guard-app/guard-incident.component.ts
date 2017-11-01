@@ -86,20 +86,21 @@ export class GuardIncidentComponent implements OnInit {
     changeLocation( edit ) : void {
         // this.reportService.addElementsFromIncident ( this.incident.incidentElements, this.incident.locationList );
         var locationToRemoveIndex : number;
+        var locationToRemoveLocally : number;
         var locationToAdd = this.locationModal.locationComponent.newLocation;
         var locationToRemove : Location;
         
         // console.log("report service incident elements", this.reportService.incidentElements);        
      
-        // this.incident.locationList.map( (location, key) => {
-        //     if ( location.attributes.LOCATION_ID == this.locationModal.button_id ) {
-        //         locationToRemoveIndex = this.incident.locationList.indexOf(location);     
-        //     } 
-        // });
-        // console.log ( "location index ", locationToRemoveIndex );
+        this.incident.locationList.forEach( location => {
+            if ( location.attributes.LOCATION_ID == this.locationModal.button_id ) {
+                locationToRemoveLocally = this.incident.locationList.indexOf(location);     
+            } 
+        });
+        this.incident.locationList.splice(locationToRemoveIndex, 1, locationToAdd);
+        
+        console.log ( "location index ", locationToRemoveIndex );
 
-        // locationToRemove = this.incident.locationList[locationToRemoveIndex];
-        // console.log("location object to remove", locationToRemove );
         // this.reportService.removeIncidentElement( locationToRemove, Config.LocationTable);        
         this.incident.incidentElements.forEach( element => {
             console.log(Config.LocationTable);
@@ -126,7 +127,6 @@ export class GuardIncidentComponent implements OnInit {
     }
 
     ngOnInit() : void {
-        console.log("old location list", this.incident.incidentElements);                
         console.log ( "in guard incident on init" );
         this.route.paramMap
         .switchMap (( params: ParamMap ) => 
