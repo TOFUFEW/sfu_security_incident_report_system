@@ -302,6 +302,13 @@ public class DBHelper
                     return false;
                 idString += "PERSON_ID = '" + id + "';";
             }
+            else if ( DatabaseValues.Table.ACCOUNT.toString().toLowerCase().contains( tableName ) ){
+                relationTable = "AssignedTo";
+                String id = incidentElement.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID );
+                if (id == null || id.equals("null"))
+                    return true;
+                idString += "PERSON_ID = '" + id + "';";
+            }
             else
                 return false;
 
