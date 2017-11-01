@@ -119,6 +119,7 @@ export class GuardIncidentComponent implements OnInit {
             }); 
             this.incident.incidentElements.splice(locationToRemoveIndex, 1, locationToAdd);
         }
+        this.incidentsService.update(this.incident);
         console.log( "new location list", this.incident.incidentElements );
         // this.incidentsService.update( this.incident );
         console.log(this.incident);

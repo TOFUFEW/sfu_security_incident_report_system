@@ -7,6 +7,7 @@ export class Config {
     static GuardIncidentsURI: string = "http://localhost:4567/guard-incidents";
     static GetIncidentURI: string = "http://localhost:4567/get-incident"
     static CategoriesURI: string = "http://localhost:4567/categories";
+    static UpdateIncidentsURI: string = "http://localhost:4567/updateIncident";
 
     static StaffTable: string = "STAFF";
     static LocationTable: string = "LOCATION";

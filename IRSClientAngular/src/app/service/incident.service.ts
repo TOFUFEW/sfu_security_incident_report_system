@@ -20,6 +20,7 @@ export class IncidentService
 {
     private headers = new Headers({'Content-Type': 'application/json'});
     incidentsUrl = Config.IncidentsURI;
+    updateIncidentsUrl = Config.UpdateIncidentsURI;
     guardIncidentsUrl = Config.GuardIncidentsURI;
     private userService = new UserService;
     tableName = "";
@@ -132,7 +133,15 @@ export class IncidentService
     }
 
     update( incident: Incident ): Promise<Incident> {
-        return this.create( incident );
+        var promise = this.http
+                .post( this.updateIncidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
+                .toPromise()
+                .then( response => {
+                    return ( response.json() as boolean ) ? incident : null
+                })
+                .catch( this.handleError );
+        console.log("updated");                
+        return Promise.resolve( promise );    
     }
 
     delete( id: number ) : Promise<boolean> {
