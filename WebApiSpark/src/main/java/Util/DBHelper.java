@@ -512,6 +512,29 @@ public class DBHelper
     }
 
     public static boolean updateIncident ( Incident incident ) {
+        if ( !allFieldsValid( incident ) ) {
+            System.out.println( "Attempting to find IncidentCategory in incidentElements array...");
+
+            for ( int i = 0; i < incident.numIncidentElements() ; i += 1 ) {
+                IncidentElement ie = incident.getIncidentElement( i );
+
+                if (DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase()
+                        .contains( ie.getTable().toString().toLowerCase() ) ) {
+
+                    String id = ie.getAttributeValue( DatabaseValues.Column.CATEGORY_ID );
+                    if ( id != null && !id.isEmpty() ) {
+                        incident.updateAttributeValue( DatabaseValues.Column.CATEGORY_ID, id );
+                        System.out.println("IncidentCategory FOUND! CATEGORY_ID: " + id );
+                    }
+                }
+            }
+
+            if ( incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) == null ) {
+                System.out.println("***** ERROR: IncidentCategory not found. Exiting...");
+                return false;
+            }
+        }
+
         try {
             initDB ();
             String query = "{ call dbo.updateIncident ( ? , ? , ? , ? , ? , ? ) } ";
