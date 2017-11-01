@@ -19,8 +19,12 @@ import { VehicleComponent } from './component/vehicle/vehicle.component';
 import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
 import { GuardAllReportsComponent } from './component/guard-app/guard-all-reports.component';
+import { AttachmentComponent } from './component/attachment/attachment.component';
+
 import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
+import { GuardTestViewReportComponent } from "./component/guard-app/guard-test-view-report.component";
 import { CategoryComponent } from './component/category/category.component'
+import { ReportSummaryComponent } from './component/report/report-summary.component';
 
 /* Services */
 import { UserService } from './service/user.service';
@@ -48,6 +52,7 @@ import { FilterPipe } from './util/filter.pipe';
     declarations: [
         AppComponent,
         DashboardComponent,
+        AttachmentComponent,        
         LocationComponent,
         LocationModalComponent,
         StaffComponent,
@@ -61,7 +66,9 @@ import { FilterPipe } from './util/filter.pipe';
         VehicleComponent,
         SearchComponent,
         PersonComponent,
-        FilterPipe
+        FilterPipe,
+        ReportSummaryComponent,
+        GuardTestViewReportComponent
     ],
 
     providers: [
@@ -74,16 +81,18 @@ import { FilterPipe } from './util/filter.pipe';
         StaffService, 
         PersonService,
         NewReportService,
-        CategoryService],
+        CategoryService
+    ],
+  
 
     bootstrap: [AppComponent],
 
-    entryComponents: [ 
-        LocationComponent, 
+    entryComponents: [
+        LocationComponent,
         VehicleComponent,
-        PersonComponent,
+        PersonComponent, 
         GuardAllReportsComponent
-    ],
+    ]
 })
 
 export class AppModule { }

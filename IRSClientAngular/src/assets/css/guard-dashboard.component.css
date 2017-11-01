@@ -1,0 +1,48 @@
+
+.flex-container {
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-wrap: wrap;
+}
+
+.flex-item {
+  background-color: cornflowerblue;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+}
+
+.container > .row {
+  clear: both; }
+
+.mt-1 {
+  margin-top: 1em; }
+
+.mt-2 {
+  margin-top: 2em; }
+
+.mb-1 {
+  margin-bottom: 1em; }
+
+.mb-2 {
+  margin-bottom: 2em; }
+
+.modal-body {
+  text-align: left; }
+
+.modal-header {
+  padding: 1em !important; }
+
+.modal-title {
+  margin-top: 1em !important; }
+
+select.category-field {
+  padding: 0.5em;
+  margin-left: 0.5em;
+  width: 80%; }
+
+label.field-label {
+  padding-left: 1em; }
+

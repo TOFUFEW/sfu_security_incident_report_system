@@ -25,7 +25,7 @@ public class DBHelper
 
         try
         {
-            ResultSet incidentResultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.INCIDENT.toString());
+            ResultSet incidentResultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.INCIDENT.toString() + " ORDER BY REPORT_ID DESC");
 
             fillListWithIncidentsFromResultSet ( incidentList , incidentResultSet );
         }
@@ -206,13 +206,13 @@ public class DBHelper
             int maxTries = 5;
             int tries = 0;
             do {
-                before_lastIncidentId = getLastIncidentId();
+                before_lastIncidentId = debug_getLastIncidentId();
                 System.out.println( "Last Report ID before insert: " + before_lastIncidentId );
 
                 stmt.execute ();
                 tries++;
 
-                lastIncidentId = getLastIncidentId(); // debug
+                lastIncidentId = debug_getLastIncidentId(); // debug
                 System.out.println( "Last Report ID after insert: " + lastIncidentId );
 
                 if ( lastIncidentId != null && lastIncidentId.equals( before_lastIncidentId ) )
@@ -223,7 +223,6 @@ public class DBHelper
                 }
             } while ( lastIncidentId != null && lastIncidentId.equals( before_lastIncidentId ) );
 
-
             int output = stmt.getInt ( 5 );
 
             String relationSQL = "{ call dbo.insertRelation ( ? , ? , ? ) }";
@@ -231,7 +230,7 @@ public class DBHelper
             for ( int i = 0 ; i < incident.numIncidentElements () ; i++ )
             {
                 IncidentElement incidentElement = incident.getIncidentElement( i );
-                System.out.println( "ColumnSet length for table " + incidentElement.getTable().toString() + ": " + (incidentElement.getColumnSet().length ) );
+                System.out.println( "\nColumnSet length for table " + incidentElement.getTable().toString() + ": " + (incidentElement.getColumnSet().length ) );
                 boolean hasAttributes = incidentElement.getColumnSet().length > 0;
 
                 if ( hasAttributes && !relationExists( lastIncidentId , incidentElement ) ) {
@@ -274,22 +273,6 @@ public class DBHelper
              System.out.println("*** WARNING: ACCOUNT_ID is not set.");
 
         return true;
-    }
-
-    private static String getLastIncidentId() {
-        try {
-            initDB();
-            String query = "select top (1) * from Incident order by report_id desc;";
-            ResultSet result = DBHelper.executeQuery( query );
-            while ( result.next() ) {
-
-                return result.getString("REPORT_ID");
-            }
-        }
-        catch ( Exception e ) {
-
-        }
-        return null;
     }
 
     private static boolean relationExists( String reportId, IncidentElement incidentElement ) {
@@ -338,34 +321,6 @@ public class DBHelper
         }
         System.out.println("");
         return false;
-    }
-
-    private static void debug_printInsertRelationLog( IncidentElement incidentElement ) {
-        if ( incidentElement == null ) return;
-
-        String tableName = incidentElement.getTable().name().toLowerCase();
-
-        String msg = "Inserting relation for " + tableName ;
-        if ( DatabaseValues.Table.PERSON.toString().toLowerCase().contains( tableName ) ) {
-            msg += " where FIRST_NAME = " + incidentElement.getAttributeValue( DatabaseValues.Column.FIRST_NAME ) +
-                    " , LAST_NAME = " + incidentElement.getAttributeValue( DatabaseValues.Column.LAST_NAME ) +
-                    " , PHONE_NUMBER = " + incidentElement.getAttributeValue( DatabaseValues.Column.PHONE_NUMBER ) +
-                    " , PERSON_ID = " + incidentElement.getAttributeValue(DatabaseValues.Column.PERSON_ID);
-        }
-        else if ( DatabaseValues.Table.LOCATION.toString().toLowerCase().contains( tableName) ) {
-            msg += " where CAMPUS_ID = " + incidentElement.getAttributeValue( DatabaseValues.Column.CAMPUS_ID ) +
-                    " , BUILDING_NAME = " + incidentElement.getAttributeValue( DatabaseValues.Column.BUILDING_NAME ) +
-                    " , ROOM_NUMBER = " + incidentElement.getAttributeValue( DatabaseValues.Column.ROOM_NUMBER ) +
-                    " , LOCATION_ID = " + incidentElement.getAttributeValue(DatabaseValues.Column.LOCATION_ID);
-        }
-        else if ( DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase().contains( tableName ) ) {
-            msg += " where MAIN_CATEGORY = " + incidentElement.getAttributeValue( DatabaseValues.Column.MAIN_CATEGORY ) +
-                    " , SUB_CATEGORY = " + incidentElement.getAttributeValue( DatabaseValues.Column.SUB_CATEGORY ) +
-                    " , INCIDENT_TYPE = " + incidentElement.getAttributeValue( DatabaseValues.Column.INCIDENT_TYPE ) +
-                    " , CATEGORY_ID = " + incidentElement.getAttributeValue(DatabaseValues.Column.CATEGORY_ID);
-        }
-
-        System.out.println( msg );
     }
 
     private static boolean insertIncidentRelation (
@@ -598,6 +553,52 @@ public class DBHelper
     }
 
 
+    /* DEBUG CODE */
+    private static String debug_getLastIncidentId() {
+        try {
+            initDB();
+            String query = "select top (1) * from Incident order by report_id desc;";
+            ResultSet result = DBHelper.executeQuery( query );
+            while ( result.next() ) {
+
+                return result.getString("REPORT_ID");
+            }
+        }
+        catch ( Exception e ) {
+
+        }
+        return null;
+    }
+
+    private static void debug_printInsertRelationLog( IncidentElement incidentElement ) {
+        if ( incidentElement == null ) return;
+
+        String tableName = incidentElement.getTable().name().toLowerCase();
+
+        String msg = "Inserting relation for " + tableName ;
+        if ( DatabaseValues.Table.PERSON.toString().toLowerCase().contains( tableName ) ) {
+            msg += " where FIRST_NAME = " + incidentElement.getAttributeValue( DatabaseValues.Column.FIRST_NAME ) +
+                    " , LAST_NAME = " + incidentElement.getAttributeValue( DatabaseValues.Column.LAST_NAME ) +
+                    " , PHONE_NUMBER = " + incidentElement.getAttributeValue( DatabaseValues.Column.PHONE_NUMBER ) +
+                    " , PERSON_ID = " + incidentElement.getAttributeValue(DatabaseValues.Column.PERSON_ID);
+        }
+        else if ( DatabaseValues.Table.LOCATION.toString().toLowerCase().contains( tableName) ) {
+            msg += " where CAMPUS_ID = " + incidentElement.getAttributeValue( DatabaseValues.Column.CAMPUS_ID ) +
+                    " , BUILDING_NAME = " + incidentElement.getAttributeValue( DatabaseValues.Column.BUILDING_NAME ) +
+                    " , ROOM_NUMBER = " + incidentElement.getAttributeValue( DatabaseValues.Column.ROOM_NUMBER ) +
+                    " , LOCATION_ID = " + incidentElement.getAttributeValue(DatabaseValues.Column.LOCATION_ID);
+        }
+        else if ( DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase().contains( tableName ) ) {
+            msg += " where MAIN_CATEGORY = " + incidentElement.getAttributeValue( DatabaseValues.Column.MAIN_CATEGORY ) +
+                    " , SUB_CATEGORY = " + incidentElement.getAttributeValue( DatabaseValues.Column.SUB_CATEGORY ) +
+                    " , INCIDENT_TYPE = " + incidentElement.getAttributeValue( DatabaseValues.Column.INCIDENT_TYPE ) +
+                    " , CATEGORY_ID = " + incidentElement.getAttributeValue(DatabaseValues.Column.CATEGORY_ID);
+        }
+
+        System.out.println( msg );
+    }
+
+
     // staff code
     public static Staff [] getStaffs ()
     {
@@ -666,6 +667,26 @@ public class DBHelper
         initDB ();
         Statement stmt = connection.createStatement ();
         return stmt.executeQuery ( query );
+    }
+
+    /* FOR DEVELOPMENT ONLY */
+    private static boolean deleteAllIncidents() {
+        try {
+            initDB();
+            String query = "delete from HappensAt;";
+            boolean deleted = execute( query );
+            query =  "delete from Involves;";
+            deleted = execute( query );
+            query = "delete from Incident";
+            deleted = execute( query );
+            Incident[] result = getIncidents();
+            return result.length == 0;
+        }
+        catch( Exception e ) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     private static void initDB ()

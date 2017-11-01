@@ -12,6 +12,8 @@ public class Application
     public static void main ( String [] args )
     {
         // STARTUP METHODS
+        staticFileLocation("/public");
+
         enableCORS (
                 "*",
                 "GET, " + "POST, PUT, DELETE, OPTIONS, HEAD",
@@ -23,11 +25,18 @@ public class Application
         IncidentsController incidentsController = new IncidentsController();
         LoginController loginController = new LoginController();
 <<<<<<< HEAD
+<<<<<<< HEAD
         PersonController personController = new PersonController();
         IncidentCategoryController categoryController = new IncidentCategoryController();
 =======
         GuardIncidentsController guardIncidentsController = new GuardIncidentsController();
 >>>>>>> 37-guard-get-and-display-assigned-incidents
+=======
+        PersonController personController = new PersonController();
+        IncidentCategoryController categoryController = new IncidentCategoryController();
+        AttachmentController attachmentController = new AttachmentController();
+        GuardIncidentsController guardIncidentsController = new GuardIncidentsController();
+>>>>>>> origin/master
     }
 
     // CORS Filter

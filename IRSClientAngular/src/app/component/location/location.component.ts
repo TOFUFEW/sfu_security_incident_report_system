@@ -36,8 +36,8 @@ export class LocationComponent implements OnInit {
             return;
         }
             
-        if ( this.newLocation != null && this.newLocation.attributes.LOCATION_ID > 0 ) 
-            this.reportService.removeIncidentElement( this.newLocation, Config.LocationTable );
+        //if ( this.newLocation != null && this.newLocation.attributes.LOCATION_ID > 0 ) 
+        this.reportService.removeIncidentElement( this.newLocation, Config.LocationTable );
         this.reference.destroy();
     }
 

@@ -1,4 +1,7 @@
 /* Contains general css rules for the entire app */
+span, a, button {
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif; }
+
 body {
   min-height: 100vh;
   min-width: 100vw;
@@ -14,27 +17,35 @@ body {
   height: 50px;
   width: 100%;
   background-color: #A6192E;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   border: none;
   border-radius: 0px !important;
-  margin: 0px; }
-  #main-navbar a {
+  margin: 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+  #main-navbar a, #main-navbar .link {
     color: #ffffff; }
   #main-navbar .navbar-brand {
     font-weight: 700; }
+  #main-navbar div.navbar-left-items {
+    width: 100%; }
+  #main-navbar div.navbar-right-items {
+    width: auto;
+    padding-right: 20px; }
+  #main-navbar div.navbar-left-items, #main-navbar div.navbar-right-items {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    font-size: 14px; }
+    #main-navbar div.navbar-left-items:hover, #main-navbar div.navbar-right-items:hover {
+      cursor: pointer; }
   #main-navbar div.navbar-links, #main-navbar div.navbar-right {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     height: 100%;
     width: auto; }
-  #main-navbar div.navbar-links a {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: 14px;
-    padding-right: 14px; }
 
 .max-height-width {
   height: 100%;
@@ -43,6 +54,7 @@ body {
 #main-content {
   height: 100%;
   display: flex;
+  flex-wrap: wrap;
   overflow-x: auto; }
 
 .sidebar {
@@ -65,33 +77,39 @@ body {
   width: 100%;
   height: auto; }
 
+.primary-text, .field-value, .card-text-primary {
+  color: #000000;
+  opacity: 0.87; }
+
+.secondary-text, .field-title, .card-text-secondary, .card-text-tertiary {
+  color: #000000;
+  opacity: 0.54; }
+
+.hint-text {
+  color: #000000;
+  opacity: 0.38; }
+
 .field-title {
   display: inline-block;
   width: auto;
-  color: #333;
   font-weight: 300;
-  font-size: 110%;
-  margin-bottom: 8px; 
-}
+  font-size: 12px;
+  margin-bottom: 8px; }
 
 .field-value {
   display: inline-block;
   width: auto;
-  color: #54585A;
-  font-size: 120%;
+  font-size: 14px;
   margin-bottom: 8px; }
 
-.card-text-primary, a.card-text-primary {
-  color: #54585A;
-  display: inline-block;
-  font-size: 115%;     
-}
+.card-text-primary {
+  font-size: 14px; }
 
-.card-text-secondary a.card-text-primary {
-  color: #333;
-  display: inline-block;
-  font-size: 100%; 
-}
+.card-text-secondary {
+  font-size: 12px; }
+
+.card-text-tertiary {
+  font-size: 10px; }
 
 .btn-row {
   display: flex;
@@ -137,6 +155,8 @@ body {
     border-bottom: 2px solid transparent;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px; }
+  .panel .panel-body, .modal-dialog .panel-body {
+    height: 100%; }
   .panel .panel-body, .panel .panel-footer, .modal-dialog .panel-body, .modal-dialog .panel-footer {
     padding: 15px; }
   .panel .panel-footer, .modal-dialog .panel-footer {
@@ -145,6 +165,18 @@ body {
     align-items: center;
     border: none;
     padding: 16px 32px 32px 32px; }
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+  .toolbar .form-control {
+    margin-left: 20px; }
+
+.x-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%; }
 
 .modal-header {
   border-bottom: none; }
@@ -157,7 +189,7 @@ body {
   flex-direction: column;
   padding: 16px; }
   .details-container .details-heading span {
-    font-size: 14px; }
+    font-size: 18px; }
   .details-container .details-body {
     display: flex;
     justify-content: flex-start;
@@ -167,10 +199,6 @@ body {
     padding: 12px;
     border-radius: 8px;
     background-color: #f9f9f9; }
-  .details-container .x-container {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%; }
   .details-container .details-footer {
     display: flex;
     justify-content: flex-end;
@@ -181,6 +209,8 @@ body {
   .details-container .detail {
     min-width: 250px;
     padding: 10px 10px; }
+  .details-container .detail-lg {
+    min-width: 0px !important; }
 
 .glyphicon-heading {
   margin-right: 4px; }
@@ -192,7 +222,11 @@ body {
     opacity: 1;
     cursor: pointer; }
 
-span.panel-header, .panel-header, .glyphicon-heading {
+span.required-asterisk {
+  color: red;
+  font-size: 16px; }
+
+span.panel-header, .glyphicon-heading {
   color: #333;
   font-size: 18px;
   font-weight: 300;
@@ -228,10 +262,36 @@ span.glyphicon-fire {
   font-size: 24px; }
 
 .link {
-  text-decoration: underline;
   color: #0645AD; }
   .link:hover {
-    cursor: pointer; }
+    cursor: pointer;
+    text-decoration: underline;
+    color: #0B0080; }
+
+.flex {
+  display: flex; }
+
+.alertText {
+  color: red; }
+
+.invisible {
+  visibility: none; }
+
+.transparent {
+  opacity: .38 !important; }
+
+div.phone-input {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
+  div.phone-input input, div.phone-input span {
+    margin-right: 8px; }
+
+.phone-3 {
+  width: 50px !important; }
+
+.phone-4 {
+  width: 60px !important; }
 
 /****************************/
 /*  Guard app styles
