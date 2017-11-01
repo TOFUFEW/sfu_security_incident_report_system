@@ -94,10 +94,9 @@ public class TestIncident
         incident1.addIncidentElement( newPerson2 );
         elementCount++;
 
-        System.out.println( incident1.toJson() );
         int currentSize = getNumberOfIncidents ();
         String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
-        DBHelper.insertIncident( incidentString,  incident1 );
+        Assert.assertTrue( DBHelper.insertIncident( incidentString,  incident1 ) );
 
         Incident [] incidents = DBHelper.getIncidents ();
 
@@ -106,16 +105,26 @@ public class TestIncident
         Incident newlyInsertedIncident = getLastIncident();
         //Assert.assertTrue( elementCount == newlyInsertedIncident.numIncidentElements() );
 
+        Assert.assertTrue( newlyInsertedIncident != null );
+
         ArrayList<Person> _persons = new ArrayList<>();
         for (int i = 0; i < newlyInsertedIncident.numIncidentElements() ; i+=1 ) {
-            if ( DatabaseValues.Table.PERSON.toString().toLowerCase()
-                    .contains( newlyInsertedIncident.getIncidentElement(i).getTable().toString().toLowerCase() )
-                ) {
-                _persons.add( (Person)newlyInsertedIncident.getIncidentElement(i) );
+
+            IncidentElement element = newlyInsertedIncident.getIncidentElement( i );
+            String table = element.getTable().toString();
+
+            if ( DatabaseValues.Table.PERSON.toString().toLowerCase().contains( table.toLowerCase() ) ) {
+                _persons.add( (Person) element );
+            }
+            else if ( DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase().contains( table.toLowerCase() ) ) {
+                Assert.assertTrue( element.getAttributeValue( Column.CATEGORY_ID ).equals( selectedCategoryId ));
             }
         }
 
-        //Assert.assertTrue( _persons.size() > 0 );
+        Assert.assertTrue( incident1.getAttributeValue( Column.CATEGORY_ID )
+                            .equals( newlyInsertedIncident.getAttributeValue( Column.CATEGORY_ID )));
+
+        Assert.assertTrue( _persons.size() > 0 );
         //Assert.assertTrue( newlyInsertedIncident.numIncidentElements() == elementCount);
         /*
 
@@ -188,15 +197,15 @@ public class TestIncident
 
         int currentSize = getNumberOfIncidents ();
         String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
-        DBHelper.insertIncident( incidentString,  incident1 );
+        Assert.assertTrue ( DBHelper.insertIncident( incidentString,  incident1 ) );
 
         Incident [] incidents = DBHelper.getIncidents ();
 
         Assert.assertTrue( currentSize < incidents.length );
 
-        Incident newlyAddedIncident = incidents[ incidents.length - 1 ];
+        Incident newlyAddedIncident = getLastIncident();
 
-        Assert.assertTrue( incident1.numIncidentElements() > 0 );
+        Assert.assertTrue( newlyAddedIncident != null );
 
         IncidentElement incidentCategory = newlyAddedIncident.getIncidentElement( 0 );
 
