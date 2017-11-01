@@ -9,11 +9,10 @@ import { Category } from '../component/category/category';
 import { Location } from '../component/location/location';
 import { Person } from '../component/person/person'; 
 import 'rxjs/add/operator/toPromise';
-import {User} from "../component/login/user";
-import {UserService} from "./user.service";
-
-
-
+import { User } from "../component/login/user";
+import { UserService } from "./user.service";
+import { Staff } from '../component/staff/staff';
+import { StaffService } from '../service/staff.service';
 
 @Injectable()
 export class IncidentService
@@ -30,7 +29,12 @@ export class IncidentService
     private bs_lastRemovedId = new BehaviorSubject<number>( 0 );
     lastRemovedId = this.bs_lastRemovedId.asObservable();
 
-    constructor( private http: Http ) {}
+    staffArr: Staff[] = [];
+    constructor( private http: Http, private staffService: StaffService ) {
+        this.staffService.getStaffs().then( returnedArr => {
+            this.staffArr = returnedArr;
+        });
+    }
 
     addToWorkspace( incident: Incident ): void {
         var arr = this.bs_reportsToAddToWorkspace.getValue();
@@ -56,6 +60,11 @@ export class IncidentService
 
     private initIncidents( incidents: Incident[] ): Incident[] {
         incidents.forEach(i => {
+            var index = this.staffArr.findIndex( x => x.attributes.ACCOUNT_ID == i.attributes.ACCOUNT_ID );
+            if ( index >= 0 ) {
+                i.guard = this.staffArr[ index ];
+            }
+
             i.locationList = [];
             i.personList = [];
             i.staffList = [];
@@ -69,9 +78,9 @@ export class IncidentService
                 else if ( e.table === Config.PersonTable ) {
                     i.personList.push ( e.attributes as Person );
                 }
-
             });
         });
+        console.log (incidents);
         return incidents;
     }
 
@@ -99,7 +108,6 @@ export class IncidentService
 
     create( incident: Incident ): Promise<Incident> {
         incident.table = Config.IncidentTable;
-        incident.attributes.ACCOUNT_ID = 1;
         var promise = this.http
                 .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
                 .toPromise()

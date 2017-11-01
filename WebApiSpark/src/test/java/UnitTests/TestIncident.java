@@ -236,7 +236,7 @@ public class TestIncident
         IncidentElement[] staffList = DBHelper.getIncidentElements( DatabaseValues.Table.STAFF );
         IncidentElement staff = staffList[ rand.nextInt( staffList.length ) ];
 
-        String reportId = incidents[ rand.nextInt( categories.length - 1 )].getAttributeValue( Column.REPORT_ID );
+        String reportId = incidents[ rand.nextInt( incidents.length - 1 )].getAttributeValue( Column.REPORT_ID );
 
         Incident incident1 = new Incident();
         incident1.updateAttributeValue ( Column.REPORT_ID, reportId );
@@ -338,6 +338,73 @@ public class TestIncident
 
         // incident1 has 1 extra (duplicate) location
         Assert.assertTrue( newlyInsertedIncident.numIncidentElements() < incident1.numIncidentElements() );
+    }
+
+    @Test
+    public void testAssignGuardToExistingIncident() {
+        Incident[] incidents = DBHelper.getIncidents();
+        Assert.assertTrue( incidents.length > 0 );
+
+        Random rand = new Random();
+
+        IncidentElement[] staffList = DBHelper.getIncidentElements( DatabaseValues.Table.STAFF );
+        IncidentElement staff = staffList[ rand.nextInt( staffList.length ) ];
+
+        Incident incident = incidents[ rand.nextInt( incidents.length - 1 )];
+
+
+    }
+
+    @Test
+    public void testInsertWithNonExistingAccountId() {
+        IncidentElement[] categories = DBHelper.getIncidentElements( DatabaseValues.Table.INCIDENT_CATEGORY );
+        Assert.assertTrue( categories.length > 0);
+
+        Random rand = new Random();
+
+        IncidentElement selectedCategory = categories[ rand.nextInt( categories.length-1 )];
+        Assert.assertTrue( ( DatabaseValues.Table.INCIDENT_CATEGORY ).toString().contains( selectedCategory.getTable().toString() ) );
+
+        String selectedCategoryId = selectedCategory.getAttributeValue( Column.CATEGORY_ID );
+        Assert.assertTrue( !selectedCategoryId.isEmpty() );
+
+        Incident incident1 = new Incident();
+        incident1.updateAttributeValue ( Column.REPORT_ID, null );
+        incident1.updateAttributeValue ( Column.ACCOUNT_ID, "null" );
+        incident1.updateAttributeValue ( Column.CATEGORY_ID, selectedCategoryId );
+        incident1.updateAttributeValue ( Column.DESCRIPTION, "TEST DESCRIPTION" );
+        incident1.updateAttributeValue ( Column.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
+        incident1.updateAttributeValue ( Column.CLOSED, "0" );
+
+        int elementCount = 0;
+
+        /***** CATEGORY *****/
+        incident1.addIncidentElement( selectedCategory );
+        elementCount++;
+
+        /***** LOCATIONS *****/
+        Location[] locations = DBHelper.getLocations();
+        Assert.assertTrue( locations.length > 0);
+        incident1.addIncidentElement( locations[ rand.nextInt( locations.length ) ] );
+        elementCount++;
+
+        /***** PERSONS *****/
+        Person[] persons = DBHelper.getPersons();
+        incident1.addIncidentElement( persons[ rand.nextInt(persons.length)] );
+        elementCount++;
+
+        int currentSize = getNumberOfIncidents ();
+        String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
+        Assert.assertTrue( DBHelper.insertIncident( incidentString,  incident1 ) );
+
+        Incident [] incidents = DBHelper.getIncidents ();
+
+        Assert.assertTrue( currentSize < incidents.length );
+
+        Incident newlyInsertedIncident = getLastIncident();
+
+        Assert.assertTrue( newlyInsertedIncident != null );
+        Assert.assertTrue( newlyInsertedIncident.getAttributeValue( Column.ACCOUNT_ID ) == null );
     }
 
     @Test
