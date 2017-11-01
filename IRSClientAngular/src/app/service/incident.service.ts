@@ -107,6 +107,10 @@ export class IncidentService
     }
 
     create( incident: Incident ): Promise<Incident> {
+        if ( incident.attributes.ACCOUNT_ID == null ) {
+            incident.attributes.ACCOUNT_ID = 7;
+        }
+
         incident.table = Config.IncidentTable;
         var promise = this.http
                 .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
