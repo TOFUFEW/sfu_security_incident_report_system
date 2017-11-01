@@ -219,25 +219,125 @@ public class TestIncident
     @Test
     public void testUpdateIncident ()
     {
-        Incident [] incidents = DBHelper.getIncidents ();
+        Incident[] incidents = DBHelper.getIncidents();
+        Assert.assertTrue( incidents.length > 0 );
 
-        if ( incidents.length == 0 ) return;
+        IncidentElement[] categories = DBHelper.getIncidentElements( DatabaseValues.Table.INCIDENT_CATEGORY );
+        Assert.assertTrue( categories.length > 0);
 
-        Incident incident = incidents [ incidents.length - 1 ];
-        Assert.assertTrue( incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) != null );
+        Random rand = new Random();
 
-        String editedDescription = "EDITED DESCRIPTION";
-        incident.updateAttributeValue ( DatabaseValues.Column.DESCRIPTION, editedDescription );
+        IncidentElement selectedCategory = categories[ rand.nextInt( categories.length-1 )];
+        Assert.assertTrue( ( DatabaseValues.Table.INCIDENT_CATEGORY ).toString().contains( selectedCategory.getTable().toString() ) );
+
+        String selectedCategoryId = selectedCategory.getAttributeValue( Column.CATEGORY_ID );
+        Assert.assertTrue( !selectedCategoryId.isEmpty() );
+
+        IncidentElement[] staffList = DBHelper.getIncidentElements( DatabaseValues.Table.STAFF );
+        IncidentElement staff = staffList[ rand.nextInt( staffList.length ) ];
+
+        String reportId = incidents[ rand.nextInt( categories.length - 1 )].getAttributeValue( Column.REPORT_ID );
+
+        Incident incident1 = new Incident();
+        incident1.updateAttributeValue ( Column.REPORT_ID, reportId );
+        incident1.updateAttributeValue ( Column.ACCOUNT_ID, staff.getAttributeValue( Column.ACCOUNT_ID ) );
+        incident1.updateAttributeValue ( Column.CATEGORY_ID, selectedCategoryId );
+        incident1.updateAttributeValue ( Column.DESCRIPTION, "TEST DESCRIPTION" );
+        incident1.updateAttributeValue ( Column.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
+        incident1.updateAttributeValue ( Column.CLOSED, "0" );
+
+
+        int elementCount = 0;
+
+
+        incident1.addIncidentElement( selectedCategory );
+        elementCount++;
+
+        /***** STAFF *****/
+        incident1.addIncidentElement( staff );
+        elementCount++;
+
+        /***** LOCATIONS *****/
+        Location[] locations = DBHelper.getLocations();
+        Assert.assertTrue( locations.length > 0);
+        incident1.addIncidentElement( locations[ rand.nextInt( locations.length ) ] );
+        elementCount++;
+
+        Location duplicateLoc = locations[ rand.nextInt( locations.length ) ];
+        incident1.addIncidentElement( duplicateLoc );
+        elementCount++;
+
+        // Add duplicate location. This should not be inserted in relation table
+        incident1.addIncidentElement( duplicateLoc );
+
+
+        /***** PERSONS *****/
+        Person[] persons = DBHelper.getPersons();
+        incident1.addIncidentElement( persons[ rand.nextInt(persons.length)] );
+        elementCount++;
+
+        Person duplicatePerson = persons[ rand.nextInt(persons.length)];
+        incident1.addIncidentElement( duplicatePerson );
+        elementCount++ ;
+
+        // Add duplicate person. This should not be inserted in relation table
+        incident1.addIncidentElement( duplicatePerson );
+
+        Person newPerson1 = new Person();
+        newPerson1.updateAttributeValue( Column.PERSON_ID, null );
+        newPerson1.updateAttributeValue( Column.FIRST_NAME, "Ralph");
+        newPerson1.updateAttributeValue( Column.LAST_NAME, "G1");
+        newPerson1.updateAttributeValue( Column.PHONE_NUMBER, "7788899393");
+
+        Person newPerson2 = new Person();
+        newPerson2.updateAttributeValue( Column.PERSON_ID, null );
+        newPerson2.updateAttributeValue( Column.FIRST_NAME, "Ralph");
+        newPerson2.updateAttributeValue( Column.LAST_NAME, "G2");
+        newPerson2.updateAttributeValue( Column.PHONE_NUMBER, "6049989898");
+
+        incident1.addIncidentElement( newPerson1 );
+        elementCount++;
+        incident1.addIncidentElement( newPerson2 );
+        elementCount++;
 
         int currentSize = getNumberOfIncidents ();
-        DBHelper.updateIncident ( incident );
-        incidents = DBHelper.getIncidents ();
+        Assert.assertTrue( DBHelper.updateIncident( incident1 ) );
 
-        Assert.assertTrue ( currentSize == incidents.length );
+        Assert.assertTrue( currentSize == getNumberOfIncidents() );
 
-        incident = incidents [ incidents.length - 1 ];
-        Assert.assertTrue ( incident.getAttributeValue ( DatabaseValues.Column.DESCRIPTION )
-                            .equals ( editedDescription ) );
+        Incident newlyInsertedIncident = DBHelper.getIncident( reportId );
+        //Assert.assertTrue( elementCount == newlyInsertedIncident.numIncidentElements() );
+
+        Assert.assertTrue( newlyInsertedIncident != null );
+
+        ArrayList<Person> _persons = new ArrayList<>();
+        for (int i = 0; i < newlyInsertedIncident.numIncidentElements() ; i+=1 ) {
+
+            IncidentElement element = newlyInsertedIncident.getIncidentElement( i );
+            String table = element.getTable().toString();
+
+            if ( DatabaseValues.Table.PERSON.toString().toLowerCase().contains( table.toLowerCase() ) ) {
+                _persons.add( (Person) element );
+            }
+            else if ( DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase().contains( table.toLowerCase() ) ) {
+                Assert.assertTrue( element.getAttributeValue( Column.CATEGORY_ID ).equals( selectedCategoryId ));
+            }
+        }
+
+        Assert.assertTrue( incident1.getAttributeValue( Column.CATEGORY_ID )
+                .equals( newlyInsertedIncident.getAttributeValue( Column.CATEGORY_ID )));
+
+        Assert.assertTrue( _persons.size() > 0 );
+        //Assert.assertTrue( newlyInsertedIncident.numIncidentElements() == elementCount);
+        /*
+
+        Assert.assertTrue( persons.size() == 2 );
+        */
+        Assert.assertTrue( newlyInsertedIncident.getAttributeValue( Column.CATEGORY_ID ).equals( selectedCategoryId ) );
+        Assert.assertTrue( newlyInsertedIncident.numIncidentElements() > 0 );
+
+        // incident1 has 1 extra (duplicate) location
+        Assert.assertTrue( newlyInsertedIncident.numIncidentElements() < incident1.numIncidentElements() );
     }
 
     @Test
