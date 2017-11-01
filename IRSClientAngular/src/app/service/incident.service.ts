@@ -56,6 +56,7 @@ export class IncidentService
 
     private initIncidents( incidents: Incident[] ): Incident[] {
         incidents.forEach(i => {
+            this.initArrays(i);
             i.locationList = [];
             i.personList = [];
             i.staffList = [];
@@ -69,10 +70,24 @@ export class IncidentService
                 else if ( e.table === Config.PersonTable ) {
                     i.personList.push ( e.attributes as Person );
                 }
-
             });
         });
         return incidents;
+    }
+
+    private initArrays(incident: Incident) {
+        
+        if (incident.locationList === undefined) {
+            incident.locationList = new Array;
+        }
+
+        if (incident.staffList === undefined) {
+            incident.staffList = new Array;
+        }
+
+        if (incident.personList === undefined) {
+            incident.personList = new Array;
+        }
     }
 
     getGuardIncidents(): Promise<Incident[]> {
