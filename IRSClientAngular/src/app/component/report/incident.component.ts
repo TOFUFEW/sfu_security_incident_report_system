@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IncidentService } from '../../service/incident.service';
+import { StaffService } from '../../service/staff.service';
 import { Incident } from './incident';
 import { Location } from '../location/location';
+import { Staff } from '../staff/staff';
+import { Config } from '../../util/config.service';
 
 @Component( 
     {
@@ -13,9 +16,16 @@ import { Location } from '../location/location';
 )
 
 export class IncidentComponent implements OnInit {
+    staffArr: Staff[] = [];
+    selectedStaffId: number = 7;
     incidents: Incident[];
+    incidentToAssign: Incident = new Incident();
     lastRemovedId: number = 0;
-    constructor( private incidentService: IncidentService ){
+
+    constructor( private incidentService: IncidentService, private staffService: StaffService ){
+        this.staffService.getStaffs().then( returnedArr => {
+            this.staffArr = returnedArr;
+        });
         this.incidentService.lastRemovedId
             .subscribe( value => this.removeFromWorkspace( value ) );
     };
@@ -40,6 +50,49 @@ export class IncidentComponent implements OnInit {
         var index = this.incidents.findIndex( i => i.attributes.REPORT_ID == id );
         console.log( "index: " + index );
         this.incidents[ index ].inWorkspace = false;
+    }
+
+    setIncidentToAssign( id: number ) {
+        console.log(id);
+        if ( id == null ) return;
+        var index = this.incidents.findIndex( x => x.attributes.REPORT_ID == id );
+        if ( index >= 0 ) {
+            this.incidentToAssign = this.incidents[ index ];
+        }
+    }
+
+    onSelectStaff(): void {
+        var index = this.staffArr.findIndex( x => x.attributes.ACCOUNT_ID == this.incidentToAssign.attributes.ACCOUNT_ID );
+        if ( index >= 0 )
+            this.selectedStaffId = this.staffArr[ index ].attributes.ACCOUNT_ID;
+    }
+
+    assignToStaff() {
+        this.incidentToAssign.attributes.ACCOUNT_ID = this.selectedStaffId;
+        var index = this.staffArr.findIndex( x => x.attributes.ACCOUNT_ID == this.incidentToAssign.attributes.ACCOUNT_ID );
+        if ( index >= 0 )
+            this.incidentToAssign.incidentElements.push( this.staffArr[ index ] );
+        this.incidentService.assignToStaff( this.incidentToAssign ).then(
+            returnedIncident => {
+                console.log (returnedIncident);
+                if ( returnedIncident != null ) {
+                    var index = this.incidents.findIndex( x => x.attributes.ACCOUNT_ID == returnedIncident.attributes.ACCOUNT_ID );
+                    this.incidents[ index ] = returnedIncident;
+                    this.incidents[ index ].incidentElements.forEach( elem => {
+                        if ( elem.table == Config.StaffTable ) {
+                            this.incidents[ index ].guard = elem as Staff;
+                        }
+                    });
+                    alert("Success! Incident has been assigned.");                                    
+                }
+                else {
+                    console.log("Assign failed.");
+                }
+                
+                delete this.incidentToAssign;
+                this.incidentToAssign = new Incident();
+            }
+        );
     }
 
     deleteIncident( id: number ): void {

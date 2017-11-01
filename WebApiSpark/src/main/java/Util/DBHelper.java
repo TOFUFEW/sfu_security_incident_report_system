@@ -302,6 +302,13 @@ public class DBHelper
                     return false;
                 idString += "PERSON_ID = '" + id + "';";
             }
+            else if ( DatabaseValues.Table.ACCOUNT.toString().toLowerCase().contains( tableName ) ){
+                relationTable = "AssignedTo";
+                String id = incidentElement.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID );
+                if (id == null || id.equals("null"))
+                    return true;
+                idString += "PERSON_ID = '" + id + "';";
+            }
             else
                 return false;
 
@@ -505,6 +512,29 @@ public class DBHelper
     }
 
     public static boolean updateIncident ( Incident incident ) {
+        if ( !allFieldsValid( incident ) ) {
+            System.out.println( "Attempting to find IncidentCategory in incidentElements array...");
+
+            for ( int i = 0; i < incident.numIncidentElements() ; i += 1 ) {
+                IncidentElement ie = incident.getIncidentElement( i );
+
+                if (DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase()
+                        .contains( ie.getTable().toString().toLowerCase() ) ) {
+
+                    String id = ie.getAttributeValue( DatabaseValues.Column.CATEGORY_ID );
+                    if ( id != null && !id.isEmpty() ) {
+                        incident.updateAttributeValue( DatabaseValues.Column.CATEGORY_ID, id );
+                        System.out.println("IncidentCategory FOUND! CATEGORY_ID: " + id );
+                    }
+                }
+            }
+
+            if ( incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) == null ) {
+                System.out.println("***** ERROR: IncidentCategory not found. Exiting...");
+                return false;
+            }
+        }
+
         try {
             initDB ();
             String query = "{ call dbo.updateIncident ( ? , ? , ? , ? , ? , ? ) } ";
@@ -535,21 +565,48 @@ public class DBHelper
                     Types.INTEGER
             );
             stmt.execute();
-            deleteAllRelations ( incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) );
+
+            String reportId = incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID );
+            deleteAllRelations ( reportId );
             String relationSQL = "{ call dbo.insertRelationWithTableName ( ? , ? , ? , ? ) }";
 
             for ( int i = 0 ; i < incident.numIncidentElements () ; i++ ) {
+
                 IncidentElement incidentElement = incident.getIncidentElement( i );
-                insertIncidentRelation(
-                        relationSQL,
-                        incidentElement,
-                        incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID )
-                );
+                boolean hasAttributes = incidentElement.getColumnSet().length > 0;
+
+                if ( hasAttributes && !relationExists( reportId , incidentElement ) ) {
+                    debug_printInsertRelationLog( incidentElement );
+                    insertIncidentRelation(
+                            relationSQL,
+                            incidentElement,
+                            reportId
+                    );
+                }
+
+
             }
             return true;
         } catch ( Exception e ) {
             e.printStackTrace();
         }
+        return false;
+    }
+
+    public static boolean assignIncident( Incident incident ) {
+        try {
+            String query = "update Incident set account_id = '" + incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID )
+                    + "' where report_id = " + incident.getAttributeValue( DatabaseValues.Column.REPORT_ID );
+
+            boolean success = execute( query );
+
+            Incident updatedIncident = getIncident( incident.getAttributeValue( DatabaseValues.Column.REPORT_ID ));
+            return updatedIncident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ).equals( incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ));
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+
         return false;
     }
 

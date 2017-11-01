@@ -78,7 +78,7 @@ export class NewReportService {
     collectIncidentElements( category: Category ) {
         this.unwrapSubject( this.locations, Config.LocationTable );
         this.unwrapSubject( this.persons, Config.PersonTable );
-        this.incidentElements.push( DataHelperService.toIncidentElement( Config.CategoryTable, category ) );
+        this.incidentElements.push( DataHelperService.toIncidentElement( Config.CategoryTable, category ) );  
         console.log( this.incidentElements) ;
         
         return this.incidentElements;
