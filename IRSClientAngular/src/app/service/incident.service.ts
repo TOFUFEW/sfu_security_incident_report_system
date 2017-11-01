@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Incident } from '../component/report/incident';
 import { Category } from '../component/category/category';
 import { Location } from '../component/location/location';
-import { Person } from '../component/person/person'; 
+import { Person } from '../component/person/person';
 import 'rxjs/add/operator/toPromise';
 import {User} from "../component/login/user";
 import {UserService} from "./user.service";
@@ -20,6 +20,7 @@ export class IncidentService
 {
     private headers = new Headers({'Content-Type': 'application/json'});
     incidentsUrl = Config.IncidentsURI;
+    updateIncidentUrl = Config.updateIncidentURI;
     guardIncidentsUrl = Config.GuardIncidentsURI;
     private userService = new UserService;
     tableName = "";
@@ -45,7 +46,7 @@ export class IncidentService
         arr.splice( index, 1 );
         this.bs_reportsToAddToWorkspace.next( arr );
     }
-    
+
     getIncidents(): Promise<Incident[]> {
         var incidents = this.http.get( this.incidentsUrl )
             .toPromise()
@@ -109,7 +110,16 @@ export class IncidentService
     }
 
     update( incident: Incident ): Promise<Incident> {
-        return this.create( incident );
+        incident.table = Config.IncidentTable;
+        // incident.attributes.ACCOUNT_ID = 1;
+        var promise = this.http
+          .post( this.updateIncidentUrl, JSON.stringify( incident ), { headers: this.headers } )
+          .toPromise()
+          .then( response => {
+            return ( response.json() as boolean ) ? incident : null
+          })
+          .catch( this.handleError );
+        return Promise.resolve( promise );
     }
 
     delete( id: number ) : Promise<boolean> {

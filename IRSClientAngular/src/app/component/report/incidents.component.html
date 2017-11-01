@@ -36,17 +36,17 @@
                     <div class="action">
                         <span class="glyphicon glyphicon-new-window glyphicon-btn" data-toggle="tooltip" title="Add to Workspace"
                                  [ngClass]="{'transparent': incident.inWorkspace}" (click)="incident.inWorkspace || addToWorkspace(incident)"></span>
-                        <span class="glyphicon glyphicon-tag glyphicon-btn" data-toggle="tooltip" title="Assign to Guard"></span>                        
-                                 
+                        <span class="glyphicon glyphicon-tag glyphicon-btn" data-toggle="modal" data-target="#dispatchModal" (click)="setIncident(incident)" title="Assign to Guard"></span>
+
                     </div>
-                                                                
+
                 </div>
-                
+
             </div>
         </div>
     </div>
     <div class="panel-footer">
-        <input class="form-control" type="text" placeholder="Search for reports...">            
+        <input class="form-control" type="text" placeholder="Search for reports...">
     </div>
 </div>
 
@@ -63,7 +63,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary">Add To Workspace</button>   
+                <button class="btn btn-primary">Add To Workspace</button>
             </div>
         </div>
     </div>
@@ -92,7 +92,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button class="btn btn-primary" (click)="assignGuard()" data-dismiss="modal">Assign</button>
+            <button class="btn btn-primary" data-dismiss="modal" (click)="updateGuards()">Assign</button>
         </div>
         </div>
     </div>

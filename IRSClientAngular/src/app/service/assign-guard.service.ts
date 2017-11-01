@@ -6,14 +6,14 @@ import {Incident} from "../component/report/incident";
 @Injectable()
 export class AssignGuardService {
     private headers = new Headers({'Content-Type': 'application/json'});
-    assignGuardUrl = Config.AssignGuardURI;
+    updateIncidentUrl = Config.updateIncidentURI;
 
     constructor( private http: Http ) {}
 
     assignGuard( incident: Incident ) : Promise<Incident> {
         console.log("service assignGuard staff id = " + incident.attributes.ACCOUNT_ID);
         var promise = this.http
-          .post( this.assignGuardUrl, JSON.stringify( incident ), { headers: this.headers } )
+          .post( this.updateIncidentUrl, JSON.stringify( incident ), { headers: this.headers } )
           .toPromise()
           .then( response => {
               return( response.json() as boolean ) ? incident : null
