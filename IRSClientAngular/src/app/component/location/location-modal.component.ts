@@ -34,10 +34,14 @@ export class LocationModalComponent implements OnInit {
 
     public show( event ): void {
         var target = event.target || event.srcElement || event.currentTarget;
-        var idAttr = target.attributes.id;
-        this.currentLocationID = idAttr.value;
-        console.log(this.currentLocationID);
-        this.button_id = this.currentLocationID;
+        if ( target.attributes.id ) { 
+            var idAttr = target.attributes.id;
+            this.currentLocationID = idAttr.value;
+            this.button_id = this.currentLocationID;
+        } 
+        else {
+            this.button_id = -1;
+        }
         this.visible = true;
         setTimeout(() => this.visibleAnimate = true, 100);
     }
