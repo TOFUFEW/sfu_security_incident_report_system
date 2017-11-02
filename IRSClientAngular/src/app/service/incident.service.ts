@@ -118,9 +118,22 @@ export class IncidentService
         var returnIncident = this.http
             .post( Config.GetIncidentURI, JSON.stringify( incident ), { headers: this.headers } )
             .toPromise()
-            .then( response => response.json() as Incident )
+            .then( response => this.initializeIncident( response.json() as Incident ) as Incident )
             .catch( this.handleError );
         return Promise.resolve( returnIncident );
+    }
+    
+    private initializeIncident( incident: Incident ): Incident {
+        incident.locationList = [];
+        incident.incidentElements.forEach( e => {
+            if ( e.table === Config.CategoryTable ) {
+                incident.category = e.attributes as Category;
+            }
+            else if ( e.table === Config.LocationTable ) {
+                incident.locationList.push( e as Location )
+            }
+        });
+        return incident;
     }
 
     create( incident: Incident ): Promise<Incident> {

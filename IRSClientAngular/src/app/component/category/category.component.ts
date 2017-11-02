@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { CategoryDictionary, Category, SubCategory, CategoryType } from './category';
 import { CategoryService } from '../../service/category.service';
 import { DataHelperService } from '../../util/data-helper.service';
@@ -7,12 +7,14 @@ import { DataHelperService } from '../../util/data-helper.service';
   {
     selector: 'category-component',
     templateUrl: './category.component.html',
-    styleUrls: ['../../../assets/css/guard-dashboard.component.css'],  
+    styleUrls: ['../../../assets/css/guard-app.css'],  
     providers: [ CategoryService ]
   }
 )
 
 export class CategoryComponent implements OnInit {
+    @Output()
+    categorySaved: EventEmitter<string> = new EventEmitter();
     selectedMainCategory: CategoryDictionary = new CategoryDictionary();
     selectedSubCategory: SubCategory = new SubCategory();
     selectedType: CategoryType = new CategoryType();    
@@ -76,6 +78,8 @@ export class CategoryComponent implements OnInit {
             if ( this.filteredTypes.length == 0 ) {
                 this.categoryID = this.filteredSubcategories[0].CATEGORY_ID;
                 console.log ( "retrieved category id: " + this.categoryID );
+                var id = this.categoryID.toString();                
+                this.categorySaved.emit(id);
                 this.hide();              
             }
             else
@@ -85,6 +89,8 @@ export class CategoryComponent implements OnInit {
         }
         if ( this.categoryID != -1 ) {
             console.log ( "category id: " + this.categoryID );
+            var id = this.categoryID.toString();
+            this.categorySaved.emit(id);
             this.hide();
         }
     }

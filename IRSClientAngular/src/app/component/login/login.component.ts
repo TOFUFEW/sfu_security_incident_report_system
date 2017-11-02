@@ -39,7 +39,7 @@ export class LoginComponent {
                       this.router.navigate([ 'dashboard' ] );
                       //alert( "welcome dispatcher" );
                     } else if( this.userService.isGuard() ) {
-                      this.router.navigate([ 'guard' ] );
+                      this.router.navigate([ 'guard-app/reports-all' ] );
                       //alert( "welcome guard" );
                     } else {
                       //alert( "unknown person" );
