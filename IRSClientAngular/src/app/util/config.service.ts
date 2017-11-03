@@ -10,6 +10,7 @@ export class Config {
     static UpdateIncidentsURI: string = "http://localhost:4567/updateIncident";
     static UpdateIncidentURI: string = "http://localhost:4567/updateIncident";
     static AssignIncidentURI: string = "http://localhost:4567/assignIncident";
+    static UploadURI: string = "http://localhost:4567/upload";
 
     static StaffTable: string = "STAFF";
     static LocationTable: string = "LOCATION";
