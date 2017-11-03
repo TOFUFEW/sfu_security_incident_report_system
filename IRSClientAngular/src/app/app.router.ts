@@ -18,7 +18,6 @@ export const router: Routes = [
     // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
     { path: 'guard-app/reports-all', component: GuardAllReportsComponent },
     { path: 'search', component: SearchComponent },
-    // { path: 'guard', component: GuardDashboardComponent},
     { path: 'new-report', component: NewReportComponent },
     { path: 'guard-app/report/:id', component: GuardIncidentComponent},
 

@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router, RouterModule, ActivatedRoute, ParamMap } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
 import { Incident } from '../report/incident';
-import { Router, RouterModule, ActivatedRoute, ParamMap } from '@angular/router';
 import { IncidentService } from '../../service/incident.service';
 import { UserService } from '../../service/user.service'; 
 import { NewReportService } from '../../service/new-report.service'; 
@@ -40,11 +40,6 @@ export class GuardIncidentComponent implements OnInit {
         }     
     }; 
 
-//   getIncidents(): void {
-//     this.incidentsService.getIncidents().then( returnedIncidents => {
-//       this.incidents = returnedIncidents;
-//     } );
-//   }
 
 //   addIncident(): void {
 //     this.incidentsService.create( this.newIncident )
@@ -134,10 +129,10 @@ export class GuardIncidentComponent implements OnInit {
     ngOnInit() : void {         
         console.log ( "in guard incident on init" );         
         this.route.paramMap         
-            .switchMap (( params: ParamMap ) =>             
+        .switchMap (( params: ParamMap ) =>             
             this.incidentsService.getIncident ( +params.get ( 'id' )))         
-            .subscribe ( returnedIncident => {             
-                this.incident = returnedIncident;             
+        .subscribe ( returnedIncident => {             
+            this.incident = returnedIncident;             
         console.log("returned incident" , this.incident);           
      })     
     }
