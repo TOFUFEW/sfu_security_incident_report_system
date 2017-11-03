@@ -9,18 +9,17 @@ import { Category } from '../component/category/category';
 import { Location } from '../component/location/location';
 import { Person } from '../component/person/person';
 import 'rxjs/add/operator/toPromise';
-import {User} from "../component/login/user";
-import {UserService} from "./user.service";
-
-
-
+import { User } from "../component/login/user";
+import { UserService } from "./user.service";
+import { Staff } from '../component/staff/staff';
+import { StaffService } from '../service/staff.service';
 
 @Injectable()
 export class IncidentService
 {
     private headers = new Headers({'Content-Type': 'application/json'});
     incidentsUrl = Config.IncidentsURI;
-    updateIncidentUrl = Config.updateIncidentURI;
+    updateIncidentUrl = Config.UpdateIncidentURI;
     guardIncidentsUrl = Config.GuardIncidentsURI;
     private userService = new UserService;
     tableName = "";
@@ -31,7 +30,12 @@ export class IncidentService
     private bs_lastRemovedId = new BehaviorSubject<number>( 0 );
     lastRemovedId = this.bs_lastRemovedId.asObservable();
 
-    constructor( private http: Http ) {}
+    staffArr: Staff[] = [];
+    constructor( private http: Http, private staffService: StaffService ) {
+        this.staffService.getStaffs().then( returnedArr => {
+            this.staffArr = returnedArr;
+        });
+    }
 
     addToWorkspace( incident: Incident ): void {
         var arr = this.bs_reportsToAddToWorkspace.getValue();
@@ -57,7 +61,8 @@ export class IncidentService
 
     private initIncidents( incidents: Incident[] ): Incident[] {
         incidents.forEach(i => {
-            i.locationList = [];
+            this.initArrays(i);
+            i.guard = new Staff();
             i.incidentElements.forEach( e => {
                 if ( e.table === Config.CategoryTable ) {
                     i.category = e.attributes as Category;
@@ -68,10 +73,30 @@ export class IncidentService
                 else if ( e.table === Config.PersonTable ) {
                     i.personList.push ( e.attributes as Person );
                 }
-
+                else if ( e.table === Config.StaffTable ) {
+                    var staff = e as Staff;
+                    i.staffList.push( staff );
+                    i.guard = staff;
+                }
             });
         });
+        console.log (incidents);
         return incidents;
+    }
+
+    private initArrays(incident: Incident) {
+        
+        if (incident.locationList === undefined) {
+            incident.locationList = new Array;
+        }
+
+        if (incident.staffList === undefined) {
+            incident.staffList = new Array;
+        }
+
+        if (incident.personList === undefined) {
+            incident.personList = new Array;
+        }
     }
 
     getGuardIncidents(): Promise<Incident[]> {
@@ -97,8 +122,11 @@ export class IncidentService
     }
 
     create( incident: Incident ): Promise<Incident> {
+        if ( incident.attributes.ACCOUNT_ID == null ) {
+            incident.attributes.ACCOUNT_ID = 7;
+        }
+
         incident.table = Config.IncidentTable;
-        incident.attributes.ACCOUNT_ID = 1;
         var promise = this.http
                 .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
                 .toPromise()
@@ -111,14 +139,13 @@ export class IncidentService
 
     update( incident: Incident ): Promise<Incident> {
         incident.table = Config.IncidentTable;
-        // incident.attributes.ACCOUNT_ID = 1;
         var promise = this.http
-          .post( this.updateIncidentUrl, JSON.stringify( incident ), { headers: this.headers } )
-          .toPromise()
-          .then( response => {
-            return ( response.json() as boolean ) ? incident : null
-          })
-          .catch( this.handleError );
+                .post( Config.UpdateIncidentURI, JSON.stringify( incident ), { headers: this.headers } )
+                .toPromise()
+                .then( response => {
+                    return ( response.json() as boolean ) ? incident : null
+                })
+                .catch( this.handleError );
         return Promise.resolve( promise );
     }
 

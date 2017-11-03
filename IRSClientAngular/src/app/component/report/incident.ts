@@ -17,6 +17,7 @@ export class Incident {
 
     personList: Person[];
     category: Category;
+    guard: Staff;
     // END OF TEMP CODE
 
     inWorkspace: boolean;
@@ -29,6 +30,7 @@ export class Incident {
         this.attributes = new IncidentAttributes();
         this.category = new Category(null, null, null, null);
         this.inWorkspace = false;
+        this.guard = new Staff();
     }
 }
 

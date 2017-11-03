@@ -42,20 +42,14 @@ public class IncidentsController
 
         post ("/updateIncident", ( request , response ) ->
         {
-            try {
+            Incident updatedIncident = (Incident) parser.fromJson ( request.body(), Incident.class );
+            return DBHelper.updateIncident( updatedIncident );
+        });
 
-                Incident updatedIncident = (Incident) parser.fromJson ( request.body(), Incident.class );
-                boolean rs = dbHelper.executeProcedure (
-                        "{ call dbo.updateIncident ( ? , ? , ? , ? , ? , ? ) }"
-                        , updatedIncident);
-                return true;
-            }
-            catch ( Exception e )
-            {
-                return false;
-//                e.printStackTrace ();
-            }
-        }, json());
-
+        post ( "/assignIncident", ( request, response ) ->
+        {
+            Incident incident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
+            return DBHelper.assignIncident( incident );
+        }) ;
     }
 }

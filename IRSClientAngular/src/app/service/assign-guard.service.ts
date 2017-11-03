@@ -6,7 +6,7 @@ import {Incident} from "../component/report/incident";
 @Injectable()
 export class AssignGuardService {
     private headers = new Headers({'Content-Type': 'application/json'});
-    updateIncidentUrl = Config.updateIncidentURI;
+    updateIncidentUrl = Config.UpdateIncidentURI;
 
     constructor( private http: Http ) {}
 

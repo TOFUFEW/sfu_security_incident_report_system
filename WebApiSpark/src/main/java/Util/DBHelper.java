@@ -314,6 +314,13 @@ public class DBHelper
                     return false;
                 idString += "PERSON_ID = '" + id + "';";
             }
+            else if ( DatabaseValues.Table.ACCOUNT.toString().toLowerCase().contains( tableName ) ){
+                relationTable = "AssignedTo";
+                String id = incidentElement.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID );
+                if (id == null || id.equals("null"))
+                    return true;
+                idString += "PERSON_ID = '" + id + "';";
+            }
             else
                 return false;
 
@@ -407,17 +414,225 @@ public class DBHelper
         return false;
     }
 
-    public static boolean updateIncident ( Incident incident ) {
-        String incidentSQL = incident.toUpdateSQL ();
+    private static boolean insertIncidentRelation (
+            String query,
+            IncidentElement incidentElement,
+            String reportID
+    ) {
         try {
-            return execute ( incidentSQL );
+            initDB ();
+            CallableStatement stmt = connection.prepareCall ( query );
+            String tableName = incidentElement.getTable ().toString ().substring (4);
+            if ( tableName.compareTo ( "Staff" ) == 0 )
+            {
+                stmt.setString (
+                        1,
+                        reportID
+                );
+                stmt.setString (
+                        2,
+                        tableName
+
+                );
+                stmt.setString (
+                        3,
+                        incidentElement.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID )
+                );
+            }
+            else if ( tableName.compareTo ( "Location" ) == 0 )
+            {
+                stmt.setString (
+                        1,
+                        reportID
+                );
+                stmt.setString (
+                        2,
+                        tableName
+
+                );
+                stmt.setString (
+                        3,
+                        incidentElement.getAttributeValue ( DatabaseValues.Column.LOCATION_ID )
+                );
+            }
+            else if ( tableName.compareTo ( "Person" ) == 0 )
+            {
+                stmt.setString (
+                        1,
+                        reportID
+                );
+                stmt.setString (
+                        2,
+                        tableName
+
+                );
+                stmt.setString (
+                        3,
+                        incidentElement.getAttributeValue ( DatabaseValues.Column.PERSON_ID )
+                );
+            }
+            else if ( tableName.compareTo ( "IncidentCategory" ) == 0 )
+            {
+                stmt.setString (
+                        1,
+                        reportID
+                );
+                stmt.setString (
+                        2,
+                        tableName
+
+                );
+                stmt.setString (
+                        3,
+                        incidentElement.getAttributeValue ( DatabaseValues.Column.CATEGORY_ID )
+                );
+            }
+            stmt.registerOutParameter (
+                    4,
+                    Types.INTEGER
+            );
+            stmt.execute ();
+
+            int output = stmt.getInt ( 4 );
+
+            if ( output != 0 )
+            {
+                return true;
+            }
         }
-        catch ( SQLException e )
+        catch ( Exception e )
         {
             e.printStackTrace ();
         }
         return false;
     }
+
+    private static void deleteAllRelations ( String reportID ) {
+        try {
+            initDB();
+            String query = "{ call dbo.deleteAllRelations ( ? ) }";
+            CallableStatement stmt = connection.prepareCall ( query );
+            stmt.setString (
+                    1,
+                    reportID
+            );
+            stmt.execute();
+            return;
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    public static boolean updateIncident ( Incident incident ) {
+        if ( !allFieldsValid( incident ) ) {
+            System.out.println( "Attempting to find IncidentCategory in incidentElements array...");
+
+            for ( int i = 0; i < incident.numIncidentElements() ; i += 1 ) {
+                IncidentElement ie = incident.getIncidentElement( i );
+
+                if (DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase()
+                        .contains( ie.getTable().toString().toLowerCase() ) ) {
+
+                    String id = ie.getAttributeValue( DatabaseValues.Column.CATEGORY_ID );
+                    if ( id != null && !id.isEmpty() ) {
+                        incident.updateAttributeValue( DatabaseValues.Column.CATEGORY_ID, id );
+                        System.out.println("IncidentCategory FOUND! CATEGORY_ID: " + id );
+                    }
+                }
+            }
+
+            if ( incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) == null ) {
+                System.out.println("***** ERROR: IncidentCategory not found. Exiting...");
+                return false;
+            }
+        }
+
+        try {
+            initDB ();
+            String query = "{ call dbo.updateIncident ( ? , ? , ? , ? , ? , ? ) } ";
+            CallableStatement stmt = connection.prepareCall ( query );
+            stmt.setString (
+                    1,
+                    incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID )
+            );
+            stmt.setString (
+                    2,
+                    incident.getAttributeValue ( DatabaseValues.Column.CATEGORY_ID )
+            );
+            stmt.setString (
+                    3,
+                    incident.getAttributeValue ( DatabaseValues.Column.DESCRIPTION )
+            );
+            stmt.setString (
+                    4,
+                    incident.getAttributeValue ( DatabaseValues.Column.EXECUTIVE_SUMMARY )
+            );
+            stmt.setString (
+                    5,
+                    incident.getAttributeValue ( DatabaseValues.Column.CLOSED )
+            );
+
+            stmt.registerOutParameter (
+                    6,
+                    Types.INTEGER
+            );
+            stmt.execute();
+
+            String reportId = incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID );
+            deleteAllRelations ( reportId );
+            String relationSQL = "{ call dbo.insertRelationWithTableName ( ? , ? , ? , ? ) }";
+
+            for ( int i = 0 ; i < incident.numIncidentElements () ; i++ ) {
+
+                IncidentElement incidentElement = incident.getIncidentElement( i );
+                boolean hasAttributes = incidentElement.getColumnSet().length > 0;
+
+                if ( hasAttributes && !relationExists( reportId , incidentElement ) ) {
+                    debug_printInsertRelationLog( incidentElement );
+                    insertIncidentRelation(
+                            relationSQL,
+                            incidentElement,
+                            reportId
+                    );
+                }
+
+
+            }
+            return true;
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean assignIncident( Incident incident ) {
+        try {
+            String query = "update Incident set account_id = '" + incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID )
+                    + "' where report_id = " + incident.getAttributeValue( DatabaseValues.Column.REPORT_ID );
+
+            boolean success = execute( query );
+
+            Incident updatedIncident = getIncident( incident.getAttributeValue( DatabaseValues.Column.REPORT_ID ));
+            return updatedIncident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ).equals( incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ));
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+//    public static boolean updateIncident ( Incident incident ) {
+//        String incidentSQL = incident.toUpdateSQL ();
+//        try {
+//            return execute ( incidentSQL );
+//        }
+//        catch ( SQLException e )
+//        {
+//            e.printStackTrace ();
+//        }
+//        return false;
+//    }
 
     public static boolean insertIncidentElement ( IncidentElement incidentElement )
     {
