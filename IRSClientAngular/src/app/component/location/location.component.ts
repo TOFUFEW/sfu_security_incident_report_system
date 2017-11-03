@@ -27,7 +27,6 @@ export class LocationComponent implements OnInit {
     }
 
     addLocationToReport(): void {
-        console.log("adding location");
         this.reportService.addIncidentElement ( this.newLocation, Config.LocationTable );
     }
 

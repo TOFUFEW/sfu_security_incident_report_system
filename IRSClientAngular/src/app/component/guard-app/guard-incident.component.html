@@ -25,40 +25,40 @@
                         </div>
                         <category-component #modalCategory (categorySaved)="changeCategory($event)"></category-component>             
                         <div class="panel-group" id="accordion">
-                                <div class="panel panel-default ml-1 mr-1">
-                                        <div class="panel-heading collapsable-heading">
-                                            <h4 class="panel-title">
-                                                <a  class="accordion-toggle" 
-                                                    data-toggle="collapse" 
-                                                    href="#collapseCategory">
-                                                    Category
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseCategory" class="panel-collapse collapse in">
-                                            <div class="panel-body lh-1" *ngIf="incident">                                                    
-                                                <span [id]="incident.category.CATEGORY_ID" 
-                                                    (dblclick)="modalCategory.show()">
-                                                    {{incident.category.MAIN_CATEGORY}},  
-                                                    <!-- keep the span below in line to prevent insertion of space before comma -->
-                                                    {{incident.category.SUB_CATEGORY}}<span *ngIf="incident.category.INCIDENT_TYPE">,
-                                                        {{incident.category.INCIDENT_TYPE}}
-                                                    </span>
-                                                </span>                                                
-                                            </div>
+                            <div class="panel panel-default ml-1 mr-1">
+                                    <div class="panel-heading collapsable-heading">
+                                        <h4 class="panel-title">
+                                            <a  class="accordion-toggle" 
+                                                data-toggle="collapse" 
+                                                href="#collapseCategory">
+                                                Category
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseCategory" class="panel-collapse collapse in">
+                                        <div class="panel-body lh-1" *ngIf="incident">                                                    
+                                            <span [id]="incident.category.CATEGORY_ID" 
+                                                (dblclick)="modalCategory.show()">
+                                                {{incident.category.MAIN_CATEGORY}},  
+                                                <!-- keep the span below in line to prevent insertion of space before comma -->
+                                                {{incident.category.SUB_CATEGORY}}<span *ngIf="incident.category.INCIDENT_TYPE">,
+                                                    {{incident.category.INCIDENT_TYPE}}
+                                                </span>
+                                            </span>                                                
                                         </div>
                                     </div>
+                                </div>
                             <div class="panel panel-default ml-1 mr-1">
                                 <div class="panel-heading collapsable-heading">
                                     <h4 class="panel-title">
                                         <a  class="accordion-toggle" 
                                             data-toggle="collapse" 
-                                            href="#collapseOne">
+                                            href="#collapseLocation">
                                             Location
                                         </a>
                                     </h4>
                                 </div>       
-                                <div id="collapseOne" class="panel-collapse collapse in">
+                                <div id="collapseLocation" class="panel-collapse collapse in">
                                     <div class="panel-body lh-1" *ngIf="incident">
                                         <span *ngFor="let location of incident.locationList" 
                                             [id]="location.attributes.LOCATION_ID" 
@@ -83,12 +83,12 @@
                                     <h4 class="panel-title">
                                         <a  class="accordion-toggle" 
                                             data-toggle="collapse" 
-                                            href="#collapseTwo">
+                                            href="#collapseExecSummary">
                                             Executive Summary                                                            
                                         </a>
                                     </h4>
                                 </div>
-                                <div id="collapseTwo" class="panel-collapse collapse in">
+                                <div id="collapseExecSummary" class="panel-collapse collapse in">
                                     <div class="panel-body" *ngIf="incident">
                                         {{incident.attributes.EXECUTIVE_SUMMARY}}
                                         <!-- <button class="btn btn-default btn-xs pull-right"><span class="p-2 glyphicon glyphicon-edit"></span></button>                                 -->
@@ -102,12 +102,12 @@
                                     <h4 class="panel-title">
                                         <a  class="accordion-toggle" 
                                             data-toggle="collapse" 
-                                            href="#collapseThree">
+                                            href="#collapseDescription">
                                             Description
                                         </a>
                                     </h4>
                                 </div>
-                                <div id="collapseThree" class="panel-collapse collapse">
+                                <div id="collapseDescription" class="panel-collapse collapse">
                                     <div class="panel-body" *ngIf="incident">
                                         {{incident.attributes.DESCRIPTION}}           
                                     </div>
@@ -120,12 +120,12 @@
                                     <h4 class="panel-title">
                                         <a  class="accordion-toggle" 
                                             data-toggle="collapse" 
-                                            href="#collapseFour">
+                                            href="#collapsePersons">
                                             Persons
                                         </a>
                                     </h4>
                                 </div>
-                                <div id="collapseFour" class="panel-collapse collapse">
+                                <div id="collapsePersons" class="panel-collapse collapse">
                                     <div class="panel-body">
                         
                                     </div>
