@@ -100,7 +100,7 @@
                         <div>
                             <div class="details-body">
                                 <div class="detail col-12 col-sm-3">
-                                    <select class="form-control" name="" id="" [(ngModel)]="newIncident.attributes.ACCOUNT_ID" (change)="onSelectStaff()">
+                                    <select class="form-control" name="" id="" [(ngModel)]="selectedStaffId" (change)="onSelectStaff()">
                                         <option *ngFor="let staff of staffList" [value]="staff.attributes.ACCOUNT_ID">{{staff.attributes.FIRST_NAME}} {{staff.attributes.LAST_NAME}}</option>
                                     </select>
                                 </div>

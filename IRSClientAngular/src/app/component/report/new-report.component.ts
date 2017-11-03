@@ -34,7 +34,7 @@ export class NewReportComponent implements OnInit {
 
     staffList: Staff[] = [];
     selectedStaff: Staff = new Staff();
-
+    selectedStaffId: number = 0;
     reportReady: boolean = false; 
 
     constructor( 
@@ -53,6 +53,7 @@ export class NewReportComponent implements OnInit {
             var index = this.staffList.findIndex( x => x.attributes.LAST_NAME.length == 0 && x.attributes.FIRST_NAME.length == 0 );
             if ( index >= 0 )
                 this.selectedStaff = this.staffList[ index ]; // default is dummy staff
+                this.selectedStaffId = 0;
           } ); 
     }
 
@@ -106,9 +107,10 @@ export class NewReportComponent implements OnInit {
     }
 
     onSelectStaff(): void {
-        var index = this.staffList.findIndex( x => x.attributes.ACCOUNT_ID == this.newIncident.attributes.ACCOUNT_ID );
+        var index = this.staffList.findIndex( x => x.attributes.ACCOUNT_ID ==  this.selectedStaffId);
         if ( index >= 0 )
             this.selectedStaff = this.staffList[ index ];
+        console.log( this.selectedStaff );
     }
 
     addComponent( componentName: string ) {
@@ -132,8 +134,11 @@ export class NewReportComponent implements OnInit {
 
     createReport(): void {
         if( this.reportReady ){
-            this.newIncident.attributes.ACCOUNT_ID = this.selectedStaff.attributes.ACCOUNT_ID;
+            if ( this.selectedStaff != null && this.selectedStaff.attributes.FIRST_NAME.length > 0 ) {
+                this.newIncident.incidentElements.push( this.selectedStaff );
+            }
             console.log( this.newIncident );
+            
             this.incidentService.create( this.newIncident )
                 .then( returnedIncident => {
                     if ( returnedIncident != null  ) {

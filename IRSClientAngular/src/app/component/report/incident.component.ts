@@ -60,12 +60,6 @@ export class IncidentComponent implements OnInit {
         this.incidents[ index ].inWorkspace = false;
     }
 
-    onSelectStaff(): void {
-        var index = this.staffArr.findIndex( x => x.attributes.ACCOUNT_ID == this.incidentToAssign.attributes.ACCOUNT_ID );
-        if ( index >= 0 )
-            this.selectedStaffId = this.staffArr[ index ].attributes.ACCOUNT_ID;
-    }
-
     deleteIncident( id: number ): void {
         this.incidentService.delete( id ).then( isDeleted => {
             var msg = isDeleted ? "Incident successfully deleted!" : "Delete failed";
@@ -78,30 +72,36 @@ export class IncidentComponent implements OnInit {
 
     setIncidentToAssign ( incident: Incident ): void {
         this.incidentToAssign = incident;
+        this.selectedStaffId = incident.guard != null ? incident.guard.attributes.ACCOUNT_ID : 0;
         console.log( this.incidentToAssign );
         // alert ("Report Assigned to guard");
     }
 
     assignToGuard (): void {        
-        for ( var i = 0 ; i < this.incidentToAssign.incidentElements.length ; i++ ) {
-            if ( this.incidentToAssign.incidentElements[ i ].table.toLowerCase() === Config.StaffTable.toLowerCase() ) {
-                delete this.incidentToAssign.incidentElements[ i ];
-            }
-        }
-
         var index = this.staffArr.findIndex( x => x.attributes.ACCOUNT_ID == this.selectedStaffId );
-
+        
         if ( index < 0 ) return ; // not found
 
         var staff = this.staffArr[ index ];
 
         this.incidentToAssign.incidentElements.push( staff );
 
+        var existingStaffIndex = this.incidentToAssign.incidentElements
+            .findIndex( e => e.table === Config.StaffTable );
+
+        if ( existingStaffIndex >= 0 ) {
+            this.incidentToAssign.incidentElements.splice( existingStaffIndex, 1, staff );
+        }
+        else {
+            this.incidentToAssign.incidentElements.push( staff );
+        }
+
+        this.incidentToAssign.guard = staff;
+
         console.log(this.incidentToAssign);
         this.incidentService.update( this.incidentToAssign ).then( returnValue => {
             if ( returnValue != null ) {
                 var incidentIndex = this.incidents.findIndex( i => i.attributes.REPORT_ID === returnValue.attributes.REPORT_ID );
-                returnValue.guard = staff;
                 this.incidents.splice( incidentIndex, 1, returnValue );
                 console.log (returnValue );
                 alert ( "Successful update" );
@@ -110,6 +110,7 @@ export class IncidentComponent implements OnInit {
             }
         });
 
+        this.incidentToAssign = new Incident();
     }
 
     ngOnInit() : void {
