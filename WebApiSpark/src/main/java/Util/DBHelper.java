@@ -234,10 +234,18 @@ public class DBHelper
 
                 if ( hasAttributes && !relationExists( lastIncidentId , incidentElement ) ) {
                     debug_printInsertRelationLog( incidentElement );
-                    insertIncidentRelation(
-                            relationSQL,
-                            incident.getIncidentElement(i)
-                    );
+                    if (DatabaseValues.Table.STAFF.toString().contains(incidentElement.getTable().toString()) ) {
+                        assignToGuard(
+                                lastIncidentId,
+                                incidentElement.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID )
+                        );
+                    }
+                    else {
+                        insertIncidentRelation(
+                                relationSQL,
+                                incidentElement
+                        );
+                    }
                 }
             }
             if ( output != 0 )
@@ -251,7 +259,7 @@ public class DBHelper
         return false;
     }
 
-    public static boolean insertAssignedGuard( int reportID, int accountID ) {
+    public static boolean assignToGuard( String reportID, String accountID ) {
         String query = "INSERT INTO AssignedTo (REPORT_ID, ACCOUNT_ID) " +
                 "VALUES (" + reportID + ", " + accountID + ")";
         try

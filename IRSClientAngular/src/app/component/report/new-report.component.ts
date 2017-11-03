@@ -33,8 +33,8 @@ export class NewReportComponent implements OnInit {
     categoryTypes: CategoryType[] = [];    
 
     staffList: Staff[] = [];
-    selectedStaff: Staff = new Staff();
-    selectedStaffId: number = 0;
+    selectedStaff: Staff = null;
+    selectedStaffId: number = -1;
     reportReady: boolean = false; 
 
     constructor( 
@@ -49,11 +49,6 @@ export class NewReportComponent implements OnInit {
                 function( a, b ) {
                     return a.attributes.FIRST_NAME < b.attributes.FIRST_NAME ? -1 : 1;
                 } );
-
-            var index = this.staffList.findIndex( x => x.attributes.LAST_NAME.length == 0 && x.attributes.FIRST_NAME.length == 0 );
-            if ( index >= 0 )
-                this.selectedStaff = this.staffList[ index ]; // default is dummy staff
-                this.selectedStaffId = 0;
           } ); 
     }
 
@@ -110,6 +105,8 @@ export class NewReportComponent implements OnInit {
         var index = this.staffList.findIndex( x => x.attributes.ACCOUNT_ID ==  this.selectedStaffId);
         if ( index >= 0 )
             this.selectedStaff = this.staffList[ index ];
+        else 
+            this.selectedStaff = null;
         console.log( this.selectedStaff );
     }
 
@@ -129,16 +126,15 @@ export class NewReportComponent implements OnInit {
 
     prepareReport(): void {
         this.newIncident.incidentElements = this.newReportService.collectIncidentElements( this.newIncident.category );
+        if ( this.selectedStaff != null ) {
+            this.newIncident.incidentElements.push( this.selectedStaff );
+        }
         this.reportReady = this.isReportValid();
     }
 
     createReport(): void {
         if( this.reportReady ){
-            if ( this.selectedStaff != null && this.selectedStaff.attributes.FIRST_NAME.length > 0 ) {
-                this.newIncident.incidentElements.push( this.selectedStaff );
-            }
             console.log( this.newIncident );
-            
             this.incidentService.create( this.newIncident )
                 .then( returnedIncident => {
                     if ( returnedIncident != null  ) {

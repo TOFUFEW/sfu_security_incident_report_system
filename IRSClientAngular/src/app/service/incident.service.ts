@@ -62,7 +62,6 @@ export class IncidentService
     private initIncidents( incidents: Incident[] ): Incident[] {
         incidents.forEach(i => {
             this.initArrays(i);
-            i.guard = new Staff();
             i.incidentElements.forEach( e => {
                 if ( e.table === Config.CategoryTable ) {
                     i.category = e.attributes as Category;
@@ -122,8 +121,10 @@ export class IncidentService
     }
 
     create( incident: Incident ): Promise<Incident> {
+        // TEMPORARY
         if ( incident.attributes.ACCOUNT_ID == null ) {
-            incident.attributes.ACCOUNT_ID = 7;
+            if ( this.staffArr.length > 0 ) 
+                incident.attributes.ACCOUNT_ID = this.staffArr[0].attributes.ACCOUNT_ID;
         }
 
         incident.table = Config.IncidentTable;

@@ -16,9 +16,9 @@ public class AssignGuardController {
     private void setupEndPoints() {
         post( "/assignGuard", ( request , response ) -> {
             Incident incident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
-            int incidentID = Integer.parseInt ( incident.getAttributeValue( DatabaseValues.Column.REPORT_ID ) );
-            int accountID = Integer.parseInt ( incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ) );
-            return DBHelper.insertAssignedGuard ( incidentID, accountID );
+            String incidentID =  incident.getAttributeValue( DatabaseValues.Column.REPORT_ID ) ;
+            String accountID = incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ) ;
+            return DBHelper.assignToGuard ( incidentID, accountID );
         });
     }
 }

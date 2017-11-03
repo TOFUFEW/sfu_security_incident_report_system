@@ -20,7 +20,7 @@ import { Staff } from '../staff/staff';
 
 export class IncidentComponent implements OnInit {
     staffArr: Staff[] = [];
-    selectedStaffId: number = 7;
+    selectedStaffId: number = -1;
     incidents: Incident[];
     incidentToAssign: Incident = new Incident();
     lastRemovedId: number = 0;
@@ -72,28 +72,33 @@ export class IncidentComponent implements OnInit {
 
     setIncidentToAssign ( incident: Incident ): void {
         this.incidentToAssign = incident;
-        this.selectedStaffId = incident.guard != null ? incident.guard.attributes.ACCOUNT_ID : 0;
+        this.selectedStaffId = incident.guard != null ? incident.guard.attributes.ACCOUNT_ID : -1;
         console.log( this.incidentToAssign );
         // alert ("Report Assigned to guard");
     }
 
-    assignToGuard (): void {        
+    assignToGuard (): void {             
         var index = this.staffArr.findIndex( x => x.attributes.ACCOUNT_ID == this.selectedStaffId );
-        
-        if ( index < 0 ) return ; // not found
-
-        var staff = this.staffArr[ index ];
-
-        this.incidentToAssign.incidentElements.push( staff );
-
         var existingStaffIndex = this.incidentToAssign.incidentElements
             .findIndex( e => e.table === Config.StaffTable );
 
+        var staff = null;
+        if ( index >= 0 ) {
+            staff = this.staffArr[ index ];
+        }
+
         if ( existingStaffIndex >= 0 ) {
-            this.incidentToAssign.incidentElements.splice( existingStaffIndex, 1, staff );
+            if ( staff == null ) { // de-assign
+                this.incidentToAssign.incidentElements.splice( existingStaffIndex, 1 );
+            }
+            else { // replace
+                this.incidentToAssign.incidentElements.splice( existingStaffIndex, 1, staff);
+            }
         }
         else {
-            this.incidentToAssign.incidentElements.push( staff );
+            if ( staff != null ) { // assign
+                this.incidentToAssign.incidentElements.push( staff );
+            }
         }
 
         this.incidentToAssign.guard = staff;
