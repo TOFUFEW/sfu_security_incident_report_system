@@ -12,8 +12,8 @@ public class Application
     public static void main ( String [] args )
     {
         // STARTUP METHODS
-        staticFileLocation("/public");
-
+        //staticFileLocation("/public");
+        staticFiles.location("/public");
         enableCORS (
                 "*",
                 "GET, " + "POST, PUT, DELETE, OPTIONS, HEAD",
