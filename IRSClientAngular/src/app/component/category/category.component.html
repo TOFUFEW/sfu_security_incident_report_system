@@ -43,15 +43,15 @@
                             [(ngModel)] ="selectedType.INCIDENT_TYPE" 
                             (change)="onSelectTypeCategory($event.target.value)">                  
                         <option *ngIf='selectedSubCategory.SUB_CATEGORY == ""'>--Select Type--</option>  
-                        <option *ngFor="let type of filteredTypes " value={{type.CATEGORY_ID}}>{{type.INCIDENT_TYPE}}</option>  
+                        <option *ngFor="let type of filteredTypes " value="{{type.INCIDENT_TYPE}},, {{type.CATEGORY_ID}}">{{type.INCIDENT_TYPE}}</option>  
                     </select>  
                 </div>
-            </div> 
 
             <div class="modal-footer mt-2 pt-2 mb-1">
                 <button type="button" class="btn btn-primary" (click)="submitCategory($event.target)">Save changes</button>
                 <button type="button" class="btn btn-secondary ml-1" (click)="hide()">Close</button>
             </div>
+        </div>         
     </div>
 </div>
     

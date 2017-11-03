@@ -115,7 +115,7 @@ export class GuardIncidentComponent implements OnInit {
             }); 
             this.incident.incidentElements.splice(locationToRemoveIndex, 1, locationToAdd);
         }
-        this.incidentsService.update(this.incident);
+        this.incidentsService.update ( this.incident );
         console.log( "new location list", this.incident.incidentElements );
         // this.incidentsService.update( this.incident );
         console.log(this.incident);
@@ -124,6 +124,11 @@ export class GuardIncidentComponent implements OnInit {
     changeCategory( newCategoryID ) : void {
         console.log("change category in incident", newCategoryID);
         this.incident.category.CATEGORY_ID = newCategoryID;
+        this.incident.attributes.CATEGORY_ID = newCategoryID;
+        this.incident.category.MAIN_CATEGORY = this.categoryModal.selectedCategory.MAIN_CATEGORY;
+        this.incident.category.SUB_CATEGORY = this.categoryModal.selectedCategory.SUB_CATEGORY;
+        this.incident.category.INCIDENT_TYPE = this.categoryModal.selectedCategory.INCIDENT_TYPE;
+        this.incidentsService.update ( this.incident );
     }
 
     ngOnInit() : void {         
