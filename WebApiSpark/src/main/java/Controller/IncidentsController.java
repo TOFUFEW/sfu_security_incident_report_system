@@ -35,5 +35,17 @@ public class IncidentsController
             String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
             return DBHelper.insertIncident ( incidentString , newIncident );
         } );
+
+        post ("/updateIncident" , ( request, response ) ->
+        {
+            Incident updatedIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
+            return DBHelper.updateIncident ( updatedIncident );
+        } );
+
+        post ( "/assignIncident", ( request, response ) ->
+        {
+            Incident incident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
+            return DBHelper.assignIncident( incident );
+        }) ;
     }
 }

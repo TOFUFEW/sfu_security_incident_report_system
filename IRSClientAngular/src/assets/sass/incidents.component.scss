@@ -26,7 +26,12 @@ div.incident-card {
         width: 100%;
         display: block;
         overflow: hidden;
+
+        &.tertiary {
+            margin-top: 8px;
+        }
     }
+
 
     .description {
         margin-top: 8px;

@@ -17,7 +17,7 @@ export class StaffService {
     getStaffs(): Promise<Staff[]> {
         var staffList = this.http.get( this.staffUrl )
             .toPromise()
-            .then( response => DataHelperService.extractAttributesArray( response.json() ) as Staff[] )
+            .then( response => response.json() as Staff[] )
             .catch( this.handleError );
         return Promise.resolve( staffList );
     };

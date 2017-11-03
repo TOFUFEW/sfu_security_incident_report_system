@@ -13,7 +13,7 @@
             <div class="incident-card" *ngFor="let incident of incidents">
                 <div class="main-content">
                     <div class="detail-row">
-                        <span class="card-text-secondary">Report ID: {{incident.attributes.REPORT_ID}}</span>
+                        <span class="card-text-secondary">Report #{{incident.attributes.REPORT_ID}}</span>
                     </div>
                     <div class="detail-row description">
                         <span class="card-text-primary">
@@ -22,10 +22,15 @@
                     </div>
                     <div class="detail-row">
                         <span class="card-text-secondary">
-                            {{incident.category.MAIN_CATEGORY}}: {{incident.category.SUB_CATEGORY}} {{incident.category.INCIDENT_TYPE}}
+                            Category: {{incident.category.MAIN_CATEGORY}} - {{incident.category.SUB_CATEGORY}} {{incident.category.INCIDENT_TYPE}}
                         </span>
                     </div>
-                    <div class="detail-row">
+                    <div class="detail-row" *ngIf="incident.guard.attributes.FIRST_NAME != null">
+                        <span class="card-text-secondary">
+                            Assigned To: {{incident.guard.attributes.FIRST_NAME}} {{incident.guard.attributes.LAST_NAME}}
+                        </span>
+                    </div>
+                    <div class="detail-row tertiary">
                         <span class="card-text-tertiary">
                             Burnaby AQ 3150
                         </span>
@@ -36,7 +41,7 @@
                     <div class="action">
                         <span class="glyphicon glyphicon-new-window glyphicon-btn" data-toggle="tooltip" title="Add to Workspace"
                                  [ngClass]="{'transparent': incident.inWorkspace}" (click)="incident.inWorkspace || addToWorkspace(incident)"></span>
-                        <span class="glyphicon glyphicon-tag glyphicon-btn" data-toggle="tooltip" title="Assign to Guard"></span>                        
+                        <span class="glyphicon glyphicon-tag glyphicon-btn" (click)="setIncidentToAssign(incident.attributes.REPORT_ID)" data-toggle="modal" data-target="#assignModal"></span>                        
                                  
                     </div>
                                                                 
@@ -51,19 +56,27 @@
 </div>
 
 <!-- Modal -->
-<div id="actionsModal" class="modal fade" role="dialog">
+<div id="assignModal" class="modal fade" role="dialog" *ngIf="incidentToAssign.attributes.REPORT_ID != null">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <span class="glyphicon glyphicon-tag glyphicon-heading"></span>
-                <span class="panel-header">Actions</span>
+                <span class="panel-header">Assign To Guard - Report #{{incidentToAssign.attributes.REPORT_ID}}</span>
             </div>
             <div class="modal-body">
-
+                <div class="details-container">
+                    <div class="details-body">
+                        <div class="detail col-12 col-sm-3">
+                            <select class="form-control" name="" id="" [(ngModel)]="incidentToAssign.attributes.ACCOUNT_ID" (change)="onSelectStaff()">
+                                <option *ngFor="let staff of staffArr" [value]="staff.attributes.ACCOUNT_ID">{{staff.attributes.FIRST_NAME}} {{staff.attributes.LAST_NAME}}</option>
+                            </select>
+                        </div>
+                    </div> 
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary">Add To Workspace</button>   
+                <button class="btn btn-primary" (click)="assignToStaff()" data-dismiss="modal">Assign</button>   
             </div>
         </div>
     </div>
