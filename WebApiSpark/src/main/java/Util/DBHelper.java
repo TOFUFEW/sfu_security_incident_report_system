@@ -4,6 +4,7 @@ import Model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class DBHelper
 {
@@ -537,7 +538,7 @@ public class DBHelper
 
         try {
             initDB ();
-            String query = "{ call dbo.updateIncident ( ? , ? , ? , ? , ? , ? ) } ";
+            String query = "{ call dbo.updateIncident ( ? , ? , ? , ? , ? , ? , ? ) } ";
             CallableStatement stmt = connection.prepareCall ( query );
             stmt.setString (
                     1,
@@ -559,9 +560,15 @@ public class DBHelper
                     5,
                     incident.getAttributeValue ( DatabaseValues.Column.STATUS )
             );
+            Calendar cal = Calendar.getInstance();
+            java.sql.Timestamp timestamp = new java.sql.Timestamp (cal.getTimeInMillis());
+            stmt.setTimestamp (
+                    6,
+                    timestamp
+            );
 
             stmt.registerOutParameter (
-                    6,
+                    7,
                     Types.INTEGER
             );
             stmt.execute();
