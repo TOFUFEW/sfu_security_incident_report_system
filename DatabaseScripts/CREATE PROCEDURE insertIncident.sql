@@ -17,13 +17,11 @@ BEGIN
 			CATEGORY_ID,
 			DESCRIPTION,
 			EXECUTIVE_SUMMARY,
-			START_TIME
 		) VALUES (
 			@creator_id,
 			@category_id,
 			@description,
-			@executive_summary,
-			GETDATE()
+			@executive_summary
 		);
 		SELECT @result = 1;
 	END
