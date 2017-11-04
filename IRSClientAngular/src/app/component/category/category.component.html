@@ -12,12 +12,10 @@
                 </button>
                 <h4 class="modal-title mt-2">Select Incident Category</h4>
             </div>
-
-            <div class="modal-body">
         
                 <!-- Category Picker -->
                 <div class="mt-2">
-                    <label class="field-label">Category</label>
+                    <label class="field-title modal-field-title">Category</label>
                     <select class="form-control category-field" 
                             ng-model="selectedMainCategory.MAIN_CATEGORY" 
                             (change)="onSelectCategory($event.target.value)">  
@@ -29,7 +27,7 @@
 
                 <!-- Subcategory Picker -->
                 <div class="mt-2">  
-                    <label class="field-label">Subcategory</label>  
+                    <label class="field-title modal-field-title">Subcategory</label>  
                     <select class="form-control category-field" 
                             [(ngModel)] ="selectedSubCategory.SUB_CATEGORY" 
                             (change)="onSelectSubCategory($event.target.value)">                  
@@ -40,21 +38,20 @@
 
                 <!-- Type Picker -->
                 <div class="mt-2">
-                    <label class="field-label">Type</label>  
+                    <label class="field-title modal-field-title">Type</label>    
                     <select class="form-control category-field" 
                             [(ngModel)] ="selectedType.INCIDENT_TYPE" 
                             (change)="onSelectTypeCategory($event.target.value)">                  
                         <option *ngIf='selectedSubCategory.SUB_CATEGORY == ""'>--Select Type--</option>  
-                        <option *ngFor="let type of filteredTypes " value={{type.CATEGORY_ID}}>{{type.INCIDENT_TYPE}}</option>  
+                        <option *ngFor="let type of filteredTypes " value="{{type.INCIDENT_TYPE}},, {{type.CATEGORY_ID}}">{{type.INCIDENT_TYPE}}</option>  
                     </select>  
                 </div>
-            </div> 
 
             <div class="modal-footer mt-2 pt-2 mb-1">
                 <button type="button" class="btn btn-primary" (click)="submitCategory($event.target)">Save changes</button>
                 <button type="button" class="btn btn-secondary ml-1" (click)="hide()">Close</button>
             </div>
-        </div>
+        </div>         
     </div>
 </div>
     
