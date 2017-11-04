@@ -19,6 +19,7 @@ export class IncidentService
 {
     private headers = new Headers({'Content-Type': 'application/json'});
     incidentsUrl = Config.IncidentsURI;
+    updateIncidentsUrl = Config.UpdateIncidentsURI;
     guardIncidentsUrl = Config.GuardIncidentsURI;
     private userService = new UserService;
     tableName = "";
@@ -112,14 +113,27 @@ export class IncidentService
     }
 
     getIncident( id: number ): Promise<Incident> {
-        var incident = new Incident();
-        incident.attributes.REPORT_ID = id ;
-        var returnIncident = this.http
-            .post( Config.GetIncidentURI, JSON.stringify( incident ), { headers: this.headers } )
+        var incidentToGet = new Incident();
+        incidentToGet.attributes.REPORT_ID = id ;
+        var returnedIncident = this.http
+            .post( Config.GetIncidentURI, JSON.stringify( incidentToGet ), { headers: this.headers } )
             .toPromise()
-            .then( response => response.json() as Incident )
+            .then( response => this.initializeIncident( response.json() as Incident ) as Incident )
             .catch( this.handleError );
-        return Promise.resolve( returnIncident );
+        return Promise.resolve( returnedIncident );
+    }
+    
+    private initializeIncident( incident: Incident ): Incident {
+        incident.locationList = [];
+        incident.incidentElements.forEach( element => {
+            if ( element.table === Config.CategoryTable ) {
+                incident.category = element.attributes as Category;
+            }
+            else if ( element.table === Config.LocationTable ) {
+                incident.locationList.push( element as Location )
+            }
+        });
+        return incident;
     }
 
     create( incident: Incident ): Promise<Incident> {
@@ -138,11 +152,10 @@ export class IncidentService
         return Promise.resolve( promise );
     }
 
-    update( incident: Incident ): Promise<Incident> {
+    update( incident: Incident ): Promise<Incident> {        
         if ( incident.attributes.ACCOUNT_ID == null ) {
-            incident.attributes.ACCOUNT_ID = 7;
+            incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().ACCOUNT_ID;
         }
-
         incident.table = Config.IncidentTable;
         var promise = this.http
                 .post( Config.UpdateIncidentURI, JSON.stringify( incident ), { headers: this.headers } )
