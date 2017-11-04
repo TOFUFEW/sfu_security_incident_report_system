@@ -14,7 +14,10 @@ export class PersonComponent implements OnInit {
     private reference: any;
     personList: Person[];
     newPerson: Person = new Person();
-    
+    phoneNumber1: string = "";
+    phoneNumber2: string = "";
+    phoneNumber3: string = "";
+
     constructor( 
         private personService: PersonService,
         private reportService: NewReportService
@@ -33,6 +36,10 @@ export class PersonComponent implements OnInit {
         if ( this.newPerson != null ) 
             this.reportService.removeIncidentElement( this.newPerson, Config.PersonTable );
         this.reference.destroy();
+    }
+
+    onChangePhoneNumber(): void {
+        this.newPerson.PHONE_NUMBER = this.phoneNumber1 + this.phoneNumber2 + this.phoneNumber3;
     }
 
     getPersons(): void {

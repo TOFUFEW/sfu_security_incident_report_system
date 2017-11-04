@@ -1,32 +1,38 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IncidentService } from '../../service/incident.service';
+import { StaffService } from '../../service/staff.service';
 import { Incident } from './incident';
 import { Location } from '../location/location';
-import {Staff} from "../staff/staff";
-import {StaffService} from "../../service/staff.service";
-import {User} from "../login/user";
-import {DataHelperService} from "../../util/data-helper.service";
-import {Config} from "../../util/config.service";
-import {AssignGuardService} from "../../service/assign-guard.service";
+import { User } from "../login/user";
+import { DataHelperService } from "../../util/data-helper.service";
+import { Config } from "../../util/config.service";
+import { AssignGuardService } from "../../service/assign-guard.service";
+import { Staff } from '../staff/staff';
 
 @Component(
-  {
-    selector: 'incidents-component',
-    templateUrl: './incidents.component.html',
-    styleUrls: ['../../../assets/css/incidents.component.css',
-                '../../../assets/css/panels.css']
-  }
+    {
+        selector: 'incidents-component',
+        templateUrl: './incidents.component.html',
+        styleUrls: ['../../../assets/css/incidents.component.css',
+                    '../../../assets/css/panels.css']
+    }
 )
 
 export class IncidentComponent implements OnInit {
+    staffArr: Staff[] = [];
+    selectedStaffId: number = -1;
     incidents: Incident[];
-    staffs: Staff[];
     incidentToAssign: Incident = new Incident();
-    newUser: User = new User();
+    lastRemovedId: number = 0;
 
-    constructor( private incidentService: IncidentService,
-                private staffService: StaffService,
-                private assignGuardService: AssignGuardService ) {};
+
+    constructor( private incidentService: IncidentService, private staffService: StaffService ){
+        this.staffService.getStaffs().then( returnedArr => {
+            this.staffArr = returnedArr;
+        });
+        this.incidentService.lastRemovedId
+            .subscribe( value => this.removeFromWorkspace( value ) );
+    };
 
     getIncidents(): void {
         this.incidentService.getIncidents().then( returnedIncidents => {
@@ -34,10 +40,24 @@ export class IncidentComponent implements OnInit {
         } );
     }
 
-    getStaff() : void {
-        this.staffService.getStaffs().then( returnedStaffs => {
-            this.staffs = returnedStaffs;
-        } );
+    getStaffList() {
+        this.staffService.getStaffs().then( ret => { this.staffArr = ret } );
+    }
+
+    addToWorkspace( incident: Incident ): void {
+        alert("Report added to workspace");
+        incident.inWorkspace = true ;
+        console.log("adding to workspace...");
+        console.log(incident);
+        this.incidentService.addToWorkspace( incident );
+    }
+
+    removeFromWorkspace( id: number ): void {
+        if ( this.incidents == null || this.incidents.length == 0 ) return;
+        console.log(" removing " + id);
+        var index = this.incidents.findIndex( i => i.attributes.REPORT_ID == id );
+        console.log( "index: " + index );
+        this.incidents[ index ].inWorkspace = false;
     }
 
     deleteIncident( id: number ): void {
@@ -47,35 +67,59 @@ export class IncidentComponent implements OnInit {
             var i = this.incidents.findIndex( loc => loc.attributes.REPORT_ID === id );
             // remove 1 object at index i
             this.incidents.splice( i, 1 );
-        } );
+        });
     }
 
-    setCurrentIncident( incident: Incident ) : void {
+    setIncidentToAssign ( incident: Incident ): void {
         this.incidentToAssign = incident;
-        console.log( "set incident id = " + this.incidentToAssign.attributes.REPORT_ID);
+        this.selectedStaffId = incident.guard != null ? incident.guard.attributes.ACCOUNT_ID : -1;
+        console.log( this.incidentToAssign );
+        // alert ("Report Assigned to guard");
     }
 
-    assignGuard() {
-        console.log("assign staff id = " + this.newUser.ACCOUNT_ID);
-        console.log("assign staff incident id = " + this.incidentToAssign.attributes.REPORT_ID);
-        this.incidentToAssign.attributes.ACCOUNT_ID = this.newUser.ACCOUNT_ID;
-        this.assignGuardService.assignGuard( this.incidentToAssign )
-          .then( isAssigned => {
-            if( isAssigned ) {
-              alert("successfuly assigned");
-            } else {
-              alert("assigning failed");
-            }
-          });
+    assignToGuard (): void {
+        var index = this.staffArr.findIndex( x => x.attributes.ACCOUNT_ID == this.selectedStaffId );
+        var existingStaffIndex = this.incidentToAssign.incidentElements
+            .findIndex( e => e.table === Config.StaffTable );
 
-        // flush
-        delete this.incidentToAssign;
+        var staff = null;
+        if ( index >= 0 ) {
+            staff = this.staffArr[ index ];
+        }
+
+        if ( existingStaffIndex >= 0 ) {
+            if ( staff == null ) { // de-assign
+                this.incidentToAssign.incidentElements.splice( existingStaffIndex, 1 );
+            }
+            else { // replace
+                this.incidentToAssign.incidentElements.splice( existingStaffIndex, 1, staff);
+            }
+        }
+        else {
+            if ( staff != null ) { // assign
+                this.incidentToAssign.incidentElements.push( staff );
+            }
+        }
+
+        this.incidentToAssign.guard = staff;
+
+        console.log(this.incidentToAssign);
+        this.incidentService.update( this.incidentToAssign ).then( returnValue => {
+            if ( returnValue != null ) {
+                var incidentIndex = this.incidents.findIndex( i => i.attributes.REPORT_ID === returnValue.attributes.REPORT_ID );
+                this.incidents.splice( incidentIndex, 1, returnValue );
+                console.log (returnValue );
+                alert ( "Successful update" );
+            } else {
+                alert ( "Unsuccessful update" );
+            }
+        });
+
         this.incidentToAssign = new Incident();
     }
 
     ngOnInit() : void {
         this.getIncidents();
-        this.getStaff();
+        this.getStaffList();
     }
-
 }

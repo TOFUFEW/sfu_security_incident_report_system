@@ -5,6 +5,7 @@ import Controller.*;
 
 import static spark.Spark.before;
 import static spark.Spark.options;
+import static spark.Spark.staticFileLocation;
 
 // Class that initializes each controller at start - up
 public class Application
@@ -13,6 +14,8 @@ public class Application
     public static void main ( String [] args )
     {
         // STARTUP METHODS
+        staticFileLocation("/public");
+
         enableCORS (
                 "*",
                 "GET, " + "POST, PUT, DELETE, OPTIONS, HEAD",
@@ -25,6 +28,8 @@ public class Application
         LoginController loginController = new LoginController();
         PersonController personController = new PersonController();
         IncidentCategoryController categoryController = new IncidentCategoryController();
+        AttachmentController attachmentController = new AttachmentController();
+        GuardIncidentsController guardIncidentsController = new GuardIncidentsController();
         AssignGuardController assignGuardController = new AssignGuardController();
     }
 

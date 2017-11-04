@@ -6,7 +6,6 @@ import Model.Person;
 import Model.IncidentElement;
 import Model.Location;
 import Util.DBHelper;
-import Util.DatabaseValues;
 import Util.JsonUtil;
 
 import java.sql.ResultSet;
@@ -43,20 +42,8 @@ public class IncidentsController
 
         post ("/updateIncident", ( request , response ) ->
         {
-            try {
-
-                Incident updatedIncident = (Incident) parser.fromJson ( request.body(), Incident.class );
-                boolean rs = dbHelper.executeProcedure (
-                        "{ call dbo.updateIncident ( ? , ? , ? , ? , ? , ? ) }"
-                        , updatedIncident);
-                return true;
-            }
-            catch ( Exception e )
-            {
-                return false;
-//                e.printStackTrace ();
-            }
-        }, json());
-
+            Incident updatedIncident = (Incident) parser.fromJson ( request.body(), Incident.class );
+            return DBHelper.updateIncident( updatedIncident );
+        });
     }
 }

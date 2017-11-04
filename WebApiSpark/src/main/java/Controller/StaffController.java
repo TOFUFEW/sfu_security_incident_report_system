@@ -1,4 +1,5 @@
 package Controller;
+import Model.IncidentElement;
 import Model.Staff;
 import Util.DBHelper;
 import Util.DatabaseValues;
@@ -18,7 +19,8 @@ public class StaffController
     {
 
         get ( "/staff" , ( request , response ) -> {
-            return JsonUtil.toJson( DBHelper.getIncidentElements( DatabaseValues.Table.STAFF ) );
+            IncidentElement[] staffArr = DBHelper.getIncidentElements( DatabaseValues.Table.STAFF );
+            return JsonUtil.toJson( staffArr );
         } );
 
 
