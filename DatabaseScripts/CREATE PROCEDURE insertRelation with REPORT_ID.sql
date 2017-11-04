@@ -1,15 +1,14 @@
---DROP PROCEDURE dbo.insertRelation
-CREATE PROCEDURE dbo.insertRelation
+CREATE PROCEDURE dbo.insertRelationWithTableName
+	@report_id INT,
 	@table_name NVARCHAR (30),
 	@table_id INT,
 	@result BIT = 0 OUTPUT
 AS
 BEGIN
-	DECLARE @report_id INT = IDENT_CURRENT('Incident');
 	IF EXISTS ( SELECT tc.TABLE_NAME
 		FROM INFORMATION_SCHEMA.TABLES tc
 		WHERE tc.TABLE_NAME = @table_name AND tc.TABLE_NAME = 'Account' )
-	BEGIN	
+	BEGIN
 		INSERT INTO AssignedTo (REPORT_ID, ACCOUNT_ID) VALUES (@report_id, @table_id);
 		SELECT @result = 1;
 	END
