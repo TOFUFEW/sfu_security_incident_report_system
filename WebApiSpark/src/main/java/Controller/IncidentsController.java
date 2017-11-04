@@ -18,7 +18,6 @@ import static spark.Spark.post;
 
 public class IncidentsController
 {
-    JsonUtil parser = new JsonUtil();
     DBHelper dbHelper = new DBHelper();
     public IncidentsController ()
     {
@@ -42,7 +41,7 @@ public class IncidentsController
 
         post ("/updateIncident", ( request , response ) ->
         {
-            Incident updatedIncident = (Incident) parser.fromJson ( request.body(), Incident.class );
+            Incident updatedIncident = (Incident) JsonUtil.fromJson ( request.body(), Incident.class );
             return DBHelper.updateIncident( updatedIncident );
         });
     }

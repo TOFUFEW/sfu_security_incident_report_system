@@ -312,14 +312,14 @@ public class DBHelper
                 relationTable = "HappensAt";
                 String id = incidentElement.getAttributeValue( DatabaseValues.Column.LOCATION_ID );
                 if (id == null || id.equals("null"))
-                    return false;
+                    return true;
                 idString += "LOCATION_ID = '" + id + "';";
             }
             else if ( DatabaseValues.Table.PERSON.toString().toLowerCase().contains( tableName ) ) {
                 relationTable = "Involves";
                 String id = incidentElement.getAttributeValue( DatabaseValues.Column.PERSON_ID );
                 if (id == null || id.equals("null"))
-                    return false;
+                    return true;
                 idString += "PERSON_ID = '" + id + "';";
             }
             else if ( DatabaseValues.Table.ACCOUNT.toString().toLowerCase().contains( tableName ) ){
