@@ -1,11 +1,13 @@
 package Util;
 
+import java.sql.Timestamp;
+
 public class DatabaseValues
 {
     private static final String DEFAULT_STRING_VALUE = "null";
     private static final String DEFAULT_INT_VALUE = "-1";
     private static final String DEFAULT_BIT_VALUE = "0";
-//    private static final Datetime DEFAULT_DATETIME_VALUE = "";
+    private static final String DEFAULT_DATETIME_VALUE = null;
 
     public enum Table
     {
@@ -125,7 +127,7 @@ public class DatabaseValues
         END_TIME (
                 "END_TIME",
                 "DATETIME",
-                DEFAULT_STRING_VALUE,
+                DEFAULT_DATETIME_VALUE,
                 null
         ),
 
@@ -251,7 +253,7 @@ public class DatabaseValues
         START_TIME (
                 "START_TIME",
                 "DATETIME",
-                DEFAULT_STRING_VALUE,
+                DEFAULT_DATETIME_VALUE,
                 null
         ),
 

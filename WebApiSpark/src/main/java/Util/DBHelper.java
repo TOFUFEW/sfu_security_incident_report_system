@@ -45,7 +45,7 @@ public class DBHelper
         {
             ResultSet incidentResultSet = executeQuery( "SELECT Incident.*\n" +
                     "FROM Incident  INNER JOIN AssignedTo  ON Incident.REPORT_ID = AssignedTo.REPORT_ID\n" +
-                    "WHERE AssignedTo.ACCOUNT_ID = " + accountID + " and Incident.CLOSED = 0" );
+                    "WHERE AssignedTo.ACCOUNT_ID = " + accountID + " and Incident.STATUS != 4" );
 
             fillListWithIncidentsFromResultSet ( incidentList , incidentResultSet );
         }
@@ -78,6 +78,9 @@ public class DBHelper
             {
                 Incident incident = new Incident ();
                 incident.extractFromCurrentRow ( set );
+                System.out.println(set.getTimestamp("START_TIME"));
+                incident.updateAttributeValue ( DatabaseValues.Column.START_TIME , set.getTimestamp ("START_TIME" ).toString() );
+                incident.updateAttributeValue ( DatabaseValues.Column.END_TIME , set.getTimestamp ("END_TIME" ).toString() );
                 ArrayList < IncidentElement > incidentElementsList = getIncidentElements ( Integer.parseInt (incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) ) );
                 incident.changeIncidentElementList ( incidentElementsList );
                 list.add ( incident );
