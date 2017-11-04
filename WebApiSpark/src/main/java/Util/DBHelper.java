@@ -557,7 +557,7 @@ public class DBHelper
             );
             stmt.setString (
                     5,
-                    incident.getAttributeValue ( DatabaseValues.Column.CLOSED )
+                    incident.getAttributeValue ( DatabaseValues.Column.STATUS )
             );
 
             stmt.registerOutParameter (

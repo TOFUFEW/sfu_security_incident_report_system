@@ -5,6 +5,7 @@ public class DatabaseValues
     private static final String DEFAULT_STRING_VALUE = "null";
     private static final String DEFAULT_INT_VALUE = "-1";
     private static final String DEFAULT_BIT_VALUE = "0";
+//    private static final Datetime DEFAULT_DATETIME_VALUE = "";
 
     public enum Table
     {
@@ -104,14 +105,6 @@ public class DatabaseValues
                 null
         ),
 
-        // Associated Tables: Incident
-        CLOSED (
-                "CLOSED" ,
-                "BIT",
-                DEFAULT_BIT_VALUE,
-                null
-        ),
-
         // Associated Tables: Location
         DEPARTMENT (
                 "DEPARTMENT",
@@ -124,6 +117,14 @@ public class DatabaseValues
         DESCRIPTION (
                 "DESCRIPTION" ,
                 "TEXT",
+                DEFAULT_STRING_VALUE,
+                null
+        ),
+
+        // Associated Tables: Incident
+        END_TIME (
+                "END_TIME",
+                "DATETIME",
                 DEFAULT_STRING_VALUE,
                 null
         ),
@@ -196,6 +197,14 @@ public class DatabaseValues
                 null
         ),
 
+        // Associated Tables: IncidentCategory
+        PERMISSION_LEVEL (
+                "PERMISSION_LEVEL",
+                "INT",
+                DEFAULT_INT_VALUE,
+                null
+        ),
+
         // Associated Tables: Involves, Person
         PERSON_ID (
                 "PERSON_ID" ,
@@ -235,6 +244,22 @@ public class DatabaseValues
                 "ROOM_NUMBER" ,
                 "INT" ,
                 DEFAULT_INT_VALUE,
+                null
+        ),
+
+        // Associated Tables: Incident
+        START_TIME (
+                "START_TIME",
+                "DATETIME",
+                DEFAULT_STRING_VALUE,
+                null
+        ),
+
+        // Associated Tables: Incident
+        STATUS (
+                "STATUS" ,
+                "INT",
+                DEFAULT_BIT_VALUE,
                 null
         ),
 

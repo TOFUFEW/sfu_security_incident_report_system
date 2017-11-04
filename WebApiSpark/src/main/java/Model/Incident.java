@@ -16,6 +16,8 @@ public class Incident extends StorageObject
                 "",
                 "",
                 "",
+                "",
+                "",
                 ""
         );
     }
@@ -26,7 +28,9 @@ public class Incident extends StorageObject
             String categoryID,
             String description,
             String executiveSummary,
-            String closed
+            String status,
+            String startTime,
+            String endTime
     ) {
         super (
                 DatabaseValues.Table.INCIDENT,
@@ -37,7 +41,9 @@ public class Incident extends StorageObject
                         DatabaseValues.Column.CATEGORY_ID,
                         DatabaseValues.Column.DESCRIPTION,
                         DatabaseValues.Column.EXECUTIVE_SUMMARY,
-                        DatabaseValues.Column.CLOSED
+                        DatabaseValues.Column.STATUS,
+                        DatabaseValues.Column.START_TIME,
+                        DatabaseValues.Column.END_TIME
                 }
         );
 
@@ -68,8 +74,18 @@ public class Incident extends StorageObject
         );
 
         updateAttributeValue(
-                DatabaseValues.Column.CLOSED,
-                closed
+                DatabaseValues.Column.STATUS,
+                status
+        );
+
+        updateAttributeValue(
+                DatabaseValues.Column.START_TIME,
+                startTime
+        );
+
+        updateAttributeValue(
+                DatabaseValues.Column.END_TIME,
+                endTime
         );
     }
 
