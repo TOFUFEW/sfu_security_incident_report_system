@@ -3,3 +3,5 @@ curl -H "Content-Type: application/json" -X POST -d '{"incidentElements": [ {"ta
 curl -H "Content-Type: application/json" -X POST -d '{"incidentElements": [ {"table":"LOCATION","attributes": { "LOCATION_ID": 1}}],"attributes" : {"ACCOUNT_ID": 2,"CATEGORY_ID":1,"CLOSED":0,"DESCRIPTION":"TESTTTTTT","EXECUTIVE_SUMMARY":"SAMPLE EXECUTIVE SUMMARY"},"table":"INCIDENT"}' http://localhost:4567/incidents
 
 curl -H "Content-Type: application/json" -X POST -d '{"incidentElements": [], "attributes":  {"REPORT_ID": 1,"CATEGORY_ID":1,"CLOSED":0,"DESCRIPTION":"NANANANANAN","EXECUTIVE_SUMMARY":"SAMPLE EXECUTIVE SUMMARY"}, "table": "INCIDENT" }' http://localhost:4567/incidents
+
+curl -H "Content-Type: application/json" -X POST -d '{"incidentElements": [], "attributes": {"REPORT_ID": 116, "CATEGORY_ID": 4, "STATUS": 0, "DESCRIPTION": "UPDATED2", "EXECUTIVE_SUMMARY": "UPDATED"}, "table": "INCIDENT" }' http://localhost:4567/updateIncident

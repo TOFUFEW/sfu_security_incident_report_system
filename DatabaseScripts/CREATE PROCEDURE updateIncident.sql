@@ -5,7 +5,6 @@ CREATE PROCEDURE [dbo].updateIncident
 	@description TEXT,
 	@executive_summary TEXT,
 	@status INT,
-	@end_time DATETIME,
 	@result BIT = 0 OUTPUT
 AS
 BEGIN
@@ -13,7 +12,7 @@ BEGIN
 	BEGIN
 		UPDATE Incident
 		SET CATEGORY_ID = @category_id, DESCRIPTION = @description, 
-			EXECUTIVE_SUMMARY = @executive_summary, STATUS = @status, END_TIME = @end_time
+			EXECUTIVE_SUMMARY = @executive_summary, STATUS = @status, END_TIME = GETDATE()
 		WHERE REPORT_ID = @report_id;
 		SELECT @result = 1;
 	END

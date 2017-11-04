@@ -38,7 +38,7 @@ public class TestIncident
         incident1.updateAttributeValue ( Column.CATEGORY_ID, selectedCategoryId );
         incident1.updateAttributeValue ( Column.DESCRIPTION, "TEST DESCRIPTION" );
         incident1.updateAttributeValue ( Column.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
-        incident1.updateAttributeValue ( Column.CLOSED, "0" );
+        incident1.updateAttributeValue ( Column.STATUS, "0" );
 
 
         int elementCount = 0;
@@ -153,7 +153,7 @@ public class TestIncident
         incident1.updateAttributeValue ( Column.CATEGORY_ID, null ); // VALUE TO TEST
         incident1.updateAttributeValue ( Column.DESCRIPTION, "TEST DESCRIPTION" );
         incident1.updateAttributeValue ( Column.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
-        incident1.updateAttributeValue ( Column.CLOSED, "0" );
+        incident1.updateAttributeValue ( Column.STATUS, "0" );
 
         int currentSize = getNumberOfIncidents ();
         String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
@@ -186,7 +186,7 @@ public class TestIncident
         incident1.updateAttributeValue ( Column.CATEGORY_ID, null ); // VALUE TO TEST
         incident1.updateAttributeValue ( Column.DESCRIPTION, "TEST DESCRIPTION" );
         incident1.updateAttributeValue ( Column.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
-        incident1.updateAttributeValue ( Column.CLOSED, "0" );
+        incident1.updateAttributeValue ( Column.STATUS, "0" );
 
         IncidentElement selectedCategory = categories[ rand.nextInt( categories.length-1 )];
         Assert.assertTrue( ( DatabaseValues.Table.INCIDENT_CATEGORY ).toString().contains( selectedCategory.getTable().toString() ) );
@@ -244,7 +244,7 @@ public class TestIncident
         incident1.updateAttributeValue ( Column.CATEGORY_ID, selectedCategoryId );
         incident1.updateAttributeValue ( Column.DESCRIPTION, "TEST DESCRIPTION" );
         incident1.updateAttributeValue ( Column.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
-        incident1.updateAttributeValue ( Column.CLOSED, "0" );
+        incident1.updateAttributeValue ( Column.STATUS, "0" );
 
 
         int elementCount = 0;
@@ -374,7 +374,7 @@ public class TestIncident
         incident1.updateAttributeValue ( Column.CATEGORY_ID, selectedCategoryId );
         incident1.updateAttributeValue ( Column.DESCRIPTION, "TEST DESCRIPTION" );
         incident1.updateAttributeValue ( Column.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
-        incident1.updateAttributeValue ( Column.CLOSED, "0" );
+        incident1.updateAttributeValue ( Column.STATUS, "0" );
 
         int elementCount = 0;
 
