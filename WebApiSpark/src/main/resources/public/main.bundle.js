@@ -101,13 +101,13 @@ var _a, _b;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__component_report_incident_component__ = __webpack_require__("../../../../../src/app/component/report/incident.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__component_login_login_component__ = __webpack_require__("../../../../../src/app/component/login/login.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__component_report_new_report_component__ = __webpack_require__("../../../../../src/app/component/report/new-report.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__component_vehicle_vehicle_component__ = __webpack_require__("../../../../../src/app/component/vehicle/vehicle.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__component_search_search_component__ = __webpack_require__("../../../../../src/app/component/search/search.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__component_person_person_component__ = __webpack_require__("../../../../../src/app/component/person/person.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__component_attachment_attachment_component__ = __webpack_require__("../../../../../src/app/component/attachment/attachment.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__component_guard_app_guard_dashboard_component__ = __webpack_require__("../../../../../src/app/component/guard-app/guard-dashboard.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__component_guard_app_guard_incident_component__ = __webpack_require__("../../../../../src/app/component/guard-app/guard-incident.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__component_guard_app_guard_test_view_report_component__ = __webpack_require__("../../../../../src/app/component/guard-app/guard-test-view-report.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__component_guard_app_guard_incident_component__ = __webpack_require__("../../../../../src/app/component/guard-app/guard-incident.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__component_guard_app_guard_all_reports_component__ = __webpack_require__("../../../../../src/app/component/guard-app/guard-all-reports.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__component_vehicle_vehicle_component__ = __webpack_require__("../../../../../src/app/component/vehicle/vehicle.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__component_search_search_component__ = __webpack_require__("../../../../../src/app/component/search/search.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__component_person_person_component__ = __webpack_require__("../../../../../src/app/component/person/person.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__component_attachment_attachment_component__ = __webpack_require__("../../../../../src/app/component/attachment/attachment.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__component_location_location_modal_component__ = __webpack_require__("../../../../../src/app/component/location/location-modal.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__component_category_category_component__ = __webpack_require__("../../../../../src/app/component/category/category.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__component_report_report_summary_component__ = __webpack_require__("../../../../../src/app/component/report/report-summary.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__service_user_service__ = __webpack_require__("../../../../../src/app/service/user.service.ts");
@@ -178,41 +178,31 @@ AppModule = __decorate([
         ],
         declarations: [
             __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */],
-            __WEBPACK_IMPORTED_MODULE_16__component_attachment_attachment_component__["a" /* AttachmentComponent */],
+            __WEBPACK_IMPORTED_MODULE_18__component_attachment_attachment_component__["a" /* AttachmentComponent */],
             __WEBPACK_IMPORTED_MODULE_7__component_dashboard_dashboard_component__["a" /* DashboardComponent */],
             __WEBPACK_IMPORTED_MODULE_8__component_location_location_component__["a" /* LocationComponent */],
+            __WEBPACK_IMPORTED_MODULE_19__component_location_location_modal_component__["a" /* LocationModalComponent */],
             __WEBPACK_IMPORTED_MODULE_9__component_staff_staff_component__["a" /* StaffComponent */],
             __WEBPACK_IMPORTED_MODULE_10__component_report_incident_component__["a" /* IncidentComponent */],
             __WEBPACK_IMPORTED_MODULE_11__component_login_login_component__["a" /* LoginComponent */],
-            __WEBPACK_IMPORTED_MODULE_17__component_guard_app_guard_dashboard_component__["a" /* GuardDashboardComponent */],
-            __WEBPACK_IMPORTED_MODULE_18__component_guard_app_guard_incident_component__["a" /* GuardIncidentComponent */],
+            __WEBPACK_IMPORTED_MODULE_13__component_guard_app_guard_incident_component__["a" /* GuardIncidentComponent */],
+            __WEBPACK_IMPORTED_MODULE_14__component_guard_app_guard_all_reports_component__["a" /* GuardAllReportsComponent */],
             __WEBPACK_IMPORTED_MODULE_20__component_category_category_component__["a" /* CategoryComponent */],
             __WEBPACK_IMPORTED_MODULE_12__component_report_new_report_component__["a" /* NewReportComponent */],
-            __WEBPACK_IMPORTED_MODULE_13__component_vehicle_vehicle_component__["a" /* VehicleComponent */],
-            __WEBPACK_IMPORTED_MODULE_14__component_search_search_component__["a" /* SearchComponent */],
-            __WEBPACK_IMPORTED_MODULE_15__component_person_person_component__["a" /* PersonComponent */],
+            __WEBPACK_IMPORTED_MODULE_15__component_vehicle_vehicle_component__["a" /* VehicleComponent */],
+            __WEBPACK_IMPORTED_MODULE_16__component_search_search_component__["a" /* SearchComponent */],
+            __WEBPACK_IMPORTED_MODULE_17__component_person_person_component__["a" /* PersonComponent */],
             __WEBPACK_IMPORTED_MODULE_32__util_filter_pipe__["a" /* FilterPipe */],
-            __WEBPACK_IMPORTED_MODULE_21__component_report_report_summary_component__["a" /* ReportSummaryComponent */],
-            __WEBPACK_IMPORTED_MODULE_19__component_guard_app_guard_test_view_report_component__["a" /* GuardTestViewReportComponent */]
+            __WEBPACK_IMPORTED_MODULE_21__component_report_report_summary_component__["a" /* ReportSummaryComponent */]
         ],
-        providers: [
-            __WEBPACK_IMPORTED_MODULE_22__service_user_service__["a" /* UserService */],
-            __WEBPACK_IMPORTED_MODULE_23__service_login_service__["a" /* LoginService */],
-            __WEBPACK_IMPORTED_MODULE_25__util_dom_service__["a" /* DomService */],
-            __WEBPACK_IMPORTED_MODULE_31__util_data_helper_service__["a" /* DataHelperService */],
-            __WEBPACK_IMPORTED_MODULE_26__service_location_service__["a" /* LocationService */],
-            __WEBPACK_IMPORTED_MODULE_27__service_incident_service__["a" /* IncidentService */],
+        providers: [__WEBPACK_IMPORTED_MODULE_22__service_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_23__service_login_service__["a" /* LoginService */], __WEBPACK_IMPORTED_MODULE_25__util_dom_service__["a" /* DomService */], __WEBPACK_IMPORTED_MODULE_31__util_data_helper_service__["a" /* DataHelperService */], __WEBPACK_IMPORTED_MODULE_26__service_location_service__["a" /* LocationService */], __WEBPACK_IMPORTED_MODULE_27__service_incident_service__["a" /* IncidentService */],
             __WEBPACK_IMPORTED_MODULE_28__service_staff_service__["a" /* StaffService */],
             __WEBPACK_IMPORTED_MODULE_29__service_person_service__["a" /* PersonService */],
             __WEBPACK_IMPORTED_MODULE_30__service_new_report_service__["a" /* NewReportService */],
-            __WEBPACK_IMPORTED_MODULE_24__service_category_service__["a" /* CategoryService */]
-        ],
+            __WEBPACK_IMPORTED_MODULE_24__service_category_service__["a" /* CategoryService */]],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */]],
-        entryComponents: [
-            __WEBPACK_IMPORTED_MODULE_8__component_location_location_component__["a" /* LocationComponent */],
-            __WEBPACK_IMPORTED_MODULE_13__component_vehicle_vehicle_component__["a" /* VehicleComponent */],
-            __WEBPACK_IMPORTED_MODULE_15__component_person_person_component__["a" /* PersonComponent */],
-        ]
+        entryComponents: [__WEBPACK_IMPORTED_MODULE_8__component_location_location_component__["a" /* LocationComponent */], __WEBPACK_IMPORTED_MODULE_15__component_vehicle_vehicle_component__["a" /* VehicleComponent */],
+            __WEBPACK_IMPORTED_MODULE_17__component_person_person_component__["a" /* PersonComponent */]]
     })
 ], AppModule);
 
@@ -227,12 +217,12 @@ AppModule = __decorate([
 /* unused harmony export router */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return routes; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__component_guard_app_guard_dashboard_component__ = __webpack_require__("../../../../../src/app/component/guard-app/guard-dashboard.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__component_dashboard_dashboard_component__ = __webpack_require__("../../../../../src/app/component/dashboard/dashboard.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__component_report_new_report_component__ = __webpack_require__("../../../../../src/app/component/report/new-report.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__component_search_search_component__ = __webpack_require__("../../../../../src/app/component/search/search.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__component_login_login_component__ = __webpack_require__("../../../../../src/app/component/login/login.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__component_guard_app_guard_test_view_report_component__ = __webpack_require__("../../../../../src/app/component/guard-app/guard-test-view-report.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__component_dashboard_dashboard_component__ = __webpack_require__("../../../../../src/app/component/dashboard/dashboard.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__component_report_new_report_component__ = __webpack_require__("../../../../../src/app/component/report/new-report.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__component_search_search_component__ = __webpack_require__("../../../../../src/app/component/search/search.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__component_login_login_component__ = __webpack_require__("../../../../../src/app/component/login/login.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__component_guard_app_guard_all_reports_component__ = __webpack_require__("../../../../../src/app/component/guard-app/guard-all-reports.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__component_guard_app_guard_incident_component__ = __webpack_require__("../../../../../src/app/component/guard-app/guard-incident.component.ts");
 
 
 
@@ -244,13 +234,13 @@ var router = [
     // Default
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     // /<path>
-    { path: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_2__component_dashboard_dashboard_component__["a" /* DashboardComponent */] },
-    { path: 'login', component: __WEBPACK_IMPORTED_MODULE_5__component_login_login_component__["a" /* LoginComponent */] },
+    { path: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_1__component_dashboard_dashboard_component__["a" /* DashboardComponent */] },
+    { path: 'login', component: __WEBPACK_IMPORTED_MODULE_4__component_login_login_component__["a" /* LoginComponent */] },
     // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
-    { path: 'guard', component: __WEBPACK_IMPORTED_MODULE_1__component_guard_app_guard_dashboard_component__["a" /* GuardDashboardComponent */] },
-    { path: 'new-report', component: __WEBPACK_IMPORTED_MODULE_3__component_report_new_report_component__["a" /* NewReportComponent */] },
-    { path: 'report/:id', component: __WEBPACK_IMPORTED_MODULE_6__component_guard_app_guard_test_view_report_component__["a" /* GuardTestViewReportComponent */] },
-    { path: 'search', component: __WEBPACK_IMPORTED_MODULE_4__component_search_search_component__["a" /* SearchComponent */] },
+    { path: 'guard-app/reports-all', component: __WEBPACK_IMPORTED_MODULE_5__component_guard_app_guard_all_reports_component__["a" /* GuardAllReportsComponent */] },
+    { path: 'search', component: __WEBPACK_IMPORTED_MODULE_3__component_search_search_component__["a" /* SearchComponent */] },
+    { path: 'new-report', component: __WEBPACK_IMPORTED_MODULE_2__component_report_new_report_component__["a" /* NewReportComponent */] },
+    { path: 'guard-app/report/:id', component: __WEBPACK_IMPORTED_MODULE_6__component_guard_app_guard_incident_component__["a" /* GuardIncidentComponent */] },
     // 404
     { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
@@ -346,7 +336,7 @@ var _a, _b;
 /***/ "../../../../../src/app/component/category/category.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div (click)=\"onContainerClicked($event)\" \n     class=\"modal fade\" \n     tabindex=\"-1\" \n     [ngClass]=\"{'in': visibleAnimate}\"\n     [ngStyle]=\"{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}\">\n    <div class=\"modal-dialog\" role=\"document\">\n        <div class=\"modal-content\">\n\n            <div class=\"modal-header\">\n                <button type=\"button\" class=\"close\" (click)=\"hide()\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\">&times;</span>\n                </button>\n                <h4 class=\"modal-title mt-2\">Select Incident Category</h4>\n            </div>\n\n            <div class=\"modal-body\">\n        \n                <!-- Category Picker -->\n                <div class=\"mt-2\">\n                    <label class=\"field-label\">Category</label>\n                    <select class=\"form-control category-field\" \n                            ng-model=\"selectedMainCategory.MAIN_CATEGORY\" \n                            (change)=\"onSelectCategory($event.target.value)\">  \n                        <option>{{selectedMainCategory.MAIN_CATEGORY}}</option>  \n                        <option disabled>──────────</option>\n                        <option *ngFor=\"let category of categories\" value={{category.MAIN_CATEGORY}}>{{category.MAIN_CATEGORY}}</option>  \n                    </select>\n                </div>\n\n                <!-- Subcategory Picker -->\n                <div class=\"mt-2\">  \n                    <label class=\"field-label\">Subcategory</label>  \n                    <select class=\"form-control category-field\" \n                            [(ngModel)] =\"selectedSubCategory.SUB_CATEGORY\" \n                            (change)=\"onSelectSubCategory($event.target.value)\">                  \n                        <option *ngIf='selectedMainCategory.MAIN_CATEGORY == \"\"'>--Select Subcategory--</option>  \n                        <option *ngFor=\"let subcategory of filteredSubcategories\" value={{subcategory.SUB_CATEGORY}}>{{subcategory.SUB_CATEGORY}}</option>  \n                    </select>  \n                </div>\n\n                <!-- Type Picker -->\n                <div class=\"mt-2\">\n                    <label class=\"field-label\">Type</label>  \n                    <select class=\"form-control category-field\" \n                            [(ngModel)] =\"selectedType.INCIDENT_TYPE\" \n                            (change)=\"onSelectTypeCategory($event.target.value)\">                  \n                        <option *ngIf='selectedSubCategory.SUB_CATEGORY == \"\"'>--Select Type--</option>  \n                        <option *ngFor=\"let type of filteredTypes \" value={{type.CATEGORY_ID}}>{{type.INCIDENT_TYPE}}</option>  \n                    </select>  \n                </div>\n            </div> \n\n            <div class=\"modal-footer mt-2 pt-2 mb-1\">\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"submitCategory($event.target)\">Save changes</button>\n                <button type=\"button\" class=\"btn btn-secondary ml-1\" (click)=\"hide()\">Close</button>\n            </div>\n        </div>\n    </div>\n</div>\n    \n\n    <!-- Category -->\n    <!-- <button class=\"btn btn-default dropdown-toggle\" type=\"button\" id=\"category\" data-toggle=\"dropdown\">\n        Category\n        <span class=\"caret\"></span>\n    </button>\n    <ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"category\">\n        <li role=\"presentation\" class=\"divider\"></li>\n        <li role=\"presentation\" [ngClass]=\"{'active': selectedItem == item}\" (click)=\"listClick($event, item)\" *ngFor=\"let item of categories\">\n                {{category.MAIN_CATEGORY}}\n        </li>\n    </ul> -->\n\n    <!-- Subcategory -->\n    <!-- <button class=\"btn btn-default dropdown-toggle\" type=\"button\" id=\"category\" data-toggle=\"dropdown\">\n        Subcategory\n        <span class=\"caret\"></span>\n    </button>\n    <ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"category\">\n        <li role=\"presentation\" class=\"divider\"></li>                \n        <li role=\"presentation\"><a role=\"menuitem\" href=\"#\">category 1 - get json</a></li>\n        <li role=\"presentation\"><a role=\"menuitem\" href=\"#\">category 2 - get json</a></li>\n        <li role=\"presentation\"><a role=\"menuitem\" href=\"#\">category 3 - get json</a></li>\n        <li role=\"presentation\"><a role=\"menuitem\" href=\"#\">category 4 - get json</a></li>\n    </ul> -->\n\n    <!-- Type -->\n    <!-- <button class=\"btn btn-default dropdown-toggle\" type=\"button\" id=\"category\" data-toggle=\"dropdown\">\n        Type\n        <span class=\"caret\"></span>\n    </button>\n    <ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"category\">\n        <li role=\"presentation\" class=\"divider\"></li>                \n        <li role=\"presentation\"><a role=\"menuitem\" href=\"#\">category 1 - get json</a></li>\n        <li role=\"presentation\"><a role=\"menuitem\" href=\"#\">category 2 - get json</a></li>\n        <li role=\"presentation\"><a role=\"menuitem\" href=\"#\">category 3 - get json</a></li>\n        <li role=\"presentation\"><a role=\"menuitem\" href=\"#\">category 4 - get json</a></li>\n    </ul>         -->\n"
+module.exports = "<div (click)=\"onContainerClicked($event)\" \n     class=\"modal fade\" \n     tabindex=\"-1\" \n     [ngClass]=\"{'in': visibleAnimate}\"\n     [ngStyle]=\"{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}\">\n    <div class=\"modal-dialog\" role=\"document\">\n        <div class=\"modal-content\">\n\n            <div class=\"modal-header\">\n                <button type=\"button\" class=\"close\" (click)=\"hide()\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\">&times;</span>\n                </button>\n                <h4 class=\"modal-title mt-2\">Select Incident Category</h4>\n            </div>\n        \n                <!-- Category Picker -->\n                <div class=\"mt-2\">\n                    <label class=\"field-title modal-field-title\">Category</label>\n                    <select class=\"form-control category-field\" \n                            ng-model=\"selectedMainCategory.MAIN_CATEGORY\" \n                            (change)=\"onSelectCategory($event.target.value)\">  \n                        <option>{{selectedMainCategory.MAIN_CATEGORY}}</option>  \n                        <option disabled>──────────</option>\n                        <option *ngFor=\"let category of categories\" value={{category.MAIN_CATEGORY}}>{{category.MAIN_CATEGORY}}</option>  \n                    </select>\n                </div>\n\n                <!-- Subcategory Picker -->\n                <div class=\"mt-2\">  \n                    <label class=\"field-title modal-field-title\">Subcategory</label>  \n                    <select class=\"form-control category-field\" \n                            [(ngModel)] =\"selectedSubCategory.SUB_CATEGORY\" \n                            (change)=\"onSelectSubCategory($event.target.value)\">                  \n                        <option *ngIf='selectedMainCategory.MAIN_CATEGORY == \"\"'>--Select Subcategory--</option>  \n                        <option *ngFor=\"let subcategory of filteredSubcategories\" value={{subcategory.SUB_CATEGORY}}>{{subcategory.SUB_CATEGORY}}</option>  \n                    </select>  \n                </div>\n\n                <!-- Type Picker -->\n                <div class=\"mt-2\">\n                    <label class=\"field-title modal-field-title\">Type</label>    \n                    <select class=\"form-control category-field\" \n                            [(ngModel)] =\"selectedType.INCIDENT_TYPE\" \n                            (change)=\"onSelectTypeCategory($event.target.value)\">                  \n                        <option *ngIf='selectedSubCategory.SUB_CATEGORY == \"\"'>--Select Type--</option>  \n                        <option *ngFor=\"let type of filteredTypes \" value=\"{{type.INCIDENT_TYPE}},, {{type.CATEGORY_ID}}\">{{type.INCIDENT_TYPE}}</option>  \n                    </select>  \n                </div>\n\n            <div class=\"modal-footer mt-2 pt-2 mb-1\">\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"submitCategory($event.target)\">Save changes</button>\n                <button type=\"button\" class=\"btn btn-secondary ml-1\" (click)=\"hide()\">Close</button>\n            </div>\n        </div>         \n    </div>\n</div>\n    \n\n    <!-- Category -->\n    <!-- <button class=\"btn btn-default dropdown-toggle\" type=\"button\" id=\"category\" data-toggle=\"dropdown\">\n        Category\n        <span class=\"caret\"></span>\n    </button>\n    <ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"category\">\n        <li role=\"presentation\" class=\"divider\"></li>\n        <li role=\"presentation\" [ngClass]=\"{'active': selectedItem == item}\" (click)=\"listClick($event, item)\" *ngFor=\"let item of categories\">\n                {{category.MAIN_CATEGORY}}\n        </li>\n    </ul> -->\n\n    <!-- Subcategory -->\n    <!-- <button class=\"btn btn-default dropdown-toggle\" type=\"button\" id=\"category\" data-toggle=\"dropdown\">\n        Subcategory\n        <span class=\"caret\"></span>\n    </button>\n    <ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"category\">\n        <li role=\"presentation\" class=\"divider\"></li>                \n        <li role=\"presentation\"><a role=\"menuitem\" href=\"#\">category 1 - get json</a></li>\n        <li role=\"presentation\"><a role=\"menuitem\" href=\"#\">category 2 - get json</a></li>\n        <li role=\"presentation\"><a role=\"menuitem\" href=\"#\">category 3 - get json</a></li>\n        <li role=\"presentation\"><a role=\"menuitem\" href=\"#\">category 4 - get json</a></li>\n    </ul> -->\n\n    <!-- Type -->\n    <!-- <button class=\"btn btn-default dropdown-toggle\" type=\"button\" id=\"category\" data-toggle=\"dropdown\">\n        Type\n        <span class=\"caret\"></span>\n    </button>\n    <ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"category\">\n        <li role=\"presentation\" class=\"divider\"></li>                \n        <li role=\"presentation\"><a role=\"menuitem\" href=\"#\">category 1 - get json</a></li>\n        <li role=\"presentation\"><a role=\"menuitem\" href=\"#\">category 2 - get json</a></li>\n        <li role=\"presentation\"><a role=\"menuitem\" href=\"#\">category 3 - get json</a></li>\n        <li role=\"presentation\"><a role=\"menuitem\" href=\"#\">category 4 - get json</a></li>\n    </ul>         -->\n"
 
 /***/ }),
 
@@ -376,6 +366,8 @@ var CategoryComponent = (function () {
     function CategoryComponent(categoryService, dataHelper) {
         this.categoryService = categoryService;
         this.dataHelper = dataHelper;
+        this.categorySaved = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this.selectedCategory = new __WEBPACK_IMPORTED_MODULE_1__category__["a" /* Category */](null, null, null, null);
         this.selectedMainCategory = new __WEBPACK_IMPORTED_MODULE_1__category__["b" /* CategoryDictionary */]();
         this.selectedSubCategory = new __WEBPACK_IMPORTED_MODULE_1__category__["d" /* SubCategory */]();
         this.selectedType = new __WEBPACK_IMPORTED_MODULE_1__category__["c" /* CategoryType */]();
@@ -411,6 +403,7 @@ var CategoryComponent = (function () {
     // filter subcategory and type lists according to selection of previous dropdown
     CategoryComponent.prototype.onSelectCategory = function (categoryName) {
         console.log("selected category: " + categoryName);
+        this.selectedCategory.MAIN_CATEGORY = categoryName;
         var index = this.categories.findIndex(function (item) {
             return item.MAIN_CATEGORY === categoryName;
         });
@@ -418,22 +411,28 @@ var CategoryComponent = (function () {
         console.log("list of corresponding subcategories " + this.filteredSubcategories);
     };
     CategoryComponent.prototype.onSelectSubCategory = function (subCategoryName) {
+        this.selectedCategory.SUB_CATEGORY = subCategoryName;
         var index = this.filteredSubcategories.findIndex(function (item) {
             return item.SUB_CATEGORY == subCategoryName;
         });
         this.filteredTypes = this.filteredSubcategories[index].TYPES;
         console.log("subcategory" + subCategoryName);
     };
-    CategoryComponent.prototype.onSelectTypeCategory = function (typeName) {
-        console.log("category type " + typeName);
-        this.categoryID = typeName;
+    CategoryComponent.prototype.onSelectTypeCategory = function (type) {
+        console.log("category type " + type);
+        type = type.split(",,");
+        this.selectedCategory.INCIDENT_TYPE = type[0];
+        this.categoryID = type[1];
     };
     CategoryComponent.prototype.submitCategory = function () {
         console.log("submitting category");
         if (this.categoryID == -1) {
             if (this.filteredTypes.length == 0) {
+                this.selectedCategory.INCIDENT_TYPE = null;
                 this.categoryID = this.filteredSubcategories[0].CATEGORY_ID;
                 console.log("retrieved category id: " + this.categoryID);
+                var id = this.categoryID.toString();
+                this.categorySaved.emit(id);
                 this.hide();
             }
             else {
@@ -442,6 +441,8 @@ var CategoryComponent = (function () {
         }
         if (this.categoryID != -1) {
             console.log("category id: " + this.categoryID);
+            var id = this.categoryID.toString();
+            this.categorySaved.emit(id);
             this.hide();
         }
     };
@@ -450,17 +451,21 @@ var CategoryComponent = (function () {
     };
     return CategoryComponent;
 }());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */])(),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]) === "function" && _a || Object)
+], CategoryComponent.prototype, "categorySaved", void 0);
 CategoryComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'category-component',
         template: __webpack_require__("../../../../../src/app/component/category/category.component.html"),
-        styles: [__webpack_require__("../../../../../src/assets/css/guard-dashboard.component.css")],
+        styles: [__webpack_require__("../../../../../src/assets/css/guard-app.css")],
         providers: [__WEBPACK_IMPORTED_MODULE_2__service_category_service__["a" /* CategoryService */]]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__service_category_service__["a" /* CategoryService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__service_category_service__["a" /* CategoryService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__util_data_helper_service__["a" /* DataHelperService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__util_data_helper_service__["a" /* DataHelperService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__service_category_service__["a" /* CategoryService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__service_category_service__["a" /* CategoryService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__util_data_helper_service__["a" /* DataHelperService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__util_data_helper_service__["a" /* DataHelperService */]) === "function" && _c || Object])
 ], CategoryComponent);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=category.component.js.map
 
 /***/ }),
@@ -580,22 +585,23 @@ var _a, _b, _c, _d;
 
 /***/ }),
 
-/***/ "../../../../../src/app/component/guard-app/guard-dashboard.component.html":
+/***/ "../../../../../src/app/component/guard-app/guard-all-reports.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-12 col-sm-12 col-md-10 col-md-offset-1 col-md-offset-right-1\">\n      <div class=\"flex-container\">\n        <div class=\"flex-item\" *ngFor=\"let incident of incidents\" (click)=\"viewReport(incident)\">\n          {{incident.attributes.REPORT_ID}} <br> <br> {{incident.attributes.DESCRIPTION}}\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-12 col-sm-12 col-md-10 col-md-offset-1 col-md-offset-right-1\">\n                <div class=\"flex-container\">\n                    <div class=\"flex-item panel panel-default\" *ngFor=\"let incident of incidents\" (click)=\"viewReport(incident)\">\n                        <div class=\"panel-body\">\n                            <ul class=\"p-0\">\n                                <li class=\"card-text-primary\">\n                                    #{{incident.attributes.REPORT_ID}}\n                                </li>\n                                <li class=\"card-text-secondary mt-sm\">\n                                    {{incident.attributes.DESCRIPTION}}\n                                </li>\n                            </ul>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"row\">\n            <footer class=\"panel panel-default guard-app-menu\">\n                <button class=\"button guard-menu-button card-text-primary\">\n                    <span class=\"glyphicon glyphicon-plus\"></span> \n                    New Report\n                </button>            \n            </footer>\n        </div>\n    </div>"
 
 /***/ }),
 
-/***/ "../../../../../src/app/component/guard-app/guard-dashboard.component.ts":
+/***/ "../../../../../src/app/component/guard-app/guard-all-reports.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GuardDashboardComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GuardAllReportsComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__service_incident_service__ = __webpack_require__("../../../../../src/app/service/incident.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_user_service__ = __webpack_require__("../../../../../src/app/service/user.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("../../../common/@angular/common/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__service_incident_service__ = __webpack_require__("../../../../../src/app/service/incident.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__service_user_service__ = __webpack_require__("../../../../../src/app/service/user.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -609,53 +615,51 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var GuardDashboardComponent = (function () {
-    function GuardDashboardComponent(incidentsService, userService, router) {
+
+var GuardAllReportsComponent = (function () {
+    function GuardAllReportsComponent(incidentsService, userService, http, router) {
         this.incidentsService = incidentsService;
         this.userService = userService;
+        this.http = http;
         this.router = router;
-        if (this.userService.isLoggedIn() == false) {
-            this.router.navigate(['login']);
-        }
     }
     ;
-    GuardDashboardComponent.prototype.getIncidents = function () {
+    GuardAllReportsComponent.prototype.getIncidents = function () {
         var _this = this;
         this.user = this.userService.getCurrentUser();
         this.incidentsService.getGuardIncidents().then(function (returnedIncidents) {
+            console.log("returned incidents: ", returnedIncidents);
             _this.incidents = returnedIncidents;
         });
     };
-    GuardDashboardComponent.prototype.viewReport = function (incident) {
-        //TO BE CHANGED
-        //change to actually view report when feature is added
+    GuardAllReportsComponent.prototype.viewReport = function (incident) {
         console.log("view report id = " + incident.attributes.REPORT_ID);
-        this.router.navigate(['report', incident.attributes.REPORT_ID]);
+        this.router.navigate(['guard-app/report', incident.attributes.REPORT_ID]);
     };
-    GuardDashboardComponent.prototype.ngOnInit = function () {
+    GuardAllReportsComponent.prototype.ngOnInit = function () {
         this.getIncidents();
     };
-    return GuardDashboardComponent;
+    return GuardAllReportsComponent;
 }());
-GuardDashboardComponent = __decorate([
+GuardAllReportsComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
-        selector: 'guard-dashboard',
-        template: __webpack_require__("../../../../../src/app/component/guard-app/guard-dashboard.component.html"),
-        styles: [__webpack_require__("../../../../../src/assets/css/guard-dashboard.component.css")],
-        providers: [__WEBPACK_IMPORTED_MODULE_1__service_incident_service__["a" /* IncidentService */]]
+        selector: 'guard-all-reports',
+        template: __webpack_require__("../../../../../src/app/component/guard-app/guard-all-reports.component.html"),
+        styles: [__webpack_require__("../../../../../src/assets/css/guard-app.css")],
+        providers: [__WEBPACK_IMPORTED_MODULE_3__service_incident_service__["a" /* IncidentService */]]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__service_incident_service__["a" /* IncidentService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__service_incident_service__["a" /* IncidentService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__service_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__service_user_service__["a" /* UserService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */]) === "function" && _c || Object])
-], GuardDashboardComponent);
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__service_incident_service__["a" /* IncidentService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__service_incident_service__["a" /* IncidentService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__service_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__service_user_service__["a" /* UserService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _d || Object])
+], GuardAllReportsComponent);
 
-var _a, _b, _c;
-//# sourceMappingURL=guard-dashboard.component.js.map
+var _a, _b, _c, _d;
+//# sourceMappingURL=guard-all-reports.component.js.map
 
 /***/ }),
 
 /***/ "../../../../../src/app/component/guard-app/guard-incident.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-12 col-lg-6 col-lg-offset-3\">\n          <div class=\"panel panel-default test-panel\">\n            <div class=\"panel-heading text-center pb-0\">\n        \n                <!-- Create category object that matches with category incident ID -->\n                <!-- Create dialog w/ category cascading menu for editing categories -->\n                <h5>\n                    <span class=\"mr-5\" style=\"display:block\">Category, subcategory, type  </span>\n                    <button class=\"btn btn-default btn-xs pull-right\" (click)=\"modal1.show()\"><span class=\"p-2 glyphicon glyphicon-edit\"></span></button>\n                    <category-component #modal1></category-component>            \n                </h5>\n                <h5>Report #\n                    <span *ngFor=\"let incident of incidents\">\n                        <span *ngIf=\"incident.REPORT_ID == 24\">                      \n                            {{incident.REPORT_ID}}\n                        </span>\n                    </span>\n                </h5>\n                <p>Location:</p>\n            </div>\n          \n            <div class=\"panel-body\">\n                <div id=\"accordion\" role=\"tablist\" aria-multiselectable=\"true\">\n                  <div class=\"card m-1\">\n                    <div class=\"card-header\" role=\"tab\" id=\"headingOne\">\n                      <h6 class=\"mb-0\">\n                        <a class=\"card-text-primary\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapseOne\" aria-expanded=\"true\" aria-controls=\"collapseOne\">\n                          Executive Summary\n                        </a>\n                      </h6>\n                    </div>\n                    <div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\">\n                      <div class=\"card-block m-2\">\n                          <div *ngFor=\"let incident of incidents\">\n                              <form *ngIf=\"incident.REPORT_ID == 24\">\n                                {{incident.EXECUTIVE_SUMMARY}} \n                              </form>\n                           </div>\n                      </div>\n                    </div>\n                  </div>\n                  \n                  <div class=\"card m-1\">\n                    <div class=\"card-header\" role=\"tab\" id=\"headingTwo\">\n                      <h6 class=\"mb-0\">\n                        <a class=\"card-text-primary collapsed\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapseTwo\" aria-expanded=\"false\" aria-controls=\"collapseTwo\">\n                          Description\n                        </a>\n                      </h6>\n                    </div>\n                    <div id=\"collapseTwo\" class=\"collapse\" role=\"tabpanel\" aria-labelledby=\"headingTwo\">\n                      <div class=\"card-block m-2\">\n                          <div *ngFor=\"let incident of incidents\">                      \n                            <div *ngIf=\"incident.REPORT_ID == 24\">                      \n                              {{incident.DESCRIPTION}}               \n                            </div>\n                        </div>   \n                      </div>\n                    </div>\n                  </div>\n        \n                  <div class=\"card m-1\">\n                    <div class=\"card-header\" role=\"tab\" id=\"headingThree\">\n                      <h6 class=\"mb-0\">\n                        <a class=\"card-text-primary collapsed\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapseThree\" aria-expanded=\"false\" aria-controls=\"collapseThree\">\n                          Report ID\n                        </a>\n                      </h6>\n                    </div>\n                    <div id=\"collapseThree\" class=\"collapse\" role=\"tabpanel\" aria-labelledby=\"headingThree\">\n                      <div class=\"card-block m-2\">\n        \n                      </div>\n                    </div>\n                  </div>\n                </div>\n          </div>\n        </div>\n        \n        </div>\n    </div>\n</div>\n\n"
+module.exports = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<div class=\"container-fluid main-content\">\n    <div class=\"row\">\n        <div class=\"container-fluid\">\n            <div class=\"row\">\n                <div class=\"col-12\n                            col-sm-offset-3\n                            col-sm-offset-right-3\n                            col-md-offset-3 \n                            col-md-offset-right-3 \n                            col-lg-offset-3 \n                            col-lg-offset-right-3\">\n                    <div class=\"panel panel-default mt-1\">\n                        <div class=\"panel-heading pb-0 pt-1\" *ngIf=\"incident\">\n                            <h5>Report # {{incident.attributes.REPORT_ID}}</h5>\n                            <!-- <h5>\n                                <span class=\"mr-5\" style=\"display:block\" (dblclick)=\"modalCategory.show()\">\n                                    Category {{incident.category.MAIN_CATEGORY}}  -->\n                                    <!-- <button class=\"btn btn-default btn-xs pull-right\" (dblclick)=\"modalCategory.show()\"><span class=\"p-2 glyphicon glyphicon-edit\"></span></button> -->\n                                    <!-- <br> \n                                    <span class=\"ml-3\">{{incident.category.SUB_CATEGORY}}</span><br>\n                                    <span class=\"ml-3\">{{incident.category.INCIDENT_TYPE}}</span>  \n                                </span> -->\n                            <!-- </h5> -->\n                        </div>\n                        <category-component #modalCategory (categorySaved)=\"changeCategory($event)\"></category-component>             \n                        <div class=\"panel-group\" id=\"accordion\">\n                            <div class=\"panel panel-default ml-1 mr-1\">\n                                    <div class=\"panel-heading collapsable-heading\">\n                                        <h4 class=\"panel-title\">\n                                            <a  class=\"accordion-toggle\" \n                                                data-toggle=\"collapse\" \n                                                href=\"#collapseCategory\">\n                                                Category\n                                            </a>\n                                        </h4>\n                                    </div>\n                                    <div id=\"collapseCategory\" class=\"panel-collapse collapse in\">\n                                        <div class=\"panel-body lh-1\" *ngIf=\"incident\">                                                    \n                                            <span [id]=\"incident.category.CATEGORY_ID\" \n                                                (dblclick)=\"modalCategory.show()\">\n                                                {{incident.category.MAIN_CATEGORY}},  \n                                                <!-- keep the span below in line to prevent insertion of space before comma -->\n                                                {{incident.category.SUB_CATEGORY}}<span *ngIf=\"incident.category.INCIDENT_TYPE\">,\n                                                    {{incident.category.INCIDENT_TYPE}}\n                                                </span>\n                                            </span>                                                \n                                        </div>\n                                    </div>\n                                </div>\n                            <div class=\"panel panel-default ml-1 mr-1\">\n                                <div class=\"panel-heading collapsable-heading\">\n                                    <h4 class=\"panel-title\">\n                                        <a  class=\"accordion-toggle\" \n                                            data-toggle=\"collapse\" \n                                            href=\"#collapseLocation\">\n                                            Location\n                                        </a>\n                                    </h4>\n                                </div>       \n                                <div id=\"collapseLocation\" class=\"panel-collapse collapse in\">\n                                    <div class=\"panel-body lh-1\" *ngIf=\"incident\">\n                                        <span *ngFor=\"let location of incident.locationList\" \n                                            [id]=\"location.attributes.LOCATION_ID\" \n                                            (dblclick)=\"this.modalLocation.show($event)\">\n                                            {{location.attributes.CAMPUS_ID}},                                            \n                                            {{location.attributes.BUILDING_NAME}},    \n                                            {{location.attributes.ROOM_NUMBER}}    \n                                            <!-- {{location.attributes.DEPARTMENT}}  -->\n                                            <br>\n                                        </span>\n                                        <button class=\"btn btn-default btn-sm pull-right\" (click)=\"modalLocation.show($event)\">\n                                            <span class=\"glyphicon glyphicon-plus\"></span> \n                                            Add Location\n                                        </button>\n                                        <location-modal-component #modalLocation (locationSaved)=\"changeLocation($event)\"></location-modal-component>                                        \n                                    </div>\n                                </div>\n                            </div>\n\n                            <div class=\"panel panel-default ml-1 mr-1\">\n                                <div class=\"panel-heading collapsable-heading\">\n                                    <h4 class=\"panel-title\">\n                                        <a  class=\"accordion-toggle\" \n                                            data-toggle=\"collapse\" \n                                            href=\"#collapseExecSummary\">\n                                            Executive Summary                                                            \n                                        </a>\n                                    </h4>\n                                </div>\n                                <div id=\"collapseExecSummary\" class=\"panel-collapse collapse in\">\n                                    <div class=\"panel-body\" *ngIf=\"incident\">\n                                        {{incident.attributes.EXECUTIVE_SUMMARY}}\n                                        <!-- <button class=\"btn btn-default btn-xs pull-right\"><span class=\"p-2 glyphicon glyphicon-edit\"></span></button>                                 -->\n                                    </div>\n                                </div>\n                            </div>\n                            \n                            <div class=\"panel panel-default ml-1 mr-1\">\n                                <div class=\"panel-heading collapsable-heading\">\n                                    <!-- <span class=\"glyphicon card-text-secondary mr-1\" [ngClass]=\"{'glyphicon-chevron-up': openedPanel , 'glyphicon-chevron-down': !openedPanel }\" aria-hidden=\"true\" style=\"float: right;\"></span>                             -->\n                                    <h4 class=\"panel-title\">\n                                        <a  class=\"accordion-toggle\" \n                                            data-toggle=\"collapse\" \n                                            href=\"#collapseDescription\">\n                                            Description\n                                        </a>\n                                    </h4>\n                                </div>\n                                <div id=\"collapseDescription\" class=\"panel-collapse collapse\">\n                                    <div class=\"panel-body\" *ngIf=\"incident\">\n                                        {{incident.attributes.DESCRIPTION}}           \n                                    </div>\n                                </div>\n                            </div>\n                \n                            <div class=\"panel panel-default ml-1 mr-1\">\n                                <div class=\"panel-heading collapsable-heading\">\n                                    <!-- <span class=\"glyphicon card-text-secondary mr-1\" [ngClass]=\"{'glyphicon-chevron-up': openedPanel , 'glyphicon-chevron-down': !openedPanel }\" aria-hidden=\"true\" style=\"float: right;\"></span>                             -->\n                                    <h4 class=\"panel-title\">\n                                        <a  class=\"accordion-toggle\" \n                                            data-toggle=\"collapse\" \n                                            href=\"#collapsePersons\">\n                                            Persons\n                                        </a>\n                                    </h4>\n                                </div>\n                                <div id=\"collapsePersons\" class=\"panel-collapse collapse\">\n                                    <div class=\"panel-body\">\n                        \n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row\">\n        <footer class=\"panel panel-default guard-app-menu\">\n            <!-- <button class=\"button guard-menu-button field-title\" (click)=\"saveReport()\">\n                <span class=\"glyphicon glyphicon-save\"></span> \n                Save\n            </button> -->\n            <button class=\"button guard-menu-button card-text-primary ml-1\">\n                <span class=\"glyphicon glyphicon-plus\"></span> \n                New\n            </button>\n            <a routerLink=\"../../reports-all\">\n                <button class=\"button guard-menu-button card-text-primary ml-1\">\n                <span class=\"glyphicon glyphicon-th-large\"></span> \n                View All\n                </button>\n            </a>\n        </footer>\n    </div>\n</div>\n\n\n"
 
 /***/ }),
 
@@ -665,8 +669,16 @@ module.exports = "<div class=\"container-fluid\">\n    <div class=\"row\">\n    
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GuardIncidentComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__report_incident__ = __webpack_require__("../../../../../src/app/component/report/incident.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_incident_service__ = __webpack_require__("../../../../../src/app/service/incident.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("../../../common/@angular/common/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_switchMap__ = __webpack_require__("../../../../rxjs/add/operator/switchMap.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_switchMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_switchMap__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__service_incident_service__ = __webpack_require__("../../../../../src/app/service/incident.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__service_user_service__ = __webpack_require__("../../../../../src/app/service/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__service_new_report_service__ = __webpack_require__("../../../../../src/app/service/new-report.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__location_location_modal_component__ = __webpack_require__("../../../../../src/app/component/location/location-modal.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__category_category_component__ = __webpack_require__("../../../../../src/app/component/category/category.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__util_config_service__ = __webpack_require__("../../../../../src/app/util/config.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -679,18 +691,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
+
+
+
+
+
 var GuardIncidentComponent = (function () {
-    function GuardIncidentComponent(incidentsService) {
+    function GuardIncidentComponent(incidentsService, reportService, userService, router, http, route) {
         this.incidentsService = incidentsService;
-        this.newIncident = new __WEBPACK_IMPORTED_MODULE_1__report_incident__["a" /* Incident */]();
+        this.reportService = reportService;
+        this.userService = userService;
+        this.router = router;
+        this.http = http;
+        this.route = route;
+        this.title = 'SFU Incident Reporting System';
+        if (this.userService.isLoggedIn() == false) {
+            this.router.navigate(['login']);
+        }
     }
     ;
-    GuardIncidentComponent.prototype.getIncidents = function () {
-        var _this = this;
-        this.incidentsService.getIncidents().then(function (returnedIncidents) {
-            _this.incidents = returnedIncidents;
-        });
-    };
     //   addIncident(): void {
     //     this.incidentsService.create( this.newIncident )
     //         .then( returnedIncident => {
@@ -703,46 +724,131 @@ var GuardIncidentComponent = (function () {
     //     delete this.newIncident;
     //     this.newIncident = new Incident();
     //   }
-    //   updateIncident( incident: Incident ): void {
-    //     this.incidentsService.update( incident )
-    //         .then( returnedIncident => {
-    //             if ( returnedIncident != null  ) {
-    //               var i = this.incidents.findIndex( inc => inc.REPORT_ID === returnedIncident.REPORT_ID );
-    //               // remove 1 object at index i, replace it with returnedLocation
-    //               this.incidents.splice( i, 1, returnedIncident );
-    //               alert( "Incident successfully edited!" );
-    //             }
-    //             else alert( "Edit failed." );
-    //         } );
-    //   }
+    GuardIncidentComponent.prototype.saveReport = function () {
+        this.incidentsService.update(this.incident)
+            .then(function (returnedIncident) {
+            if (returnedIncident != null) {
+                alert("Incident successfully edited!");
+            }
+            else
+                alert("Edit failed.");
+        });
+    };
+    GuardIncidentComponent.prototype.show = function () {
+        var locationModal = document.getElementById("modalLocation");
+        locationModal.style.visibility = "true";
+        // setTimeout(() => locationModal.visibleAnimate = true, 100);
+    };
+    GuardIncidentComponent.prototype.hide = function () {
+        var locationModal = document.getElementById("modalLocation");
+        setTimeout(function () { return locationModal.style.visibility = "false"; }, 300);
+    };
+    GuardIncidentComponent.prototype.onContainerClicked = function (event) {
+        if (event.target.classList.contains('modal')) {
+            this.hide();
+        }
+    };
+    GuardIncidentComponent.prototype.changeLocation = function (edit) {
+        var _this = this;
+        // this.reportService.addElementsFromIncident ( this.incident.incidentElements, this.incident.locationList );
+        var locationToRemoveIndex;
+        var locationToRemoveLocally;
+        var locationToAdd = this.locationModal.locationComponent.newLocation;
+        var locationToRemove;
+        // Add new location
+        if (this.locationModal.button_id == -1) {
+            this.incident.locationList.push(locationToAdd);
+            this.incident.incidentElements.push(locationToAdd);
+        }
+        else {
+            this.incident.locationList.forEach(function (location) {
+                if (location.attributes.LOCATION_ID == _this.locationModal.button_id) {
+                    locationToRemoveLocally = _this.incident.locationList.indexOf(location);
+                }
+            });
+            this.incident.locationList.splice(locationToRemoveIndex, 1, locationToAdd);
+            console.log("location index ", locationToRemoveIndex);
+            // this.reportService.removeIncidentElement( locationToRemove, Config.LocationTable);        
+            this.incident.incidentElements.forEach(function (element) {
+                console.log(__WEBPACK_IMPORTED_MODULE_9__util_config_service__["a" /* Config */].LocationTable);
+                console.log("element table", element.table);
+                var locationElement = element;
+                if ((element.table == __WEBPACK_IMPORTED_MODULE_9__util_config_service__["a" /* Config */].LocationTable) &&
+                    (locationElement.attributes.LOCATION_ID == _this.locationModal.button_id)) {
+                    locationToRemoveIndex = _this.incident.incidentElements.indexOf(element);
+                }
+            });
+            this.incident.incidentElements.splice(locationToRemoveIndex, 1, locationToAdd);
+        }
+        this.incidentsService.update(this.incident);
+        console.log("new location list", this.incident.incidentElements);
+        // this.incidentsService.update( this.incident );
+        console.log(this.incident);
+    };
+    GuardIncidentComponent.prototype.changeCategory = function (newCategoryID) {
+        console.log("change category in incident", newCategoryID);
+        this.incident.category.CATEGORY_ID = newCategoryID;
+        this.incident.attributes.CATEGORY_ID = newCategoryID;
+        this.incident.category.MAIN_CATEGORY = this.categoryModal.selectedCategory.MAIN_CATEGORY;
+        this.incident.category.SUB_CATEGORY = this.categoryModal.selectedCategory.SUB_CATEGORY;
+        this.incident.category.INCIDENT_TYPE = this.categoryModal.selectedCategory.INCIDENT_TYPE;
+        this.incidentsService.update(this.incident);
+    };
     GuardIncidentComponent.prototype.ngOnInit = function () {
-        this.getIncidents();
+        var _this = this;
+        console.log("in guard incident on init");
+        this.route.paramMap
+            .switchMap(function (params) {
+            return _this.incidentsService.getIncident(+params.get('id'));
+        })
+            .subscribe(function (returnedIncident) {
+            _this.incident = returnedIncident;
+            console.log("returned incident", _this.incident);
+        });
     };
     return GuardIncidentComponent;
 }());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_7__location_location_modal_component__["a" /* LocationModalComponent */]),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_7__location_location_modal_component__["a" /* LocationModalComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__location_location_modal_component__["a" /* LocationModalComponent */]) === "function" && _a || Object)
+], GuardIncidentComponent.prototype, "locationModal", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_8__category_category_component__["a" /* CategoryComponent */]),
+    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_8__category_category_component__["a" /* CategoryComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8__category_category_component__["a" /* CategoryComponent */]) === "function" && _b || Object)
+], GuardIncidentComponent.prototype, "categoryModal", void 0);
 GuardIncidentComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'guard-incident-component',
         template: __webpack_require__("../../../../../src/app/component/guard-app/guard-incident.component.html"),
+        styles: [__webpack_require__("../../../../../src/assets/css/guard-app.css")],
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__service_incident_service__["a" /* IncidentService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__service_incident_service__["a" /* IncidentService */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__service_incident_service__["a" /* IncidentService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__service_incident_service__["a" /* IncidentService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_6__service_new_report_service__["a" /* NewReportService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__service_new_report_service__["a" /* NewReportService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__service_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__service_user_service__["a" /* UserService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */]) === "function" && _h || Object])
 ], GuardIncidentComponent);
 
-var _a;
+var _a, _b, _c, _d, _e, _f, _g, _h;
 //# sourceMappingURL=guard-incident.component.js.map
 
 /***/ }),
 
-/***/ "../../../../../src/app/component/guard-app/guard-test-view-report.component.ts":
+/***/ "../../../../../src/app/component/location/location-modal.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div (click)=\"onContainerClicked($event)\"     \n    class=\"modal fade\"   \n    tabindex=\"-1\"     \n    [ngClass]=\"{'in': visibleAnimate}\"     \n    [ngStyle]=\"{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}\">     \n    <div class=\"modal-dialog\" role=\"document\">         \n        <div class=\"modal-content\">                                    \n            <div class=\"modal-header\">                     \n                <button type=\"button\" class=\"close\" (click)=\"hide()\" aria-label=\"Close\">                         \n                    <span aria-hidden=\"true\">&times;</span>                     \n                </button>                     \n                <h4 class=\"modal-title mt-2\">Change current location {{currentLocation}}</h4>             \n            </div>             <location-component></location-component>                         \n            <div class=\"modal-footer mt-2 pt-2 mb-1\">                 \n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"submitChanges($event.target.value)\" id=\"{{button_id}}\">Save changes</button>                 <button type=\"button\" class=\"btn btn-secondary ml-1\" (click)=\"hide()\">Close</button>             \n</div>         \n</div>     \n</div> \n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/component/location/location-modal.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GuardTestViewReportComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_switchMap__ = __webpack_require__("../../../../rxjs/add/operator/switchMap.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_switchMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_switchMap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_incident_service__ = __webpack_require__("../../../../../src/app/service/incident.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LocationModalComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__location_component__ = __webpack_require__("../../../../../src/app/component/location/location.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_new_report_service__ = __webpack_require__("../../../../../src/app/service/new-report.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util_config_service__ = __webpack_require__("../../../../../src/app/util/config.service.ts");
+/* *  Location Modal Component:
+*  displays the location component within a modal
+*  to add/change locations in a report */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -756,47 +862,74 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var GuardTestViewReportComponent = (function () {
-    function GuardTestViewReportComponent(incidentsService, router) {
-        this.incidentsService = incidentsService;
-        this.router = router;
+var LocationModalComponent = (function () {
+    function LocationModalComponent(reportService) {
+        this.reportService = reportService;
+        this.locationSaved = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this.visible = false;
+        this.visibleAnimate = false;
     }
-    ;
-    GuardTestViewReportComponent.prototype.ngOnInit = function () {
+    LocationModalComponent.prototype.show = function (event) {
         var _this = this;
-        this.router.paramMap
-            .switchMap(function (params) { return _this.incidentsService.getIncident(+params.get('id')); })
-            .subscribe(function (incident) {
-            console.log(incident);
-            _this.incident = incident;
-        });
+        var target = event.target || event.srcElement || event.currentTarget;
+        if (target.attributes.id) {
+            var idAttr = target.attributes.id;
+            this.currentLocationID = idAttr.value;
+            this.button_id = this.currentLocationID;
+        }
+        else {
+            this.button_id = -1;
+        }
+        this.visible = true;
+        setTimeout(function () { return _this.visibleAnimate = true; }, 100);
     };
-    return GuardTestViewReportComponent;
+    LocationModalComponent.prototype.hide = function () {
+        var _this = this;
+        this.visibleAnimate = false;
+        setTimeout(function () { return _this.visible = false; }, 300);
+    };
+    LocationModalComponent.prototype.onContainerClicked = function (event) {
+        if (event.target.classList.contains('modal')) {
+            this.hide();
+        }
+    };
+    LocationModalComponent.prototype.submitChanges = function (id) {
+        this.locationComponent.newLocation.table = __WEBPACK_IMPORTED_MODULE_3__util_config_service__["a" /* Config */].LocationTable;
+        console.log(this.locationComponent.newLocation);
+        this.locationSaved.emit('complete');
+        this.hide();
+    };
+    LocationModalComponent.prototype.ngOnInit = function () {
+        document.getElementById("removeLocation").style.visibility = "hidden";
+    };
+    return LocationModalComponent;
 }());
-GuardTestViewReportComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["o" /* Component */])({
-        selector: 'report',
-        template: __webpack_require__("../../../../../src/app/component/guard-app/guard-test-view-report.html")
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1__location_component__["a" /* LocationComponent */]),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__location_component__["a" /* LocationComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__location_component__["a" /* LocationComponent */]) === "function" && _a || Object)
+], LocationModalComponent.prototype, "locationComponent", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */])(),
+    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]) === "function" && _b || Object)
+], LocationModalComponent.prototype, "locationSaved", void 0);
+LocationModalComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'location-modal-component',
+        template: __webpack_require__("../../../../../src/app/component/location/location-modal.component.html"),
+        styles: [__webpack_require__("../../../../../src/assets/css/guard-app.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__service_incident_service__["a" /* IncidentService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__service_incident_service__["a" /* IncidentService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */]) === "function" && _b || Object])
-], GuardTestViewReportComponent);
+    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__service_new_report_service__["a" /* NewReportService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__service_new_report_service__["a" /* NewReportService */]) === "function" && _c || Object])
+], LocationModalComponent);
 
-var _a, _b;
-//# sourceMappingURL=guard-test-view-report.component.js.map
-
-/***/ }),
-
-/***/ "../../../../../src/app/component/guard-app/guard-test-view-report.html":
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-12 col-sm-12 col-md-10 col-md-offset-1 col-md-offset-right-1\">\n      <div *ngIf=\"incident\">\n          <h2 id=\"testHeading\">{{incident.attributes.REPORT_ID}} <br> {{incident.attributes.DESCRIPTION}}</h2>\n      </div>\n    </div>\n  </div>\n</div>\n"
+var _a, _b, _c;
+//# sourceMappingURL=location-modal.component.js.map
 
 /***/ }),
 
 /***/ "../../../../../src/app/component/location/location.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"details-body\">\n    <div class=\"x-container\">\n        <span class=\"glyphicon glyphicon-remove glyphicon-btn\" (click)=\"removeLocationFromReport()\"></span>        \n    </div>\n    <div class=\"detail col-12 col-sm-3\">\n        <span class=\"field-title\">Campus <span class=\"required-asterisk\">*</span></span>\n        <select class=\"form-control\" name=\"\" id=\"\" [(ngModel)]=\"newLocation.attributes.CAMPUS_ID\" (change)=\"onSelectCampus()\">\n            <option *ngFor=\"let campus of locationMap\" [value]=\"campus.CAMPUS_ID\">{{campus.CAMPUS_ID}}</option>\n        </select>\n    </div>\n    <div class=\"detail col-12 col-sm-3\">\n        <span class=\"field-title\">Building <span class=\"required-asterisk\">*</span></span>\n        <select class=\"form-control\" name=\"\" id=\"\" [(ngModel)]=\"newLocation.attributes.BUILDING_NAME\" (change)=\"onSelectBuilding()\">\n            <option *ngFor=\"let building of buildings\" [value]=\"building.BUILDING_NAME\">{{building.BUILDING_NAME}}</option>\n        </select>\n    </div>\n    <div class=\"detail col-12 col-sm-3\">\n        <span class=\"field-title\">Room Number <span class=\"required-asterisk\">*</span></span>\n        <select class=\"form-control\" name=\"\" id=\"\" [(ngModel)]=\"newLocation.attributes.LOCATION_ID\" (change)=\"onSelectRoom()\">\n            <option *ngFor=\"let room of rooms\" [value]=\"room.LOCATION_ID\">{{room.ROOM_NUMBER}}</option>                    \n        </select>\n    </div> \n</div> "
+module.exports = "<div class=\"details-body\">\n    <div class=\"x-container\" id=\"removeLocation\">\n        <span class=\"glyphicon glyphicon-remove glyphicon-btn\" (click)=\"removeLocationFromReport()\"></span>        \n    </div>\n    <div class=\"detail col-12 col-sm-3\">\n        <span class=\"field-title\">Campus <span class=\"required-asterisk\">*</span></span>\n        <select class=\"form-control\" name=\"\" id=\"\" [(ngModel)]=\"newLocation.attributes.CAMPUS_ID\" (change)=\"onSelectCampus()\">\n            <option *ngFor=\"let campus of locationMap\" [value]=\"campus.CAMPUS_ID\">{{campus.CAMPUS_ID}}</option>\n        </select>\n    </div>\n    <div class=\"detail col-12 col-sm-3\">\n        <span class=\"field-title\">Building <span class=\"required-asterisk\">*</span></span>\n        <select class=\"form-control\" name=\"\" id=\"\" [(ngModel)]=\"newLocation.attributes.BUILDING_NAME\" (change)=\"onSelectBuilding()\">\n            <option *ngFor=\"let building of buildings\" [value]=\"building.BUILDING_NAME\">{{building.BUILDING_NAME}}</option>\n        </select>\n    </div>\n    <div class=\"detail col-12 col-sm-3\">\n        <span class=\"field-title\">Room Number <span class=\"required-asterisk\">*</span></span>\n        <select class=\"form-control\" name=\"\" id=\"\" [(ngModel)]=\"newLocation.attributes.LOCATION_ID\" (change)=\"onSelectRoom()\">\n            <option *ngFor=\"let room of rooms\" [value]=\"room.LOCATION_ID\">{{room.ROOM_NUMBER}}</option>                    \n        </select>\n    </div> \n</div> "
 
 /***/ }),
 
@@ -1052,7 +1185,7 @@ var LoginComponent = (function () {
                     //alert( "welcome dispatcher" );
                 }
                 else if (_this.userService.isGuard()) {
-                    _this.router.navigate(['guard']);
+                    _this.router.navigate(['guard-app/reports-all']);
                     //alert( "welcome guard" );
                 }
                 else {
@@ -1429,7 +1562,7 @@ var IncidentAttributes = (function () {
 /***/ "../../../../../src/app/component/report/incidents.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div id=\"incidents-list-panel\" class=\"panel panel-default\">\n    <div class=\"panel-heading\">\n        <div class=\"toolbar\">\n            <div class=\"flex\">\n                <span class=\"glyphicon glyphicon-list-alt glyphicon-heading\"></span>\n                <span class=\"panel-header\">Reports</span>\n            </div>\n        </div>\n    </div>\n    <div class=\"panel-body\">\n        <div id=\"incidents-list\" class=\"col-md-12 col-lg-12\">\n            <div class=\"incident-card\" *ngFor=\"let incident of incidents\">\n                <div class=\"main-content\">\n                    <div class=\"detail-row\">\n                        <span class=\"card-text-secondary\">Report #{{incident.attributes.REPORT_ID}}</span>\n                    </div>\n                    <div class=\"detail-row description\">\n                        <span class=\"card-text-primary\">\n                            {{incident.attributes.DESCRIPTION}}\n                        </span>\n                    </div>\n                    <div class=\"detail-row\">\n                        <span class=\"card-text-secondary\">\n                            Category: {{incident.category.MAIN_CATEGORY}} - {{incident.category.SUB_CATEGORY}} {{incident.category.INCIDENT_TYPE}}\n                        </span>\n                    </div>\n                    <div class=\"detail-row\" *ngIf=\"incident.guard.attributes.FIRST_NAME != null\">\n                        <span class=\"card-text-secondary\">\n                            Assigned To: {{incident.guard.attributes.FIRST_NAME}} {{incident.guard.attributes.LAST_NAME}}\n                        </span>\n                    </div>\n                    <div class=\"detail-row tertiary\">\n                        <span class=\"card-text-tertiary\">\n                            Burnaby AQ 3150\n                        </span>\n                        <span class=\"card-text-tertiary\">08/15/2017 4:44</span>\n                    </div>\n                </div>\n                <div class=\"bottom\">\n                    <div class=\"action\">\n                        <span class=\"glyphicon glyphicon-new-window glyphicon-btn\" data-toggle=\"tooltip\" title=\"Add to Workspace\"\n                                 [ngClass]=\"{'transparent': incident.inWorkspace}\" (click)=\"incident.inWorkspace || addToWorkspace(incident)\"></span>\n                        <span class=\"glyphicon glyphicon-tag glyphicon-btn\" (click)=\"setIncidentToAssign(incident.attributes.REPORT_ID)\" data-toggle=\"modal\" data-target=\"#assignModal\"></span>                        \n                                 \n                    </div>\n                                                                \n                </div>\n                \n            </div>\n        </div>\n    </div>\n    <div class=\"panel-footer\">\n        <input class=\"form-control\" type=\"text\" placeholder=\"Search for reports...\">            \n    </div>\n</div>\n\n<!-- Modal -->\n<div id=\"assignModal\" class=\"modal fade\" role=\"dialog\" *ngIf=\"incidentToAssign.attributes.REPORT_ID != null\">\n    <div class=\"modal-dialog\">\n        <div class=\"modal-content\">\n            <div class=\"modal-header\">\n                <span class=\"glyphicon glyphicon-tag glyphicon-heading\"></span>\n                <span class=\"panel-header\">Assign To Guard - Report #{{incidentToAssign.attributes.REPORT_ID}}</span>\n            </div>\n            <div class=\"modal-body\">\n                <div class=\"details-container\">\n                    <div class=\"details-body\">\n                        <div class=\"detail col-12 col-sm-3\">\n                            <select class=\"form-control\" name=\"\" id=\"\" [(ngModel)]=\"incidentToAssign.attributes.ACCOUNT_ID\" (change)=\"onSelectStaff()\">\n                                <option *ngFor=\"let staff of staffArr\" [value]=\"staff.attributes.ACCOUNT_ID\">{{staff.attributes.FIRST_NAME}} {{staff.attributes.LAST_NAME}}</option>\n                            </select>\n                        </div>\n                    </div> \n                </div>\n            </div>\n            <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cancel</button>\n                <button class=\"btn btn-primary\" (click)=\"assignToStaff()\" data-dismiss=\"modal\">Assign</button>   \n            </div>\n        </div>\n    </div>\n</div>"
+module.exports = "\n<div id=\"incidents-list-panel\" class=\"panel panel-default\">\n    <div class=\"panel-heading\">\n        <div class=\"toolbar\">\n            <div class=\"flex\">\n                <span class=\"glyphicon glyphicon-list-alt glyphicon-heading\"></span>\n                <span class=\"panel-header\">Reports</span>\n            </div>\n        </div>\n    </div>\n    <div class=\"panel-body\">\n        <div id=\"incidents-list\" class=\"col-md-12 col-lg-12\">\n            <div class=\"incident-card\" *ngFor=\"let incident of incidents\">\n                <div class=\"main-content\">\n                    <div class=\"detail-row\">\n                        <span class=\"card-text-secondary\">Report #{{incident.attributes.REPORT_ID}}</span>\n                    </div>\n                    <div class=\"detail-row description\">\n                        <span class=\"card-text-primary\">\n                            {{incident.attributes.DESCRIPTION}}\n                        </span>\n                    </div>\n                    <div class=\"detail-row\">\n                        <span class=\"card-text-secondary\">\n                            Category: {{incident.category.MAIN_CATEGORY}} - {{incident.category.SUB_CATEGORY}} {{incident.category.INCIDENT_TYPE}}\n                        </span>\n                    </div>\n                    <div class=\"detail-row\" *ngIf=\"incident.guard != null\">\n                        <span class=\"card-text-secondary\">\n                            Assigned To: {{incident.guard.attributes.FIRST_NAME}} {{incident.guard.attributes.LAST_NAME}}\n                        </span>\n                    </div>\n                    <div class=\"detail-row tertiary\">\n                        <span class=\"card-text-tertiary\">\n                            Burnaby AQ 3150\n                        </span>\n                        <span class=\"card-text-tertiary\">08/15/2017 4:44</span>\n                    </div>\n                </div>\n                <div class=\"bottom\">\n                    <div class=\"action\">\n                        <span class=\"glyphicon glyphicon-new-window glyphicon-btn\" data-toggle=\"tooltip\" title=\"Add to Workspace\"\n                                 [ngClass]=\"{'transparent': incident.inWorkspace}\" (click)=\"incident.inWorkspace || addToWorkspace(incident)\"></span>\n                        <span class=\"glyphicon glyphicon-tag glyphicon-btn\" (click)=\"setIncidentToAssign(incident.attributes.REPORT_ID)\" data-toggle=\"modal\" data-target=\"#assignModal\"></span>                        \n                                 \n                    </div>\n                                                                \n                </div>\n                \n            </div>\n        </div>\n    </div>\n    <div class=\"panel-footer\">\n        <input class=\"form-control\" type=\"text\" placeholder=\"Search for reports...\">            \n    </div>\n</div>\n\n<!-- Modal -->\n<div id=\"assignModal\" class=\"modal fade\" role=\"dialog\" *ngIf=\"incidentToAssign.attributes.REPORT_ID != null\">\n    <div class=\"modal-dialog\">\n        <div class=\"modal-content\">\n            <div class=\"modal-header\">\n                <span class=\"glyphicon glyphicon-tag glyphicon-heading\"></span>\n                <span class=\"panel-header\">Assign To Guard - Report #{{incidentToAssign.attributes.REPORT_ID}}</span>\n            </div>\n            <div class=\"modal-body\">\n                <div class=\"details-container\">\n                    <div class=\"details-body\">\n                        <div class=\"detail col-12 col-sm-3\">\n                            <select class=\"form-control\" name=\"\" id=\"\" [(ngModel)]=\"incidentToAssign.attributes.ACCOUNT_ID\" (change)=\"onSelectStaff()\">\n                                <option *ngFor=\"let staff of staffArr\" [value]=\"staff.attributes.ACCOUNT_ID\">{{staff.attributes.FIRST_NAME}} {{staff.attributes.LAST_NAME}}</option>\n                            </select>\n                        </div>\n                    </div> \n                </div>\n            </div>\n            <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cancel</button>\n                <button class=\"btn btn-primary\" (click)=\"assignToStaff()\" data-dismiss=\"modal\">Assign</button>   \n            </div>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -2078,6 +2211,7 @@ var IncidentService = (function () {
         this.staffService = staffService;
         this.headers = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/json' });
         this.incidentsUrl = __WEBPACK_IMPORTED_MODULE_3__util_config_service__["a" /* Config */].IncidentsURI;
+        this.updateIncidentsUrl = __WEBPACK_IMPORTED_MODULE_3__util_config_service__["a" /* Config */].UpdateIncidentsURI;
         this.guardIncidentsUrl = __WEBPACK_IMPORTED_MODULE_3__util_config_service__["a" /* Config */].GuardIncidentsURI;
         this.userService = new __WEBPACK_IMPORTED_MODULE_7__user_service__["a" /* UserService */];
         this.tableName = "";
@@ -2159,14 +2293,27 @@ var IncidentService = (function () {
         return Promise.resolve(incidents);
     };
     IncidentService.prototype.getIncident = function (id) {
-        var incident = new __WEBPACK_IMPORTED_MODULE_5__component_report_incident__["a" /* Incident */]();
-        incident.attributes.REPORT_ID = id;
-        var returnIncident = this.http
-            .post(__WEBPACK_IMPORTED_MODULE_3__util_config_service__["a" /* Config */].GetIncidentURI, JSON.stringify(incident), { headers: this.headers })
+        var _this = this;
+        var incidentToGet = new __WEBPACK_IMPORTED_MODULE_5__component_report_incident__["a" /* Incident */]();
+        incidentToGet.attributes.REPORT_ID = id;
+        var returnedIncident = this.http
+            .post(__WEBPACK_IMPORTED_MODULE_3__util_config_service__["a" /* Config */].GetIncidentURI, JSON.stringify(incidentToGet), { headers: this.headers })
             .toPromise()
-            .then(function (response) { return response.json(); })
+            .then(function (response) { return _this.initializeIncident(response.json()); })
             .catch(this.handleError);
-        return Promise.resolve(returnIncident);
+        return Promise.resolve(returnedIncident);
+    };
+    IncidentService.prototype.initializeIncident = function (incident) {
+        incident.locationList = [];
+        incident.incidentElements.forEach(function (element) {
+            if (element.table === __WEBPACK_IMPORTED_MODULE_3__util_config_service__["a" /* Config */].CategoryTable) {
+                incident.category = element.attributes;
+            }
+            else if (element.table === __WEBPACK_IMPORTED_MODULE_3__util_config_service__["a" /* Config */].LocationTable) {
+                incident.locationList.push(element);
+            }
+        });
+        return incident;
     };
     IncidentService.prototype.create = function (incident) {
         if (incident.attributes.ACCOUNT_ID == null) {
@@ -2184,7 +2331,7 @@ var IncidentService = (function () {
     };
     IncidentService.prototype.update = function (incident) {
         if (incident.attributes.ACCOUNT_ID == null) {
-            incident.attributes.ACCOUNT_ID = 7;
+            incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().ACCOUNT_ID;
         }
         incident.table = __WEBPACK_IMPORTED_MODULE_3__util_config_service__["a" /* Config */].IncidentTable;
         var promise = this.http
@@ -2880,11 +3027,12 @@ Config.IncidentsURI = "http://localhost:4567/incidents";
 Config.StaffURI = "http://localhost:4567/staff";
 Config.LoginURI = "http://localhost:4567/login";
 Config.PersonURI = "http://localhost:4567/person";
-Config.UpdateIncidentURI = "http://localhost:4567/updateIncident";
-Config.AssignIncidentURI = "http://localhost:4567/assignIncident";
 Config.GuardIncidentsURI = "http://localhost:4567/guardIncidents";
 Config.GetIncidentURI = "http://localhost:4567/getIncident";
 Config.CategoriesURI = "http://localhost:4567/categories";
+Config.UpdateIncidentsURI = "http://localhost:4567/updateIncident";
+Config.UpdateIncidentURI = "http://localhost:4567/updateIncident";
+Config.AssignIncidentURI = "http://localhost:4567/assignIncident";
 Config.StaffTable = "STAFF";
 Config.LocationTable = "LOCATION";
 Config.AccountTable = "ACCOUNT";
@@ -3086,7 +3234,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ "../../../../../src/assets/css/guard-dashboard.component.css":
+/***/ "../../../../../src/assets/css/guard-app.css":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
@@ -3094,7 +3242,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "\n.flex-container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  width: 100%;\n  height: 100%;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n}\n\n.flex-item {\n  background-color: cornflowerblue;\n  width: 100px;\n  height: 100px;\n  margin: 10px;\n}\n\n.container > .row {\n  clear: both; }\n\n.mt-1 {\n  margin-top: 1em; }\n\n.mt-2 {\n  margin-top: 2em; }\n\n.mb-1 {\n  margin-bottom: 1em; }\n\n.mb-2 {\n  margin-bottom: 2em; }\n\n.modal-body {\n  text-align: left; }\n\n.modal-header {\n  padding: 1em !important; }\n\n.modal-title {\n  margin-top: 1em !important; }\n\nselect.category-field {\n  padding: 0.5em;\n  margin-left: 0.5em;\n  width: 80%; }\n\nlabel.field-label {\n  padding-left: 1em; }\n\n", ""]);
+exports.push([module.i, ".container > .row {\n  clear: both; }\n\n.centre-container {\n  margin: 0 auto; }\n\n.outer-container {\n  position: relative; }\n\n.m-1 {\n  margin: 1em !important; }\n\n.mb-1 {\n  margin-bottom: 1em !important; }\n\n.mb-2 {\n  margin-bottom: 2em !important; }\n\n.ml-1 {\n  margin-left: 1em; }\n\n.ml-3 {\n  margin-left: 3em; }\n\n.mr-1 {\n  margin-right: 1em; }\n\n.mt-sm {\n  margin-top: 0.5em !important; }\n\n.mt-1 {\n  margin-top: 1em !important; }\n\n.mt-2 {\n  margin-top: 2em !important; }\n\n.p-0, ul.p-0 {\n  padding: 0 !important; }\n\n.pb-sm {\n  padding-bottom: 0.5em !important; }\n\n.pb-1 {\n  padding-bottom: 1em !important; }\n\n.pt-1 {\n  padding-top: 1em !important; }\n\n.pt-2 {\n  padding-top: 2em !important; }\n\n.lh-1 {\n  line-height: 2em !important; }\n\n.modal-body {\n  text-align: left; }\n\n.modal-header {\n  padding: 1em !important; }\n\n.modal-title {\n  margin-top: 1em !important; }\n\nselect.category-field {\n  padding: 0.5em;\n  margin: 0 auto;\n  width: 80%; }\n\n.modal-field-title {\n  padding-left: 10%; }\n\n.flex-container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  margin-bottom: 4.5em;\n  position: relative;\n  min-height: 100%;\n  width: 100%; }\n\n.flex-item {\n  float: none;\n  width: 40%;\n  height: 12em;\n  max-width: 200px;\n  margin: 0.8em; }\n\n.panel-body {\n  height: 100%;\n  padding-bottom: 1em;\n  word-break: break-word; }\n\nul {\n  height: 100%;\n  padding-bottom: 1em;\n  overflow: scroll;\n  text-overflow: ellipsis; }\n\nfooter {\n  bottom: 0;\n  margin-bottom: 0;\n  height: 4em;\n  width: 100%;\n  position: fixed;\n  text-align: center; }\n\n.guard-menu-button {\n  top: 1em;\n  position: relative; }\n\n.collapsable-heading {\n  padding-top: 1em !important;\n  padding-bottom: 1em !important;\n  background-color: #f5f5f5; }\n\nh4.panel-title {\n  font-weight: 400;\n  font-size: 115%; }\n\n.panel-heading .accordion-toggle.collapsed:after {\n  /* symbol for \"collapsed\" panels */\n  content: \"\\E080\"; }\n\n.panel-heading .accordion-toggle:after {\n  /* symbol for \"opening\" panels */\n  font-family: 'Glyphicons Halflings';\n  content: \"\\E114\";\n  float: right;\n  color: grey; }\n", ""]);
 
 // exports
 
