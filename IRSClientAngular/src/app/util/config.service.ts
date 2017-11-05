@@ -4,14 +4,11 @@ export class Config {
     static StaffURI: string = "http://localhost:4567/staff";
     static LoginURI: string = "http://localhost:4567/login";
     static PersonURI: string = "http://localhost:4567/person";
-<<<<<<< HEAD
     static TimerURI: string = "http://localhost:4567/timer";
-=======
     static GuardIncidentsURI: string = "http://localhost:4567/guardIncidents";
     static GetIncidentURI: string = "http://localhost:4567/get-incident"
     static CategoriesURI: string = "http://localhost:4567/categories";
     static UpdateIncidentsURI: string = "http://localhost:4567/updateIncident";
->>>>>>> e81dd55dafb96dde4c5fe927ade91745ff0a893e
     static UpdateIncidentURI: string = "http://localhost:4567/updateIncident";
     static AssignIncidentURI: string = "http://localhost:4567/assignIncident";
 
