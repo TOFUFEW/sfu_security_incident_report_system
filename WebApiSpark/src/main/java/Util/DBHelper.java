@@ -4,6 +4,8 @@ import Model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DBHelper
 {
@@ -12,6 +14,9 @@ public class DBHelper
     private static final String PASSWORD = "cmpt373alpha";
     private static final String URL = "jdbc:sqlserver://sfuirsdb.czoee5rkbxlk.us-west-1.rds.amazonaws.com:1433;DatabaseName=IRS;";
     */
+    private static final String LOCATIONS = "Location";
+    private static final String STAFFS = "Staff";
+    private static final String PERSONS = "Person";
     private static final String USERNAME = "sa";
     private static final String PASSWORD = "CMPT373Alpha";
     private static final String URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=master;";
@@ -89,7 +94,8 @@ public class DBHelper
         }
     }
 
-    public static ArrayList < IncidentElement > getIncidentElements ( int reportID ) {
+    public static HashMap < String , ArrayList < IncidentElement > > getIncidentElements ( int reportID ) {
+        HashMap < String , ArrayList < IncidentElement > > incidentElements = new HashMap <> ();
         ArrayList < IncidentElement > incidentElementsList = new ArrayList <> ();
 
         try {
@@ -124,7 +130,7 @@ public class DBHelper
                     }
                     if ( incidentElement != null ) {
                         incidentElement.extractFromCurrentRow( rs );
-
+                        
                         incidentElementsList.add ( incidentElement );
                     }
                 }
@@ -134,7 +140,7 @@ public class DBHelper
         } catch ( SQLException e ) {
             e.printStackTrace();
         }
-        return incidentElementsList;
+        return incidentElements;
     }
 
     public static boolean selectIncident ( Incident incident ) {
@@ -155,19 +161,19 @@ public class DBHelper
         if ( !allFieldsValid( incident ) ) {
             System.out.println( "Attempting to find IncidentCategory in incidentElements array...");
 
-            for ( int i = 0; i < incident.numIncidentElements() ; i += 1 ) {
-                IncidentElement ie = incident.getIncidentElement( i );
-
-                if (DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase()
-                        .contains( ie.getTable().toString().toLowerCase() ) ) {
-
-                    String id = ie.getAttributeValue( DatabaseValues.Column.CATEGORY_ID );
-                    if ( id != null && !id.isEmpty() ) {
-                        incident.updateAttributeValue( DatabaseValues.Column.CATEGORY_ID, id );
-                        System.out.println("IncidentCategory FOUND! CATEGORY_ID: " + id );
-                    }
-                }
-            }
+//            for ( int i = 0; i < incident.numIncidentElements() ; i += 1 ) {
+//                IncidentElement ie = incident.getIncidentElement( i );
+//
+//                if (DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase()
+//                        .contains( ie.getTable().toString().toLowerCase() ) ) {
+//
+//                    String id = ie.getAttributeValue( DatabaseValues.Column.CATEGORY_ID );
+//                    if ( id != null && !id.isEmpty() ) {
+//                        incident.updateAttributeValue( DatabaseValues.Column.CATEGORY_ID, id );
+//                        System.out.println("IncidentCategory FOUND! CATEGORY_ID: " + id );
+//                    }
+//                }
+//            }
 
             if ( incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) == null ) {
                 System.out.println("***** ERROR: IncidentCategory not found. Exiting...");
@@ -227,20 +233,20 @@ public class DBHelper
 
             String relationSQL = "{ call dbo.insertRelation ( ? , ? , ? ) }";
 
-            for ( int i = 0 ; i < incident.numIncidentElements () ; i++ )
-            {
-                IncidentElement incidentElement = incident.getIncidentElement( i );
-                System.out.println( "\nColumnSet length for table " + incidentElement.getTable().toString() + ": " + (incidentElement.getColumnSet().length ) );
-                boolean hasAttributes = incidentElement.getColumnSet().length > 0;
-
-                if ( hasAttributes && !relationExists( lastIncidentId , incidentElement ) ) {
-                    debug_printInsertRelationLog( incidentElement );
-                    insertIncidentRelation(
-                            relationSQL,
-                            incident.getIncidentElement(i)
-                    );
-                }
-            }
+//            for ( int i = 0 ; i < incident.numIncidentElements () ; i++ )
+//            {
+//                IncidentElement incidentElement = incident.getIncidentElement( i );
+//                System.out.println( "\nColumnSet length for table " + incidentElement.getTable().toString() + ": " + (incidentElement.getColumnSet().length ) );
+//                boolean hasAttributes = incidentElement.getColumnSet().length > 0;
+//
+//                if ( hasAttributes && !relationExists( lastIncidentId , incidentElement ) ) {
+//                    debug_printInsertRelationLog( incidentElement );
+//                    insertIncidentRelation(
+//                            relationSQL,
+//                            incident.getIncidentElement(i)
+//                    );
+//                }
+//            }
             if ( output != 0 )
             {
                 return true;
@@ -515,19 +521,19 @@ public class DBHelper
         if ( !allFieldsValid( incident ) ) {
             System.out.println( "Attempting to find IncidentCategory in incidentElements array...");
 
-            for ( int i = 0; i < incident.numIncidentElements() ; i += 1 ) {
-                IncidentElement ie = incident.getIncidentElement( i );
-
-                if (DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase()
-                        .contains( ie.getTable().toString().toLowerCase() ) ) {
-
-                    String id = ie.getAttributeValue( DatabaseValues.Column.CATEGORY_ID );
-                    if ( id != null && !id.isEmpty() ) {
-                        incident.updateAttributeValue( DatabaseValues.Column.CATEGORY_ID, id );
-                        System.out.println("IncidentCategory FOUND! CATEGORY_ID: " + id );
-                    }
-                }
-            }
+//            for ( int i = 0; i < incident.numIncidentElements() ; i += 1 ) {
+//                IncidentElement ie = incident.getIncidentElement( i );
+//
+//                if (DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase()
+//                        .contains( ie.getTable().toString().toLowerCase() ) ) {
+//
+//                    String id = ie.getAttributeValue( DatabaseValues.Column.CATEGORY_ID );
+//                    if ( id != null && !id.isEmpty() ) {
+//                        incident.updateAttributeValue( DatabaseValues.Column.CATEGORY_ID, id );
+//                        System.out.println("IncidentCategory FOUND! CATEGORY_ID: " + id );
+//                    }
+//                }
+//            }
 
             if ( incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) == null ) {
                 System.out.println("***** ERROR: IncidentCategory not found. Exiting...");
@@ -570,21 +576,20 @@ public class DBHelper
             deleteAllRelations ( reportId );
             String relationSQL = "{ call dbo.insertRelationWithTableName ( ? , ? , ? , ? ) }";
 
-            for ( int i = 0 ; i < incident.numIncidentElements () ; i++ ) {
+            for ( Map.Entry < String , ArrayList < IncidentElement > > entry : incident.getIncidentElements().entrySet() ) {
+                ArrayList < IncidentElement > incidentElementsList = entry.getValue();
+                for ( IncidentElement incidentElement : incidentElementsList ) {
+                    boolean hasAttributes = incidentElement.getColumnSet().length > 0;
 
-                IncidentElement incidentElement = incident.getIncidentElement( i );
-                boolean hasAttributes = incidentElement.getColumnSet().length > 0;
-
-                if ( hasAttributes && !relationExists( reportId , incidentElement ) ) {
-                    debug_printInsertRelationLog( incidentElement );
-                    insertIncidentRelation(
-                            relationSQL,
-                            incidentElement,
-                            reportId
-                    );
+                    if ( hasAttributes && !relationExists( reportId , incidentElement ) ) {
+                        debug_printInsertRelationLog( incidentElement );
+                        insertIncidentRelation(
+                                relationSQL,
+                                incidentElement,
+                                reportId
+                        );
+                    }
                 }
-
-
             }
             return true;
         } catch ( Exception e ) {

@@ -38,8 +38,12 @@ public class IncidentsController
 
         post ("/updateIncident" , ( request, response ) ->
         {
+            System.out.println (request.body());
             Incident updatedIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
-            return DBHelper.updateIncident ( updatedIncident );
+            System.out.println (updatedIncident.toString());
+            System.out.println(updatedIncident.getIncidentElements());
+            return false;
+//            return DBHelper.updateIncident ( updatedIncident );
         } );
 
         post ( "/assignIncident", ( request, response ) ->

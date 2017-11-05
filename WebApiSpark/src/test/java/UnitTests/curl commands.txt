@@ -1,5 +1,1 @@
-curl -H "Content-Type: application/json" -X POST -d '{"incidentElements": [ {"table": "STAFF", "attributes": {"ACCOUNT_ID": 1}} ], "attributes":  {"REPORT_ID": 1,"CATEGORY_ID":1,"CLOSED":0,"DESCRIPTION":"TESTTTTTT","EXECUTIVE_SUMMARY":"SAMPLE EXECUTIVE SUMMARY"}, "table": "INCIDENT" }' http://localhost:4567/updateIncident
-
-curl -H "Content-Type: application/json" -X POST -d '{"incidentElements": [ {"table":"LOCATION","attributes": { "LOCATION_ID": 1}}],"attributes" : {"ACCOUNT_ID": 2,"CATEGORY_ID":1,"CLOSED":0,"DESCRIPTION":"TESTTTTTT","EXECUTIVE_SUMMARY":"SAMPLE EXECUTIVE SUMMARY"},"table":"INCIDENT"}' http://localhost:4567/incidents
-
-curl -H "Content-Type: application/json" -X POST -d '{"incidentElements": [], "attributes":  {"REPORT_ID": 1,"CATEGORY_ID":1,"CLOSED":0,"DESCRIPTION":"NANANANANAN","EXECUTIVE_SUMMARY":"SAMPLE EXECUTIVE SUMMARY"}, "table": "INCIDENT" }' http://localhost:4567/incidents
+curl -H "Content-Type: application/json" -X POST -d ' { "incidentElements" : { "Location" : [ {"table" : "LOCATION" , "attributes" : { "LOCATION_ID" : 67 } } ] , "Staff" : [] , "Person" : [] , "IncidentCategory" : [] } , "attributes" : { "REPORT_ID" : 1 , "CATEGORY_ID" : 1 , "CLOSED" : 0 , "DESCRIPTION" : "TESTTTTTT" , "EXECUTIVE_SUMMARY" : "SAMPLE EXECUTIVE SUMMARY" } , "table" : "INCIDENT" } ' http://localhost:4567/updateIncident
