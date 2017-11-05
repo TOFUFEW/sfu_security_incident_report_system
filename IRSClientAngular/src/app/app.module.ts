@@ -14,15 +14,15 @@ import { StaffComponent } from './component/staff/staff.component';
 import { IncidentComponent } from './component/report/incident.component';
 import { LoginComponent } from './component/login/login.component';
 import { NewReportComponent } from './component/report/new-report.component';
+import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
+import { GuardAllReportsComponent } from './component/guard-app/guard-all-reports.component';
 import { VehicleComponent } from './component/vehicle/vehicle.component';
 import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
 import { AttachmentComponent } from './component/attachment/attachment.component';
 import { TimerComponent } from './component/timer/timer.component';
+import { LocationModalComponent } from './component/location/location-modal.component';
 
-import { GuardDashboardComponent } from './component/guard-app/guard-dashboard.component';
-import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
-import { GuardTestViewReportComponent } from "./component/guard-app/guard-test-view-report.component";
 import { CategoryComponent } from './component/category/category.component'
 import { ReportSummaryComponent } from './component/report/report-summary.component';
 
@@ -31,6 +31,7 @@ import { UserService } from './service/user.service';
 import { LoginService } from './service/login.service';
 import { CategoryService } from './service/category.service';
 import { DomService } from './util/dom.service';
+
 import { LocationService } from './service/location.service'
 import { IncidentService } from './service/incident.service'
 import { StaffService } from './service/staff.service'
@@ -40,7 +41,6 @@ import { TimerService } from './service/timer.service';
 import { DataHelperService } from './util/data-helper.service';
 
 import { FilterPipe } from './util/filter.pipe';
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -53,13 +53,15 @@ import { FilterPipe } from './util/filter.pipe';
   declarations: [
     AppComponent,
     AttachmentComponent,
+    
     DashboardComponent,
     LocationComponent,
+    LocationModalComponent,
     StaffComponent,
     IncidentComponent,
     LoginComponent,
-    GuardDashboardComponent,
     GuardIncidentComponent,
+    GuardAllReportsComponent,
     CategoryComponent,
     NewReportComponent,
     VehicleComponent,
@@ -67,17 +69,10 @@ import { FilterPipe } from './util/filter.pipe';
     PersonComponent,
     FilterPipe,
     ReportSummaryComponent,
-    GuardTestViewReportComponent,
     TimerComponent
   ],
-
-  providers: [
-    UserService,
-    LoginService,
-    DomService,
-    DataHelperService,
-    LocationService,
-    IncidentService,
+  
+  providers: [UserService, LoginService, DomService, DataHelperService, LocationService, IncidentService,
     StaffService,
     PersonService,
     NewReportService,
@@ -86,11 +81,9 @@ import { FilterPipe } from './util/filter.pipe';
   ],
 
   bootstrap: [AppComponent],
+  entryComponents: [ LocationComponent, VehicleComponent,
+    PersonComponent ]
 
-  entryComponents: [
-    LocationComponent,
-    VehicleComponent,
-    PersonComponent, ]
 })
 
 export class AppModule { }

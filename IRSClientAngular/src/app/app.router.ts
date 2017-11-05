@@ -1,12 +1,12 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { GuardDashboardComponent } from "./component/guard-app/guard-dashboard.component";
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { NewReportComponent } from './component/report/new-report.component';
 import { SearchComponent } from './component/search/search.component';
 import { LoginComponent } from './component/login/login.component';
-import { GuardTestViewReportComponent } from "./component/guard-app/guard-test-view-report.component";
+import { GuardAllReportsComponent } from "./component/guard-app/guard-all-reports.component";
+import { GuardIncidentComponent } from "./component/guard-app/guard-incident.component";
 
 export const router: Routes = [
     // Default
@@ -16,10 +16,10 @@ export const router: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'login', component: LoginComponent },
     // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
-    { path: 'guard', component: GuardDashboardComponent},
-    { path: 'new-report', component: NewReportComponent },
-    { path: 'report/:id', component: GuardTestViewReportComponent },
+    { path: 'guard-app/reports-all', component: GuardAllReportsComponent },
     { path: 'search', component: SearchComponent },
+    { path: 'new-report', component: NewReportComponent },
+    { path: 'guard-app/report/:id', component: GuardIncidentComponent},
 
     // 404
     { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
