@@ -2,6 +2,8 @@ package App;
 
 
 import Controller.*;
+import spark.Spark;
+import spark.utils.IOUtils;
 
 import static spark.Spark.*;
 
@@ -14,6 +16,9 @@ public class Application
         // STARTUP METHODS
         //staticFileLocation("/public");
         staticFiles.location("/public");
+        //redirect.get("/new-report", "/#new-report");
+//        get("*", (q, a) -> IOUtils.toString(Spark.class.getResourceAsStream("/public/index.html")));
+
         enableCORS (
                 "*",
                 "GET, " + "POST, PUT, DELETE, OPTIONS, HEAD",

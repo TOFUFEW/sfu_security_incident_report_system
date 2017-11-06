@@ -12,9 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static Util.JsonUtil.json;
-import static spark.Spark.get;
-import static spark.Spark.modelAndView;
-import static spark.Spark.post;
+import static spark.Spark.*;
+
 import com.google.common.collect.Maps;
 
 public class IncidentsController
@@ -51,12 +50,5 @@ public class IncidentsController
             return DBHelper.assignIncident( incident );
         }) ;
 
-
-/*
-        get ("/new-report" , ( request , response ) ->
-        {
-            return modelAndView(Maps.newHashMap(), "index.html");
-        }, new HtmlEngine() );
-*/
     }
 }
