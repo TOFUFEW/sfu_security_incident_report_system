@@ -2,8 +2,11 @@ package Model;
 
 import Util.DatabaseValues;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Incident extends StorageObject
 {
@@ -92,12 +95,29 @@ public class Incident extends StorageObject
         {
             return false;
         }
-        incidentElements.get( key ).add ( incidentElement );
+
+        if ( ( !incidentElements.keySet().contains( key ) ) && DatabaseValues.IncidentElementKey.contains( key )) {
+            incidentElements.put( key, new ArrayList<>() );
+        }
+
+        ArrayList<IncidentElement> list = incidentElements.get( key );
+        list.add ( incidentElement );
         return true;
     }
 
     public int size ( String key ) {
         return incidentElements.get( key ).size();
+    }
+
+    public int numIncidentElements() {
+        int total = 0;
+        Iterator it = incidentElements.entrySet().iterator();
+        while ( it.hasNext() ) {
+            Map.Entry pair = (Map.Entry)it.next();
+            total += size( pair.getKey().toString() );
+        }
+
+        return total;
     }
 
 //    public String [] incidentElementsToInsertSQL ()

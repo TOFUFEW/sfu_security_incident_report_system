@@ -7,6 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import Util.DatabaseValues;
 
 public class DBHelper
 {
@@ -15,9 +16,6 @@ public class DBHelper
     private static final String PASSWORD = "cmpt373alpha";
     private static final String URL = "jdbc:sqlserver://sfuirsdb.czoee5rkbxlk.us-west-1.rds.amazonaws.com:1433;DatabaseName=IRS;";
     */
-    private static final String LOCATIONS = "Location";
-    private static final String STAFFS = "Staff";
-    private static final String PERSONS = "Person";
     private static final String USERNAME = "sa";
     private static final String PASSWORD = "CMPT373Alpha";
     private static final String URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=master;";
@@ -97,10 +95,10 @@ public class DBHelper
 
     public static HashMap < String , ArrayList < IncidentElement > > getIncidentElements ( int reportID ) {
         HashMap < String , ArrayList < IncidentElement > > incidentElements = new HashMap <> ();
-        incidentElements.put ( "IncidentCategory" , new ArrayList < IncidentElement > () );
-        incidentElements.put ( "Location" , new ArrayList < IncidentElement > () );
-        incidentElements.put ( "Staff" , new ArrayList < IncidentElement > () );
-        incidentElements.put ( "Person" , new ArrayList < IncidentElement > () );
+        incidentElements.put ( DatabaseValues.IncidentElementKey.INCIDENT_CATEGORY.toString(), new ArrayList < IncidentElement > () );
+        incidentElements.put ( DatabaseValues.IncidentElementKey.LOCATION.toString(), new ArrayList < IncidentElement > () );
+        incidentElements.put ( DatabaseValues.IncidentElementKey.STAFF.toString(), new ArrayList < IncidentElement > () );
+        incidentElements.put ( DatabaseValues.IncidentElementKey.PERSON.toString() , new ArrayList < IncidentElement > () );
 
         try {
             String getIncidentElementsQuery =
@@ -162,31 +160,32 @@ public class DBHelper
 
     public static boolean insertIncident ( String query , Incident incident ) {
         if ( !allFieldsValid( incident ) ) {
-            System.out.println( "Attempting to find IncidentCategory in incidentElements array...");
+            if ( incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) == null ) {
+                System.out.println( "Attempting to find IncidentCategory in incidentElements array...");
 
-            for ( Map.Entry < String , ArrayList < IncidentElement > > entry : incident.getIncidentElements().entrySet() ) {
-                ArrayList < IncidentElement > incidentElements = entry.getValue();
-                System.out.println(entry.getKey());
-                if ( incidentElements.size() > 0 && entry.getKey().equals ( "IncidentCategory" ) ) {
-                    IncidentElement ie = incidentElements.get(0);
+                HashMap<String, ArrayList<IncidentElement> > map = incident.getIncidentElements();
+                ArrayList<IncidentElement> category = map.get( DatabaseValues.IncidentElementKey.INCIDENT_CATEGORY.toString() );
+                if ( category != null && !category.isEmpty() ) {
+                    IncidentElement cat = category.get(0);
 
                     if (DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase()
-                            .contains(ie.getTable().toString().toLowerCase())) {
-                        String id = ie.getAttributeValue(DatabaseValues.Column.CATEGORY_ID);
+                            .contains(cat.getTable().toString().toLowerCase())) {
+                        String id = cat.getAttributeValue(DatabaseValues.Column.CATEGORY_ID);
+
                         if (id != null && !id.isEmpty()) {
                             incident.updateAttributeValue( DatabaseValues.Column.CATEGORY_ID , id);
-//                            incident.updateAttributeValue( DatabaseValues.Column.CATEGORY_ID , id);
                             System.out.println("IncidentCategory FOUND! CATEGORY_ID: " + id);
                             System.out.println (incident.getAttributeValue(DatabaseValues.Column.CATEGORY_ID));
                         }
                     }
-                } else {
-                    System.out.println ( "Incident Category does not exist" );
+                }
+
+                if ( incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) == null ) {
+                    System.out.println("***** ERROR: IncidentCategory not found. Exiting...");
+                    return false;
                 }
             }
-
-            if ( incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) == null ) {
-                System.out.println("***** ERROR: IncidentCategory not found. Exiting...");
+            if ( incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ) == null ) {
                 return false;
             }
         }
@@ -289,8 +288,10 @@ public class DBHelper
         }
 
         String accountId = incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID );
-         if ( accountId == null || accountId.isEmpty() )
+         if ( accountId == null || accountId.isEmpty() ) {
              System.out.println("*** WARNING: ACCOUNT_ID is not set.");
+             return false;
+         }
 
         return true;
     }
@@ -312,14 +313,14 @@ public class DBHelper
                 relationTable = "HappensAt";
                 String id = incidentElement.getAttributeValue( DatabaseValues.Column.LOCATION_ID );
                 if (id == null || id.equals("null"))
-                    return false;
+                    return true;
                 idString += "LOCATION_ID = '" + id + "';";
             }
             else if ( DatabaseValues.Table.PERSON.toString().toLowerCase().contains( tableName ) ) {
                 relationTable = "Involves";
                 String id = incidentElement.getAttributeValue( DatabaseValues.Column.PERSON_ID );
                 if (id == null || id.equals("null"))
-                    return false;
+                    return true;
                 idString += "PERSON_ID = '" + id + "';";
             }
             else if ( DatabaseValues.Table.ACCOUNT.toString().toLowerCase().contains( tableName ) ){
