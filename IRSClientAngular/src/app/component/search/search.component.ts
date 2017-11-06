@@ -55,7 +55,7 @@ export class SearchComponent implements OnInit {
         incident.attributes.REPORT_ID 
         + " " + incident.attributes.DESCRIPTION 
         + " " + incident.attributes.EXECUTIVE_SUMMARY
-        + " " + incident.attributes.CLOSED;
+        + " " + incident.attributes.STATUS;
     };
 
     setStaffSearchString(staff: Staff) {
