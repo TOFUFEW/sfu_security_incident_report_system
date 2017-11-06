@@ -80,46 +80,46 @@ export class GuardIncidentComponent implements OnInit {
         this.hide();
         }
     }
-
-    changeLocation( edit ) : void {
-        // this.reportService.addElementsFromIncident ( this.incident.incidentElements, this.incident.locationList );
-        var locationToRemoveIndex : number;
-        var locationToRemoveLocally : number;
-        var locationToAdd = this.locationModal.locationComponent.newLocation;
-        var locationToRemove : Location;
+// Refactor
+    // changeLocation( edit ) : void {
+    //     // this.reportService.addElementsFromIncident ( this.incident.incidentElements, this.incident.locationList );
+    //     var locationToRemoveIndex : number;
+    //     var locationToRemoveLocally : number;
+    //     var locationToAdd = this.locationModal.locationComponent.newLocation;
+    //     var locationToRemove : Location;
                 
-        // Add new location
-        if ( this.locationModal.button_id == -1 ) {
-            this.incident.locationList.push ( locationToAdd );
-            this.incident.incidentElements.push ( locationToAdd );            
-        }
-        else { 
-            this.incident.locationList.forEach( location => {
-                if ( location.attributes.LOCATION_ID == this.locationModal.button_id ) {
-                    locationToRemoveLocally = this.incident.locationList.indexOf(location);     
-                } 
-            });
-            this.incident.locationList.splice(locationToRemoveIndex, 1, locationToAdd);
+    //     // Add new location
+    //     if ( this.locationModal.button_id == -1 ) {
+    //         this.incident.inlocationList.push ( locationToAdd );
+    //         this.incident.incidentElements.push ( locationToAdd );            
+    //     }
+    //     else { 
+    //         this.incident.locationList.forEach( location => {
+    //             if ( location.attributes.LOCATION_ID == this.locationModal.button_id ) {
+    //                 locationToRemoveLocally = this.incident.locationList.indexOf(location);     
+    //             } 
+    //         });
+    //         this.incident.locationList.splice(locationToRemoveIndex, 1, locationToAdd);
             
-            console.log ( "location index ", locationToRemoveIndex );
+    //         console.log ( "location index ", locationToRemoveIndex );
 
-            // this.reportService.removeIncidentElement( locationToRemove, Config.LocationTable);        
-            this.incident.incidentElements.forEach( element => {
-                console.log(Config.LocationTable);
-                console.log("element table", element.table);
-                var locationElement = element as Location;
-                if (( element.table == Config.LocationTable ) && 
-                    ( locationElement.attributes.LOCATION_ID == this.locationModal.button_id )) {
-                        locationToRemoveIndex = this.incident.incidentElements.indexOf(element);
-                }
-            }); 
-            this.incident.incidentElements.splice(locationToRemoveIndex, 1, locationToAdd);
-        }
-        this.incidentsService.update ( this.incident );
-        console.log( "new location list", this.incident.incidentElements );
-        // this.incidentsService.update( this.incident );
-        console.log(this.incident);
-    }
+    //         // this.reportService.removeIncidentElement( locationToRemove, Config.LocationTable);        
+    //         this.incident.incidentElements.forEach( element => {
+    //             console.log(Config.LocationTable);
+    //             console.log("element table", element.table);
+    //             var locationElement = element as Location;
+    //             if (( element.table == Config.LocationTable ) && 
+    //                 ( locationElement.attributes.LOCATION_ID == this.locationModal.button_id )) {
+    //                     locationToRemoveIndex = this.incident.incidentElements.indexOf(element);
+    //             }
+    //         }); 
+    //         this.incident.incidentElements.splice(locationToRemoveIndex, 1, locationToAdd);
+    //     }
+    //     this.incidentsService.update ( this.incident );
+    //     console.log( "new location list", this.incident.incidentElements );
+    //     // this.incidentsService.update( this.incident );
+    //     console.log(this.incident);
+    // }
 
     changeCategory( newCategoryID ) : void {
         console.log("change category in incident", newCategoryID);

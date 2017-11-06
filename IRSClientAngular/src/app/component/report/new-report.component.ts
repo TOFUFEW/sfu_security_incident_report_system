@@ -59,7 +59,7 @@ export class NewReportComponent implements OnInit {
     ngOnInit() {
         this.newReportService.currentLocations
             .subscribe( locations =>  { 
-                this.newIncident.locationList = locations;
+                this.newIncident.incidentElements[Config.LocationKey] = locations;
              });
         this.newReportService.currentPersons
             .subscribe( persons =>  { 

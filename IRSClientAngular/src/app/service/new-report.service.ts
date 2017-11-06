@@ -10,7 +10,7 @@ import { IncidentElement } from '../component/report/incident-element';
 
 @Injectable()
 export class NewReportService {
-    incidentElements: IncidentElement[];
+    incidentElements: Map<String, IncidentElement[]>;
     
     private locations = new BehaviorSubject<Location[]>([]);
     currentLocations = this.locations.asObservable();
@@ -19,7 +19,7 @@ export class NewReportService {
     currentPersons = this.persons.asObservable();
 
     constructor() {
-        this.incidentElements = [];
+        this.incidentElements = new Map<String, IncidentElement[]>();
     }
 
     addIncidentElement( obj: any, table: string ) {

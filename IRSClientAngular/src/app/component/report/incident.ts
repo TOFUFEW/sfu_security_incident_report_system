@@ -1,20 +1,17 @@
 import { Staff } from '../staff/staff';
 import { Location } from '../location/location';
 import { Person } from '../person/person';
-import { IncidentElement } from './incident-element';
+import { IncidentElement} from './incident-element';
 import { Category } from '../category/category';
 import { Observable } from 'rxjs/Observable';
 
 export class Incident {
     table: string;
-    incidentElements: IncidentElement[];
+    incidentElements: Map<String, IncidentElement[]>;
     attributes: IncidentAttributes;
     searchString: string;
 
     // TEMP CODE
-    locationList: Location[];
-    staffList: Staff[];
-
     personList: Person[];
     category: Category;
     guard: Staff;
@@ -23,9 +20,7 @@ export class Incident {
     inWorkspace: boolean;
     
     constructor() {
-        this.incidentElements = [];
-        this.locationList = [];
-        this.staffList = [];
+        this.incidentElements = new Map;
         this.personList = [];
         this.attributes = new IncidentAttributes();
         this.category = new Category(null, null, null, null);

@@ -59,55 +59,13 @@ export class IncidentService
         return Promise.resolve( incidents );
     };
 
-    private initIncidents( incidents: Incident[] ): Incident[] {
-        incidents.forEach(i => {
-            var index = this.staffArr.findIndex( x => x.attributes.ACCOUNT_ID == i.attributes.ACCOUNT_ID );
-            if ( index >= 0 ) {
-                i.guard = this.staffArr[ index ];
-            }
-
-            this.initArrays(i);
-            i.locationList = [];
-            i.personList = [];
-            i.staffList = [];
-            i.incidentElements.forEach( e => {
-                if ( e.table === Config.CategoryTable ) {
-                    i.category = e.attributes as Category;
-                }
-                else if ( e.table === Config.LocationTable ) {
-                    i.locationList.push( e as Location );
-                }
-                else if ( e.table === Config.PersonTable ) {
-                    i.personList.push ( e.attributes as Person );
-                }
-            });
-        });
-        console.log (incidents);
-        return incidents;
-    }
-
-    private initArrays(incident: Incident) {
-        
-        if (incident.locationList === undefined) {
-            incident.locationList = new Array;
-        }
-
-        if (incident.staffList === undefined) {
-            incident.staffList = new Array;
-        }
-
-        if (incident.personList === undefined) {
-            incident.personList = new Array;
-        }
-    }
-
     getGuardIncidents(): Promise<Incident[]> {
         var user = this.userService.getCurrentUser();
         var _user = DataHelperService.toIncidentElement ( Config.AccountTable, user );
         var incidents = this.http
             .post( this.guardIncidentsUrl, JSON.stringify( _user ), { headers: this.headers } )
             .toPromise()
-            .then( response => response.json() as Incident[] )
+            .then( response => this.initIncidents( response.json() as Incident[] )as Incident[] )
             .catch( this.handleError );
         return Promise.resolve( incidents );
     }
@@ -123,16 +81,16 @@ export class IncidentService
         return Promise.resolve( returnedIncident );
     }
     
-    private initializeIncident( incident: Incident ): Incident {
-        incident.locationList = [];
-        incident.incidentElements.forEach( element => {
-            if ( element.table === Config.CategoryTable ) {
-                incident.category = element.attributes as Category;
-            }
-            else if ( element.table === Config.LocationTable ) {
-                incident.locationList.push( element as Location )
-            }
+    private initIncidents( incidents: Incident[] ): Incident[] {
+        incidents.forEach(i => {
+            this.initializeIncident(i);
         });
+        return incidents;
+    }
+
+    private initializeIncident( incident: Incident ): Incident {
+        incident.category = incident.incidentElements[Config.IncidentCategoryKey][0].attributes as Category;
+        incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
         return incident;
     }
 

@@ -17,4 +17,9 @@ export class Config {
     static IncidentTable: string = "INCIDENT";
     static PersonTable: string = "PERSON";
     static CategoryTable: string = "INCIDENT_CATEGORY";
+
+    static IncidentCategoryKey: string = "IncidentCategory" ;
+    static LocationKey: string = "Location";
+    static PersonKey: string = "Person"
+    static StaffKey: string = "Staff";
 }

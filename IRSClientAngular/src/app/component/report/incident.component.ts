@@ -71,14 +71,14 @@ export class IncidentComponent implements OnInit {
         this.incidentToAssign.attributes.ACCOUNT_ID = this.selectedStaffId;
         var index = this.staffArr.findIndex( x => x.attributes.ACCOUNT_ID == this.incidentToAssign.attributes.ACCOUNT_ID );
         if ( index >= 0 )
-            this.incidentToAssign.incidentElements.push( this.staffArr[ index ] );
+            this.incidentToAssign.incidentElements[Config.StaffKey].push( this.staffArr[ index ] );
         this.incidentService.assignToStaff( this.incidentToAssign ).then(
             returnedIncident => {
                 console.log (returnedIncident);
                 if ( returnedIncident != null ) {
                     var index = this.incidents.findIndex( x => x.attributes.ACCOUNT_ID == returnedIncident.attributes.ACCOUNT_ID );
                     this.incidents.splice( index, 1, returnedIncident );
-                    this.incidents[ index ].incidentElements.forEach( elem => {
+                    this.incidents[ index ].incidentElements[Config.StaffKey].forEach( elem => {
                         if ( elem.table == Config.StaffTable ) {
                             this.incidents[ index ].guard = elem as Staff;
                         }

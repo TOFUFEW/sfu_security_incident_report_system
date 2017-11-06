@@ -9,8 +9,8 @@ export class Category {
         this.MAIN_CATEGORY = mainCategory;
         this.SUB_CATEGORY = subCategory;
         this.INCIDENT_TYPE = type;
-      }
-  }
+    }
+}
 
 export class CategoryDictionary {
     ID: number;
