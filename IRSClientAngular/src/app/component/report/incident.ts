@@ -39,8 +39,6 @@ export class IncidentAttributes {
     ACCOUNT_ID: number;
     DESCRIPTION: string;
     EXECUTIVE_SUMMARY: string;
-    STATUS: number;
+    CLOSED: number;
     CATEGORY_ID: number;
-    START_TIME: number;
-    END_TIME: number;
 }
