@@ -238,6 +238,14 @@ public class DatabaseValues
                 null
         ),
 
+
+        STATUS (
+                "STATUS" ,
+                "INT" ,
+                DEFAULT_INT_VALUE ,
+                null
+        ),
+
         // Associated Tables: IncidentCategory
         SUB_CATEGORY (
                 "SUB_CATEGORY" ,

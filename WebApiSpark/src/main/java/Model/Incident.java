@@ -27,7 +27,7 @@ public class Incident extends StorageObject
             String categoryID,
             String description,
             String executiveSummary,
-            String closed
+            String status
     ) {
         super (
                 DatabaseValues.Table.INCIDENT,
@@ -38,7 +38,7 @@ public class Incident extends StorageObject
                         DatabaseValues.Column.CATEGORY_ID,
                         DatabaseValues.Column.DESCRIPTION,
                         DatabaseValues.Column.EXECUTIVE_SUMMARY,
-                        DatabaseValues.Column.CLOSED
+                        DatabaseValues.Column.STATUS
                 }
         );
 
@@ -69,8 +69,8 @@ public class Incident extends StorageObject
         );
 
         updateAttributeValue(
-                DatabaseValues.Column.CLOSED,
-                closed
+                DatabaseValues.Column.STATUS,
+                status
         );
 //        incidentElementsHash.put ("Location" , new ArrayList <> () );
 //        incidentElementsHash.put ("Staff" , new ArrayList <> () );
