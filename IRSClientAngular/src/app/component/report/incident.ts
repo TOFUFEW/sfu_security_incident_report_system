@@ -41,4 +41,6 @@ export class IncidentAttributes {
     EXECUTIVE_SUMMARY: string;
     STATUS: number;
     CATEGORY_ID: number;
+    START_TIME: number;
+    END_TIME: number;
 }
