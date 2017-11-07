@@ -1,4 +1,5 @@
 export class Timer{
+    TYPE: string;
     TIMER_ID: number;
     TIMER_NAME: string;
     START_TIME: number;

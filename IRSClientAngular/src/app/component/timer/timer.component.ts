@@ -15,17 +15,18 @@ export class TimerComponent implements OnInit {
     timerFormShowing: boolean = false;
 
     constructor(private timerService: TimerService){
+        var now : number = Date.now();
         var timer1 : Timer = new Timer();
         timer1.TIMER_NAME = "Hello"
-        timer1.START_TIME = 10000;
-        timer1.END_TIME = 120000;
-        timer1.timeRemaining = 1;
+        timer1.START_TIME = now - 10 * 60 * 1000;
+        timer1.END_TIME = now + 10 * 60 * 1000;
+        timer1.timeRemaining = now - timer1.START_TIME;
 
         var timer2 : Timer = new Timer();
         timer2.TIMER_NAME = "Goodbye"
-        timer2.START_TIME = 1234;
-        timer2.END_TIME = 12345;
-        timer2.timeRemaining = 0;
+        timer2.START_TIME = now - 15 * 60 * 1000;
+        timer2.END_TIME = now + 15 * 60 * 1000;
+        timer2.timeRemaining = now - timer2.START_TIME;
         
         this.timerList.push(timer1);
         this.timerList.push(timer2);
@@ -68,16 +69,21 @@ export class TimerComponent implements OnInit {
     }
     
     start(): void {
-        var x = setInterval(() => {this.countDown();}, 1000);
+        //var x = setInterval(() => this.countDown(), 1000);
     }
+
     countDown() : void {
         var now = new Date().getTime();
         this.timerList.forEach(timer => {
-            timer.timeRemaining = timer.END_TIME - timer.START_TIME;
+            timer.timeRemaining-- ;
+            console.log(timer.timeRemaining)
         });
 
     }
 
+    log(message: string) : void{
+        console.log(message);
+    }
 
     ngOnInit(){
         this.getTimers();
