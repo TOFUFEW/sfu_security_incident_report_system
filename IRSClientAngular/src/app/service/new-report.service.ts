@@ -37,6 +37,7 @@ export class NewReportService {
         else if ( table === Config.PersonTable ) {
             behaviorSubject = this.persons;
             arr = behaviorSubject.getValue() as Person[];
+            obj = DataHelperService.toIncidentElement( table, obj );
         }
 
         arr.push( obj );
@@ -75,41 +76,11 @@ export class NewReportService {
         }
     }
 
-    collectIncidentElements( category: Category ) {
-        this.unwrapSubject( this.locations, Config.LocationTable );
-        this.unwrapSubject( this.persons, Config.PersonTable );
-        this.incidentElements.push( DataHelperService.toIncidentElement( Config.CategoryTable, category ) );  
-        console.log( this.incidentElements) ;
-        
-        return this.incidentElements;
-    }
-
-    removeAllIncidentElements(): IncidentElement[] {
-        this.incidentElements.splice(0, this.incidentElements.length );
-        return this.incidentElements;
-    }
-
-    private unwrapSubject( behaviorSubject: any, table: string ) {
-        var arr = behaviorSubject.getValue();
-        if ( arr == null ) {
-            console.log("ERROR: Array is undefined");
-        }
-
-        if ( table === Config.LocationTable ) {
-            arr = DataHelperService.extractAttributesArray( arr ) as LocationAttributes[];
-        }
-
-        arr.forEach( element => {
-            var _elem = DataHelperService.toIncidentElement( table, element );
-            this.incidentElements.push( _elem );
-        });
-    }
-
     validateReport( report: Incident ): boolean {
         var isValid = true;
 
         isValid = this.validateReportAttributes( report ) && isValid ;
-        isValid = this.validateIncidentElements( report.incidentElements ) && isValid ;
+        //isValid = this.validateIncidentElements( report.incidentElements ) && isValid ;
 
         return isValid;
     }

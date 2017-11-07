@@ -1,3 +1,5 @@
+import { Config } from '../../util/config.service';
+
 export class Location {
     
     table: string;
@@ -6,6 +8,7 @@ export class Location {
 
     constructor() {
         this.attributes = new LocationAttributes();
+        this.table = Config.LocationTable;
     }
 
     setSearchString() {

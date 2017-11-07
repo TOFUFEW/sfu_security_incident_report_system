@@ -63,7 +63,7 @@ export class NewReportComponent implements OnInit {
              });
         this.newReportService.currentPersons
             .subscribe( persons =>  { 
-                this.newIncident.personList = persons;
+                this.newIncident.incidentElements[Config.PersonKey] = persons;
             } );
 
         this.categoryService.getCategories().then ( returnedCategories => {
@@ -88,6 +88,8 @@ export class NewReportComponent implements OnInit {
             this.newIncident.category.CATEGORY_ID = subcategories.CATEGORY_ID;
             this.newIncident.attributes.CATEGORY_ID = this.newIncident.category.CATEGORY_ID;
             this.newIncident.category.INCIDENT_TYPE = null;
+            this.newIncident.insertIncidentElement( 
+                DataHelperService.toIncidentElement( Config.CategoryTable, this.newIncident.category ));
         }
         this.categoryTypes = subcategories.TYPES;
     }
@@ -99,8 +101,10 @@ export class NewReportComponent implements OnInit {
             if ( index >= 0 ) {
                 var type = this.categoryTypes[index];
                 this.newIncident.category.CATEGORY_ID = type.CATEGORY_ID;
+                this.newIncident.category.INCIDENT_TYPE = type.INCIDENT_TYPE; // for report summary                
                 this.newIncident.attributes.CATEGORY_ID = this.newIncident.category.CATEGORY_ID;
-                this.newIncident.category.INCIDENT_TYPE = type.INCIDENT_TYPE; // for report summary
+                this.newIncident.insertIncidentElement( 
+                    DataHelperService.toIncidentElement( Config.CategoryTable, this.newIncident.category ));
             }
         }
     }
@@ -110,30 +114,18 @@ export class NewReportComponent implements OnInit {
         if ( index >= 0 )
             this.selectedStaff = this.staffList[ index ];
     }
-
-    addComponent( componentName: string ) {
-        //if ( this.dynamicTest == 'Vehicle' )
-          //  this.domService.addComponent( VehicleComponent, "vehicles" );
-        /*else*/ if ( componentName === this.locationStr ) {
-            this.domService.addComponent( LocationComponent.name, "locations" );
-        } else if ( componentName === this.personStr){
-            this.domService.addComponent( PersonComponent.name, "persons" );
-        }
-    }
     
     cancelReview() : void {
-        this.newIncident.incidentElements = this.newReportService.removeAllIncidentElements();
     }
 
     prepareReport(): void {
-        this.newIncident.incidentElements = this.newReportService.collectIncidentElements( this.newIncident.category );
+        console.log(this.newIncident);
         this.reportReady = this.isReportValid();
     }
 
     createReport(): void {
         if( this.reportReady ){
             this.newIncident.attributes.ACCOUNT_ID = this.selectedStaff.attributes.ACCOUNT_ID;
-            console.log( this.newIncident );
             this.incidentService.create( this.newIncident )
                 .then( returnedIncident => {
                     if ( returnedIncident != null  ) {
@@ -160,6 +152,16 @@ export class NewReportComponent implements OnInit {
     //     }
     //     return str;
     // }
+
+    addComponent( componentName: string ) {
+        //if ( this.dynamicTest == 'Vehicle' )
+          //  this.domService.addComponent( VehicleComponent, "vehicles" );
+        /*else*/ if ( componentName === this.locationStr ) {
+            this.domService.addComponent( LocationComponent.name, "locations" );
+        } else if ( componentName === this.personStr){
+            this.domService.addComponent( PersonComponent.name, "persons" );
+        }
+    }
 
     private isReportValid(): boolean {
         return this.newReportService.validateReport( this.newIncident );

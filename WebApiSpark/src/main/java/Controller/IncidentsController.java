@@ -26,23 +26,18 @@ public class IncidentsController
         get ("/incidents" , ( request , response ) ->
         {
             Incident []  incidents = DBHelper.getIncidents ();
-            System.out.println (JsonUtil.toJson(incidents));
             return JsonUtil.toJson ( incidents );
         } );
 
         post ("/incidents" , ( request, response ) ->
         {
-//            System.out.println (request.body());
             Incident newIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
-            System.out.println(newIncident.toString());
-//            System.out.println (newIncident.getIncidentElements());
             String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
             return DBHelper.insertIncident ( incidentString , newIncident );
         } );
 
         post ("/updateIncident" , ( request, response ) ->
         {
-//            System.out.println (request.body());
             Incident updatedIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
             System.out.println ("UPDATED INCIDENT: " + updatedIncident.toString());
 
