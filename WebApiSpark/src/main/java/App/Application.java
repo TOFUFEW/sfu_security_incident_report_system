@@ -12,7 +12,10 @@ public class Application
     public static void main ( String [] args )
     {
         // STARTUP METHODS
+
         staticFileLocation("/public");
+        WSController wsController = new WSController();
+
 
         enableCORS (
                 "*",
@@ -28,6 +31,8 @@ public class Application
         IncidentCategoryController categoryController = new IncidentCategoryController();
         AttachmentController attachmentController = new AttachmentController();
         GuardIncidentsController guardIncidentsController = new GuardIncidentsController();
+
+
     }
 
     // CORS Filter
@@ -69,4 +74,7 @@ public class Application
             }
         );
     }
+
+
+
 }

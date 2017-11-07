@@ -10,6 +10,7 @@ export class Config {
     static UpdateIncidentsURI: string = "http://localhost:4567/updateIncident";
     static UpdateIncidentURI: string = "http://localhost:4567/updateIncident";
     static AssignIncidentURI: string = "http://localhost:4567/assignIncident";
+    static WSURI: string = "ws://localhost:4567/ws";
 
     static StaffTable: string = "STAFF";
     static LocationTable: string = "LOCATION";
@@ -17,4 +18,8 @@ export class Config {
     static IncidentTable: string = "INCIDENT";
     static PersonTable: string = "PERSON";
     static CategoryTable: string = "INCIDENT_CATEGORY";
+
+
+    // ANGULAR ROUTES
+    static WSRoute: string = "ws";
 }
