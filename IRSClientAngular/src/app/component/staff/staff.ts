@@ -1,3 +1,5 @@
+import { Config } from '../../util/config.service';
+
 export class Staff {
     table: string;
     attributes: StaffAttributes;
@@ -5,6 +7,7 @@ export class Staff {
 
     constructor() {
         this.attributes = new StaffAttributes();
+        this.table = Config.StaffTable;
     }
 }
 

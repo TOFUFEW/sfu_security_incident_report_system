@@ -100,7 +100,8 @@
                         <div>
                             <div class="details-body">
                                 <div class="detail col-12 col-sm-3">
-                                    <select class="form-control" name="" id="" [(ngModel)]="newIncident.attributes.ACCOUNT_ID" (change)="onSelectStaff()">
+                                    <select class="form-control" name="" id="" [(ngModel)]="selectedStaffId" (change)="onSelectStaff()">
+                                        <option></option>
                                         <option *ngFor="let staff of staffList" [value]="staff.attributes.ACCOUNT_ID">{{staff.attributes.FIRST_NAME}} {{staff.attributes.LAST_NAME}}</option>
                                     </select>
                                 </div>
@@ -109,7 +110,6 @@
                     </div>
 
                 </div>
-
                 
                 <div class="panel-footer">
                     <button class="btn btn-primary" data-toggle="modal" data-target="#confirmationModal" (click)="prepareReport()">Proceed to Review</button>                                
@@ -238,13 +238,13 @@
                     <div class="details-body">
                         <div class="detail col-12 col-sm-3">
                             <span class="field-title">Name: </span>
-                            <span class="field-value">{{selectedStaff.attributes.FIRST_NAME}} {{selectedStaff.attributes.LAST_NAME}}</span>
+                            <span class="field-value" *ngIf="selectedStaff != null">{{selectedStaff.attributes.FIRST_NAME}} {{selectedStaff.attributes.LAST_NAME}}</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="cancelReview()">Cancel</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button class="btn btn-primary" (click)="createReport()" *ngIf="reportReady">Create Report</button>   
             </div>
         </div>

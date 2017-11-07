@@ -62,9 +62,9 @@ export class NewReportService {
             behaviorSubject = this.persons;
             arr = behaviorSubject.getValue() as Person[];
             var person = obj as Person;
-            index = arr.findIndex( x => x.FIRST_NAME === person.FIRST_NAME
-                                        && x.LAST_NAME === person.LAST_NAME 
-                                        && x.PHONE_NUMBER === person.PHONE_NUMBER ) ;
+            index = arr.findIndex( x => x.attributes.FIRST_NAME === person.FIRST_NAME
+                                        && x.attributes.LAST_NAME === person.LAST_NAME 
+                                        && x.attributes.PHONE_NUMBER === person.PHONE_NUMBER ) ;
         }
 
         if ( index >= 0 ) {
@@ -80,7 +80,7 @@ export class NewReportService {
         var isValid = true;
 
         isValid = this.validateReportAttributes( report ) && isValid ;
-        //isValid = this.validateIncidentElements( report.incidentElements ) && isValid ;
+        isValid = this.validateIncidentElements( report.incidentElements ) && isValid ;
 
         return isValid;
     }
@@ -102,14 +102,16 @@ export class NewReportService {
         return isValid;
     }
 
-    private validateIncidentElements( incidentElements: IncidentElement[] ): boolean {
+    private validateIncidentElements( incidentElements: Map<String, IncidentElement[]> ): boolean {
         var isValid = true;
-        incidentElements.forEach( elem => {
-            var table = elem.table;
-            if ( table.toLowerCase() === Config.LocationTable.toLowerCase() )
-                isValid = this.validateLocation( elem as Location ) && isValid ;
-            else if ( table.toLowerCase() === Config.PersonTable.toLowerCase() )
-                isValid = this.validatePerson( elem.attributes as Person ) && isValid ;
+        incidentElements.forEach( map => {
+            map.forEach( elem => {
+                var table = elem.table;
+                if ( table.toLowerCase() === Config.LocationTable.toLowerCase() )
+                    isValid = this.validateLocation( elem as Location ) && isValid ;
+                else if ( table.toLowerCase() === Config.PersonTable.toLowerCase() )
+                    isValid = this.validatePerson( elem.attributes as Person ) && isValid ;
+            });
         });
         return isValid;
     }

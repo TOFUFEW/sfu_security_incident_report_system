@@ -33,7 +33,8 @@ export class NewReportComponent implements OnInit {
     categoryTypes: CategoryType[] = [];    
 
     staffList: Staff[] = [];
-    selectedStaff: Staff = new Staff();
+    selectedStaff: Staff = null;
+    selectedStaffId: number = -1;
 
     reportReady: boolean = false; 
 
@@ -49,10 +50,6 @@ export class NewReportComponent implements OnInit {
                 function( a, b ) {
                     return a.attributes.FIRST_NAME < b.attributes.FIRST_NAME ? -1 : 1;
                 } );
-
-            var index = this.staffList.findIndex( x => x.attributes.LAST_NAME.length == 0 && x.attributes.FIRST_NAME.length == 0 );
-            if ( index >= 0 )
-                this.selectedStaff = this.staffList[ index ]; // default is dummy staff
           } ); 
     }
 
@@ -110,14 +107,20 @@ export class NewReportComponent implements OnInit {
     }
 
     onSelectStaff(): void {
-        var index = this.staffList.findIndex( x => x.attributes.ACCOUNT_ID == this.newIncident.attributes.ACCOUNT_ID );
-        if ( index >= 0 )
+        var index = this.staffList.findIndex( x => x.attributes.ACCOUNT_ID == this.selectedStaffId );
+        if ( index >= 0 ) {
             this.selectedStaff = this.staffList[ index ];
+            this.newIncident.insertIncidentElement( this.selectedStaff );        
+        }
+        else {
+            this.selectedStaff = null;
+            console.log (this.newIncident.incidentElements[Config.StaffKey]);
+            if ( this.newIncident.incidentElements[Config.StaffKey] != null ) {
+                this.newIncident.incidentElements[Config.StaffKey].splice( 0, this.newIncident.incidentElements[Config.StaffKey].length  );
+            }
+        }
     }
     
-    cancelReview() : void {
-    }
-
     prepareReport(): void {
         console.log(this.newIncident);
         this.reportReady = this.isReportValid();
@@ -125,7 +128,7 @@ export class NewReportComponent implements OnInit {
 
     createReport(): void {
         if( this.reportReady ){
-            this.newIncident.attributes.ACCOUNT_ID = this.selectedStaff.attributes.ACCOUNT_ID;
+            this.newIncident.attributes.ACCOUNT_ID = this.staffList[0].attributes.ACCOUNT_ID; // TEMP
             this.incidentService.create( this.newIncident )
                 .then( returnedIncident => {
                     if ( returnedIncident != null  ) {
