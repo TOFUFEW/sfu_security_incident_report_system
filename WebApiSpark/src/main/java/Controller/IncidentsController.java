@@ -3,6 +3,8 @@ package Controller;
 import Model.Incident;
 import Model.Location;
 import Model.Person;
+import Model.IncidentElement;
+import Model.Location;
 import Util.DBHelper;
 import Util.JsonUtil;
 
@@ -16,6 +18,7 @@ import static spark.Spark.post;
 
 public class IncidentsController
 {
+    DBHelper dbHelper = new DBHelper();
     public IncidentsController ()
     {
         setupEndPoints ();
@@ -46,8 +49,8 @@ public class IncidentsController
 
         post ( "/assignIncident", ( request, response ) ->
         {
-            Incident incident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
-            return DBHelper.assignIncident( incident );
-        }) ;
+            Incident updatedIncident = (Incident) JsonUtil.fromJson ( request.body(), Incident.class );
+            return DBHelper.updateIncident( updatedIncident );
+        });
     }
 }

@@ -19,7 +19,6 @@ public class DBHelper
     private static final String USERNAME = "sa";
     private static final String PASSWORD = "CMPT373Alpha";
     private static final String URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=master;";
-
     private static Connection connection = null;
 
     /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; REFACTORED methods ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
@@ -248,14 +247,21 @@ public class DBHelper
                 ArrayList < IncidentElement > incidentElementsList = entry.getValue();
                 for ( IncidentElement incidentElement : incidentElementsList ) {
                     System.out.println( "\nColumnSet length for table " + incidentElement.getTable().toString() + ": " + (incidentElement.getColumnSet().length ) );
+
                     boolean hasAttributes = incidentElement.getColumnSet().length > 0;
 
                     if ( hasAttributes && !relationExists( lastIncidentId , incidentElement ) ) {
                         debug_printInsertRelationLog( incidentElement );
-                        insertIncidentRelation(
-                                relationSQL,
-                                incidentElement
-                        );
+                        if ( DatabaseValues.Table.STAFF.toString().toLowerCase()
+                                .contains( incidentElement.getTable().toString().toLowerCase() ) ) {
+                            assignToGuard( lastIncidentId, incidentElement.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ));
+                        }
+                        else {
+                            insertIncidentRelation(
+                                    relationSQL,
+                                    incidentElement
+                            );
+                        }
                     }
                 }
             }
@@ -267,6 +273,19 @@ public class DBHelper
         } catch ( Exception e )
         {
             e.printStackTrace ();
+        }
+        return false;
+    }
+
+    public static boolean assignToGuard( String reportID, String accountID ) {
+        String query = "INSERT INTO AssignedTo (REPORT_ID, ACCOUNT_ID) " +
+                "VALUES (" + reportID + ", " + accountID + ")";
+        try
+        {
+            return execute ( query );
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
         }
         return false;
     }
@@ -623,35 +642,6 @@ public class DBHelper
         return false;
     }
 
-    public static boolean assignIncident( Incident incident ) {
-        try {
-            String query = "update Incident set account_id = '" + incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID )
-                    + "' where report_id = " + incident.getAttributeValue( DatabaseValues.Column.REPORT_ID );
-
-            boolean success = execute( query );
-
-            Incident updatedIncident = getIncident( incident.getAttributeValue( DatabaseValues.Column.REPORT_ID ));
-            return updatedIncident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ).equals( incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ));
-        }
-        catch ( Exception e ) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
-
-//    public static boolean updateIncident ( Incident incident ) {
-//        String incidentSQL = incident.toUpdateSQL ();
-//        try {
-//            return execute ( incidentSQL );
-//        }
-//        catch ( SQLException e )
-//        {
-//            e.printStackTrace ();
-//        }
-//        return false;
-//    }
-
     public static boolean insertIncidentElement ( IncidentElement incidentElement )
     {
         String sql = incidentElement.toInsertSQL ();
@@ -920,17 +910,35 @@ public class DBHelper
             initDB();
             String query = "delete from HappensAt;";
             boolean deleted = execute( query );
-            query =  "delete from Involves;";
+            query = "delete from Involves;";
             deleted = execute( query );
             query = "delete from Incident";
             deleted = execute( query );
             Incident[] result = getIncidents();
             return result.length == 0;
-        }
-        catch( Exception e ) {
+        } catch ( Exception e ) {
             e.printStackTrace();
         }
+        return false;
+    }
 
+    public static boolean executeProcedure (String query, Incident incident) {
+        try {
+            initDB ();
+            CallableStatement stmt = connection.prepareCall ( query );
+            stmt.setString ( 1 , incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) );
+            stmt.setString ( 2 , incident.getAttributeValue (DatabaseValues.Column.CATEGORY_ID) );
+            stmt.setString ( 3 , incident.getAttributeValue (DatabaseValues.Column.DESCRIPTION) );
+            stmt.setString ( 4 , incident.getAttributeValue (DatabaseValues.Column.EXECUTIVE_SUMMARY) );
+            stmt.setString ( 5 , incident.getAttributeValue (DatabaseValues.Column.CLOSED) );
+            stmt.registerOutParameter ( 6 , Types.INTEGER );
+            stmt.execute();
+            int output = stmt.getInt (6);
+            System.out.println( output );
+            return true;
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
         return false;
     }
 

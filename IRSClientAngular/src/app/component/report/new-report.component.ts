@@ -35,7 +35,6 @@ export class NewReportComponent implements OnInit {
     staffList: Staff[] = [];
     selectedStaff: Staff = null;
     selectedStaffId: number = -1;
-
     reportReady: boolean = false; 
 
     constructor( 
