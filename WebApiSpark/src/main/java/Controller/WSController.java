@@ -11,15 +11,11 @@ public class WSController {
 
     private void setupEndPoints() {
         webSocket("/chat", ChatWebSocketHandler.class);
-        //init();
+        init();
     }
 
     @WebSocket
     public class ChatWebSocketHandler {
-
-        public ChatWebSocketHandler() {
-
-        };
 
         @OnWebSocketConnect
         public void onConnect() throws Exception {
