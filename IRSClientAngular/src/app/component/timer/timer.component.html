@@ -10,10 +10,9 @@
 
         <div class="panel-body">
             <div id="incident-card" class="col-md-12 col-lg-12">
-
                 
-                {{log("hi")}}
-                {{log("why is this happening")}}
+                <!-- {{log("hi")}}
+                {{log("why is this happening")}} -->
 
                 <div class="row">
                     <button class="btn" (click)="toggleAddTimerForm();">Add Timer</button>
@@ -24,11 +23,11 @@
                         </div>
                         <div>
                             <div>Start Time:</div>
-                            <input type="time" id="formStartTime"placeholder="Start Time" [(ngModel)]="newTimer.START_TIME">
+                            <input type="time" id="formStartTime"placeholder="Start Time" [(ngModel)]="tempStart">
                         </div>
                         <div>
                             <div>End Time:</div>
-                            <input type="time" placeholder="HH:mm:ss" [(ngModel)]="newTimer.END_TIME">
+                            <input type="time" placeholder="HH:mm:ss" [(ngModel)]="tempEnd">
                         </div>
                         <button class="btn" (click)="addTimer();">Add Timer</button>
                     </div>
@@ -41,13 +40,13 @@
                                 </span>
                             </div>
                             <div class="detail-row">
-                                <span class="detail-row">Start Time: {{timer.START_TIME | date: "shortTime"}}</span>
+                                <span class="detail-row">Start Time: {{timeToString(timer.START_TIME)}}{{timer.START_TIME | date: "shortTime"}}</span>
                             </div>
                             <div class="detail-row">
                                 <span class="detail-row">End Time: {{timer.END_TIME | date: "shortTime"}}</span>
                             </div>
                             <div class="detail-row">
-                                <span class="detail-row">Time Remaining: {{timer.timeRemaining}}</span>
+                                <span class="detail-row">Time Remaining: {{timeToString(timer.timeRemaining)}}</span>
                             </div>
                         </div>
                     </div>
