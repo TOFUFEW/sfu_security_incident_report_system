@@ -1,7 +1,8 @@
 package Controller;
 
-import org.eclipse.jetty.websocket.api.annotations.*;
+import Util.ChatWebSocketHandler;
 import static spark.Spark.*;
+
 
 public class WSController {
 
@@ -10,27 +11,7 @@ public class WSController {
     }
 
     private void setupEndPoints() {
-        webSocket("/chat", ChatWebSocketHandler.class);
+        webSocket("/ws", ChatWebSocketHandler.class);
         init();
     }
-
-    @WebSocket
-    public class ChatWebSocketHandler {
-
-        @OnWebSocketConnect
-        public void onConnect() throws Exception {
-
-        }
-
-        @OnWebSocketClose
-        public void onClose() {
-
-        }
-
-        @OnWebSocketMessage
-        public void onMessage() {
-
-        }
-    }
-
 }
