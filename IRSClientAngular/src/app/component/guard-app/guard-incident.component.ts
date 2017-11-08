@@ -128,6 +128,10 @@ export class GuardIncidentComponent implements OnInit {
         this.incident.category.MAIN_CATEGORY = this.categoryModal.selectedCategory.MAIN_CATEGORY;
         this.incident.category.SUB_CATEGORY = this.categoryModal.selectedCategory.SUB_CATEGORY;
         this.incident.category.INCIDENT_TYPE = this.categoryModal.selectedCategory.INCIDENT_TYPE;
+        this.incident.incidentElements[Config.IncidentCategoryKey]
+            .splice(0, this.incident.incidentElements[Config.IncidentCategoryKey].length,
+                    this.incident.category);
+
         this.incidentsService.update ( this.incident );
     }
 

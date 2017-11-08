@@ -60,7 +60,7 @@
                                 </div>       
                                 <div id="collapseLocation" class="panel-collapse collapse in">
                                     <div class="panel-body lh-1" *ngIf="incident">
-                                        <span *ngFor="let location of incident.locationList" 
+                                        <span *ngFor="let location of incident.incidentElements['Location']" 
                                             [id]="location.attributes.LOCATION_ID" 
                                             (dblclick)="this.modalLocation.show($event)">
                                             {{location.attributes.CAMPUS_ID}},                                            
