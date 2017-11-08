@@ -3,7 +3,9 @@ package Controller;
 import Model.Incident;
 import Model.Location;
 import Model.Person;
+import Model.User;
 import Util.DBHelper;
+import Util.DatabaseValues;
 import Util.JsonUtil;
 
 import java.sql.ResultSet;
@@ -34,6 +36,14 @@ public class IncidentsController
             Incident newIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
             String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
             return DBHelper.insertIncident ( incidentString , newIncident );
+        } );
+
+        post ("/getIncidents" , ( request, response ) ->
+        {
+            User user = ( User ) JsonUtil.fromJson ( request.body(), User.class );
+            String accountID = user.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID );
+            Incident [] incidents = DBHelper.getIncidents ( accountID );
+            return JsonUtil.toJson ( incidents );
         } );
 
         post ("/updateIncident" , ( request, response ) ->
