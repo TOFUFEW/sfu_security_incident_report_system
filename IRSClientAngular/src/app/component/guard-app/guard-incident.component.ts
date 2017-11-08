@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule, ActivatedRoute, ParamMap } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
+import { DataHelperService } from '../../util/data-helper.service';
 import { Incident } from '../report/incident';
 import { IncidentService } from '../../service/incident.service';
 import { UserService } from '../../service/user.service'; 
@@ -23,7 +24,7 @@ export class GuardIncidentComponent implements OnInit {
     @ViewChild(LocationModalComponent) locationModal: LocationModalComponent     
     @ViewChild(CategoryComponent) categoryModal: CategoryComponent        
     title = 'SFU Incident Reporting System';     
-    incident: Incident;   
+    incident: Incident = new Incident();
     
     constructor (         
         private incidentsService: IncidentService,         
@@ -31,7 +32,7 @@ export class GuardIncidentComponent implements OnInit {
         private userService: UserService,                
         private router: Router,         
         private http: HttpClient,         
-        private route: ActivatedRoute     
+        private route: ActivatedRoute  
     ) {
 
         if ( this.userService.isLoggedIn() == false ) 
@@ -80,46 +81,97 @@ export class GuardIncidentComponent implements OnInit {
         this.hide();
         }
     }
-// Refactor
-    // changeLocation( edit ) : void {
-    //     // this.reportService.addElementsFromIncident ( this.incident.incidentElements, this.incident.locationList );
-    //     var locationToRemoveIndex : number;
-    //     var locationToRemoveLocally : number;
-    //     var locationToAdd = this.locationModal.locationComponent.newLocation;
-    //     var locationToRemove : Location;
-                
-    //     // Add new location
-    //     if ( this.locationModal.button_id == -1 ) {
-    //         this.incident.inlocationList.push ( locationToAdd );
-    //         this.incident.incidentElements.push ( locationToAdd );            
-    //     }
-    //     else { 
-    //         this.incident.locationList.forEach( location => {
-    //             if ( location.attributes.LOCATION_ID == this.locationModal.button_id ) {
-    //                 locationToRemoveLocally = this.incident.locationList.indexOf(location);     
-    //             } 
-    //         });
-    //         this.incident.locationList.splice(locationToRemoveIndex, 1, locationToAdd);
-            
-    //         console.log ( "location index ", locationToRemoveIndex );
 
-    //         // this.reportService.removeIncidentElement( locationToRemove, Config.LocationTable);        
-    //         this.incident.incidentElements.forEach( element => {
-    //             console.log(Config.LocationTable);
-    //             console.log("element table", element.table);
-    //             var locationElement = element as Location;
-    //             if (( element.table == Config.LocationTable ) && 
-    //                 ( locationElement.attributes.LOCATION_ID == this.locationModal.button_id )) {
-    //                     locationToRemoveIndex = this.incident.incidentElements.indexOf(element);
-    //             }
-    //         }); 
-    //         this.incident.incidentElements.splice(locationToRemoveIndex, 1, locationToAdd);
-    //     }
-    //     this.incidentsService.update ( this.incident );
-    //     console.log( "new location list", this.incident.incidentElements );
-    //     // this.incidentsService.update( this.incident );
-    //     console.log(this.incident);
-    // }
+    export getElementIndexByID ( idToSearch: number, table: string ) {
+        var key = "";
+        var idToReference = -1;
+        if ( table === Config.CategoryTable ) {
+            key = Config.IncidentCategoryKey;
+            idToReference = this.incidentElements[key].attributes.CATEGORY_ID;
+        }
+        else if ( table === Config.LocationTable ) {
+            key = Config.LocationKey;
+            idToReference = this.incidentElements[key].attributes.LOCATION_ID;   
+        }         
+        else if ( table === Config.StaffTable ) {
+            key = Config.StaffKey
+            idToReference = this.incidentElements[key].attributes.ACCOUNT_ID;
+        }
+        else if ( table === Config.PersonTable ) {
+            key = Config.PersonKey;
+            idToReference = this.incidentElements[key].attributes.PERSON_ID;            
+        }
+        else {
+            console.log( "Table not found.");
+            key = table;
+        }
+
+        this.incidentElements[key].forEach( element => {
+            console.log(Config.LocationTable);
+            if ( idToReference == idToSearch ) {
+                return this.incidentElements[key].indexof(element);
+            }
+        })
+        return -1;
+    }
+    
+    swapElement( idToRemove: number, element: IncidentElement ) {
+        var key = "";
+        var table = element.table;
+        var index = -1;
+        if ( table === Config.CategoryTable ) 
+            key = Config.IncidentCategoryKey;
+        else if ( table === Config.LocationTable ) {
+            key = Config.LocationKey;
+            index = this.getElementIndexByID ( idToRemove, "Location" );
+        }
+        else if ( table === Config.StaffTable )
+            key = Config.StaffKey
+        else if ( table === Config.PersonTable ) 
+            key = Config.PersonKey;
+        else {
+            console.log( "Table not found.");
+            key = table;
+        }
+    
+        if ( this.incidentElements[key] != null && index != -1 ) {
+            this.incidentElements[key].splice( index, 1, element );
+        }
+    }
+
+    changeLocation ( edit ) : void {
+        var locationToRemoveIndex : number;
+        var locationToRemoveLocally : number;
+        var locationToAdd = this.locationModal.locationComponent.newLocation;
+        var locationToRemove : Location;
+                
+        // Add new location
+        if ( this.locationModal.button_id == -1 ) {
+            this.incident.insertIncidentElement(locationToAdd);
+        }
+        else { 
+            // this.incident.locationList.forEach( location => {
+            //     if ( location.attributes.LOCATION_ID == this.locationModal.button_id ) {
+            //         locationToRemoveLocally = this.incident.locationList.indexOf(location);     
+            //     } 
+            // });
+            // this.incident.locationList.splice(locationToRemoveIndex, 1, locationToAdd);
+            
+            // console.log ( "location index ", locationToRemoveIndex );
+
+            // this.incident.incidentElements['Location'].forEach( location => {
+            //     console.log(Config.LocationTable);
+            //     if ( location.attributes.LOCATION_ID == this.locationModal.button_id ) {
+            //             locationToRemoveIndex = this.incident.incidentElements['Location'].indexOf(location);
+            //     }
+            // }); 
+            this.incident.swapElement( locationToRemoveIndex, DataHelperService.toIncidentElement( Config.LocationTable, locationToAdd ));                
+        }
+        this.incidentsService.update ( this.incident );
+        console.log( "new location list", this.incident.incidentElements['Location'] );
+        // this.incidentsService.update( this.incident );
+        console.log(this.incident);
+    }
 
     changeCategory( newCategoryID ) : void {
         console.log("change category in incident", newCategoryID);
