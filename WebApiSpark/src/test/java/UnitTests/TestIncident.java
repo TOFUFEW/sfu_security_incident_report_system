@@ -1,17 +1,19 @@
 package UnitTests;
 
-import Model.*;
+import Model.Incident;
+import Model.IncidentElement;
+import Model.Location;
+import Model.Person;
 import Util.DBHelper;
 import Util.DatabaseValues;
 import Util.DatabaseValues.Column;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 public class TestIncident
 {
@@ -360,10 +362,101 @@ public class TestIncident
 
         IncidentElement[] staffList = DBHelper.getIncidentElements( DatabaseValues.Table.STAFF );
         IncidentElement staff = staffList[ rand.nextInt( staffList.length ) ];
+        String staffID = staff.getAttributeValue( Column.ACCOUNT_ID );
 
         Incident incident = incidents[ rand.nextInt( incidents.length - 1 )];
+        incident.addIncidentElement( DatabaseValues.IncidentElementKey.STAFF.toString(), staff );
+        String reportID = incident.getAttributeValue( Column.REPORT_ID );
 
+        int currentSize = getNumberOfIncidents();
+        Assert.assertTrue( DBHelper.updateIncident( incident ) );
+        Assert.assertTrue( currentSize == getNumberOfIncidents() );
 
+        Incident updatedIncident = DBHelper.getIncident( reportID );
+        Assert.assertTrue( updatedIncident != null );
+
+        HashMap< String, ArrayList<IncidentElement> > newMap = updatedIncident.getIncidentElements();
+        Assert.assertTrue( !newMap.isEmpty() );
+
+        IncidentElement updatedStaff = newMap.get( DatabaseValues.IncidentElementKey.STAFF.toString() ).get(0);
+        Assert.assertTrue( updatedStaff != null );
+        Assert.assertTrue( updatedStaff.getAttributeValue( Column.ACCOUNT_ID ).equals( staffID ) );
+
+    }
+
+    @Test
+    public void testAssignGuardToNewIncident() {
+        Incident newIncident = new Incident();
+        Random rand = new Random();
+        IncidentElement[] categories = DBHelper.getIncidentElements( DatabaseValues.Table.INCIDENT_CATEGORY );
+        Assert.assertTrue( categories.length > 0);
+
+        IncidentElement selectedCategory = categories[ rand.nextInt( categories.length-1 )];
+        Assert.assertTrue( ( DatabaseValues.Table.INCIDENT_CATEGORY ).toString().contains( selectedCategory.getTable().toString() ) );
+
+        String selectedCategoryId = selectedCategory.getAttributeValue( Column.CATEGORY_ID );
+        Assert.assertTrue( !selectedCategoryId.isEmpty() );
+
+        IncidentElement[] staffList = DBHelper.getIncidentElements( DatabaseValues.Table.STAFF );
+        IncidentElement staff = staffList[ rand.nextInt( staffList.length ) ];
+        IncidentElement assignStaff = staffList[ rand.nextInt( staffList.length ) ];
+
+        while( staff == assignStaff ) {
+            assignStaff = staffList[ rand.nextInt( staffList.length ) ];
+        }
+        Assert.assertTrue( staff != assignStaff );
+        String staffID = assignStaff.getAttributeValue( Column.ACCOUNT_ID );
+
+        newIncident.updateAttributeValue ( Column.REPORT_ID, null );
+        newIncident.updateAttributeValue ( Column.ACCOUNT_ID, staff.getAttributeValue( Column.ACCOUNT_ID ) );
+        newIncident.updateAttributeValue ( Column.CATEGORY_ID, selectedCategoryId );
+        newIncident.updateAttributeValue ( Column.DESCRIPTION, "TEST DESCRIPTION" );
+        newIncident.updateAttributeValue ( Column.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
+
+        newIncident.addIncidentElement( DatabaseValues.IncidentElementKey.STAFF.toString(), assignStaff );
+
+        String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
+        int currentSize = getNumberOfIncidents();
+
+        Assert.assertTrue( DBHelper.insertIncident( incidentString, newIncident ));
+        Assert.assertTrue( currentSize < getNumberOfIncidents() );
+
+        Incident newlyInsertedIncident = getLastIncident();
+        Assert.assertTrue( newlyInsertedIncident != null );
+
+        HashMap< String, ArrayList<IncidentElement> > newMap = newlyInsertedIncident.getIncidentElements();
+        Assert.assertTrue( !newMap.isEmpty() );
+
+        IncidentElement insertedStaff = newMap.get( DatabaseValues.IncidentElementKey.STAFF.toString()).get(0);
+        Assert.assertTrue( insertedStaff != null );
+        Assert.assertTrue( insertedStaff.getAttributeValue( Column.ACCOUNT_ID ).equals( staffID ) );
+    }
+
+    @Test (expected = Exception.class)
+    public void testRemoveGuardFromIncident() {
+        Incident[] incidents = DBHelper.getIncidents();
+        Assert.assertTrue( incidents.length > 0);
+
+        IncidentElement[] staffList = DBHelper.getIncidentElements( DatabaseValues.Table.STAFF );
+
+        Random rand = new Random();
+
+        Incident incident = incidents[ rand.nextInt( incidents.length - 1 ) ];
+        IncidentElement staff = staffList[ rand.nextInt( staffList.length - 1 ) ];
+        Assert.assertTrue( staff != null );
+        String reportID = incident.getAttributeValue( Column.REPORT_ID );
+
+        incident.addIncidentElement( DatabaseValues.IncidentElementKey.STAFF.toString(), staff );
+        Assert.assertTrue( DBHelper.updateIncident( incident ) );
+
+        Incident updatedIncident = DBHelper.getIncident( reportID );
+        HashMap< String, ArrayList<IncidentElement> > newMap = updatedIncident.getIncidentElements();
+        Assert.assertTrue( !newMap.isEmpty() );
+        newMap.remove( DatabaseValues.IncidentElementKey.STAFF );
+        incident.changeIncidentElements( newMap );
+
+        HashMap< String, ArrayList<IncidentElement> > updatedMap = updatedIncident.getIncidentElements();
+        Assert.assertTrue( updatedMap.get( DatabaseValues.IncidentElementKey.STAFF).get( 0 ) == null );
     }
 
     @Test
