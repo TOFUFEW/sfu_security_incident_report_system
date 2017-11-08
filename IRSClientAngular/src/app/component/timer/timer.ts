@@ -6,6 +6,6 @@ export class Timer{
     END_TIME: number;
     DURATION: number;
     PAUSE_DURATION: number;
-    timeRemaining: number;
+    TIME_REMAINING: number;
 
 }

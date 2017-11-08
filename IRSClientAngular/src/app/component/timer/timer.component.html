@@ -4,54 +4,46 @@
         <span class="panel-header">Watchlist</span>
     </div>
     <div class="panel-body">
-        <select class="form-control" name="" id="" [(ngModel)]="newTimer.TYPE">
-            <option id="" value="" >Lone Worker</option>
-        </select>
-
-        <div class="panel-body">
-            <div id="incident-card" class="col-md-12 col-lg-12">
-                
-                <!-- {{log("hi")}}
-                {{log("why is this happening")}} -->
-
-                <div class="row">
-                    <button class="btn" (click)="toggleAddTimerForm();">Add Timer</button>
-                    <div id="timerForm" style="display: none">
-                        <div>
-                            <div>Task Name: </div>
-                            <input type="text" placeholder="Task Name" [(ngModel)]="newTimer.TIMER_NAME">
-                        </div>
-                        <div>
-                            <div>Start Time:</div>
-                            <input type="time" id="formStartTime"placeholder="Start Time" [(ngModel)]="tempStart">
-                        </div>
-                        <div>
-                            <div>End Time:</div>
-                            <input type="time" placeholder="HH:mm:ss" [(ngModel)]="tempEnd">
-                        </div>
-                        <button class="btn" (click)="addTimer();">Add Timer</button>
+        <div id="timer-card" class="col-md-12 col-lg-12">
+            <button class="btn btn-primary" (click)="toggleAddTimerForm();">New Timer</button>
+            <div id="timerForm" style="display: none">
+                <div>
+                    <select class="form-control" name="" id="" [(ngModel)]="newTimer.TYPE">
+                            <option id="">Lone Worker</option>
+                    </select>
+                </div>
+                <div>
+                    <div>Task Name: </div>
+                    <input type="text" placeholder="Task Name" [(ngModel)]="newTimer.TIMER_NAME">
                     </div>
-                    <div class="main-content">
-                        <div class="staff-card" *ngFor="let timer of timerList">
-                            <p id="timerDisplay"></p>
-                            <div class="detail-row description">
-                                <span class="card-text-primary">
-                                    {{timer.TIMER_NAME}}
-                                </span>
-                            </div>
-                            <div class="detail-row">
-                                <span class="detail-row">Start Time: {{timeToString(timer.START_TIME)}}{{timer.START_TIME | date: "shortTime"}}</span>
-                            </div>
-                            <div class="detail-row">
-                                <span class="detail-row">End Time: {{timer.END_TIME | date: "shortTime"}}</span>
-                            </div>
-                            <div class="detail-row">
-                                <span class="detail-row">Time Remaining: {{timeToString(timer.timeRemaining)}}</span>
-                            </div>
-                        </div>
+                <div>
+                    <div>Start Time:</div>
+                    <input type="time" id="formStartTime" placeholder="11:20" [(ngModel)]="tempStart">
+                </div>
+                <div>
+                    <div>End Time:</div>
+                    <input type="time" placeholder="HH:mm:ss" [(ngModel)]="tempEnd">
+                </div>
+                <button class="btn" (click)="checkInput();">Add Timer</button>
+            </div>
+            <div class="main-content">
+                <div class="staff-card" *ngFor="let timer of timerList">
+                    <p id="timerDisplay"></p>
+                    <div class="detail-row description">
+                        <span class="card-text-primary">{{timer.TIMER_NAME}}</span>
+                        <span class="detail-row">Type: {{timer.TYPE}} </span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-row">Start Time: {{timeToString(timer.START_TIME)}}</span>
+                    </div>
+                    <div class="detail-row">
+                       <span class="detail-row">End Time: {{timeToString(timer.END_TIME)}}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-row">Time Remaining: {{timeToString(timer.TIME_REMAINING)}}</span>
                     </div>
                 </div>
-            </div>
+            </div>     
         </div>
     </div>
     <div class="panel-footer">

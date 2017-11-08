@@ -18,21 +18,19 @@ export class TimerComponent implements OnInit {
 
     constructor(private timerService: TimerService){
         var nowDate = new Date (Date.now());
-        console.log(nowDate.getHours());
-        console.log(nowDate.getMinutes());
         var nowTime = nowDate.getHours() * 60 * 60 * 1000 + nowDate.getMinutes() * 60 * 1000;
 
         var timer1 : Timer = new Timer();
         timer1.TIMER_NAME = "Hello"
         timer1.START_TIME = nowTime - 10 * 60 * 1000;
         timer1.END_TIME = nowTime + 15 * 60 * 1000;
-        timer1.timeRemaining = timer1.END_TIME - nowTime;
+        timer1.TIME_REMAINING = timer1.END_TIME - nowTime;
 
         var timer2 : Timer = new Timer();
         timer2.TIMER_NAME = "Goodbye"
         timer2.START_TIME = nowTime - 15 * 60 * 1000;
         timer2.END_TIME = nowTime + 15 * 60 * 1000;
-        timer2.timeRemaining = timer2.END_TIME - nowTime;
+        timer2.TIME_REMAINING = timer2.END_TIME - nowTime;
         
         this.timerList.push(timer1);
         this.timerList.push(timer2);
@@ -44,24 +42,37 @@ export class TimerComponent implements OnInit {
         // } );
     }
 
+    checkInput() : void{
+        if(this.tempStart > this.tempEnd){
+            alert("End time cannot be before start time");
+        } else if (this.newTimer.TYPE == null){
+            alert("Please select a type");
+        } else {
+            this.addTimer();
+        }
+    }
+
     addTimer(): void {
         // this.timerService.update(timer).then( returnedTimer => {
         //     this.timerList.push(timer);
         // } );
-        var splice: string[] = this.tempStart.split(":");
-        this.newTimer.START_TIME = parseInt(splice[0])* 60 * 60 * 1000;
-        this.newTimer.END_TIME = parseInt(splice[1]) * 60 * 1000;
+        console.log(this.tempStart);
+        var str: string[] = this.tempStart.split(":");
+        this.newTimer.START_TIME = parseInt(str[0]) * 60 * 60 * 1000 + parseInt(str[1]) * 60 * 1000;
+
+        str = this.tempEnd.split(":");
+        this.newTimer.END_TIME = parseInt(str[0]) * 60 * 60 * 1000 + parseInt(str[1]) * 60 * 1000;
+
+        this.newTimer.TIME_REMAINING = this.newTimer.END_TIME - this.newTimer.START_TIME;
 
         this.timerList.push(this.newTimer);
         var timerForm = document.getElementById("timerForm");
         timerForm.style.display = "none";
+        this.timerFormShowing = false;
+        
     }
 
-    deleteTimer(dtimer : Timer): void {
-        var i = this.timerList.findIndex(timer => timer === dtimer)
-        this.timerList.splice(i, 1);
-    }
-    
+
     toggleAddTimerForm() : void {
         var timerForm = document.getElementById("timerForm");
         if (this.timerFormShowing){
@@ -70,7 +81,6 @@ export class TimerComponent implements OnInit {
        } else {
             timerForm.style.display = "";
             this.timerFormShowing = true;
-
        }
     }
     
@@ -80,28 +90,48 @@ export class TimerComponent implements OnInit {
     }
 
     countDown() : void {
-        
         this.timerList.forEach(timer => {
-            timer.timeRemaining= timer.timeRemaining - 1000 ;
-            console.log(timer.timeRemaining)
-            if (timer.timeRemaining <= 0){
-                alert(timer.TIMER_NAME + " Times up!");
-                this.endTimer(timer);
+            timer.TIME_REMAINING= timer.TIME_REMAINING - 1000 ;
+            if (timer.TIME_REMAINING <= 0){
+                this.timeUp(timer);
             }
         });
 
     }
+
+    timeUp(timer : Timer) : void{
+        alert(timer.TIMER_NAME + " times up!");
+        this.deleteTimer(timer);
+
+    }
+
     endTimer(timer: Timer) : void {
 
     }
 
+    deleteTimer(dtimer : Timer): void {
+        var i = this.timerList.findIndex(timer => timer === dtimer)
+        this.timerList.splice(i, 1);
+    }
+    
+
     timeToString(time : number ) : string {
-        console.log(time);
-        var hour = Math.floor(time/1000/60/60%24).toString();
-        var minute = Math.floor(time/1000/60%60).toString();
-        var second = (time/1000%60).toString();
+        var hour = this.fillZeros(Math.floor(time / 1000 / 60 / 60 % 24).toString());
+        var minute = this.fillZeros(Math.floor(time / 1000 / 60 % 60).toString());
+        var second = this.fillZeros((time / 1000 % 60).toString());
 
         return hour + ":" + minute + ":" + second;
+    }
+
+    fillZeros(str : string) : string{
+        if (str.length < 2){
+            str = "0" + str;
+        }
+        return str;
+    }
+
+    pauseTimer(timer : Timer) : void {
+
     }
 
     ngOnInit(){
