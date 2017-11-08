@@ -17,13 +17,12 @@ import { Staff } from '../component/staff/staff';
 import { StaffService } from '../service/staff.service';
 
 @Injectable()
-export class IncidentElementsService
+export class IncidentElementService
 {    
     constructor ( private incidentService: IncidentService ) {}
 
-    getElementKey ( incident: Incident, element: IncidentElement ) {
+    getElementKey ( table: string ) {
         var key = "";
-        var table = element.table;
         if ( table === Config.CategoryTable ) 
             key = Config.IncidentCategoryKey;
         else if ( table === Config.LocationTable )
@@ -40,52 +39,42 @@ export class IncidentElementsService
     }
 
     getElementIndexByID ( incident: Incident, idToSearch: number, table: string ) {
-        var key = "";
-        var idToReference = -1;
+        var key = this.getElementKey ( table );
+        var elementIndex = -1;
         if ( table === Config.CategoryTable ) {
-            key = Config.IncidentCategoryKey;
-            idToReference = incident.incidentElements[key].attributes.CATEGORY_ID;
+            elementIndex = incident.incidentElements[key].findIndex( i => 
+                i.attributes.CATEGORY_ID == idToSearch)
         }
         else if ( table === Config.LocationTable ) {
-            key = Config.LocationKey;
-            idToReference = incident.incidentElements[key].attributes.LOCATION_ID;   
+            elementIndex = incident.incidentElements[key].findIndex( i => 
+                i.attributes.LOCATION_ID == idToSearch)
         }         
         else if ( table === Config.StaffTable ) {
-            key = Config.StaffKey
-            idToReference = incident.incidentElements[key].attributes.ACCOUNT_ID;
+            elementIndex = incident.incidentElements[key].findIndex( i => 
+                i.attributes.ACCOUNT_ID == idToSearch)
         }
         else if ( table === Config.PersonTable ) {
-            key = Config.PersonKey;
-            idToReference = incident.incidentElements[key].attributes.PERSON_ID;            
+            elementIndex = incident.incidentElements[key].findIndex( i => 
+                i.attributes.PERSON_ID == idToSearch)    
         }
-        else {
-            console.log( "Table not found.");
-            key = table;
-        }
-
-        incident.incidentElements[key].forEach( element => {
-            console.log(Config.LocationTable);
-            if ( idToReference == idToSearch ) {
-                return incident.incidentElements[key].indexof(element);
-            }
-        })
-        return -1;
+        return elementIndex;
     }
     
     changeElement( incident: Incident, idToRemove: number, element: IncidentElement ) {
-        var key = this.getElementKey ( incident, element );
-        var table = element.table;
+        var table = element.table;        
+        var key = this.getElementKey ( table );
         var index = -1;
         index = this.getElementIndexByID ( incident, idToRemove, table );
     
         if ( incident.incidentElements[key] != null && index != -1 ) {
             incident.incidentElements[key].splice( index, 1, element );
         }
+        console.log("Incident w/ changed location ", incident );
         this.incidentService.update ( incident );        
     }
 
     addElement ( incident: Incident, element: IncidentElement ) {
-        var key = this.getElementKey( incident, element );        
+        var key = this.getElementKey( element.table );        
         incident.incidentElements[key].push ( element );
         this.incidentService.update ( incident );
     }

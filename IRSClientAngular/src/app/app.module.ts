@@ -32,7 +32,7 @@ import { CategoryService } from './service/category.service';
 import { DomService } from './util/dom.service';
 import { LocationService } from './service/location.service'
 import { IncidentService } from './service/incident.service'
-import { IncidentElementsService } from './service/incident-elements.service';
+import { IncidentElementService } from './service/incident-element.service';
 import { StaffService } from './service/staff.service'
 import { PersonService } from './service/person.service';
 import { NewReportService } from './service/new-report.service';
@@ -76,7 +76,7 @@ import { FilterPipe } from './util/filter.pipe';
     DataHelperService, 
     LocationService, 
     IncidentService,
-    IncidentElementsService,
+    IncidentElementService,
     StaffService,
     PersonService,
     NewReportService,

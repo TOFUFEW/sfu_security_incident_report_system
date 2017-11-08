@@ -6,7 +6,7 @@ import 'rxjs/add/operator/switchMap';
 import { DataHelperService } from '../../util/data-helper.service';
 import { Incident } from '../report/incident';
 import { IncidentService } from '../../service/incident.service';
-import { IncidentElementsService } from '../../service/incident-elements.service';
+import { IncidentElementService } from '../../service/incident-element.service';
 import { UserService } from '../../service/user.service'; 
 import { NewReportService } from '../../service/new-report.service'; 
 import { Location } from '../location/location'; 
@@ -29,7 +29,7 @@ export class GuardIncidentComponent implements OnInit {
     
     constructor (         
         private incidentsService: IncidentService,
-        private incidentElementsService: IncidentElementsService,         
+        private incidentElementService: IncidentElementService,         
         private reportService: NewReportService,         
         private userService: UserService,                
         private router: Router,         
@@ -67,20 +67,20 @@ export class GuardIncidentComponent implements OnInit {
             } );
     }
       
-    public show() : void {
+    public showModal() : void {
         var locationModal: HTMLElement = document.getElementById("modalLocation");
         locationModal.style.visibility = "true";
         // setTimeout(() => locationModal.visibleAnimate = true, 100);
     }
 
-    public hide() : void {
+    public hideModal() : void {
         var locationModal: HTMLElement = document.getElementById("modalLocation");
         setTimeout(() => locationModal.style.visibility = "false", 300);
     }
 
     public onContainerClicked ( event: MouseEvent ) : void {
         if ((<HTMLElement>event.target).classList.contains('modal')) {
-        this.hide();
+        this.hideModal();
         }
     }
 
@@ -89,11 +89,11 @@ export class GuardIncidentComponent implements OnInit {
         var locationToRemove = this.locationModal.button_id;
         if ( locationToRemove == -1 ) {
             // Add new location 
-            this.incidentElementsService.addElement ( this.incident, locationToAdd );
+            this.incidentElementService.addElement ( this.incident, locationToAdd );
         }
         else {
             // Change existing location
-            this.incidentElementsService.changeElement ( this.incident, locationToRemove, locationToAdd );
+            this.incidentElementService.changeElement ( this.incident, locationToRemove, locationToAdd );
         }
     }
 
