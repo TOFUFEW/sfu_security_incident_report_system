@@ -38,6 +38,29 @@ public class DBHelper
         return incidentList.toArray ( new Incident [ incidentList.size () ] );
     }
 
+    public static Incident [] getIncidents ( String userID ) {
+        ArrayList < Incident > incidentList = new ArrayList <> ();
+
+        try
+        {
+            String query = "{ call dbo.getIncidents ( ? ) }";
+            CallableStatement stmt = connection.prepareCall ( query );
+            stmt.setString (
+                    1,
+                    userID
+            );
+            ResultSet incidentResultSet = stmt.executeQuery();
+            fillListWithIncidentsFromResultSet ( incidentList , incidentResultSet );
+        }
+
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+
+        return incidentList.toArray ( new Incident [ incidentList.size () ] );
+    }
+
     public static Incident [] getGuardIncidents ( int accountID ) {
         ArrayList < Incident > incidentList = new ArrayList <> ();
 
