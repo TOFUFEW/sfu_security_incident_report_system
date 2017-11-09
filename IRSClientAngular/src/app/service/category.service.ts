@@ -3,6 +3,7 @@ import { Category, CategoryDictionary, SubCategory, CategoryType } from '../comp
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
+import { IncidentService } from '../service/incident.service';
 import { DataHelperService } from '../util/data-helper.service';
 
 import 'rxjs/add/operator/toPromise';
@@ -12,7 +13,9 @@ export class CategoryService
 {
     private headers = new Headers({ 'Content-Type': 'application/json' });
     categoriesUrl = Config.CategoriesURI;
-    constructor( private http: Http ) {}
+    constructor ( 
+        private http: Http,
+        private incidentService: IncidentService ){}
 
     getCategories(): Promise < Category[] > {
         var categories = this.http.get( this.categoriesUrl )
@@ -85,6 +88,18 @@ export class CategoryService
         });
 
         return grouping;
+    }
+
+    changeIncidentCategory ( incident, newCategoryID, selectedCategory ) {
+        incident.category.CATEGORY_ID = newCategoryID;
+        incident.attributes.CATEGORY_ID = newCategoryID;
+        incident.category.MAIN_CATEGORY = selectedCategory.MAIN_CATEGORY;
+        incident.category.SUB_CATEGORY = selectedCategory.SUB_CATEGORY;
+        incident.category.INCIDENT_TYPE = selectedCategory.INCIDENT_TYPE;      
+        incident.incidentElements[Config.IncidentCategoryKey]
+            .splice(0, incident.incidentElements[Config.IncidentCategoryKey].length,
+                    incident.category);
+        this.incidentService.update ( incident );            
     }
 
     private handleError( error: any ) : Promise<any> 

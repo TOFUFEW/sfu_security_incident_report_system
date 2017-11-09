@@ -41,11 +41,7 @@ export class IncidentElementService
     getElementIndexByID ( incident: Incident, idToSearch: number, table: string ) {
         var key = this.getElementKey ( table );
         var elementIndex = -1;
-        if ( table === Config.CategoryTable ) {
-            elementIndex = incident.incidentElements[key].findIndex( i => 
-                i.attributes.CATEGORY_ID == idToSearch)
-        }
-        else if ( table === Config.LocationTable ) {
+        if ( table === Config.LocationTable ) {
             elementIndex = incident.incidentElements[key].findIndex( i => 
                 i.attributes.LOCATION_ID == idToSearch)
         }         
@@ -61,22 +57,15 @@ export class IncidentElementService
     }
     
     changeElement( incident: Incident, idToRemove: number, element: IncidentElement ) {
-        
         var table = element.table;        
         var key = this.getElementKey ( table );
         var index = -1;
-        console.log("incident before swap ", incident.incidentElements[key][0].attributes.LOCATION_ID, " ", idToRemove, " ", table );        
         index = this.getElementIndexByID ( incident, idToRemove, table );
-        console.log("find index of element ", incident.incidentElements[key][0].attributes.LOCATION_ID, " ", idToRemove, " ", table );
-        console.log("index of element ", index);
-        console.log("location array ", incident.incidentElements[key] );
     
         if ( incident.incidentElements[key] != null && index != -1 ) {
-            console.log("Splicing incident");
             incident.incidentElements[key].splice( index, 1, element );
             this.incidentService.update ( incident );            
         }
-        console.log("Incident w/ changed location ", incident );
     }
 
     addElement ( incident: Incident, element: IncidentElement ) {
@@ -84,34 +73,4 @@ export class IncidentElementService
         incident.incidentElements[key].push ( element );
         this.incidentService.update ( incident );
     }
-
-    // changeLocation ( edit ) : void {
-    //     var locationToRemoveIndex : number;
-    //     var locationToRemoveLocally : number;
-    //     var locationToAdd = this.locationModal.locationComponent.newLocation;
-    //     var locationToRemove : Location;
-                
-    //     // Add new location
-    //     if ( this.locationModal.button_id == -1 ) {
-    //         this.incident.insertIncidentElement(locationToAdd);
-    //     }
-    //     else { 
-    //         // this.incident.locationList.forEach( location => {
-    //         //     if ( location.attributes.LOCATION_ID == this.locationModal.button_id ) {
-    //         //         locationToRemoveLocally = this.incident.locationList.indexOf(location);     
-    //         //     } 
-    //         // });
-    //         // this.incident.locationList.splice(locationToRemoveIndex, 1, locationToAdd);
-            
-    //         // console.log ( "location index ", locationToRemoveIndex );
-
-    //         // this.incident.incidentElements['Location'].forEach( location => {
-    //         //     console.log(Config.LocationTable);
-    //         //     if ( location.attributes.LOCATION_ID == this.locationModal.button_id ) {
-    //         //             locationToRemoveIndex = this.incident.incidentElements['Location'].indexOf(location);
-    //         //     }
-    //         // }); 
-    //         this.incident.swapElement( locationToRemoveIndex, DataHelperService.toIncidentElement( Config.LocationTable, locationToAdd ));                
-    //     }
-    // }
 }

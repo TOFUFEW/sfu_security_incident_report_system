@@ -5,6 +5,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { DataHelperService } from '../../util/data-helper.service';
 import { Incident } from '../report/incident';
+import { IncidentElement} from '../report/incident-element';
 import { IncidentService } from '../../service/incident.service';
 import { IncidentElementService } from '../../service/incident-element.service';
 import { UserService } from '../../service/user.service'; 
@@ -12,6 +13,7 @@ import { NewReportService } from '../../service/new-report.service';
 import { Location } from '../location/location'; 
 import { LocationModalComponent } from '../location/location-modal.component'; 
 import { CategoryComponent } from '../category/category.component'; 
+import { CategoryService } from '../../service/category.service';
 import { Config } from '../../util/config.service';
 
 @Component({
@@ -26,9 +28,11 @@ export class GuardIncidentComponent implements OnInit {
     title = 'SFU Incident Reporting System';     
     incident: Incident = new Incident();
     locationModalStr = "location-modal";
+
     constructor (         
         private incidentsService: IncidentService,
         private incidentElementService: IncidentElementService,  
+        private categoryService: CategoryService,
         private activatedRoute: ActivatedRoute,       
         private reportService: NewReportService,         
         private userService: UserService,                
@@ -57,15 +61,15 @@ export class GuardIncidentComponent implements OnInit {
 //     this.newIncident = new Incident();
 //   }
 
-    saveReport(): void {
-        this.incidentsService.update( this.incident )
-            .then( returnedIncident => {
-                if ( returnedIncident != null  ) {
-                alert( "Incident successfully edited!" );
-                }
-                else alert( "Edit failed." );
-            } );
-    }
+    // saveReport(): void {
+    //     this.incidentsService.update( this.incident )
+    //         .then( returnedIncident => {
+    //             if ( returnedIncident != null  ) {
+    //             alert( "Incident successfully edited!" );
+    //             }
+    //             else alert( "Edit failed." );
+    //         } );
+    // }
       
     public showModal() : void {
         var locationModal: HTMLElement = document.getElementById("modalLocation");
@@ -86,18 +90,14 @@ export class GuardIncidentComponent implements OnInit {
 
     changeLocation() {
         var locationToAdd = this.locationModal.locationComponent.newLocation;
-        console.log( "locations to add ", locationToAdd.attributes.LOCATION_ID );
         var locationToRemove = -1;
         locationToRemove = this.locationModal.button_id;
-        console.log ( "location to remove ", locationToRemove );
 
         if ( locationToRemove == -1 ) {
             // Add new location 
-            console.log("adding location " );
             this.incidentElementService.addElement ( this.incident, locationToAdd );
         }
         else {
-            console.log("change location " );
             // Change existing location
             this.incidentElementService.changeElement ( this.incident, locationToRemove, locationToAdd );
         }
@@ -105,18 +105,9 @@ export class GuardIncidentComponent implements OnInit {
         this.locationModal.locationComponent.newLocation = new Location(); // reset
     }
 
-    changeCategory( newCategoryID ) : void {
-        console.log("change category in incident", newCategoryID);
-        this.incident.category.CATEGORY_ID = newCategoryID;
+    changeCategory ( newCategoryID ) {
         this.incident.attributes.CATEGORY_ID = newCategoryID;
-        this.incident.category.MAIN_CATEGORY = this.categoryModal.selectedCategory.MAIN_CATEGORY;
-        this.incident.category.SUB_CATEGORY = this.categoryModal.selectedCategory.SUB_CATEGORY;
-        this.incident.category.INCIDENT_TYPE = this.categoryModal.selectedCategory.INCIDENT_TYPE;
-        this.incident.incidentElements[Config.IncidentCategoryKey]
-            .splice(0, this.incident.incidentElements[Config.IncidentCategoryKey].length,
-                    this.incident.category);
-
-        this.incidentsService.update ( this.incident );
+        this.categoryService.changeIncidentCategory ( this.incident, newCategoryID, this.categoryModal.selectedCategory );
     }
 
     ngOnInit() : void {         
