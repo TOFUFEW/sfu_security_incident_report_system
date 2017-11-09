@@ -19,19 +19,19 @@
                         <div class="details-body">
                             <div class="detail col-12 col-sm-3">
                                 <span class="field-title">Category <span class="required-asterisk">*</span></span>
-                                <select name="" id="" class="form-control" [(ngModel)]="newIncident.category.MAIN_CATEGORY" (change)="onSelectCategory()">
+                                <select name="" id="" class="form-control" [(ngModel)]="newIncident.category.attributes.MAIN_CATEGORY" (change)="onSelectCategory()">
                                     <option *ngFor="let category of categories" [value]="category.MAIN_CATEGORY">{{category.MAIN_CATEGORY}}</option>
                                 </select>
                             </div>
                             <div class="detail col-12 col-sm-3">
                                 <span class="field-title">Sub Category <span class="required-asterisk">*</span></span>
-                                <select class="form-control" [(ngModel)]="newIncident.category.SUB_CATEGORY" (change)="onSelectSubCategory()">
+                                <select class="form-control" [(ngModel)]="newIncident.category.attributes.SUB_CATEGORY" (change)="onSelectSubCategory()">
                                     <option *ngFor="let subCategory of subCategories" [value]="subCategory.SUB_CATEGORY">{{subCategory.SUB_CATEGORY}}</option>
                                 </select>
                             </div>
                             <div class="detail col-12 col-sm-3"  *ngIf="categoryTypes.length > 0">
                                 <span class="field-title">Type <span class="required-asterisk">*</span></span>
-                                <select class="form-control" [(ngModel)]="newIncident.category.INCIDENT_TYPE" (change)="onSelectType()">
+                                <select class="form-control" [(ngModel)]="newIncident.category.attributes.INCIDENT_TYPE" (change)="onSelectType()">
                                     <option *ngFor="let type of categoryTypes" [value]="type.INCIDENT_TYPE">{{type.INCIDENT_TYPE}}</option>
                                 </select>
                             </div>
@@ -137,22 +137,22 @@
                     <div class="details-body">
                         <div class="detail col-12 col-sm-3">
                             <span class="field-title">Category: </span>
-                            <span class="field-value">{{newIncident.category.MAIN_CATEGORY}}</span>
-                            <div class="alertText" *ngIf="newIncident.category.MAIN_CATEGORY == null">
+                            <span class="field-value">{{newIncident.category.attributes.MAIN_CATEGORY}}</span>
+                            <div class="alertText" *ngIf="newIncident.category.attributes.MAIN_CATEGORY == null">
                                 Please select a category
                             </div>
                         </div>
                         <div class="detail col-12 col-sm-3">
                             <span class="field-title">Sub Category: </span>
-                            <span class="field-value">{{newIncident.category.SUB_CATEGORY}}</span>
-                            <div class="alertText" *ngIf="newIncident.category.SUB_CATEGORY == null">
+                            <span class="field-value">{{newIncident.category.attributes.SUB_CATEGORY}}</span>
+                            <div class="alertText" *ngIf="newIncident.category.attributes.SUB_CATEGORY == null">
                                     Please select a sub category
                             </div>
                         </div>
-                        <div class="detail col-12 col-sm-3" *ngIf="this.newIncident.category.INCIDENT_TYPE != null ">
+                        <div class="detail col-12 col-sm-3" *ngIf="this.newIncident.category.attributes.INCIDENT_TYPE != null ">
                             <span class="field-title">Type: </span>
-                            <span class="field-value">{{newIncident.category.INCIDENT_TYPE}}</span>
-                            <div class="alertText" *ngIf="newIncident.category.INCIDENT_TYPE == null">
+                            <span class="field-value">{{newIncident.category.attributes.INCIDENT_TYPE}}</span>
+                            <div class="alertText" *ngIf="newIncident.category.attributes.INCIDENT_TYPE == null">
                                     Please select an incident type
                             </div>
                         </div>

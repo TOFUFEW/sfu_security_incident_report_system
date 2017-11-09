@@ -20,7 +20,7 @@ export class CategoryService
     getCategories(): Promise < Category[] > {
         var categories = this.http.get( this.categoriesUrl )
         .toPromise()
-        .then( response => IncidentElementService.extractAttributesArray( response.json() ) as Category[] )
+        .then( response => response.json() as Category[] )
         .catch( this.handleError );
         return Promise.resolve( categories );
     };
@@ -93,9 +93,9 @@ export class CategoryService
     changeIncidentCategory ( incident, newCategoryID, selectedCategory ) {
         incident.category.CATEGORY_ID = newCategoryID;
         incident.attributes.CATEGORY_ID = newCategoryID;
-        incident.category.MAIN_CATEGORY = selectedCategory.MAIN_CATEGORY;
-        incident.category.SUB_CATEGORY = selectedCategory.SUB_CATEGORY;
-        incident.category.INCIDENT_TYPE = selectedCategory.INCIDENT_TYPE;      
+        incident.category.attributes.MAIN_CATEGORY = selectedCategory.attributes.MAIN_CATEGORY;
+        incident.category.attributes.SUB_CATEGORY = selectedCategory.attributes.SUB_CATEGORY;
+        incident.category.attributes.INCIDENT_TYPE = selectedCategory.attributes.INCIDENT_TYPE;      
         incident.incidentElements[Config.IncidentCategoryKey]
             .splice(0, incident.incidentElements[Config.IncidentCategoryKey].length,
                     incident.category);

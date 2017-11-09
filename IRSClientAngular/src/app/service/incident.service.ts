@@ -89,7 +89,7 @@ export class IncidentService
     }
 
     private initializeIncident( incident: Incident ): Incident {
-        incident.category = incident.incidentElements[Config.IncidentCategoryKey][0].attributes as Category;
+        incident.category = incident.incidentElements[Config.IncidentCategoryKey][0] as Category;
         incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
         return incident;
     }

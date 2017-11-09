@@ -17,7 +17,7 @@ export class PersonService {
     getPersons(): Promise<Person[]> {
         var personList = this.http.get( this.personUrl )
             .toPromise()
-            .then( response => IncidentElementService.extractAttributesArray( response.json() ) as Person[] )
+            .then( response => response.json() as Person[] )
             .catch( this.handleError );
         return Promise.resolve( personList );
     }
@@ -25,14 +25,14 @@ export class PersonService {
     search( person: Person ) : Promise<Person[]> {
         var personList = this.http.get( this.personUrl )
             .toPromise()
-            .then( response => IncidentElementService.extractAttributes( response.json() ) as Person[] )
+            .then( response => response.json() as Person[] )
             .catch(this.handleError );
         return Promise.resolve( personList );
     }
 
     create( person: Person ) : Promise<Person> {
         var promise = this.http
-                .put( this.personUrl, JSON.stringify( IncidentElementService.toIncidentElement( this.tableName, person ) ), { headers: this.headers } )
+                .put( this.personUrl, JSON.stringify( person ), { headers: this.headers } )
                 .toPromise()
                 .then( response => response.json() as Person )
                 .catch( this.handleError );
@@ -41,7 +41,7 @@ export class PersonService {
 
     update( person: Person ) : Promise<Person> {
         var promise = this.http
-            .put( this.personUrl, JSON.stringify( IncidentElementService.toIncidentElement(this.tableName, person) ), { headers: this.headers } )
+            .put( this.personUrl, JSON.stringify( person ), { headers: this.headers } )
             .toPromise()
             .then( response => response.json() as Person )
             .catch( this.handleError );

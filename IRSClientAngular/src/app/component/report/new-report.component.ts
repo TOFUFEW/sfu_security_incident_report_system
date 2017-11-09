@@ -84,8 +84,7 @@ export class NewReportComponent implements OnInit {
             this.newIncident.category.attributes.CATEGORY_ID = subcategories.CATEGORY_ID;
             this.newIncident.attributes.CATEGORY_ID = this.newIncident.category.attributes.CATEGORY_ID;
             this.newIncident.category.attributes.INCIDENT_TYPE = null;
-            this.newIncident.insertIncidentElement( 
-                IncidentElementService.toIncidentElement( Config.CategoryTable, this.newIncident.category ));
+            this.newIncident.insertIncidentElement( this.newIncident.category );
         }
         this.categoryTypes = subcategories.TYPES;
     }
@@ -99,8 +98,7 @@ export class NewReportComponent implements OnInit {
                 this.newIncident.category.attributes.CATEGORY_ID = type.CATEGORY_ID;
                 this.newIncident.category.attributes.INCIDENT_TYPE = type.INCIDENT_TYPE; // for report summary                
                 this.newIncident.attributes.CATEGORY_ID = this.newIncident.category.attributes.CATEGORY_ID;
-                this.newIncident.insertIncidentElement( 
-                    IncidentElementService.toIncidentElement( Config.CategoryTable, this.newIncident.category ));
+                this.newIncident.insertIncidentElement( this.newIncident.category );
             }
         }
     }

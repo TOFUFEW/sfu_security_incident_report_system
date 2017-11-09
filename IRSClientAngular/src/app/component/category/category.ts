@@ -2,13 +2,13 @@ import { Config } from '../../util/config.service';
 import { IncidentElement } from '../report/incident-element';
 
 export class Category implements IncidentElement {
-        
     table: string;
     attributes: CategoryAttributes;
 
     constructor( id, mainCategory, subCategory, type ) {
         this.attributes = new CategoryAttributes();
-        this.table = Config.LocationTable;
+        this.table = Config.CategoryTable;
+        this.attributes.CATEGORY_ID = id;
         this.attributes.MAIN_CATEGORY = mainCategory;
         this.attributes.SUB_CATEGORY = subCategory;
         this.attributes.INCIDENT_TYPE = type;
