@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { DataHelperService } from '../util/data-helper.service';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
@@ -38,11 +37,11 @@ export class IncidentElementService
         return arr;
     }
 
-    static toIncidentElement ( table: string, object: IncidentElement ): IncidentElement {
-        var incidentElement: IncidentElement = new IncidentElement();
-        incidentElement.attributes = object.attributes;
-        return incidentElement;
-    }
+    // static toIncidentElement ( table: string, object: IncidentElement ): IncidentElement {
+    //     var incidentElement: IncidentElement = new IncidentElement();
+    //     incidentElement.attributes = object.attributes;
+    //     return incidentElement;
+    // }
 
     getElementKey ( table: string ) {
         var key = "";
