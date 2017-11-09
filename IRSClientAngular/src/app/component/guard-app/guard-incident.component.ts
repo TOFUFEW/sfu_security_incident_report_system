@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router, RouterModule, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute, ParamMap, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
 import { DataHelperService } from '../../util/data-helper.service';
@@ -29,7 +29,8 @@ export class GuardIncidentComponent implements OnInit {
     
     constructor (         
         private incidentsService: IncidentService,
-        private incidentElementService: IncidentElementService,         
+        private incidentElementService: IncidentElementService,  
+        private activatedRoute: ActivatedRoute,       
         private reportService: NewReportService,         
         private userService: UserService,                
         private router: Router,         
@@ -86,12 +87,18 @@ export class GuardIncidentComponent implements OnInit {
 
     changeLocation() {
         var locationToAdd = this.locationModal.locationComponent.newLocation;
-        var locationToRemove = this.locationModal.button_id;
+        console.log( "locations to add ", locationToAdd.attributes.LOCATION_ID );
+        var locationToRemove = -1;
+        locationToRemove = this.locationModal.button_id;
+        console.log ( "location to remove ", locationToRemove );
+
         if ( locationToRemove == -1 ) {
             // Add new location 
+            console.log("adding location " );
             this.incidentElementService.addElement ( this.incident, locationToAdd );
         }
         else {
+            console.log("change location " );
             // Change existing location
             this.incidentElementService.changeElement ( this.incident, locationToRemove, locationToAdd );
         }
@@ -118,8 +125,8 @@ export class GuardIncidentComponent implements OnInit {
             this.incidentsService.getIncident ( +params.get ( 'id' )))         
         .subscribe ( returnedIncident => {             
             this.incident = returnedIncident;       
-        console.log("returned incident" , this.incident);           
-     })     
+            console.log("returned incident" , this.incident);           
+        });
     }
 }
 

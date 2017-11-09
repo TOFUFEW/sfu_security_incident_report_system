@@ -61,7 +61,7 @@
                                 <div id="collapseLocation" class="panel-collapse collapse in">
                                     <div class="panel-body lh-1" *ngIf="incident">
                                         <span *ngFor="let location of incident.incidentElements['Location']" 
-                                            [id]="location.attributes.LOCATION_ID" 
+                                            [id]="location.attributes.LOCATION_ID"
                                             (dblclick)="this.modalLocation.show($event)">
                                             {{location.attributes.CAMPUS_ID}},                                            
                                             {{location.attributes.BUILDING_NAME}},    
@@ -73,9 +73,9 @@
                                             <span class="glyphicon glyphicon-plus"></span> 
                                             Add Location
                                         </button>
-                                        <location-modal-component #modalLocation (locationSaved)="changeLocation()"></location-modal-component>                                        
                                     </div>
                                 </div>
+                                <location-modal-component #modalLocation (locationSaved)="changeLocation()"></location-modal-component>                                                                        
                             </div>
 
                             <div class="panel panel-default ml-1 mr-1">

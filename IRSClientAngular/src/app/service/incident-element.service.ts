@@ -61,16 +61,22 @@ export class IncidentElementService
     }
     
     changeElement( incident: Incident, idToRemove: number, element: IncidentElement ) {
+        
         var table = element.table;        
         var key = this.getElementKey ( table );
         var index = -1;
+        console.log("incident before swap ", incident.incidentElements[key][0].attributes.LOCATION_ID, " ", idToRemove, " ", table );        
         index = this.getElementIndexByID ( incident, idToRemove, table );
+        console.log("find index of element ", incident.incidentElements[key][0].attributes.LOCATION_ID, " ", idToRemove, " ", table );
+        console.log("index of element ", index);
+        console.log("location array ", incident.incidentElements[key] );
     
         if ( incident.incidentElements[key] != null && index != -1 ) {
+            console.log("Splicing incident");
             incident.incidentElements[key].splice( index, 1, element );
+            this.incidentService.update ( incident );            
         }
         console.log("Incident w/ changed location ", incident );
-        this.incidentService.update ( incident );        
     }
 
     addElement ( incident: Incident, element: IncidentElement ) {
