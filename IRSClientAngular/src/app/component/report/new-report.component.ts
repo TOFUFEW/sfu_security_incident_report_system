@@ -69,21 +69,21 @@ export class NewReportComponent implements OnInit {
 
     //filter subcategory and type lists according to selection of previous dropdown
     onSelectCategory () {
-        var index = this.categories.findIndex( item => item.MAIN_CATEGORY === this.newIncident.category.MAIN_CATEGORY );
+        var index = this.categories.findIndex( item => item.MAIN_CATEGORY === this.newIncident.category.attributes.MAIN_CATEGORY );
         if ( index < 0 ) return ;
         this.subCategories = this.categories[index].SUBCATEGORIES;
         this.categoryTypes = [];
-        this.newIncident.category.MAIN_CATEGORY = this.categories[index].MAIN_CATEGORY; // for report summary
+        this.newIncident.category.attributes.MAIN_CATEGORY = this.categories[index].MAIN_CATEGORY; // for report summary
     }
 
     onSelectSubCategory () {
-        var index = this.subCategories.findIndex( item => item.SUB_CATEGORY == this.newIncident.category.SUB_CATEGORY );
+        var index = this.subCategories.findIndex( item => item.SUB_CATEGORY == this.newIncident.category.attributes.SUB_CATEGORY );
         if ( index < 0 ) return ;
         var subcategories = this.subCategories[index];
         if ( subcategories.TYPES.length == 0 ) {
-            this.newIncident.category.CATEGORY_ID = subcategories.CATEGORY_ID;
-            this.newIncident.attributes.CATEGORY_ID = this.newIncident.category.CATEGORY_ID;
-            this.newIncident.category.INCIDENT_TYPE = null;
+            this.newIncident.category.attributes.CATEGORY_ID = subcategories.CATEGORY_ID;
+            this.newIncident.attributes.CATEGORY_ID = this.newIncident.category.attributes.CATEGORY_ID;
+            this.newIncident.category.attributes.INCIDENT_TYPE = null;
             this.newIncident.insertIncidentElement( 
                 IncidentElementService.toIncidentElement( Config.CategoryTable, this.newIncident.category ));
         }
@@ -91,14 +91,14 @@ export class NewReportComponent implements OnInit {
     }
 
     onSelectType() {
-        if ( this.newIncident.category.INCIDENT_TYPE != null ) {
-            var index = this.categoryTypes.findIndex( item => item.INCIDENT_TYPE ===this.newIncident.category.INCIDENT_TYPE );
+        if ( this.newIncident.category.attributes.INCIDENT_TYPE != null ) {
+            var index = this.categoryTypes.findIndex( item => item.INCIDENT_TYPE ===this.newIncident.category.attributes.INCIDENT_TYPE );
 
             if ( index >= 0 ) {
                 var type = this.categoryTypes[index];
-                this.newIncident.category.CATEGORY_ID = type.CATEGORY_ID;
-                this.newIncident.category.INCIDENT_TYPE = type.INCIDENT_TYPE; // for report summary                
-                this.newIncident.attributes.CATEGORY_ID = this.newIncident.category.CATEGORY_ID;
+                this.newIncident.category.attributes.CATEGORY_ID = type.CATEGORY_ID;
+                this.newIncident.category.attributes.INCIDENT_TYPE = type.INCIDENT_TYPE; // for report summary                
+                this.newIncident.attributes.CATEGORY_ID = this.newIncident.category.attributes.CATEGORY_ID;
                 this.newIncident.insertIncidentElement( 
                     IncidentElementService.toIncidentElement( Config.CategoryTable, this.newIncident.category ));
             }

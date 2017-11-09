@@ -25,8 +25,8 @@ export class LoginComponent {
     }
 
     onLogin() {
-        this.user.ACCOUNT_TYPE = 0;
-        this.user.ACCOUNT_ID = 0;
+        this.user.attributes.ACCOUNT_TYPE = 0;
+        this.user.attributes.ACCOUNT_ID = 0;
         this.loginService.doLogin ( this.user )
         .subscribe(
             ( responseData ) => {

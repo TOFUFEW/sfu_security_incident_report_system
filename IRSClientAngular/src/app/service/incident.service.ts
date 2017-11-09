@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IncidentElementService } from '../service/incident-element.service';
+// import { IncidentElementService } from '../service/incident-element.service';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
@@ -61,9 +61,9 @@ export class IncidentService
 
     getGuardIncidents(): Promise<Incident[]> {
         var user = this.userService.getCurrentUser();
-        var _user = IncidentElementService.toIncidentElement ( Config.AccountTable, user );
+        // var _user = IncidentElementService.toIncidentElement ( Config.AccountTable, user );
         var incidents = this.http
-            .post( this.guardIncidentsUrl, JSON.stringify( _user ), { headers: this.headers } )
+            .post( this.guardIncidentsUrl, JSON.stringify( user ), { headers: this.headers } )
             .toPromise()
             .then( response => this.initIncidents( response.json() as Incident[] )as Incident[] )
             .catch( this.handleError );
@@ -114,7 +114,7 @@ export class IncidentService
 
     update( incident: Incident ): Promise<Incident> {        
         if ( incident.attributes.ACCOUNT_ID == null ) {
-            incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().ACCOUNT_ID;
+            incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().attributes.ACCOUNT_ID;
         }
         incident.table = Config.IncidentTable;
         var promise = this.http

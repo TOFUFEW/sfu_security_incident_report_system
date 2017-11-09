@@ -38,9 +38,9 @@ export class IncidentElementService
         return arr;
     }
 
-    static toIncidentElement ( table: string, object: Object ): IncidentElement {
+    static toIncidentElement ( table: string, object: IncidentElement ): IncidentElement {
         var incidentElement: IncidentElement = new IncidentElement();
-        incidentElement.attributes = object;
+        incidentElement.attributes = object.attributes;
         return incidentElement;
     }
 

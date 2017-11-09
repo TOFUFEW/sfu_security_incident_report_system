@@ -30,15 +30,15 @@
             <div class="details-body">
                 <div class="detail detail-lg col-12">
                     <span class="field-title">Category: </span>
-                    <span class="field-value" *ngIf="report.category != null">{{report.category.MAIN_CATEGORY}}</span>
+                    <span class="field-value" *ngIf="report.category != null">{{report.category.attributes.MAIN_CATEGORY}}</span>
                 </div>
                 <div class="detail detail-lg col-12">
                     <span class="field-title">Sub Category: </span>
-                    <span class="field-value" *ngIf="report.category != null">{{report.category.SUB_CATEGORY}}</span>
+                    <span class="field-value" *ngIf="report.category != null">{{report.category.attributes.SUB_CATEGORY}}</span>
                 </div>
                 <div class="detail detail-lg col-12">
                     <span class="field-title">Type: </span>
-                    <span class="field-value" *ngIf="report.category != null">{{report.category.INCIDENT_TYPE}}</span>
+                    <span class="field-value" *ngIf="report.category != null">{{report.category.attributes.INCIDENT_TYPE}}</span>
                 </div>
                 <div class="detail detail-lg col-12">
                     <span class="field-title">Assigned To: </span>

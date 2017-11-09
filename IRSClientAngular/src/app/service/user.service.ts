@@ -7,6 +7,7 @@ export class UserService {
     private currentUser: string = 'currentUser';
 
     authUser(user: User) {
+        console.log ("usesr  ", user );
         if (user == null) {
             return;
         }
@@ -23,7 +24,7 @@ export class UserService {
     }
 
     getAccountType() : number {
-        return this.getCurrentUser().ACCOUNT_TYPE;
+        return this.getCurrentUser().attributes.ACCOUNT_TYPE;
     }
 
     logout() {
@@ -32,8 +33,9 @@ export class UserService {
 
     getCurrentUser(): User {
         let jsonString = sessionStorage.getItem( this.currentUser );
+        console.log ( jsonString );
         let currentUser = JSON.parse( jsonString ) as User;
-
+        console.log( currentUser );
         if ( currentUser != null ) {
             return currentUser;
         }

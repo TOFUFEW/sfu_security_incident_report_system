@@ -37,9 +37,9 @@ export class CategoryService
 
         var mainCategories = [];
         categories.forEach( category => {
-            if ( mainCategories.indexOf( category.MAIN_CATEGORY ) < 0 ) {
-                mainCategories.push( category.MAIN_CATEGORY );
-                categoryMap.push( this.getMainCategory( category.MAIN_CATEGORY, categories ));
+            if ( mainCategories.indexOf( category.attributes.MAIN_CATEGORY ) < 0 ) {
+                mainCategories.push( category.attributes.MAIN_CATEGORY );
+                categoryMap.push( this.getMainCategory( category.attributes.MAIN_CATEGORY, categories ));
             }
         });
         return categoryMap;
@@ -52,8 +52,8 @@ export class CategoryService
 
         var subCategories = [];
         categories.forEach( category => {
-            if ( category.MAIN_CATEGORY == grouping.MAIN_CATEGORY ) {
-                var subCategory = category.SUB_CATEGORY;
+            if ( category.attributes.MAIN_CATEGORY == grouping.MAIN_CATEGORY ) {
+                var subCategory = category.attributes.SUB_CATEGORY;
                 if ( subCategories.indexOf( subCategory ) < 0 ) {
                     subCategories.push( subCategory );
                     grouping.SUBCATEGORIES.push( this.getSubCategory( grouping.MAIN_CATEGORY, subCategory, categories ) );
@@ -70,18 +70,18 @@ export class CategoryService
 
         var types = [];
         categories.forEach( cat => {
-            if ( cat.MAIN_CATEGORY === mainCategory && cat.SUB_CATEGORY === grouping.SUB_CATEGORY ) {
-                if ( cat.INCIDENT_TYPE == null || cat.INCIDENT_TYPE.length == 0 ) {
-                    grouping.CATEGORY_ID = cat.CATEGORY_ID;
+            if ( cat.attributes.MAIN_CATEGORY === mainCategory && cat.attributes.SUB_CATEGORY === grouping.SUB_CATEGORY ) {
+                if ( cat.attributes.INCIDENT_TYPE == null || cat.attributes.INCIDENT_TYPE.length == 0 ) {
+                    grouping.CATEGORY_ID = cat.attributes.CATEGORY_ID;
                     grouping.TYPES = [];
                     return grouping;
                 }
 
-                if ( types.indexOf( cat.INCIDENT_TYPE ) < 0 ) {
-                    types.push ( cat.INCIDENT_TYPE ); 
+                if ( types.indexOf( cat.attributes.INCIDENT_TYPE ) < 0 ) {
+                    types.push ( cat.attributes.INCIDENT_TYPE ); 
                     var type = new CategoryType();
-                    type.CATEGORY_ID = cat.CATEGORY_ID;
-                    type.INCIDENT_TYPE = cat.INCIDENT_TYPE;
+                    type.CATEGORY_ID = cat.attributes.CATEGORY_ID;
+                    type.INCIDENT_TYPE = cat.attributes.INCIDENT_TYPE;
                     grouping.TYPES.push( type );
                 }
             }
