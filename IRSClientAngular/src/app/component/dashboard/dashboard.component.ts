@@ -6,7 +6,6 @@ import { IncidentService } from '../../service/incident.service';
 import { StaffService } from '../../service/staff.service';
 import { UserService } from '../../service/user.service';
 import { Config } from '../../util/config.service';
-import { DataHelperService } from '../../util/data-helper.service';
 import { Staff } from '../staff/staff';
 
 
