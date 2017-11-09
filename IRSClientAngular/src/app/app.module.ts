@@ -36,9 +36,8 @@ import { IncidentElementService } from './service/incident-element.service';
 import { StaffService } from './service/staff.service'
 import { PersonService } from './service/person.service';
 import { NewReportService } from './service/new-report.service';
-import { DataHelperService } from './util/data-helper.service';
-
 import { FilterPipe } from './util/filter.pipe';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -73,7 +72,6 @@ import { FilterPipe } from './util/filter.pipe';
     UserService, 
     LoginService, 
     DomService, 
-    DataHelperService, 
     LocationService, 
     IncidentService,
     IncidentElementService,

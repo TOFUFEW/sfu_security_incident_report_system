@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { CategoryDictionary, Category, SubCategory, CategoryType } from './category';
 import { CategoryService } from '../../service/category.service';
-import { DataHelperService } from '../../util/data-helper.service';
 
 @Component( 
   {
@@ -29,7 +28,6 @@ export class CategoryComponent implements OnInit {
 
     constructor ( 
         private categoryService: CategoryService, 
-        private dataHelper: DataHelperService, 
     ) {};
     
     getCategories(): void {     

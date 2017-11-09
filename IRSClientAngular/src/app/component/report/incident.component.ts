@@ -4,7 +4,6 @@ import { StaffService } from '../../service/staff.service';
 import { Incident } from './incident';
 import { Location } from '../location/location';
 import { User } from "../login/user";
-import { DataHelperService } from "../../util/data-helper.service";
 import { Config } from "../../util/config.service";
 import { AssignGuardService } from "../../service/assign-guard.service";
 import { Staff } from '../staff/staff';

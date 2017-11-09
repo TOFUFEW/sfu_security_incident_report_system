@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule, ActivatedRoute, ParamMap, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
-import { DataHelperService } from '../../util/data-helper.service';
 import { Incident } from '../report/incident';
 import { IncidentElement} from '../report/incident-element';
 import { IncidentService } from '../../service/incident.service';
