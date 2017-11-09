@@ -3,7 +3,14 @@ package App;
 
 import Controller.*;
 
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import static spark.Spark.*;
+import static spark.Spark.notFound;
 
 // Class that initializes each controller at start - up
 public class Application
@@ -14,6 +21,28 @@ public class Application
         // STARTUP METHODS
         //staticFileLocation("/public");
         staticFiles.location("/public");
+        // redirects any request back to index.html
+        notFound ( ( request , response ) -> {
+
+            final File indexHTML = new File(
+                    Paths.get("").toAbsolutePath() +
+                            "/src/main/resources/public/index.html"
+            );
+
+            Path path = Paths.get ( indexHTML.toURI () );
+            byte[] encoded = Files.readAllBytes ( path );
+
+            response.type ( "text/html" );
+            response.body (
+                    new String (
+                            encoded,
+                            StandardCharsets.UTF_8
+                    )
+            );
+
+            return response.body();
+        } );
+
         enableCORS (
                 "*",
                 "GET, " + "POST, PUT, DELETE, OPTIONS, HEAD",
