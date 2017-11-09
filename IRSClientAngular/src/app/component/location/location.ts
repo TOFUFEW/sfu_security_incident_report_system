@@ -1,6 +1,7 @@
 import { Config } from '../../util/config.service';
+import { IncidentElement } from '../report/incident-element';
 
-export class Location {
+export class Location implements IncidentElement {
     
     table: string;
     attributes: LocationAttributes;

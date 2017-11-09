@@ -12,28 +12,31 @@ export class DataHelperService
 {
     constructor() {}
 
-    static extractAttributes( incidentElement: IncidentElement ): Object {
-        if( incidentElement == null ) {
-            return null;
-        }
-        return incidentElement.attributes;
-    }
+    // static extractAttributes( incidentElement: IncidentElement ): Object {
+    //     if( incidentElement == null ) {
+    //         return null;
+    //     }
+    //     return incidentElement.attributes;
+    // }
 
-    static extractAttributesArray( incidentElements: IncidentElement[] ): Object[] {
-        var arr = [];
-        //debugger;
-        incidentElements.forEach( so => {
-            //console.log(so);
-            arr.push( so.attributes );
-        });
-        return arr;
-    }
+    // static extractAttributesArray( incidentElements: IncidentElement[] ): Object[] {
+    //     var arr = [];
+    //     //debugger;
+    //     incidentElements.forEach( so => {
+    //         //console.log(so);
+    //         arr.push( so.attributes );
+    //     });
+    //     return arr;
+    // }
 
-    static toIncidentElement( table: string, object: Object): IncidentElement {
-        var incidentElement: IncidentElement = new IncidentElement();
-
-        incidentElement.table = table;
-        incidentElement.attributes = object;
-        return incidentElement;
-    }
+    // static toIncidentElement( table: string, object: Object): IncidentElement {
+    //     var incidentElement: IncidentElement = new IncidentElement();
+    //     console.log ( object );
+    //     if ( object == Location ) {
+    //         console.log ( "true" );
+    //     }
+    //     incidentElement.table = table;
+    //     incidentElement.attributes = object;
+    //     return incidentElement;
+    // }
 }

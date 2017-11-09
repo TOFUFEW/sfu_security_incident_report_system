@@ -9,7 +9,6 @@ import { IncidentElement} from '../report/incident-element';
 import { IncidentService } from '../../service/incident.service';
 import { IncidentElementService } from '../../service/incident-element.service';
 import { UserService } from '../../service/user.service'; 
-import { NewReportService } from '../../service/new-report.service'; 
 import { Location } from '../location/location'; 
 import { LocationModalComponent } from '../location/location-modal.component'; 
 import { CategoryComponent } from '../category/category.component'; 
@@ -33,8 +32,6 @@ export class GuardIncidentComponent implements OnInit {
         private incidentsService: IncidentService,
         private incidentElementService: IncidentElementService,  
         private categoryService: CategoryService,
-        private activatedRoute: ActivatedRoute,       
-        private reportService: NewReportService,         
         private userService: UserService,                
         private router: Router,         
         private http: HttpClient,         
@@ -103,6 +100,7 @@ export class GuardIncidentComponent implements OnInit {
         }
 
         this.locationModal.locationComponent.newLocation = new Location(); // reset
+        var locationToInsert: Location = new Location();      
     }
 
     changeCategory ( newCategoryID ) {
@@ -111,7 +109,6 @@ export class GuardIncidentComponent implements OnInit {
     }
 
     ngOnInit() : void {         
-        console.log ( "in guard incident on init" );         
         this.route.paramMap         
         .switchMap (( params: ParamMap ) =>             
             this.incidentsService.getIncident ( +params.get ( 'id' )))         

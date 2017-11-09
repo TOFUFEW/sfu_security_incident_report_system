@@ -4,7 +4,7 @@ import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
 import { IncidentService } from '../service/incident.service';
-import { DataHelperService } from '../util/data-helper.service';
+import { IncidentElementService } from '../service/incident-element.service';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -20,7 +20,7 @@ export class CategoryService
     getCategories(): Promise < Category[] > {
         var categories = this.http.get( this.categoriesUrl )
         .toPromise()
-        .then( response => DataHelperService.extractAttributesArray( response.json() ) as Category[] )
+        .then( response => IncidentElementService.extractAttributesArray( response.json() ) as Category[] )
         .catch( this.handleError );
         return Promise.resolve( categories );
     };

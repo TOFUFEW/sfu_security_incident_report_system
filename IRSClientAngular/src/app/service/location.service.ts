@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
-import { DataHelperService } from '../util/data-helper.service';
+import { IncidentElementService } from '../service/incident-element.service';
 import 'rxjs/add/operator/toPromise';
 import { IncidentElement } from '../component/report/incident-element';
 import { Location, LocationMapping, Building, Room } from '../component/location/location';
@@ -24,7 +24,7 @@ export class LocationService {
 
     create( location: Location ) : Promise<Location> {
         var promise = this.http
-                .post( this.locationsUrl, JSON.stringify( DataHelperService.toIncidentElement( this.tableName, location ) ), { headers: this.headers } )
+                .post( this.locationsUrl, JSON.stringify( IncidentElementService.toIncidentElement( this.tableName, location ) ), { headers: this.headers } )
                 .toPromise()
                 .then( response => response.json() as Location )
                 .catch( this.handleError );
@@ -33,7 +33,7 @@ export class LocationService {
 
     update( location: Location ) : Promise<Location> {
         var promise = this.http
-                .post( this.locationsUrl, JSON.stringify( DataHelperService.toIncidentElement( this.tableName, location ) ), { headers: this.headers } )
+                .post( this.locationsUrl, JSON.stringify( IncidentElementService.toIncidentElement( this.tableName, location ) ), { headers: this.headers } )
                 .toPromise()
                 .then( response => response.json() as Location )
                 .catch( this.handleError );

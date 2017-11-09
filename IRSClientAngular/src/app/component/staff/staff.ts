@@ -1,6 +1,7 @@
 import { Config } from '../../util/config.service';
+import { IncidentElement } from '../report/incident-element';
 
-export class Staff {
+export class Staff implements IncidentElement {
     table: string;
     attributes: StaffAttributes;
     searchString: string;

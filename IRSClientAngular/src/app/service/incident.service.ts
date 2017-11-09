@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DataHelperService } from '../util/data-helper.service';
+import { IncidentElementService } from '../service/incident-element.service';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
@@ -61,7 +61,7 @@ export class IncidentService
 
     getGuardIncidents(): Promise<Incident[]> {
         var user = this.userService.getCurrentUser();
-        var _user = DataHelperService.toIncidentElement ( Config.AccountTable, user );
+        var _user = IncidentElementService.toIncidentElement ( Config.AccountTable, user );
         var incidents = this.http
             .post( this.guardIncidentsUrl, JSON.stringify( _user ), { headers: this.headers } )
             .toPromise()

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { DataHelperService } from '../util/data-helper.service';
+import { IncidentElementService } from '../service/incident-element.service';
 import { Config } from '../util/config.service';
 import { Location, LocationAttributes } from '../component/location/location';
 import { Person } from '../component/person/person';
@@ -22,22 +22,22 @@ export class NewReportService {
         this.incidentElements = new Map<String, IncidentElement[]>();
     }
 
-    addIncidentElement( obj: any, table: string ) {
+    addIncidentElement( obj: IncidentElement ) {
         if ( obj == null ) {
-            console.log("ERROR: " + table + " is undefined and cannot be added.");
+            console.log("ERROR: " + obj.table + " is undefined and cannot be added.");
             return;
         }
 
         var behaviorSubject = null;
         var arr = [];
-        if ( table === Config.LocationTable ) {
+        if ( obj.table === Config.LocationTable ) {
             behaviorSubject = this.locations;
             arr = behaviorSubject.getValue() as Location[];
         }
-        else if ( table === Config.PersonTable ) {
+        else if ( obj.table === Config.PersonTable ) {
             behaviorSubject = this.persons;
             arr = behaviorSubject.getValue() as Person[];
-            obj = DataHelperService.toIncidentElement( table, obj );
+            // obj = IncidentElementService.toIncidentElement( table, obj );
         }
 
         arr.push( obj );
@@ -45,6 +45,7 @@ export class NewReportService {
     }
 
     removeIncidentElement( obj: any, table: string) {
+        console.log( "object table", obj.table );
         var behaviorSubject = null;
         var arr = [];
         var index = -1;
@@ -62,9 +63,9 @@ export class NewReportService {
             behaviorSubject = this.persons;
             arr = behaviorSubject.getValue() as Person[];
             var person = obj as Person;
-            index = arr.findIndex( x => x.attributes.FIRST_NAME === person.FIRST_NAME
-                                        && x.attributes.LAST_NAME === person.LAST_NAME 
-                                        && x.attributes.PHONE_NUMBER === person.PHONE_NUMBER ) ;
+            index = arr.findIndex( x => x.attributes.FIRST_NAME === person.attributes.FIRST_NAME
+                                        && x.attributes.LAST_NAME === person.attributes.LAST_NAME 
+                                        && x.attributes.PHONE_NUMBER === person.attributes.PHONE_NUMBER ) ;
         }
 
         if ( index >= 0 ) {
@@ -128,15 +129,15 @@ export class NewReportService {
 
     private validatePerson( person: Person ): boolean {
         var isValid = true ; 
-        if ( person.FIRST_NAME == null || person.FIRST_NAME.length == 0 ) {
+        if ( person.attributes.FIRST_NAME == null || person.attributes.FIRST_NAME.length == 0 ) {
             this.debug_printErrorMsg( "FIRST_NAME");
             isValid = false;
         }
-        if ( person.LAST_NAME == null || person.LAST_NAME.length == 0 ) {
+        if ( person.attributes.LAST_NAME == null || person.attributes.LAST_NAME.length == 0 ) {
             this.debug_printErrorMsg( "LAST_NAME");
             isValid = false;
         }
-        if ( person.PHONE_NUMBER == null || person.PHONE_NUMBER.length == 0 ) {
+        if ( person.attributes.PHONE_NUMBER == null || person.attributes.PHONE_NUMBER.length == 0 ) {
             this.debug_printErrorMsg( "PHONE_NUMBER");
             isValid = false;
         }

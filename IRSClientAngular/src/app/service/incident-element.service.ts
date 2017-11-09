@@ -21,6 +21,29 @@ export class IncidentElementService
 {    
     constructor ( private incidentService: IncidentService ) {}
 
+    static extractAttributes( incidentElement: IncidentElement ): Object {
+        if( incidentElement == null ) {
+            return null;
+        }
+        return incidentElement.attributes;
+    }
+
+    static extractAttributesArray( incidentElements: IncidentElement[] ): Object[] {
+        var arr = [];
+        //debugger;
+        incidentElements.forEach( so => {
+            //console.log(so);
+            arr.push( so.attributes );
+        });
+        return arr;
+    }
+
+    static toIncidentElement ( table: string, object: Object ): IncidentElement {
+        var incidentElement: IncidentElement = new IncidentElement();
+        incidentElement.attributes = object;
+        return incidentElement;
+    }
+
     getElementKey ( table: string ) {
         var key = "";
         if ( table === Config.CategoryTable ) 
@@ -73,4 +96,5 @@ export class IncidentElementService
         incident.incidentElements[key].push ( element );
         this.incidentService.update ( incident );
     }
+    
 }

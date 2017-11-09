@@ -3,7 +3,7 @@ import { IncidentService } from '../../service/incident.service';
 import { DomService } from '../../util/dom.service';
 import { NewReportService } from '../../service/new-report.service';
 import { CategoryService } from '../../service/category.service';
-import { DataHelperService } from '../../util/data-helper.service';
+import { IncidentElementService } from '../../service/incident-element.service';
 import { StaffService } from '../../service/staff.service';
 import { Location } from '../location/location';
 import { Person } from '../person/person';
@@ -85,7 +85,7 @@ export class NewReportComponent implements OnInit {
             this.newIncident.attributes.CATEGORY_ID = this.newIncident.category.CATEGORY_ID;
             this.newIncident.category.INCIDENT_TYPE = null;
             this.newIncident.insertIncidentElement( 
-                DataHelperService.toIncidentElement( Config.CategoryTable, this.newIncident.category ));
+                IncidentElementService.toIncidentElement( Config.CategoryTable, this.newIncident.category ));
         }
         this.categoryTypes = subcategories.TYPES;
     }
@@ -100,7 +100,7 @@ export class NewReportComponent implements OnInit {
                 this.newIncident.category.INCIDENT_TYPE = type.INCIDENT_TYPE; // for report summary                
                 this.newIncident.attributes.CATEGORY_ID = this.newIncident.category.CATEGORY_ID;
                 this.newIncident.insertIncidentElement( 
-                    DataHelperService.toIncidentElement( Config.CategoryTable, this.newIncident.category ));
+                    IncidentElementService.toIncidentElement( Config.CategoryTable, this.newIncident.category ));
             }
         }
     }
