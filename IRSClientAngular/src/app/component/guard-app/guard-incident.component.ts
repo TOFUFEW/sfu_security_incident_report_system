@@ -14,7 +14,6 @@ import { LocationModalComponent } from '../location/location-modal.component';
 import { CategoryComponent } from '../category/category.component'; 
 import { Config } from '../../util/config.service';
 
-
 @Component({
   selector: 'guard-incident-component',
   templateUrl: './guard-incident.component.html',
@@ -26,7 +25,7 @@ export class GuardIncidentComponent implements OnInit {
     @ViewChild(CategoryComponent) categoryModal: CategoryComponent        
     title = 'SFU Incident Reporting System';     
     incident: Incident = new Incident();
-    
+    locationModalStr = "location-modal";
     constructor (         
         private incidentsService: IncidentService,
         private incidentElementService: IncidentElementService,  
@@ -102,6 +101,8 @@ export class GuardIncidentComponent implements OnInit {
             // Change existing location
             this.incidentElementService.changeElement ( this.incident, locationToRemove, locationToAdd );
         }
+
+        this.locationModal.locationComponent.newLocation = new Location(); // reset
     }
 
     changeCategory( newCategoryID ) : void {
