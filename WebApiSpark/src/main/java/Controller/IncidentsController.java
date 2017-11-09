@@ -35,8 +35,7 @@ public class IncidentsController
         post ("/incidents" , ( request, response ) ->
         {
             Incident newIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
-            String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
-            return DBHelper.insertIncident ( incidentString , newIncident );
+            return DBHelper.insertIncident ( newIncident );
         } );
 
         post ("/updateIncident" , ( request, response ) ->

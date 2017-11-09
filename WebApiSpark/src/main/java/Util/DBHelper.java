@@ -157,7 +157,7 @@ public class DBHelper
         return false ;
     }
 
-    public static boolean insertIncident ( String query , Incident incident ) {
+    public static boolean insertIncident ( Incident incident ) {
         if ( !allFieldsValid( incident ) ) {
             if ( incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) == null ) {
                 System.out.println( "Attempting to find IncidentCategory in incidentElements array...");
@@ -191,6 +191,7 @@ public class DBHelper
 
         try {
             initDB ();
+            String query = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
             CallableStatement stmt = connection.prepareCall ( query );
             System.out.println (incident.getAttributeValue(DatabaseValues.Column.ACCOUNT_ID));
             System.out.println (incident.getAttributeValue(DatabaseValues.Column.CATEGORY_ID));
