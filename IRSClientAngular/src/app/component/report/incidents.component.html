@@ -11,7 +11,7 @@
     <div class="panel-body">
         <div id="incidents-list" class="col-md-12 col-lg-12">
             <div class="incident-card" *ngFor="let incident of incidents">
-                <div class="main-content">
+                <div class="main-content"  (dblclick)="incident.inWorkspace || addToWorkspace(incident)">
                     <div class="detail-row">
                         <span class="card-text-secondary">Report #{{incident.attributes.REPORT_ID}}</span>
                     </div>

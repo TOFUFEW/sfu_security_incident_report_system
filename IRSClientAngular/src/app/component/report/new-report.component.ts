@@ -113,7 +113,6 @@ export class NewReportComponent implements OnInit {
         }
         else {
             this.selectedStaff = null;
-            console.log (this.newIncident.incidentElements[Config.StaffKey]);
             if ( this.newIncident.incidentElements[Config.StaffKey] != null ) {
                 this.newIncident.incidentElements[Config.StaffKey].splice( 0, this.newIncident.incidentElements[Config.StaffKey].length  );
             }
