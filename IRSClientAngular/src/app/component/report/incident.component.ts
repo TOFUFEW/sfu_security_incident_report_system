@@ -46,7 +46,6 @@ export class IncidentComponent implements OnInit {
     }
 
     addToWorkspace( incident: Incident ): void {
-        alert("Report added to workspace");
         incident.inWorkspace = true ;
         console.log("adding to workspace...");
         console.log(incident);
