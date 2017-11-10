@@ -18,7 +18,7 @@ public class GuardIncidentsController
     Gson gson = new Gson();
     private void setupEndPoints ()
     {
-        post ( "/guardIncidents",  ( request , response ) ->
+        post ( "/guard-incidents",  ( request , response ) ->
         {
             User user = ( User ) JsonUtil.fromJson ( request.body(), User.class );
             int accountID = Integer.parseInt ( user.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID ) );
@@ -26,7 +26,7 @@ public class GuardIncidentsController
             return JsonUtil.toJson ( incidents );
         });
 
-        post ("/getIncident", ( request , response ) ->
+        post ("/get-incident", ( request , response ) ->
         {
             Incident incident = ( Incident ) gson.fromJson( request.body(), Incident.class );
             return JsonUtil.toJson( DBHelper.getIncident ( incident.getAttributeValue( DatabaseValues.Column.REPORT_ID )) );
