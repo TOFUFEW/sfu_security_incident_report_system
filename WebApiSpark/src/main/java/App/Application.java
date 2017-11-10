@@ -47,14 +47,13 @@ public class Application
 
         // SETUP STATIC FILE HOSTING FOR ANGULAR
         notFound ( ( request , response ) -> {
-
             final File indexHTML = new File(
                     Paths.get("").toAbsolutePath() +
                             "/src/main/resources/public/index.html"
             );
 
             Path path = Paths.get ( indexHTML.toURI () );
-            byte[] encoded = Files.readAllBytes ( path );
+            byte [] encoded = Files.readAllBytes ( path );
 
             response.type ( "text/html" );
             response.body (
@@ -64,7 +63,7 @@ public class Application
                     )
             );
 
-            return response.body();
+            return response.body ();
         } );
 
         enableCORS (
