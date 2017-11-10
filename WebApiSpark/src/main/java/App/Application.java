@@ -10,6 +10,8 @@ import java.nio.file.Paths;
 import static spark.Spark.before;
 import static spark.Spark.options;
 import static spark.Spark.staticFileLocation;
+import static spark.Spark.port;
+import static spark.Spark.secure;
 
 // Class that initializes each controller at start - up
 public class Application
