@@ -1,17 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router, RouterModule, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute, ParamMap, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
 import { Incident } from '../report/incident';
+import { IncidentElement} from '../report/incident-element';
 import { IncidentService } from '../../service/incident.service';
+import { IncidentElementService } from '../../service/incident-element.service';
 import { UserService } from '../../service/user.service'; 
-import { NewReportService } from '../../service/new-report.service'; 
 import { Location } from '../location/location'; 
 import { LocationModalComponent } from '../location/location-modal.component'; 
 import { CategoryComponent } from '../category/category.component'; 
+import { CategoryService } from '../../service/category.service';
 import { Config } from '../../util/config.service';
-
 
 @Component({
   selector: 'guard-incident-component',
@@ -23,15 +24,17 @@ export class GuardIncidentComponent implements OnInit {
     @ViewChild(LocationModalComponent) locationModal: LocationModalComponent     
     @ViewChild(CategoryComponent) categoryModal: CategoryComponent        
     title = 'SFU Incident Reporting System';     
-    incident: Incident;   
-    
+    incident: Incident = new Incident();
+    locationModalStr = "location-modal";
+
     constructor (         
-        private incidentsService: IncidentService,         
-        private reportService: NewReportService,         
+        private incidentsService: IncidentService,
+        private incidentElementService: IncidentElementService,  
+        private categoryService: CategoryService,
         private userService: UserService,                
         private router: Router,         
         private http: HttpClient,         
-        private route: ActivatedRoute     
+        private route: ActivatedRoute  
     ) {
 
         if ( this.userService.isLoggedIn() == false ) 
@@ -54,92 +57,64 @@ export class GuardIncidentComponent implements OnInit {
 //     this.newIncident = new Incident();
 //   }
 
-    saveReport(): void {
-        this.incidentsService.update( this.incident )
-            .then( returnedIncident => {
-                if ( returnedIncident != null  ) {
-                alert( "Incident successfully edited!" );
-                }
-                else alert( "Edit failed." );
-            } );
-    }
+    // saveReport(): void {
+    //     this.incidentsService.update( this.incident )
+    //         .then( returnedIncident => {
+    //             if ( returnedIncident != null  ) {
+    //             alert( "Incident successfully edited!" );
+    //             }
+    //             else alert( "Edit failed." );
+    //         } );
+    // }
       
-    public show() : void {
+    public showModal() : void {
         var locationModal: HTMLElement = document.getElementById("modalLocation");
         locationModal.style.visibility = "true";
         // setTimeout(() => locationModal.visibleAnimate = true, 100);
     }
 
-    public hide() : void {
+    public hideModal() : void {
         var locationModal: HTMLElement = document.getElementById("modalLocation");
         setTimeout(() => locationModal.style.visibility = "false", 300);
     }
 
     public onContainerClicked ( event: MouseEvent ) : void {
         if ((<HTMLElement>event.target).classList.contains('modal')) {
-        this.hide();
+        this.hideModal();
         }
     }
 
-    changeLocation( edit ) : void {
-        // this.reportService.addElementsFromIncident ( this.incident.incidentElements, this.incident.locationList );
-        var locationToRemoveIndex : number;
-        var locationToRemoveLocally : number;
+    changeLocation() {
         var locationToAdd = this.locationModal.locationComponent.newLocation;
-        var locationToRemove : Location;
-                
-        // Add new location
-        if ( this.locationModal.button_id == -1 ) {
-            this.incident.locationList.push ( locationToAdd );
-            this.incident.incidentElements.push ( locationToAdd );            
-        }
-        else { 
-            this.incident.locationList.forEach( location => {
-                if ( location.attributes.LOCATION_ID == this.locationModal.button_id ) {
-                    locationToRemoveLocally = this.incident.locationList.indexOf(location);     
-                } 
-            });
-            this.incident.locationList.splice(locationToRemoveIndex, 1, locationToAdd);
-            
-            console.log ( "location index ", locationToRemoveIndex );
+        var locationToRemove = -1;
+        locationToRemove = this.locationModal.button_id;
 
-            // this.reportService.removeIncidentElement( locationToRemove, Config.LocationTable);        
-            this.incident.incidentElements.forEach( element => {
-                console.log(Config.LocationTable);
-                console.log("element table", element.table);
-                var locationElement = element as Location;
-                if (( element.table == Config.LocationTable ) && 
-                    ( locationElement.attributes.LOCATION_ID == this.locationModal.button_id )) {
-                        locationToRemoveIndex = this.incident.incidentElements.indexOf(element);
-                }
-            }); 
-            this.incident.incidentElements.splice(locationToRemoveIndex, 1, locationToAdd);
+        if ( locationToRemove == -1 ) {
+            // Add new location 
+            this.incidentElementService.addElement ( this.incident, locationToAdd );
         }
-        this.incidentsService.update ( this.incident );
-        console.log( "new location list", this.incident.incidentElements );
-        // this.incidentsService.update( this.incident );
-        console.log(this.incident);
+        else {
+            // Change existing location
+            this.incidentElementService.changeElement ( this.incident, locationToRemove, locationToAdd );
+        }
+
+        this.locationModal.locationComponent.newLocation = new Location(); // reset
+        var locationToInsert: Location = new Location();      
     }
 
-    changeCategory( newCategoryID ) : void {
-        console.log("change category in incident", newCategoryID);
-        this.incident.category.CATEGORY_ID = newCategoryID;
+    changeCategory ( newCategoryID ) {
         this.incident.attributes.CATEGORY_ID = newCategoryID;
-        this.incident.category.MAIN_CATEGORY = this.categoryModal.selectedCategory.MAIN_CATEGORY;
-        this.incident.category.SUB_CATEGORY = this.categoryModal.selectedCategory.SUB_CATEGORY;
-        this.incident.category.INCIDENT_TYPE = this.categoryModal.selectedCategory.INCIDENT_TYPE;
-        this.incidentsService.update ( this.incident );
+        this.categoryService.changeIncidentCategory ( this.incident, newCategoryID, this.categoryModal.selectedCategory );
     }
 
     ngOnInit() : void {         
-        console.log ( "in guard incident on init" );         
         this.route.paramMap         
         .switchMap (( params: ParamMap ) =>             
             this.incidentsService.getIncident ( +params.get ( 'id' )))         
         .subscribe ( returnedIncident => {             
-            this.incident = returnedIncident;             
-        console.log("returned incident" , this.incident);           
-     })     
+            this.incident = returnedIncident;       
+            console.log("returned incident" , this.incident);           
+        });
     }
 }
 

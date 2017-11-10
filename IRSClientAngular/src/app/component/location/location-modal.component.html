@@ -10,9 +10,11 @@
                     <span aria-hidden="true">&times;</span>                     
                 </button>                     
                 <h4 class="modal-title mt-2">Change current location {{currentLocation}}</h4>             
-            </div>             <location-component></location-component>                         
+            </div>             
+            <location-component></location-component>                         
             <div class="modal-footer mt-2 pt-2 mb-1">                 
-                <button type="button" class="btn btn-primary" (click)="submitChanges($event.target.value)" id="{{button_id}}">Save changes</button>                 <button type="button" class="btn btn-secondary ml-1" (click)="hide()">Close</button>             
+                <button type="button" class="btn btn-primary" (click)="submitChanges($event.target.value)" id="{{button_id}}">Save changes</button>                 
+                <button type="button" class="btn btn-secondary ml-1" (click)="hide()">Close</button>             
 </div>         
 </div>     
 </div> 
