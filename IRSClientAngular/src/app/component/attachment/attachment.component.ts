@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
+import { Config } from '../../util/config.service';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -11,6 +12,7 @@ import 'rxjs/add/operator/toPromise';
 export class AttachmentComponent implements OnInit {
   @Input() multiple: boolean = false;
   @ViewChild('file') inputEl: ElementRef;
+  uploadURI = Config.UploadURI;
 
   constructor (
     private http: Http,
@@ -34,7 +36,7 @@ export class AttachmentComponent implements OnInit {
           }
 
           var promise = this.http
-                  .post( "http://localhost:4567/upload", formData )
+                  .post( this.uploadURI, formData )
                   .toPromise()
                   .then( response => response.json() as boolean )
                   .catch( this.handleError );

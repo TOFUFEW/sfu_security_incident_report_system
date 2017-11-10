@@ -3,6 +3,8 @@ package Controller;
 import Model.Incident;
 import Model.Location;
 import Model.Person;
+import Model.IncidentElement;
+import Model.Location;
 import Util.DBHelper;
 import Util.HtmlEngine;
 import Util.JsonUtil;
@@ -18,6 +20,7 @@ import com.google.common.collect.Maps;
 
 public class IncidentsController
 {
+    DBHelper dbHelper = new DBHelper();
     public IncidentsController ()
     {
         setupEndPoints ();
@@ -34,21 +37,21 @@ public class IncidentsController
         post ("/incidents" , ( request, response ) ->
         {
             Incident newIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
-            String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
-            return DBHelper.insertIncident ( incidentString , newIncident );
+            return DBHelper.insertIncident ( newIncident );
         } );
 
         post ("/updateIncident" , ( request, response ) ->
         {
             Incident updatedIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
+            System.out.println ("UPDATED INCIDENT: " + updatedIncident.toString());
+
             return DBHelper.updateIncident ( updatedIncident );
         } );
 
         post ( "/assignIncident", ( request, response ) ->
         {
-            Incident incident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
-            return DBHelper.assignIncident( incident );
-        }) ;
-
+            Incident updatedIncident = (Incident) JsonUtil.fromJson ( request.body(), Incident.class );
+            return DBHelper.updateIncident( updatedIncident );
+        });
     }
 }

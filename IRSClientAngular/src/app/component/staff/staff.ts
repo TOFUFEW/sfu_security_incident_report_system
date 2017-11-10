@@ -1,10 +1,14 @@
-export class Staff {
+import { Config } from '../../util/config.service';
+import { IncidentElement } from '../report/incident-element';
+
+export class Staff implements IncidentElement {
     table: string;
     attributes: StaffAttributes;
     searchString: string;
 
     constructor() {
         this.attributes = new StaffAttributes();
+        this.table = Config.StaffTable;
     }
 }
 
