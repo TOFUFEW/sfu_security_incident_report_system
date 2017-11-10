@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3258f34-4357-46e7-a275-cc0acbced47a" name="Default" comment="Fix merge issue">
+    <list default="true" id="c3258f34-4357-46e7-a275-cc0acbced47a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IRSClientAngular/src/app/util/config.service.ts" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/util/config.service.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/App/Application.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/App/Application.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/glyphicons-halflings-regular.89889688147bd7575d63.svg" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/glyphicons-halflings-regular.89889688147bd7575d63.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/inline.bundle.js" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/inline.bundle.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/inline.bundle.js.map" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/inline.bundle.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/main.bundle.js" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/main.bundle.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/main.bundle.js.map" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/main.bundle.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/polyfills.bundle.js" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/polyfills.bundle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/polyfills.bundle.js.map" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/polyfills.bundle.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/scripts.bundle.js" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/scripts.bundle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/styles.bundle.js" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/styles.bundle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/styles.bundle.js.map" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/styles.bundle.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/vendor.bundle.js" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/vendor.bundle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/vendor.bundle.js.map" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/vendor.bundle.js.map" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/WebApiSpark/target/" />
@@ -52,8 +42,8 @@
       <file leaf-file-name="Application.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/App/Application.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="19" column="5" lean-forward="true" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+            <state relative-caret-position="238">
+              <caret line="20" column="26" lean-forward="true" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -722,7 +712,14 @@
       <option name="project" value="LOCAL" />
       <updated>1510348030689</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Fix code formatting">
+      <created>1510356832050</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1510356832050</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -847,7 +844,8 @@
     <MESSAGE value="post merge fixes" />
     <MESSAGE value="Merge static file hosting feature branch" />
     <MESSAGE value="Fix merge issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix merge issue" />
+    <MESSAGE value="Fix code formatting" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix code formatting" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1142,8 +1140,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/App/Application.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="19" column="5" lean-forward="true" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+        <state relative-caret-position="238">
+          <caret line="20" column="26" lean-forward="true" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
