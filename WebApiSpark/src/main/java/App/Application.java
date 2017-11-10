@@ -22,7 +22,7 @@ public class Application
         // STARTUP METHODS
         staticFileLocation("/public");
 
-        port ( 9876 );
+        port ( 4567 );
 
         Path currentPath = Paths.get ( "" ).toAbsolutePath ();
 
