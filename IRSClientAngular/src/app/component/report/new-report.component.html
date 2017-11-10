@@ -41,7 +41,7 @@
                             </div>
                             <div class="detail col-12 col-sm-10">
                                 <span class="field-title">Executive Summary <span class="required-asterisk">*</span></span>
-                                <textarea class="form-control" cols="50" rows="8" [(ngModel)]="newIncident.attributes.EXECUTIVE_SUMMARY"></textarea>                                
+                                <textarea class="form-control" cols="50" rows="8" [(ngModel)]="newIncident.attributes.EXECUTIVE_SUMMARY"></textarea>
                             </div>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                             <span class="field-title">Attachments</span>
                         </div>
                         <div>
-                            <attachment-component #files (change)="files.upload()" [multiple]="true"></attachment-component>                                            
+                            <attachment-component #files [multiple]="true"></attachment-component>
                         </div>
                     </div>
 
@@ -105,14 +105,14 @@
                                         <option *ngFor="let staff of staffList" [value]="staff.attributes.ACCOUNT_ID">{{staff.attributes.FIRST_NAME}} {{staff.attributes.LAST_NAME}}</option>
                                     </select>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                     </div>
 
                 </div>
                 
                 <div class="panel-footer">
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#confirmationModal" (click)="prepareReport()">Proceed to Review</button>                                
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#confirmationModal" (click)="prepareReport()">Proceed to Review</button>
                 </div>
             </div>
         </div>
@@ -245,7 +245,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary" (click)="createReport()" *ngIf="reportReady">Create Report</button>   
+                <button class="btn btn-primary" (click)="createReport(); files.upload();" *ngIf="reportReady">Create Report</button>
             </div>
         </div>
     </div>
