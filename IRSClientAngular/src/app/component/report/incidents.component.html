@@ -22,7 +22,7 @@
                     </div>
                     <div class="detail-row">
                         <span class="card-text-secondary">
-                            Category: {{incident.category.MAIN_CATEGORY}} - {{incident.category.SUB_CATEGORY}} {{incident.category.INCIDENT_TYPE}}
+                            Category: {{incident.category.attributes.MAIN_CATEGORY}} - {{incident.category.attributes.SUB_CATEGORY}} {{incident.category.attributes.INCIDENT_TYPE}}
                         </span>
                     </div>
                     <div class="detail-row" *ngIf="incident.guard != null && incident.guard.attributes.FIRST_NAME != null">
