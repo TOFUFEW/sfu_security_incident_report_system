@@ -77,15 +77,15 @@
             <div class="details-body" *ngFor="let person of report.incidentElements['Person']">
                 <div class="detail col-12 col-sm-3">
                     <span class="field-title">First Name: </span>
-                    <span class="field-value">{{person.FIRST_NAME}}</span>
+                    <span class="field-value">{{person.attributes.FIRST_NAME}}</span>
                 </div>
                 <div class="detail col-12 col-sm-3">
                     <span class="field-title">Last Name: </span>
-                    <span class="field-value">{{person.LAST_NAME}}</span>
+                    <span class="field-value">{{person.attributes.LAST_NAME}}</span>
                 </div>
                 <div class="detail col-12 col-sm-3">
                     <span class="field-title">Phone Number: </span>
-                    <span class="field-value">{{person.PHONE_NUMBER}}</span>
+                    <span class="field-value">{{person.attributes.PHONE_NUMBER}}</span>
                 </div>
             </div>
             <span class="not-found" *ngIf="report.incidentElements['Person'].length == 0"> No Involvements available</span>
