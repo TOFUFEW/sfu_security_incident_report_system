@@ -5,7 +5,7 @@
     </div>
     <div class="panel-body">
         <div id="timer-card" class="col-md-12 col-lg-12">
-            <button class="btn btn-primary" (click)="toggleAddTimerForm();">New Timer</button>
+            <!-- <button class="btn btn-primary" (click)="toggleAddTimerForm();">New Timer</button>
             <div id="timerForm" style="display: none">
                 <div>
                     <select class="form-control" name="" id="" [(ngModel)]="newTimer.TYPE">
@@ -25,14 +25,13 @@
                     <input type="time" placeholder="HH:mm:ss" [(ngModel)]="tempEnd">
                 </div>
                 <button class="btn" (click)="checkInput();">Add Timer</button>
-            </div>
+            </div> -->
             <div class="main-content">
                 <div class="staff-card" *ngFor="let timer of timerList">
-                    <p id="timerDisplay"></p>
-                    <div class="detail-row description">
+                    <!-- <div class="detail-row description">
                         <span class="card-text-primary">{{timer.TIMER_NAME}}</span>
                         <span class="detail-row">Type: {{timer.TYPE}} </span>
-                    </div>
+                    </div> -->
                     <div class="detail-row">
                         <span class="detail-row">Start Time: {{timeToString(timer.START_TIME)}}</span>
                     </div>
@@ -42,6 +41,7 @@
                     <div class="detail-row">
                         <span class="detail-row">Time Remaining: {{timeToString(timer.TIME_REMAINING)}}</span>
                     </div>
+                    <br>
                 </div>
             </div>     
         </div>

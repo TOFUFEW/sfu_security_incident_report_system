@@ -5,15 +5,18 @@ import { NewReportService } from '../../service/new-report.service';
 import { CategoryService } from '../../service/category.service';
 import { DataHelperService } from '../../util/data-helper.service';
 import { StaffService } from '../../service/staff.service';
+import { TimerService } from '../../service/timer.service';
 import { Location } from '../location/location';
 import { Person } from '../person/person';
 import { Incident } from '../report/incident';
 import { Staff } from '../staff/staff';
+import { Timer } from '../timer/timer';
 import { Category, SubCategory, CategoryType, CategoryDictionary } from '../category/category';
 import { LocationComponent } from '../location/location.component';
 import { VehicleComponent } from '../vehicle/vehicle.component';
 import { PersonComponent } from '../person/person.component';
 import { AttachmentComponent } from '../attachment/attachment.component';
+import { TimerIncidentComponent } from '../timer/timer-incident.component'
 import { Config } from '../../util/config.service';
 
 @Component(
@@ -37,12 +40,16 @@ export class NewReportComponent implements OnInit {
 
     reportReady: boolean = false; 
 
+    tempStart: string;
+    tempEnd: string;
+
     constructor( 
       private incidentService: IncidentService,
       private domService: DomService,
       private newReportService: NewReportService,
       private categoryService: CategoryService,
-      private staffService: StaffService
+      private staffService: StaffService,
+      private timerService: TimerService
     ) {
         this.staffService.getStaffs().then( returnedStaffs => {
             this.staffList = returnedStaffs.sort( 
@@ -127,6 +134,7 @@ export class NewReportComponent implements OnInit {
 
     prepareReport(): void {
         this.newIncident.incidentElements = this.newReportService.collectIncidentElements( this.newIncident.category );
+        this.newIncident.timer = this.timerService.createTimer(this.tempStart, this.tempEnd);
         this.reportReady = this.isReportValid();
     }
 
@@ -160,6 +168,10 @@ export class NewReportComponent implements OnInit {
     //     }
     //     return str;
     // }
+
+    formatTime(num : number): string{
+        return this.timerService.timeToString(num);
+    }
 
     private isReportValid(): boolean {
         return this.newReportService.validateReport( this.newIncident );

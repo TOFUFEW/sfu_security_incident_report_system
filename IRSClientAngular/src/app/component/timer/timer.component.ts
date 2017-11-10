@@ -29,7 +29,7 @@ export class TimerComponent implements OnInit {
         var timer2 : Timer = new Timer();
         timer2.TIMER_NAME = "Goodbye"
         timer2.START_TIME = nowTime - 15 * 60 * 1000;
-        timer2.END_TIME = nowTime + 15 * 60 * 1000;
+        timer2.END_TIME = nowTime + 20 * 60 * 1000;
         timer2.TIME_REMAINING = timer2.END_TIME - nowTime;
         
         this.timerList.push(timer1);
@@ -45,8 +45,6 @@ export class TimerComponent implements OnInit {
     checkInput() : void{
         if(this.tempStart > this.tempEnd){
             alert("End time cannot be before start time");
-        } else if (this.newTimer.TYPE == null){
-            alert("Please select a type");
         } else {
             this.addTimer();
         }
@@ -56,12 +54,9 @@ export class TimerComponent implements OnInit {
         // this.timerService.update(timer).then( returnedTimer => {
         //     this.timerList.push(timer);
         // } );
-        console.log(this.tempStart);
-        var str: string[] = this.tempStart.split(":");
-        this.newTimer.START_TIME = parseInt(str[0]) * 60 * 60 * 1000 + parseInt(str[1]) * 60 * 1000;
+        this.newTimer.START_TIME = this.timerService.stringToTime(this.tempStart);
+        this.newTimer.END_TIME = this.timerService.stringToTime(this.tempEnd);
 
-        str = this.tempEnd.split(":");
-        this.newTimer.END_TIME = parseInt(str[0]) * 60 * 60 * 1000 + parseInt(str[1]) * 60 * 1000;
 
         this.newTimer.TIME_REMAINING = this.newTimer.END_TIME - this.newTimer.START_TIME;
 
@@ -116,19 +111,10 @@ export class TimerComponent implements OnInit {
     
 
     timeToString(time : number ) : string {
-        var hour = this.fillZeros(Math.floor(time / 1000 / 60 / 60 % 24).toString());
-        var minute = this.fillZeros(Math.floor(time / 1000 / 60 % 60).toString());
-        var second = this.fillZeros((time / 1000 % 60).toString());
-
-        return hour + ":" + minute + ":" + second;
+        return this.timerService.timeToString(time);
     }
 
-    fillZeros(str : string) : string{
-        if (str.length < 2){
-            str = "0" + str;
-        }
-        return str;
-    }
+
 
     pauseTimer(timer : Timer) : void {
 

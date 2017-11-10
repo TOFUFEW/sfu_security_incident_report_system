@@ -33,6 +33,37 @@ export class TimerService{
 
     }
 
+    createTimer(start : string, end : string) : Timer {
+        var timer : Timer = new Timer();
+
+        timer.START_TIME = this.stringToTime(start);
+        timer.END_TIME = this.stringToTime(end);
+        console.log(timer);
+        return timer;
+    }
+
+    //html time input is string "hh:mm" convert to time format
+    stringToTime(input : string ) : number {
+        var str: string[] = input.split(":");
+
+        return parseInt(str[0]) * 60 * 60 * 1000 + parseInt(str[1]) * 60 * 1000;
+
+    }
+
+    timeToString(time : number) : string {
+        var hour = this.fillZeros(Math.floor(time / 1000 / 60 / 60 % 24).toString());
+        var minute = this.fillZeros(Math.floor(time / 1000 / 60 % 60).toString());
+        var second = this.fillZeros((time / 1000 % 60).toString());
+
+        return hour + ":" + minute + ":" + second;
+    }
+
+    fillZeros(str : string) : string{
+        if (str.length < 2){
+            str = "0" + str;
+        }
+        return str;
+    }
 
 
     private handleError() : void {

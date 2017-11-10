@@ -1,6 +1,7 @@
 import { Staff } from '../staff/staff';
 import { Location } from '../location/location';
 import { Person } from '../person/person';
+import { Timer } from '../timer/timer';
 import { IncidentElement } from './incident-element';
 import { Category } from '../category/category';
 import { Observable } from 'rxjs/Observable';
@@ -18,6 +19,8 @@ export class Incident {
     personList: Person[];
     category: Category;
     guard: Staff;
+
+    timer: Timer;
     // END OF TEMP CODE
 
     inWorkspace: boolean;
@@ -31,6 +34,7 @@ export class Incident {
         this.category = new Category(null, null, null, null);
         this.inWorkspace = false;
         this.guard = new Staff();
+        this.timer = new Timer();
     }
 }
 

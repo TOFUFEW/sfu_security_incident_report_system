@@ -1,0 +1,13 @@
+<div class="details-body">
+    <div class="x-container">
+        <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removeTimerFromReport()"></span>        
+    </div>
+    <div class="detail col-12 col-sm-3">
+        <span class="field-title">Start Time <span class="required-asterisk">*</span></span>
+        <input class="form-control" id="startTime" type="time" [(ngModel)]="tempStart" />
+    </div>
+    <div class="detail col-12 col-sm-3">
+        <span class="field-title">End Time <span class="required-asterisk">*</span></span>
+        <input class="form-control" id="endTime" type="time" [(ngModel)]="tempEnd" />
+    </div>
+</div> 
