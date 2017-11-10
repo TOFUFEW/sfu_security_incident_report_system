@@ -32,16 +32,15 @@ import { UserService } from './service/user.service';
 import { LoginService } from './service/login.service';
 import { CategoryService } from './service/category.service';
 import { DomService } from './util/dom.service';
-
 import { LocationService } from './service/location.service'
 import { IncidentService } from './service/incident.service'
+import { IncidentElementService } from './service/incident-element.service';
 import { StaffService } from './service/staff.service'
 import { PersonService } from './service/person.service';
 import { NewReportService } from './service/new-report.service';
 import { TimerService } from './service/timer.service';
-import { DataHelperService } from './util/data-helper.service';
-
 import { FilterPipe } from './util/filter.pipe';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -74,7 +73,13 @@ import { FilterPipe } from './util/filter.pipe';
     TimerIncidentComponent
   ],
   
-  providers: [UserService, LoginService, DomService, DataHelperService, LocationService, IncidentService,
+  providers: [
+    UserService, 
+    LoginService, 
+    DomService, 
+    LocationService, 
+    IncidentService,
+    IncidentElementService,
     StaffService,
     PersonService,
     NewReportService,

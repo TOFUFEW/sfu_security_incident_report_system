@@ -5,36 +5,51 @@ import { Timer } from '../timer/timer';
 import { IncidentElement } from './incident-element';
 import { Category } from '../category/category';
 import { Observable } from 'rxjs/Observable';
+import { Config } from '../../util/config.service';
 
 export class Incident {
     table: string;
-    incidentElements: IncidentElement[];
+    incidentElements: Map<String, IncidentElement[]>;
     attributes: IncidentAttributes;
     searchString: string;
 
-    // TEMP CODE
-    locationList: Location[];
-    staffList: Staff[];
-
-    personList: Person[];
     category: Category;
     guard: Staff;
 
     timer: Timer;
-    // END OF TEMP CODE
-
+ 
     inWorkspace: boolean;
     
     constructor() {
-        this.incidentElements = [];
-        this.locationList = [];
-        this.staffList = [];
-        this.personList = [];
+        this.incidentElements = new Map;
         this.attributes = new IncidentAttributes();
         this.category = new Category(null, null, null, null);
         this.inWorkspace = false;
         this.guard = new Staff();
         this.timer = new Timer();
+    }
+
+    insertIncidentElement( element: IncidentElement ) {
+        var key = "";
+        var table = element.table;
+        if ( table === Config.CategoryTable ) 
+            key = Config.IncidentCategoryKey;
+        else if ( table === Config.LocationTable ) 
+            key = Config.LocationKey;
+        else if ( table === Config.StaffTable )
+            key = Config.StaffKey
+        else if ( table === Config.PersonTable ) 
+            key = Config.PersonKey;
+        else {
+            console.log( "Table not found.");
+            key = table;
+        }
+
+        if ( this.incidentElements[key] == null ) {
+            this.incidentElements[key] = new Array;
+        }
+
+        this.incidentElements[key].push( element );
     }
 }
 

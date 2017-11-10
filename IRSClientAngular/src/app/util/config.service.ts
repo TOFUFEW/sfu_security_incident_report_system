@@ -11,6 +11,7 @@ export class Config {
     static UpdateIncidentsURI: string = "http://localhost:4567/updateIncident";
     static UpdateIncidentURI: string = "http://localhost:4567/updateIncident";
     static AssignIncidentURI: string = "http://localhost:4567/assignIncident";
+    static UploadURI: string = "http://localhost:4567/upload";
 
     static StaffTable: string = "STAFF";
     static LocationTable: string = "LOCATION";
@@ -19,4 +20,9 @@ export class Config {
     static PersonTable: string = "PERSON";
     static CategoryTable: string = "INCIDENT_CATEGORY";
     static TimerTable: string = "TIMER";
+
+    static IncidentCategoryKey: string = "IncidentCategory" ;
+    static LocationKey: string = "Location";
+    static PersonKey: string = "Person"
+    static StaffKey: string = "Staff";
 }

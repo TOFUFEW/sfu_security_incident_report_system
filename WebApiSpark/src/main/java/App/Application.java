@@ -3,7 +3,9 @@ package App;
 
 import Controller.*;
 
-import static spark.Spark.*;
+import static spark.Spark.before;
+import static spark.Spark.options;
+import static spark.Spark.staticFileLocation;
 
 // Class that initializes each controller at start - up
 public class Application
@@ -28,6 +30,7 @@ public class Application
         IncidentCategoryController categoryController = new IncidentCategoryController();
         AttachmentController attachmentController = new AttachmentController();
         GuardIncidentsController guardIncidentsController = new GuardIncidentsController();
+        AssignGuardController assignGuardController = new AssignGuardController();
     }
 
     // CORS Filter

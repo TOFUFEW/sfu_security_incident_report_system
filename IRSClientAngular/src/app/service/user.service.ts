@@ -23,7 +23,7 @@ export class UserService {
     }
 
     getAccountType() : number {
-        return this.getCurrentUser().ACCOUNT_TYPE;
+        return this.getCurrentUser().attributes.ACCOUNT_TYPE;
     }
 
     logout() {
@@ -33,7 +33,6 @@ export class UserService {
     getCurrentUser(): User {
         let jsonString = sessionStorage.getItem( this.currentUser );
         let currentUser = JSON.parse( jsonString ) as User;
-
         if ( currentUser != null ) {
             return currentUser;
         }

@@ -2,11 +2,15 @@ package Model;
 
 import Util.DatabaseValues;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Incident extends StorageObject
 {
-    private ArrayList< IncidentElement > incidentElements = new ArrayList ();
+    private HashMap < String , ArrayList < IncidentElement > > incidentElements = new HashMap <> ();
 
     public Incident ( )
     {
@@ -26,7 +30,7 @@ public class Incident extends StorageObject
             String categoryID,
             String description,
             String executiveSummary,
-            String closed
+            String status
     ) {
         super (
                 DatabaseValues.Table.INCIDENT,
@@ -37,7 +41,7 @@ public class Incident extends StorageObject
                         DatabaseValues.Column.CATEGORY_ID,
                         DatabaseValues.Column.DESCRIPTION,
                         DatabaseValues.Column.EXECUTIVE_SUMMARY,
-                        DatabaseValues.Column.CLOSED
+                        DatabaseValues.Column.STATUS
                 }
         );
 
@@ -68,75 +72,90 @@ public class Incident extends StorageObject
         );
 
         updateAttributeValue(
-                DatabaseValues.Column.CLOSED,
-                closed
+                DatabaseValues.Column.STATUS,
+                status
         );
+//        incidentElementsHash.put ("Location" , new ArrayList <> () );
+//        incidentElementsHash.put ("Staff" , new ArrayList <> () );
+//        incidentElementsHash.put ("Person" , new ArrayList <> () );
+
     }
 
-    public void changeIncidentElementList ( ArrayList < IncidentElement > incidentElementsList ) {
-        this.incidentElements = incidentElementsList;
+    public void changeIncidentElements ( HashMap < String , ArrayList < IncidentElement > > incidentElements) {
+        this.incidentElements = incidentElements;
     }
 
-    public boolean addIncidentElement ( IncidentElement incidentElement )
+    public HashMap < String , ArrayList < IncidentElement > > getIncidentElements () {
+        return this.incidentElements;
+    }
+
+    public boolean addIncidentElement ( String key , IncidentElement incidentElement )
     {
         if ( incidentElement == null)
         {
             return false;
         }
-        incidentElements.add ( incidentElement );
+
+        if ( ( !incidentElements.keySet().contains( key ) ) && DatabaseValues.IncidentElementKey.contains( key )) {
+            incidentElements.put( key, new ArrayList<>() );
+        }
+
+        ArrayList<IncidentElement> list = incidentElements.get( key );
+        list.add ( incidentElement );
         return true;
     }
 
-    public String [] incidentElementsToInsertSQL ()
-    {
-        ArrayList < String > sqlStatements = new ArrayList ();
-        for ( IncidentElement incidentElement : incidentElements )
-        {
-            if ( incidentElement instanceof StorageObject ) {
-                sqlStatements.add ( ( ( StorageObject ) incidentElement ).toInsertSQL () );
-            }
+    public int size ( String key ) {
+        return incidentElements.get( key ).size();
+    }
+
+    public int numIncidentElements() {
+        int total = 0;
+        Iterator it = incidentElements.entrySet().iterator();
+        while ( it.hasNext() ) {
+            Map.Entry pair = (Map.Entry)it.next();
+            total += size( pair.getKey().toString() );
         }
 
-        return sqlStatements.toArray ( new String [ incidentElements.size () ] );
+        return total;
     }
 
-    public String [] incidentElementsToUpdateSQL ()
-    {
-        ArrayList < String > sqlStatements = new ArrayList ();
-        for ( IncidentElement incidentElement : incidentElements )
-        {
-            if ( incidentElement instanceof StorageObject ) {
-                sqlStatements.add ( ( ( StorageObject ) incidentElement ).toUpdateSQL () );
-            }
-        }
-
-        return sqlStatements.toArray ( new String [ incidentElements.size () ] );
-    }
-
-    public String [] incidentElementsToDeleteSQL ()
-    {
-        ArrayList < String > sqlStatements = new ArrayList ();
-        for ( IncidentElement incidentElement : incidentElements )
-        {
-            if ( incidentElement instanceof StorageObject ) {
-                sqlStatements.add ( ( ( StorageObject ) incidentElement ).toDeleteSQL () );
-            }
-        }
-
-        return sqlStatements.toArray ( new String [ incidentElements.size () ] );
-    }
-
-    public int numIncidentElements ()
-    {
-        return incidentElements.size ();
-    }
-
-    public IncidentElement getIncidentElement ( int i )
-    {
-        if ( i < incidentElements.size () )
-        {
-            return incidentElements.get ( i );
-        }
-        return null;
-    }
+//    public String [] incidentElementsToInsertSQL ()
+//    {
+//        ArrayList < String > sqlStatements = new ArrayList ();
+//        for ( IncidentElement incidentElement : incidentElements )
+//        {
+//            if ( incidentElement instanceof StorageObject ) {
+//                sqlStatements.add ( ( ( StorageObject ) incidentElement ).toInsertSQL () );
+//            }
+//        }
+//
+//        return sqlStatements.toArray ( new String [ incidentElements.size () ] );
+//    }
+//
+//    public String [] incidentElementsToUpdateSQL ()
+//    {
+//        ArrayList < String > sqlStatements = new ArrayList ();
+//        for ( IncidentElement incidentElement : incidentElements )
+//        {
+//            if ( incidentElement instanceof StorageObject ) {
+//                sqlStatements.add ( ( ( StorageObject ) incidentElement ).toUpdateSQL () );
+//            }
+//        }
+//
+//        return sqlStatements.toArray ( new String [ incidentElements.size () ] );
+//    }
+//
+//    public String [] incidentElementsToDeleteSQL ()
+//    {
+//        ArrayList < String > sqlStatements = new ArrayList ();
+//        for ( IncidentElement incidentElement : incidentElements )
+//        {
+//            if ( incidentElement instanceof StorageObject ) {
+//                sqlStatements.add ( ( ( StorageObject ) incidentElement ).toDeleteSQL () );
+//            }
+//        }
+//
+//        return sqlStatements.toArray ( new String [ incidentElements.size () ] );
+//    }d
 }

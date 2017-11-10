@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
 import 'rxjs/add/operator/toPromise';
 import { Timer } from '../component/timer/timer';
-import { DataHelperService } from '../util/data-helper.service';
 
 @Injectable()
 export class TimerService{

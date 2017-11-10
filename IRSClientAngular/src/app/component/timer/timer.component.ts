@@ -81,7 +81,6 @@ export class TimerComponent implements OnInit {
     
     start(): void {
         var x = setInterval(() => this.countDown(), 1000);
-        console.log("hi");
     }
 
     countDown() : void {
