@@ -1,10 +1,11 @@
+--DROP PROCEDURE [dbo].[getIncidents]
 CREATE PROCEDURE [dbo].[getIncidents]
 	@user_id INT
 AS
 BEGIN
-	IF (SELECT ACCOUNT_ID
+	IF (SELECT ACCOUNT_TYPE
 		FROM Account
-		WHERE ACCOUNT_TYPE = @user_id) = 1
+		WHERE ACCOUNT_ID = @user_id) = 1
 	BEGIN
 		SELECT * 
 		FROM Incident 
