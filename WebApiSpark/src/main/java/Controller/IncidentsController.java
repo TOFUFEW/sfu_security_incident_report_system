@@ -40,11 +40,19 @@ public class IncidentsController
 
         post ("/getIncidents" , ( request, response ) ->
         {
+            System.out.println(request.body());
             User user = ( User ) JsonUtil.fromJson ( request.body(), User.class );
             String accountID = user.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID );
+            System.out.println(accountID);
             Incident [] incidents = DBHelper.getIncidents ( accountID );
             return JsonUtil.toJson ( incidents );
         } );
+
+        post ("/getIncident", ( request , response ) ->
+        {
+            Incident incident = ( Incident ) JsonUtil.fromJson( request.body(), Incident.class );
+            return JsonUtil.toJson( DBHelper.getIncident ( incident.getAttributeValue( DatabaseValues.Column.REPORT_ID )) );
+        });
 
         post ("/updateIncident" , ( request, response ) ->
         {
