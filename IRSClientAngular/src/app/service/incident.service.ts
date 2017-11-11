@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Incident } from '../component/report/incident';
 import { Category } from '../component/category/category';
 import { Location } from '../component/location/location';
-import { Person } from '../component/person/person'; 
+import { Person } from '../component/person/person';
 import 'rxjs/add/operator/toPromise';
 import { User } from "../component/login/user";
 import { UserService } from "./user.service";
@@ -18,9 +18,11 @@ import { StaffService } from '../service/staff.service';
 export class IncidentService
 {
     private headers = new Headers({'Content-Type': 'application/json'});
-    incidentsUrl = Config.IncidentsURI;
+    getIncidentsUrl = Config.GetIncidentsURI;
+    insertIncidentUrl = Config.IncidentsURI;
     updateIncidentsUrl = Config.UpdateIncidentsURI;
-    guardIncidentsUrl = Config.GuardIncidentsURI;
+    guardIncidentsUrl = Config.GetIncidentsURI;
+    incidentsUrl = Config.IncidentsURI;
     private userService = new UserService;
     tableName = "";
 
@@ -50,9 +52,11 @@ export class IncidentService
         arr.splice( index, 1 );
         this.bs_reportsToAddToWorkspace.next( arr );
     }
-    
+
     getIncidents(): Promise<Incident[]> {
-        var incidents = this.http.get( this.incidentsUrl )
+        var user = this.userService.getCurrentUser();
+        var _user = DataHelperService.toIncidentElement ( Config.AccountTable, user );
+        var incidents = this.http.post( this.getIncidentsUrl , JSON.stringify( _user ), { headers: this.headers} )
             .toPromise()
             .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
             .catch( this.handleError );
@@ -87,7 +91,7 @@ export class IncidentService
     }
 
     private initArrays(incident: Incident) {
-        
+
         if (incident.locationList === undefined) {
             incident.locationList = new Array;
         }
@@ -105,7 +109,7 @@ export class IncidentService
         var user = this.userService.getCurrentUser();
         var _user = DataHelperService.toIncidentElement ( Config.AccountTable, user );
         var incidents = this.http
-            .post( this.guardIncidentsUrl, JSON.stringify( _user ), { headers: this.headers } )
+            .post( this.getIncidentsUrl, JSON.stringify( _user ), { headers: this.headers } )
             .toPromise()
             .then( response => response.json() as Incident[] )
             .catch( this.handleError );
@@ -122,7 +126,7 @@ export class IncidentService
             .catch( this.handleError );
         return Promise.resolve( returnedIncident );
     }
-    
+
     private initializeIncident( incident: Incident ): Incident {
         incident.locationList = [];
         incident.incidentElements.forEach( element => {
@@ -143,7 +147,7 @@ export class IncidentService
 
         incident.table = Config.IncidentTable;
         var promise = this.http
-                .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
+                .post( this.insertIncidentUrl, JSON.stringify( incident ), { headers: this.headers } )
                 .toPromise()
                 .then( response => {
                     return ( response.json() as boolean ) ? incident : null
@@ -152,13 +156,13 @@ export class IncidentService
         return Promise.resolve( promise );
     }
 
-    update( incident: Incident ): Promise<Incident> {        
+    update( incident: Incident ): Promise<Incident> {
         if ( incident.attributes.ACCOUNT_ID == null ) {
             incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().ACCOUNT_ID;
         }
         incident.table = Config.IncidentTable;
         var promise = this.http
-                .post( Config.UpdateIncidentURI, JSON.stringify( incident ), { headers: this.headers } )
+                .post( this.updateIncidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
                 .toPromise()
                 .then( response => {
                     return ( response.json() as boolean ) ? incident : null

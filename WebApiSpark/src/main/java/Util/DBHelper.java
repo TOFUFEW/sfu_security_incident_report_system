@@ -43,7 +43,9 @@ public class DBHelper
 
         try
         {
-            String query = "{ call dbo.getIncidents ( ? ) }";
+            initDB();
+            System.out.println(userID);
+            String query = "{ call dbo.getIncidents ( ? )}";
             CallableStatement stmt = connection.prepareCall ( query );
             stmt.setString (
                     1,
@@ -58,24 +60,6 @@ public class DBHelper
             e.printStackTrace ();
         }
 
-        return incidentList.toArray ( new Incident [ incidentList.size () ] );
-    }
-
-    public static Incident [] getGuardIncidents ( int accountID ) {
-        ArrayList < Incident > incidentList = new ArrayList <> ();
-
-        try
-        {
-            ResultSet incidentResultSet = executeQuery( "SELECT Incident.*\n" +
-                    "FROM Incident  INNER JOIN AssignedTo  ON Incident.REPORT_ID = AssignedTo.REPORT_ID\n" +
-                    "WHERE AssignedTo.ACCOUNT_ID = " + accountID + " and Incident.CLOSED = 0" );
-
-            fillListWithIncidentsFromResultSet ( incidentList , incidentResultSet );
-        }
-        catch ( Exception e)
-        {
-            e.printStackTrace ();
-        }
         return incidentList.toArray ( new Incident [ incidentList.size () ] );
     }
 

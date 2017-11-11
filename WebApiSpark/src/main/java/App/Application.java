@@ -27,7 +27,6 @@ public class Application
         PersonController personController = new PersonController();
         IncidentCategoryController categoryController = new IncidentCategoryController();
         AttachmentController attachmentController = new AttachmentController();
-        GuardIncidentsController guardIncidentsController = new GuardIncidentsController();
     }
 
     // CORS Filter

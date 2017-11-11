@@ -103,7 +103,7 @@ public class TestIncident
         Assert.assertTrue( currentSize < incidents.length );
 
         Incident newlyInsertedIncident = getLastIncident();
-        //Assert.assertTrue( elementCount == newlyInsertedIncident.numIncidentElements() );
+        //Assert.assertTrue( elementCount == newlxyInsertedIncident.numIncidentElements() );
 
         Assert.assertTrue( newlyInsertedIncident != null );
 
