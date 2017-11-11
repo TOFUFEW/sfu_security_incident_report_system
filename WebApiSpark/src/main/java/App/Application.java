@@ -2,7 +2,6 @@ package App;
 
 
 import Controller.*;
-import com.google.common.base.Charsets;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -18,12 +17,10 @@ public class Application
 
     public static void main ( String [] args )
     {
-        // STARTUP METHODS
-        staticFiles.location("/public");
-
-        // SETUP ENCRYPTION
+        // SETUP PORT
         port ( 4567 );
 
+        // SETUP ENCRYPTION
         Path currentPath = Paths.get ( "" ).toAbsolutePath ();
 
         File keyStoreFile = new File (
@@ -46,9 +43,12 @@ public class Application
         );
 
         // SETUP STATIC FILE HOSTING FOR ANGULAR
-        notFound ( ( request , response ) -> {
+        staticFiles.location("/public");
+
+        notFound ( ( request , response ) ->
+        {
             final File indexHTML = new File(
-                    Paths.get("").toAbsolutePath() +
+                    Paths.get ( "" ).toAbsolutePath () +
                             "/src/main/resources/public/index.html"
             );
 
@@ -66,33 +66,12 @@ public class Application
             return response.body ();
         } );
 
+        // STARTUP METHODS
         enableCORS (
                 "*",
                 "GET, " + "POST, PUT, DELETE, OPTIONS, HEAD",
                 "origin, content-type, accept, authorization"
         );
-
-        // redirects any request back to index.html
-        notFound ( ( request , response ) -> {
-
-            final File indexHTML = new File(
-                    Paths.get("").toAbsolutePath() +
-                            "/src/main/resources/public/index.html"
-            );
-
-            Path path = Paths.get ( indexHTML.toURI () );
-            byte[] encoded = Files.readAllBytes ( path );
-
-            response.type ( "text/html" );
-            response.body (
-                    new String (
-                            encoded,
-                            Charsets.UTF_8
-                    )
-            );
-
-            return response.body();
-        } );
 
         LocationController locationController = new LocationController ();
         StaffController staffController = new StaffController();
