@@ -2,7 +2,24 @@ package App;
 
 
 import Controller.*;
+import com.google.common.base.Charsets;
+import spark.Spark;
+import spark.utils.IOUtils;
 
+import java.io.File;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import static spark.Spark.*;
+import static spark.Spark.notFound;
 import static spark.Spark.before;
 import static spark.Spark.options;
 import static spark.Spark.staticFileLocation;
@@ -14,13 +31,57 @@ public class Application
     public static void main ( String [] args )
     {
         // STARTUP METHODS
-        staticFileLocation("/public");
+        //staticFileLocation("/public");
+        staticFiles.location("/public");
+
+        notFound ( ( request , response ) -> {
+
+            final File indexHTML = new File(
+                    Paths.get("").toAbsolutePath() +
+                            "/src/main/resources/public/index.html"
+            );
+
+            Path path = Paths.get ( indexHTML.toURI () );
+            byte[] encoded = Files.readAllBytes ( path );
+
+            response.type ( "text/html" );
+            response.body (
+                    new String (
+                            encoded,
+                            StandardCharsets.UTF_8
+                    )
+            );
+
+            return response.body();
+        } );
 
         enableCORS (
                 "*",
                 "GET, " + "POST, PUT, DELETE, OPTIONS, HEAD",
                 "origin, content-type, accept, authorization"
         );
+
+        // redirects any request back to index.html
+        notFound ( ( request , response ) -> {
+
+            final File indexHTML = new File(
+                    Paths.get("").toAbsolutePath() +
+                            "/src/main/resources/public/index.html"
+            );
+
+            Path path = Paths.get ( indexHTML.toURI () );
+            byte[] encoded = Files.readAllBytes ( path );
+
+            response.type ( "text/html" );
+            response.body (
+                    new String (
+                            encoded,
+                            Charsets.UTF_8
+                    )
+            );
+
+            return response.body();
+        } );
 
         LocationController locationController = new LocationController ();
         StaffController staffController = new StaffController();
