@@ -102,13 +102,13 @@ public class DBHelper
         try {
             String getIncidentElementsQuery =
                     "SELECT Location.* FROM HappensAt INNER JOIN Location ON (HappensAt.LOCATION_ID = Location.LOCATION_ID) " +
-                    "WHERE HappensAt.REPORT_ID = " + reportID + "; " +
-                    "SELECT Staff.* FROM AssignedTo INNER JOIN Staff ON (AssignedTo.ACCOUNT_ID = Staff.ACCOUNT_ID) " +
-                    "WHERE AssignedTo.REPORT_ID = " + reportID + "; " +
-                    "SELECT Person.* FROM Involves INNER JOIN Person ON (Involves.PERSON_ID = Person.PERSON_ID)" +
-                    "WHERE Involves.REPORT_ID = " + reportID + "; " +
-                    "SELECT IncidentCategory.* FROM Incident INNER JOIN IncidentCategory ON (Incident.CATEGORY_ID = IncidentCategory.CATEGORY_ID) " +
-                    "WHERE Incident.REPORT_ID = " + reportID + "; ";
+                            "WHERE HappensAt.REPORT_ID = " + reportID + "; " +
+                            "SELECT Staff.* FROM AssignedTo INNER JOIN Staff ON (AssignedTo.ACCOUNT_ID = Staff.ACCOUNT_ID) " +
+                            "WHERE AssignedTo.REPORT_ID = " + reportID + "; " +
+                            "SELECT Person.* FROM Involves INNER JOIN Person ON (Involves.PERSON_ID = Person.PERSON_ID)" +
+                            "WHERE Involves.REPORT_ID = " + reportID + "; " +
+                            "SELECT IncidentCategory.* FROM Incident INNER JOIN IncidentCategory ON (Incident.CATEGORY_ID = IncidentCategory.CATEGORY_ID) " +
+                            "WHERE Incident.REPORT_ID = " + reportID + "; ";
 
             PreparedStatement stmt = connection.prepareStatement ( getIncidentElementsQuery );
             boolean hasResults = stmt.execute();
@@ -257,6 +257,14 @@ public class DBHelper
                                 .contains( incidentElement.getTable().toString().toLowerCase() ) ) {
                             assignToGuard( lastIncidentId, incidentElement.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ));
                         }
+                        else if (DatabaseValues.Table.PERSON.toString().toLowerCase()
+                                .contains( incidentElement.getTable().toString().toLowerCase() ) ) {
+                            String id = getPersonIdFromDb( incidentElement );
+
+                            if ( id != null ) {
+                                insertInvolvesRelation( lastIncidentId, id);
+                            }
+                        }
                         else {
                             insertIncidentRelation(
                                     relationSQL,
@@ -274,6 +282,38 @@ public class DBHelper
         } catch ( Exception e )
         {
             e.printStackTrace ();
+        }
+        return false;
+    }
+
+    private static String getPersonIdFromDb( IncidentElement incidentElement ) {
+        try {
+            String first = incidentElement.getAttributeValue( DatabaseValues.Column.FIRST_NAME );
+            String last = incidentElement.getAttributeValue( DatabaseValues.Column.LAST_NAME );
+            String number = incidentElement.getAttributeValue( DatabaseValues.Column.PHONE_NUMBER );
+            String query = "select top 1 * from Person where FIRST_NAME = '" + first + "' AND " +
+                    "LAST_NAME = '" + last + "' AND PHONE_NUMBER = '" + number + "'";
+
+            ResultSet result = executeQuery( query );
+
+            if ( result.next() ) {
+                return result.getString("PERSON_ID");
+            }
+        }
+        catch (Exception e ) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+     private static boolean insertInvolvesRelation(String reportId, String personId) {
+        try {
+            String query = "insert into Involves (REPORT_ID, PERSON_ID) values ('" + reportId + "', '" + personId + "');";
+            return execute(query);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
         }
         return false;
     }
@@ -298,7 +338,7 @@ public class DBHelper
             System.out.println( "*** WARNING: Description is empty...");
 
         if ( incident.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY) == null ||
-        incident.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY).isEmpty() )
+                incident.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY).isEmpty() )
             System.out.println("*** WARNING: Executive Summary is empty...");
 
         String categoryId = incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) ;
@@ -308,10 +348,10 @@ public class DBHelper
         }
 
         String accountId = incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID );
-         if ( accountId == null || accountId.isEmpty() ) {
-             System.out.println("*** WARNING: ACCOUNT_ID is not set.");
-             return false;
-         }
+        if ( accountId == null || accountId.isEmpty() ) {
+            System.out.println("*** WARNING: ACCOUNT_ID is not set.");
+            return false;
+        }
 
         return true;
     }
@@ -339,16 +379,17 @@ public class DBHelper
             else if ( DatabaseValues.Table.PERSON.toString().toLowerCase().contains( tableName ) ) {
                 relationTable = "Involves";
                 String id = incidentElement.getAttributeValue( DatabaseValues.Column.PERSON_ID );
-                if (id == null || id.equals("null"))
-                    return true;
+                if ( id == null )
+                    return false;
                 idString += "PERSON_ID = '" + id + "';";
+
             }
             else if ( DatabaseValues.Table.ACCOUNT.toString().toLowerCase().contains( tableName ) ){
                 relationTable = "AssignedTo";
                 String id = incidentElement.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID );
                 if (id == null || id.equals("null"))
                     return true;
-                idString += "PERSON_ID = '" + id + "';";
+                idString += "ACCOUNT_ID = '" + id + "';";
             }
             else
                 return false;
