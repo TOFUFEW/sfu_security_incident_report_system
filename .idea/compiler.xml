@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="incident-report-system" />
+        <module name="WebApiSpark" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="incident-report-system" target="1.8" />
+      <module name="WebApiSpark" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

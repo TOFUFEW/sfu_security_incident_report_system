@@ -24,7 +24,7 @@ export class PersonComponent implements OnInit {
     ){};
 
     addPersonToReport(): void {
-        this.reportService.addIncidentElement( this.newPerson, Config.PersonTable );
+        this.reportService.addIncidentElement( this.newPerson );
     }
 
     removePersonFromReport(): void {
@@ -39,7 +39,7 @@ export class PersonComponent implements OnInit {
     }
 
     onChangePhoneNumber(): void {
-        this.newPerson.PHONE_NUMBER = this.phoneNumber1 + this.phoneNumber2 + this.phoneNumber3;
+        this.newPerson.attributes.PHONE_NUMBER = this.phoneNumber1 + this.phoneNumber2 + this.phoneNumber3;
     }
 
     getPersons(): void {
@@ -69,7 +69,7 @@ export class PersonComponent implements OnInit {
       this.personService.update( person )
           .then( returnedPerson => {
               if ( returnedPerson != null  ) {
-                var i = this.personList.findIndex( person => person.PERSON_ID === returnedPerson.PERSON_ID );
+                var i = this.personList.findIndex( person => person.attributes.PERSON_ID === returnedPerson.attributes.PERSON_ID );
                 // remove 1 object at index i, replace it with returnedPerson
                 this.personList.splice( i, 1, returnedPerson );
                 alert( " successfully edited!" );            
@@ -82,7 +82,7 @@ export class PersonComponent implements OnInit {
       this.personService.delete( id ).then( isDeleted => {
           var msg = isDeleted ? "Person successfully deleted!" : "Delete failed";
           alert(msg);
-          var i = this.personList.findIndex( person => person.PERSON_ID === id );
+          var i = this.personList.findIndex( person => person.attributes.PERSON_ID === id );
           // remove 1 object at index i
           this.personList.splice( i, 1 );
         });

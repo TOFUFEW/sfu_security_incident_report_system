@@ -1,0 +1,32 @@
+$sfu-red: #A6192E;
+$sfu-black: #54585A;
+$sfu-black-dark: #434648;
+$color-danger: #cc0000;
+$color-in-progress: #ff8000;
+$color-complete: green;
+$white: #ffffff;
+$grey-default: #f9f9f9;
+$grey-lite: #fafafa;
+$grey-dark: #eee;
+$padding-sm: 12px;
+$padding-md: 16px;
+$padding-lg: 20px;
+$padding-xl: 24px;
+$header-font-weight: 300;
+$header-opacity: 0.8;
+$text-lg: 24px;
+$text-md: 18px;
+$text-sm: 14px;
+$field-title-color: #657786;
+$field-title-margin-bottom: 8px;
+$field-title-font-weight: 300;
+$navbar-height: 50px;
+$border-default: 1px solid rgba(0,0,0,0.16);
+$link-color: #0645AD;
+$link-color-hover: #0B0080;
+
+@mixin flex($x, $y) {
+    display: flex;
+    justify-content: $x;
+    align-items: $y;
+}

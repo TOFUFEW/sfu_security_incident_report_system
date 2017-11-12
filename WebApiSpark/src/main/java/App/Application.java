@@ -11,6 +11,55 @@ public class Application
 
     public static void main ( String [] args )
     {
+        // SETUP PORT
+        port ( 4567 );
+
+        // SETUP ENCRYPTION
+        Path currentPath = Paths.get ( "" ).toAbsolutePath ();
+
+        File keyStoreFile = new File (
+                currentPath +
+                        "/src/main/resources/public/self_signed_certificate/keystore.jks"
+        );
+        String keyStorePassword = "changeit";
+
+        File trustStoreFile = new File (
+                currentPath +
+                        "/src/main/resources/public/self_signed_certificate/cacerts.jks"
+        );
+        String trustoreStorePassword = "changeit";
+
+        secure (
+                keyStoreFile.getPath (),
+                keyStorePassword,
+                trustStoreFile.getPath (),
+                trustoreStorePassword
+        );
+
+        // SETUP STATIC FILE HOSTING FOR ANGULAR
+        staticFiles.location("/public");
+
+        notFound ( ( request , response ) ->
+        {
+            final File indexHTML = new File(
+                    Paths.get ( "" ).toAbsolutePath () +
+                            "/src/main/resources/public/index.html"
+            );
+
+            Path path = Paths.get ( indexHTML.toURI () );
+            byte [] encoded = Files.readAllBytes ( path );
+
+            response.type ( "text/html" );
+            response.body (
+                    new String (
+                            encoded,
+                            StandardCharsets.UTF_8
+                    )
+            );
+
+            return response.body ();
+        } );
+
         // STARTUP METHODS
         staticFileLocation("/public");
 
@@ -33,6 +82,7 @@ public class Application
         IncidentCategoryController categoryController = new IncidentCategoryController();
         AttachmentController attachmentController = new AttachmentController();
         GuardIncidentsController guardIncidentsController = new GuardIncidentsController();
+        AssignGuardController assignGuardController = new AssignGuardController();
     }
 
     // CORS Filter

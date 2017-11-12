@@ -33,50 +33,22 @@ export class SearchComponent implements OnInit {
     /* TEMP CODE */
     private reconstructElements() {
         this.incidents.forEach(incident => {
-
-            this.initArrays(incident);
-
-            for (var i = 0; i < incident.incidentElements.length; i++){
-
-                this.toConreteClass(incident, incident.incidentElements[i]);
-            }
-
-            this.setSearchString(incident);
+            this.toSearchStrings(incident);
         });
     }
 
-    private toConreteClass(incident: Incident, element: IncidentElement) {
+    private toSearchStrings(incident: Incident) {
 
-        if (element.table == Config.LocationTable) {
+        incident.incidentElements[Config.LocationKey].forEach(loc => {
+            this.setLocationSearchString(loc);
+        })
 
-            let newLoc = new Location();
-            newLoc.table = element.table;
-            newLoc.attributes = element.attributes as LocationAttributes;
-            this.setLocationSearchString(newLoc);
-            incident.locationList.push(newLoc);
+        incident.incidentElements[Config.StaffKey].forEach(staff => {
+            this.setStaffSearchString(staff);
+        })
 
-        } else if (element.table == Config.StaffTable) {
-
-            let newStaff = new Staff();
-            newStaff.table = element.table;
-            newStaff.attributes = element.attributes as StaffAttributes;
-            this.setStaffSearchString(newStaff);
-            incident.staffList.push(newStaff);
-            
-        }
+        this.setSearchString(incident);
     }
-
-    private initArrays(incident: Incident) {
-
-        if (incident.locationList === undefined) {
-            incident.locationList = new Array;
-        }
-
-        if (incident.staffList === undefined) {
-            incident.staffList = new Array;
-        }
-    }
-    
 
     setSearchString(incident: Incident) {
         incident.searchString = 
