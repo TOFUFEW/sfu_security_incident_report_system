@@ -299,6 +299,9 @@ div.phone-input {
   margin-top: 0.5em;
   color: #f9f9f9; }
 
+div#new-report-panel, div#new-account-panel {
+  margin-top: 16px; }
+
 /****************************/
 /*  Guard app styles
 /****************************/

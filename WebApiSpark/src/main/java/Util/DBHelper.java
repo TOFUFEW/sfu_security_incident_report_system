@@ -925,6 +925,98 @@ public class DBHelper
         return personList.toArray(new Person [ personList.size () ]);
     }
 
+    public static boolean createAccount ( User user, Staff staff ) {
+        try {
+            String username = user.getAttributeValue( DatabaseValues.Column.USERNAME );
+            if ( getUserId( username ) == null ) {
+                String query = "insert into Account ( username, password, account_type ) " +
+                        "values ('" + username + "', '"
+                        + user.getAttributeValue( DatabaseValues.Column.PASSWORD ) + "', '"
+                        + user.getAttributeValue( DatabaseValues.Column.ACCOUNT_TYPE ) + "');";
+
+                execute( query );
+                String newUserId = getUserId( username );
+
+                if ( newUserId != null ) {
+                    setStaffData( newUserId, staff );
+                    return true;
+                }
+            }
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private static boolean setStaffData( String accountId, Staff staff ) {
+        try {
+            String query = "update Staff set FIRST_NAME = '" + staff.getAttributeValue( DatabaseValues.Column.FIRST_NAME )
+                            + "', LAST_NAME = '" + staff.getAttributeValue( DatabaseValues.Column.LAST_NAME )
+                            + "', CAMPUS_ID = '" + staff.getAttributeValue( DatabaseValues.Column.CAMPUS_ID )
+                            + "' where ACCOUNT_ID = '" + accountId + "';";
+            boolean res = execute( query );
+            return res ;
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private static String getUserId( String username ) {
+        try {
+            String query = "select top 1 ACCOUNT_ID from Account where username = '" + username + "';";
+            ResultSet res = executeQuery( query );
+            if ( res.next() ) {
+                return res.getString("ACCOUNT_ID");
+            }
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static boolean debug_removeAccountAndStaff( String accountId ) {
+        return false;
+    }
+
+    public static User authorizeAccount ( User user ) {
+        try {
+            String query = "" +
+                    "select * from account acc" +
+                    " where acc.USERNAME = '" + user.getAttributeValue( DatabaseValues.Column.USERNAME ) + "'" +
+                    " AND acc.PASSWORD = '" + user.getAttributeValue( DatabaseValues.Column.PASSWORD ) + "'";
+            ResultSet myRs = DBHelper.executeQuery ( query );
+
+            if ( myRs.next () )
+            {
+                user.updateAttributeValue(
+                        DatabaseValues.Column.ACCOUNT_TYPE,
+                        myRs.getString ( DatabaseValues.Column.ACCOUNT_TYPE.toString () )
+                );
+
+                user.updateAttributeValue(
+                        DatabaseValues.Column.ACCOUNT_ID,
+                        myRs.getString ( DatabaseValues.Column.ACCOUNT_ID.toString() )
+                );
+            }
+
+            else
+            {
+                return null;
+            }
+
+        }
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+
+        return user;
+    }
+
     public static boolean execute ( String query ) throws SQLException
     {
         initDB ();
@@ -944,24 +1036,6 @@ public class DBHelper
         initDB ();
         Statement stmt = connection.createStatement ();
         return stmt.executeQuery ( query );
-    }
-
-    /* FOR DEVELOPMENT ONLY */
-    private static boolean deleteAllIncidents() {
-        try {
-            initDB();
-            String query = "delete from HappensAt;";
-            boolean deleted = execute( query );
-            query = "delete from Involves;";
-            deleted = execute( query );
-            query = "delete from Incident";
-            deleted = execute( query );
-            Incident[] result = getIncidents();
-            return result.length == 0;
-        } catch ( Exception e ) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     public static boolean executeProcedure (String query, Incident incident) {

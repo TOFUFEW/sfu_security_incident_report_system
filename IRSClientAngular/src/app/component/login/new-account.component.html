@@ -1,0 +1,67 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-10 col-sm-offset-1 col-sm-offset-right-1
+                    col-lg-6 col-lg-offset-3 col-lg-offset-right-3">
+            <div id="new-account-panel" class="panel panel-default">
+                <div class="panel-heading">
+                    <div>
+                        <span class="glyphicon glyphicon-user glyphicon-heading"></span>
+                        <span class="panel-header">Create New Account</span>
+                    </div>
+                </div>
+                <div class="panel-body">
+
+                    <div class="details-container">
+                        <div>
+                            <div class="details-body">
+                                <div class="detail col-12">
+                                    <span class="filter-title">First Name</span>
+                                    <input class="form-control" type="text"  [(ngModel)]="newAccount.staff.attributes.FIRST_NAME"/>
+                                </div>
+
+                                <div class="detail col-12">
+                                    <span class="filter-title">Last Name</span>
+                                    <input class="form-control" type="text" [(ngModel)]="newAccount.staff.attributes.LAST_NAME" />
+                                </div>
+
+                                <div class="detail col-12">
+                                    <span class="filter-title">Campus</span>
+                                    <select name="" id="">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+
+                                <div class="detail col-12">
+                                    <span class="filter-title">Username</span>
+                                    <input class="form-control" type="text" [(ngModel)]="newAccount.user.attributes.username"/>
+                                </div>
+
+                                <div class="detail col-12">
+                                    <span class="filter-title">Password</span>
+                                    <input class="form-control" type="password" [(ngModel)]="newAccount.user.attributes.password"/>
+                                </div>
+
+                                <div class="detail col-12">
+                                    <span class="filter-title">Confirm Password</span>
+                                    <input class="form-control" type="password" [(ngModel)]="newAccount.user.attributes.password"/>
+                                </div>
+
+                                <div class="detail col-12">
+                                    <span class="filter-title">Role</span>
+                                    <select name="" id="">
+                                        <option ></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="panel-footer">
+                    <button class="btn btn-default" (click)="createAccount()">Create Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
