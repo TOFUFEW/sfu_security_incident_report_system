@@ -255,6 +255,111 @@ public class DBHelper
         return false;
     }
 
+    public static boolean insertIncidentRefactor ( String query , Incident incident ) {
+        if ( !allFieldsValid( incident ) ) {
+            System.out.println( "Attempting to find IncidentCategory in incidentElements array...");
+
+            for ( int i = 0; i < incident.numIncidentElements() ; i += 1 ) {
+                IncidentElement ie = incident.getIncidentElement( i );
+
+                if (DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase()
+                        .contains( ie.getTable().toString().toLowerCase() ) ) {
+
+                    String id = ie.getAttributeValue( DatabaseValues.Column.CATEGORY_ID );
+                    if ( id != null && !id.isEmpty() ) {
+                        incident.updateAttributeValue( DatabaseValues.Column.CATEGORY_ID, id );
+                        System.out.println("IncidentCategory FOUND! CATEGORY_ID: " + id );
+                    }
+                }
+            }
+
+            if ( incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) == null ) {
+                System.out.println("***** ERROR: IncidentCategory not found. Exiting...");
+                return false;
+            }
+        }
+
+        try {
+            initDB ();
+            String incidentString = "{ call dbo.insertIncidentRefactor ( ? , ? , ? , ? , ? , ? ) } ";
+            CallableStatement stmt = connection.prepareCall ( query );
+            stmt.setString (
+                    1,
+                    incident.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID )
+            );
+            stmt.setString (
+                    2,
+                    incident.getAttributeValue ( DatabaseValues.Column.CATEGORY_ID )
+            );
+            stmt.setString (
+                    3,
+                    incident.getAttributeValue ( DatabaseValues.Column.DESCRIPTION )
+            );
+            stmt.setString (
+                    4,
+                    incident.getAttributeValue ( DatabaseValues.Column.EXECUTIVE_SUMMARY )
+            );
+            stmt.setString (
+                    5,
+                    incident.getAttributeValue ( DatabaseValues.Column.TEMPORARY_REPORT )
+            );
+
+            stmt.registerOutParameter (
+                    6,
+                    Types.INTEGER
+            );
+
+            String before_lastIncidentId = ""; // debug
+            String lastIncidentId = "";
+            int maxTries = 5;
+            int tries = 0;
+            do {
+                before_lastIncidentId = debug_getLastIncidentId();
+                System.out.println( "Last Report ID before insert: " + before_lastIncidentId );
+
+                stmt.execute ();
+                tries++;
+
+                lastIncidentId = debug_getLastIncidentId(); // debug
+                System.out.println( "Last Report ID after insert: " + lastIncidentId );
+
+                if ( lastIncidentId != null && lastIncidentId.equals( before_lastIncidentId ) )
+                    System.out.println( "ERROR: Incident insert failed" );
+
+                if ( tries >= maxTries ) {
+                    return false;
+                }
+            } while ( lastIncidentId != null && lastIncidentId.equals( before_lastIncidentId ) );
+
+            int output = stmt.getInt ( 5 );
+
+            String relationSQL = "{ call dbo.insertRelation ( ? , ? , ? ) }";
+
+            for ( int i = 0 ; i < incident.numIncidentElements () ; i++ )
+            {
+                IncidentElement incidentElement = incident.getIncidentElement( i );
+                System.out.println( "\nColumnSet length for table " + incidentElement.getTable().toString() + ": " + (incidentElement.getColumnSet().length ) );
+                boolean hasAttributes = incidentElement.getColumnSet().length > 0;
+
+                if ( hasAttributes && !relationExists( lastIncidentId , incidentElement ) ) {
+                    debug_printInsertRelationLog( incidentElement );
+                    insertIncidentRelation(
+                            relationSQL,
+                            incident.getIncidentElement(i)
+                    );
+                }
+            }
+            if ( output != 0 )
+            {
+                return true;
+            }
+        } catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+        return false;
+    }
+
     /* Validate incidents attributes */
     private static boolean allFieldsValid( Incident incident ) {
         if ( incident.getAttributeValue(DatabaseValues.Column.DESCRIPTION ) == null ||
@@ -512,6 +617,101 @@ public class DBHelper
         } catch ( Exception e ) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean updateIncidentRefactor ( Incident incident ) {
+        if ( !allFieldsValid( incident ) ) {
+            System.out.println( "Attempting to find IncidentCategory in incidentElements array...");
+
+            for ( int i = 0; i < incident.numIncidentElements() ; i += 1 ) {
+                IncidentElement ie = incident.getIncidentElement( i );
+
+                if (DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase()
+                        .contains( ie.getTable().toString().toLowerCase() ) ) {
+
+                    String id = ie.getAttributeValue( DatabaseValues.Column.CATEGORY_ID );
+                    if ( id != null && !id.isEmpty() ) {
+                        incident.updateAttributeValue( DatabaseValues.Column.CATEGORY_ID, id );
+                        System.out.println("IncidentCategory FOUND! CATEGORY_ID: " + id );
+                    }
+                }
+            }
+
+            if ( incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) == null ) {
+                System.out.println("***** ERROR: IncidentCategory not found. Exiting...");
+                return false;
+            }
+        }
+
+        try {
+            initDB ();
+            String query = "{ call dbo.updateIncidentRefactor ( ? , ? , ? , ? , ? ," +
+                    " ? , ? , ? , ? ) } ";
+            CallableStatement stmt = connection.prepareCall ( query );
+            stmt.setString (
+                    1,
+                    incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID )
+            );
+            stmt.setString (
+                    2,
+                    incident.getAttributeValue ( DatabaseValues.Column.CATEGORY_ID )
+            );
+            stmt.setString (
+                    3,
+                    incident.getAttributeValue ( DatabaseValues.Column.DESCRIPTION )
+            );
+            stmt.setString (
+                    4,
+                    incident.getAttributeValue ( DatabaseValues.Column.EXECUTIVE_SUMMARY )
+            );
+            stmt.setString (
+                    5,
+                    incident.getAttributeValue ( DatabaseValues.Column.STATUS )
+            );
+            stmt.setString (
+                    6,
+                    incident.getAttributeValue( DatabaseValues.Column.TEMPORARY_REPORT )
+            );
+            stmt.setString (
+                    7,
+                    incident.getAttributeValue( DatabaseValues.Column.TIMER_START )
+            );
+            stmt.setString (
+                    8,
+                    incident.getAttributeValue( DatabaseValues.Column.TIMER_END )
+            );
+
+            stmt.registerOutParameter (
+                    9,
+                    Types.INTEGER
+            );
+            stmt.execute();
+
+            String reportId = incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID );
+            deleteAllRelations ( reportId );
+            String relationSQL = "{ call dbo.insertRelationWithTableName ( ? , ? , ? , ? ) }";
+
+            for ( int i = 0 ; i < incident.numIncidentElements () ; i++ ) {
+
+                IncidentElement incidentElement = incident.getIncidentElement( i );
+                boolean hasAttributes = incidentElement.getColumnSet().length > 0;
+
+                if ( hasAttributes && !relationExists( reportId , incidentElement ) ) {
+                    debug_printInsertRelationLog( incidentElement );
+                    insertIncidentRelation(
+                            relationSQL,
+                            incidentElement,
+                            reportId
+                    );
+                }
+
+
+            }
+            return true;
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public static boolean updateIncident ( Incident incident ) {

@@ -18,6 +18,9 @@ public class Incident extends StorageObject
                 "",
                 "",
                 "",
+                "",
+                "",
+                "",
                 ""
         );
     }
@@ -30,7 +33,10 @@ public class Incident extends StorageObject
             String executiveSummary,
             String status,
             String startTime,
-            String endTime
+            String endTime,
+            String temporaryReport,
+            String timerStart,
+            String timerEnd
     ) {
         super (
                 DatabaseValues.Table.INCIDENT,
@@ -43,7 +49,10 @@ public class Incident extends StorageObject
                         DatabaseValues.Column.EXECUTIVE_SUMMARY,
                         DatabaseValues.Column.STATUS,
                         DatabaseValues.Column.START_TIME,
-                        DatabaseValues.Column.END_TIME
+                        DatabaseValues.Column.END_TIME,
+                        DatabaseValues.Column.TEMPORARY_REPORT,
+                        DatabaseValues.Column.TIMER_START,
+                        DatabaseValues.Column.TIMER_END
                 }
         );
 
@@ -86,6 +95,21 @@ public class Incident extends StorageObject
         updateAttributeValue(
                 DatabaseValues.Column.END_TIME,
                 endTime
+        );
+
+        updateAttributeValue(
+                DatabaseValues.Column.TEMPORARY_REPORT,
+                temporaryReport
+        );
+
+        updateAttributeValue(
+                DatabaseValues.Column.TIMER_START,
+                timerStart
+        );
+
+        updateAttributeValue(
+                DatabaseValues.Column.TIMER_END,
+                timerEnd
         );
     }
 

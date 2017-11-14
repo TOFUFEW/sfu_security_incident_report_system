@@ -273,6 +273,27 @@ public class DatabaseValues
                 null
         ),
 
+        TEMPORARY_REPORT (
+                "TEMPORARY_REPORT" ,
+                "INT" ,
+                DEFAULT_INT_VALUE ,
+                null
+        ),
+
+        TIMER_END (
+                "TIMER_START" ,
+                "INT" ,
+                DEFAULT_INT_VALUE ,
+                null
+        ),
+
+        TIMER_START (
+                "TIMER_START" ,
+                "INT" ,
+                DEFAULT_INT_VALUE ,
+                null
+        ),
+
         // Associated Tables: Account
         USERNAME (
                 "USERNAME" ,
