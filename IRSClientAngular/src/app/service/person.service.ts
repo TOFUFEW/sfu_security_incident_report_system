@@ -4,7 +4,7 @@ import { IncidentElement } from '../component/report/incident-element';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
-import { DataHelperService } from '../util/data-helper.service';
+import { IncidentElementService } from '../service/incident-element.service';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class PersonService {
     getPersons(): Promise<Person[]> {
         var personList = this.http.get( this.personUrl )
             .toPromise()
-            .then( response => DataHelperService.extractAttributesArray( response.json() ) as Person[] )
+            .then( response => response.json() as Person[] )
             .catch( this.handleError );
         return Promise.resolve( personList );
     }
@@ -25,14 +25,14 @@ export class PersonService {
     search( person: Person ) : Promise<Person[]> {
         var personList = this.http.get( this.personUrl )
             .toPromise()
-            .then( response => DataHelperService.extractAttributes( response.json() ) as Person[] )
+            .then( response => response.json() as Person[] )
             .catch(this.handleError );
         return Promise.resolve( personList );
     }
 
     create( person: Person ) : Promise<Person> {
         var promise = this.http
-                .put( this.personUrl, JSON.stringify( DataHelperService.toIncidentElement( this.tableName, person ) ), { headers: this.headers } )
+                .put( this.personUrl, JSON.stringify( person ), { headers: this.headers } )
                 .toPromise()
                 .then( response => response.json() as Person )
                 .catch( this.handleError );
@@ -41,7 +41,7 @@ export class PersonService {
 
     update( person: Person ) : Promise<Person> {
         var promise = this.http
-            .put( this.personUrl, JSON.stringify( DataHelperService.toIncidentElement(this.tableName, person) ), { headers: this.headers } )
+            .put( this.personUrl, JSON.stringify( person ), { headers: this.headers } )
             .toPromise()
             .then( response => response.json() as Person )
             .catch( this.handleError );
@@ -68,7 +68,7 @@ export class PersonService {
             input = document.getElementById('personInputFirst');
             filter = input.value.toUpperCase();
             for (var i = 0; i < personList.length; i++ ){
-                if (personList[i].FIRST_NAME.toUpperCase().indexOf(filter) > -1 ){
+                if (personList[i].attributes.FIRST_NAME.toUpperCase().indexOf(filter) > -1 ){
                     li[i].style.display = "";
                 } else {
                     li[i].style.display = "none";
@@ -78,7 +78,7 @@ export class PersonService {
             input = document.getElementById('personInputLast');
             filter = input.value.toUpperCase();
             for (var i = 0; i < personList.length; i++ ){
-                if (personList[i].LAST_NAME.toUpperCase().indexOf(filter) > -1 ){
+                if (personList[i].attributes.LAST_NAME.toUpperCase().indexOf(filter) > -1 ){
                     li[i].style.display = "";
                 } else {
                     li[i].style.display = "none";
@@ -88,7 +88,7 @@ export class PersonService {
             input = document.getElementById('personInputPhone');
             filter = input.value.toString();
             for (var i = 0; i < personList.length; i++ ){
-                if (personList[i].PHONE_NUMBER.toString().indexOf(filter) > -1 ){
+                if (personList[i].attributes.PHONE_NUMBER.toString().indexOf(filter) > -1 ){
                     li[i].style.display = "";
                 } else {
                     li[i].style.display = "none";

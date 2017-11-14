@@ -30,5 +30,6 @@ export class ReportSummaryComponent implements OnInit {
         }
             
         console.log( this.report )
+        console.log ( "report category ", this.report.category);                
     }
 }

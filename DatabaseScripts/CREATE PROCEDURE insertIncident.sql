@@ -16,7 +16,11 @@ BEGIN
 			ACCOUNT_ID,
 			CATEGORY_ID,
 			DESCRIPTION,
+<<<<<<< HEAD
 			EXECUTIVE_SUMMARY,
+=======
+			EXECUTIVE_SUMMARY
+>>>>>>> 7fb8869fef9082f529c3a3716b38cce6c51b41a3
 		) VALUES (
 			@creator_id,
 			@category_id,

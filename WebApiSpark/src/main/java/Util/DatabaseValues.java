@@ -1,6 +1,7 @@
 package Util;
 
 import java.sql.Timestamp;
+import Model.IncidentElement;
 
 public class DatabaseValues
 {
@@ -349,6 +350,38 @@ public class DatabaseValues
                     return true;
                 }
             }
+            return false;
+        }
+    }
+
+    public enum IncidentElementKey
+    {
+        INCIDENT_CATEGORY ( "IncidentCategory" ),
+        LOCATION ( "Location" ),
+        PERSON ( "Person" ),
+        STAFF ( "Staff" );
+
+        private String key;
+
+        IncidentElementKey(String key)
+        {
+            this.key = key;
+        }
+
+        @Override
+        public String toString ()
+        {
+            return key;
+        }
+
+        public static boolean contains( String key ) {
+
+            for ( IncidentElementKey k : IncidentElementKey.values() ) {
+                if ( k.toString().equals( key ) ) {
+                    return true;
+                }
+            }
+
             return false;
         }
     }

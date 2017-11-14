@@ -4,6 +4,7 @@ CREATE PROCEDURE [dbo].updateIncident
 	@category_id INT,
 	@description TEXT,
 	@executive_summary TEXT,
+<<<<<<< HEAD
 	@status INT,
 	@result BIT = 0 OUTPUT
 AS
@@ -24,4 +25,14 @@ BEGIN
 		WHERE REPORT_ID = @report_id;
 		SELECT @result = 1;
 	END
+=======
+	@closed BIT,
+	@result BIT = 0 OUTPUT
+AS
+BEGIN
+	UPDATE Incident
+	SET CATEGORY_ID = @category_id, DESCRIPTION = @description, EXECUTIVE_SUMMARY = @executive_summary, CLOSED = @closed
+	WHERE REPORT_ID = @report_id;
+	SELECT @result = 1;
+>>>>>>> 7fb8869fef9082f529c3a3716b38cce6c51b41a3
 END;

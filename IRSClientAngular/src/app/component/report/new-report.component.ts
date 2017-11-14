@@ -3,7 +3,7 @@ import { IncidentService } from '../../service/incident.service';
 import { DomService } from '../../util/dom.service';
 import { NewReportService } from '../../service/new-report.service';
 import { CategoryService } from '../../service/category.service';
-import { DataHelperService } from '../../util/data-helper.service';
+import { IncidentElementService } from '../../service/incident-element.service';
 import { StaffService } from '../../service/staff.service';
 import { Location } from '../location/location';
 import { Person } from '../person/person';
@@ -33,8 +33,8 @@ export class NewReportComponent implements OnInit {
     categoryTypes: CategoryType[] = [];    
 
     staffList: Staff[] = [];
-    selectedStaff: Staff = new Staff();
-
+    selectedStaff: Staff = null;
+    selectedStaffId: number = -1;
     reportReady: boolean = false; 
 
     constructor( 
@@ -49,21 +49,17 @@ export class NewReportComponent implements OnInit {
                 function( a, b ) {
                     return a.attributes.FIRST_NAME < b.attributes.FIRST_NAME ? -1 : 1;
                 } );
-
-            var index = this.staffList.findIndex( x => x.attributes.LAST_NAME.length == 0 && x.attributes.FIRST_NAME.length == 0 );
-            if ( index >= 0 )
-                this.selectedStaff = this.staffList[ index ]; // default is dummy staff
           } ); 
     }
 
     ngOnInit() {
         this.newReportService.currentLocations
             .subscribe( locations =>  { 
-                this.newIncident.locationList = locations;
+                this.newIncident.incidentElements[Config.LocationKey] = locations;
              });
         this.newReportService.currentPersons
             .subscribe( persons =>  { 
-                this.newIncident.personList = persons;
+                this.newIncident.incidentElements[Config.PersonKey] = persons;
             } );
 
         this.categoryService.getCategories().then ( returnedCategories => {
@@ -73,67 +69,62 @@ export class NewReportComponent implements OnInit {
 
     //filter subcategory and type lists according to selection of previous dropdown
     onSelectCategory () {
-        var index = this.categories.findIndex( item => item.MAIN_CATEGORY === this.newIncident.category.MAIN_CATEGORY );
+        var index = this.categories.findIndex( item => item.MAIN_CATEGORY === this.newIncident.category.attributes.MAIN_CATEGORY );
         if ( index < 0 ) return ;
         this.subCategories = this.categories[index].SUBCATEGORIES;
         this.categoryTypes = [];
-        this.newIncident.category.MAIN_CATEGORY = this.categories[index].MAIN_CATEGORY; // for report summary
+        this.newIncident.category.attributes.MAIN_CATEGORY = this.categories[index].MAIN_CATEGORY; // for report summary
     }
 
     onSelectSubCategory () {
-        var index = this.subCategories.findIndex( item => item.SUB_CATEGORY == this.newIncident.category.SUB_CATEGORY );
+        var index = this.subCategories.findIndex( item => item.SUB_CATEGORY == this.newIncident.category.attributes.SUB_CATEGORY );
         if ( index < 0 ) return ;
         var subcategories = this.subCategories[index];
         if ( subcategories.TYPES.length == 0 ) {
-            this.newIncident.category.CATEGORY_ID = subcategories.CATEGORY_ID;
-            this.newIncident.attributes.CATEGORY_ID = this.newIncident.category.CATEGORY_ID;
-            this.newIncident.category.INCIDENT_TYPE = null;
+            this.newIncident.category.attributes.CATEGORY_ID = subcategories.CATEGORY_ID;
+            this.newIncident.attributes.CATEGORY_ID = this.newIncident.category.attributes.CATEGORY_ID;
+            this.newIncident.category.attributes.INCIDENT_TYPE = null;
+            this.newIncident.insertIncidentElement( this.newIncident.category );
         }
         this.categoryTypes = subcategories.TYPES;
     }
 
     onSelectType() {
-        if ( this.newIncident.category.INCIDENT_TYPE != null ) {
-            var index = this.categoryTypes.findIndex( item => item.INCIDENT_TYPE ===this.newIncident.category.INCIDENT_TYPE );
+        if ( this.newIncident.category.attributes.INCIDENT_TYPE != null ) {
+            var index = this.categoryTypes.findIndex( item => item.INCIDENT_TYPE ===this.newIncident.category.attributes.INCIDENT_TYPE );
 
             if ( index >= 0 ) {
                 var type = this.categoryTypes[index];
-                this.newIncident.category.CATEGORY_ID = type.CATEGORY_ID;
-                this.newIncident.attributes.CATEGORY_ID = this.newIncident.category.CATEGORY_ID;
-                this.newIncident.category.INCIDENT_TYPE = type.INCIDENT_TYPE; // for report summary
+                this.newIncident.category.attributes.CATEGORY_ID = type.CATEGORY_ID;
+                this.newIncident.category.attributes.INCIDENT_TYPE = type.INCIDENT_TYPE; // for report summary                
+                this.newIncident.attributes.CATEGORY_ID = this.newIncident.category.attributes.CATEGORY_ID;
+                this.newIncident.insertIncidentElement( this.newIncident.category );
             }
         }
     }
 
     onSelectStaff(): void {
-        var index = this.staffList.findIndex( x => x.attributes.ACCOUNT_ID == this.newIncident.attributes.ACCOUNT_ID );
-        if ( index >= 0 )
+        var index = this.staffList.findIndex( x => x.attributes.ACCOUNT_ID == this.selectedStaffId );
+        if ( index >= 0 ) {
             this.selectedStaff = this.staffList[ index ];
-    }
-
-    addComponent( componentName: string ) {
-        //if ( this.dynamicTest == 'Vehicle' )
-          //  this.domService.addComponent( VehicleComponent, "vehicles" );
-        /*else*/ if ( componentName === this.locationStr ) {
-            this.domService.addComponent( LocationComponent.name, "locations" );
-        } else if ( componentName === this.personStr){
-            this.domService.addComponent( PersonComponent.name, "persons" );
+            this.newIncident.insertIncidentElement( this.selectedStaff );        
+        }
+        else {
+            this.selectedStaff = null;
+            if ( this.newIncident.incidentElements[Config.StaffKey] != null ) {
+                this.newIncident.incidentElements[Config.StaffKey].splice( 0, this.newIncident.incidentElements[Config.StaffKey].length  );
+            }
         }
     }
     
-    cancelReview() : void {
-        this.newIncident.incidentElements = this.newReportService.removeAllIncidentElements();
-    }
-
     prepareReport(): void {
-        this.newIncident.incidentElements = this.newReportService.collectIncidentElements( this.newIncident.category );
+        console.log(this.newIncident);
         this.reportReady = this.isReportValid();
     }
 
     createReport(): void {
         if( this.reportReady ){
-            this.newIncident.attributes.ACCOUNT_ID = this.selectedStaff.attributes.ACCOUNT_ID;
-            console.log( this.newIncident );
+            this.newIncident.attributes.ACCOUNT_ID = this.staffList[0].attributes.ACCOUNT_ID; // TEMP
             this.incidentService.create( this.newIncident )
                 .then( returnedIncident => {
                     if ( returnedIncident != null  ) {
@@ -160,6 +151,16 @@ export class NewReportComponent implements OnInit {
     //     }
     //     return str;
     // }
+
+    addComponent( componentName: string ) {
+        //if ( this.dynamicTest == 'Vehicle' )
+          //  this.domService.addComponent( VehicleComponent, "vehicles" );
+        /*else*/ if ( componentName === this.locationStr ) {
+            this.domService.addComponent( LocationComponent.name, "locations" );
+        } else if ( componentName === this.personStr){
+            this.domService.addComponent( PersonComponent.name, "persons" );
+        }
+    }
 
     private isReportValid(): boolean {
         return this.newReportService.validateReport( this.newIncident );
