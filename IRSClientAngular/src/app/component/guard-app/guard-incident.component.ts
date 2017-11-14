@@ -77,6 +77,15 @@ export class GuardIncidentComponent implements OnInit {
         var locationModal: HTMLElement = document.getElementById("modalLocation");
         setTimeout(() => locationModal.style.visibility = "false", 300);
     }
+    public showEditContent() {
+        var contentToEdit: HTMLElement = document.getElementById("contentToEdit");
+        contentToEdit.style.visibility = "true";    
+    }
+
+    public hideEditContent() {
+        var contentToEdit: HTMLElement = document.getElementById("contentToEdit");
+        contentToEdit.style.visibility = "false";
+    }
 
     public onContainerClicked ( event: MouseEvent ) : void {
         if ((<HTMLElement>event.target).classList.contains('modal')) {

@@ -108,9 +108,11 @@
                                     </h4>
                                 </div>
                                 <div id="collapseDescription" class="panel-collapse collapse">
-                                    <div class="panel-body" *ngIf="incident">
-                                        {{incident.attributes.DESCRIPTION}}           
+                                    <div class="panel-body" *ngIf="incident" (click)="contentToEdit.showEditContent()">
+                                        {{incident.attributes.DESCRIPTION}}    
+                                        test       
                                     </div>
+                                    <input #contentToEdit>{{incident.attributes.DESCRIPTION}}</input>
                                 </div>
                             </div>
                 
