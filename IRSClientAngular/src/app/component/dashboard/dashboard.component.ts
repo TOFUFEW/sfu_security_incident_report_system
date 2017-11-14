@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit {
             this.router.navigate( [ 'login' ] );
         }
     
+        /*
         var ws = new WebSocket ( Config.WebSocketURI );
         ws.onopen = function ()
         {  
@@ -43,6 +44,7 @@ export class DashboardComponent implements OnInit {
             console.log("Received data from websocket: ", messageObj);
             //this.listener ( JSON.parse ( message.data ) );
         };
+        */
     }
 
     sendRequest(request) : void {
