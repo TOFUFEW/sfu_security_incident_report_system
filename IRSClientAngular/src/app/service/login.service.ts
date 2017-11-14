@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { User } from '../component/login/user';
 import { IncidentElement } from '../component/report/incident-element';
-
+import { NewAccount } from '../component/login/new-account';
 
 
 @Injectable()
@@ -27,5 +27,27 @@ export class LoginService {
         return this.http
             .post(this.loginUrl, JSON.stringify( user ), options)
             .map ( response => response.json() as User );
+    }
+
+    createAccount( newAccount: NewAccount ) {
+        var promise = this.http
+            .post( Config.NewAccountURI, JSON.stringify( newAccount ), { headers: this.headers } )
+            .toPromise()
+            .then( response => {
+                return response.json() as boolean; 
+            })
+            .catch( this.handleError );
+        return Promise.resolve( promise );
+    }
+
+    validateNewAccount( newAccount: NewAccount ) {
+        
+    }
+
+    private handleError( error: any ) : Promise<any>
+    {
+        alert( "An error occurred in login service." );
+        console.error( 'An error occurred in login service' , error ); // for demo purposes only
+        return Promise.reject( error.message || error );
     }
 }
