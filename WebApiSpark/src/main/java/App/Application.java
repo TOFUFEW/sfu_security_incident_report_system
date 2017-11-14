@@ -67,10 +67,11 @@ public class Application
         } );
 
         // STARTUP METHODS
+
         staticFileLocation("/public");
 
         webSocket (
-                "/login",
+                "/ws",
                 App.IncidentsWebSocketHandler.class
         );
 
@@ -130,4 +131,7 @@ public class Application
             }
         );
     }
+
+
+
 }

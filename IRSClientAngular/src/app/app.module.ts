@@ -24,6 +24,7 @@ import { LocationModalComponent } from './component/location/location-modal.comp
 
 import { CategoryComponent } from './component/category/category.component'
 import { ReportSummaryComponent } from './component/report/report-summary.component';
+import { WSComponent } from './component/ws/ws.component';
 
 /* Services */
 import { UserService } from './service/user.service';
@@ -65,7 +66,8 @@ import { FilterPipe } from './util/filter.pipe';
     SearchComponent,
     PersonComponent,
     FilterPipe,
-    ReportSummaryComponent
+    ReportSummaryComponent,
+    WSComponent
   ],
   
   providers: [
@@ -78,7 +80,7 @@ import { FilterPipe } from './util/filter.pipe';
     StaffService,
     PersonService,
     NewReportService,
-    CategoryService],
+    CategoryService,],
   bootstrap: [AppComponent],
   entryComponents: [ LocationComponent, VehicleComponent,
     PersonComponent ]
