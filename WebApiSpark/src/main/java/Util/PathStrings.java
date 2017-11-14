@@ -1,6 +1,6 @@
 package Util;
 
-public class URLStrings
+public class PathStrings
 {
     public static final String INCIDENTS_WEB_SOCKET_PATH = "/incidentsWebSocket";
 

@@ -12,7 +12,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 @WebSocket
-public class IncidentWebSocket
+public class IncidentsWebSocketHandler
 {
     // Store sessions if you want to, for example, broadcast a message to all users
     private static final Queue < Session > sessions = new ConcurrentLinkedQueue <> ();
