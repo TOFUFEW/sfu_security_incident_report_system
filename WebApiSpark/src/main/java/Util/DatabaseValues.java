@@ -262,7 +262,7 @@ public class DatabaseValues
         STATUS (
                 "STATUS" ,
                 "INT",
-                DEFAULT_BIT_VALUE,
+                DEFAULT_INT_VALUE,
                 null
         ),
 
@@ -276,8 +276,8 @@ public class DatabaseValues
 
         TEMPORARY_REPORT (
                 "TEMPORARY_REPORT" ,
-                "INT" ,
-                DEFAULT_INT_VALUE ,
+                "BIT" ,
+                DEFAULT_BIT_VALUE ,
                 null
         ),
 

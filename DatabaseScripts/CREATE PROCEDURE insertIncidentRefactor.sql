@@ -18,15 +18,20 @@ BEGIN
 			CATEGORY_ID,
 			DESCRIPTION,
 			EXECUTIVE_SUMMARY,
-			TEMPORARY_REPORT
+			TEMPORARY_REPORT,
+			START_TIME
 		) VALUES (
 			@creator_id,
 			@category_id,
 			@description,
 			@executive_summary,
-			@temporary_report
+			@temporary_report,
+			GETDATE()
 		);
 		SELECT @result = 1;
 	END
-	SELECT @result = 0;
+	ELSE
+	BEGIN
+		SELECT @result = 0;
+	END
 END;

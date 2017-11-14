@@ -286,7 +286,7 @@ public class DBHelper
         return false;
     }
 
-    public static boolean insertIncidentRefactor ( String query , Incident incident ) {
+    public static boolean insertIncidentRefactor ( Incident incident ) {
         if ( !allFieldsValid( incident ) ) {
             if ( incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) == null ) {
                 System.out.println( "Attempting to find IncidentCategory in incidentElements array...");
@@ -321,7 +321,7 @@ public class DBHelper
         try {
             initDB();
             String incidentString = "{ call dbo.insertIncidentRefactor ( ? , ? , ? , ? , ? , ? ) } ";
-            CallableStatement stmt = connection.prepareCall(query);
+            CallableStatement stmt = connection.prepareCall(incidentString);
             stmt.setString(
                     1,
                     incident.getAttributeValue(DatabaseValues.Column.ACCOUNT_ID)
@@ -370,7 +370,7 @@ public class DBHelper
                 }
             } while (lastIncidentId != null && lastIncidentId.equals(before_lastIncidentId));
 
-            int output = stmt.getInt(5);
+            int output = stmt.getInt(6);
 
             String relationSQL = "{ call dbo.insertRelation ( ? , ? , ? ) }";
 
