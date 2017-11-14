@@ -2,6 +2,10 @@ package Util;
 
 import Model.IncidentElement;
 
+import javax.xml.crypto.dsig.keyinfo.KeyValue;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class DatabaseValues
 {
     private static final String DEFAULT_STRING_VALUE = "null";
@@ -344,6 +348,53 @@ public class DatabaseValues
             }
 
             return false;
+        }
+    }
+
+    public enum AccountType
+    {
+        ADMIN ("1"),
+        GUARD ("2");
+
+        private String type;
+        private class Type {
+            private AccountType id;
+            private String name;
+            private Type( AccountType id, String name ) {
+                this.id = id;
+                this.name = name;
+            }
+        }
+
+        AccountType(String type)
+        {
+            this.type = type;
+        }
+
+        @Override
+        public String toString ()
+        {
+            return type;
+        }
+
+        public static ArrayList<HashMap<String, String>> getTypes() {
+            ArrayList<HashMap<String, String>> types = new ArrayList<>();
+
+//            ArrayList<HashMap<String, String>> type1 = new ArrayList<>();
+            HashMap<String, String> map1 = new HashMap<>();
+            map1.put("id", ADMIN.type );
+            map1.put("name", "admin" );
+//            type1.add( map1 ) ;
+            types.add( map1 );
+
+//            ArrayList<HashMap<String, String>> type2 = new ArrayList<>();
+            HashMap<String, String> map2 = new HashMap<>();
+            map2.put("id", GUARD.type );
+            map2.put("name", "guard" );
+//            type2.add( map2 ) ;
+            types.add( map2 );
+
+            return types;
         }
     }
 

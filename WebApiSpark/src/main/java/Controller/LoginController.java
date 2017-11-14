@@ -10,6 +10,7 @@ import Util.JsonUtil;
 import java.sql.ResultSet;
 
 import static Util.JsonUtil.json;
+import static spark.Spark.get;
 import static spark.Spark.post;
 
 public class LoginController {
@@ -29,6 +30,10 @@ public class LoginController {
             User user = newAccount.getUser();
             Staff staff = newAccount.getStaff();
             return  DBHelper.createAccount( user , staff );
+        }, json());
+
+        get( "/get-account-types", ( request, response ) -> {
+            return DatabaseValues.AccountType.getTypes();
         }, json());
     }
 }

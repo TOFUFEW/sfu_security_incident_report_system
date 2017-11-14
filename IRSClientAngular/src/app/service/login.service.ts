@@ -44,6 +44,15 @@ export class LoginService {
         
     }
 
+    getAccountTypes(): Promise<any> {
+        var promise = this.http
+            .get( Config.GetAccountTypesURI )
+            .toPromise()
+            .then( response => { return response.json() })
+            .catch( this.handleError );
+        return Promise.resolve( promise );
+    }
+
     private handleError( error: any ) : Promise<any>
     {
         alert( "An error occurred in login service." );

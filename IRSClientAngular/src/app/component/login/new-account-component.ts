@@ -15,13 +15,12 @@ export class NewAccountComponent {
     confirmPassword: String = "";
 
     staffArr: Staff[];
-    accTypes: number[]; // TEMP
+    accTypes: any; // TEMP
 
     constructor( private loginService: LoginService, private staffService: StaffService ) {
         this.newAccount = new NewAccount();
         this.staffService.getStaffs().then( arr => this.staffArr = arr );
-        this.accTypes = new Array;
-        this.accTypes.push(1); // TEMP
+        this.accTypes = this.loginService.getAccountTypes().then( arr =>  { console.log( arr) ;this.accTypes = arr; } );
     }
 
     createAccount() {

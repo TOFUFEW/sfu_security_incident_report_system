@@ -14,46 +14,79 @@
                     <div class="details-container">
                         <div>
                             <div class="details-body">
-                                <div class="detail col-sm-6 col-sm-offset-right-6">
-                                    <span class="filter-title">First Name <span class="required-asterisk">*</span></span>
-                                    <input class="form-control" type="text"  [(ngModel)]="newAccount.staff.attributes.FIRST_NAME"/>
+                                <div class="detail col-sm-12">
+                                    <div class="col-sm-6">
+                                        <span class="filter-title">First Name <span class="required-asterisk">*</span></span>
+                                        <input class="form-control" type="text"  [(ngModel)]="newAccount.staff.attributes.FIRST_NAME"/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <span class="glyphicon glyphicon-ok-sign"></span>
+                                    </div>
                                 </div>
 
-                                <div class="detail col-sm-6 col-sm-offset-right-6">
-                                    <span class="filter-title">Last Name <span class="required-asterisk">*</span></span>
-                                    <input class="form-control" type="text" [(ngModel)]="newAccount.staff.attributes.LAST_NAME" />
+                                <div class="detail col-sm-12">
+                                    <div class="col-sm-6">
+                                        <span class="filter-title">Last Name <span class="required-asterisk">*</span></span>
+                                        <input class="form-control" type="text" [(ngModel)]="newAccount.staff.attributes.LAST_NAME" />
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <span class="glyphicon glyphicon-ok-sign"></span>
+                                    </div>
                                 </div>
 
-                                <div class="detail col-sm-6 col-sm-offset-right-6">
-                                    <span class="filter-title">Campus <span class="required-asterisk">*</span></span>
-                                    <select class="form-control" [(ngModel)]="newAccount.staff.attributes.CAMPUS_ID">
-                                        <option *ngFor="let staff of staffArr" [value]="staff.attributes.CAMPUS_ID">{{staff.attributes.CAMPUS_ID}}</option>
-                                    </select>
+                                <div class="detail col-sm-12">
+                                    <div class="col-sm-6">
+                                        <span class="filter-title">Campus <span class="required-asterisk">*</span></span>
+                                        <select class="form-control" [(ngModel)]="newAccount.staff.attributes.CAMPUS_ID">
+                                            <option *ngFor="let staff of staffArr" [value]="staff.attributes.CAMPUS_ID">{{staff.attributes.CAMPUS_ID}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <span class="glyphicon glyphicon-ok-sign"></span>
+                                    </div>
                                 </div>
 
-                                <div class="detail col-sm-6 col-sm-offset-right-6">
-                                    <span class="filter-title">Role <span class="required-asterisk">*</span></span>
-                                    <select class="form-control" [(ngModel)]="newAccount.user.attributes.ACCOUNT_TYPE">
-                                        <option *ngFor="let type of accTypes" [value]="type">{{type}}</option>
-                                    </select>
+                                <div class="detail col-sm-12">
+                                    <div class="col-sm-6">
+                                        <span class="filter-title">Role <span class="required-asterisk">*</span></span>
+                                        <select class="form-control" [(ngModel)]="newAccount.user.attributes.ACCOUNT_TYPE">
+                                            <option *ngFor="let type of accTypes" [value]="type.id">{{type.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <span class="glyphicon glyphicon-ok-sign"></span>
+                                    </div>
                                 </div>
 
-                                <div class="detail col-sm-6 col-sm-offset-right-6">
-                                    <span class="filter-title">Username <span class="required-asterisk">*</span></span>
-                                    <input class="form-control" type="text" [(ngModel)]="newAccount.user.attributes.username"/>
+                                <div class="detail col-sm-12">
+                                    <div class="col-sm-6">
+                                        <span class="filter-title">Username <span class="required-asterisk">*</span></span>
+                                        <input class="form-control" type="text" [(ngModel)]="newAccount.user.attributes.username"/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <span class="glyphicon glyphicon-ok-sign"></span>
+                                    </div>
                                 </div>
 
-                                <div class="detail col-sm-6 col-sm-offset-right-6">
-                                    <span class="filter-title">Password <span class="required-asterisk">*</span></span>
-                                    <input class="form-control" type="password" [(ngModel)]="password"/>
+                                <div class="detail col-sm-12">
+                                    <div class="col-sm-6">
+                                        <span class="filter-title">Password <span class="required-asterisk">*</span></span>
+                                        <input class="form-control" type="password" [(ngModel)]="password"/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <span class="glyphicon glyphicon-ok-sign"></span>
+                                    </div>
                                 </div>
 
-                                <div class="detail col-sm-6 col-sm-offset-right-6">
-                                    <span class="filter-title">Confirm Password <span class="required-asterisk">*</span></span>
-                                    <input class="form-control" type="password" [(ngModel)]="confirmPassword"/>
+                                <div class="detail col-sm-12">
+                                    <div class="col-sm-6">
+                                        <span class="filter-title">Confirm Password <span class="required-asterisk">*</span></span>
+                                        <input class="form-control" type="password" [(ngModel)]="confirmPassword"/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <span class="glyphicon glyphicon-ok-sign"></span>
+                                    </div>
                                 </div>
-
-                                
                             </div>
                         </div>
                     </div>
