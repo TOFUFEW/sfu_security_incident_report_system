@@ -54,60 +54,13 @@ export class IncidentService
     }
 
     getIncidents(): Promise<Incident[]> {
-        var user = this.userService.getCurrentUser();
-        var _user = DataHelperService.toIncidentElement ( Config.AccountTable, user );
-        var incidents = this.http.post( this.getIncidentsUrl , JSON.stringify( _user ), { headers: this.headers} )
-            .toPromise()
-            .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
-            .catch( this.handleError );
-        return Promise.resolve( incidents );
+      var incidents = this.http.get( this.incidentsUrl )
+        .toPromise()
+        .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
+        .catch( this.handleError );
+      return Promise.resolve( incidents );
     };
 
-<<<<<<< HEAD
-    private initIncidents( incidents: Incident[] ): Incident[] {
-        incidents.forEach(i => {
-            var index = this.staffArr.findIndex( x => x.attributes.ACCOUNT_ID == i.attributes.ACCOUNT_ID );
-            if ( index >= 0 ) {
-                i.guard = this.staffArr[ index ];
-            }
-
-            this.initArrays(i);
-            i.locationList = [];
-            i.personList = [];
-            i.staffList = [];
-            i.incidentElements.forEach( e => {
-                if ( e.table === Config.CategoryTable ) {
-                    i.category = e.attributes as Category;
-                }
-                else if ( e.table === Config.LocationTable ) {
-                    i.locationList.push( e as Location );
-                }
-                else if ( e.table === Config.PersonTable ) {
-                    i.personList.push ( e.attributes as Person );
-                }
-            });
-        });
-        console.log (incidents);
-        return incidents;
-    }
-
-    private initArrays(incident: Incident) {
-
-        if (incident.locationList === undefined) {
-            incident.locationList = new Array;
-        }
-
-        if (incident.staffList === undefined) {
-            incident.staffList = new Array;
-        }
-
-        if (incident.personList === undefined) {
-            incident.personList = new Array;
-        }
-    }
-
-=======
->>>>>>> 7fb8869fef9082f529c3a3716b38cce6c51b41a3
     getIncident( id: number ): Promise<Incident> {
         var incidentToGet = new Incident();
         incidentToGet.attributes.REPORT_ID = id ;
@@ -118,23 +71,10 @@ export class IncidentService
             .catch( this.handleError );
         return Promise.resolve( returnedIncident );
     }
-<<<<<<< HEAD
-
-    private initializeIncident( incident: Incident ): Incident {
-        incident.locationList = [];
-        incident.incidentElements.forEach( element => {
-            if ( element.table === Config.CategoryTable ) {
-                incident.category = element.attributes as Category;
-            }
-            else if ( element.table === Config.LocationTable ) {
-                incident.locationList.push( element as Location )
-            }
-=======
 
     private initIncidents( incidents: Incident[] ): Incident[] {
         incidents.forEach(i => {
             this.initializeIncident(i);
->>>>>>> 7fb8869fef9082f529c3a3716b38cce6c51b41a3
         });
         return incidents;
     }
