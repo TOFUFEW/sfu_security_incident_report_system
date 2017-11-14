@@ -3,12 +3,6 @@ package App;
 
 import Controller.*;
 
-import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import static spark.Spark.*;
 
 // Class that initializes each controller at start - up
@@ -67,6 +61,13 @@ public class Application
         } );
 
         // STARTUP METHODS
+        staticFileLocation("/public");
+
+        webSocket (
+                "/login",
+                IncidentWebSocket.class
+        );
+
         enableCORS (
                 "*",
                 "GET, " + "POST, PUT, DELETE, OPTIONS, HEAD",
