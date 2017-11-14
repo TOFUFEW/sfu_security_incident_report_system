@@ -20,13 +20,13 @@ export class GuardAllReportsComponent implements OnInit {
 
   constructor( private incidentsService: IncidentService,
                private userService: UserService,
-               private http: HttpClient,               
+               private http: HttpClient,
                private router: Router) {
   };
 
   getIncidents(): void {
     this.user = this.userService.getCurrentUser();
-    this.incidentsService.getGuardIncidents( ).then( returnedIncidents => {
+    this.incidentsService.getIncidents( ).then( returnedIncidents => {
         console.log("returned incidents: ", returnedIncidents);
       this.incidents = returnedIncidents;
     } );
