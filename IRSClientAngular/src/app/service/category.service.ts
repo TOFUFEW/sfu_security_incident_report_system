@@ -3,7 +3,8 @@ import { Category, CategoryDictionary, SubCategory, CategoryType } from '../comp
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
-import { DataHelperService } from '../util/data-helper.service';
+import { IncidentService } from '../service/incident.service';
+import { IncidentElementService } from '../service/incident-element.service';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -12,12 +13,14 @@ export class CategoryService
 {
     private headers = new Headers({ 'Content-Type': 'application/json' });
     categoriesUrl = Config.CategoriesURI;
-    constructor( private http: Http ) {}
+    constructor ( 
+        private http: Http,
+        private incidentService: IncidentService ){}
 
     getCategories(): Promise < Category[] > {
         var categories = this.http.get( this.categoriesUrl )
         .toPromise()
-        .then( response => DataHelperService.extractAttributesArray( response.json() ) as Category[] )
+        .then( response => response.json() as Category[] )
         .catch( this.handleError );
         return Promise.resolve( categories );
     };
@@ -34,9 +37,9 @@ export class CategoryService
 
         var mainCategories = [];
         categories.forEach( category => {
-            if ( mainCategories.indexOf( category.MAIN_CATEGORY ) < 0 ) {
-                mainCategories.push( category.MAIN_CATEGORY );
-                categoryMap.push( this.getMainCategory( category.MAIN_CATEGORY, categories ));
+            if ( mainCategories.indexOf( category.attributes.MAIN_CATEGORY ) < 0 ) {
+                mainCategories.push( category.attributes.MAIN_CATEGORY );
+                categoryMap.push( this.getMainCategory( category.attributes.MAIN_CATEGORY, categories ));
             }
         });
         return categoryMap;
@@ -49,8 +52,8 @@ export class CategoryService
 
         var subCategories = [];
         categories.forEach( category => {
-            if ( category.MAIN_CATEGORY == grouping.MAIN_CATEGORY ) {
-                var subCategory = category.SUB_CATEGORY;
+            if ( category.attributes.MAIN_CATEGORY == grouping.MAIN_CATEGORY ) {
+                var subCategory = category.attributes.SUB_CATEGORY;
                 if ( subCategories.indexOf( subCategory ) < 0 ) {
                     subCategories.push( subCategory );
                     grouping.SUBCATEGORIES.push( this.getSubCategory( grouping.MAIN_CATEGORY, subCategory, categories ) );
@@ -67,24 +70,36 @@ export class CategoryService
 
         var types = [];
         categories.forEach( cat => {
-            if ( cat.MAIN_CATEGORY === mainCategory && cat.SUB_CATEGORY === grouping.SUB_CATEGORY ) {
-                if ( cat.INCIDENT_TYPE == null || cat.INCIDENT_TYPE.length == 0 ) {
-                    grouping.CATEGORY_ID = cat.CATEGORY_ID;
+            if ( cat.attributes.MAIN_CATEGORY === mainCategory && cat.attributes.SUB_CATEGORY === grouping.SUB_CATEGORY ) {
+                if ( cat.attributes.INCIDENT_TYPE == null || cat.attributes.INCIDENT_TYPE.length == 0 ) {
+                    grouping.CATEGORY_ID = cat.attributes.CATEGORY_ID;
                     grouping.TYPES = [];
                     return grouping;
                 }
 
-                if ( types.indexOf( cat.INCIDENT_TYPE ) < 0 ) {
-                    types.push ( cat.INCIDENT_TYPE ); 
+                if ( types.indexOf( cat.attributes.INCIDENT_TYPE ) < 0 ) {
+                    types.push ( cat.attributes.INCIDENT_TYPE ); 
                     var type = new CategoryType();
-                    type.CATEGORY_ID = cat.CATEGORY_ID;
-                    type.INCIDENT_TYPE = cat.INCIDENT_TYPE;
+                    type.CATEGORY_ID = cat.attributes.CATEGORY_ID;
+                    type.INCIDENT_TYPE = cat.attributes.INCIDENT_TYPE;
                     grouping.TYPES.push( type );
                 }
             }
         });
 
         return grouping;
+    }
+
+    changeIncidentCategory ( incident, newCategoryID, selectedCategory ) {
+        incident.category.CATEGORY_ID = newCategoryID;
+        incident.attributes.CATEGORY_ID = newCategoryID;
+        incident.category.attributes.MAIN_CATEGORY = selectedCategory.attributes.MAIN_CATEGORY;
+        incident.category.attributes.SUB_CATEGORY = selectedCategory.attributes.SUB_CATEGORY;
+        incident.category.attributes.INCIDENT_TYPE = selectedCategory.attributes.INCIDENT_TYPE;      
+        incident.incidentElements[Config.IncidentCategoryKey]
+            .splice(0, incident.incidentElements[Config.IncidentCategoryKey].length,
+                    incident.category);
+        this.incidentService.update ( incident );            
     }
 
     private handleError( error: any ) : Promise<any> 

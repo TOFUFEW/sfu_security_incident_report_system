@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { DataHelperService } from '../util/data-helper.service';
+import { IncidentElementService } from '../service/incident-element.service';
 import { Config } from '../util/config.service';
 import { Location, LocationAttributes } from '../component/location/location';
 import { Person } from '../component/person/person';
@@ -10,7 +10,7 @@ import { IncidentElement } from '../component/report/incident-element';
 
 @Injectable()
 export class NewReportService {
-    incidentElements: IncidentElement[];
+    incidentElements: Map<String, IncidentElement[]>;
     
     private locations = new BehaviorSubject<Location[]>([]);
     currentLocations = this.locations.asObservable();
@@ -19,24 +19,25 @@ export class NewReportService {
     currentPersons = this.persons.asObservable();
 
     constructor() {
-        this.incidentElements = [];
+        this.incidentElements = new Map<String, IncidentElement[]>();
     }
 
-    addIncidentElement( obj: any, table: string ) {
+    addIncidentElement( obj: IncidentElement ) {
         if ( obj == null ) {
-            console.log("ERROR: " + table + " is undefined and cannot be added.");
+            console.log("ERROR: " + obj.table + " is undefined and cannot be added.");
             return;
         }
 
         var behaviorSubject = null;
         var arr = [];
-        if ( table === Config.LocationTable ) {
+        if ( obj.table === Config.LocationTable ) {
             behaviorSubject = this.locations;
             arr = behaviorSubject.getValue() as Location[];
         }
-        else if ( table === Config.PersonTable ) {
+        else if ( obj.table === Config.PersonTable ) {
             behaviorSubject = this.persons;
             arr = behaviorSubject.getValue() as Person[];
+            // obj = IncidentElementService.toIncidentElement( table, obj );
         }
 
         arr.push( obj );
@@ -44,6 +45,7 @@ export class NewReportService {
     }
 
     removeIncidentElement( obj: any, table: string) {
+        console.log( "object table", obj.table );
         var behaviorSubject = null;
         var arr = [];
         var index = -1;
@@ -61,9 +63,9 @@ export class NewReportService {
             behaviorSubject = this.persons;
             arr = behaviorSubject.getValue() as Person[];
             var person = obj as Person;
-            index = arr.findIndex( x => x.FIRST_NAME === person.FIRST_NAME
-                                        && x.LAST_NAME === person.LAST_NAME 
-                                        && x.PHONE_NUMBER === person.PHONE_NUMBER ) ;
+            index = arr.findIndex( x => x.attributes.FIRST_NAME === person.attributes.FIRST_NAME
+                                        && x.attributes.LAST_NAME === person.attributes.LAST_NAME 
+                                        && x.attributes.PHONE_NUMBER === person.attributes.PHONE_NUMBER ) ;
         }
 
         if ( index >= 0 ) {
@@ -73,36 +75,6 @@ export class NewReportService {
         else {
             console.log("ERROR: index < 0. Element not found in array");
         }
-    }
-
-    collectIncidentElements( category: Category ) {
-        this.unwrapSubject( this.locations, Config.LocationTable );
-        this.unwrapSubject( this.persons, Config.PersonTable );
-        this.incidentElements.push( DataHelperService.toIncidentElement( Config.CategoryTable, category ) );  
-        console.log( this.incidentElements) ;
-        
-        return this.incidentElements;
-    }
-
-    removeAllIncidentElements(): IncidentElement[] {
-        this.incidentElements.splice(0, this.incidentElements.length );
-        return this.incidentElements;
-    }
-
-    private unwrapSubject( behaviorSubject: any, table: string ) {
-        var arr = behaviorSubject.getValue();
-        if ( arr == null ) {
-            console.log("ERROR: Array is undefined");
-        }
-
-        if ( table === Config.LocationTable ) {
-            arr = DataHelperService.extractAttributesArray( arr ) as LocationAttributes[];
-        }
-
-        arr.forEach( element => {
-            var _elem = DataHelperService.toIncidentElement( table, element );
-            this.incidentElements.push( _elem );
-        });
     }
 
     validateReport( report: Incident ): boolean {
@@ -131,14 +103,16 @@ export class NewReportService {
         return isValid;
     }
 
-    private validateIncidentElements( incidentElements: IncidentElement[] ): boolean {
+    private validateIncidentElements( incidentElements: Map<String, IncidentElement[]> ): boolean {
         var isValid = true;
-        incidentElements.forEach( elem => {
-            var table = elem.table;
-            if ( table.toLowerCase() === Config.LocationTable.toLowerCase() )
-                isValid = this.validateLocation( elem as Location ) && isValid ;
-            else if ( table.toLowerCase() === Config.PersonTable.toLowerCase() )
-                isValid = this.validatePerson( elem.attributes as Person ) && isValid ;
+        incidentElements.forEach( map => {
+            map.forEach( elem => {
+                var table = elem.table;
+                if ( table.toLowerCase() === Config.LocationTable.toLowerCase() )
+                    isValid = this.validateLocation( elem as Location ) && isValid ;
+                else if ( table.toLowerCase() === Config.PersonTable.toLowerCase() )
+                    isValid = this.validatePerson( elem.attributes as Person ) && isValid ;
+            });
         });
         return isValid;
     }
@@ -155,15 +129,15 @@ export class NewReportService {
 
     private validatePerson( person: Person ): boolean {
         var isValid = true ; 
-        if ( person.FIRST_NAME == null || person.FIRST_NAME.length == 0 ) {
+        if ( person.attributes.FIRST_NAME == null || person.attributes.FIRST_NAME.length == 0 ) {
             this.debug_printErrorMsg( "FIRST_NAME");
             isValid = false;
         }
-        if ( person.LAST_NAME == null || person.LAST_NAME.length == 0 ) {
+        if ( person.attributes.LAST_NAME == null || person.attributes.LAST_NAME.length == 0 ) {
             this.debug_printErrorMsg( "LAST_NAME");
             isValid = false;
         }
-        if ( person.PHONE_NUMBER == null || person.PHONE_NUMBER.length == 0 ) {
+        if ( person.attributes.PHONE_NUMBER == null || person.attributes.PHONE_NUMBER.length == 0 ) {
             this.debug_printErrorMsg( "PHONE_NUMBER");
             isValid = false;
         }

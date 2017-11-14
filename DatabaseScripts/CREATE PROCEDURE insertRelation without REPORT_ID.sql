@@ -9,7 +9,7 @@ BEGIN
 	IF EXISTS ( SELECT tc.TABLE_NAME
 		FROM INFORMATION_SCHEMA.TABLES tc
 		WHERE tc.TABLE_NAME = @table_name AND tc.TABLE_NAME = 'Account' )
-	BEGIN	
+	BEGIN
 		INSERT INTO AssignedTo (REPORT_ID, ACCOUNT_ID) VALUES (@report_id, @table_id);
 		SELECT @result = 1;
 	END

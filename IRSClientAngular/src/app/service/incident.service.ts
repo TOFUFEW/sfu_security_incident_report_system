@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DataHelperService } from '../util/data-helper.service';
+// import { IncidentElementService } from '../service/incident-element.service';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
@@ -20,7 +20,7 @@ export class IncidentService
     private headers = new Headers({'Content-Type': 'application/json'});
     getIncidentsUrl = Config.GetIncidentsURI;
     insertIncidentUrl = Config.IncidentsURI;
-    updateIncidentsUrl = Config.UpdateIncidentsURI;
+    updateIncidentsUrl = Config.UpdateIncidentURI;
     guardIncidentsUrl = Config.GetIncidentsURI;
     incidentsUrl = Config.IncidentsURI;
     private userService = new UserService;
@@ -63,6 +63,7 @@ export class IncidentService
         return Promise.resolve( incidents );
     };
 
+<<<<<<< HEAD
     private initIncidents( incidents: Incident[] ): Incident[] {
         incidents.forEach(i => {
             var index = this.staffArr.findIndex( x => x.attributes.ACCOUNT_ID == i.attributes.ACCOUNT_ID );
@@ -105,13 +106,15 @@ export class IncidentService
         }
     }
 
+=======
+>>>>>>> 7fb8869fef9082f529c3a3716b38cce6c51b41a3
     getGuardIncidents(): Promise<Incident[]> {
         var user = this.userService.getCurrentUser();
-        var _user = DataHelperService.toIncidentElement ( Config.AccountTable, user );
+        // var _user = IncidentElementService.toIncidentElement ( Config.AccountTable, user );
         var incidents = this.http
             .post( this.getIncidentsUrl, JSON.stringify( _user ), { headers: this.headers } )
             .toPromise()
-            .then( response => response.json() as Incident[] )
+            .then( response => this.initIncidents( response.json() as Incident[] )as Incident[] )
             .catch( this.handleError );
         return Promise.resolve( incidents );
     }
@@ -126,6 +129,7 @@ export class IncidentService
             .catch( this.handleError );
         return Promise.resolve( returnedIncident );
     }
+<<<<<<< HEAD
 
     private initializeIncident( incident: Incident ): Incident {
         incident.locationList = [];
@@ -136,13 +140,27 @@ export class IncidentService
             else if ( element.table === Config.LocationTable ) {
                 incident.locationList.push( element as Location )
             }
+=======
+
+    private initIncidents( incidents: Incident[] ): Incident[] {
+        incidents.forEach(i => {
+            this.initializeIncident(i);
+>>>>>>> 7fb8869fef9082f529c3a3716b38cce6c51b41a3
         });
+        return incidents;
+    }
+
+    private initializeIncident( incident: Incident ): Incident {
+        incident.category = incident.incidentElements[Config.IncidentCategoryKey][0] as Category;
+        incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
         return incident;
     }
 
     create( incident: Incident ): Promise<Incident> {
+        // TEMPORARY
         if ( incident.attributes.ACCOUNT_ID == null ) {
-            incident.attributes.ACCOUNT_ID = 7;
+            if ( this.staffArr.length > 0 )
+                incident.attributes.ACCOUNT_ID = this.staffArr[0].attributes.ACCOUNT_ID;
         }
 
         incident.table = Config.IncidentTable;
@@ -158,30 +176,13 @@ export class IncidentService
 
     update( incident: Incident ): Promise<Incident> {
         if ( incident.attributes.ACCOUNT_ID == null ) {
-            incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().ACCOUNT_ID;
+            incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().attributes.ACCOUNT_ID;
         }
         incident.table = Config.IncidentTable;
         var promise = this.http
                 .post( this.updateIncidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
                 .toPromise()
                 .then( response => {
-                    return ( response.json() as boolean ) ? incident : null
-                })
-                .catch( this.handleError );
-        return Promise.resolve( promise );
-    }
-
-    assignToStaff( incident: Incident ): Promise<Incident> {
-        if ( incident.attributes.ACCOUNT_ID == null ) {
-            incident.attributes.ACCOUNT_ID = 7;
-        }
-
-        incident.table = Config.IncidentTable;
-        var promise = this.http
-                .post( Config.AssignIncidentURI, JSON.stringify( incident ), { headers: this.headers } )
-                .toPromise()
-                .then( response => {
-                    console.log (response.json());
                     return ( response.json() as boolean ) ? incident : null
                 })
                 .catch( this.handleError );

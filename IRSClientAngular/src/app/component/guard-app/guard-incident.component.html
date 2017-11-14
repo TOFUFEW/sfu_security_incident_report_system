@@ -39,10 +39,10 @@
                                         <div class="panel-body lh-1" *ngIf="incident">                                                    
                                             <span [id]="incident.category.CATEGORY_ID" 
                                                 (dblclick)="modalCategory.show()">
-                                                {{incident.category.MAIN_CATEGORY}},  
+                                                {{incident.category.attributes.MAIN_CATEGORY}},  
                                                 <!-- keep the span below in line to prevent insertion of space before comma -->
-                                                {{incident.category.SUB_CATEGORY}}<span *ngIf="incident.category.INCIDENT_TYPE">,
-                                                    {{incident.category.INCIDENT_TYPE}}
+                                                {{incident.category.attributes.SUB_CATEGORY}}<span *ngIf="incident.category.attributes.INCIDENT_TYPE">,
+                                                    {{incident.category.attributes.INCIDENT_TYPE}}
                                                 </span>
                                             </span>                                                
                                         </div>
@@ -60,8 +60,8 @@
                                 </div>       
                                 <div id="collapseLocation" class="panel-collapse collapse in">
                                     <div class="panel-body lh-1" *ngIf="incident">
-                                        <span *ngFor="let location of incident.locationList" 
-                                            [id]="location.attributes.LOCATION_ID" 
+                                        <span *ngFor="let location of incident.incidentElements['Location']" 
+                                            [id]="location.attributes.LOCATION_ID"
                                             (dblclick)="this.modalLocation.show($event)">
                                             {{location.attributes.CAMPUS_ID}},                                            
                                             {{location.attributes.BUILDING_NAME}},    
@@ -73,9 +73,9 @@
                                             <span class="glyphicon glyphicon-plus"></span> 
                                             Add Location
                                         </button>
-                                        <location-modal-component #modalLocation (locationSaved)="changeLocation($event)"></location-modal-component>                                        
                                     </div>
                                 </div>
+                                <location-modal-component #modalLocation (locationSaved)="changeLocation()"></location-modal-component>                                                                        
                             </div>
 
                             <div class="panel panel-default ml-1 mr-1">
