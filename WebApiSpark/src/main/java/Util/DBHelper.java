@@ -926,13 +926,17 @@ public class DBHelper
     }
 
     public static boolean createAccount ( User user, Staff staff ) {
+        if ( user == null || staff == null || !validateNewAccount( user, staff ) )
+            return false;
         try {
-            String username = user.getAttributeValue( DatabaseValues.Column.USERNAME );
+            String username = user.getAttributeValue( DatabaseValues.Column.USERNAME ).trim();
+            String password = user.getAttributeValue( DatabaseValues.Column.PASSWORD ).trim();
+            String accountType = user.getAttributeValue( DatabaseValues.Column.ACCOUNT_TYPE ).trim();
             if ( getUserId( username ) == null ) {
                 String query = "insert into Account ( username, password, account_type ) " +
                         "values ('" + username + "', '"
-                        + user.getAttributeValue( DatabaseValues.Column.PASSWORD ) + "', '"
-                        + user.getAttributeValue( DatabaseValues.Column.ACCOUNT_TYPE ) + "');";
+                        + password + "', '"
+                        + accountType + "');";
 
                 execute( query );
                 String newUserId = getUserId( username );
@@ -950,10 +954,12 @@ public class DBHelper
     }
 
     private static boolean setStaffData( String accountId, Staff staff ) {
+        if (staff == null )
+            return false;
         try {
-            String query = "update Staff set FIRST_NAME = '" + staff.getAttributeValue( DatabaseValues.Column.FIRST_NAME )
-                            + "', LAST_NAME = '" + staff.getAttributeValue( DatabaseValues.Column.LAST_NAME )
-                            + "', CAMPUS_ID = '" + staff.getAttributeValue( DatabaseValues.Column.CAMPUS_ID )
+            String query = "update Staff set FIRST_NAME = '" + staff.getAttributeValue( DatabaseValues.Column.FIRST_NAME ).trim()
+                            + "', LAST_NAME = '" + staff.getAttributeValue( DatabaseValues.Column.LAST_NAME ).trim()
+                            + "', CAMPUS_ID = '" + staff.getAttributeValue( DatabaseValues.Column.CAMPUS_ID ).trim()
                             + "' where ACCOUNT_ID = '" + accountId + "';";
             boolean res = execute( query );
             return res ;
@@ -962,6 +968,28 @@ public class DBHelper
             e.printStackTrace();
         }
         return false;
+    }
+
+    private static boolean validateNewAccount( User user, Staff staff ) {
+        String username = user.getAttributeValue( DatabaseValues.Column.USERNAME );
+        String password = user.getAttributeValue( DatabaseValues.Column.PASSWORD );
+        String accountType = user.getAttributeValue( DatabaseValues.Column.ACCOUNT_TYPE );
+        String first = staff.getAttributeValue( DatabaseValues.Column.FIRST_NAME );
+        String last = staff.getAttributeValue( DatabaseValues.Column.LAST_NAME );
+        boolean valid = true ;
+
+        if ( ! ( valid = username != null && username.length() > 0 ) )
+            System.out.println("Username cannot be null.");
+        if ( ! ( valid = password != null && password.length() > 0 && valid ) )
+            System.out.println("Password cannot be null.");
+        if ( ! ( valid = accountType != null && accountType.length() > 0 && valid ) )
+            System.out.println("Account Type cannot be null.");
+        if ( ! ( valid = first != null && first.length() > 0 && valid ) )
+            System.out.println("First name cannot be null.");
+        if ( ! ( valid = last != null && last.length() > 0 && valid ) )
+            System.out.println("Last name cannot be null.");
+
+        return valid;
     }
 
     private static String getUserId( String username ) {
@@ -979,6 +1007,14 @@ public class DBHelper
     }
 
     public static boolean debug_removeAccountAndStaff( String accountId ) {
+        try {
+            String query = "delete from account where account_id = " + accountId + ";";
+            execute(query);
+            return true;
+        }
+        catch( Exception e ) {
+            e.printStackTrace();
+        }
         return false;
     }
 
