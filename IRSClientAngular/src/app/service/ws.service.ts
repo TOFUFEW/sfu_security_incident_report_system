@@ -29,11 +29,11 @@ export class WSService {
         }
         */
 
-        return Observable.create( observer => {
+        return Observable.create(observer => {
             this.webSocket.onmessage = (event) => { 
-                observer.next(event);
+                observer.next(event)
             };
-        }).share();
+        }).map(response => response.data).share();
     }
 
 }

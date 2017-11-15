@@ -1,4 +1,4 @@
-package App;
+package WebSocketHandlers;
 
 import Util.JsonUtil;
 import org.eclipse.jetty.websocket.api.Session;
@@ -18,20 +18,22 @@ public class IncidentsWebSocketHandler
     private static final Queue < Session > sessions = new ConcurrentLinkedQueue <> ();
 
     @OnWebSocketConnect
-    public void connected ( Session session )
+    public void onConnect ( Session session )
     {
         sessions.add ( session );
         System.out.println ( "connected" );
 
+        /*
         try {
             message ( session, "true");
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
     }
 
     @OnWebSocketClose
-    public void closed (
+    public void onClose (
             Session session,
             int statusCode,
             String reason
@@ -41,12 +43,17 @@ public class IncidentsWebSocketHandler
     }
 
     @OnWebSocketMessage
-    public void message (
-            Session session,
-            String message
-    ) throws IOException {
+    public void onMessage (String message) throws IOException {
         System.out.println ( "Got: " + message );   // Print message
 
-        session.getRemote ().sendString (  JsonUtil.toJson ( "test message" ) ); // and send it back
+        message = "User Logged in";
+
+        for(Session session : sessions ) {
+
+            session.getRemote().sendString( JsonUtil.toJson(message) );
+        }
+
+        //session.getRemote().sendString(String.valueOf("Hello"));
+        //session.getRemote().sendString( JsonUtil.toJson(message) );
     }
 }

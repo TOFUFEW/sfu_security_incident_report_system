@@ -17,6 +17,7 @@ public class Application
 
     public static void main ( String [] args )
     {
+        /*
         // SETUP PORT
         port ( 4567 );
 
@@ -65,15 +66,19 @@ public class Application
 
             return response.body ();
         } );
+        */
 
         // STARTUP METHODS
 
         staticFileLocation("/public");
+        WSController wsController = new WSController();
 
+        /*
         webSocket (
                 "/ws",
                 App.IncidentsWebSocketHandler.class
         );
+        */
 
         enableCORS (
                 "*",
