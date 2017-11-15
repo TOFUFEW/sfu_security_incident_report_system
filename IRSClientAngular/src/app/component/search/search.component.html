@@ -3,7 +3,7 @@
 <div>
     <form>
         <label>Search: </label>
-        <input type="text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"/> 
+        <input type="text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"/>
         <span>[Advanced Filters]</span>
         <br>
         <br>
@@ -13,17 +13,17 @@
         <div *ngFor="let incident of incidents | filter: searchText">
 
             <h4>[Report Summary]</h4>
-            <span> 
+            <span>
                 <b>Report ID:</b> {{incident.attributes.REPORT_ID}},
                 <b>Author ID:</b> {{incident.attributes.ACCOUNT_ID}},
-                <b>Description:</b> {{incident.attributes.DESCRIPTION}}, 
+                <b>Description:</b> {{incident.attributes.DESCRIPTION}},
                 <b>Summary:</b> {{incident.attributes.EXECUTIVE_SUMMARY}},
-                <b>Closed:</b> {{incident.attributes.CLOSED}}
+                <b>Status:</b> {{incident.attributes.STATUS}}
                 <br>
             </span>
 
             <h4>[Report Type]</h4>
-            
+
             <h4>[Location Details]</h4>
             <span *ngFor="let loc of incident.incidentElements['Location']">
                 <b>Location ID:</b> {{loc.attributes.LOCATION_ID}},

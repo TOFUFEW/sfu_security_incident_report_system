@@ -20,6 +20,11 @@ public class Incident extends StorageObject
                 "",
                 "",
                 "",
+                "",
+                "",
+                "",
+                "",
+                "",
                 ""
         );
     }
@@ -30,7 +35,12 @@ public class Incident extends StorageObject
             String categoryID,
             String description,
             String executiveSummary,
-            String status
+            String status,
+            String startTime,
+            String endTime,
+            String temporaryReport,
+            String timerStart,
+            String timerEnd
     ) {
         super (
                 DatabaseValues.Table.INCIDENT,
@@ -41,7 +51,12 @@ public class Incident extends StorageObject
                         DatabaseValues.Column.CATEGORY_ID,
                         DatabaseValues.Column.DESCRIPTION,
                         DatabaseValues.Column.EXECUTIVE_SUMMARY,
-                        DatabaseValues.Column.STATUS
+                        DatabaseValues.Column.STATUS,
+                        DatabaseValues.Column.START_TIME,
+                        DatabaseValues.Column.END_TIME,
+                        DatabaseValues.Column.TEMPORARY_REPORT,
+                        DatabaseValues.Column.TIMER_START,
+                        DatabaseValues.Column.TIMER_END
                 }
         );
 
@@ -74,6 +89,31 @@ public class Incident extends StorageObject
         updateAttributeValue(
                 DatabaseValues.Column.STATUS,
                 status
+        );
+
+        updateAttributeValue(
+                DatabaseValues.Column.START_TIME,
+                startTime
+        );
+
+        updateAttributeValue(
+                DatabaseValues.Column.END_TIME,
+                endTime
+        );
+
+        updateAttributeValue(
+                DatabaseValues.Column.TEMPORARY_REPORT,
+                temporaryReport
+        );
+
+        updateAttributeValue(
+                DatabaseValues.Column.TIMER_START,
+                timerStart
+        );
+
+        updateAttributeValue(
+                DatabaseValues.Column.TIMER_END,
+                timerEnd
         );
 //        incidentElementsHash.put ("Location" , new ArrayList <> () );
 //        incidentElementsHash.put ("Staff" , new ArrayList <> () );
