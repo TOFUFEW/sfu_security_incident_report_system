@@ -1,5 +1,6 @@
 package Util;
 
+import java.sql.Timestamp;
 import Model.IncidentElement;
 
 import javax.xml.crypto.dsig.keyinfo.KeyValue;
@@ -11,6 +12,7 @@ public class DatabaseValues
     private static final String DEFAULT_STRING_VALUE = "null";
     private static final String DEFAULT_INT_VALUE = "-1";
     private static final String DEFAULT_BIT_VALUE = "0";
+    private static final String DEFAULT_DATETIME_VALUE = null;
 
     public enum Table
     {
@@ -110,14 +112,6 @@ public class DatabaseValues
                 null
         ),
 
-        // Associated Tables: Incident
-        CLOSED (
-                "CLOSED" ,
-                "BIT",
-                DEFAULT_BIT_VALUE,
-                null
-        ),
-
         // Associated Tables: Location
         DEPARTMENT (
                 "DEPARTMENT",
@@ -131,6 +125,14 @@ public class DatabaseValues
                 "DESCRIPTION" ,
                 "TEXT",
                 DEFAULT_STRING_VALUE,
+                null
+        ),
+
+        // Associated Tables: Incident
+        END_TIME (
+                "END_TIME",
+                "DATETIME",
+                DEFAULT_DATETIME_VALUE,
                 null
         ),
 
@@ -202,6 +204,14 @@ public class DatabaseValues
                 null
         ),
 
+        // Associated Tables: IncidentCategory
+        PERMISSION_LEVEL (
+                "PERMISSION_LEVEL",
+                "INT",
+                DEFAULT_INT_VALUE,
+                null
+        ),
+
         // Associated Tables: Involves, Person
         PERSON_ID (
                 "PERSON_ID" ,
@@ -244,11 +254,19 @@ public class DatabaseValues
                 null
         ),
 
+        // Associated Tables: Incident
+        START_TIME (
+                "START_TIME",
+                "DATETIME",
+                DEFAULT_DATETIME_VALUE,
+                null
+        ),
 
+        // Associated Tables: Incident
         STATUS (
                 "STATUS" ,
-                "INT" ,
-                DEFAULT_INT_VALUE ,
+                "INT",
+                DEFAULT_INT_VALUE,
                 null
         ),
 
@@ -257,6 +275,27 @@ public class DatabaseValues
                 "SUB_CATEGORY" ,
                 "VARCHAR(" + 20 + ")",
                 DEFAULT_STRING_VALUE,
+                null
+        ),
+
+        TEMPORARY_REPORT (
+                "TEMPORARY_REPORT" ,
+                "BIT" ,
+                DEFAULT_BIT_VALUE ,
+                null
+        ),
+
+        TIMER_END (
+                "TIMER_START" ,
+                "INT" ,
+                DEFAULT_INT_VALUE ,
+                null
+        ),
+
+        TIMER_START (
+                "TIMER_START" ,
+                "INT" ,
+                DEFAULT_INT_VALUE ,
                 null
         ),
 
