@@ -109,7 +109,10 @@
                                 </div>
                                 <div id="collapseDescription" ng-controller="editable" class="panel-collapse collapse">
                                     <div #contentToEdit class="panel-body" *ngIf="incident">
-                                        <inline-edit class="report-fields-edit" [(ngModel)]="incident.attributes.DESCRIPTION" [required]="true" type="text"></inline-edit>                                        
+                                        <inline-edit class="report-fields-edit" 
+                                            [(ngModel)]="incident.attributes.DESCRIPTION" 
+                                            [required]="true" type="text" 
+                                            (descriptionChanged)="changeDescription()"></inline-edit>                                        
                                     </div>
                                     <!-- <div #editor     
                                         [ngClass]="{'in': visibleAnimate}"
@@ -144,10 +147,10 @@
     </div>
     <div class="row">
         <footer class="panel panel-default guard-app-menu">
-            <!-- <button class="button guard-menu-button field-title" (click)="saveReport()">
+            <button class="button guard-menu-button card-text-primary" (click)="saveReport()">
                 <span class="glyphicon glyphicon-save"></span> 
                 Save
-            </button> -->
+            </button>
             <button class="button guard-menu-button card-text-primary ml-1">
                 <span class="glyphicon glyphicon-plus"></span> 
                 New

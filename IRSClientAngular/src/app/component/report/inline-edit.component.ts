@@ -1,5 +1,7 @@
 import { Component,
     Input,
+    Output,
+    EventEmitter,
     ElementRef,
     ViewChild,
     Renderer,
@@ -23,48 +25,50 @@ export class InlineEditComponent implements ControlValueAccessor {
 
     @ViewChild('inlineEditControl') inlineEditControl; 
     @Input() label: string = '';
-    @Input() type: string = 'text'; // The type of input element
-    @Input() required: boolean = false; // Is input requried?
-    @Input() disabled: boolean = false; // Is input disabled?
-    private _value: string = ''; // Private variable for input value
-    private preValue: string = ''; // The value before clicking to edit
-    private editing: boolean = false; // Is Component in edit mode?
+    @Input() type: string = 'text';
+    @Input() required: boolean = false;
+    @Input() disabled: boolean = false;
+    @Output() descriptionChanged: EventEmitter<string> = new EventEmitter();  
+    private _value: string = ''; 
+    private preValue: string = ''; 
+    private editing: boolean = false;
     public onChange: any = Function.prototype; // Trascend the onChange event
     public onTouched: any = Function.prototype; // Trascend the onTouch event
 
     // Control Value Accessors for ngModel
     get value(): any {
-    return this._value;
+        return this._value;
     }
 
     set value(v: any) {
-    if (v !== this._value) {
-        this._value = v;
-        this.onChange(v);
-    }
+        if (v !== this._value) {
+            this._value = v;
+            this.onChange(v);
+        }
     }
 
     // Required for ControlValueAccessor interface
     writeValue(value: any) {
-    this._value = value;
+        this._value = value;
     }
 
     // Required forControlValueAccessor interface
     public registerOnChange(fn: (_: any) => {}): void {
-    this.onChange = fn;
+        this.onChange = fn;
     }
 
     // Required forControlValueAccessor interface
     public registerOnTouched(fn: () => {}): void {
-    this.onTouched = fn;
+        this.onTouched = fn;
     }
 
     // Do stuff when the input element loses focus
     onBlur($event: Event) {
+        this.descriptionChanged.emit("complete");        
         this.editing = false;
     }
 
-    // Start the editting process for the input element
+    // Start the editing process for the input element
     edit(value) {
         if (this.disabled) {
         return;

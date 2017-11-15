@@ -23,7 +23,8 @@ import { InlineEditComponent } from '../../component/report/inline-edit.componen
 
 export class GuardIncidentComponent implements OnInit {     
     @ViewChild(LocationModalComponent) locationModal: LocationModalComponent     
-    @ViewChild(CategoryComponent) categoryModal: CategoryComponent        
+    @ViewChild(CategoryComponent) categoryModal: CategoryComponent  
+    @ViewChild(InlineEditComponent) inlineEdit: InlineEditComponent      
     title = 'SFU Incident Reporting System';     
     incident: Incident = new Incident();
     locationModalStr = "location-modal";
@@ -58,15 +59,15 @@ export class GuardIncidentComponent implements OnInit {
 //     this.newIncident = new Incident();
 //   }
 
-    // saveReport(): void {
-    //     this.incidentsService.update( this.incident )
-    //         .then( returnedIncident => {
-    //             if ( returnedIncident != null  ) {
-    //             alert( "Incident successfully edited!" );
-    //             }
-    //             else alert( "Edit failed." );
-    //         } );
-    // }
+    saveReport(): void {
+        this.incidentsService.update( this.incident )
+            .then( returnedIncident => {
+                if ( returnedIncident != null  ) {
+                alert( "Incident successfully edited!" );
+                }
+                else alert( "Edit failed." );
+            } );
+    }
       
     public showModal() : void {
         var locationModal: HTMLElement = document.getElementById("modalLocation");
@@ -125,6 +126,11 @@ export class GuardIncidentComponent implements OnInit {
     changeCategory ( newCategoryID ) {
         this.incident.attributes.CATEGORY_ID = newCategoryID;
         this.categoryService.changeIncidentCategory ( this.incident, newCategoryID, this.categoryModal.selectedCategory );
+    }
+
+    changeDescription() {
+        var description = this.inlineEdit.value;
+        this.incident.attributes.DESCRIPTION = description;
     }
 
     ngOnInit() : void {         
