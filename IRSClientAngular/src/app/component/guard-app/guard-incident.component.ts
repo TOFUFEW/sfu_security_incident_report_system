@@ -13,6 +13,7 @@ import { LocationModalComponent } from '../location/location-modal.component';
 import { CategoryComponent } from '../category/category.component'; 
 import { CategoryService } from '../../service/category.service';
 import { Config } from '../../util/config.service';
+import { InlineEditComponent } from '../../component/report/inline-edit.component'
 
 @Component({
   selector: 'guard-incident-component',
@@ -77,14 +78,24 @@ export class GuardIncidentComponent implements OnInit {
         var locationModal: HTMLElement = document.getElementById("modalLocation");
         setTimeout(() => locationModal.style.visibility = "false", 300);
     }
-    public showEditContent() {
-        var contentToEdit: HTMLElement = document.getElementById("contentToEdit");
-        contentToEdit.style.visibility = "true";    
-    }
+
+    incidents = [{ editing:false }];
+    
+    editContent = function ( incident ) {
+            incident.editing = true;
+        }
+    
+        doneEditing = function ( incident ) {
+            incident.editing = false;
+        }
+
 
     public hideEditContent() {
         var contentToEdit: HTMLElement = document.getElementById("contentToEdit");
-        contentToEdit.style.visibility = "false";
+        contentToEdit.style.visibility = "true";
+
+        var editor: HTMLElement = document.getElementById("editor");
+        editor.style.visibility = "false";
     }
 
     public onContainerClicked ( event: MouseEvent ) : void {
@@ -122,7 +133,7 @@ export class GuardIncidentComponent implements OnInit {
             this.incidentsService.getIncident ( +params.get ( 'id' )))         
         .subscribe ( returnedIncident => {             
             this.incident = returnedIncident;       
-            console.log("returned incident" , this.incident);           
+            console.log("returned incident" , this.incident);  
         });
     }
 }

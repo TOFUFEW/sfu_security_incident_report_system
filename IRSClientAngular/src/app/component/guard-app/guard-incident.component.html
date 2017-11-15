@@ -107,12 +107,15 @@
                                         </a>
                                     </h4>
                                 </div>
-                                <div id="collapseDescription" class="panel-collapse collapse">
-                                    <div class="panel-body" *ngIf="incident" (click)="contentToEdit.showEditContent()">
-                                        {{incident.attributes.DESCRIPTION}}    
-                                        test       
+                                <div id="collapseDescription" ng-controller="editable" class="panel-collapse collapse">
+                                    <div #contentToEdit class="panel-body" *ngIf="incident">
+                                        <inline-edit class="report-fields-edit" [(ngModel)]="incident.attributes.DESCRIPTION" [required]="true" type="text"></inline-edit>                                        
                                     </div>
-                                    <input #contentToEdit>{{incident.attributes.DESCRIPTION}}</input>
+                                    <!-- <div #editor     
+                                        [ngClass]="{'in': visibleAnimate}"
+                                        [ngStyle]="{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}">
+                                        <input "value="{{incident.attributes.DESCRIPTION}}" />
+                                    </div> -->
                                 </div>
                             </div>
                 
