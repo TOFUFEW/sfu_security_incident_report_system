@@ -89,8 +89,12 @@
                                     </h4>
                                 </div>
                                 <div id="collapseExecSummary" class="panel-collapse collapse in">
-                                    <div class="panel-body" *ngIf="incident">
-                                        {{incident.attributes.EXECUTIVE_SUMMARY}}
+                                    <div #summaryEdit class="panel-body" *ngIf="incident">
+                                        <inline-edit class="report-fields-edit" 
+                                        [(ngModel)]="incident.attributes.EXECUTIVE_SUMMARY" 
+                                        [required]="true" type="text" 
+                                        (textChanged)="changeSummary()">
+                                    </inline-edit>                                          
                                         <!-- <button class="btn btn-default btn-xs pull-right"><span class="p-2 glyphicon glyphicon-edit"></span></button>                                 -->
                                     </div>
                                 </div>
@@ -108,11 +112,12 @@
                                     </h4>
                                 </div>
                                 <div id="collapseDescription" ng-controller="editable" class="panel-collapse collapse">
-                                    <div #contentToEdit class="panel-body" *ngIf="incident">
+                                    <div #descriptionEdit class="panel-body" *ngIf="incident">
                                         <inline-edit class="report-fields-edit" 
                                             [(ngModel)]="incident.attributes.DESCRIPTION" 
                                             [required]="true" type="text" 
-                                            (descriptionChanged)="changeDescription()"></inline-edit>                                        
+                                            (textChanged)="changeDescription()">
+                                        </inline-edit>                                        
                                     </div>
                                     <!-- <div #editor     
                                         [ngClass]="{'in': visibleAnimate}"
@@ -146,8 +151,8 @@
         </div>
     </div>
     <div class="row">
-        <footer class="panel panel-default guard-app-menu">
-            <button class="button guard-menu-button card-text-primary" (click)="saveReport()">
+        <footer class="panel panel-default guard-app-menu nav-tabs">
+            <button class="button guard-menu-button card-text-primary btn-primary" (click)="saveReport()">
                 <span class="glyphicon glyphicon-save"></span> 
                 Save
             </button>

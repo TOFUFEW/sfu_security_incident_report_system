@@ -133,6 +133,11 @@ export class GuardIncidentComponent implements OnInit {
         this.incident.attributes.DESCRIPTION = description;
     }
 
+    changeSummary() {
+        var summary = this.inlineEdit.value;
+        this.incident.attributes.EXECUTIVE_SUMMARY = summary;
+    }
+
     ngOnInit() : void {         
         this.route.paramMap         
         .switchMap (( params: ParamMap ) =>             
