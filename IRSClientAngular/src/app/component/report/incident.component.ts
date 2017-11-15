@@ -44,6 +44,14 @@ export class IncidentComponent implements OnInit {
         this.staffService.getStaffs().then( ret => { this.staffArr = ret } );
     }
 
+    addToTimer(){
+        this.incidents.forEach(incident => {
+            if(incident.attributes.TIMER_START != null){
+                //add to timers list
+            }
+        });
+    }
+
     addToWorkspace( incident: Incident ): void {
         incident.inWorkspace = true ;
         console.log("adding to workspace...");

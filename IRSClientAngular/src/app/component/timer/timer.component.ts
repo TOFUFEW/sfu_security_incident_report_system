@@ -59,6 +59,8 @@ export class TimerComponent implements OnInit {
         this.newTimer.START_TIME = this.timerService.stringToTime(this.tempStart);
         this.newTimer.END_TIME = this.timerService.stringToTime(this.tempEnd);
 
+        this.tempStart = "";
+        this.tempEnd = "";
 
         this.newTimer.TIME_REMAINING = this.newTimer.END_TIME - this.newTimer.START_TIME;
 
@@ -67,6 +69,13 @@ export class TimerComponent implements OnInit {
         timerForm.style.display = "none";
         this.timerFormShowing = false;
         
+    }
+
+    addTimerFromIncident(start: number, end: number): void {
+        this.tempStart = this.timerService.timeToString(start);
+        this.tempEnd = this.timerService.timeToString(end);
+
+        this.addTimer();
     }
 
 
