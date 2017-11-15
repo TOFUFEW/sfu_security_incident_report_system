@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Timer } from './timer';
 import { TimerService } from '../../service/timer.service';
+import { IncidentComponent } from '../report/incident.component'
 
 
 @Component({
@@ -34,6 +35,7 @@ export class TimerComponent implements OnInit {
         
         this.timerList.push(timer1);
         this.timerList.push(timer2);
+        
     }
 
     getTimers(): void {

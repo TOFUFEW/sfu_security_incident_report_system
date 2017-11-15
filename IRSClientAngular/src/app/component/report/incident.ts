@@ -16,7 +16,6 @@ export class Incident {
     category: Category;
     guard: Staff;
 
-    timer: Timer;
  
     inWorkspace: boolean;
     
@@ -26,7 +25,6 @@ export class Incident {
         this.category = new Category(null, null, null, null);
         this.inWorkspace = false;
         this.guard = new Staff();
-        this.timer = new Timer();
     }
 
     insertIncidentElement( element: IncidentElement ) {
@@ -62,4 +60,6 @@ export class IncidentAttributes {
     CATEGORY_ID: number;
     START_TIME: number;
     END_TIME: number;
+    TIMER_START: number;
+    TIMER_END: number;
 }

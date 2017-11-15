@@ -12,31 +12,20 @@ export class TimerService{
     tableName = Config.TimerTable;
     constructor( private http: Http ) {}
 
-    getTimers(): Promise<Timer[]> {
-        var timerList : Promise<Timer[]>;
-        // timerList = this.http.get( this.timerUrl )
-        //     .toPromise()
-        //     .then( response => response.json() as Timer[] )
-        //     .catch( this.handleError );
-        return Promise.resolve( timerList );
-    };
-
-    update( timer : Timer ) : Promise<Timer> {
-        var promise :Promise<Timer>;
-        // promise = this.http
-        //         .put( this.timerUrl, JSON.stringify( this.tableName, timer), { headers: this.headers } )
-        //         .toPromise()
-        //         .then( response => response.json() as Timer )
-        //         .catch( this.handleError );
-        return Promise.resolve( promise );
-
-    }
-
     createTimer(start : string, end : string) : Timer {
         var timer : Timer = new Timer();
 
         timer.START_TIME = this.stringToTime(start);
         timer.END_TIME = this.stringToTime(end);
+        console.log(timer);
+        return timer;
+    }
+
+    createTimerInt(start : number, end : number) : Timer {
+        var timer : Timer = new Timer();
+
+        timer.START_TIME = start;
+        timer.END_TIME = end;
         console.log(timer);
         return timer;
     }

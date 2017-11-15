@@ -40,8 +40,8 @@ export class NewReportComponent implements OnInit {
     selectedStaffId: number = -1;
     reportReady: boolean = false; 
 
-    tempStart: string;
-    tempEnd: string;
+    tempTimerStart: string;
+    tempTimerEnd: string;
 
     constructor( 
       private incidentService: IncidentService,
@@ -125,7 +125,9 @@ export class NewReportComponent implements OnInit {
     }
     
     prepareReport(): void {
-        this.newIncident.timer = this.timerService.createTimer(this.tempStart, this.tempEnd);
+        this.newIncident.attributes.TIMER_START = this.timerService.stringToTime(this.tempTimerStart);
+        this.newIncident.attributes.TIMER_END = this.timerService.stringToTime(this.tempTimerEnd);
+
         console.log(this.newIncident);
         this.reportReady = this.isReportValid();
     }
@@ -141,6 +143,10 @@ export class NewReportComponent implements OnInit {
                     }
                     else alert( "Add failed." );
                 } );
+
+            this.timerService.createTimer(this.tempTimerStart, this.tempTimerEnd);
+            this.tempTimerStart = "";
+            this.tempTimerEnd = "";
             delete this.newIncident;
             this.newIncident = new Incident();
         } else {
