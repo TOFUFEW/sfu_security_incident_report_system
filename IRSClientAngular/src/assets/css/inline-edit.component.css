@@ -1,4 +1,12 @@
-.report-fields-edit {
-    height: 100%;    
-    width: 100%;
-}
+div.report-fields-edit {
+  height: 100%;
+  width: auto; }
+
+textarea {
+  height: 10em;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 1px;
+  padding: 1em; }
+
+/*# sourceMappingURL=inline-edit.component.css.map */
