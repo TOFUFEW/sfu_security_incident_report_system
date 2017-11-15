@@ -1,24 +1,14 @@
 package Controller;
 
 import Model.Incident;
-import Model.Location;
-import Model.Person;
-import Model.IncidentElement;
-import Model.Location;
 import Util.DBHelper;
 import Util.JsonUtil;
 
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-
-import static Util.JsonUtil.json;
 import static spark.Spark.get;
 import static spark.Spark.post;
 
 public class IncidentsController
 {
-    DBHelper dbHelper = new DBHelper();
     public IncidentsController ()
     {
         setupEndPoints ();
@@ -41,8 +31,6 @@ public class IncidentsController
         post ("/updateIncident" , ( request, response ) ->
         {
             Incident updatedIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
-            System.out.println ("UPDATED INCIDENT: " + updatedIncident.toString());
-
             return DBHelper.updateIncident ( updatedIncident );
         } );
 

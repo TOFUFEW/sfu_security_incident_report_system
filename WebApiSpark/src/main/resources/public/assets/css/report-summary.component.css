@@ -1,0 +1,14 @@
+div.report-header {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 16px; }
+
+.report-id {
+  font-size: 18px;
+  font-weight: 300;
+  opacity: 0.8;
+  color: #333; }
+
+/*# sourceMappingURL=report-summary.component.css.map */
