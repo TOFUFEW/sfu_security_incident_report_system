@@ -20,7 +20,7 @@ export class GuardAllReportsComponent implements OnInit {
 
   constructor( private incidentsService: IncidentService,
                private userService: UserService,
-               private http: HttpClient,               
+               private http: HttpClient,
                private router: Router) {
   };
 
@@ -35,6 +35,11 @@ export class GuardAllReportsComponent implements OnInit {
   viewReport( incident: Incident ) : void {
     console.log("view report id = " + incident.attributes.REPORT_ID );
     this.router.navigate([ 'guard-app/report', incident.attributes.REPORT_ID ] );
+  }
+
+  newReport(): void {
+    console.log("new report");
+    this.router.navigate([ 'new-report' ] );
   }
 
   ngOnInit() : void {

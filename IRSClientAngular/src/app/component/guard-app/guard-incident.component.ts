@@ -7,41 +7,41 @@ import { Incident } from '../report/incident';
 import { IncidentElement} from '../report/incident-element';
 import { IncidentService } from '../../service/incident.service';
 import { IncidentElementService } from '../../service/incident-element.service';
-import { UserService } from '../../service/user.service'; 
-import { Location } from '../location/location'; 
-import { LocationModalComponent } from '../location/location-modal.component'; 
-import { CategoryComponent } from '../category/category.component'; 
+import { UserService } from '../../service/user.service';
+import { Location } from '../location/location';
+import { LocationModalComponent } from '../location/location-modal.component';
+import { CategoryComponent } from '../category/category.component';
 import { CategoryService } from '../../service/category.service';
 import { Config } from '../../util/config.service';
 
 @Component({
   selector: 'guard-incident-component',
   templateUrl: './guard-incident.component.html',
-  styleUrls: ['../../../assets/css/guard-app.css'],  
+  styleUrls: ['../../../assets/css/guard-app.css'],
 })
 
-export class GuardIncidentComponent implements OnInit {     
-    @ViewChild(LocationModalComponent) locationModal: LocationModalComponent     
-    @ViewChild(CategoryComponent) categoryModal: CategoryComponent        
-    title = 'SFU Incident Reporting System';     
+export class GuardIncidentComponent implements OnInit {
+    @ViewChild(LocationModalComponent) locationModal: LocationModalComponent
+    @ViewChild(CategoryComponent) categoryModal: CategoryComponent
+    title = 'SFU Incident Reporting System';
     incident: Incident = new Incident();
     locationModalStr = "location-modal";
 
-    constructor (         
+    constructor (
         private incidentsService: IncidentService,
-        private incidentElementService: IncidentElementService,  
+        private incidentElementService: IncidentElementService,
         private categoryService: CategoryService,
-        private userService: UserService,                
-        private router: Router,         
-        private http: HttpClient,         
-        private route: ActivatedRoute  
+        private userService: UserService,
+        private router: Router,
+        private http: HttpClient,
+        private route: ActivatedRoute
     ) {
 
-        if ( this.userService.isLoggedIn() == false ) 
-        {             
-            this.router.navigate([ 'login' ] );         
-        }     
-    }; 
+        if ( this.userService.isLoggedIn() == false )
+        {
+            this.router.navigate([ 'login' ] );
+        }
+    };
 
 
 //   addIncident(): void {
@@ -66,7 +66,7 @@ export class GuardIncidentComponent implements OnInit {
     //             else alert( "Edit failed." );
     //         } );
     // }
-      
+
     public showModal() : void {
         var locationModal: HTMLElement = document.getElementById("modalLocation");
         locationModal.style.visibility = "true";
@@ -90,7 +90,7 @@ export class GuardIncidentComponent implements OnInit {
         locationToRemove = this.locationModal.button_id;
 
         if ( locationToRemove == -1 ) {
-            // Add new location 
+            // Add new location
             this.incidentElementService.addElement ( this.incident, locationToAdd );
         }
         else {
@@ -99,7 +99,7 @@ export class GuardIncidentComponent implements OnInit {
         }
 
         this.locationModal.locationComponent.newLocation = new Location(); // reset
-        var locationToInsert: Location = new Location();      
+        var locationToInsert: Location = new Location();
     }
 
     changeCategory ( newCategoryID ) {
@@ -107,13 +107,17 @@ export class GuardIncidentComponent implements OnInit {
         this.categoryService.changeIncidentCategory ( this.incident, newCategoryID, this.categoryModal.selectedCategory );
     }
 
-    ngOnInit() : void {         
-        this.route.paramMap         
-        .switchMap (( params: ParamMap ) =>             
-            this.incidentsService.getIncident ( +params.get ( 'id' )))         
-        .subscribe ( returnedIncident => {             
-            this.incident = returnedIncident;       
-            console.log("returned incident" , this.incident);           
+    newReport(): void {
+      this.router.navigate([ 'new-report' ] );
+    }
+
+    ngOnInit() : void {
+        this.route.paramMap
+        .switchMap (( params: ParamMap ) =>
+            this.incidentsService.getIncident ( +params.get ( 'id' )))
+        .subscribe ( returnedIncident => {
+            this.incident = returnedIncident;
+            console.log("returned incident" , this.incident);
         });
     }
 }
