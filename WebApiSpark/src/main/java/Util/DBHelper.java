@@ -2,12 +2,10 @@ package Util;
 
 import Model.*;
 
-import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import Util.DatabaseValues;
 
 public class DBHelper
 {
@@ -313,8 +311,16 @@ public class DBHelper
                     return false;
                 }
             }
-            if ( incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ) == null ) {
+            String creatorID = incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID );
+            if ( creatorID == null ) {
                 return false;
+            }
+            IncidentElement[] staffs = DBHelper.getIncidentElements( DatabaseValues.Table.STAFF);
+            for( IncidentElement staff : staffs ) {
+                if( staff.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID).equals(creatorID)
+                        && staff.getAttributeValue( DatabaseValues.Column.ACCOUNT_TYPE ).equals( "2" ) ) {
+                    incident.updateAttributeValue( DatabaseValues.Column.TEMPORARY_REPORT, "1" );
+                }
             }
         }
 
