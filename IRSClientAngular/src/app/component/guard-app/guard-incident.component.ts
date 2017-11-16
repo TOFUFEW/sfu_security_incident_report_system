@@ -29,6 +29,11 @@ export class GuardIncidentComponent implements OnInit {
     incident: Incident = new Incident();
     locationModalStr = "location-modal";
 
+    isEditingDesc: boolean = false;
+    newDescription: String = "";
+    isEditingSummary: boolean = false;
+    newSummary: String = "";
+
     constructor (         
         private incidentsService: IncidentService,
         private incidentElementService: IncidentElementService,  
@@ -38,26 +43,28 @@ export class GuardIncidentComponent implements OnInit {
         private http: HttpClient,         
         private route: ActivatedRoute  
     ) {
-
-        if ( this.userService.isLoggedIn() == false ) 
-        {             
-            this.router.navigate([ 'login' ] );         
-        }     
+        if ( this.userService.isLoggedIn() == false ) {
+            this.router.navigate([ 'login' ] );
+        }
     }; 
 
+    toggleEditMode( attr: String ) {
+        if ( attr == null ) return;
+        if ( attr.toLowerCase() === "description" )
+            this.isEditingDesc = !this.isEditingDesc;
+        else if ( attr.toLowerCase() === "executive_summary" )
+            this.isEditingSummary = !this.isEditingSummary;
+    }
 
-//   addIncident(): void {
-//     this.incidentsService.create( this.newIncident )
-//         .then( returnedIncident => {
-//             if ( returnedIncident != null  ) {
-//               this.incidents.push( returnedIncident );
-//               alert( "Incident successfully added!" );
-//             }
-//             else alert( "Add failed." );
-//         } );
-//     delete this.newIncident;
-//     this.newIncident = new Incident();
-//   }
+    revertChanges( attr: String ) {
+        if ( attr == null ) return;
+        if ( attr.toLowerCase() === "description" )
+            this.newDescription = this.incident.attributes.DESCRIPTION;
+        else if ( attr.toLowerCase() === "executive_summary" )
+            this.newSummary = this.incident.attributes.EXECUTIVE_SUMMARY;
+
+        this.toggleEditMode( attr );
+    }
 
     saveReport(): void {
         this.incidentsService.update( this.incident )
@@ -83,12 +90,12 @@ export class GuardIncidentComponent implements OnInit {
     incidents = [{ editing:false }];
     
     editContent = function ( incident ) {
-            incident.editing = true;
-        }
+        incident.editing = true;
+    }
     
-        doneEditing = function ( incident ) {
-            incident.editing = false;
-        }
+    doneEditing = function ( incident ) {
+        incident.editing = false;
+    }
 
 
     public hideEditContent() {
@@ -143,9 +150,25 @@ export class GuardIncidentComponent implements OnInit {
         .switchMap (( params: ParamMap ) =>             
             this.incidentsService.getIncident ( +params.get ( 'id' )))         
         .subscribe ( returnedIncident => {             
-            this.incident = returnedIncident;       
+            this.incident = returnedIncident;
             console.log("returned incident" , this.incident);  
+            this.newDescription = this.incident.attributes.DESCRIPTION;
+            this.newSummary = this.incident.attributes.EXECUTIVE_SUMMARY;
         });
     }
 }
 
+//   addIncident(): void {
+//     this.incidentsService.create( this.newIncident )
+//         .then( returnedIncident => {
+//             if ( returnedIncident != null  ) {
+//               this.incidents.push( returnedIncident );
+//               alert( "Incident successfully added!" );
+//             }
+//             else alert( "Add failed." );
+//         } );
+//     delete this.newIncident;
+//     this.newIncident = new Incident();
+//   }
+
+    
