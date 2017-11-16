@@ -28,7 +28,7 @@ public class IncidentsController
             return DBHelper.insertIncident ( newIncident );
         } );
 
-        post ("/updateIncident" , ( request, response ) ->
+        post ("/update-incident" , ( request, response ) ->
         {
             Incident updatedIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
             return DBHelper.updateIncident ( updatedIncident );

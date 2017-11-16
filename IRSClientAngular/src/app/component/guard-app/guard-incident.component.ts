@@ -30,9 +30,9 @@ export class GuardIncidentComponent implements OnInit {
     locationModalStr = "location-modal";
 
     isEditingDesc: boolean = false;
-    newDescription: String = "";
+    newDescription: string = "";
     isEditingSummary: boolean = false;
-    newSummary: String = "";
+    newSummary: string = "";
 
     constructor (         
         private incidentsService: IncidentService,
@@ -48,7 +48,7 @@ export class GuardIncidentComponent implements OnInit {
         }
     }; 
 
-    toggleEditMode( attr: String ) {
+    toggleEditMode( attr: string ) {
         if ( attr == null ) return;
         if ( attr.toLowerCase() === "description" )
             this.isEditingDesc = !this.isEditingDesc;
@@ -56,7 +56,7 @@ export class GuardIncidentComponent implements OnInit {
             this.isEditingSummary = !this.isEditingSummary;
     }
 
-    revertChanges( attr: String ) {
+    revertChanges( attr: string ) {
         if ( attr == null ) return;
         if ( attr.toLowerCase() === "description" )
             this.newDescription = this.incident.attributes.DESCRIPTION;
@@ -67,6 +67,8 @@ export class GuardIncidentComponent implements OnInit {
     }
 
     saveReport(): void {
+        this.incident.attributes.DESCRIPTION = this.newDescription;
+        this.incident.attributes.EXECUTIVE_SUMMARY = this.newSummary;
         this.incidentsService.update( this.incident )
             .then( returnedIncident => {
                 if ( returnedIncident != null  ) {
