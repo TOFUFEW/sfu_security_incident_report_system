@@ -8,12 +8,14 @@
 
             <div class="main-content">
                 <div class="staff-card" *ngFor="let timer of timerList">
-
+                    <!-- <div class="detail-row">
+                        <span class="detail-row">Report ID: {{timer.incident.attributes.REPORT_ID}}</span>
+                    </div> -->
                     <div class="detail-row">
-                        <span class="detail-row">Start Time: {{timeToString(timer.START_TIME)}}</span>
+                        <span class="detail-row">Start Time: {{timeToString(timer.TIMER_START)}}</span>
                     </div>
                     <div class="detail-row">
-                       <span class="detail-row">End Time: {{timeToString(timer.END_TIME)}}</span>
+                       <span class="detail-row">End Time: {{timeToString(timer.TIMER_END)}}</span>
                     </div>
                     <div class="detail-row">
                         <span class="detail-row">Time Remaining: {{durationToString(timer.TIME_REMAINING)}}</span>

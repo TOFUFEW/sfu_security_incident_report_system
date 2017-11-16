@@ -4,30 +4,58 @@ import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
 import 'rxjs/add/operator/toPromise';
 import { Timer } from '../component/timer/timer';
+import { Incident } from '../component/report/incident';
+import { IncidentService } from './incident.service';
 
 @Injectable()
 export class TimerService{
     private headers = new Headers({'Content-Type': 'application/json'});
-    timerUrl = Config.TimerURI;
-    tableName = Config.TimerTable;
-    constructor( private http: Http ) {}
+
+    constructor( private http: Http, private incidentService : IncidentService ) {}
+
+    getTimers() : Promise<Timer[]> {
+        var incidentList : Incident [];
+        var timerList;
+
+        this.incidentService.getIncidents().then( returnedIncidents => {
+            incidentList = returnedIncidents;
+        })
+        .then( () => {
+            console.log(incidentList);
+            incidentList.forEach(incident =>{
+                if (incident.attributes.TIMER_START != null) {
+                    timerList.push(this.createTimerInt(incident, incident.attributes.TIMER_START, incident.attributes.TIMER_END));
+                }
+            });
+        })
+        .catch ( this.handleError );
+
+        return Promise.resolve(timerList);
+    }
 
     createTimer(start : string, end : string) : Timer {
         var timer : Timer = new Timer();
 
-        timer.START_TIME = this.stringToTime(start);
-        timer.END_TIME = this.stringToTime(end);
+        timer.TIMER_START = this.stringToTime(start);
+        timer.TIMER_END = this.stringToTime(end);
         console.log(timer);
         return timer;
     }
 
-    createTimerInt(start : number, end : number) : Timer {
+
+    createTimerInt(incident: Incident, start : number, end : number) : Timer {
         var timer : Timer = new Timer();
 
-        timer.START_TIME = start;
-        timer.END_TIME = end;
+        timer.TIMER_START = start;
+        timer.TIMER_END = end;
         console.log(timer);
         return timer;
+    }
+
+    deleteTimer(timer : Timer) : void {
+        timer.incident.attributes.TIMER_START = null;
+        timer.incident.attributes.TIMER_END = null;
+        this.incidentService.update(timer.incident);
     }
 
     //html time input is string "hh:mm" convert to time format
@@ -46,6 +74,9 @@ export class TimerService{
             numHour = numHour % 12 ;
             var hour = this.fillZeros(numHour.toString());
             return hour + ":" + minute + " PM";
+        } else if (numHour == 12 ){
+            var hour = this.fillZeros(numHour.toString());
+            return hour + ":" + minute + " PM";
         } else {
             var hour = this.fillZeros(numHour.toString());
             return hour + ":" + minute + " AM";
@@ -55,7 +86,7 @@ export class TimerService{
     durationToString(time : number) : string {
         var hour = this.fillZeros(Math.floor(time / 1000 / 60 / 60 % 24).toString());
         var minute = this.fillZeros(Math.floor(time / 1000 / 60 % 60).toString());
-        var second = this.fillZeros(Math.floor(time / 1000 / 60 % 60).toString());
+        var second = this.fillZeros(Math.floor(time / 1000 % 60).toString());
 
         return hour + ":" + minute + ":" + second;
 

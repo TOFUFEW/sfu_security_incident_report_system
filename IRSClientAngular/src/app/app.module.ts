@@ -21,7 +21,6 @@ import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
 import { AttachmentComponent } from './component/attachment/attachment.component';
 import { TimerComponent } from './component/timer/timer.component';
-import { TimerIncidentComponent } from './component/timer/timer-incident.component';
 import { LocationModalComponent } from './component/location/location-modal.component';
 
 import { CategoryComponent } from './component/category/category.component'
@@ -69,8 +68,7 @@ import { FilterPipe } from './util/filter.pipe';
     PersonComponent,
     FilterPipe,
     ReportSummaryComponent,
-    TimerComponent,
-    TimerIncidentComponent
+    TimerComponent
   ],
   
   providers: [

@@ -16,7 +16,6 @@ import { LocationComponent } from '../location/location.component';
 import { VehicleComponent } from '../vehicle/vehicle.component';
 import { PersonComponent } from '../person/person.component';
 import { AttachmentComponent } from '../attachment/attachment.component';
-import { TimerIncidentComponent } from '../timer/timer-incident.component'
 import { Config } from '../../util/config.service';
 
 @Component(

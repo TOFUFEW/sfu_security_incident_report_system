@@ -1,6 +1,8 @@
+import { Incident } from '../report/incident';
+
 export class Timer{
-    TIMER_NAME: string;
-    START_TIME: number;
-    END_TIME: number;
+    incident: Incident;
+    TIMER_START: number;
+    TIMER_END: number;
     TIME_REMAINING: number;
 }
