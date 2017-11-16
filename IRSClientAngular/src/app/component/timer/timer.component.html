@@ -5,33 +5,10 @@
     </div>
     <div class="panel-body">
         <div id="timer-card" class="col-md-12 col-lg-12">
-            <!-- <button class="btn btn-primary" (click)="toggleAddTimerForm();">New Timer</button>
-            <div id="timerForm" style="display: none">
-                <div>
-                    <select class="form-control" name="" id="" [(ngModel)]="newTimer.TYPE">
-                            <option id="">Lone Worker</option>
-                    </select>
-                </div>
-                <div>
-                    <div>Task Name: </div>
-                    <input type="text" placeholder="Task Name" [(ngModel)]="newTimer.TIMER_NAME">
-                    </div>
-                <div>
-                    <div>Start Time:</div>
-                    <input type="time" id="formStartTime" placeholder="11:20" [(ngModel)]="tempStart">
-                </div>
-                <div>
-                    <div>End Time:</div>
-                    <input type="time" placeholder="HH:mm:ss" [(ngModel)]="tempEnd">
-                </div>
-                <button class="btn" (click)="checkInput();">Add Timer</button>
-            </div> -->
+
             <div class="main-content">
                 <div class="staff-card" *ngFor="let timer of timerList">
-                    <!-- <div class="detail-row description">
-                        <span class="card-text-primary">{{timer.TIMER_NAME}}</span>
-                        <span class="detail-row">Type: {{timer.TYPE}} </span>
-                    </div> -->
+
                     <div class="detail-row">
                         <span class="detail-row">Start Time: {{timeToString(timer.START_TIME)}}</span>
                     </div>
@@ -39,7 +16,7 @@
                        <span class="detail-row">End Time: {{timeToString(timer.END_TIME)}}</span>
                     </div>
                     <div class="detail-row">
-                        <span class="detail-row">Time Remaining: {{timeToString(timer.TIME_REMAINING)}}</span>
+                        <span class="detail-row">Time Remaining: {{durationToString(timer.TIME_REMAINING)}}</span>
                     </div>
                     <br>
                 </div>

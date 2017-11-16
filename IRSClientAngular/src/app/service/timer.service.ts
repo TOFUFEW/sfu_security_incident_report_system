@@ -39,11 +39,26 @@ export class TimerService{
     }
 
     timeToString(time : number) : string {
+        var numHour = Math.floor(time / 1000 / 60 / 60 % 24);
+        var minute = this.fillZeros(Math.floor(time / 1000 / 60 % 60).toString());
+
+        if (numHour > 12){
+            numHour = numHour % 12 ;
+            var hour = this.fillZeros(numHour.toString());
+            return hour + ":" + minute + " PM";
+        } else {
+            var hour = this.fillZeros(numHour.toString());
+            return hour + ":" + minute + " AM";
+        }
+    }
+
+    durationToString(time : number) : string {
         var hour = this.fillZeros(Math.floor(time / 1000 / 60 / 60 % 24).toString());
         var minute = this.fillZeros(Math.floor(time / 1000 / 60 % 60).toString());
-        var second = this.fillZeros((time / 1000 % 60).toString());
+        var second = this.fillZeros(Math.floor(time / 1000 / 60 % 60).toString());
 
         return hour + ":" + minute + ":" + second;
+
     }
 
     fillZeros(str : string) : string{

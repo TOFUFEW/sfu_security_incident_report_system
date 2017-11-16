@@ -71,14 +71,6 @@ export class TimerComponent implements OnInit {
         
     }
 
-    addTimerFromIncident(start: number, end: number): void {
-        this.tempStart = this.timerService.timeToString(start);
-        this.tempEnd = this.timerService.timeToString(end);
-
-        this.addTimer();
-    }
-
-
     toggleAddTimerForm() : void {
         var timerForm = document.getElementById("timerForm");
         if (this.timerFormShowing){

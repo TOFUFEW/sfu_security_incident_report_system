@@ -81,6 +81,8 @@ export class NewReportComponent implements OnInit {
         this.subCategories = this.categories[index].SUBCATEGORIES;
         this.categoryTypes = [];
         this.newIncident.category.attributes.MAIN_CATEGORY = this.categories[index].MAIN_CATEGORY; // for report summary
+
+        //IF CATEGORY == SOME TIMER THEN SHOW TIMER
     }
 
     onSelectSubCategory () {
@@ -145,8 +147,8 @@ export class NewReportComponent implements OnInit {
                 } );
 
             this.timerService.createTimer(this.tempTimerStart, this.tempTimerEnd);
-            this.tempTimerStart = "";
-            this.tempTimerEnd = "";
+            this.tempTimerStart = null;
+            this.tempTimerEnd = null;
             delete this.newIncident;
             this.newIncident = new Incident();
         } else {
