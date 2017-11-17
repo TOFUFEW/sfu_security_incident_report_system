@@ -227,7 +227,7 @@ body {
   height: 3em;
   border-radius: 99px;
   bottom: 1em;
-  margin-right: 1.5em;
+  margin: 0 1.5em;
   text-align: center;
   padding: 1px 0;
   line-height: 1.42; }

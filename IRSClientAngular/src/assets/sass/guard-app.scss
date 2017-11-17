@@ -8,6 +8,11 @@
   .outer-container {
     position: relative; 
   }
+
+  .guard-container {
+      padding-bottom: 4em;
+      margin-bottom: 0px;
+  }
   
   .m-1 {
       margin: 1em !important;
@@ -111,7 +116,6 @@
   
   .panel-body {
       height: 100%;
-      padding-bottom: 1em;
       word-break: break-word;     
   }
   
@@ -126,20 +130,27 @@
     background-color: transparent;
     bottom: 0;
     margin-bottom: 0;  
-    height: 4em;
+    height: 3em;
     width: 100%;
     position: fixed;
-    text-align: right;
   }
   
-  .guard-menu-button {
+  .guard-menu-button-right {
     position: relative;
     color: #f5f5f5;
+    float: right;
+  }
+
+  .guard-menu-button-left {
+      position: relative;
+      color: #f5f5f5;      
+      float: left;
   }
   
 .btn-close-report {
     size: 2em;
-    padding: 2em;
+    text-align: right;
+    width: 100%;
 }
 
   .collapsable-heading {
