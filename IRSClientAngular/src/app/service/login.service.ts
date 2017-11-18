@@ -16,9 +16,6 @@ export class LoginService {
     private headers = new Headers( { 'Content-Type': 'application/json' } );
     loginUrl = Config.LoginURI;
 
-    private isUsernameValid = new BehaviorSubject<boolean> (false);
-    currentPersons = this.isUsernameValid.asObservable();
-
     constructor( private http: Http ) { }
 
     doLogin( user: User ): Observable<User> {
@@ -46,6 +43,19 @@ export class LoginService {
     }
 
     validateNewAccount( newAccount: NewAccount ) {
+    }
+
+    validateUsername( username: string ): Promise<boolean> {
+        var user = new User();
+        user.attributes.USERNAME = username;
+        var promise = this.http
+            .post( Config.ValidateUsernameURI, JSON.stringify( user ), { headers: this.headers })
+            .toPromise()
+            .then( response => {
+                return response.json() as boolean;
+            })
+            .catch( this.handleError );
+        return Promise.resolve( promise) ;
     }
 
     getAccountTypes(): Promise<any> {

@@ -18,7 +18,6 @@ export class NewAccountComponent {
     password: string = "";
     confirmPassword: string = "";
 
-    staffArr: Staff[];
     campusArr: Array<Campus>;
     accTypes: Array<any>; // TEMP
 
@@ -44,7 +43,7 @@ export class NewAccountComponent {
     }
 
     createAccount() {
-        if ( this.password === this.confirmPassword ) {
+        if ( this.isValid() ) {
             this.newAccount.user.attributes.PASSWORD = this.confirmPassword;
             this.loginService.createAccount(this.newAccount)
             .then( response => {
@@ -57,12 +56,32 @@ export class NewAccountComponent {
         
     }
 
+    private isValid(): boolean {
+        return this.firstnameStatus === Validation.Valid
+            && this.lastnameStatus === Validation.Valid
+            && this.usernameStatus === Validation.Valid
+            && this.passwordStatus === Validation.Valid
+    }
+
     validateForm( attr: string ) {
-        if ( attr === 'firstname' || attr === 'lastname' ) {
-            this.validateName(attr );
+        if ( attr === 'firstname' ) {
+            this.validateName( this.newAccount.staff.attributes.FIRST_NAME, attr );
+        }
+        else if ( attr === 'lastname' ) {
+            this.validateName( this.newAccount.staff.attributes.LAST_NAME, attr );            
         }
         else if ( attr === 'username' ) {
-
+            var username = this.newAccount.user.attributes.USERNAME;
+            this.loginService.validateUsername( username )
+                .then( usernameTaken => {
+                    if ( usernameTaken ) {
+                        this.usernameStatus = Validation.Taken;
+                    }
+                    else {
+                        this.validateName( username, attr );
+                    }
+                }
+            );
         }
         else if ( attr === 'password' ) {
 
@@ -70,13 +89,23 @@ export class NewAccountComponent {
             
     }
 
-    private validateName( name: string ) {
-        var re = /\W/;
+    private validateName( name: string, attr: string ) {
+        var re = "/^[A-Za-z]+[,.'-]+$/i";
+        var status;
 
-        if ( name.length == 0 ) {
-            if ( name === 'firstname' )
-                this.firstnameStatus = Validation.Invalid;
-            else this.lastnameStatus = Validation.Invalid;
-        }
+        if ( name.length == 0 ) 
+            status = Validation.Empty;
+        else if ( name.match( re ) || name.length > 20 )
+            status = Validation.Invalid;
+        else 
+            status = Validation.Valid;
+
+        if ( attr === 'firstname' )
+            this.firstnameStatus = status;
+        else if ( attr === 'lastname' )
+            this.lastnameStatus = status;
+        else if ( attr === 'username' )
+            this.usernameStatus = status;
+
     }
 }

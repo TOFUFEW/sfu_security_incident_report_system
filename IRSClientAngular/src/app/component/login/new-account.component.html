@@ -17,7 +17,7 @@
                                 <div class="detail col-sm-12">
                                     <div class="col-sm-6">
                                         <span class="filter-title">First Name <span class="required-asterisk">*</span></span>
-                                        <input class="form-control" type="text"  
+                                        <input class="form-control" type="text" maxlength="20"
                                             [(ngModel)]="newAccount.staff.attributes.FIRST_NAME"
                                             (blur)="validateForm('firstname')"/>
                                     </div>
@@ -29,7 +29,9 @@
                                 <div class="detail col-sm-12">
                                     <div class="col-sm-6">
                                         <span class="filter-title">Last Name <span class="required-asterisk">*</span></span>
-                                        <input class="form-control" type="text" [(ngModel)]="newAccount.staff.attributes.LAST_NAME" />
+                                        <input class="form-control" type="text" maxlength="20"
+                                            [(ngModel)]="newAccount.staff.attributes.LAST_NAME"
+                                            (blur)="validateForm('lastname');" />
                                     </div>
                                     <div class="col-sm-6">
                                         <span class="glyphicon glyphicon-ok-sign" *ngIf="lastnameStatus === 'valid'"></span>
@@ -57,9 +59,9 @@
                                 <div class="detail col-sm-12">
                                     <div class="col-sm-6">
                                         <span class="filter-title">Username <span class="required-asterisk">*</span></span>
-                                        <input class="form-control" type="text" 
+                                        <input class="form-control" type="text" maxlength="20"
                                             [(ngModel)]="newAccount.user.attributes.USERNAME" 
-                                            (blur)="validateForm();"/>
+                                            (blur)="validateForm('username');"/>
                                     </div>
                                     <div class="col-sm-6">
                                         <span class="glyphicon glyphicon-ok-sign" *ngIf="usernameStatus === 'valid'"></span>
@@ -78,7 +80,9 @@
                                 <div class="detail col-sm-12">
                                     <div class="col-sm-6">
                                         <span class="filter-title">Confirm Password <span class="required-asterisk">*</span></span>
-                                        <input class="form-control" type="password" [(ngModel)]="confirmPassword"/>
+                                        <input class="form-control" type="password" 
+                                            [(ngModel)]="confirmPassword"
+                                            (blur)="validateForm('password');"/>
                                     </div>
                                     <div class="col-sm-6">
                                         <span class="glyphicon glyphicon-ok-sign" *ngIf="passwordStatus === 'valid'"></span>

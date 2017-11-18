@@ -32,6 +32,11 @@ public class LoginController {
             return  DBHelper.createAccount( user , staff );
         }, json());
 
+        post( "/validate-username", ( request, response ) -> {
+            User user = ( User ) JsonUtil.fromJson( request.body(), User.class );
+            return  DBHelper.getUserId( user.getAttributeValue(DatabaseValues.Column.USERNAME) ) != null ;
+        }, json());
+
         get( "/get-account-types", ( request, response ) -> {
             return DatabaseValues.AccountType.getTypes();
         }, json());

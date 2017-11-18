@@ -14,6 +14,7 @@ export class Config {
     static NewAccountURI: string = "https://localhost:4567/create-account";
     static GetAccountTypesURI: string = "https://localhost:4567/get-account-types";
     static GetCampusURI: string = "https://localhost:4567/campus";
+    static ValidateUsernameURI: string = "https://localhost:4567/validate-username";
 
     static StaffTable: string = "STAFF";
     static LocationTable: string = "LOCATION";

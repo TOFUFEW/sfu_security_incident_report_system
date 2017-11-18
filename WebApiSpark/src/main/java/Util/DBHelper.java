@@ -1196,7 +1196,7 @@ public class DBHelper
         return valid;
     }
 
-    private static String getUserId( String username ) {
+    public static String getUserId( String username ) {
         try {
             String query = "select top 1 ACCOUNT_ID from Account where username = '" + username + "';";
             ResultSet res = executeQuery( query );
