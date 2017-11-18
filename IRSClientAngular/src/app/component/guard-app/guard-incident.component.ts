@@ -34,9 +34,10 @@ export class GuardIncidentComponent implements OnInit {
     newDescription: string = "";
     isEditingSummary: boolean = false;
     newSummary: string = "";
-    successMessage: string = "";
-    showSuccessMessage: boolean = false;
-    successClass: string = "";
+    alertMessage: string = "";
+    showAlertDescription: boolean = false;
+    showAlertSummary: boolean = false;    
+    alertClass: string = "";
 
     constructor (         
         private incidentsService: IncidentService,
@@ -70,34 +71,37 @@ export class GuardIncidentComponent implements OnInit {
         this.toggleEditMode( attribute );
     }
 
-    toggleSuccessMessage() {
-        console.log("toggle message");
-        this.showSuccessMessage = !this.showSuccessMessage;
+    toggleSuccessMessage( attribute: string ) {
+        if ( attribute == "description" ) {
+            this.showAlertDescription = !this.showAlertDescription;
+        }
+        else if ( attribute == "summary" ) {
+            this.showAlertSummary = !this.showAlertSummary;
+        }
     }
 
-    saveReport( attribute: string ): void {
+    saveReport ( attribute: string ): void {
         this.incident.attributes.DESCRIPTION = this.newDescription;
         this.incident.attributes.EXECUTIVE_SUMMARY = this.newSummary;
-        this.incidentsService.update( this.incident )
+        this.incidentsService.update ( this.incident )
             .then( returnedIncident => {                
                 if ( returnedIncident != null  ) {
-                    this.toggleSuccessMessage();                    
-                    console.log("updated incident");
-                    this.successMessage = "Successfully saved";
-                    this.successClass = "alert alert-success";
+                    this.alertMessage = "Successfully saved";
+                    this.alertClass = "alert alert-success";
+                    this.toggleSuccessMessage ( attribute );                                        
                 }
                 else {
-                    this.successMessage = "Edit failed" ;
-                    this.successClass = "alert alert-danger";
-                    this.toggleSuccessMessage();
+                    this.alertMessage = "Edit failed" ;
+                    this.alertClass = "alert alert-danger";
+                    this.toggleSuccessMessage ( attribute );
                 }
             } );
-        setTimeout (( )=> {
-            this.toggleSuccessMessage(); 
+        setTimeout ( () => {
+            this.toggleSuccessMessage ( attribute ); 
         }, 
             3000 
         );                        
-        this.toggleEditMode( attribute );            
+        this.toggleEditMode ( attribute );            
     }
       
     public showModal() : void {

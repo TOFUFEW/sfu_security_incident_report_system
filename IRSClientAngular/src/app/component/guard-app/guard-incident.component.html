@@ -89,7 +89,9 @@
                                     </h4>
                                 </div>
                                 <div id="collapseExecSummary" class="panel-collapse collapse in">
-                                    <div class="panel-body">         
+                                    <div class="panel-body">    
+                                        <div name="alertMessage" *ngIf="showAlertSummary" [class]="alertClass">{{alertMessage}}
+                                        </div>     
                                         <span *ngIf="!isEditingSummary" (click)="toggleEditMode('summary')">{{incident.attributes.EXECUTIVE_SUMMARY}}</span>
                                         <div *ngIf="isEditingSummary">
                                             <textarea [(ngModel)]="newSummary" class="form-control" rows="5"></textarea>
@@ -127,7 +129,7 @@
                                 </div>
                                 <div id="collapseDescription" ng-controller="editable" class="panel-collapse collapse in">
                                     <div class="panel-body">
-                                        <div name="successMessage" *ngIf="showSuccessMessage" [class]="successClass">{{successMessage}}
+                                        <div name="alertMessage" *ngIf="showAlertDescription" [class]="alertClass">{{alertMessage}}
                                         </div>
                                         <span *ngIf="!isEditingDesc" (click)="toggleEditMode('description')">{{incident.attributes.DESCRIPTION}}</span>
                                         <div *ngIf="isEditingDesc">
