@@ -18,6 +18,8 @@ export class TimerComponent implements OnInit {
 
 
     constructor(private timerService: TimerService){
+
+        //TEST TIMERS
         var nowDate = new Date (Date.now());
         var nowTime = nowDate.getHours() * 60 * 60 * 1000 + nowDate.getMinutes() * 60 * 1000;
 
@@ -33,6 +35,7 @@ export class TimerComponent implements OnInit {
         
         this.timerList.push(timer1);
         this.timerList.push(timer2);
+        //END TEST TIMERS
         
     }
 
@@ -78,7 +81,7 @@ export class TimerComponent implements OnInit {
     }
 
     timeUp(timer : Timer) : void{
-        if(confirm("Repeat timer?")){
+        if(confirm ("repeat timer?")){
             var temp = timer.TIMER_END;
             timer.TIMER_END = timer.TIMER_END + ( timer.TIMER_END - timer.TIMER_START);
             timer.TIMER_START = temp;
@@ -89,7 +92,14 @@ export class TimerComponent implements OnInit {
 
     }
 
+    removeTimer(timer : Timer) : void {
+        if (confirm("delete timer?")){
+            this.deleteTimer(timer);
+        }
+    }
+
     deleteTimer(dtimer : Timer): void {
+        console.log("hello");
         this.timerService.deleteTimer(dtimer);
         var i = this.timerList.findIndex(timer => timer === dtimer)
         this.timerList.splice(i, 1);

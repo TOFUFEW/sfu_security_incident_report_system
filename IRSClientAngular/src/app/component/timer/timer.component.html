@@ -8,8 +8,11 @@
 
             <div class="main-content">
                 <div class="staff-card" *ngFor="let timer of timerList">
-                    <!-- <div class="detail-row">
-                        <span class="detail-row">Report ID: {{timer.incident.attributes.REPORT_ID}}</span>
+                    <div class="x-container">
+                        <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removeTimer()"></span>        
+                    </div>
+                    <!-- <div>
+                        <span class="detail-row">Report: {{timer.incident.attributes.REPORT_ID}}</span>
                     </div> -->
                     <div class="detail-row">
                         <span class="detail-row">Start Time: {{timeToString(timer.TIMER_START)}}</span>
