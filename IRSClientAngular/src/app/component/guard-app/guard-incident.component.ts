@@ -14,6 +14,7 @@ import { CategoryComponent } from '../category/category.component';
 import { CategoryService } from '../../service/category.service';
 import { Config } from '../../util/config.service';
 import { InlineEditComponent } from '../../component/report/inline-edit.component'
+import { Output } from '@angular/core/src/metadata/directives';
 
 @Component({
   selector: 'guard-incident-component',
@@ -24,7 +25,7 @@ import { InlineEditComponent } from '../../component/report/inline-edit.componen
 export class GuardIncidentComponent implements OnInit {     
     @ViewChild(LocationModalComponent) locationModal: LocationModalComponent     
     @ViewChild(CategoryComponent) categoryModal: CategoryComponent  
-    @ViewChild(InlineEditComponent) inlineEdit: InlineEditComponent      
+    @ViewChild(InlineEditComponent) inlineEdit: InlineEditComponent
     title = 'SFU Incident Reporting System';     
     incident: Incident = new Incident();
     locationModalStr = "location-modal";
@@ -33,6 +34,9 @@ export class GuardIncidentComponent implements OnInit {
     newDescription: string = "";
     isEditingSummary: boolean = false;
     newSummary: string = "";
+    successMessage: string = "";
+    showSuccessMessage: boolean = false;
+    successClass: string = "";
 
     constructor (         
         private incidentsService: IncidentService,
@@ -48,34 +52,52 @@ export class GuardIncidentComponent implements OnInit {
         }
     }; 
 
-    toggleEditMode( attr: string ) {
-        if ( attr == null ) return;
-        if ( attr.toLowerCase() === "description" )
+    toggleEditMode( attribute: string ) {
+        if ( attribute == null ) return;
+        if ( attribute.toLowerCase() === "description" )
             this.isEditingDesc = !this.isEditingDesc;
-        else if ( attr.toLowerCase() === "executive_summary" )
+        else if ( attribute.toLowerCase() === "summary" )
             this.isEditingSummary = !this.isEditingSummary;
     }
 
-    revertChanges( attr: string ) {
-        if ( attr == null ) return;
-        if ( attr.toLowerCase() === "description" )
+    revertChanges( attribute: string ) {
+        if ( attribute == null ) return;
+        if ( attribute.toLowerCase() === "description" )
             this.newDescription = this.incident.attributes.DESCRIPTION;
-        else if ( attr.toLowerCase() === "executive_summary" )
+        else if ( attribute.toLowerCase() === "summary" )
             this.newSummary = this.incident.attributes.EXECUTIVE_SUMMARY;
 
-        this.toggleEditMode( attr );
+        this.toggleEditMode( attribute );
     }
 
-    saveReport(): void {
+    toggleSuccessMessage() {
+        console.log("toggle message");
+        this.showSuccessMessage = !this.showSuccessMessage;
+    }
+
+    saveReport( attribute: string ): void {
         this.incident.attributes.DESCRIPTION = this.newDescription;
         this.incident.attributes.EXECUTIVE_SUMMARY = this.newSummary;
         this.incidentsService.update( this.incident )
-            .then( returnedIncident => {
+            .then( returnedIncident => {                
                 if ( returnedIncident != null  ) {
-                alert( "Incident successfully edited!" );
+                    this.toggleSuccessMessage();                    
+                    console.log("updated incident");
+                    this.successMessage = "Successfully saved";
+                    this.successClass = "alert alert-success";
                 }
-                else alert( "Edit failed." );
+                else {
+                    this.successMessage = "Edit failed" ;
+                    this.successClass = "alert alert-danger";
+                    this.toggleSuccessMessage();
+                }
             } );
+        setTimeout (( )=> {
+            this.toggleSuccessMessage(); 
+        }, 
+            3000 
+        );                        
+        this.toggleEditMode( attribute );            
     }
       
     public showModal() : void {

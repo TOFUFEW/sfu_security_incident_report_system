@@ -7,7 +7,7 @@ export class Config {
     static GuardIncidentsURI: string = "https://localhost:4567/guard-incidents";
     static GetIncidentURI: string = "https://localhost:4567/get-incident"
     static CategoriesURI: string = "https://localhost:4567/categories";
-    static UpdateIncidentsURI: string = "https://localhost:4567/update-incident";
+    static UpdateIncidentsURI: string = "https://localhost:4567/update-incidents";
     static UpdateIncidentURI: string = "https://localhost:4567/update-incident";
     static AssignIncidentURI: string = "https://localhost:4567/assignIncident";
     static UploadURI: string = "https://localhost:4567/upload";
