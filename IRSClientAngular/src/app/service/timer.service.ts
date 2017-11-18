@@ -15,15 +15,14 @@ export class TimerService{
 
     getTimers() : Promise<Timer[]> {
         var incidentList : Incident [];
-        var timerList;
+        var timerList : Array<Timer> = new Array<Timer>();
 
         this.incidentService.getIncidents().then( returnedIncidents => {
             incidentList = returnedIncidents;
         })
         .then( () => {
-            console.log(incidentList);
             incidentList.forEach(incident =>{
-                if (incident.attributes.TIMER_START != null) {
+                if (incident.attributes.TIMER_START != null && incident.attributes.TIMER_END != null) {
                     timerList.push(this.createTimerInt(incident, incident.attributes.TIMER_START, incident.attributes.TIMER_END));
                 }
             });

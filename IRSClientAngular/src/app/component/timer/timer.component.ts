@@ -107,11 +107,11 @@ export class TimerComponent implements OnInit {
 
 
     pauseTimer(timer : Timer) : void {
-
+        
     }
 
     ngOnInit(){
-        this.getTimers();
+        //this.getTimers();
     }
 
 
