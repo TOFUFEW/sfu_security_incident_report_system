@@ -26,7 +26,7 @@ export class Config {
 
     static IncidentCategoryKey: string = "IncidentCategory" ;
     static LocationKey: string = "Location";
-    static PersonKey: string = "Person"
+    static PersonKey: string = "Person";
     static StaffKey: string = "Staff";
     static CampusKey: string = "Campus";
 }
