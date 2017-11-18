@@ -1,9 +1,10 @@
---DROP PROCEDURE [dbo].[insertIncident]
-CREATE PROCEDURE [dbo].[insertIncident] 
+--DROP PROCEDURE [dbo].[insertIncidentRefactor]
+CREATE PROCEDURE [dbo].[insertIncidentRefactor] 
 	@creator_id INT,
 	@category_id INT,
 	@description TEXT,
 	@executive_summary TEXT,
+	@temporary_report INT,
 	@result BIT = 1 OUTPUT
 AS
 BEGIN
@@ -16,18 +17,21 @@ BEGIN
 			ACCOUNT_ID,
 			CATEGORY_ID,
 			DESCRIPTION,
-<<<<<<< HEAD
 			EXECUTIVE_SUMMARY,
-=======
-			EXECUTIVE_SUMMARY
->>>>>>> 7fb8869fef9082f529c3a3716b38cce6c51b41a3
+			TEMPORARY_REPORT,
+			START_TIME
 		) VALUES (
 			@creator_id,
 			@category_id,
 			@description,
-			@executive_summary
+			@executive_summary,
+			@temporary_report,
+			GETDATE()
 		);
 		SELECT @result = 1;
 	END
-	SELECT @result = 0;
+	ELSE
+	BEGIN
+		SELECT @result = 0;
+	END
 END;
