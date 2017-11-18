@@ -86,20 +86,20 @@ export class GuardIncidentComponent implements OnInit {
         this.incidentsService.update ( this.incident )
             .then( returnedIncident => {                
                 if ( returnedIncident != null  ) {
+                    this.toggleSuccessMessage ( attribute );                                                            
                     this.alertMessage = "Successfully saved";
-                    this.alertClass = "alert alert-success";
-                    this.toggleSuccessMessage ( attribute );                                        
+                    this.alertClass = "alert alert-success topAlert";
                 }
                 else {
                     this.alertMessage = "Edit failed" ;
-                    this.alertClass = "alert alert-danger";
+                    this.alertClass = "alert alert-danger topAlert";
                     this.toggleSuccessMessage ( attribute );
                 }
             } );
         setTimeout ( () => {
             this.toggleSuccessMessage ( attribute ); 
         }, 
-            3000 
+            1500 
         );                        
         this.toggleEditMode ( attribute );            
     }
