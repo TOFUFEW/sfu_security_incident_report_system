@@ -9,7 +9,7 @@ export class Config {
     static CategoriesURI: string = "https://localhost:4567/categories";
     static UpdateIncidentsURI: string = "https://localhost:4567/update-incident";
     static UpdateIncidentURI: string = "https://localhost:4567/update-incident";
-    static AssignIncidentURI: string = "https://localhost:4567/assignIncident";
+    static AssignIncidentURI: string = "https://localhost:4567/assign-incident";
     static UploadURI: string = "https://localhost:4567/upload";
 
     static StaffTable: string = "STAFF";
