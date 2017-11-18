@@ -316,17 +316,26 @@ public class DBHelper
                 return false;
             }
             IncidentElement[] staffs = DBHelper.getIncidentElements( DatabaseValues.Table.STAFF);
+            boolean isGuard = false;
             for( IncidentElement staff : staffs ) {
-                if( staff.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID).equals(creatorID)
+                if( staff.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ).equals( creatorID )
                         && staff.getAttributeValue( DatabaseValues.Column.ACCOUNT_TYPE ).equals( "2" ) ) {
                     incident.updateAttributeValue( DatabaseValues.Column.TEMPORARY_REPORT, "1" );
+                    isGuard = true;
                 }
+            }
+            if( !isGuard ) {
+                incident.updateAttributeValue( DatabaseValues.Column.TEMPORARY_REPORT, "0" );
+            }
+
+            if( incident.getAttributeValue( DatabaseValues.Column.TEMPORARY_REPORT ) == null ) {
+                return false;
             }
         }
 
         try {
             initDB();
-            String incidentString = "{ call dbo.insertIncidentRefactor ( ? , ? , ? , ? , ? , ? ) } ";
+            String incidentString = "{ call dbo.insertIncidentRefactor ( ? , ? , ? , ? , ? ) } ";
             CallableStatement stmt = connection.prepareCall(incidentString);
             stmt.setString(
                     1,
@@ -344,13 +353,9 @@ public class DBHelper
                     4,
                     incident.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY)
             );
-            stmt.setString(
-                    5,
-                    incident.getAttributeValue(DatabaseValues.Column.TEMPORARY_REPORT)
-            );
 
             stmt.registerOutParameter(
-                    6,
+                    5,
                     Types.INTEGER
             );
 
@@ -376,7 +381,7 @@ public class DBHelper
                 }
             } while (lastIncidentId != null && lastIncidentId.equals(before_lastIncidentId));
 
-            int output = stmt.getInt(6);
+            int output = stmt.getInt(5);
 
             String relationSQL = "{ call dbo.insertRelation ( ? , ? , ? ) }";
 

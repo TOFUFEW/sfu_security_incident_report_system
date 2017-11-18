@@ -133,7 +133,8 @@ export class NewReportComponent implements OnInit {
 
     createReport(): void {
         if( this.reportReady ){
-            this.newIncident.attributes.ACCOUNT_ID = this.staffList[0].attributes.ACCOUNT_ID; // TEMP
+            this.newIncident.attributes.ACCOUNT_ID = this.userService.getAccountID(); // TEMP
+            this.newIncident.attributes.TEMPORARY_REPORT = 0;
             this.incidentService.create( this.newIncident )
                 .then( returnedIncident => {
                     if ( returnedIncident != null  ) {
