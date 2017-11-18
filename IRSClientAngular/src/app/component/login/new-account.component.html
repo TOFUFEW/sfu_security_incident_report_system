@@ -17,10 +17,12 @@
                                 <div class="detail col-sm-12">
                                     <div class="col-sm-6">
                                         <span class="filter-title">First Name <span class="required-asterisk">*</span></span>
-                                        <input class="form-control" type="text"  [(ngModel)]="newAccount.staff.attributes.FIRST_NAME"/>
+                                        <input class="form-control" type="text"  
+                                            [(ngModel)]="newAccount.staff.attributes.FIRST_NAME"
+                                            (blur)="validateForm('firstname')"/>
                                     </div>
                                     <div class="col-sm-6">
-                                        <span class="glyphicon glyphicon-ok-sign"></span>
+                                        <span class="glyphicon glyphicon-ok-sign" *ngIf="firstnameStatus === 'valid'"></span>
                                     </div>
                                 </div>
 
@@ -30,41 +32,39 @@
                                         <input class="form-control" type="text" [(ngModel)]="newAccount.staff.attributes.LAST_NAME" />
                                     </div>
                                     <div class="col-sm-6">
-                                        <span class="glyphicon glyphicon-ok-sign"></span>
+                                        <span class="glyphicon glyphicon-ok-sign" *ngIf="lastnameStatus === 'valid'"></span>
                                     </div>
                                 </div>
 
                                 <div class="detail col-sm-12">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6 col-sm-offset-right-6">
                                         <span class="filter-title">Campus <span class="required-asterisk">*</span></span>
                                         <select class="form-control" [(ngModel)]="newAccount.staff.attributes.CAMPUS_ID">
-                                            <option *ngFor="let staff of staffArr" [value]="staff.attributes.CAMPUS_ID">{{staff.attributes.CAMPUS_ID}}</option>
+                                            <option *ngFor="let campus of campusArr" [value]="campus.attributes.CAMPUS_ID">{{campus.attributes.CITY}}</option>
                                         </select>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <span class="glyphicon glyphicon-ok-sign"></span>
                                     </div>
                                 </div>
 
                                 <div class="detail col-sm-12">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6 col-sm-offset-right-6">
                                         <span class="filter-title">Role <span class="required-asterisk">*</span></span>
                                         <select class="form-control" [(ngModel)]="newAccount.user.attributes.ACCOUNT_TYPE">
                                             <option *ngFor="let type of accTypes" [value]="type.id">{{type.name}}</option>
                                         </select>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <span class="glyphicon glyphicon-ok-sign"></span>
                                     </div>
                                 </div>
 
                                 <div class="detail col-sm-12">
                                     <div class="col-sm-6">
                                         <span class="filter-title">Username <span class="required-asterisk">*</span></span>
-                                        <input class="form-control" type="text" [(ngModel)]="newAccount.user.attributes.username"/>
+                                        <input class="form-control" type="text" 
+                                            [(ngModel)]="newAccount.user.attributes.USERNAME" 
+                                            (blur)="validateForm();"/>
                                     </div>
                                     <div class="col-sm-6">
-                                        <span class="glyphicon glyphicon-ok-sign"></span>
+                                        <span class="glyphicon glyphicon-ok-sign" *ngIf="usernameStatus === 'valid'"></span>
+                                        <span class="" *ngIf="usernameStatus === 'taken'">Username is taken.</span>
+                                        <span class="" *ngIf="usernameStatus === 'invalid'">Username must begin with a letter.</span>                                        
                                     </div>
                                 </div>
 
@@ -72,9 +72,6 @@
                                     <div class="col-sm-6">
                                         <span class="filter-title">Password <span class="required-asterisk">*</span></span>
                                         <input class="form-control" type="password" [(ngModel)]="password"/>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <span class="glyphicon glyphicon-ok-sign"></span>
                                     </div>
                                 </div>
 
@@ -84,7 +81,7 @@
                                         <input class="form-control" type="password" [(ngModel)]="confirmPassword"/>
                                     </div>
                                     <div class="col-sm-6">
-                                        <span class="glyphicon glyphicon-ok-sign"></span>
+                                        <span class="glyphicon glyphicon-ok-sign" *ngIf="passwordStatus === 'valid'"></span>
                                     </div>
                                 </div>
                             </div>

@@ -1007,6 +1007,10 @@ public class DBHelper
                 {
                     incidentElement = new IncidentCategory();
                 }
+                else if ( table == DatabaseValues.Table.CAMPUS )
+                {
+                    incidentElement = new Campus();
+                }
                 else
                 {
                     throw new IllegalStateException ( table.toString () + " does not have its Model implemented yet" );
@@ -1102,35 +1106,6 @@ public class DBHelper
         System.out.println( msg );
     }
 
-
-    // staff code
-    public static Staff [] getStaffs ()
-    {
-        ArrayList < Staff > staffList = new ArrayList ();
-
-        try
-        {
-            ResultSet resultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.STAFF.toString () );
-
-            while ( resultSet.next () )
-            {
-                Staff staff = new Staff ();
-
-                staff.extractFromCurrentRow ( resultSet );
-
-                staffList.add ( staff );
-
-            }
-        }
-
-        catch ( Exception e )
-        {
-            e.printStackTrace ();
-        }
-
-        return staffList.toArray ( new Staff [ staffList.size () ] );
-    }
-
     public static Person [] getPersons ()
     {
         ArrayList < Person > personList = new ArrayList ();
@@ -1186,8 +1161,8 @@ public class DBHelper
         try {
             String query = "update Staff set FIRST_NAME = '" + staff.getAttributeValue( DatabaseValues.Column.FIRST_NAME ).trim()
                             + "', LAST_NAME = '" + staff.getAttributeValue( DatabaseValues.Column.LAST_NAME ).trim()
-                            + "', CAMPUS_ID = '" + staff.getAttributeValue( DatabaseValues.Column.CAMPUS_ID ).trim()
-                            + "' where ACCOUNT_ID = '" + accountId + "';";
+                            + "', CAMPUS_ID = " + staff.getAttributeValue( DatabaseValues.Column.CAMPUS_ID ).trim()
+                            + " where ACCOUNT_ID = " + accountId + ";";
             boolean res = execute( query );
             return res ;
         }
@@ -1211,9 +1186,11 @@ public class DBHelper
             System.out.println("Password cannot be null.");
         if ( ! ( valid = accountType != null && accountType.length() > 0 && valid ) )
             System.out.println("Account Type cannot be null.");
-        if ( ! ( valid = first != null && first.length() > 0 && valid ) )
+
+        // SET RESTRICTIONS ON FIRST AND LAST
+        if ( ! ( valid = first != null /*&& first.length() > 0*/ && valid ) )
             System.out.println("First name cannot be null.");
-        if ( ! ( valid = last != null && last.length() > 0 && valid ) )
+        if ( ! ( valid = last != null /*&& last.length() > 0*/ && valid ) )
             System.out.println("Last name cannot be null.");
 
         return valid;

@@ -8,12 +8,17 @@ import 'rxjs/add/operator/toPromise';
 import { User } from '../component/login/user';
 import { IncidentElement } from '../component/report/incident-element';
 import { NewAccount } from '../component/login/new-account';
-
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Validation } from '../util/validation.service';
 
 @Injectable()
 export class LoginService {
     private headers = new Headers( { 'Content-Type': 'application/json' } );
     loginUrl = Config.LoginURI;
+
+    private isUsernameValid = new BehaviorSubject<boolean> (false);
+    currentPersons = this.isUsernameValid.asObservable();
+
     constructor( private http: Http ) { }
 
     doLogin( user: User ): Observable<User> {
@@ -41,7 +46,6 @@ export class LoginService {
     }
 
     validateNewAccount( newAccount: NewAccount ) {
-        
     }
 
     getAccountTypes(): Promise<any> {
