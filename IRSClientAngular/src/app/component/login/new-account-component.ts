@@ -11,6 +11,7 @@ import { Campus } from '../location/campus';
 
 @Component({
     templateUrl: './new-account.component.html',
+    styleUrls: ['../../../assets/css/new-account.css']
 })
 
 export class NewAccountComponent {
@@ -53,7 +54,6 @@ export class NewAccountComponent {
                     alert("Create account failed");
             });
         }
-        
     }
 
     private isValid(): boolean {
@@ -84,18 +84,20 @@ export class NewAccountComponent {
             );
         }
         else if ( attr === 'password' ) {
-
+            this.validatePassword( this.confirmPassword ) ;
         }
             
     }
 
     private validateName( name: string, attr: string ) {
-        var re = "/^[A-Za-z]+[,.'-]+$/i";
+        var re = "^[A-Za-z]+[ -']*[A-Za-z'-]*$";
+        if ( attr === 'username' )
+            re = "^[A-Za-z]+[a-zA-Z0-9._]*$"; // no spaces
         var status;
 
         if ( name.length == 0 ) 
             status = Validation.Empty;
-        else if ( name.match( re ) || name.length > 20 )
+        else if ( !name.match( re ) || name.length > 20 || ( attr ==='username' && name.length < 6 ) )
             status = Validation.Invalid;
         else 
             status = Validation.Valid;
@@ -106,6 +108,20 @@ export class NewAccountComponent {
             this.lastnameStatus = status;
         else if ( attr === 'username' )
             this.usernameStatus = status;
+    }
 
+    private validatePassword( password: string ): boolean {
+        var pass = this.confirmPassword;
+        var status;
+        
+        if ( this.password != pass ) 
+            this.passwordStatus = Validation.PasswordNotMatching;
+        else if ( pass.length < 6 || pass.length > 20 )
+            this.passwordStatus = Validation.Invalid;
+        else {
+            this.passwordStatus = Validation.Valid;
+            return true;            
+        }
+        return false;
     }
 }

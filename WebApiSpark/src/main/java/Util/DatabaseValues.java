@@ -392,8 +392,8 @@ public class DatabaseValues
 
     public enum AccountType
     {
-        ADMIN ("1"),
-        GUARD ("2");
+        GUARD ("1"),
+        ADMIN ("2");
 
         private String type;
         private class Type {
@@ -419,18 +419,14 @@ public class DatabaseValues
         public static ArrayList<HashMap<String, String>> getTypes() {
             ArrayList<HashMap<String, String>> types = new ArrayList<>();
 
-//            ArrayList<HashMap<String, String>> type1 = new ArrayList<>();
             HashMap<String, String> map1 = new HashMap<>();
             map1.put("id", ADMIN.type );
             map1.put("name", "admin" );
-//            type1.add( map1 ) ;
             types.add( map1 );
 
-//            ArrayList<HashMap<String, String>> type2 = new ArrayList<>();
             HashMap<String, String> map2 = new HashMap<>();
             map2.put("id", GUARD.type );
             map2.put("name", "guard" );
-//            type2.add( map2 ) ;
             types.add( map2 );
 
             return types;
