@@ -32,7 +32,7 @@ public class IncidentsController
             return DBHelper.insertIncident ( newIncident );
         } );
 
-        post ("/getIncidents" , ( request, response ) ->
+        post ("/get-incidents" , ( request, response ) ->
         {
             System.out.println(request.body());
             User user = ( User ) JsonUtil.fromJson ( request.body(), User.class );
@@ -42,13 +42,13 @@ public class IncidentsController
             return JsonUtil.toJson ( incidents );
         } );
 
-        post ("/getIncident", ( request , response ) ->
+        post ( "/get-incident", ( request, response ) ->
         {
             Incident incident = ( Incident ) JsonUtil.fromJson( request.body(), Incident.class );
             return JsonUtil.toJson( DBHelper.getIncident ( incident.getAttributeValue( DatabaseValues.Column.REPORT_ID )) );
         });
 
-        post ("/updateIncident" , ( request, response ) ->
+        post ("/update-incident" , ( request, response ) ->
         {
             Incident updatedIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
             return DBHelper.updateIncident ( updatedIncident );
