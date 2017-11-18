@@ -4,7 +4,6 @@ CREATE PROCEDURE [dbo].[insertIncidentRefactor]
 	@category_id INT,
 	@description TEXT,
 	@executive_summary TEXT,
-
 	@result BIT = 1 OUTPUT
 AS
 BEGIN
@@ -16,7 +15,7 @@ BEGIN
 		IF EXISTS ( SELECT ACCOUNT_ID
 			FROM Account
 			WHERE ACCOUNT_ID = @creator_id AND
-				ACCOUNT_TYPE = 2 
+				ACCOUNT_TYPE = 1 
 		)
 		BEGIN
 			INSERT INTO Incident (

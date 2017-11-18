@@ -16,6 +16,7 @@ import { PersonComponent } from '../person/person.component';
 import { AttachmentComponent } from '../attachment/attachment.component';
 import { Config } from '../../util/config.service';
 import {UserService} from "../../service/user.service";
+import {Router} from "@angular/router";
 
 @Component(
   {
@@ -44,7 +45,8 @@ export class NewReportComponent implements OnInit {
       private newReportService: NewReportService,
       private categoryService: CategoryService,
       private staffService: StaffService,
-      private userService: UserService
+      private userService: UserService,
+      private router: Router
     ) {
         this.staffService.getStaffs().then( returnedStaffs => {
             this.staffList = returnedStaffs.sort(
@@ -133,13 +135,23 @@ export class NewReportComponent implements OnInit {
 
     createReport(): void {
         if( this.reportReady ){
-            this.newIncident.attributes.ACCOUNT_ID = this.userService.getAccountID(); // TEMP
+            var currentID = this.userService.getAccountID();
+            this.newIncident.attributes.ACCOUNT_ID = currentID;
             this.newIncident.attributes.TEMPORARY_REPORT = 0;
+            for( var i = 0; i < this.staffList.length; i++) {
+                if( this.staffList[i].attributes.ACCOUNT_ID == currentID ) {
+                    this.selectedStaff = this.staffList[ i ];
+                    this.newIncident.insertIncidentElement( this.selectedStaff );
+                }
+            }
             this.incidentService.create( this.newIncident )
                 .then( returnedIncident => {
                     if ( returnedIncident != null  ) {
                         alert("Report successfully created!");
                         setTimeout(function(){location.reload()}, 300);
+                        if( this.userService.isGuard() ) {
+                            this.router.navigate( [ 'guard-app/reports-all' ] );
+                        }
                     }
                     else alert( "Add failed." );
                 } );
