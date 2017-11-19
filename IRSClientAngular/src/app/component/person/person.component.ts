@@ -45,7 +45,8 @@ export class PersonComponent implements OnInit {
     getPersons(): void {
         this.personService.getPersons().then( returnedPersons => {
             this.personList = returnedPersons;
-        } );    
+        } );   
+        console.log(this.personList); 
     }
 
     addPerson(): void {
