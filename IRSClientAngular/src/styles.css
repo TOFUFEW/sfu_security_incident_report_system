@@ -15,31 +15,30 @@ body {
 
 #main-navbar {
   height: 50px;
-  width: 100%;
   background-color: #A6192E;
   border: none;
   border-radius: 0px !important;
-  margin: 0px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center; }
-  #main-navbar a, #main-navbar .link {
+  margin: 0px; }
+  #main-navbar a, #main-navbar .link, #main-navbar .glyphicon-menu-hamburger {
     color: #ffffff; }
+  #main-navbar .navbar-nav > li > a:hover {
+    background-color: #A6192E !important; }
   #main-navbar .navbar-brand {
     font-weight: 700; }
-  #main-navbar div.navbar-left-items {
-    width: 100%; }
-  #main-navbar div.navbar-right-items {
-    width: auto;
-    padding-right: 20px; }
-  #main-navbar div.navbar-left-items, #main-navbar div.navbar-right-items {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    height: 100%;
-    font-size: 14px; }
-    #main-navbar div.navbar-left-items:hover, #main-navbar div.navbar-right-items:hover {
-      cursor: pointer; }
+  #main-navbar .navbar-right {
+    height: 50px;
+    padding-top: 14px;
+    padding-right: 24px; }
+    #main-navbar .navbar-right .glyphicon-menu-hamburger {
+      font-size: 16px; }
+      #main-navbar .navbar-right .glyphicon-menu-hamburger:hover {
+        cursor: pointer; }
+  #main-navbar .dropdown-menu li {
+    padding: 8px; }
+  #main-navbar .dropdown-menu li#separator {
+    border-top: 1px solid rgba(0, 0, 0, 0.16); }
+  #main-navbar .dropdown-menu span {
+    color: #54585A; }
   #main-navbar div.navbar-links, #main-navbar div.navbar-right {
     display: flex;
     justify-content: flex-start;

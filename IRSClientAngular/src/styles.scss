@@ -20,39 +20,51 @@ body {
 
 #main-navbar {
     height: $navbar-height;
-    width: 100%;
     background-color: $sfu-red;
     //box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
     border: none;
     border-radius: 0px !important;
     margin: 0px;
-    @include flex(space-between, center);
-    a, .link { 
+
+    a, .link, .glyphicon-menu-hamburger { 
         color: $white; 
     }
 
+    .navbar-nav > li > a {
+        &:hover {
+            background-color: $sfu-red !important;
+        }
+    }
     .navbar-brand {
         font-weight: 700;
     }
 
-    div.navbar-left-items {
-        width: 100%;
-    }
-
-    div.navbar-right-items {
-        width: auto;
-        padding-right: 20px;
-    }
-
-    div.navbar-left-items, div.navbar-right-items {
-        @include flex(flex-start, center);
-        height: 100%;
-
-        font-size: 14px;
-        &:hover {
-            cursor: pointer;
+    .navbar-right {
+        height: $navbar-height;
+        padding-top: 14px;
+        padding-right: 24px;
+        .glyphicon-menu-hamburger {
+            font-size: 16px;
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
+
+    .dropdown-menu  {
+        li {
+            padding: 8px; 
+        }
+
+        li#separator {
+            border-top: $border-default;
+        }
+
+        span {
+            color: $sfu-black;
+        }
+    }
+    
 
     div.navbar-links, div.navbar-right {
         @include flex(flex-start, flex-start);
