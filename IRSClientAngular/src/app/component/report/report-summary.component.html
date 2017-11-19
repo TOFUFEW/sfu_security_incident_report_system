@@ -30,29 +30,47 @@
             <div class="details-body">
                 <div class="detail detail-lg col-12">
                     <span class="field-title">Category: </span>
-                    <span class="field-value" *ngIf="report.category != null">{{report.category.attributes.MAIN_CATEGORY}}</span>
+                    <span class="field-value" *ngIf="!editMode && report.category != null">{{report.category.attributes.MAIN_CATEGORY}}</span>
+                    <select class="form-control" *ngIf="editMode">
+                        <option></option>
+                    </select>
                 </div>
                 <div class="detail detail-lg col-12">
                     <span class="field-title">Sub Category: </span>
-                    <span class="field-value" *ngIf="report.category != null">{{report.category.attributes.SUB_CATEGORY}}</span>
+                    <span class="field-value" *ngIf="!editMode && report.category != null">{{report.category.attributes.SUB_CATEGORY}}</span>
+                    <select class="form-control" *ngIf="editMode">
+                        <option></option>
+                    </select>
                 </div>
                 <div class="detail detail-lg col-12">
                     <span class="field-title">Type: </span>
-                    <span class="field-value" *ngIf="report.category != null">{{report.category.attributes.INCIDENT_TYPE}}</span>
+                    <span class="field-value" *ngIf="!editMode && report.category != null">{{report.category.attributes.INCIDENT_TYPE}}</span>
+                    <select class="form-control" *ngIf="editMode">
+                        <option></option>
+                    </select>
                 </div>
                 <div class="detail detail-lg col-12">
                     <span class="field-title">Assigned To: </span>
-                    <span class="field-value" *ngIf="report.guard != null">{{report.guard.attributes.FIRST_NAME}} {{report.guard.attributes.LAST_NAME}}</span>
+                    <span class="field-value" *ngIf="!editMode && report.guard != null">{{report.guard.attributes.FIRST_NAME}} {{report.guard.attributes.LAST_NAME}}</span>
+                    <input *ngIf="editMode" type="text" class="form-control" placeholder="First Name" />
+                    <input *ngIf="editMode" type="text" class="form-control" placeholder="Last Name" />
                 </div>
                 <div class="detail detail-lg col-12">
                     <span class="field-title">Description: </span>
-                    <span class="field-value">{{report.attributes.DESCRIPTION}}</span>
+                    <span *ngIf="!editMode" class="field-value">{{report.attributes.DESCRIPTION}}</span>
+                    <input type="text" class="form-control" placeholder="Description"
+                          *ngIf="editMode" [(ngModel)]="report_edit.attributes.DESCRIPTION" />
                 </div>
                 <div class="detail detail-lg col-12">
                     <span class="field-title">Executive Summary: </span>
-                    <span class="field-value">{{report.attributes.EXECUTIVE_SUMMARY}}</span>
+                    <span *ngIf="!editMode" class="field-value">{{report.attributes.EXECUTIVE_SUMMARY}}</span>
+                    <textarea rows="5" class="form-control" placeholder="Executive Summary"
+                        *ngIf="editMode" [(ngModel)]="report_edit.attributes.EXECUTIVE_SUMMARY"></textarea>
                 </div>
             </div>
+            <span class="link" *ngIf="!editMode" (click)="toggleEditMode()">Edit</span>
+            <span class="link" *ngIf="editMode" (click)="cancelUpdate()">Cancel</span>
+            <span class="link" *ngIf="editMode" (click)="updateReport()">Save</span>            
         </div>
 
         <div [id]="'locations-' + report.attributes.REPORT_ID" class="details-container tab-pane fade">
@@ -69,7 +87,18 @@
                     <span class="field-title">Room Number: </span>
                     <span class="field-value">{{location.attributes.ROOM_NUMBER}}</span>
                 </div>
+                <div class="detail col-12 col-sm-3">
+                    <span class="link">Remove Location</span>
+                </div>
             </div>
+            <location-component></location-component>
+            <div class="details-body">
+                <div class="detail col-12 col-sm-3">
+                    <span class="link">Cancel </span>
+                    <span class="link">Add </span>
+                </div>
+            </div>
+            <span class="link" (click)="addIncidentElement('location')">Add Location</span>                        
             <span class="not-found" *ngIf="report.incidentElements['Location'].length == 0"> No Locations available</span>
         </div>
             
