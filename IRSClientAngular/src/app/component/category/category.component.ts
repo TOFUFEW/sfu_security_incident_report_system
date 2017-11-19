@@ -47,9 +47,8 @@ export class CategoryComponent implements OnInit {
   
     public show(): void {
       this.visible = true;
-      this.selectedCategory = new Category(null, null, null, null);
-      this.filteredSubcategories = [];
-      this.filteredTypes = [];
+    //   this.selectedCategory = new Category(null, null, null, null);
+      this.categoryID = -1;
       setTimeout(() => this.visibleAnimate = true, 100);
     }
   
@@ -66,17 +65,23 @@ export class CategoryComponent implements OnInit {
 
     // filter subcategory and type lists according to selection of previous dropdown
     onSelectCategory ( categoryName ) {
-    this.showMainCategoryAlert = false;        
-    console.log ( "selected category: " + categoryName );
-    this.selectedCategory.attributes.MAIN_CATEGORY = categoryName;
-    var index = this.categories.findIndex( item => 
-        item.MAIN_CATEGORY === categoryName);
-    this.filteredSubcategories = this.categories[index].SUBCATEGORIES;
+        if ( categoryName != this.selectedCategory.attributes.MAIN_CATEGORY ) {
+            this.selectedCategory.attributes.SUB_CATEGORY = null;
+            this.selectedCategory.attributes.INCIDENT_TYPE = null;
+        }
+        this.showMainCategoryAlert = false;        
+        console.log ( "selected category: " + categoryName );
+        this.currentSubCategory = "";
+        this.selectedCategory.attributes.MAIN_CATEGORY = categoryName;
+        var index = this.categories.findIndex( item => 
+            item.MAIN_CATEGORY === categoryName);
+        this.filteredSubcategories = this.categories[index].SUBCATEGORIES;
     }
 
     onSelectSubCategory ( subCategoryName ) {
         this.showSubcategoryAlert = false;        
         this.selectedCategory.attributes.SUB_CATEGORY = subCategoryName;
+        console.log(this.filteredSubcategories);
         var index = this.filteredSubcategories.findIndex( item => 
             item.SUB_CATEGORY == subCategoryName );
         this.filteredTypes = this.filteredSubcategories[index].TYPES;
@@ -96,7 +101,7 @@ export class CategoryComponent implements OnInit {
             this.showMainCategoryAlert = true;            
             console.log("please select a category");
         }
-        else if ( this.selectedCategory.attributes.SUB_CATEGORY == null ) {
+        else if ( this.selectedCategory.attributes.SUB_CATEGORY == null || this.filteredSubcategories == [] ) {
             this.showSubcategoryAlert = true;                        
             console.log("please select a subcategory");
         }
@@ -104,11 +109,18 @@ export class CategoryComponent implements OnInit {
             console.log(this.filteredTypes);
             if ( this.filteredTypes.length == 0 ) {
                 this.selectedCategory.attributes.INCIDENT_TYPE = null;
-                this.categoryID = this.filteredSubcategories[0].CATEGORY_ID;
-                console.log ( "retrieved category id: " + this.categoryID );
-                var id = this.categoryID.toString();                
-                this.categorySaved.emit(id);
-                this.hide();              
+                if ( this.filteredSubcategories.length > 0 ) {
+                    var index = this.filteredSubcategories.findIndex( item => 
+                        item.SUB_CATEGORY === this.selectedCategory.attributes.SUB_CATEGORY );
+                    this.categoryID = this.filteredSubcategories[index].CATEGORY_ID;
+                    console.log ( "retrieved category id: " + this.categoryID );
+                    var id = this.categoryID.toString();                
+                    this.categorySaved.emit(id);
+                    this.hide();     
+                }
+                else {
+                    this.showSubcategoryAlert = true;                                            
+                }         
             }
             else
             {
