@@ -44,10 +44,14 @@ export class UserService {
     }
 
     isGuard() : boolean {
-        return this.getAccountType() == 2;
+        return this.getAccountType() == 1;
     }
 
     isAdmin() : boolean {
-        return this.getAccountType() == 1;
+        return this.getAccountType() == 2;
+    }
+
+    isSupervisor() : boolean {
+        return this.getAccountType() == 3;
     }
 }
