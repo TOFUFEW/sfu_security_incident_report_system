@@ -129,14 +129,14 @@
                                 <div class="panel-heading collapsable-heading">
                                     <!-- <span class="glyphicon card-text-secondary mr-1" [ngClass]="{'glyphicon-chevron-up': openedPanel , 'glyphicon-chevron-down': !openedPanel }" aria-hidden="true" style="float: right;"></span>                             -->
                                     <h4 class="panel-title">
-                                        <a  class="accordion-toggle" 
+                                        <a  class="accordion-toggle collapsed" 
                                             data-toggle="collapse" 
                                             href="#collapseDescription">
                                             Description
                                         </a>
                                     </h4>
                                 </div>
-                                <div id="collapseDescription" ng-controller="editable" class="panel-collapse collapse in">
+                                <div id="collapseDescription" ng-controller="editable" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <div name="alertMessage" *ngIf="showAlertDescription" [class]="alertClass">{{alertMessage}}
                                         </div>
@@ -174,7 +174,7 @@
                                 <div class="panel-heading collapsable-heading">
                                     <!-- <span class="glyphicon card-text-secondary mr-1" [ngClass]="{'glyphicon-chevron-up': openedPanel , 'glyphicon-chevron-down': !openedPanel }" aria-hidden="true" style="float: right;"></span>                             -->
                                     <h4 class="panel-title">
-                                        <a  class="accordion-toggle" 
+                                        <a  class="accordion-toggle collapsed" 
                                             data-toggle="collapse" 
                                             href="#collapsePersons">
                                             Persons
