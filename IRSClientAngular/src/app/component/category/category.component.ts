@@ -47,6 +47,9 @@ export class CategoryComponent implements OnInit {
   
     public show(): void {
       this.visible = true;
+      this.selectedCategory = new Category(null, null, null, null);
+      this.filteredSubcategories = [];
+      this.filteredTypes = [];
       setTimeout(() => this.visibleAnimate = true, 100);
     }
   
@@ -89,15 +92,16 @@ export class CategoryComponent implements OnInit {
     submitCategory () {
         console.log ( "submitting category" );
         console.log ( this.selectedCategory );
-        if ( this.selectedCategory.attributes.MAIN_CATEGORY == "" ) {
+        if ( this.selectedCategory.attributes.MAIN_CATEGORY == null ) {
             this.showMainCategoryAlert = true;            
             console.log("please select a category");
         }
-        else if ( this.filteredSubcategories.length == 0 ) {
+        else if ( this.selectedCategory.attributes.SUB_CATEGORY == null ) {
             this.showSubcategoryAlert = true;                        
             console.log("please select a subcategory");
         }
-        else if ( this.categoryID == -1 ) {
+        else if ( this.categoryID == -1 || this.categoryID == null ) {
+            console.log(this.filteredTypes);
             if ( this.filteredTypes.length == 0 ) {
                 this.selectedCategory.attributes.INCIDENT_TYPE = null;
                 this.categoryID = this.filteredSubcategories[0].CATEGORY_ID;
@@ -115,11 +119,16 @@ export class CategoryComponent implements OnInit {
         else if ( this.categoryID != -1 ) {
             if ( this.filteredTypes.length == 0 ) {
                 this.selectedCategory.attributes.INCIDENT_TYPE = null;          
-            };
-            console.log ( "category id: " + this.categoryID );
-            var id = this.categoryID.toString();
-            this.categorySaved.emit(id);
-            this.hide();
+            }
+            else if ( this.selectedCategory.attributes.INCIDENT_TYPE == null ) {
+                this.showTypeAlert = true;                                            
+            }
+            else {
+                console.log ( "category id: " + this.categoryID );
+                var id = this.categoryID.toString();
+                this.categorySaved.emit(id);
+                this.hide();
+            }
         }
     }
 

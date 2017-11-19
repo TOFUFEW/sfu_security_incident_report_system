@@ -16,7 +16,7 @@
         
                 <!-- Category Picker -->
                 <div class="mt-2">
-                    <div class="alertTest modal-field-title" *ngIf="showCategoryAlert">
+                    <div class="alertText modal-field-title" *ngIf="showMainCategoryAlert">
                         Please select a category
                     </div>
                     <label class="field-title modal-field-title">Category</label>
@@ -46,7 +46,7 @@
 
                 <!-- Type Picker -->
                 <div class="mt-2" *ngIf="filteredTypes.length > 0">
-                    <div class="alertText" *ngIf="showTypeAlert">
+                    <div class="alertText modal-field-title" *ngIf="showTypeAlert">
                         Please select a type
                     </div>
                     <label class="field-title modal-field-title">Type</label>    

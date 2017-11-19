@@ -3,14 +3,16 @@ import { Category, CategoryDictionary, SubCategory, CategoryType } from '../comp
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
+import { Incident } from '../component/report/incident';
 import { IncidentService } from '../service/incident.service';
 import { IncidentElementService } from '../service/incident-element.service';
 
 import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CategoryService 
-{
+{    
     private headers = new Headers({ 'Content-Type': 'application/json' });
     categoriesUrl = Config.CategoriesURI;
     constructor ( 
@@ -90,7 +92,7 @@ export class CategoryService
         return grouping;
     }
 
-    changeIncidentCategory ( incident, newCategoryID, selectedCategory ): number {
+    changeIncidentCategory ( incident, newCategoryID, selectedCategory ): Promise<Incident> {
         incident.category.CATEGORY_ID = newCategoryID;
         incident.attributes.CATEGORY_ID = newCategoryID;
         incident.category.attributes.MAIN_CATEGORY = selectedCategory.attributes.MAIN_CATEGORY;
@@ -99,16 +101,12 @@ export class CategoryService
         incident.incidentElements[Config.IncidentCategoryKey]
             .splice(0, incident.incidentElements[Config.IncidentCategoryKey].length,
                     incident.category);
-        this.incidentService.update ( incident )
-            .then( returnedIncident => {                
-                if ( returnedIncident != null  ) {
-                    return 1;
-                }
-                else {
-                    return -1;
-                }
-            });
-        return -1;  
+        var promise = this.incidentService.update ( incident )
+            .then( incident => {
+                console.log("inserted incident", incident);
+                return incident;
+            })
+        return Promise.resolve(promise);            
     }
 
     private handleError( error: any ) : Promise<any> 

@@ -82,13 +82,23 @@ export class GuardIncidentComponent implements OnInit {
     incidentSaved () {
         this.toggleSuccessMessage ();   
         this.alertMessage = "Successfully saved";
-        this.alertClass = "alert alert-success top-alert";                                                         
+        this.alertClass = "alert alert-success top-alert";
+        setTimeout ( () => {
+            this.toggleSuccessMessage (); 
+        }, 
+            1800 
+        );                        
     }
 
     incidentSavedError () {
         this.toggleSuccessMessage ();                                                            
         this.alertMessage = "Edit failed" ;
         this.alertClass = "alert alert-danger top-alert";
+        setTimeout ( () => {
+            this.toggleSuccessMessage (); 
+        }, 
+            1800 
+        );                        
     }
 
     saveReport ( attribute: string ): void {
@@ -102,12 +112,7 @@ export class GuardIncidentComponent implements OnInit {
                 else {
                     this.incidentSavedError ();
                 }
-            } );
-        setTimeout ( () => {
-            this.toggleSuccessMessage (); 
-        }, 
-            1500 
-        );                        
+            } );                      
         this.toggleEditMode ( attribute );            
     }
       
@@ -167,18 +172,16 @@ export class GuardIncidentComponent implements OnInit {
 
     changeCategory ( newCategoryID ) {
         this.incident.attributes.CATEGORY_ID = newCategoryID;
-        var success = this.categoryService.changeIncidentCategory ( this.incident, newCategoryID, this.categoryModal.selectedCategory );
-        if ( success == 1 ) {
-            this.incidentSaved ();            
-        }
-        else if ( success == -1 ) {
+        var incident = this.categoryService.changeIncidentCategory ( this.incident, newCategoryID, this.categoryModal.selectedCategory )
+            .then ( incident => {
+                return incident;
+            });
+        if ( Promise.resolve(incident) == null ) {
             this.incidentSavedError ();            
         }
-        setTimeout ( () => {
-            this.toggleSuccessMessage (); 
-        }, 
-            1500 
-        );                        
+        else {
+            this.incidentSaved ();            
+        }
     }
 
     changeDescription() {
