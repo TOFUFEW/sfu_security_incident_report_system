@@ -9,53 +9,61 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import static Util.PathStrings.UPLOAD_PATH;
 import static spark.Spark.post;
 
-public class AttachmentController {
+public class AttachmentController
+{
 
     public AttachmentController ()
     {
-        setupEndPoints();
+        setupEndPoints ();
     }
 
-    private void setupEndPoints() {
-        post("/upload", "multipart/form-data", ( request , response ) -> {
+    private void setupEndPoints()
+    {
+        post ( UPLOAD_PATH , "multipart/form-data", ( request , response ) ->
+        {
             try {
-                System.out.println("uploading...");
-                Path currentPath = Paths.get("").toAbsolutePath();
+                System.out.println ( "uploading..." );
+                Path currentPath = Paths.get ( "" ).toAbsolutePath ();
 
-                final File upload = new File(
+                final File upload = new File (
                         currentPath +
                         "/uploads"
                 );
-                System.out.println(upload);
+                System.out.println ( upload );
 
-                if ( !upload.exists() && !upload.mkdirs() ) {
-                    throw new RuntimeException("Failed to create directory " + upload.getAbsolutePath());
+                if ( !upload.exists () && !upload.mkdirs () )
+                {
+                    throw new RuntimeException ( "Failed to create directory " + upload.getAbsolutePath () );
                 }
 
                 // apache commons-fileupload to handle file upload
-                DiskFileItemFactory factory = new DiskFileItemFactory();
-                factory.setRepository( upload );
-                ServletFileUpload fileUpload = new ServletFileUpload( factory );
-                List<FileItem> items = fileUpload.parseRequest( request.raw() );
+                DiskFileItemFactory factory = new DiskFileItemFactory ();
+                factory.setRepository ( upload );
+                ServletFileUpload fileUpload = new ServletFileUpload ( factory );
+                List < FileItem > items = fileUpload.parseRequest ( request.raw () );
 
                 // uploadField is the field name that we want to save
                 String uploadField = "files[]";
-                FileItem item = items.stream()
-                        .filter(e -> uploadField.equals(e.getFieldName()))
-                        .findFirst().get();
-                String fileName = item.getName();
+                FileItem item = items.stream ()
+                        .filter ( e -> uploadField.equals ( e.getFieldName () ) )
+                        .findFirst ().get ();
+                String fileName = item.getName ();
                 item.write ( new File (
                         upload,
                         fileName
-                ));
+                ) );
                 return true;
-            }catch ( Exception e ) {
-                    e.printStackTrace();
+            }
+
+            catch ( Exception e )
+            {
+                    e.printStackTrace ();
             }
             return false;
-        });
+        } );
 
     }
 

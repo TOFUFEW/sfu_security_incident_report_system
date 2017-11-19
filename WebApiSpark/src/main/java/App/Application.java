@@ -2,7 +2,17 @@ package App;
 
 
 import Controller.*;
+import WebSocketHandlers.IncidentsWebSocketHandler;
+import WebSocketHandlers.LoginWebSocketHandler;
 
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import static Util.PathStrings.INCIDENTS_WEB_SOCKET_PATH;
+import static Util.PathStrings.LOGIN_WEB_SOCKET_PATH;
 import static spark.Spark.*;
 
 // Class that initializes each controller at start - up
@@ -11,7 +21,7 @@ public class Application
 
     public static void main ( String [] args )
     {
-        // SETUP PORT
+        // INITIAL SETUP
         port ( 4567 );
 
         // SETUP ENCRYPTION
@@ -37,7 +47,7 @@ public class Application
         );
 
         // SETUP STATIC FILE HOSTING FOR ANGULAR
-        staticFiles.location("/public");
+        staticFileLocation ( "/public" );
 
         notFound ( ( request , response ) ->
         {
@@ -60,29 +70,35 @@ public class Application
             return response.body ();
         } );
 
-        // STARTUP METHODS
-        staticFileLocation("/public");
-
+        // SETUP WEB SOCKETS
+        IncidentsWebSocketHandler incidentsWebSocketHandler = new IncidentsWebSocketHandler ();
         webSocket (
-                "/login",
-                IncidentWebSocket.class
+                INCIDENTS_WEB_SOCKET_PATH,
+                incidentsWebSocketHandler
         );
 
+        LoginWebSocketHandler loginWebSocketHandler = new LoginWebSocketHandler ();
+        webSocket (
+                LOGIN_WEB_SOCKET_PATH,
+                loginWebSocketHandler
+        );
+
+        // STARTUP METHODS
         enableCORS (
                 "*",
-                "GET, " + "POST, PUT, DELETE, OPTIONS, HEAD",
+                "GET, POST, PUT, DELETE, OPTIONS, HEAD",
                 "origin, content-type, accept, authorization"
         );
 
         LocationController locationController = new LocationController ();
-        StaffController staffController = new StaffController();
-        IncidentsController incidentsController = new IncidentsController();
-        LoginController loginController = new LoginController();
-        PersonController personController = new PersonController();
-        IncidentCategoryController categoryController = new IncidentCategoryController();
-        AttachmentController attachmentController = new AttachmentController();
-        GuardIncidentsController guardIncidentsController = new GuardIncidentsController();
-        AssignGuardController assignGuardController = new AssignGuardController();
+        StaffController staffController = new StaffController ();
+        IncidentsController incidentsController = new IncidentsController ( incidentsWebSocketHandler.getObservable () );
+        LoginController loginController = new LoginController ( loginWebSocketHandler.getObservable () );
+        PersonController personController = new PersonController ();
+        IncidentCategoryController categoryController = new IncidentCategoryController ();
+        AttachmentController attachmentController = new AttachmentController ();
+        GuardIncidentsController guardIncidentsController = new GuardIncidentsController ();
+        AssignGuardController assignGuardController = new AssignGuardController ();
     }
 
     // CORS Filter

@@ -1,9 +1,12 @@
 package Util;
 
-public class URLStrings
+public class PathStrings
 {
+    // WEB SOCKETS
     public static final String INCIDENTS_WEB_SOCKET_PATH = "/incidentsWebSocket";
+    public static final String LOGIN_WEB_SOCKET_PATH = "/loginWebSocket";
 
+    // ROUTES
     public static final String ASSIGN_GUARD_PATH = "/assignGuard";
     public static final String UPLOAD_PATH = "/upload";
     public static final String GUARD_INCIDENTS_PATH = "/guard-incidents";
@@ -16,4 +19,6 @@ public class URLStrings
     public static final String LOCATIONS_ID_PATH = "/locations/:id";
     public static final String LOGIN_PATH = "/login";
     public static final String PERSON_PATH = "/person";
+    public static final String STAFF_PATH = "/staff";
+    public static final String STAFF_ID_PATH = "/staff/:id";
 }

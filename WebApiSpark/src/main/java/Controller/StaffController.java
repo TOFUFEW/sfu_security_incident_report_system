@@ -5,6 +5,8 @@ import Util.DBHelper;
 import Util.DatabaseValues;
 import Util.JsonUtil;
 
+import static Util.PathStrings.STAFF_ID_PATH;
+import static Util.PathStrings.STAFF_PATH;
 import static spark.Spark.*;
 
 public class StaffController
@@ -18,27 +20,32 @@ public class StaffController
     private void setupEndPoints ()
     {
 
-        get ( "/staff" , ( request , response ) -> {
-            IncidentElement[] staffArr = DBHelper.getIncidentElements( DatabaseValues.Table.STAFF );
-            return JsonUtil.toJson( staffArr );
+        get ( STAFF_PATH , ( request , response ) ->
+        {
+            IncidentElement [] staffArr = DBHelper.getIncidentElements ( DatabaseValues.Table.STAFF );
+            return JsonUtil.toJson ( staffArr );
         } );
 
 
-        put("/staff", (request, response) -> {
-            Staff staff = ( Staff ) JsonUtil.fromJson ( request.body (), Staff.class);
+        put(STAFF_PATH , ( request , response ) ->
+        {
+            Staff staff = ( Staff ) JsonUtil.fromJson ( request.body (), Staff.class );
 
             if (!DBHelper.selectIncidentElement ( staff ) )
             {
                 return DBHelper.updateIncidentElement ( staff );
-            } else {
+            }
+            else
+            {
                 return false;
             }
 
         } );
 
 
-        delete("/staff/:id", (request, response) -> {
-            Staff staff = new Staff();
+        delete ( STAFF_ID_PATH , ( request , response ) ->
+        {
+            Staff staff = new Staff ();
             staff.updateAttributeValue (
                     DatabaseValues.Column.ACCOUNT_ID,
                     request.params ( ":id" )

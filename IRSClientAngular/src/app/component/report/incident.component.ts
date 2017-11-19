@@ -32,6 +32,22 @@ export class IncidentComponent implements OnInit {
         });
         this.incidentService.lastRemovedId
             .subscribe( value => this.removeFromWorkspace( value ) );
+
+        // Web socket
+        var wss = new WebSocket ( Config.IncidentsWebSocketURI );
+        wss.onopen = function ()
+        {
+            console.log ( "IncidentUpdate Socket has been opened!" );
+        };
+
+        wss.onmessage = function ( message )
+        {
+            var incident = this.incidentService.initializeIncident (
+              JSON.parse ( JSON.parse ( message.data ) ) as Incident
+            );
+
+        }.bind ( this );
+
     };
 
     getIncidents(): void {
@@ -52,6 +68,7 @@ export class IncidentComponent implements OnInit {
     }
 
     removeFromWorkspace( id: number ): void {
+        console.log("remove method here");
         if ( this.incidents == null || this.incidents.length == 0 ) return;
         console.log(" removing " + id);
         var index = this.incidents.findIndex( i => i.attributes.REPORT_ID == id );
@@ -114,7 +131,7 @@ export class IncidentComponent implements OnInit {
             if ( returnValue != null ) {
                 var incidentIndex = this.incidents.findIndex( i => i.attributes.REPORT_ID === returnValue.attributes.REPORT_ID );
                 this.incidents.splice( incidentIndex, 1, returnValue );
-                console.log (returnValue );
+                //console.log (returnValue );
                 alert ( "Successful update" );
             } else {
                 alert ( "Unsuccessful update" );

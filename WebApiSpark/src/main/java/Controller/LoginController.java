@@ -4,27 +4,43 @@ import Model.User;
 import Util.DBHelper;
 import Util.DatabaseValues;
 import Util.JsonUtil;
+import WebSocketHandlers.Observable;
 
 import java.sql.ResultSet;
 
 import static Util.JsonUtil.json;
+import static Util.PathStrings.LOGIN_PATH;
 import static spark.Spark.post;
 
-public class LoginController {
+public class LoginController
+{
+    private Observable loginWebSocketObservable;
 
-    public LoginController() {
-        setupEndPoints();
+    public LoginController ( Observable loginWebSocketObservable )
+    {
+        this.loginWebSocketObservable = loginWebSocketObservable;
+        setupEndPoints ();
     }
 
-    private void setupEndPoints() {
-        post( "/login", ( request, response ) -> {
-            User user = (User) JsonUtil.fromJson( request.body(), User.class );
-            User _user = auth_account( user );
+    private void setupEndPoints ()
+    {
+        post ( LOGIN_PATH , ( request , response ) ->
+        {
+            User user = ( User ) JsonUtil.fromJson ( request.body (), User.class );
+            User _user = auth_account ( user );
+
+            if ( _user != null )
+            {
+                System.out.println ( "Signed In!!!" );
+                loginWebSocketObservable.sendMessage ( JsonUtil.toJson ( _user ) );
+            }
+
             return _user;
-        }, json());
+        }, json () );
     }
 
-    private User auth_account ( User user ) {
+    private User auth_account ( User user )
+    {
         try {
 
             String query = "" +
@@ -35,14 +51,14 @@ public class LoginController {
 
             if ( myRs.next () )
             {
-                user.updateAttributeValue(
+                user.updateAttributeValue (
                         DatabaseValues.Column.ACCOUNT_TYPE,
                         myRs.getString ( DatabaseValues.Column.ACCOUNT_TYPE.toString () )
                 );
 
-                user.updateAttributeValue(
+                user.updateAttributeValue (
                         DatabaseValues.Column.ACCOUNT_ID,
-                        myRs.getString ( DatabaseValues.Column.ACCOUNT_ID.toString() )
+                        myRs.getString ( DatabaseValues.Column.ACCOUNT_ID.toString () )
                 );
             }
 

@@ -1,4 +1,4 @@
-package App;
+package WebSocketHandlers;
 
 import Util.JsonUtil;
 import org.eclipse.jetty.websocket.api.Session;
@@ -12,7 +12,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 @WebSocket
-public class IncidentWebSocket
+public class IncidentsWebSocketHandler
 {
     // Store sessions if you want to, for example, broadcast a message to all users
     private static final Queue < Session > sessions = new ConcurrentLinkedQueue <> ();
@@ -21,13 +21,21 @@ public class IncidentWebSocket
     public void connected ( Session session )
     {
         sessions.add ( session );
-        System.out.println ( "connected" );
-
-        try {
-            message ( session, "true");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        String message = "Connected to Incident Web Socket";
+//        System.out.println ( message );
+//
+//        try
+//        {
+//            message (
+//                    session,
+//                    message
+//            );
+//        }
+//
+//        catch ( IOException e )
+//        {
+//            e.printStackTrace ();
+//        }
     }
 
     @OnWebSocketClose
@@ -45,8 +53,38 @@ public class IncidentWebSocket
             Session session,
             String message
     ) throws IOException {
-        System.out.println ( "Got: " + message );   // Print message
+        System.out.println ( "Sending Message: " + message );   // Print message
 
-        session.getRemote ().sendString (  JsonUtil.toJson ( "test message" ) ); // and send it back
+        session.getRemote ().sendString (  JsonUtil.toJson ( message ) );
+    }
+
+    // Sends a message from one user to all users, along with a list of current usernames
+    public void broadcastMessage ( String message )
+    {
+        System.out.println ( "sessions.size () = " + sessions.size () );
+        for ( Session session : sessions )
+        {
+            try
+            {
+                message ( session , message );
+            }
+
+            catch ( Exception e )
+            {
+                e.printStackTrace ();
+            }
+        }
+    }
+
+    public Observable getObservable ()
+    {
+        return new Observable ()
+        {
+            @Override
+            public void sendMessage ( String message )
+            {
+                broadcastMessage ( message );
+            }
+        };
     }
 }
