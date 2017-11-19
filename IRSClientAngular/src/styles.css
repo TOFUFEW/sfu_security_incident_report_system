@@ -227,7 +227,11 @@ body {
   height: 3em;
   border-radius: 99px;
   bottom: 1em;
+<<<<<<< HEAD
   margin: 0 1.5em;
+=======
+  margin-right: 1.5em;
+>>>>>>> master
   text-align: center;
   padding: 1px 0;
   line-height: 1.42; }

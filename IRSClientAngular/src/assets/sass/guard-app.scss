@@ -29,6 +29,10 @@
   .ml-1 {
       margin-left: 1em;
   }
+  
+  .ml-2 {
+      margin-left: 2em;
+  }
 
   .ml-3 {
       margin-left: 3em;
@@ -177,6 +181,14 @@
       color: grey;
   }
   
+  .topAlert {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    height: 50px;
+  }
   /*# sourceMappingURL=guard-app.css.map */
   
   

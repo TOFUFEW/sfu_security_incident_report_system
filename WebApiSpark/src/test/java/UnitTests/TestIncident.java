@@ -137,7 +137,7 @@ public class TestIncident
 
         Random rand = new Random();
 
-        IncidentElement selectedCategory = categories[ rand.nextInt( categories.length-1 )];
+        IncidentElement selectedCategory = categories[ rand.nextInt( categories.length ) ];
         Assert.assertTrue( ( DatabaseValues.Table.INCIDENT_CATEGORY ).toString().contains( selectedCategory.getTable().toString() ) );
 
         String selectedCategoryId = selectedCategory.getAttributeValue( Column.CATEGORY_ID );
@@ -263,7 +263,7 @@ public class TestIncident
 
         Assert.assertTrue( currentSize == incidents.length );
 
-        IncidentElement selectedCategory = categories[ rand.nextInt( categories.length-1 )];
+        IncidentElement selectedCategory = categories[ rand.nextInt( categories.length )];
         Assert.assertTrue( ( DatabaseValues.Table.INCIDENT_CATEGORY ).toString().contains( selectedCategory.getTable().toString() ) );
 
         String selectedCategoryId = selectedCategory.getAttributeValue( Column.CATEGORY_ID );
@@ -290,7 +290,7 @@ public class TestIncident
         incident1.updateAttributeValue ( Column.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
         incident1.updateAttributeValue ( Column.STATUS, "0" );
 
-        IncidentElement selectedCategory = categories[ rand.nextInt( categories.length-1 )];
+        IncidentElement selectedCategory = categories[ rand.nextInt( categories.length )];
         Assert.assertTrue( ( DatabaseValues.Table.INCIDENT_CATEGORY ).toString().contains( selectedCategory.getTable().toString() ) );
 
         incident1.addIncidentElement( DatabaseValues.IncidentElementKey.INCIDENT_CATEGORY.toString(), selectedCategory );
@@ -441,7 +441,7 @@ public class TestIncident
 
         Random rand = new Random();
 
-        IncidentElement selectedCategory = categories[ rand.nextInt( categories.length-1 )];
+        IncidentElement selectedCategory = categories[ rand.nextInt( categories.length )];
         Assert.assertTrue( ( DatabaseValues.Table.INCIDENT_CATEGORY ).toString().contains( selectedCategory.getTable().toString() ) );
 
         String selectedCategoryId = selectedCategory.getAttributeValue( Column.CATEGORY_ID );
@@ -449,7 +449,7 @@ public class TestIncident
 
         IncidentElement staff = staffList[ rand.nextInt( staffList.length ) ];
 
-        String reportId = incidents[ rand.nextInt( incidents.length - 1 )].getAttributeValue( Column.REPORT_ID );
+        String reportId = incidents[ rand.nextInt( incidents.length )].getAttributeValue( Column.REPORT_ID );
 
         Incident incident1 = new Incident();
         incident1.updateAttributeValue ( Column.REPORT_ID, reportId );
@@ -549,7 +549,7 @@ public class TestIncident
         IncidentElement staff = staffList[ rand.nextInt( staffList.length ) ];
         String staffID = staff.getAttributeValue( Column.ACCOUNT_ID );
 
-        Incident incident = incidents[ rand.nextInt( incidents.length - 1 )];
+        Incident incident = incidents[ rand.nextInt( incidents.length )];
         incident.addIncidentElement( DatabaseValues.IncidentElementKey.STAFF.toString(), staff );
         String reportID = incident.getAttributeValue( Column.REPORT_ID );
 
@@ -582,7 +582,7 @@ public class TestIncident
             return; // Nothing to test. Can't insert incident without CATEGORY_ID or ACCOUNT_ID
         }
 
-        IncidentElement selectedCategory = categories[ rand.nextInt( categories.length-1 )];
+        IncidentElement selectedCategory = categories[ rand.nextInt( categories.length )];
         Assert.assertTrue( ( DatabaseValues.Table.INCIDENT_CATEGORY ).toString().contains( selectedCategory.getTable().toString() ) );
 
         String selectedCategoryId = selectedCategory.getAttributeValue( Column.CATEGORY_ID );
@@ -643,8 +643,8 @@ public class TestIncident
 
         Random rand = new Random();
 
-        Incident incident = incidents[ rand.nextInt( incidents.length - 1 ) ];
-        IncidentElement staff = staffList[ rand.nextInt( staffList.length - 1 ) ];
+        Incident incident = incidents[ rand.nextInt( incidents.length ) ];
+        IncidentElement staff = staffList[ rand.nextInt( staffList.length ) ];
         Assert.assertTrue( staff != null );
         String reportID = incident.getAttributeValue( Column.REPORT_ID );
 
@@ -679,7 +679,7 @@ public class TestIncident
 
         Random rand = new Random();
 
-        IncidentElement selectedCategory = categories[ rand.nextInt( categories.length-1 )];
+        IncidentElement selectedCategory = categories[ rand.nextInt( categories.length )];
         Assert.assertTrue( ( DatabaseValues.Table.INCIDENT_CATEGORY ).toString().contains( selectedCategory.getTable().toString() ) );
 
         String selectedCategoryId = selectedCategory.getAttributeValue( Column.CATEGORY_ID );
