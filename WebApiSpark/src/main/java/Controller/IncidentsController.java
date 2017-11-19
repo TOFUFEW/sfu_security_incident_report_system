@@ -36,7 +36,7 @@ public class IncidentsController
             return DBHelper.insertIncident ( newIncident );
         } );
 
-        post ( UPDATE_INCIDENT_PATH , ( request , response ) ->
+        post ("/update-incident" , ( request, response ) ->
         {
             Incident updatedIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
 
@@ -45,7 +45,7 @@ public class IncidentsController
             return DBHelper.updateIncident ( updatedIncident );
         } );
 
-        post ( ASSIGN_INCIDENT_PATH, ( request , response ) ->
+        post ( "/assign-incident", ( request, response ) ->
         {
             Incident updatedIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
 

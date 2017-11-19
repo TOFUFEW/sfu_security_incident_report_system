@@ -10,6 +10,7 @@ public class IncidentCategory extends IncidentElement
                 "",
                 "",
                 "",
+                "",
                 ""
         );
     }
@@ -18,7 +19,8 @@ public class IncidentCategory extends IncidentElement
             String categoryID,
             String mainCategory,
             String subCategory,
-            String incidentType
+            String incidentType,
+            String permissionLevel
             )
     {
 
@@ -30,6 +32,7 @@ public class IncidentCategory extends IncidentElement
                                 DatabaseValues.Column.MAIN_CATEGORY,
                                 DatabaseValues.Column.SUB_CATEGORY,
                                 DatabaseValues.Column.INCIDENT_TYPE,
+                                DatabaseValues.Column.PERMISSION_LEVEL
                         }
         );
         updateAttributeValue(
@@ -50,6 +53,11 @@ public class IncidentCategory extends IncidentElement
         updateAttributeValue(
                 DatabaseValues.Column.INCIDENT_TYPE,
                 incidentType
+        );
+
+        updateAttributeValue(
+                DatabaseValues.Column.PERMISSION_LEVEL,
+                permissionLevel
         );
     }
 }
