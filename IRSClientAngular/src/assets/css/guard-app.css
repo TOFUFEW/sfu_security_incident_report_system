@@ -21,10 +21,10 @@
   margin-bottom: 2em !important; }
 
 .ml-1 {
-  margin-left: 1em; }
+  margin-left: 1em !important; }
 
 .ml-2 {
-  margin-left: 2em; }
+  margin-left: 2em !important; }
 
 .ml-3 {
   margin-left: 3em; }
@@ -146,6 +146,7 @@ h4.panel-title {
   color: grey; }
 
 .topAlert {
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
   position: fixed;
   top: 0;
   left: 0;

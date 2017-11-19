@@ -1,7 +1,7 @@
 /* Contains general css rules for the entire app */
 @import "assets/sass/_settings";
 
-span, a, button {
+span, a, button, textarea {
     font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
 }
 
@@ -293,9 +293,9 @@ body {
     height: 3em;
     border-radius: 99px;
     bottom: 1em;
-    margin-right: 1.5em;
+    margin-right: 1em;
     text-align: center;
-    padding: 1px 0;
+    padding: 1px;
     line-height: 1.42;
   }
 

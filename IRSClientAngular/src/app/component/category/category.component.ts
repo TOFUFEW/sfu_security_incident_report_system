@@ -12,6 +12,9 @@ import { CategoryService } from '../../service/category.service';
 )
 
 export class CategoryComponent implements OnInit {
+    @Input() currentMainCategory: string;
+    @Input() currentSubCategory: string;
+    @Input() currentType: string;
     @Output()
     categorySaved: EventEmitter<string> = new EventEmitter();
     selectedCategory: Category = new Category(null, null, null, null);      
@@ -22,6 +25,7 @@ export class CategoryComponent implements OnInit {
     filteredSubcategories: SubCategory[] = [];
     filteredTypes: CategoryType[] = [];
     categoryID: number =  -1;
+    // currentCategory: Category;
 
     public visible = false;
     private visibleAnimate = false;
@@ -60,7 +64,6 @@ export class CategoryComponent implements OnInit {
     var index = this.categories.findIndex( item => 
         item.MAIN_CATEGORY === categoryName);
     this.filteredSubcategories = this.categories[index].SUBCATEGORIES;
-    console.log ( "list of corresponding subcategories " + this.filteredSubcategories );
     }
 
     onSelectSubCategory ( subCategoryName ) {
@@ -68,11 +71,9 @@ export class CategoryComponent implements OnInit {
         var index = this.filteredSubcategories.findIndex( item => 
             item.SUB_CATEGORY == subCategoryName );
         this.filteredTypes = this.filteredSubcategories[index].TYPES;
-        console.log ( "subcategory" + subCategoryName );
     }
 
     onSelectTypeCategory ( type ) {
-        console.log ( "category type " + type );
         type = type.split(",,");
         this.selectedCategory.attributes.INCIDENT_TYPE = type[0];
         this.categoryID = type[1];

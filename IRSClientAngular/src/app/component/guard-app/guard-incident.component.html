@@ -27,7 +27,12 @@
                                 </span> -->
                             <!-- </h5> -->
                         </div>
-                        <category-component #modalCategory (categorySaved)="changeCategory($event)"></category-component>             
+                        <category-component #modalCategory 
+                            currentMainCategory="{{incident.category.attributes.MAIN_CATEGORY}}"
+                            currentSubCategory="{{incident.category.attributes.SUB_CATEGORY}}"
+                            currentType="{{incident.category.attributes.INCIDENT_TYPE}}"
+                            (categorySaved)="changeCategory($event)">
+                        </category-component>             
                         <div class="panel-group" id="accordion">
                             <div class="panel panel-default ml-1 mr-1">
                                     <div class="panel-heading collapsable-heading">
@@ -139,12 +144,14 @@
                                         <div *ngIf="isEditingDesc">
                                             <textarea [(ngModel)]="newDescription" class="form-control" rows="5"></textarea>
                                             <button (click)="revertChanges('description')" 
-                                                class="btn btn-default btn-sm pull-right mt-2 mr-1 mb-1 ml-2">
-                                                <span class="glyphicon glyphicon-remove"></span> Cancel
+                                                class="btn btn-sm btn-secondary pull-right mt-2 mr-1 mb-1 ml-2">
+                                                <span class="glyphicon glyphicon-remove"></span> 
+                                                Cancel
                                             </button>
                                             <button (click)="saveReport('description')" 
-                                            class="btn btn-default btn-sm pull-right mt-2 mb-1">
-                                            <span class="glyphicon glyphicon-ok"></span> Save
+                                                    class="btn btn-sm btn-primary pull-right mt-2 mb-1">
+                                                <span class="glyphicon glyphicon-ok"></span> 
+                                                Save
                                         </button>
                                         </div>
                                     </div>
@@ -188,12 +195,12 @@
     </div>
     <div class="row">
         <footer class="panel">
-            <button class="btn btn-circle guard-menu-button-left card-text-primary btn-primary" (click)="viewAllReports()">
+            <button class="btn btn-circle guard-menu-button-right card-text-primary btn-primary" (click)="viewAllReports()">
                 <span class="glyphicon glyphicon-chevron-left"></span> 
             </button>
-            <button class="btn btn-circle guard-menu-button-right card-text-primary btn-primary" (click)="saveReport()">
+            <!-- <button class="btn btn-circle guard-menu-button-right card-text-primary btn-primary" (click)="saveReport()">
                 <span class="glyphicon glyphicon-floppy-save"></span> 
-            </button>
+            </button> -->
             <!-- <button class="button guard-menu-button card-text-primary ml-1">
                 <span class="glyphicon glyphicon-plus"></span> 
                 New
