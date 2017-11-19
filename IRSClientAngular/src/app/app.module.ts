@@ -15,7 +15,7 @@ import { IncidentComponent } from './component/report/incident.component';
 import { LoginComponent } from './component/login/login.component';
 import { NewReportComponent } from './component/report/new-report.component';
 import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
-import { GuardAllReportsComponent } from './component/guard-app/guard-all-reports.component';
+import { GuardDashboardComponent } from './component/guard-app/guard-dashboard';
 import { VehicleComponent } from './component/vehicle/vehicle.component';
 import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
@@ -50,7 +50,7 @@ import { FilterPipe } from './util/filter.pipe';
   declarations: [
     AppComponent,
     AttachmentComponent,
-    
+
     DashboardComponent,
     LocationComponent,
     LocationModalComponent,
@@ -58,7 +58,7 @@ import { FilterPipe } from './util/filter.pipe';
     IncidentComponent,
     LoginComponent,
     GuardIncidentComponent,
-    GuardAllReportsComponent,
+    GuardDashboardComponent,
     CategoryComponent,
     NewReportComponent,
     VehicleComponent,
@@ -67,12 +67,12 @@ import { FilterPipe } from './util/filter.pipe';
     FilterPipe,
     ReportSummaryComponent
   ],
-  
+
   providers: [
-    UserService, 
-    LoginService, 
-    DomService, 
-    LocationService, 
+    UserService,
+    LoginService,
+    DomService,
+    LocationService,
     IncidentService,
     IncidentElementService,
     StaffService,

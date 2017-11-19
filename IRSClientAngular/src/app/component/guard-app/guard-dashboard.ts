@@ -8,14 +8,15 @@ import { Incident } from "../report/incident";
 import { User } from "../login/user";
 
 @Component({
-  selector: 'guard-all-reports',
-  templateUrl: './guard-all-reports.component.html',
+  selector: 'guard-dashboard',
+  templateUrl: './guard-dashboard.html',
   styleUrls: ['../../../assets/css/guard-app.css'],
   providers: [ IncidentService ]
 })
 
-export class GuardAllReportsComponent implements OnInit {
-    incidents: Incident[];
+export class GuardDashboardComponent implements OnInit {
+    assignedIncidents: Incident[];
+    createdIncidents: Incident[];
     user: User;
 
     constructor( private incidentsService: IncidentService,
@@ -24,11 +25,17 @@ export class GuardAllReportsComponent implements OnInit {
                  private router: Router) {
     };
 
-    getIncidents(): void {
+    getAssignedIncidents(): void {
         this.user = this.userService.getCurrentUser();
         this.incidentsService.getGuardIncidents( ).then( returnedIncidents => {
             console.log("returned incidents: ", returnedIncidents);
-          this.incidents = returnedIncidents;
+          this.assignedIncidents = returnedIncidents;
+        } );
+    }
+
+    getCreatedIncidents(): void {
+        this.incidentsService.getCreatedByIncidents().then( returnedIncidents => {
+            this.createdIncidents = returnedIncidents;
         } );
     }
 
@@ -43,6 +50,7 @@ export class GuardAllReportsComponent implements OnInit {
     }
 
     ngOnInit() : void {
-        this.getIncidents();
+        this.getAssignedIncidents();
+        this.getCreatedIncidents();
     }
 }

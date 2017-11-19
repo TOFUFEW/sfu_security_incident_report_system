@@ -1,7 +1,9 @@
 package Controller;
 
 import Model.Incident;
+import Model.User;
 import Util.DBHelper;
+import Util.DatabaseValues;
 import Util.JsonUtil;
 
 import static spark.Spark.get;
@@ -26,6 +28,13 @@ public class IncidentsController
         {
             Incident newIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
             return DBHelper.insertIncidentRefactor ( newIncident );
+        } );
+
+        post ( "/created-incidents" , (request, response) -> {
+            User user = ( User ) JsonUtil.fromJson ( request.body(), User.class );
+            int accountID = Integer.parseInt ( user.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID ) );
+            Incident [] incidents = DBHelper.getCreatedByIncidents( accountID );
+            return JsonUtil.toJson ( incidents );
         } );
 
         post ("/update-incident" , ( request, response ) ->

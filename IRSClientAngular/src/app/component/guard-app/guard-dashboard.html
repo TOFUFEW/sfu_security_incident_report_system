@@ -10,8 +10,7 @@
                 <div class="tab-content">
                   <div id="assignedReports" class="tab-pane fade in active">
                     <div class="flex-container">
-                      <div *ngFor="let incident of incidents">
-                        <div class="flex-item panel panel-default" *ngIf="incident.attributes.TEMPORARY_REPORT == 0" (click)="viewReport(incident)">
+                        <div class="flex-item panel panel-default" *ngFor="let incident of assignedIncidents" (click)="viewReport(incident)">
                           <div class="panel-body">
                             <ul class="p-0">
                               <li class="card-text-primary">
@@ -23,13 +22,11 @@
                             </ul>
                           </div>
                         </div>
-                      </div>
                     </div>
                   </div>
                   <div id="tempReports" class="tab-pane fade">
                     <div class="flex-container">
-                      <div *ngFor="let incident of incidents">
-                        <div class="flex-item panel panel-default" *ngIf="incident.attributes.TEMPORARY_REPORT == 1" (click)="viewReport(incident)">
+                        <div class="flex-item panel panel-default" *ngFor="let incident of createdIncidents" (click)="viewReport(incident)">
                           <div class="panel-body">
                             <ul class="p-0">
                               <li class="card-text-primary">
@@ -42,7 +39,6 @@
                           </div>
                         </div>
                       </div>
-                    </div>
                   </div>
                 </div>
               </div>

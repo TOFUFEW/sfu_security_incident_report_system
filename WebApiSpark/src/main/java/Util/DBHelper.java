@@ -46,13 +46,30 @@ public class DBHelper
         {
             ResultSet incidentResultSet = executeQuery( "SELECT Incident.*\n" +
                     "FROM Incident  INNER JOIN AssignedTo  ON Incident.REPORT_ID = AssignedTo.REPORT_ID\n" +
-                    "WHERE AssignedTo.ACCOUNT_ID = " + accountID + " and Incident.STATUS != 4" );
+                    "WHERE AssignedTo.ACCOUNT_ID = " + accountID + " and Incident.STATUS != 4 and Incident.TEMPORARY_REPORT = 0" );
 
             fillListWithIncidentsFromResultSet ( incidentList , incidentResultSet );
         }
         catch ( Exception e)
         {
             e.printStackTrace ();
+        }
+        return incidentList.toArray ( new Incident [ incidentList.size () ] );
+    }
+
+    public static Incident [] getCreatedByIncidents ( int accountID ) {
+        ArrayList < Incident > incidentList = new ArrayList<>();
+
+        try
+        {
+            ResultSet incidentResultSet = executeQuery ( "SELECT *\n" +
+                    "FROM Incident\n" +
+                    "WHERE ACCOUNT_ID = " + accountID + " AND TEMPORARY_REPORT = 1;" );
+            fillListWithIncidentsFromResultSet ( incidentList, incidentResultSet );
+        }
+        catch ( Exception e)
+        {
+            e.printStackTrace();
         }
         return incidentList.toArray ( new Incident [ incidentList.size () ] );
     }

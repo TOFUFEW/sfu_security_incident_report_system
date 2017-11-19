@@ -28,7 +28,7 @@ export class ReportSummaryComponent implements OnInit {
     }
 
     acceptTemp(): void {
-        let newIncident = new Incident();
+        var newIncident = new Incident();
         newIncident = this.report;
         var reportID = this.report.attributes.REPORT_ID;
         console.log("new incident report id = " + newIncident.attributes.REPORT_ID);
@@ -39,7 +39,14 @@ export class ReportSummaryComponent implements OnInit {
             newIncident.attributes.REPORT_ID = null;
             console.log("new incident report id = " + newIncident.attributes.REPORT_ID);
             console.log("new incident creator id = " + newIncident.attributes.ACCOUNT_ID);
-            this.incidentService.create( newIncident );
+            this.incidentService.create( newIncident )
+              .then( returnedIncident => {
+                if ( returnedIncident != null  ) {
+                  alert("Report successfully created!");
+                  setTimeout(function(){location.reload()}, 300);
+                }
+                else alert( "Add failed." );
+              } );
             this.isAccepted = true;
         }
         this.report.attributes.REPORT_ID = reportID;

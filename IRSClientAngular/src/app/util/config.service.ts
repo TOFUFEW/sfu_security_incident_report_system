@@ -5,7 +5,8 @@ export class Config {
     static LoginURI: string = "https://localhost:4567/login";
     static PersonURI: string = "https://localhost:4567/person";
     static GuardIncidentsURI: string = "https://localhost:4567/guard-incidents";
-    static GetIncidentURI: string = "https://localhost:4567/get-incident"
+    static GetIncidentURI: string = "https://localhost:4567/get-incident";
+    static CreatedIncidentsURI: string = "https://localhost:4567/created-incidents";
     static CategoriesURI: string = "https://localhost:4567/categories";
     static UpdateIncidentsURI: string = "https://localhost:4567/update-incident";
     static UpdateIncidentURI: string = "https://localhost:4567/update-incident";

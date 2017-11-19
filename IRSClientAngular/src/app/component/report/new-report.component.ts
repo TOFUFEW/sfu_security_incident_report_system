@@ -150,7 +150,7 @@ export class NewReportComponent implements OnInit {
                         alert("Report successfully created!");
                         setTimeout(function(){location.reload()}, 300);
                         if( this.userService.isGuard() ) {
-                            this.router.navigate( [ 'guard-app/reports-all' ] );
+                            this.router.navigate( [ 'guard-app/dashboard' ] );
                         }
                     }
                     else alert( "Add failed." );
