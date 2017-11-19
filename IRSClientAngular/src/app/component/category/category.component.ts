@@ -109,6 +109,7 @@ export class CategoryComponent implements OnInit {
             console.log(this.filteredTypes);
             if ( this.filteredTypes.length == 0 ) {
                 this.selectedCategory.attributes.INCIDENT_TYPE = null;
+
                 if ( this.filteredSubcategories.length > 0 ) {
                     var index = this.filteredSubcategories.findIndex( item => 
                         item.SUB_CATEGORY === this.selectedCategory.attributes.SUB_CATEGORY );
@@ -130,7 +131,11 @@ export class CategoryComponent implements OnInit {
         }
         else if ( this.categoryID != -1 ) {
             if ( this.filteredTypes.length == 0 ) {
-                this.selectedCategory.attributes.INCIDENT_TYPE = null;          
+                this.selectedCategory.attributes.INCIDENT_TYPE = null;
+                console.log ( "category id: " + this.categoryID );
+                var id = this.categoryID.toString();
+                this.categorySaved.emit(id);
+                this.hide();  
             }
             else if ( this.selectedCategory.attributes.INCIDENT_TYPE == null ) {
                 this.showTypeAlert = true;                                            
