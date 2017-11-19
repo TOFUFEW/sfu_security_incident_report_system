@@ -3,30 +3,46 @@
             <div class="col-12 col-sm-12 col-md-10 col-md-offset-1 col-md-offset-right-1">
               <div class="container">
                 <ul class="nav nav-pills">
-                  <li class="active"><a data-toggle="pill" href="#home">Home</a></li>
-                  <li><a data-toggle="pill" href="#menu1">Menu 1</a></li>
+                  <li class="active"><a data-toggle="pill" href="#assignedReports">Assigned Reports</a></li>
+                  <li><a data-toggle="pill" href="#tempReports">Created Temp Reports</a></li>
                 </ul>
 
                 <div class="tab-content">
-                  <div id="home" class="tab-pane fade in active">
+                  <div id="assignedReports" class="tab-pane fade in active">
                     <div class="flex-container">
-                      <div class="flex-item panel panel-default" *ngFor="let incident of incidents" (click)="viewReport(incident)">
-                        <div class="panel-body">
-                          <ul class="p-0">
-                            <li class="card-text-primary">
-                              #{{incident.attributes.REPORT_ID}}
-                            </li>
-                            <li class="card-text-secondary mt-sm">
-                              {{incident.attributes.DESCRIPTION}}
-                            </li>
-                          </ul>
+                      <div *ngFor="let incident of incidents">
+                        <div class="flex-item panel panel-default" *ngIf="incident.attributes.TEMPORARY_REPORT == 0" (click)="viewReport(incident)">
+                          <div class="panel-body">
+                            <ul class="p-0">
+                              <li class="card-text-primary">
+                                #{{incident.attributes.REPORT_ID}}
+                              </li>
+                              <li class="card-text-secondary mt-sm">
+                                {{incident.attributes.DESCRIPTION}}
+                              </li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div id="menu1" class="tab-pane fade">
-                    <h3>Menu 1</h3>
-                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                  <div id="tempReports" class="tab-pane fade">
+                    <div class="flex-container">
+                      <div *ngFor="let incident of incidents">
+                        <div class="flex-item panel panel-default" *ngIf="incident.attributes.TEMPORARY_REPORT == 1" (click)="viewReport(incident)">
+                          <div class="panel-body">
+                            <ul class="p-0">
+                              <li class="card-text-primary">
+                                #{{incident.attributes.REPORT_ID}}
+                              </li>
+                              <li class="card-text-secondary mt-sm">
+                                {{incident.attributes.DESCRIPTION}}
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

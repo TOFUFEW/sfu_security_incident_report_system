@@ -1,10 +1,17 @@
 <div *ngIf="report">
 
     <div class="x-container">
-        <span class="glyphicon glyphicon-remove glyphicon-btn" (click)="removeFromWorkspace( report.attributes.REPORT_ID )"></span>        
+        <span class="glyphicon glyphicon-remove glyphicon-btn" (click)="removeFromWorkspace( report.attributes.REPORT_ID )"></span>
     </div>
-    <div class="report-header">
-        <span class="report-id">Report ID: {{report.attributes.REPORT_ID}}</span>
+    <div *ngIf="report.attributes.TEMPORARY_REPORT == 1">
+        <div class="report-header">
+          <span class="report-id"> TEMP Report ID: {{report.attributes.REPORT_ID}}</span>
+        </div>
+    </div>
+    <div *ngIf="report.attributes.TEMPORARY_REPORT == 0">
+        <div class="report-header">
+          <span class="report-id">Report ID: {{report.attributes.REPORT_ID}}</span>
+        </div>
     </div>
     <ul class="nav nav-tabs">
         <li class="active">
@@ -72,7 +79,7 @@
             </div>
             <span class="not-found" *ngIf="report.incidentElements['Location'].length == 0"> No Locations available</span>
         </div>
-            
+
         <div [id]="'persons-' + report.attributes.REPORT_ID" class="details-container tab-pane fade">
             <div class="details-body" *ngFor="let person of report.incidentElements['Person']">
                 <div class="detail col-12 col-sm-3">
@@ -91,8 +98,11 @@
             <span class="not-found" *ngIf="report.incidentElements['Person'].length == 0"> No Involvements available</span>
         </div>
     </div>
-    
-    
-    
-    
+    <div *ngIf="report.attributes.TEMPORARY_REPORT == 1" style="text-align:center">
+      <button class="btn-default btn" (click)="acceptTemp()">Accept TEMP</button>
+    </div>
+
+
+
+
 </div>

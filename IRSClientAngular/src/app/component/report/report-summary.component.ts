@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Config } from '../../util/config.service';
 import { Incident } from '../report/incident';
 import { IncidentService } from '../../service/incident.service';
+import {UserService} from "../../service/user.service";
 
 @Component({
     selector: 'report-summary',
@@ -12,10 +13,12 @@ import { IncidentService } from '../../service/incident.service';
 export class ReportSummaryComponent implements OnInit {
     @Input() inputReport: Incident;
     report: Incident;
+    isAccepted : boolean = false;
 
     constructor (
-        private incidentService: IncidentService
-    ) { 
+        private incidentService: IncidentService,
+        private userService: UserService
+    ) {
         //this.report = new Incident();
         console.log(this.report);
     }
@@ -24,12 +27,31 @@ export class ReportSummaryComponent implements OnInit {
         this.incidentService.removeFromWorkspace( id );
     }
 
+    acceptTemp(): void {
+        let newIncident = new Incident();
+        newIncident = this.report;
+        var reportID = this.report.attributes.REPORT_ID;
+        console.log("new incident report id = " + newIncident.attributes.REPORT_ID);
+        console.log("new incident creator id = " + newIncident.attributes.ACCOUNT_ID);
+        if( !this.isAccepted ) {
+            console.log("accept temp");
+            newIncident.attributes.ACCOUNT_ID = this.userService.getAccountID();
+            newIncident.attributes.REPORT_ID = null;
+            console.log("new incident report id = " + newIncident.attributes.REPORT_ID);
+            console.log("new incident creator id = " + newIncident.attributes.ACCOUNT_ID);
+            this.incidentService.create( newIncident );
+            this.isAccepted = true;
+        }
+        this.report.attributes.REPORT_ID = reportID;
+        this.removeFromWorkspace( reportID );
+    }
+
     ngOnInit(): void {
         if ( this.inputReport != null) {
             this.report = this.inputReport;
         }
-            
+
         console.log( this.report )
-        console.log ( "report category ", this.report.category);                
+        console.log ( "report category ", this.report.category);
     }
 }

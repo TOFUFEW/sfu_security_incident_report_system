@@ -15,34 +15,34 @@ import { User } from "../login/user";
 })
 
 export class GuardAllReportsComponent implements OnInit {
-  incidents: Incident[];
-  user: User;
+    incidents: Incident[];
+    user: User;
 
-  constructor( private incidentsService: IncidentService,
-               private userService: UserService,
-               private http: HttpClient,
-               private router: Router) {
-  };
+    constructor( private incidentsService: IncidentService,
+                 private userService: UserService,
+                 private http: HttpClient,
+                 private router: Router) {
+    };
 
-  getIncidents(): void {
-    this.user = this.userService.getCurrentUser();
-    this.incidentsService.getGuardIncidents( ).then( returnedIncidents => {
-        console.log("returned incidents: ", returnedIncidents);
-      this.incidents = returnedIncidents;
-    } );
-  }
+    getIncidents(): void {
+        this.user = this.userService.getCurrentUser();
+        this.incidentsService.getGuardIncidents( ).then( returnedIncidents => {
+            console.log("returned incidents: ", returnedIncidents);
+          this.incidents = returnedIncidents;
+        } );
+    }
 
-  viewReport( incident: Incident ) : void {
-    console.log("view report id = " + incident.attributes.REPORT_ID );
-    this.router.navigate([ 'guard-app/report', incident.attributes.REPORT_ID ] );
-  }
+    viewReport( incident: Incident ) : void {
+        console.log("view report id = " + incident.attributes.REPORT_ID );
+        this.router.navigate([ 'guard-app/report', incident.attributes.REPORT_ID ] );
+    }
 
-  newReport(): void {
-    console.log("new report");
-    this.router.navigate([ 'new-report' ] );
-  }
+    newReport(): void {
+        console.log("new report");
+        this.router.navigate([ 'new-report' ] );
+    }
 
-  ngOnInit() : void {
-    this.getIncidents();
-  }
+    ngOnInit() : void {
+        this.getIncidents();
+    }
 }
