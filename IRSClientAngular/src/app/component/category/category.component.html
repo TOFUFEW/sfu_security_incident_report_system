@@ -44,7 +44,9 @@
                     <select class="form-control category-field" 
                             [(ngModel)] ="selectedType.INCIDENT_TYPE" 
                             (change)="onSelectTypeCategory($event.target.value)">                  
-                        <option disabled *ngIf='selectedSubCategory.SUB_CATEGORY == ""'>{{currentType}}</option>  
+                        <option disabled *ngIf='selectedSubCategory.SUB_CATEGORY == ""'>
+                            {{currentType}}
+                        </option>  
                         <option disabled>──────────</option>  
                         <option *ngFor="let type of filteredTypes " value="{{type.INCIDENT_TYPE}},, {{type.CATEGORY_ID}}">{{type.INCIDENT_TYPE}}</option>  
                     </select>  

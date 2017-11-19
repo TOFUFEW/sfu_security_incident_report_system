@@ -53,6 +53,10 @@ export class GuardIncidentComponent implements OnInit {
         }
     }; 
 
+    viewAllReports() {
+        this.router.navigate([ 'guard-app/reports-all' ] );
+    }
+
     toggleEditMode( attribute: string ) {
         if ( attribute == null ) return;
         if ( attribute.toLowerCase() === "description" )

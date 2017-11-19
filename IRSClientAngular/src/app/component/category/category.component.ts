@@ -96,6 +96,9 @@ export class CategoryComponent implements OnInit {
             }
         }
         if ( this.categoryID != -1 ) {
+            if ( this.filteredTypes.length == 0 ) {
+                this.selectedCategory.attributes.INCIDENT_TYPE = null;          
+            };
             console.log ( "category id: " + this.categoryID );
             var id = this.categoryID.toString();
             this.categorySaved.emit(id);
