@@ -1,35 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3258f34-4357-46e7-a275-cc0acbced47a" name="Default" comment="Add Web Socket Handlers and Log In broadcaster">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IRSClientAngular/src/app/component/dashboard/dashboard.component.ts" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/component/dashboard/dashboard.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IRSClientAngular/src/app/component/login/login.component.ts" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/component/login/login.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IRSClientAngular/src/app/component/report/incident.component.ts" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/component/report/incident.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" />
+    <list default="true" id="c3258f34-4357-46e7-a275-cc0acbced47a" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/component/ws/ws.component.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/component/ws/ws.component.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/service/ws.service.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/WSController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IRSClientAngular/src/app/app.module.ts" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/app.module.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IRSClientAngular/src/app/app.router.ts" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/app.router.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IRSClientAngular/src/app/util/config.service.ts" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/util/config.service.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/WebApiSpark.iml" afterPath="$PROJECT_DIR$/WebApiSpark/WebApiSpark.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/App/Application.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/App/Application.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/AssignGuardController.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/AssignGuardController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/AttachmentController.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/AttachmentController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/GuardIncidentsController.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/GuardIncidentsController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/IncidentCategoryController.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/IncidentCategoryController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/IncidentsController.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/IncidentsController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/LocationController.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/LocationController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/LoginController.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/LoginController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/PersonController.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/PersonController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/StaffController.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/StaffController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Util/PathStrings.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Util/PathStrings.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/WebSocketHandlers/IncidentsWebSocketHandler.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/WebSocketHandlers/IncidentsWebSocketHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/WebSocketHandlers/LoginWebSocketHandler.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/WebSocketHandlers/LoginWebSocketHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/glyphicons-halflings-regular.89889688147bd7575d63.svg" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/glyphicons-halflings-regular.89889688147bd7575d63.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/inline.bundle.js" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/inline.bundle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/inline.bundle.js.map" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/inline.bundle.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/main.bundle.js" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/main.bundle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/main.bundle.js.map" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/main.bundle.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/scripts.bundle.js" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/scripts.bundle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/styles.bundle.js" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/resources/public/styles.bundle.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/.idea/misc.xml" afterPath="$PROJECT_DIR$/WebApiSpark/.idea/misc.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/WebApiSpark/target/" />
@@ -107,8 +87,7 @@
             <state relative-caret-position="340">
               <caret line="29" column="20" lean-forward="false" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
               <folding>
-                <element signature="e#2341#2342#0" expanded="true" />
-                <element signature="e#2401#2402#0" expanded="true" />
+                <marker date="1511072236629" expanded="true" signature="2413:2419" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -961,7 +940,14 @@
       <option name="project" value="LOCAL" />
       <updated>1510482323736</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Add Web Socket to broadcast new and updated Incidents to all sessions.">
+      <created>1511071666027</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1511071666027</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1090,7 +1076,8 @@
     <MESSAGE value="Fix URLs" />
     <MESSAGE value="Merge branch 'master' into 49-encryption" />
     <MESSAGE value="Add Web Socket Handlers and Log In broadcaster" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Web Socket Handlers and Log In broadcaster" />
+    <MESSAGE value="Add Web Socket to broadcast new and updated Incidents to all sessions." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Web Socket to broadcast new and updated Incidents to all sessions." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1418,8 +1405,7 @@
         <state relative-caret-position="340">
           <caret line="29" column="20" lean-forward="false" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
           <folding>
-            <element signature="e#2341#2342#0" expanded="true" />
-            <element signature="e#2401#2402#0" expanded="true" />
+            <marker date="1511072236629" expanded="true" signature="2413:2419" ph="{...}" />
           </folding>
         </state>
       </provider>

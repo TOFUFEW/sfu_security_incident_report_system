@@ -11,6 +11,7 @@ export class Config {
     static UpdateIncidentURI: string = "https://localhost:4567/updateIncident";
     static AssignIncidentURI: string = "https://localhost:4567/assignIncident";
     static UploadURI: string = "https://localhost:4567/upload";
+    static WSURI: string = "ws://localhost:4567/ws";
 
     static IncidentsWebSocketURI: string = "wss://localhost:4567/incidentsWebSocket";
     static LogInWebSocketURI: string = "wss://localhost:4567/loginWebSocket";
