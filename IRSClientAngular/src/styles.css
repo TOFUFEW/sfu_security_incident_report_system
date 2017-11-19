@@ -21,8 +21,10 @@ body {
   margin: 0px; }
   #main-navbar a, #main-navbar .link, #main-navbar .glyphicon-menu-hamburger {
     color: #ffffff; }
-  #main-navbar .navbar-nav > li > a:hover {
-    background-color: #A6192E !important; }
+  #main-navbar .navbar-nav > li > a {
+    font-size: 13px; }
+    #main-navbar .navbar-nav > li > a:hover {
+      background-color: #A6192E !important; }
   #main-navbar .navbar-brand {
     font-weight: 700; }
   #main-navbar .navbar-right {

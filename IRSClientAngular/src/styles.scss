@@ -31,6 +31,7 @@ body {
     }
 
     .navbar-nav > li > a {
+        font-size: 13px;
         &:hover {
             background-color: $sfu-red !important;
         }

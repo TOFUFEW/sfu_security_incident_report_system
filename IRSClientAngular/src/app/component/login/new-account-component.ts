@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UserService } from '../../service/user.service';
 import { LoginService } from '../../service/login.service';
 import { LocationService } from '../../service/location.service';
 import { StaffService } from '../../service/staff.service';
@@ -27,24 +28,29 @@ export class NewAccountComponent {
     usernameStatus: string = Validation.Empty;
     passwordStatus: string = Validation.Empty;
     
-    constructor( private loginService: LoginService, 
-            private staffService: StaffService,
-            private locationService: LocationService, 
-            private router: Router ) {
-        this.newAccount = new NewAccount();
-        this.loginService.getAccountTypes()
-            .then( arr =>  { 
-                this.accTypes = arr as Array<any>; 
-            } );
-        this.locationService.getCampus().then(
-            response => { 
-                this.campusArr = response as Campus[]; 
-            }
-        );
+    constructor( 
+        private userService: UserService,
+        private loginService: LoginService, 
+        private staffService: StaffService,
+        private locationService: LocationService, 
+        private router: Router ) {
+            if ( !this.userService.isLoggedIn() || !this.userService.isAdmin ) 
+                this.router.navigate( [ 'login' ] );
+            
+            this.newAccount = new NewAccount();
+            this.loginService.getAccountTypes()
+                .then( arr =>  { 
+                    this.accTypes = arr as Array<any>; 
+                } );
+            this.locationService.getCampus().then(
+                response => { 
+                    this.campusArr = response as Campus[]; 
+                }
+            );
     }
 
     createAccount() {
-        if ( this.isValid() ) {
+        if ( this.isFilledOut() && this.isValid() ) {
             this.newAccount.user.attributes.PASSWORD = this.confirmPassword;
             this.loginService.createAccount(this.newAccount)
             .then( response => {
@@ -57,11 +63,30 @@ export class NewAccountComponent {
     }
 
     private isValid(): boolean {
-        return this.firstnameStatus === Validation.Valid
+        var valid = this.firstnameStatus === Validation.Valid
             && this.lastnameStatus === Validation.Valid
             && this.usernameStatus === Validation.Valid
             && this.passwordStatus === Validation.Valid
+            && this.newAccount.staff.attributes.CAMPUS_ID != null 
+            && this.newAccount.user.attributes.ACCOUNT_TYPE != null;
+        if ( !valid )
+            alert("Some fields have invalid values.");
+        return valid;
     }
+
+    private isFilledOut(): boolean {
+        var valid = this.firstnameStatus != Validation.Empty
+            && this.lastnameStatus != Validation.Empty
+            && this.usernameStatus != Validation.Empty
+            && this.passwordStatus != Validation.Empty
+            && this.newAccount.staff.attributes.CAMPUS_ID != null 
+            && this.newAccount.user.attributes.ACCOUNT_TYPE != null
+
+        if ( !valid )
+            alert("Please fill out all required fields.");
+        return valid;
+    }
+
 
     validateForm( attr: string ) {
         if ( attr === 'firstname' ) {
@@ -116,6 +141,8 @@ export class NewAccountComponent {
         
         if ( this.password != pass ) 
             this.passwordStatus = Validation.PasswordNotMatching;
+        else if ( pass.length == 0 )
+            this.passwordStatus = Validation.Empty;
         else if ( pass.length < 6 || pass.length > 20 )
             this.passwordStatus = Validation.Invalid;
         else {
