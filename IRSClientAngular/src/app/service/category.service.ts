@@ -90,7 +90,7 @@ export class CategoryService
         return grouping;
     }
 
-    changeIncidentCategory ( incident, newCategoryID, selectedCategory ) {
+    changeIncidentCategory ( incident, newCategoryID, selectedCategory ): number {
         incident.category.CATEGORY_ID = newCategoryID;
         incident.attributes.CATEGORY_ID = newCategoryID;
         incident.category.attributes.MAIN_CATEGORY = selectedCategory.attributes.MAIN_CATEGORY;
@@ -99,7 +99,16 @@ export class CategoryService
         incident.incidentElements[Config.IncidentCategoryKey]
             .splice(0, incident.incidentElements[Config.IncidentCategoryKey].length,
                     incident.category);
-        this.incidentService.update ( incident );            
+        this.incidentService.update ( incident )
+            .then( returnedIncident => {                
+                if ( returnedIncident != null  ) {
+                    return 1;
+                }
+                else {
+                    return -1;
+                }
+            });
+        return -1;  
     }
 
     private handleError( error: any ) : Promise<any> 

@@ -75,13 +75,20 @@ export class GuardIncidentComponent implements OnInit {
         this.toggleEditMode( attribute );
     }
 
-    toggleSuccessMessage( attribute: string ) {
-        if ( attribute == "description" ) {
-            this.showAlertDescription = !this.showAlertDescription;
-        }
-        else if ( attribute == "summary" ) {
-            this.showAlertSummary = !this.showAlertSummary;
-        }
+    toggleSuccessMessage() {
+        this.showAlertDescription = !this.showAlertDescription;
+    }
+
+    incidentSaved () {
+        this.toggleSuccessMessage ();   
+        this.alertMessage = "Successfully saved";
+        this.alertClass = "alert alert-success top-alert";                                                         
+    }
+
+    incidentSavedError () {
+        this.toggleSuccessMessage ();                                                            
+        this.alertMessage = "Edit failed" ;
+        this.alertClass = "alert alert-danger top-alert";
     }
 
     saveReport ( attribute: string ): void {
@@ -90,18 +97,14 @@ export class GuardIncidentComponent implements OnInit {
         this.incidentsService.update ( this.incident )
             .then( returnedIncident => {                
                 if ( returnedIncident != null  ) {
-                    this.toggleSuccessMessage ( attribute );                                                            
-                    this.alertMessage = "Successfully saved";
-                    this.alertClass = "alert alert-success topAlert";
+                    this.incidentSaved ();
                 }
                 else {
-                    this.alertMessage = "Edit failed" ;
-                    this.alertClass = "alert alert-danger topAlert";
-                    this.toggleSuccessMessage ( attribute );
+                    this.incidentSavedError ();
                 }
             } );
         setTimeout ( () => {
-            this.toggleSuccessMessage ( attribute ); 
+            this.toggleSuccessMessage (); 
         }, 
             1500 
         );                        
@@ -164,7 +167,18 @@ export class GuardIncidentComponent implements OnInit {
 
     changeCategory ( newCategoryID ) {
         this.incident.attributes.CATEGORY_ID = newCategoryID;
-        this.categoryService.changeIncidentCategory ( this.incident, newCategoryID, this.categoryModal.selectedCategory );
+        var success = this.categoryService.changeIncidentCategory ( this.incident, newCategoryID, this.categoryModal.selectedCategory );
+        if ( success == 1 ) {
+            this.incidentSaved ();            
+        }
+        else if ( success == -1 ) {
+            this.incidentSavedError ();            
+        }
+        setTimeout ( () => {
+            this.toggleSuccessMessage (); 
+        }, 
+            1500 
+        );                        
     }
 
     changeDescription() {

@@ -25,6 +25,10 @@ export class CategoryComponent implements OnInit {
     filteredSubcategories: SubCategory[] = [];
     filteredTypes: CategoryType[] = [];
     categoryID: number =  -1;
+
+    showMainCategoryAlert: boolean = false;  
+    showSubcategoryAlert: boolean = false;
+    showTypeAlert: boolean = false;  
     // currentCategory: Category;
 
     public visible = false;
@@ -59,6 +63,7 @@ export class CategoryComponent implements OnInit {
 
     // filter subcategory and type lists according to selection of previous dropdown
     onSelectCategory ( categoryName ) {
+    this.showMainCategoryAlert = false;        
     console.log ( "selected category: " + categoryName );
     this.selectedCategory.attributes.MAIN_CATEGORY = categoryName;
     var index = this.categories.findIndex( item => 
@@ -67,6 +72,7 @@ export class CategoryComponent implements OnInit {
     }
 
     onSelectSubCategory ( subCategoryName ) {
+        this.showSubcategoryAlert = false;        
         this.selectedCategory.attributes.SUB_CATEGORY = subCategoryName;
         var index = this.filteredSubcategories.findIndex( item => 
             item.SUB_CATEGORY == subCategoryName );
@@ -74,6 +80,7 @@ export class CategoryComponent implements OnInit {
     }
 
     onSelectTypeCategory ( type ) {
+        this.showTypeAlert = false;        
         type = type.split(",,");
         this.selectedCategory.attributes.INCIDENT_TYPE = type[0];
         this.categoryID = type[1];
@@ -81,7 +88,16 @@ export class CategoryComponent implements OnInit {
 
     submitCategory () {
         console.log ( "submitting category" );
-        if ( this.categoryID == -1 ) {
+        console.log ( this.selectedCategory );
+        if ( this.selectedCategory.attributes.MAIN_CATEGORY == "" ) {
+            this.showMainCategoryAlert = true;            
+            console.log("please select a category");
+        }
+        else if ( this.filteredSubcategories.length == 0 ) {
+            this.showSubcategoryAlert = true;                        
+            console.log("please select a subcategory");
+        }
+        else if ( this.categoryID == -1 ) {
             if ( this.filteredTypes.length == 0 ) {
                 this.selectedCategory.attributes.INCIDENT_TYPE = null;
                 this.categoryID = this.filteredSubcategories[0].CATEGORY_ID;
@@ -92,10 +108,11 @@ export class CategoryComponent implements OnInit {
             }
             else
             {
+                this.showTypeAlert = true;                            
                 console.log ( "Please select an incident type" );
             }
         }
-        if ( this.categoryID != -1 ) {
+        else if ( this.categoryID != -1 ) {
             if ( this.filteredTypes.length == 0 ) {
                 this.selectedCategory.attributes.INCIDENT_TYPE = null;          
             };

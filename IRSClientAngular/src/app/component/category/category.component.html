@@ -16,6 +16,9 @@
         
                 <!-- Category Picker -->
                 <div class="mt-2">
+                    <div class="alertTest modal-field-title" *ngIf="showCategoryAlert">
+                        Please select a category
+                    </div>
                     <label class="field-title modal-field-title">Category</label>
                     <select class="form-control category-field" 
                             ng-model="selectedMainCategory.MAIN_CATEGORY" 
@@ -28,6 +31,9 @@
 
                 <!-- Subcategory Picker -->
                 <div class="mt-2">  
+                    <div class="alertText modal-field-title" *ngIf="showSubcategoryAlert">
+                            Please select a subcategory
+                        </div>
                     <label class="field-title modal-field-title">Subcategory</label>  
                     <select class="form-control category-field" 
                             [(ngModel)] ="selectedSubCategory.SUB_CATEGORY" 
@@ -40,6 +46,9 @@
 
                 <!-- Type Picker -->
                 <div class="mt-2" *ngIf="filteredTypes.length > 0">
+                    <div class="alertText" *ngIf="showTypeAlert">
+                        Please select a type
+                    </div>
                     <label class="field-title modal-field-title">Type</label>    
                     <select class="form-control category-field" 
                             [(ngModel)] ="selectedType.INCIDENT_TYPE" 
