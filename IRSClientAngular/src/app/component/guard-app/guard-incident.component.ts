@@ -36,7 +36,7 @@ export class GuardIncidentComponent implements OnInit {
     newSummary: string = "";
     alertMessage: string = "";
     showAlertDescription: boolean = false;
-    showAlertSummary: boolean = false;    
+    showAlert: boolean = false;    
     alertClass: string = "";
 
     constructor (         
@@ -76,21 +76,21 @@ export class GuardIncidentComponent implements OnInit {
     }
 
     toggleSuccessMessage() {
-        this.showAlertDescription = !this.showAlertDescription;
+        this.showAlert = !this.showAlert;
     }
 
-    incidentSaved () {
+    incidentSavedAlert () {
         this.toggleSuccessMessage ();   
         this.alertMessage = "Successfully saved";
         this.alertClass = "alert alert-success top-alert";
         setTimeout ( () => {
-            this.toggleSuccessMessage (); 
+            this.toggleSuccessMessage(); 
         }, 
             1800 
         );                        
     }
 
-    incidentSavedError () {
+    incidentSavedErrorAlert () {
         this.toggleSuccessMessage ();                                                            
         this.alertMessage = "Edit failed" ;
         this.alertClass = "alert alert-danger top-alert";
@@ -107,10 +107,10 @@ export class GuardIncidentComponent implements OnInit {
         this.incidentsService.update ( this.incident )
             .then( returnedIncident => {                
                 if ( returnedIncident != null  ) {
-                    this.incidentSaved ();
+                    this.incidentSavedAlert ();
                 }
                 else {
-                    this.incidentSavedError ();
+                    this.incidentSavedErrorAlert ();
                 }
             } );                      
         this.toggleEditMode ( attribute );            
@@ -159,11 +159,23 @@ export class GuardIncidentComponent implements OnInit {
 
         if ( locationToRemove == -1 ) {
             // Add new location 
-            this.incidentElementService.addElement ( this.incident, locationToAdd );
+            var incident = this.incidentElementService.addElement ( this.incident, locationToAdd )
+                .then ( incident => {
+                    return incident;
+                });
         }
         else {
             // Change existing location
-            this.incidentElementService.changeElement ( this.incident, locationToRemove, locationToAdd );
+            var incident = this.incidentElementService.changeElement ( this.incident, locationToRemove, locationToAdd )
+                .then ( incident => {
+                    return incident;
+                });
+            }
+        if ( Promise.resolve ( incident ) == null ) {
+            this.incidentSavedErrorAlert ();            
+        }
+        else {
+            this.incidentSavedAlert ();            
         }
 
         this.locationModal.locationComponent.newLocation = new Location(); // reset
@@ -177,10 +189,10 @@ export class GuardIncidentComponent implements OnInit {
                 return incident;
             });
         if ( Promise.resolve(incident) == null ) {
-            this.incidentSavedError ();            
+            this.incidentSavedErrorAlert ();            
         }
         else {
-            this.incidentSaved ();            
+            this.incidentSavedAlert ();  
         }
     }
 
@@ -206,18 +218,5 @@ export class GuardIncidentComponent implements OnInit {
         });
     }
 }
-
-//   addIncident(): void {
-//     this.incidentsService.create( this.newIncident )
-//         .then( returnedIncident => {
-//             if ( returnedIncident != null  ) {
-//               this.incidents.push( returnedIncident );
-//               alert( "Incident successfully added!" );
-//             }
-//             else alert( "Add failed." );
-//         } );
-//     delete this.newIncident;
-//     this.newIncident = new Incident();
-//   }
 
     

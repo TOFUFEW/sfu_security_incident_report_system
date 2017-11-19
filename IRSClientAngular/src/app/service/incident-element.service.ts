@@ -78,7 +78,7 @@ export class IncidentElementService
         return elementIndex;
     }
     
-    changeElement( incident: Incident, idToRemove: number, element: IncidentElement ) {
+    changeElement( incident: Incident, idToRemove: number, element: IncidentElement ): Promise<Incident> {
         var table = element.table;        
         var key = this.getElementKey ( table );
         var index = -1;
@@ -86,14 +86,22 @@ export class IncidentElementService
     
         if ( incident.incidentElements[key] != null && index != -1 ) {
             incident.incidentElements[key].splice( index, 1, element );
-            this.incidentService.update ( incident );            
+            var promise = this.incidentService.update ( incident )
+                .then ( incident => {
+                    return incident;
+                });            
         }
+        return Promise.resolve(promise);
     }
 
-    addElement ( incident: Incident, element: IncidentElement ) {
+    addElement ( incident: Incident, element: IncidentElement ): Promise<Incident> {
         var key = this.getElementKey( element.table );        
         incident.incidentElements[key].push ( element );
-        this.incidentService.update ( incident );
+        var promise = this.incidentService.update ( incident )
+            .then ( incident => {
+                return incident;
+            });
+        return Promise.resolve(promise);
     }
     
 }
