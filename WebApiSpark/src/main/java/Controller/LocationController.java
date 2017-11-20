@@ -5,9 +5,6 @@ import Util.DBHelper;
 import Util.DatabaseValues;
 import Util.JsonUtil;
 
-import java.sql.ResultSet;
-
-import static Util.JsonUtil.json;
 import static spark.Spark.*;
 
 public class LocationController {

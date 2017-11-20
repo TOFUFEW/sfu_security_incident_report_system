@@ -21,9 +21,9 @@ import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
 import { AttachmentComponent } from './component/attachment/attachment.component';
 import { LocationModalComponent } from './component/location/location-modal.component';
-
 import { CategoryComponent } from './component/category/category.component'
 import { ReportSummaryComponent } from './component/report/report-summary.component';
+import { InlineEditComponent } from './component/report/inline-edit.component';
 
 /* Services */
 import { UserService } from './service/user.service';
@@ -65,7 +65,8 @@ import { FilterPipe } from './util/filter.pipe';
     SearchComponent,
     PersonComponent,
     FilterPipe,
-    ReportSummaryComponent
+    ReportSummaryComponent,
+    InlineEditComponent
   ],
   
   providers: [
