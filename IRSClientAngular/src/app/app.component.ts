@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from './service/user.service';
 import { Router, RouterModule } from '@angular/router';
+import { User } from '../app/component/login/user';
 
 @Component({
     selector: 'app-root',
@@ -9,28 +10,32 @@ import { Router, RouterModule } from '@angular/router';
 
 export class AppComponent implements OnInit {
 
-  constructor( private router: Router,
-               private userService: UserService ) {
-  }
+    user: User;
+    userAccType: number;
+    isAdmin: boolean = false;
 
-  showLogoutButton() {
-      var button = document.getElementById("logout" );
-      button.style.visibility = "visible";
-  }
+    constructor( 
+        private router: Router,
+        private userService: UserService ) {
+            this.user = this.userService.getCurrentUser();
+    }
 
-  onLogout() {
-      var button = document.getElementById("logout" );
-      button.style.visibility = "hidden";
-      this.userService.logout();
-      this.router.navigate([ 'login' ] );
-  }
+    onLogout() {
+        this.userService.logout();
+        this.router.navigate([ 'login' ] );
+    }
 
-  ngOnInit(): void {
-      var button = document.getElementById("logout" );
-      if( this.userService.isLoggedIn() ) {
-          button.style.visibility = "visible";
-      } else {
-          button.style.visibility = "hidden";
-      }
-  }
+    redirect( component: string ) {
+        this.router.navigate([component]);
+    }
+
+    ngOnInit(): void {
+        this.userService.user.subscribe( u => {
+            this.user = u;
+            if ( u != null ) {
+                this.userAccType = u.attributes.ACCOUNT_TYPE;   
+            }
+            this.isAdmin = this.userAccType == this.userService.ADMIN;         
+        });
+    }
 }

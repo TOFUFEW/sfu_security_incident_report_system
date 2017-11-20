@@ -1,0 +1,112 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-10 col-sm-offset-1 col-sm-offset-right-1
+                    col-lg-6 col-lg-offset-3 col-lg-offset-right-3">
+            <div id="new-account-panel" class="panel panel-default">
+                <div class="panel-heading">
+                    <div>
+                        <span class="glyphicon glyphicon-user glyphicon-heading"></span>
+                        <span class="panel-header">Create New Account</span>
+                    </div>
+                </div>
+                <div class="panel-body">
+
+                    <div class="details-container">
+                        <div>
+                            <div class="details-body">
+                                <div class="detail col-sm-12">
+                                    <div class="detail-col col-sm-6">
+                                        <span class="filter-title">First Name <span class="required-asterisk">*</span></span>
+                                        <input class="form-control" type="text" maxlength="20"
+                                            [(ngModel)]="newAccount.staff.attributes.FIRST_NAME"
+                                            (blur)="validateForm('firstname')"/>
+                                    </div>
+                                    <div class="detail-col col-sm-6">
+                                        <span class="glyphicon glyphicon-ok-sign" *ngIf="firstnameStatus === 'valid'"></span>
+                                        <span class="validation-text" *ngIf="firstnameStatus === 'invalid'">You can only use letters, apostrophes, spaces, and dashes (‘-’) in your name.</span>                                                                                
+                                    </div>
+                                </div>
+
+                                <div class="detail col-sm-12">
+                                    <div class="detail-col col-sm-6">
+                                        <span class="filter-title">Last Name <span class="required-asterisk">*</span></span>
+                                        <input class="form-control" type="text" maxlength="20"
+                                            [(ngModel)]="newAccount.staff.attributes.LAST_NAME"
+                                            (blur)="validateForm('lastname');" />
+                                    </div>
+                                    <div class="detail-col col-sm-6">
+                                        <span class="glyphicon glyphicon-ok-sign" *ngIf="lastnameStatus === 'valid'"></span>
+                                        <span class="validation-text" *ngIf="lastnameStatus === 'invalid'">You can only use letters, apostrophes, spaces, and dashes (‘-’) in your name.</span>                                                                                                                        
+                                    </div>
+                                </div>
+
+                                <div class="detail col-sm-12">
+                                    <div class="detail-col col-sm-6 col-sm-offset-right-6">
+                                        <span class="filter-title">Campus <span class="required-asterisk">*</span></span>
+                                        <select class="form-control" [(ngModel)]="newAccount.staff.attributes.CAMPUS_ID">
+                                            <option *ngFor="let campus of campusArr" [value]="campus.attributes.CAMPUS_ID">{{campus.attributes.CITY}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="detail col-sm-12">
+                                    <div class="detail-col col-sm-6 col-sm-offset-right-6">
+                                        <span class="filter-title">Role <span class="required-asterisk">*</span></span>
+                                        <select class="form-control" [(ngModel)]="newAccount.user.attributes.ACCOUNT_TYPE">
+                                            <option *ngFor="let type of accTypes" [value]="type.id">{{type.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="detail col-sm-12">
+                                    <div class="detail-col col-sm-6">
+                                        <span class="filter-title">Username <span class="required-asterisk">*</span></span>
+                                        <input class="form-control" type="text" maxlength="20"
+                                            [(ngModel)]="newAccount.user.attributes.USERNAME" 
+                                            (blur)="validateForm('username');"/>
+                                    </div>
+                                    <div class="detail-col col-sm-6">
+                                        <span class="glyphicon glyphicon-ok-sign" *ngIf="usernameStatus === 'valid'"></span>
+                                        <span class="validation-text" *ngIf="usernameStatus === 'taken'">Username is taken.</span>
+                                        <span class="validation-text" *ngIf="usernameStatus === 'invalid'">Username must have at least 6 characters (max. = 20). You can only use letters, numbers, periods (‘.’), and underscores (‘_’) in your username. </span>                                        
+                                    </div>
+                                </div>
+
+                                <div class="detail col-sm-12">
+                                    <div class="detail-col col-sm-6">
+                                        <span class="filter-title">Password <span class="required-asterisk">*</span></span>
+                                        <input class="form-control" type="password" 
+                                            [(ngModel)]="password"
+                                            (blur)="validateForm('password');"/>
+                                    </div>
+                                    <div class="detail-col col-sm-6">
+                                        <span class="glyphicon glyphicon-ok-sign" *ngIf="passwordStatus === 'valid'"></span>                                        
+                                    </div>
+                                </div>
+
+                                <div class="detail col-sm-12">
+                                    <div class="detail-col col-sm-6">
+                                        <span class="filter-title">Confirm Password <span class="required-asterisk">*</span></span>
+                                        <input class="form-control" type="password" 
+                                            [(ngModel)]="confirmPassword"
+                                            (blur)="validateForm('password');"/>
+                                    </div>
+                                    <div class="detail-col col-sm-6">
+                                        <span class="glyphicon glyphicon-ok-sign" *ngIf="passwordStatus === 'valid'"></span>
+                                        <span class="validation-text" *ngIf="passwordStatus === 'invalid' || passwordStatus ==='empty'">Password must have at least 6 characters (max. = 20).</span>                                                                                
+                                        <span class="validation-text" *ngIf="passwordStatus === 'notmatching'">Passwords do not match.</span>                                                                                                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="panel-footer">
+                    <button class="btn btn-default" (click)="createAccount()">Create Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

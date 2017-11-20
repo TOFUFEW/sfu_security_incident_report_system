@@ -28,12 +28,13 @@ export class LocationAttributes {
     BUILDING_NAME: string;
     ROOM_NUMBER: string;
     DEPARTMENT: string;
-        // CITY: string;
-    // ADDRESS: string;
+        
+    CITY: string;
 }
 
 export class LocationMapping {
     CAMPUS_ID: number;
+    CITY: string;
     BUILDINGS: Building[];
 
     constructor() {
