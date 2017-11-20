@@ -490,10 +490,16 @@ div#new-report-panel, div#new-account-panel {
 
   .col-lg-offset-right-0 {
     margin-right: 0; } }
+#logout-link {
+  display: none !important; }
+
 .navbar-sm {
   display: none; }
 
 @media (max-width: 768px) {
+  #logout-link {
+    display: flex !important; }
+
   .navbar-sm {
     display: block; }
 
