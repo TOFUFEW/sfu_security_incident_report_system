@@ -29,7 +29,6 @@ export class CategoryComponent implements OnInit {
     showMainCategoryAlert: boolean = false;  
     showSubcategoryAlert: boolean = false;
     showTypeAlert: boolean = false;  
-    // currentCategory: Category;
 
     public visible = false;
     private visibleAnimate = false;

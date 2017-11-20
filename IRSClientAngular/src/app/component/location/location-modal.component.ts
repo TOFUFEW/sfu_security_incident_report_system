@@ -17,11 +17,10 @@ import { Config } from '../../util/config.service';
 }) 
 
 export class LocationModalComponent implements OnInit {     
-    @ViewChild(LocationComponent) locationComponent: LocationComponent     
-    @Output()     
+    @ViewChild ( LocationComponent ) locationComponent: LocationComponent   
+    @Output ()     
     locationSaved:EventEmitter<string> = new EventEmitter();         
     
-    private currentLocationID: number;     
     public visible = false;     
     public button_id;     
     private visibleAnimate = false;     
@@ -30,7 +29,7 @@ export class LocationModalComponent implements OnInit {
         private reportService: NewReportService,     
     ) {}     
     
-    public show( event ): void {         
+    public show ( event ): void {         
         var target = event.target || event.srcElement || event.currentTarget;         
         if ( target.id ) {
             console.log("target ", target );          
@@ -40,8 +39,9 @@ export class LocationModalComponent implements OnInit {
         }        
         else {             
             this.button_id = -1;         
-        }         
-        this.visible = true;         
+        }   
+        this.visible = true;
+        this.locationComponent.updateCurrentLocation ( target.id );   
         setTimeout(() => this.visibleAnimate = true, 100);     
     }         
     

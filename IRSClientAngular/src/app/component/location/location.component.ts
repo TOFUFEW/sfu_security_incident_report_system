@@ -19,11 +19,20 @@ export class LocationComponent implements OnInit {
     rooms: Room[] = [];
     selectedCampus: LocationMapping = new LocationMapping();
     newLocation: Location = new Location();
+    currentLocation: Location = new Location();
 
     constructor (
         private locationService: LocationService,
         private reportService: NewReportService
     ) { 
+    }
+
+    updateCurrentLocation ( locationID: number ) {
+        this.locations.forEach ( location => {
+            if ( location.attributes.LOCATION_ID == locationID ) {
+                this.currentLocation = location;
+            }
+        });
     }
 
     addLocationToReport(): void {

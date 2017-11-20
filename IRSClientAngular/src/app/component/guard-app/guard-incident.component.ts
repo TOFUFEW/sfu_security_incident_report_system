@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule, ActivatedRoute, ParamMap, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
@@ -23,9 +23,9 @@ import { Output } from '@angular/core/src/metadata/directives';
 })
 
 export class GuardIncidentComponent implements OnInit {     
-    @ViewChild(LocationModalComponent) locationModal: LocationModalComponent     
-    @ViewChild(CategoryComponent) categoryModal: CategoryComponent  
-    @ViewChild(InlineEditComponent) inlineEdit: InlineEditComponent
+    @ViewChild ( LocationModalComponent ) locationModal: LocationModalComponent     
+    @ViewChild ( CategoryComponent ) categoryModal: CategoryComponent  
+    @ViewChild ( InlineEditComponent ) inlineEdit: InlineEditComponent
     title = 'SFU Incident Reporting System';     
     incident: Incident = new Incident();
     locationModalStr = "location-modal";
