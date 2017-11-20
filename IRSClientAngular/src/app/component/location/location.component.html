@@ -7,7 +7,7 @@
         <select class="form-control" name="" id="" [(ngModel)]="newLocation.attributes.CAMPUS_ID" (change)="onSelectCampus()">
             <option *ngFor="let campus of locationMap" 
                     [value]="campus.CAMPUS_ID"
-                    [selected] = "campus.CAMPUS_ID == currentLocation.attributes.CAMPUS_ID">
+                    [selected] = "campus.CITY == currentLocation.attributes.CITY">
                 {{campus.CITY}}
             </option>
         </select>

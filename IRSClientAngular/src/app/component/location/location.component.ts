@@ -28,11 +28,16 @@ export class LocationComponent implements OnInit {
     }
 
     updateCurrentLocation ( locationID: number ) {
-        this.locations.forEach ( location => {
-            if ( location.attributes.LOCATION_ID == locationID ) {
-                this.currentLocation = location;
-            }
-        });
+        if ( locationID != -1 ) {
+            this.locations.forEach ( location => {
+                if ( location.attributes.LOCATION_ID == locationID ) {
+                    this.currentLocation = location;
+                }
+            });
+        }
+        else {
+            this.currentLocation = null;
+        }
     }
 
     addLocationToReport(): void {
