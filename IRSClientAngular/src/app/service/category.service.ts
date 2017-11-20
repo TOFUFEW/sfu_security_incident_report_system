@@ -3,8 +3,6 @@ import { Category, CategoryDictionary, SubCategory, CategoryType } from '../comp
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
-import { IncidentService } from '../service/incident.service';
-import { IncidentElementService } from '../service/incident-element.service';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -14,8 +12,7 @@ export class CategoryService
     private headers = new Headers({ 'Content-Type': 'application/json' });
     categoriesUrl = Config.CategoriesURI;
     constructor ( 
-        private http: Http,
-        private incidentService: IncidentService ){}
+        private http: Http ){}
 
     getCategories(): Promise < Category[] > {
         var categories = this.http.get( this.categoriesUrl )
@@ -88,18 +85,6 @@ export class CategoryService
         });
 
         return grouping;
-    }
-
-    changeIncidentCategory ( incident, newCategoryID, selectedCategory ) {
-        incident.category.CATEGORY_ID = newCategoryID;
-        incident.attributes.CATEGORY_ID = newCategoryID;
-        incident.category.attributes.MAIN_CATEGORY = selectedCategory.attributes.MAIN_CATEGORY;
-        incident.category.attributes.SUB_CATEGORY = selectedCategory.attributes.SUB_CATEGORY;
-        incident.category.attributes.INCIDENT_TYPE = selectedCategory.attributes.INCIDENT_TYPE;      
-        incident.incidentElements[Config.IncidentCategoryKey]
-            .splice(0, incident.incidentElements[Config.IncidentCategoryKey].length,
-                    incident.category);
-        this.incidentService.update ( incident );            
     }
 
     private handleError( error: any ) : Promise<any> 

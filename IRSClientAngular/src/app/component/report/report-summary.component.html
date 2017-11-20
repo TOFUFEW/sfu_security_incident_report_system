@@ -31,29 +31,32 @@
                 <div class="detail detail-lg col-12">
                     <span class="field-title">Category: </span>
                     <span class="field-value" *ngIf="!editMode && report.category != null">{{report.category.attributes.MAIN_CATEGORY}}</span>
-                    <select class="form-control" *ngIf="editMode">
-                        <option></option>
+                    <select class="form-control" *ngIf="editMode" [(ngModel)]="report_edit.category.attributes.MAIN_CATEGORY" (change)="onSelectCategory()">
+                        <option *ngFor="let category of categories" [value]="category.MAIN_CATEGORY">{{category.MAIN_CATEGORY}}</option>
                     </select>
                 </div>
                 <div class="detail detail-lg col-12">
                     <span class="field-title">Sub Category: </span>
                     <span class="field-value" *ngIf="!editMode && report.category != null">{{report.category.attributes.SUB_CATEGORY}}</span>
-                    <select class="form-control" *ngIf="editMode">
-                        <option></option>
+                    <select class="form-control" *ngIf="editMode" [(ngModel)]="report_edit.category.attributes.SUB_CATEGORY" (change)="onSelectSubCategory()">
+                        <option *ngFor="let sub of subCategories" [value]="sub.SUB_CATEGORY">{{sub.SUB_CATEGORY}}</option>
                     </select>
                 </div>
-                <div class="detail detail-lg col-12">
+                <div class="detail detail-lg col-12" *ngIf="categoryTypes != null && categoryTypes.length > 0">
                     <span class="field-title">Type: </span>
                     <span class="field-value" *ngIf="!editMode && report.category != null">{{report.category.attributes.INCIDENT_TYPE}}</span>
-                    <select class="form-control" *ngIf="editMode">
-                        <option></option>
+                    <select class="form-control" *ngIf="editMode" [(ngModel)]="report_edit.category.attributes.CATEGORY_TYPE" (change)="onSelectType()">
+                        <option *ngFor="let type of categoryTypes" [value]="type.INCIDENT_TYPE">{{type.INCIDENT_TYPE}}</option>
                     </select>
                 </div>
+            </div>
+            <div class="details-body">
                 <div class="detail detail-lg col-12">
                     <span class="field-title">Assigned To: </span>
                     <span class="field-value" *ngIf="!editMode && report.guard != null">{{report.guard.attributes.FIRST_NAME}} {{report.guard.attributes.LAST_NAME}}</span>
-                    <input *ngIf="editMode" type="text" class="form-control" placeholder="First Name" />
-                    <input *ngIf="editMode" type="text" class="form-control" placeholder="Last Name" />
+                    <select class="form-control" *ngIf="editMode">
+                        <option></option>
+                    </select>
                 </div>
                 <div class="detail detail-lg col-12">
                     <span class="field-title">Description: </span>

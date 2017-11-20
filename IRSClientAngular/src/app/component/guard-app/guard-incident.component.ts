@@ -160,7 +160,7 @@ export class GuardIncidentComponent implements OnInit {
 
     changeCategory ( newCategoryID ) {
         this.incident.attributes.CATEGORY_ID = newCategoryID;
-        this.categoryService.changeIncidentCategory ( this.incident, newCategoryID, this.categoryModal.selectedCategory );
+        this.changeIncidentCategory ( this.incident, newCategoryID, this.categoryModal.selectedCategory );
     }
 
     changeDescription() {
@@ -171,6 +171,18 @@ export class GuardIncidentComponent implements OnInit {
     changeSummary() {
         var summary = this.inlineEdit.value;
         this.incident.attributes.EXECUTIVE_SUMMARY = summary;
+    }
+
+    changeIncidentCategory ( incident, newCategoryID, selectedCategory ) {
+        incident.category.CATEGORY_ID = newCategoryID;
+        incident.attributes.CATEGORY_ID = newCategoryID;
+        incident.category.attributes.MAIN_CATEGORY = selectedCategory.attributes.MAIN_CATEGORY;
+        incident.category.attributes.SUB_CATEGORY = selectedCategory.attributes.SUB_CATEGORY;
+        incident.category.attributes.INCIDENT_TYPE = selectedCategory.attributes.INCIDENT_TYPE;      
+        incident.incidentElements[Config.IncidentCategoryKey]
+            .splice(0, incident.incidentElements[Config.IncidentCategoryKey].length,
+                    incident.category);
+        this.incidentsService.update ( incident );            
     }
 
     ngOnInit() : void {         

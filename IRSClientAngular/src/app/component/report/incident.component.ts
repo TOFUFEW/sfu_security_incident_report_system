@@ -32,6 +32,14 @@ export class IncidentComponent implements OnInit {
         });
         this.incidentService.lastRemovedId
             .subscribe( value => this.removeFromWorkspace( value ) );
+        this.incidentService.editedReport
+            .subscribe( value => {
+                if ( value != null && this.incidents!= null && this.incidents.length > 0 ) {
+                    var index = this.incidents.findIndex( i => i.attributes.REPORT_ID == value.attributes.REPORT_ID );
+                    if ( index >= 0 )
+                        this.incidents.splice(index, 1, value);
+                }
+            });
     };
 
     getIncidents(): void {
@@ -46,8 +54,6 @@ export class IncidentComponent implements OnInit {
 
     addToWorkspace( incident: Incident ): void {
         incident.inWorkspace = true ;
-        console.log("adding to workspace...");
-        console.log(incident);
         this.incidentService.addToWorkspace( incident );
     }
 
@@ -60,7 +66,6 @@ export class IncidentComponent implements OnInit {
     }
 
     setIncidentToAssign( id: number ) {
-        console.log(id);
         if ( id == null ) return;
         var index = this.incidents.findIndex( x => x.attributes.REPORT_ID == id );
         if ( index >= 0 ) {

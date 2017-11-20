@@ -10,16 +10,6 @@
                 </div>
                 <div id="workspace-main" class="col-sm-9">
                     <div id="incidents-dashboard" class="panel panel-default">
-                        <!-- <div class="panel-heading">
-
-                            <div>
-                                <span class="glyphicon glyphicon-dashboard glyphicon-heading"></span>
-                                <span class="panel-header">Workspace</span>
-                            </div>
-                            <div id="button-container">
-                                <button class="btn btn-primary" (click)="newReport();">New Report</button>
-                            </div>
-                        </div> -->
                         <div class="panel-body">
                             <div class="quarter-box" *ngFor="let report of reportsInWorkspace">
                                 <report-summary [inputReport]="report"></report-summary>

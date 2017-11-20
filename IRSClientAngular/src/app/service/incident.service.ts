@@ -9,12 +9,14 @@ import { Category } from '../component/category/category';
 import { Location } from '../component/location/location';
 import { Campus } from '../component/location/campus';
 import { Person } from '../component/person/person';
-import 'rxjs/add/operator/toPromise';
 import { User } from "../component/login/user";
+import { CategoryDictionary } from "../component/category/category";
 import { UserService } from "./user.service";
 import { Staff } from '../component/staff/staff';
 import { StaffService } from '../service/staff.service';
 import { LocationService } from '../service/location.service';
+import { CategoryService } from '../service/category.service';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class IncidentService
@@ -32,18 +34,29 @@ export class IncidentService
     private bs_lastRemovedId = new BehaviorSubject<number>( 0 );
     lastRemovedId = this.bs_lastRemovedId.asObservable();
 
+    private bs_categories = new BehaviorSubject<CategoryDictionary[]>([]);
+    categoryDictionary = this.bs_categories.asObservable();
+
+    private bs_editedReport = new BehaviorSubject<Incident>(null);
+    editedReport = this.bs_editedReport.asObservable();
+
     staffArr: Staff[] = [];
     campusArr: Campus[] = [];
-
+    
     constructor( private http: Http, 
         private staffService: StaffService,
-        private locationService: LocationService) {
+        private locationService: LocationService,
+        private categoryService: CategoryService) {
         this.staffService.getStaffs().then( returnedArr => {
             this.staffArr = returnedArr;
         });
         this.locationService.getCampus().then( response => {
             this.campusArr = response as Campus[];
         });
+        this.categoryService.getCategories().then( response => {
+            var cat = this.categoryService.toCategoryDictionary( response );
+            this.bs_categories.next(cat);
+        } );
     }
 
     addToWorkspace( incident: Incident ): void {
@@ -58,6 +71,10 @@ export class IncidentService
         var index = arr.findIndex( i => i.attributes.REPORT_ID == id );
         arr.splice( index, 1 );
         this.bs_reportsToAddToWorkspace.next( arr );
+    }
+
+    updateIncidentList( report: Incident ) {
+        this.bs_editedReport.next( report );
     }
 
     getIncidents(): Promise<Incident[]> {
