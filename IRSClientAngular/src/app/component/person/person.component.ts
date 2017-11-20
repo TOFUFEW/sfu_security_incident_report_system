@@ -117,6 +117,7 @@ export class PersonComponent implements OnInit {
         }
         this.filterPerson = this.newPerson;
         this.personSelected = true;
+        this.toggleNewPersonFlag = false;
         delete this.newPerson;
         this.newPerson = new Person();
         this.personExists = false;
