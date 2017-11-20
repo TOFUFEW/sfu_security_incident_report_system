@@ -12,11 +12,15 @@ import { Config } from '../../util/config.service';
 
 export class PersonComponent implements OnInit {
     private reference: any;
-    personList: Person[];
+    personList: Person[] = [];
     newPerson: Person = new Person();
+    searchPerson: Person = new Person();
     phoneNumber1: string = "";
     phoneNumber2: string = "";
     phoneNumber3: string = "";
+    toggleNewPersonFlag: boolean = false;
+    personSelected: boolean = false;
+    personExists: boolean = false;
 
     constructor( 
         private personService: PersonService,
@@ -41,6 +45,27 @@ export class PersonComponent implements OnInit {
     onChangePhoneNumber(): void {
         this.newPerson.attributes.PHONE_NUMBER = this.phoneNumber1 + this.phoneNumber2 + this.phoneNumber3;
     }
+    
+    onChangeSearchPhoneNumber(): void {
+        this.searchPerson.attributes.PHONE_NUMBER = this.phoneNumber1 + this.phoneNumber2 + this.phoneNumber3;
+    }
+    
+
+    toggleNewPerson(): void {
+        this.toggleNewPersonFlag = !this.toggleNewPersonFlag;
+        console.log(this.personList); 
+    }
+    
+    selectPerson(person: Person) : void {
+        this.newPerson = person;
+
+    
+        this.searchPerson.attributes.FIRST_NAME = person.attributes.FIRST_NAME;
+        this.searchPerson.attributes.LAST_NAME = person.attributes.LAST_NAME;
+        this.searchPerson.attributes.PHONE_NUMBER = person.attributes.PHONE_NUMBER;
+
+        this.personSelected = true; 
+    }
 
     getPersons(): void {
         this.personService.getPersons().then( returnedPersons => {
@@ -50,20 +75,37 @@ export class PersonComponent implements OnInit {
     }
 
     addPerson(): void {
-        this.personService.create(this.newPerson)
-            .then(returnedPerson => {
-                if (returnedPerson != null) {
-                    this.personList.push(returnedPerson);
-                    alert("Person successfully added!");
-                }
-                else alert("Add failed.");
-            });
+        this.personList.forEach(person => {
+            if (person.attributes.FIRST_NAME == this.newPerson.attributes.FIRST_NAME
+                && person.attributes.LAST_NAME == this.newPerson.attributes.LAST_NAME
+                && person.attributes.PHONE_NUMBER == this.newPerson.attributes.PHONE_NUMBER
+            ) {
+                alert("Person already exists");
+                this.personExists = true;
+                return;
+            }
+        });
+        if (!this.personExists){
+            this.personService.create(this.newPerson)
+                .then(returnedPerson => {
+                    if (returnedPerson != null) {
+                        console.log(returnedPerson);
+                        this.personList.push(returnedPerson as Person);
+                        alert("Person successfully added!");
+                    }
+                    else alert("Add failed.");
+                });
+        }
+        this.searchPerson = this.newPerson;
+        this.personSelected = true;
         delete this.newPerson;
         this.newPerson = new Person();
+        this.personExists = false;
     }
 
-    findPerson( type : string ): void {
-        this.personService.searchList( type, this.personList );
+    findPerson(type: string): void {
+        this.personSelected = false;    
+        this.personService.searchList( type, this.searchPerson, this.personList );
     }
 
     updatePerson( person: Person ): void {
@@ -73,7 +115,7 @@ export class PersonComponent implements OnInit {
                 var i = this.personList.findIndex( person => person.attributes.PERSON_ID === returnedPerson.attributes.PERSON_ID );
                 // remove 1 object at index i, replace it with returnedPerson
                 this.personList.splice( i, 1, returnedPerson );
-                alert( " successfully edited!" );            
+                alert( "successfully edited!" );            
               }
               else alert( "Edit failed." );  
           } );

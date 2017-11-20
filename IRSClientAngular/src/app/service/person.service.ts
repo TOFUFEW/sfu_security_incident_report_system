@@ -31,7 +31,7 @@ export class PersonService {
     }
 
     create( person: Person ) : Promise<Person> {
-        var promise = this.http
+        var promise : Promise<Person>= this.http
                 .put( this.personUrl, JSON.stringify( person ), { headers: this.headers } )
                 .toPromise()
                 .then( response => response.json() as Person )
@@ -58,37 +58,32 @@ export class PersonService {
         return Promise.resolve( promise );
     };
 
-    searchList( type : string, personList : Person[]) : void {
+    searchList( type: string, person: Person, personList : Person[] ) : void {
         var input, filter, ul, li;
         ul = document.getElementById("peopleDisplay");
         li = ul.getElementsByTagName('li');
         
         // Loop through all list items, and hide those who don't match the search query
+
         if ( type == "first" ) {
-            input = document.getElementById('personInputFirst');
-            filter = input.value.toUpperCase();
             for (var i = 0; i < personList.length; i++ ){
-                if (personList[i].attributes.FIRST_NAME.toUpperCase().indexOf(filter) > -1 ){
+                if (personList[i].attributes.FIRST_NAME.toUpperCase().indexOf(person.attributes.FIRST_NAME.toUpperCase()) > -1 ){
                     li[i].style.display = "";
                 } else {
                     li[i].style.display = "none";
                 }
             }   
         } else if ( type == "last" ) {
-            input = document.getElementById('personInputLast');
-            filter = input.value.toUpperCase();
             for (var i = 0; i < personList.length; i++ ){
-                if (personList[i].attributes.LAST_NAME.toUpperCase().indexOf(filter) > -1 ){
+                if (personList[i].attributes.LAST_NAME.toUpperCase().indexOf(person.attributes.LAST_NAME.toUpperCase()) > -1 ){
                     li[i].style.display = "";
                 } else {
                     li[i].style.display = "none";
                 }
             }   
         } else if ( type == "number" ) {
-            input = document.getElementById('personInputPhone');
-            filter = input.value.toString();
             for (var i = 0; i < personList.length; i++ ){
-                if (personList[i].attributes.PHONE_NUMBER.toString().indexOf(filter) > -1 ){
+                if (personList[i].attributes.PHONE_NUMBER.toString().indexOf(person.attributes.PHONE_NUMBER.toString()) > -1 ){
                     li[i].style.display = "";
                 } else {
                     li[i].style.display = "none";
