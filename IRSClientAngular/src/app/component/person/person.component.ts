@@ -27,6 +27,8 @@ export class PersonComponent implements OnInit {
         private personService: PersonService,
         private reportService: NewReportService
     ){
+        this.filterPerson.attributes.FIRST_NAME = "";
+        this.filterPerson.attributes.LAST_NAME = "";
         this.filterList = this.personList;
     };
 
@@ -79,7 +81,16 @@ export class PersonComponent implements OnInit {
     getPersons(): void {
         this.personService.getPersons().then( returnedPersons => {
             this.personList = returnedPersons;
-        } );   
+        } )
+        .then( () => {
+            this.copyPersonLst();
+            //this.filterPerson = new Person();
+        });   
+    }
+
+    copyPersonLst() : void {
+        Object.assign(this.filterList , this.personList);
+        console.log(this.filterList);
     }
 
     addPerson(): void {
@@ -114,9 +125,7 @@ export class PersonComponent implements OnInit {
     findPerson(): void {
         this.personSelected = false;
         console.log(this.filterPerson);
-        this.filterList = this.personService.filter(this.personList, this.filterPerson);   
-
-        //this.personService.searchList( type, this.filterPerson, this.personList );
+        this.personService.filter(this.filterList, this.personList, this.filterPerson);   
     }
 
     updatePerson( person: Person ): void {
