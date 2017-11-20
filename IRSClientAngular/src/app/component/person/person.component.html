@@ -6,24 +6,24 @@
     <h4>Search</h4>
     <div class="detail col-12 col-sm-3">
             <span class="field-title">First Name <span class="required-asterisk">*</span></span>
-            <input class="form-control" id="personInputFirst" type="text" (keyup)="findPerson('name')" [(ngModel)]="filterPerson.attributes.FIRST_NAME"/>
+            <input class="form-control" id="personInputFirst" type="text" (keyup)="findPerson()" [(ngModel)]="filterPerson.attributes.FIRST_NAME"/>
         </div>
         <div class="detail col-12 col-sm-3">
             <span class="field-title">Last Name <span class="required-asterisk">*</span></span>
-            <input class="form-control" id="personInputLast" type="text" (keyup)="findPerson('name')" [(ngModel)]="filterPerson.attributes.LAST_NAME"/>
+            <input class="form-control" id="personInputLast" type="text" (keyup)="findPerson()" [(ngModel)]="filterPerson.attributes.LAST_NAME"/>
         </div>
         <div class="detail col-12 col-sm-3">
             <span class="field-title">Phone Number <span class="required-asterisk">*</span></span>
             <div class="phone-input">
-                <input type="text" maxlength="3" class="form-control phone-3" [(ngModel)]="phoneNumber1" (keyup)="onChangeSearchPhoneNumber(); findPerson('number')"
+                <input type="text" maxlength="3" class="form-control phone-3" [(ngModel)]="phoneNumber1" (keyup)="onChangeSearchPhoneNumber(); findPerson()"
                     onkeypress='return (event.charCode >= 48 && event.charCode <= 57) 
                     || event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46'/> 
                 <span>-</span>  
-                <input type="text" maxlength="3" class="form-control phone-3" [(ngModel)]="phoneNumber2" (keyup)="onChangeSearchPhoneNumber(); findPerson('number')"
+                <input type="text" maxlength="3" class="form-control phone-3" [(ngModel)]="phoneNumber2" (keyup)="onChangeSearchPhoneNumber(); findPerson()"
                     onkeypress='return (event.charCode >= 48 && event.charCode <= 57) 
                     || event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46'/>  
                 <span>-</span>  
-                <input type="text" maxlength="4" class="form-control phone-4" [(ngModel)]="phoneNumber3" (keyup)="onChangeSearchPhoneNumber(); findPerson('number')"
+                <input type="text" maxlength="4" class="form-control phone-4" [(ngModel)]="phoneNumber3" (keyup)="onChangeSearchPhoneNumber(); findPerson()"
                     onkeypress='return (event.charCode >= 48 && event.charCode <= 57) 
                     || event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46'/>            
             </div>  

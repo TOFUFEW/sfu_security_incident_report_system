@@ -15,7 +15,7 @@ export class PersonComponent implements OnInit {
     personList: Person[] = [];
     filterList: Person[] = [];
     newPerson: Person = new Person();
-    filterPerson: Person = new Person();
+    filterPerson: Person;
     phoneNumber1: string = "";
     phoneNumber2: string = "";
     phoneNumber3: string = "";
@@ -28,6 +28,7 @@ export class PersonComponent implements OnInit {
         private reportService: NewReportService
     ){
         this.filterList = this.personList;
+        this.filterPerson = new Person();
     };
 
     addPersonToReport(): void {
@@ -111,8 +112,9 @@ export class PersonComponent implements OnInit {
         this.personExists = false;
     }
 
-    findPerson(type: string): void {
+    findPerson(): void {
         this.personSelected = false;
+        console.log(this.filterPerson);
         this.filterList = this.personService.filter(this.personList, this.filterPerson);   
 
         //this.personService.searchList( type, this.filterPerson, this.personList );

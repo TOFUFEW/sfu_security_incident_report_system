@@ -65,13 +65,6 @@ export class PersonService {
         // for(var i = 0; i < personList.length; i++){
         //     filterList.push(personList[i]);
         // }
-        console.log("1");
-        console.log(filter);
-        console.log(filterList);
-        console.log(personList);
-        console.log("2");
-        console.log(filterList[0].attributes.FIRST_NAME);
-
 
 
         if (filter.attributes.FIRST_NAME != null){
@@ -81,8 +74,8 @@ export class PersonService {
                     i--;
                     console.log("removed element");  
                 }
-                console.log(i);
-                console.log(filterList.length);
+                // console.log(i);
+                // console.log(filterList.length);
             }
         }
         if (filter.attributes.LAST_NAME != null){
