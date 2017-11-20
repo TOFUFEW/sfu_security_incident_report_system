@@ -9,11 +9,11 @@ import { IncidentElementService } from '../service/incident-element.service';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class CategoryService 
+export class CategoryService
 {
     private headers = new Headers({ 'Content-Type': 'application/json' });
     categoriesUrl = Config.CategoriesURI;
-    constructor ( 
+    constructor (
         private http: Http,
         private incidentService: IncidentService ){}
 
@@ -78,7 +78,7 @@ export class CategoryService
                 }
 
                 if ( types.indexOf( cat.attributes.INCIDENT_TYPE ) < 0 ) {
-                    types.push ( cat.attributes.INCIDENT_TYPE ); 
+                    types.push ( cat.attributes.INCIDENT_TYPE );
                     var type = new CategoryType();
                     type.CATEGORY_ID = cat.attributes.CATEGORY_ID;
                     type.INCIDENT_TYPE = cat.attributes.INCIDENT_TYPE;
@@ -95,14 +95,14 @@ export class CategoryService
         incident.attributes.CATEGORY_ID = newCategoryID;
         incident.category.attributes.MAIN_CATEGORY = selectedCategory.attributes.MAIN_CATEGORY;
         incident.category.attributes.SUB_CATEGORY = selectedCategory.attributes.SUB_CATEGORY;
-        incident.category.attributes.INCIDENT_TYPE = selectedCategory.attributes.INCIDENT_TYPE;      
+        incident.category.attributes.INCIDENT_TYPE = selectedCategory.attributes.INCIDENT_TYPE;
         incident.incidentElements[Config.IncidentCategoryKey]
             .splice(0, incident.incidentElements[Config.IncidentCategoryKey].length,
                     incident.category);
-        this.incidentService.update ( incident );            
+        this.incidentService.update ( incident );
     }
 
-    private handleError( error: any ) : Promise<any> 
+    private handleError( error: any ) : Promise<any>
     {
         alert( "An error occurred." );
         console.error( 'An error occurred' , error ); // for demo purposes only

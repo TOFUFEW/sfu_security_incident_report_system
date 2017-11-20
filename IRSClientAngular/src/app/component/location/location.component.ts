@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+  import { Component, Input, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { LocationService } from '../../service/location.service';
 import { NewReportService } from '../../service/new-report.service';
@@ -23,7 +23,7 @@ export class LocationComponent implements OnInit {
     constructor (
         private locationService: LocationService,
         private reportService: NewReportService
-    ) { 
+    ) {
     }
 
     addLocationToReport(): void {
@@ -35,8 +35,8 @@ export class LocationComponent implements OnInit {
             console.log("must have a location!");
             return;
         }
-            
-        //if ( this.newLocation != null && this.newLocation.attributes.LOCATION_ID > 0 ) 
+
+        //if ( this.newLocation != null && this.newLocation.attributes.LOCATION_ID > 0 )
         this.reportService.removeIncidentElement ( this.newLocation, Config.LocationTable );
         this.reference.destroy();
     }
@@ -50,7 +50,7 @@ export class LocationComponent implements OnInit {
 
     onSelectCampus(): void {
         this.locationMap.forEach( campus => {
-            if ( campus.CAMPUS_ID == this.newLocation.attributes.CAMPUS_ID ) 
+            if ( campus.CAMPUS_ID == this.newLocation.attributes.CAMPUS_ID )
                 this.buildings = campus.BUILDINGS;
         } );
     }

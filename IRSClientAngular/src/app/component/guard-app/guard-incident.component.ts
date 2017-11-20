@@ -7,51 +7,53 @@ import { Incident } from '../report/incident';
 import { IncidentElement} from '../report/incident-element';
 import { IncidentService } from '../../service/incident.service';
 import { IncidentElementService } from '../../service/incident-element.service';
-import { UserService } from '../../service/user.service'; 
-import { Location } from '../location/location'; 
-import { LocationModalComponent } from '../location/location-modal.component'; 
-import { CategoryComponent } from '../category/category.component'; 
+import { UserService } from '../../service/user.service';
+import { Location } from '../location/location';
+import { LocationModalComponent } from '../location/location-modal.component';
+import { CategoryComponent } from '../category/category.component';
 import { CategoryService } from '../../service/category.service';
 import { Config } from '../../util/config.service';
 import { InlineEditComponent } from '../../component/report/inline-edit.component'
 import { Output } from '@angular/core/src/metadata/directives';
+import {StatusComponent} from "../status/status.component";
 
 @Component({
   selector: 'guard-incident-component',
   templateUrl: './guard-incident.component.html',
-  styleUrls: ['../../../assets/css/guard-app.css'],  
+  styleUrls: ['../../../assets/css/guard-app.css'],
 })
 
-export class GuardIncidentComponent implements OnInit {     
-    @ViewChild(LocationModalComponent) locationModal: LocationModalComponent     
-    @ViewChild(CategoryComponent) categoryModal: CategoryComponent  
+export class GuardIncidentComponent implements OnInit {
+    @ViewChild(LocationModalComponent) locationModal: LocationModalComponent
+    @ViewChild(CategoryComponent) categoryModal: CategoryComponent
     @ViewChild(InlineEditComponent) inlineEdit: InlineEditComponent
-    title = 'SFU Incident Reporting System';     
+    @ViewChild(StatusComponent) statusModal: StatusComponent
+    title = 'SFU Incident Reporting System';
     incident: Incident = new Incident();
     locationModalStr = "location-modal";
-
+    statuses: string[] = ['Created', 'En Route', 'Working', 'Resolved', 'Closed'];
     isEditingDesc: boolean = false;
     newDescription: string = "";
     isEditingSummary: boolean = false;
     newSummary: string = "";
     alertMessage: string = "";
     showAlertDescription: boolean = false;
-    showAlertSummary: boolean = false;    
+    showAlertSummary: boolean = false;
     alertClass: string = "";
 
-    constructor (         
+    constructor (
         private incidentsService: IncidentService,
-        private incidentElementService: IncidentElementService,  
+        private incidentElementService: IncidentElementService,
         private categoryService: CategoryService,
-        private userService: UserService,                
-        private router: Router,         
-        private http: HttpClient,         
-        private route: ActivatedRoute  
+        private userService: UserService,
+        private router: Router,
+        private http: HttpClient,
+        private route: ActivatedRoute
     ) {
         if ( this.userService.isLoggedIn() == false ) {
             this.router.navigate([ 'login' ] );
         }
-    }; 
+    };
 
     toggleEditMode( attribute: string ) {
         if ( attribute == null ) return;
@@ -84,9 +86,9 @@ export class GuardIncidentComponent implements OnInit {
         this.incident.attributes.DESCRIPTION = this.newDescription;
         this.incident.attributes.EXECUTIVE_SUMMARY = this.newSummary;
         this.incidentsService.update ( this.incident )
-            .then( returnedIncident => {                
+            .then( returnedIncident => {
                 if ( returnedIncident != null  ) {
-                    this.toggleSuccessMessage ( attribute );                                                            
+                    this.toggleSuccessMessage ( attribute );
                     this.alertMessage = "Successfully saved";
                     this.alertClass = "alert alert-success topAlert";
                 }
@@ -97,13 +99,13 @@ export class GuardIncidentComponent implements OnInit {
                 }
             } );
         setTimeout ( () => {
-            this.toggleSuccessMessage ( attribute ); 
-        }, 
-            1500 
-        );                        
-        this.toggleEditMode ( attribute );            
+            this.toggleSuccessMessage ( attribute );
+        },
+            1500
+        );
+        this.toggleEditMode ( attribute );
     }
-      
+
     public showModal() : void {
         var locationModal: HTMLElement = document.getElementById("modalLocation");
         locationModal.style.visibility = "true";
@@ -116,11 +118,11 @@ export class GuardIncidentComponent implements OnInit {
     }
 
     incidents = [{ editing:false }];
-    
+
     editContent = function ( incident ) {
         incident.editing = true;
     }
-    
+
     doneEditing = function ( incident ) {
         incident.editing = false;
     }
@@ -146,7 +148,7 @@ export class GuardIncidentComponent implements OnInit {
         locationToRemove = this.locationModal.button_id;
 
         if ( locationToRemove == -1 ) {
-            // Add new location 
+            // Add new location
             this.incidentElementService.addElement ( this.incident, locationToAdd );
         }
         else {
@@ -155,12 +157,16 @@ export class GuardIncidentComponent implements OnInit {
         }
 
         this.locationModal.locationComponent.newLocation = new Location(); // reset
-        var locationToInsert: Location = new Location();      
+        var locationToInsert: Location = new Location();
     }
 
     changeCategory ( newCategoryID ) {
         this.incident.attributes.CATEGORY_ID = newCategoryID;
         this.categoryService.changeIncidentCategory ( this.incident, newCategoryID, this.categoryModal.selectedCategory );
+    }
+
+    changeStatus ( newStatus ) {
+        this.incident.attributes.STATUS = newStatus;
     }
 
     changeDescription() {
@@ -173,13 +179,13 @@ export class GuardIncidentComponent implements OnInit {
         this.incident.attributes.EXECUTIVE_SUMMARY = summary;
     }
 
-    ngOnInit() : void {         
-        this.route.paramMap         
-        .switchMap (( params: ParamMap ) =>             
-            this.incidentsService.getIncident ( +params.get ( 'id' )))         
-        .subscribe ( returnedIncident => {             
+    ngOnInit() : void {
+        this.route.paramMap
+        .switchMap (( params: ParamMap ) =>
+            this.incidentsService.getIncident ( +params.get ( 'id' )))
+        .subscribe ( returnedIncident => {
             this.incident = returnedIncident;
-            console.log("returned incident" , this.incident);  
+            console.log("returned incident" , this.incident);
             this.newDescription = this.incident.attributes.DESCRIPTION;
             this.newSummary = this.incident.attributes.EXECUTIVE_SUMMARY;
         });
@@ -199,4 +205,3 @@ export class GuardIncidentComponent implements OnInit {
 //     this.newIncident = new Incident();
 //   }
 
-    

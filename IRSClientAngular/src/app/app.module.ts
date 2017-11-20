@@ -21,9 +21,10 @@ import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
 import { AttachmentComponent } from './component/attachment/attachment.component';
 import { LocationModalComponent } from './component/location/location-modal.component';
-import { CategoryComponent } from './component/category/category.component'
+import { CategoryComponent } from './component/category/category.component';
 import { ReportSummaryComponent } from './component/report/report-summary.component';
 import { InlineEditComponent } from './component/report/inline-edit.component';
+import { StatusComponent } from './component/status/status.component';
 
 /* Services */
 import { UserService } from './service/user.service';
@@ -50,7 +51,7 @@ import { FilterPipe } from './util/filter.pipe';
   declarations: [
     AppComponent,
     AttachmentComponent,
-    
+    StatusComponent,
     DashboardComponent,
     LocationComponent,
     LocationModalComponent,
@@ -68,12 +69,12 @@ import { FilterPipe } from './util/filter.pipe';
     ReportSummaryComponent,
     InlineEditComponent
   ],
-  
+
   providers: [
-    UserService, 
-    LoginService, 
-    DomService, 
-    LocationService, 
+    UserService,
+    LoginService,
+    DomService,
+    LocationService,
     IncidentService,
     IncidentElementService,
     StaffService,
