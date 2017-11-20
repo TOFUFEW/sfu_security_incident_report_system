@@ -62,7 +62,8 @@ export class PersonComponent implements OnInit {
     }
     
     selectPerson(person: Person) : void {
-        this.newPerson = person;
+        Object.assign(this.newPerson, person);
+        //this.newPerson = person;
 
     
         this.filterPerson.attributes.FIRST_NAME = person.attributes.FIRST_NAME;
@@ -90,7 +91,6 @@ export class PersonComponent implements OnInit {
 
     copyPersonLst() : void {
         Object.assign(this.filterList , this.personList);
-        console.log(this.filterList);
     }
 
     addPerson(): void {
@@ -108,7 +108,6 @@ export class PersonComponent implements OnInit {
             this.personService.create(this.newPerson)
                 .then(returnedPerson => {
                     if (returnedPerson != null) {
-                        console.log(returnedPerson);
                         this.personList.push(returnedPerson as Person);
                         alert("Person successfully added!");
                     }
@@ -125,7 +124,7 @@ export class PersonComponent implements OnInit {
 
     findPerson(): void {
         this.personSelected = false;
-        console.log(this.filterPerson);
+
         this.personService.filter(this.filterList, this.personList, this.filterPerson);   
     }
 
