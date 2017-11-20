@@ -15,7 +15,7 @@ export class PersonComponent implements OnInit {
     personList: Person[] = [];
     filterList: Person[] = [];
     newPerson: Person = new Person();
-    filterPerson: Person;
+    filterPerson: Person = new Person();
     phoneNumber1: string = "";
     phoneNumber2: string = "";
     phoneNumber3: string = "";
@@ -28,7 +28,6 @@ export class PersonComponent implements OnInit {
         private reportService: NewReportService
     ){
         this.filterList = this.personList;
-        this.filterPerson = new Person();
     };
 
     addPersonToReport(): void {
