@@ -66,35 +66,34 @@ export class PersonService {
         // }
 
         if (filter.attributes.FIRST_NAME != ""){
-            console.log("filtering first name");
             for (var i = 0; i < personList.length; i++) {
-                if( i == personList.length){
-                    console.log("I SHOULDNT BE HERE");
+
+                if( i == filterList.length){
+                    break;
                 } 
                 if (!filterList[i].attributes.FIRST_NAME.toUpperCase().includes(filter.attributes.FIRST_NAME.toUpperCase())){
+                    console.log(filterList[i]);
                     filterList.splice(i, 1);
-                    i--;
-                    console.log(filterList);
-                    console.log(filterList.length);
-                    console.log(i);
-                    console.log("removed element"); 
-                    
+                    i--;                    
                 }
             }
         }
         if (filter.attributes.LAST_NAME != ""){
-            console.log("filtering last name");
             for (var i = 0; i < personList.length; i++){
+                if( i == filterList.length){
+                    break;
+                } 
                 if (!filterList[i].attributes.LAST_NAME.toUpperCase().includes(filter.attributes.LAST_NAME.toUpperCase())){
                     filterList.splice(i, 1);
-                    i--;
-                    console.log("removed element");  
-                    
+                    i--;                    
                 }
             }
         }
         if(filter.attributes.PHONE_NUMBER != null){
             for (var i = 0; i < personList.length; i++){
+                if( i == filterList.length){
+                    break;
+                } 
                 if (!filterList[i].attributes.PHONE_NUMBER.toString().includes(filter.attributes.PHONE_NUMBER.toString())){
                     filterList.splice(i, 1);
                     i--;
