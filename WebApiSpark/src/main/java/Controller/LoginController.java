@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.NewAccount;
+import Model.Staff;
 import Model.User;
 import Util.DBHelper;
 import Util.DatabaseValues;
@@ -8,6 +10,7 @@ import Util.JsonUtil;
 import java.sql.ResultSet;
 
 import static Util.JsonUtil.json;
+import static spark.Spark.get;
 import static spark.Spark.post;
 
 public class LoginController {
@@ -19,45 +22,23 @@ public class LoginController {
     private void setupEndPoints() {
         post( "/login", ( request, response ) -> {
             User user = (User) JsonUtil.fromJson( request.body(), User.class );
-            User _user = auth_account( user );
-            return _user;
+            return  DBHelper.authorizeAccount( user );
+        }, json());
+
+        post( "/create-account", ( request, response ) -> {
+            NewAccount newAccount = ( NewAccount ) JsonUtil.fromJson( request.body(), NewAccount.class );
+            User user = newAccount.getUser();
+            Staff staff = newAccount.getStaff();
+            return  DBHelper.createAccount( user , staff );
+        }, json());
+
+        post( "/validate-username", ( request, response ) -> {
+            User user = ( User ) JsonUtil.fromJson( request.body(), User.class );
+            return  DBHelper.getUserId( user.getAttributeValue(DatabaseValues.Column.USERNAME) ) != null ;
+        }, json());
+
+        get( "/get-account-types", ( request, response ) -> {
+            return DatabaseValues.AccountType.getTypes();
         }, json());
     }
-
-    private User auth_account ( User user ) {
-        try {
-
-            String query = "" +
-                    "select * from account acc" +
-                    " where acc.USERNAME = '" + user.getAttributeValue( DatabaseValues.Column.USERNAME ) + "'" +
-                    " AND acc.PASSWORD = '" + user.getAttributeValue( DatabaseValues.Column.PASSWORD ) + "'";
-            ResultSet myRs = DBHelper.executeQuery ( query );
-
-            if ( myRs.next () )
-            {
-                user.updateAttributeValue(
-                        DatabaseValues.Column.ACCOUNT_TYPE,
-                        myRs.getString ( DatabaseValues.Column.ACCOUNT_TYPE.toString () )
-                );
-
-                user.updateAttributeValue(
-                        DatabaseValues.Column.ACCOUNT_ID,
-                        myRs.getString ( DatabaseValues.Column.ACCOUNT_ID.toString() )
-                );
-            }
-
-            else
-            {
-                return null;
-            }
-
-        }
-        catch ( Exception e )
-        {
-            e.printStackTrace ();
-        }
-
-        return user;
-    }
-
 }
