@@ -58,29 +58,71 @@ export class PersonService {
         return Promise.resolve( promise );
     };
 
+    filter(personList : Person[], filter : Person) : Person[] {
+        var filterList : Person [] = [];
+
+        Object.assign(filterList , personList);
+        // for(var i = 0; i < personList.length; i++){
+        //     filterList.push(personList[i]);
+        // }
+        console.log("1");
+        console.log(filter);
+        console.log(filterList);
+        console.log(personList);
+        console.log("2");
+        console.log(filterList[0].attributes.FIRST_NAME);
+
+
+
+        if (filter.attributes.FIRST_NAME != null){
+            for (var i = 0; i < personList.length; i++) {
+                if (!filterList[i].attributes.FIRST_NAME.toUpperCase().includes(filter.attributes.FIRST_NAME.toUpperCase())){
+                    filterList.splice(i, 1);
+                    i--;
+                    console.log("removed element");  
+                }
+                console.log(i);
+                console.log(filterList.length);
+            }
+        }
+        if (filter.attributes.LAST_NAME != null){
+            for (var i = 0; i < personList.length; i++){
+                if (!filterList[i].attributes.LAST_NAME.toUpperCase().includes(filter.attributes.LAST_NAME.toUpperCase())){
+                    filterList.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+        if(filter.attributes.PHONE_NUMBER != null){
+            for (var i = 0; i < personList.length; i++){
+                if (!filterList[i].attributes.PHONE_NUMBER.toString().includes(filter.attributes.PHONE_NUMBER.toString())){
+                    filterList.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+        return filterList;
+    }
+
     searchList( type: string, person: Person, personList : Person[] ) : void {
         var input, filter, ul, li;
         ul = document.getElementById("peopleDisplay");
         li = ul.getElementsByTagName('li');
-        
+    
         // Loop through all list items, and hide those who don't match the search query
 
-        if ( type == "first" ) {
+        if ( type == "name" ) {
             for (var i = 0; i < personList.length; i++ ){
-                if (personList[i].attributes.FIRST_NAME.toUpperCase().indexOf(person.attributes.FIRST_NAME.toUpperCase()) > -1 ){
+                if ((personList[i].attributes.FIRST_NAME.toUpperCase().indexOf(person.attributes.FIRST_NAME.toUpperCase()) > -1 && person.attributes.FIRST_NAME != "")
+                    && (personList[i].attributes.LAST_NAME.toUpperCase().indexOf(person.attributes.LAST_NAME.toUpperCase()) > -1 && person.attributes.LAST_NAME != "")
+                ){
+
                     li[i].style.display = "";
+                
                 } else {
                     li[i].style.display = "none";
                 }
-            }   
-        } else if ( type == "last" ) {
-            for (var i = 0; i < personList.length; i++ ){
-                if (personList[i].attributes.LAST_NAME.toUpperCase().indexOf(person.attributes.LAST_NAME.toUpperCase()) > -1 ){
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
-                }
-            }   
+            }     
         } else if ( type == "number" ) {
             for (var i = 0; i < personList.length; i++ ){
                 if (personList[i].attributes.PHONE_NUMBER.toString().indexOf(person.attributes.PHONE_NUMBER.toString()) > -1 ){

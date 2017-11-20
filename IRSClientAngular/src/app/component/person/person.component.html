@@ -6,11 +6,11 @@
     <h4>Search</h4>
     <div class="detail col-12 col-sm-3">
             <span class="field-title">First Name <span class="required-asterisk">*</span></span>
-            <input class="form-control" id="personInputFirst" type="text" (keyup)="findPerson('first')" [(ngModel)]="searchPerson.attributes.FIRST_NAME"/>
+            <input class="form-control" id="personInputFirst" type="text" (keyup)="findPerson('name')" [(ngModel)]="filterPerson.attributes.FIRST_NAME"/>
         </div>
         <div class="detail col-12 col-sm-3">
             <span class="field-title">Last Name <span class="required-asterisk">*</span></span>
-            <input class="form-control" id="personInputLast" type="text" (keyup)="findPerson('last')" [(ngModel)]="searchPerson.attributes.LAST_NAME"/>
+            <input class="form-control" id="personInputLast" type="text" (keyup)="findPerson('name')" [(ngModel)]="filterPerson.attributes.LAST_NAME"/>
         </div>
         <div class="detail col-12 col-sm-3">
             <span class="field-title">Phone Number <span class="required-asterisk">*</span></span>
@@ -32,7 +32,7 @@
     <br><br>
     <div class="panel panel-default test-panel" style="overflow-y:scroll; height:90px" *ngIf="!personSelected">
         <ul id="peopleDisplay">
-        <li *ngFor="let person of personList">
+        <li *ngFor="let person of filterList">
             {{person.attributes.FIRST_NAME}}, 
             {{person.attributes.LAST_NAME}}, 
             {{person.attributes.PHONE_NUMBER}}   

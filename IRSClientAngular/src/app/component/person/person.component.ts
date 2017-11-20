@@ -13,8 +13,9 @@ import { Config } from '../../util/config.service';
 export class PersonComponent implements OnInit {
     private reference: any;
     personList: Person[] = [];
+    filterList: Person[] = [];
     newPerson: Person = new Person();
-    searchPerson: Person = new Person();
+    filterPerson: Person = new Person();
     phoneNumber1: string = "";
     phoneNumber2: string = "";
     phoneNumber3: string = "";
@@ -25,7 +26,9 @@ export class PersonComponent implements OnInit {
     constructor( 
         private personService: PersonService,
         private reportService: NewReportService
-    ){};
+    ){
+        this.filterList = this.personList;
+    };
 
     addPersonToReport(): void {
         this.reportService.addIncidentElement( this.newPerson );
@@ -47,7 +50,7 @@ export class PersonComponent implements OnInit {
     }
     
     onChangeSearchPhoneNumber(): void {
-        this.searchPerson.attributes.PHONE_NUMBER = this.phoneNumber1 + this.phoneNumber2 + this.phoneNumber3;
+        this.filterPerson.attributes.PHONE_NUMBER = this.phoneNumber1 + this.phoneNumber2 + this.phoneNumber3;
     }
     
 
@@ -60,9 +63,15 @@ export class PersonComponent implements OnInit {
         this.newPerson = person;
 
     
-        this.searchPerson.attributes.FIRST_NAME = person.attributes.FIRST_NAME;
-        this.searchPerson.attributes.LAST_NAME = person.attributes.LAST_NAME;
-        this.searchPerson.attributes.PHONE_NUMBER = person.attributes.PHONE_NUMBER;
+        this.filterPerson.attributes.FIRST_NAME = person.attributes.FIRST_NAME;
+        this.filterPerson.attributes.LAST_NAME = person.attributes.LAST_NAME;
+        this.filterPerson.attributes.PHONE_NUMBER = person.attributes.PHONE_NUMBER;
+        
+        var phoneNumber = person.attributes.PHONE_NUMBER.toString();
+
+        this.phoneNumber1 = phoneNumber.slice(0, 3);
+        this.phoneNumber2 = phoneNumber.slice(3, 6);
+        this.phoneNumber3 = phoneNumber.slice(6);
 
         this.personSelected = true; 
     }
@@ -71,7 +80,6 @@ export class PersonComponent implements OnInit {
         this.personService.getPersons().then( returnedPersons => {
             this.personList = returnedPersons;
         } );   
-        console.log(this.personList); 
     }
 
     addPerson(): void {
@@ -96,7 +104,7 @@ export class PersonComponent implements OnInit {
                     else alert("Add failed.");
                 });
         }
-        this.searchPerson = this.newPerson;
+        this.filterPerson = this.newPerson;
         this.personSelected = true;
         delete this.newPerson;
         this.newPerson = new Person();
@@ -104,8 +112,10 @@ export class PersonComponent implements OnInit {
     }
 
     findPerson(type: string): void {
-        this.personSelected = false;    
-        this.personService.searchList( type, this.searchPerson, this.personList );
+        this.personSelected = false;
+        this.filterList = this.personService.filter(this.personList, this.filterPerson);   
+
+        //this.personService.searchList( type, this.filterPerson, this.personList );
     }
 
     updatePerson( person: Person ): void {
