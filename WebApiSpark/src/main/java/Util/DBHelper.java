@@ -1005,6 +1005,10 @@ public class DBHelper
                 {
                     incidentElement = new IncidentCategory();
                 }
+                else if ( table == DatabaseValues.Table.CAMPUS )
+                {
+                    incidentElement = new Campus();
+                }
                 else
                 {
                     throw new IllegalStateException ( table.toString () + " does not have its Model implemented yet" );
@@ -1100,35 +1104,6 @@ public class DBHelper
         System.out.println( msg );
     }
 
-
-    // staff code
-    public static Staff [] getStaffs ()
-    {
-        ArrayList < Staff > staffList = new ArrayList ();
-
-        try
-        {
-            ResultSet resultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.STAFF.toString () );
-
-            while ( resultSet.next () )
-            {
-                Staff staff = new Staff ();
-
-                staff.extractFromCurrentRow ( resultSet );
-
-                staffList.add ( staff );
-
-            }
-        }
-
-        catch ( Exception e )
-        {
-            e.printStackTrace ();
-        }
-
-        return staffList.toArray ( new Staff [ staffList.size () ] );
-    }
-
     public static Person [] getPersons ()
     {
         ArrayList < Person > personList = new ArrayList ();
@@ -1150,6 +1125,136 @@ public class DBHelper
         return personList.toArray(new Person [ personList.size () ]);
     }
 
+    public static boolean createAccount ( User user, Staff staff ) {
+        if ( user == null || staff == null || !validateNewAccount( user, staff ) )
+            return false;
+        try {
+            String username = user.getAttributeValue( DatabaseValues.Column.USERNAME ).trim();
+            String password = user.getAttributeValue( DatabaseValues.Column.PASSWORD ).trim();
+            String accountType = user.getAttributeValue( DatabaseValues.Column.ACCOUNT_TYPE ).trim();
+            if ( getUserId( username ) == null ) {
+                String query = "insert into Account ( username, password, account_type ) " +
+                        "values ('" + username + "', '"
+                        + password + "', '"
+                        + accountType + "');";
+
+                execute( query );
+                String newUserId = getUserId( username );
+
+                if ( newUserId != null ) {
+                    setStaffData( newUserId, staff );
+                    return true;
+                }
+            }
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private static boolean setStaffData( String accountId, Staff staff ) {
+        if (staff == null )
+            return false;
+        try {
+            String query = "update Staff set FIRST_NAME = '" + staff.getAttributeValue( DatabaseValues.Column.FIRST_NAME ).trim()
+                            + "', LAST_NAME = '" + staff.getAttributeValue( DatabaseValues.Column.LAST_NAME ).trim()
+                            + "', CAMPUS_ID = " + staff.getAttributeValue( DatabaseValues.Column.CAMPUS_ID ).trim()
+                            + " where ACCOUNT_ID = " + accountId + ";";
+            boolean res = execute( query );
+            return res ;
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private static boolean validateNewAccount( User user, Staff staff ) {
+        String username = user.getAttributeValue( DatabaseValues.Column.USERNAME );
+        String password = user.getAttributeValue( DatabaseValues.Column.PASSWORD );
+        String accountType = user.getAttributeValue( DatabaseValues.Column.ACCOUNT_TYPE );
+        String first = staff.getAttributeValue( DatabaseValues.Column.FIRST_NAME );
+        String last = staff.getAttributeValue( DatabaseValues.Column.LAST_NAME );
+        boolean valid = true ;
+
+        if ( ! ( valid = username != null && username.length() > 0 ) )
+            System.out.println("Username cannot be null.");
+        if ( ! ( valid = password != null && password.length() > 0 && valid ) )
+            System.out.println("Password cannot be null.");
+        if ( ! ( valid = accountType != null && accountType.length() > 0 && valid ) )
+            System.out.println("Account Type cannot be null.");
+
+        // SET RESTRICTIONS ON FIRST AND LAST
+        if ( ! ( valid = first != null /*&& first.length() > 0*/ && valid ) )
+            System.out.println("First name cannot be null.");
+        if ( ! ( valid = last != null /*&& last.length() > 0*/ && valid ) )
+            System.out.println("Last name cannot be null.");
+
+        return valid;
+    }
+
+    public static String getUserId( String username ) {
+        try {
+            String query = "select top 1 ACCOUNT_ID from Account where username = '" + username + "';";
+            ResultSet res = executeQuery( query );
+            if ( res.next() ) {
+                return res.getString("ACCOUNT_ID");
+            }
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static boolean debug_removeAccountAndStaff( String accountId ) {
+        try {
+            String query = "delete from account where account_id = " + accountId + ";";
+            execute(query);
+            return true;
+        }
+        catch( Exception e ) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static User authorizeAccount ( User user ) {
+        try {
+            String query = "" +
+                    "select * from account acc" +
+                    " where acc.USERNAME = '" + user.getAttributeValue( DatabaseValues.Column.USERNAME ) + "'" +
+                    " AND acc.PASSWORD = '" + user.getAttributeValue( DatabaseValues.Column.PASSWORD ) + "'";
+            ResultSet myRs = DBHelper.executeQuery ( query );
+
+            if ( myRs.next () )
+            {
+                user.updateAttributeValue(
+                        DatabaseValues.Column.ACCOUNT_TYPE,
+                        myRs.getString ( DatabaseValues.Column.ACCOUNT_TYPE.toString () )
+                );
+
+                user.updateAttributeValue(
+                        DatabaseValues.Column.ACCOUNT_ID,
+                        myRs.getString ( DatabaseValues.Column.ACCOUNT_ID.toString() )
+                );
+            }
+
+            else
+            {
+                return null;
+            }
+
+        }
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+
+        return user;
+    }
+
     public static boolean execute ( String query ) throws SQLException
     {
         initDB ();
@@ -1169,24 +1274,6 @@ public class DBHelper
         initDB ();
         Statement stmt = connection.createStatement ();
         return stmt.executeQuery ( query );
-    }
-
-    /* FOR DEVELOPMENT ONLY */
-    private static boolean deleteAllIncidents() {
-        try {
-            initDB();
-            String query = "delete from HappensAt;";
-            boolean deleted = execute( query );
-            query = "delete from Involves;";
-            deleted = execute( query );
-            query = "delete from Incident";
-            deleted = execute( query );
-            Incident[] result = getIncidents();
-            return result.length == 0;
-        } catch ( Exception e ) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     public static boolean executeProcedure (String query, Incident incident) {

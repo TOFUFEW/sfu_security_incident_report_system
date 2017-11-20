@@ -37,6 +37,7 @@ import { StaffService } from './service/staff.service'
 import { PersonService } from './service/person.service';
 import { NewReportService } from './service/new-report.service';
 import { FilterPipe } from './util/filter.pipe';
+import { NewAccountComponent } from './component/login/new-account-component';
 
 @NgModule({
   imports: [
@@ -66,6 +67,7 @@ import { FilterPipe } from './util/filter.pipe';
     PersonComponent,
     FilterPipe,
     ReportSummaryComponent,
+    NewAccountComponent,
     InlineEditComponent
   ],
   
