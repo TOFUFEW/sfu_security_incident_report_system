@@ -28,8 +28,7 @@ export class LoginComponent {
         this.loginService.doLogin ( this.user )
         .subscribe(
             ( responseData ) => {
-                this.user = responseData;
-                this.userService.authUser( this.user );
+                this.userService.authUser( responseData );
 
                 if ( this.userService.isLoggedIn() ) {
                     //this.appComponent.showLogoutButton();
