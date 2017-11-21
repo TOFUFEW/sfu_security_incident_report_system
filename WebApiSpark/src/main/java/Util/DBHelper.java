@@ -46,13 +46,30 @@ public class DBHelper
         {
             ResultSet incidentResultSet = executeQuery( "SELECT Incident.*\n" +
                     "FROM Incident  INNER JOIN AssignedTo  ON Incident.REPORT_ID = AssignedTo.REPORT_ID\n" +
-                    "WHERE AssignedTo.ACCOUNT_ID = " + accountID + " and Incident.STATUS != 4" );
+                    "WHERE AssignedTo.ACCOUNT_ID = " + accountID + " and Incident.STATUS != 4 and Incident.TEMPORARY_REPORT = 0" );
 
             fillListWithIncidentsFromResultSet ( incidentList , incidentResultSet );
         }
         catch ( Exception e)
         {
             e.printStackTrace ();
+        }
+        return incidentList.toArray ( new Incident [ incidentList.size () ] );
+    }
+
+    public static Incident [] getCreatedByIncidents ( int accountID ) {
+        ArrayList < Incident > incidentList = new ArrayList<>();
+
+        try
+        {
+            ResultSet incidentResultSet = executeQuery ( "SELECT *\n" +
+                    "FROM Incident\n" +
+                    "WHERE ACCOUNT_ID = " + accountID + " AND TEMPORARY_REPORT = 1;" );
+            fillListWithIncidentsFromResultSet ( incidentList, incidentResultSet );
+        }
+        catch ( Exception e)
+        {
+            e.printStackTrace();
         }
         return incidentList.toArray ( new Incident [ incidentList.size () ] );
     }
@@ -311,14 +328,31 @@ public class DBHelper
                     return false;
                 }
             }
-            if ( incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ) == null ) {
+            String creatorID = incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID );
+            if ( creatorID == null ) {
+                return false;
+            }
+            IncidentElement[] staffs = DBHelper.getIncidentElements( DatabaseValues.Table.STAFF);
+            boolean isGuard = false;
+            for( IncidentElement staff : staffs ) {
+                if( staff.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ).equals( creatorID )
+                        && staff.getAttributeValue( DatabaseValues.Column.ACCOUNT_TYPE ).equals( "2" ) ) {
+                    incident.updateAttributeValue( DatabaseValues.Column.TEMPORARY_REPORT, "1" );
+                    isGuard = true;
+                }
+            }
+            if( !isGuard ) {
+                incident.updateAttributeValue( DatabaseValues.Column.TEMPORARY_REPORT, "0" );
+            }
+
+            if( incident.getAttributeValue( DatabaseValues.Column.TEMPORARY_REPORT ) == null ) {
                 return false;
             }
         }
 
         try {
             initDB();
-            String incidentString = "{ call dbo.insertIncidentRefactor ( ? , ? , ? , ? , ? , ? ) } ";
+            String incidentString = "{ call dbo.insertIncidentRefactor ( ? , ? , ? , ? , ? ) } ";
             CallableStatement stmt = connection.prepareCall(incidentString);
             stmt.setString(
                     1,
@@ -336,13 +370,9 @@ public class DBHelper
                     4,
                     incident.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY)
             );
-            stmt.setString(
-                    5,
-                    incident.getAttributeValue(DatabaseValues.Column.TEMPORARY_REPORT)
-            );
 
             stmt.registerOutParameter(
-                    6,
+                    5,
                     Types.INTEGER
             );
 
@@ -368,7 +398,7 @@ public class DBHelper
                 }
             } while (lastIncidentId != null && lastIncidentId.equals(before_lastIncidentId));
 
-            int output = stmt.getInt(6);
+            int output = stmt.getInt(5);
 
             String relationSQL = "{ call dbo.insertRelation ( ? , ? , ? ) }";
 
