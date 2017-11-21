@@ -10,6 +10,7 @@
   }
 
   .guard-container {
+      margin-top: 45px;
       padding-bottom: 4em;
       margin-bottom: 0px;
   }
@@ -152,11 +153,12 @@
   }
 
   .guard-button-navbar {
+    color: #ffffff;         
     background-color: transparent !important;
     position: fixed;
-    color: #ffffff;     
     margin-left: 5px;  
-    top: 0.2em;
+    top: 0.1em;
+    z-index: 101;
 }
   
 .btn-close-report {

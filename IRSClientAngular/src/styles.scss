@@ -9,7 +9,7 @@ body {
     min-height: 100vh;
     min-width: 100vw;
     margin: 0;
-    font-size: 1em !important;
+    font-size: 1.2em !important;
     background: $grey-default;
 }
 
@@ -146,17 +146,17 @@ body {
 
 .card-text-primary {
     @extend .primary-text;
-    font-size: 1.2em;
+    font-size: 1.3em;
 }
 
 .card-text-secondary {
     @extend .secondary-text;
-    font-size: 1em;
+    font-size: 1.2em;
 }
 
 .card-text-tertiary {
     @extend .secondary-text;
-    font-size: 0.8em;
+    font-size: 1.1em;
 }
 
 .btn-row {
@@ -490,15 +490,22 @@ div#new-report-panel, div#new-account-panel {
 .navbar-sm { display: none ;}
 @media (max-width: 768px) {
     body {
-        font-size: 130% !important;
+        font-size: 1.3em !important;
     }
+
+    span.field-title {
+        font-size: 1.1em;
+    }
+
     nav#main-navbar.navbar {
         font-size: 100%;
         position: fixed;
         width: 100%;
+        z-index: 100;
     }
     .navbar-brand {
         float: right;
+        z-index: 101;
     }
     .navbar-sm { 
         display: block; 
