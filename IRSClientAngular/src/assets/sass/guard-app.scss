@@ -1,3 +1,5 @@
+@import "_settings";
+
 .container > .row {
     clear: both; }
   
@@ -96,8 +98,7 @@
   }
   
   .flex-container {
-    display: -webkit-flex;
-    display: flex;
+    @include flex( space-between, flex-start );
     flex-wrap: wrap;  
     margin-bottom: 4.5em;    
     position: relative;  
@@ -106,11 +107,16 @@
   }
   
   .flex-item {
-      float: none;
-      width: 40%;
-      height: 12em;
-      max-width: 200px;
-      margin: 0.8em;
+    float: none;
+    width: 45%;
+    max-width: 45%;      
+    height: 12em;
+    margin: 0.8em;
+
+    @media (max-width: 413px) {
+        width: 100%;
+        max-width: 100%;  
+    }
   }
   
   .panel-body {
@@ -173,6 +179,31 @@
     width: 100%;
     height: 50px;
   }
-  /*# sourceMappingURL=guard-app.css.map */
-  
-  
+
+  .no-padding {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.tab-content {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#guard-nav-tabs {
+    background-color: white;
+    padding-bottom: 0px;
+    a {
+        color: $field-title-color;
+        font-size: $text-sm;
+    }
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    background-color: white;
+    border: none;
+    color: $sfu-black;
+    border-bottom: 1px solid $sfu-black;
+} 
+
+

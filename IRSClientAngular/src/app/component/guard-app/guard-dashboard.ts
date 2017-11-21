@@ -29,7 +29,7 @@ export class GuardDashboardComponent implements OnInit {
         this.user = this.userService.getCurrentUser();
         this.incidentsService.getGuardIncidents( ).then( returnedIncidents => {
             console.log("returned incidents: ", returnedIncidents);
-          this.assignedIncidents = returnedIncidents;
+            this.assignedIncidents = returnedIncidents;
         } );
     }
 
