@@ -15,6 +15,8 @@ import { VehicleComponent } from '../vehicle/vehicle.component';
 import { PersonComponent } from '../person/person.component';
 import { AttachmentComponent } from '../attachment/attachment.component';
 import { Config } from '../../util/config.service';
+import {UserService} from "../../service/user.service";
+import {Router} from "@angular/router";
 
 @Component(
   {
@@ -27,44 +29,53 @@ export class NewReportComponent implements OnInit {
     locationStr: string = LocationComponent.name;
     personStr: string = PersonComponent.name;
     newIncident: Incident = new Incident();
-    
+
     categories: CategoryDictionary[] = [];
     subCategories: SubCategory[] = [];
-    categoryTypes: CategoryType[] = [];    
+    categoryTypes: CategoryType[] = [];
 
     staffList: Staff[] = [];
     selectedStaff: Staff = null;
     selectedStaffId: number = -1;
-    reportReady: boolean = false; 
+    reportReady: boolean = false;
 
-    constructor( 
+    constructor(
       private incidentService: IncidentService,
       private domService: DomService,
       private newReportService: NewReportService,
       private categoryService: CategoryService,
-      private staffService: StaffService
+      private staffService: StaffService,
+      private userService: UserService,
+      private router: Router
     ) {
         this.staffService.getStaffs().then( returnedStaffs => {
-            this.staffList = returnedStaffs.sort( 
+            this.staffList = returnedStaffs.sort(
                 function( a, b ) {
                     return a.attributes.FIRST_NAME < b.attributes.FIRST_NAME ? -1 : 1;
                 } );
-          } ); 
+          } );
     }
 
     ngOnInit() {
         this.newReportService.currentLocations
-            .subscribe( locations =>  { 
+            .subscribe( locations =>  {
                 this.newIncident.incidentElements[Config.LocationKey] = locations;
              });
         this.newReportService.currentPersons
-            .subscribe( persons =>  { 
+            .subscribe( persons =>  {
                 this.newIncident.incidentElements[Config.PersonKey] = persons;
             } );
 
         this.categoryService.getCategories().then ( returnedCategories => {
             this.categories = this.categoryService.toCategoryDictionary( returnedCategories );
         });
+
+        if( this.userService.isGuard() ) {
+            var assignDiv = document.getElementById("assignGuardDiv");
+            var assignPreviewDiv = document.getElementById( "assignGuardPreviewDiv");
+            assignDiv.style.visibility = "hidden";
+            assignPreviewDiv.style.visibility = "hidden";
+        }
     }
 
     //filter subcategory and type lists according to selection of previous dropdown
@@ -96,7 +107,7 @@ export class NewReportComponent implements OnInit {
             if ( index >= 0 ) {
                 var type = this.categoryTypes[index];
                 this.newIncident.category.attributes.CATEGORY_ID = type.CATEGORY_ID;
-                this.newIncident.category.attributes.INCIDENT_TYPE = type.INCIDENT_TYPE; // for report summary                
+                this.newIncident.category.attributes.INCIDENT_TYPE = type.INCIDENT_TYPE; // for report summary
                 this.newIncident.attributes.CATEGORY_ID = this.newIncident.category.attributes.CATEGORY_ID;
                 this.newIncident.insertIncidentElement( this.newIncident.category );
             }
@@ -107,7 +118,7 @@ export class NewReportComponent implements OnInit {
         var index = this.staffList.findIndex( x => x.attributes.ACCOUNT_ID == this.selectedStaffId );
         if ( index >= 0 ) {
             this.selectedStaff = this.staffList[ index ];
-            this.newIncident.insertIncidentElement( this.selectedStaff );        
+            this.newIncident.insertIncidentElement( this.selectedStaff );
         }
         else {
             this.selectedStaff = null;
@@ -116,7 +127,7 @@ export class NewReportComponent implements OnInit {
             }
         }
     }
-    
+
     prepareReport(): void {
         console.log(this.newIncident);
         this.reportReady = this.isReportValid();
@@ -124,12 +135,23 @@ export class NewReportComponent implements OnInit {
 
     createReport(): void {
         if( this.reportReady ){
-            this.newIncident.attributes.ACCOUNT_ID = this.staffList[0].attributes.ACCOUNT_ID; // TEMP
+            var currentID = this.userService.getAccountID();
+            this.newIncident.attributes.ACCOUNT_ID = currentID;
+            this.newIncident.attributes.TEMPORARY_REPORT = 0;
+            for( var i = 0; i < this.staffList.length; i++) {
+                if( this.staffList[i].attributes.ACCOUNT_ID == currentID ) {
+                    this.selectedStaff = this.staffList[ i ];
+                    this.newIncident.insertIncidentElement( this.selectedStaff );
+                }
+            }
             this.incidentService.create( this.newIncident )
                 .then( returnedIncident => {
                     if ( returnedIncident != null  ) {
                         alert("Report successfully created!");
                         setTimeout(function(){location.reload()}, 300);
+                        if( this.userService.isGuard() ) {
+                            this.router.navigate( [ 'guard-app/dashboard' ] );
+                        }
                     }
                     else alert( "Add failed." );
                 } );
