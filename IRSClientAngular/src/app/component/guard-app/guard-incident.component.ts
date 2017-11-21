@@ -173,6 +173,10 @@ export class GuardIncidentComponent implements OnInit {
         this.incident.attributes.EXECUTIVE_SUMMARY = summary;
     }
 
+    newReport() {
+        this.router.navigate( [ 'new-report' ] );
+    }
+
     ngOnInit() : void {
         this.route.paramMap
         .switchMap (( params: ParamMap ) =>
