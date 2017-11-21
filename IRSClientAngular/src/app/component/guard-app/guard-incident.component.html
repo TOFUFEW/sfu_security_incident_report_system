@@ -1,4 +1,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<button class="btn btn-circle guard-button-navbar card-text-primary" (click)="viewAllReports()">
+    <span class="glyphicon glyphicon-chevron-left"></span> 
+</button>
 <div name="alertMessage" *ngIf="showAlert" [class]="alertClass">{{alertMessage}}
     </div>   
 <div class="container-fluid main-content">
@@ -197,9 +200,9 @@
     </div>
     <div class="row">
         <footer class="panel">
-            <button class="btn btn-circle guard-menu-button-right card-text-primary btn-primary" (click)="viewAllReports()">
+            <!-- <button class="btn btn-circle guard-menu-button-right card-text-primary btn-primary" (click)="viewAllReports()">
                 <span class="glyphicon glyphicon-chevron-left"></span> 
-            </button>
+            </button> -->
             <!-- <button class="btn btn-circle guard-menu-button-right card-text-primary btn-primary" (click)="saveReport()">
                 <span class="glyphicon glyphicon-floppy-save"></span> 
             </button> -->

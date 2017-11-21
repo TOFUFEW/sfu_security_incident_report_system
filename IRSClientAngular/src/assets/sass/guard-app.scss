@@ -150,6 +150,14 @@
       color: #f5f5f5;      
       float: left;
   }
+
+  .guard-button-navbar {
+    background-color: transparent !important;
+    position: fixed;
+    color: #ffffff;      
+    margin-left: 5px;  
+    top: 5px;
+}
   
 .btn-close-report {
     size: 2em;

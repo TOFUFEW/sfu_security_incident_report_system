@@ -484,6 +484,13 @@ div#new-report-panel, div#new-account-panel {
   display: none; }
 
 @media (max-width: 768px) {
+  nav#main-navbar.navbar {
+    position: fixed;
+    width: 100%; }
+
+  .navbar-brand {
+    float: right; }
+
   .navbar-sm {
     display: block; }
 
