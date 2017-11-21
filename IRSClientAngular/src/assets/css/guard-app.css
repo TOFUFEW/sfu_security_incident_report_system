@@ -90,6 +90,10 @@ select.category-field {
   margin: 0.8em; }
   @media (max-width: 413px) {
     .flex-item {
+      width: 40%;
+      max-width: 40%; } }
+  @media (max-width: 300px) {
+    .flex-item {
       width: 100%;
       max-width: 100%; } }
 
