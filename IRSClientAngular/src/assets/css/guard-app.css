@@ -125,7 +125,7 @@ footer {
   position: fixed;
   color: #ffffff;
   margin-left: 5px;
-  top: 5px; }
+  top: 0.2em; }
 
 .btn-close-report {
   size: 2em;
