@@ -35,7 +35,8 @@ export class LoginComponent {
                     if( this.userService.isAdmin() ) {
                       this.router.navigate([ 'dashboard' ] );
                     } else if( this.userService.isGuard() ) {
-                      this.router.navigate([ 'guard-app/reports-all' ] );
+                      this.router.navigate([ 'guard-app/dashboard' ] );
+                      //alert( "welcome guard" );
                     } else {
                       this.userService.logout();
                     }

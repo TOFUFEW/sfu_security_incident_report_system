@@ -44,6 +44,10 @@ export class UserService {
         return null;
     }
 
+    getAccountID() : number {
+        return this.getCurrentUser().attributes.ACCOUNT_ID;
+    }
+
     isGuard() : boolean {
         return this.getAccountType() == this.GUARD;
     }

@@ -5,6 +5,7 @@ import { Category, SubCategory, CategoryType, CategoryDictionary } from '../cate
 import { IncidentService } from '../../service/incident.service';
 import { LocationService } from '../../service/location.service';
 import { map } from 'rxjs/operators/map';
+import {UserService} from "../../service/user.service";
 
 @Component({
     selector: 'report-summary',
@@ -15,6 +16,7 @@ import { map } from 'rxjs/operators/map';
 export class ReportSummaryComponent implements OnInit {
     @Input() inputReport: Incident;
     report: Incident;
+    isAccepted : boolean = false;
 
     report_edit: Incident = new Incident();
 
@@ -26,7 +28,10 @@ export class ReportSummaryComponent implements OnInit {
     constructor (
         private incidentService: IncidentService,
         private locationService: LocationService,
-    ) { 
+        private userService: UserService        
+    ) {
+        //this.report = new Incident();
+        console.log(this.report);
     }
 
     removeFromWorkspace( id: number ): void {
@@ -94,6 +99,32 @@ export class ReportSummaryComponent implements OnInit {
                 this.report_edit.insertIncidentElement( this.report_edit.category );
             }
         }
+    }
+
+    acceptTemp(): void {
+        var newIncident = new Incident();
+        newIncident = this.report;
+        var reportID = this.report.attributes.REPORT_ID;
+        // console.log("new incident report id = " + newIncident.attributes.REPORT_ID);
+        // console.log("new incident creator id = " + newIncident.attributes.ACCOUNT_ID);
+        if( !this.isAccepted ) {
+            // console.log("accept temp");
+            newIncident.attributes.ACCOUNT_ID = this.userService.getAccountID();
+            newIncident.attributes.REPORT_ID = null;
+            // console.log("new incident report id = " + newIncident.attributes.REPORT_ID);
+            // console.log("new incident creator id = " + newIncident.attributes.ACCOUNT_ID);
+            this.incidentService.create( newIncident )
+              .then( returnedIncident => {
+                if ( returnedIncident != null  ) {
+                  alert("Report successfully created!");
+                  setTimeout(function(){location.reload()}, 300);
+                }
+                else alert( "Add failed." );
+              } );
+            this.isAccepted = true;
+        }
+        this.report.attributes.REPORT_ID = reportID;
+        this.removeFromWorkspace( reportID );
     }
 
     ngOnInit(): void {

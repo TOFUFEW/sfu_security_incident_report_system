@@ -25,6 +25,7 @@ export class IncidentService
     incidentsUrl = Config.IncidentsURI;
     updateIncidentsUrl = Config.UpdateIncidentsURI;
     guardIncidentsUrl = Config.GuardIncidentsURI;
+    createdByIncidentsUrl = Config.CreatedIncidentsURI;
     private userService = new UserService;
     tableName = "";
 
@@ -91,7 +92,17 @@ export class IncidentService
         var incidents = this.http
             .post( this.guardIncidentsUrl, JSON.stringify( user ), { headers: this.headers } )
             .toPromise()
-            .then( response => this.initIncidents( response.json() as Incident[] )as Incident[] )
+            .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
+            .catch( this.handleError );
+        return Promise.resolve( incidents );
+    }
+
+    getCreatedByIncidents(): Promise<Incident[]> {
+        var user = this.userService.getCurrentUser();
+        var incidents = this.http
+            .post( this.createdByIncidentsUrl, JSON.stringify( user ), { headers: this.headers } )
+            .toPromise()
+            .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
             .catch( this.handleError );
         return Promise.resolve( incidents );
     }
@@ -106,7 +117,7 @@ export class IncidentService
             .catch( this.handleError );
         return Promise.resolve( returnedIncident );
     }
-    
+
     private initIncidents( incidents: Incident[] ): Incident[] {
         incidents.forEach(i => {
             this.initializeIncident(i);
@@ -131,7 +142,7 @@ export class IncidentService
     create( incident: Incident ): Promise<Incident> {
         // TEMPORARY
         if ( incident.attributes.ACCOUNT_ID == null ) {
-            if ( this.staffArr.length > 0 ) 
+            if ( this.staffArr.length > 0 )
                 incident.attributes.ACCOUNT_ID = this.staffArr[0].attributes.ACCOUNT_ID;
         }
 
@@ -146,7 +157,7 @@ export class IncidentService
         return Promise.resolve( promise );
     }
 
-    update( incident: Incident ): Promise<Incident> {        
+    update( incident: Incident ): Promise<Incident> {
         if ( incident.attributes.ACCOUNT_ID == null ) {
             incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().attributes.ACCOUNT_ID;
         }
