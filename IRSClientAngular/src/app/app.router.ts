@@ -7,6 +7,7 @@ import { SearchComponent } from './component/search/search.component';
 import { LoginComponent } from './component/login/login.component';
 import { GuardDashboardComponent } from "./component/guard-app/guard-dashboard";
 import { GuardIncidentComponent } from "./component/guard-app/guard-incident.component";
+import { NewAccountComponent } from './component/login/new-account-component';
 
 export const router: Routes = [
     // Default
@@ -20,6 +21,7 @@ export const router: Routes = [
     { path: 'search', component: SearchComponent },
     { path: 'new-report', component: NewReportComponent },
     { path: 'guard-app/report/:id', component: GuardIncidentComponent},
+    { path: 'new-account', component: NewAccountComponent},    
 
     // 404
     { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },

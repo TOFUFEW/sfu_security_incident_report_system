@@ -7,12 +7,14 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Incident } from '../component/report/incident';
 import { Category } from '../component/category/category';
 import { Location } from '../component/location/location';
+import { Campus } from '../component/location/campus';
 import { Person } from '../component/person/person';
 import 'rxjs/add/operator/toPromise';
 import { User } from "../component/login/user";
 import { UserService } from "./user.service";
 import { Staff } from '../component/staff/staff';
 import { StaffService } from '../service/staff.service';
+import { LocationService } from '../service/location.service';
 
 @Injectable()
 export class IncidentService
@@ -32,9 +34,16 @@ export class IncidentService
     lastRemovedId = this.bs_lastRemovedId.asObservable();
 
     staffArr: Staff[] = [];
-    constructor( private http: Http, private staffService: StaffService ) {
+    campusArr: Campus[] = [];
+
+    constructor( private http: Http, 
+        private staffService: StaffService,
+        private locationService: LocationService) {
         this.staffService.getStaffs().then( returnedArr => {
             this.staffArr = returnedArr;
+        });
+        this.locationService.getCampus().then( response => {
+            this.campusArr = response as Campus[];
         });
     }
 
@@ -102,6 +111,14 @@ export class IncidentService
     private initializeIncident( incident: Incident ): Incident {
         incident.category = incident.incidentElements[Config.IncidentCategoryKey][0] as Category;
         incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
+        incident.incidentElements[Config.LocationKey]
+            .forEach( element => {
+                var index = this.campusArr.findIndex( 
+                    c => c.attributes.CAMPUS_ID == (element as Location).attributes.CAMPUS_ID 
+                );
+                if ( index >= 0 )
+                    (element as Location).attributes.CITY = this.campusArr[index].attributes.CITY;
+            });
         return incident;
     }
 

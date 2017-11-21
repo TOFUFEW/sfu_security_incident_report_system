@@ -12,6 +12,10 @@ export class Config {
     static UpdateIncidentURI: string = "https://localhost:4567/update-incident";
     static AssignIncidentURI: string = "https://localhost:4567/assign-incident";
     static UploadURI: string = "https://localhost:4567/upload";
+    static NewAccountURI: string = "https://localhost:4567/create-account";
+    static GetAccountTypesURI: string = "https://localhost:4567/get-account-types";
+    static GetCampusURI: string = "https://localhost:4567/campus";
+    static ValidateUsernameURI: string = "https://localhost:4567/validate-username";
 
     static StaffTable: string = "STAFF";
     static LocationTable: string = "LOCATION";
@@ -19,9 +23,11 @@ export class Config {
     static IncidentTable: string = "INCIDENT";
     static PersonTable: string = "PERSON";
     static CategoryTable: string = "INCIDENT_CATEGORY";
+    static CampusTable: string = "CAMPUS";
 
     static IncidentCategoryKey: string = "IncidentCategory" ;
     static LocationKey: string = "Location";
     static PersonKey: string = "Person";
     static StaffKey: string = "Staff";
+    static CampusKey: string = "Campus";
 }

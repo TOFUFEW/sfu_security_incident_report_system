@@ -15,7 +15,6 @@ body {
 
 #main-navbar {
   height: 50px;
-  width: 100%;
   background-color: #A6192E;
   border: none;
   border-radius: 0px !important;
@@ -23,23 +22,35 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center; }
-  #main-navbar a, #main-navbar .link {
+  #main-navbar #navbar-container {
+    width: 100%;
+    height: 100%;
+    margin-left: 0px !important;
+    margin-right: 0px !important; }
+  #main-navbar a, #main-navbar .link, #main-navbar .glyphicon-menu-hamburger {
     color: #ffffff; }
+  #main-navbar .navbar-nav > li > a {
+    font-size: 13px; }
+    #main-navbar .navbar-nav > li > a:hover {
+      background-color: #A6192E !important; }
   #main-navbar .navbar-brand {
     font-weight: 700; }
-  #main-navbar div.navbar-left-items {
-    width: 100%; }
-  #main-navbar div.navbar-right-items {
-    width: auto;
-    padding-right: 20px; }
-  #main-navbar div.navbar-left-items, #main-navbar div.navbar-right-items {
+  #main-navbar .navbar-right {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    height: 100%;
-    font-size: 14px; }
-    #main-navbar div.navbar-left-items:hover, #main-navbar div.navbar-right-items:hover {
-      cursor: pointer; }
+    height: 50px;
+    padding-right: 35px; }
+    #main-navbar .navbar-right .glyphicon-menu-hamburger {
+      font-size: 16px; }
+      #main-navbar .navbar-right .glyphicon-menu-hamburger:hover {
+        cursor: pointer; }
+  #main-navbar .dropdown-menu li {
+    padding: 8px; }
+  #main-navbar .dropdown-menu li#separator {
+    border-top: 1px solid rgba(0, 0, 0, 0.16); }
+  #main-navbar .dropdown-menu span {
+    color: #54585A; }
   #main-navbar div.navbar-links, #main-navbar div.navbar-right {
     display: flex;
     justify-content: flex-start;
@@ -222,6 +233,16 @@ body {
     opacity: 1;
     cursor: pointer; }
 
+.btn-circle {
+  width: 3em;
+  height: 3em;
+  border-radius: 99px;
+  bottom: 1em;
+  margin-right: 1.5em;
+  text-align: center;
+  padding: 1px 0;
+  line-height: 1.42; }
+
 span.required-asterisk {
   color: red;
   font-size: 16px; }
@@ -298,6 +319,9 @@ div.phone-input {
   right: 0.5em;
   margin-top: 0.5em;
   color: #f9f9f9; }
+
+div#new-report-panel, div#new-account-panel {
+  margin-top: 16px; }
 
 /****************************/
 /*  Guard app styles
@@ -466,10 +490,16 @@ div.phone-input {
 
   .col-lg-offset-right-0 {
     margin-right: 0; } }
+#logout-link {
+  display: none !important; }
+
 .navbar-sm {
   display: none; }
 
 @media (max-width: 768px) {
+  #logout-link {
+    display: flex !important; }
+
   .navbar-sm {
     display: block; }
 
