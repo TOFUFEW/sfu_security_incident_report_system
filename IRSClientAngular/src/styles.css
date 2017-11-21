@@ -6,7 +6,7 @@ body {
   min-height: 100vh;
   min-width: 100vw;
   margin: 0;
-  font-size: 1.2em !important;
+  font-size: 12px !important;
   background: #f9f9f9; }
 
 .main-container {
@@ -22,7 +22,7 @@ body {
   #main-navbar a, #main-navbar .link, #main-navbar .glyphicon-menu-hamburger {
     color: #ffffff; }
   #main-navbar .navbar-nav > li > a {
-    font-size: 1.2em; }
+    font-size: 12px; }
     #main-navbar .navbar-nav > li > a:hover {
       background-color: #A6192E !important; }
   #main-navbar .navbar-brand {
@@ -94,23 +94,23 @@ body {
   display: inline-block;
   width: auto;
   font-weight: 300;
-  font-size: 1.3em;
+  font-size: 12px;
   margin-bottom: 8px; }
 
 .field-value {
   display: inline-block;
   width: auto;
-  font-size: 1.2em;
+  font-size: 12px;
   margin-bottom: 8px; }
 
 .card-text-primary {
-  font-size: 1.3em; }
+  font-size: 14px; }
 
 .card-text-secondary {
-  font-size: 1.2em; }
+  font-size: 12px; }
 
 .card-text-tertiary {
-  font-size: 1.1em; }
+  font-size: 10px; }
 
 .btn-row {
   display: flex;
@@ -485,10 +485,7 @@ div#new-report-panel, div#new-account-panel {
 
 @media (max-width: 768px) {
   body {
-    font-size: 1.3em !important; }
-
-  span.field-title {
-    font-size: 1.1em; }
+    font-size: 125% !important; }
 
   nav#main-navbar.navbar {
     font-size: 100%;

@@ -9,7 +9,7 @@ body {
     min-height: 100vh;
     min-width: 100vw;
     margin: 0;
-    font-size: 1.2em !important;
+    font-size: $text-xs !important;
     background: $grey-default;
 }
 
@@ -31,7 +31,7 @@ body {
     }
 
     .navbar-nav > li > a {
-        font-size: 1.2em;
+        font-size: $text-xs;
         &:hover {
             background-color: $sfu-red !important;
         }
@@ -132,7 +132,7 @@ body {
     width: auto;
     //color: $field-title-color;
     font-weight: $field-title-font-weight;
-    font-size: 1.3em;
+    font-size: $text-xs;
     margin-bottom: $field-title-margin-bottom;
 }
 
@@ -140,23 +140,23 @@ body {
     @extend .primary-text;
     display: inline-block;
     width: auto;
-    font-size: 1.2em;
+    font-size: $text-xs;
     margin-bottom: $field-title-margin-bottom;
 }
 
 .card-text-primary {
     @extend .primary-text;
-    font-size: 1.3em;
+    font-size: $text-sm;
 }
 
 .card-text-secondary {
     @extend .secondary-text;
-    font-size: 1.2em;
+    font-size: $text-xs;
 }
 
 .card-text-tertiary {
     @extend .secondary-text;
-    font-size: 1.1em;
+    font-size: 10px;
 }
 
 .btn-row {
@@ -490,12 +490,12 @@ div#new-report-panel, div#new-account-panel {
 .navbar-sm { display: none ;}
 @media (max-width: 768px) {
     body {
-        font-size: 1.3em !important;
+        font-size: 125% !important;
     }
 
-    span.field-title {
-        font-size: 1.1em;
-    }
+    // span.field-title {
+    //     font-size: 10px;
+    // }
 
     nav#main-navbar.navbar {
         font-size: 100%;
