@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
 import { IncidentElementService } from '../service/incident-element.service';
 import 'rxjs/add/operator/toPromise';
+import { retry } from 'rxjs/operator/retry';
 
 @Injectable()
 export class PersonService {
@@ -47,6 +48,21 @@ export class PersonService {
             .catch( this.handleError );
         return Promise.resolve( promise );
     };
+
+    personExists( person : Person) : boolean {
+        var exists = this.getPersons().then(returnedPersons => {
+            returnedPersons.forEach(returnedPerson => {
+                if (returnedPerson.attributes.FIRST_NAME == person.attributes.FIRST_NAME
+                    && returnedPerson.attributes.LAST_NAME == person.attributes.LAST_NAME
+                    && returnedPerson.attributes.PHONE_NUMBER == person.attributes.PHONE_NUMBER)
+                    {
+                        return true;
+                    }
+                    return false;
+            })
+        })
+        return false;
+    }
     
     delete( id: number ) : Promise<boolean> {
         var url = `${this.personUrl}/${id}`;
