@@ -20,10 +20,13 @@ import { LocationService } from '../service/location.service';
 export class IncidentService
 {
     private headers = new Headers({'Content-Type': 'application/json'});
+    getIncidentsUrl = Config.GetIncidentsURI;
+    insertIncidentUrl = Config.IncidentsURI;
+    updateIncidentsUrl = Config.UpdateIncidentURI;
+    guardIncidentsUrl = Config.GetIncidentsURI;
     incidentsUrl = Config.IncidentsURI;
-    updateIncidentsUrl = Config.UpdateIncidentsURI;
-    guardIncidentsUrl = Config.GuardIncidentsURI;
     createdByIncidentsUrl = Config.CreatedIncidentsURI;
+
     private userService = new UserService;
     tableName = "";
 
@@ -36,7 +39,7 @@ export class IncidentService
     staffArr: Staff[] = [];
     campusArr: Campus[] = [];
 
-    constructor( private http: Http, 
+    constructor( private http: Http,
         private staffService: StaffService,
         private locationService: LocationService) {
         this.staffService.getStaffs().then( returnedArr => {
@@ -62,11 +65,11 @@ export class IncidentService
     }
 
     getIncidents(): Promise<Incident[]> {
-        var incidents = this.http.get( this.incidentsUrl )
-            .toPromise()
-            .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
-            .catch( this.handleError );
-        return Promise.resolve( incidents );
+      var incidents = this.http.get( this.incidentsUrl )
+        .toPromise()
+        .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
+        .catch( this.handleError );
+      return Promise.resolve( incidents );
     };
 
     getGuardIncidents(): Promise<Incident[]> {
@@ -113,8 +116,8 @@ export class IncidentService
         incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
         incident.incidentElements[Config.LocationKey]
             .forEach( element => {
-                var index = this.campusArr.findIndex( 
-                    c => c.attributes.CAMPUS_ID == (element as Location).attributes.CAMPUS_ID 
+                var index = this.campusArr.findIndex(
+                    c => c.attributes.CAMPUS_ID == (element as Location).attributes.CAMPUS_ID
                 );
                 if ( index >= 0 )
                     (element as Location).attributes.CITY = this.campusArr[index].attributes.CITY;
@@ -131,7 +134,7 @@ export class IncidentService
 
         incident.table = Config.IncidentTable;
         var promise = this.http
-                .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
+                .post( this.insertIncidentUrl, JSON.stringify( incident ), { headers: this.headers } )
                 .toPromise()
                 .then( response => {
                     return ( response.json() as boolean ) ? incident : null
@@ -146,7 +149,7 @@ export class IncidentService
         }
         incident.table = Config.IncidentTable;
         var promise = this.http
-                .post( Config.UpdateIncidentURI, JSON.stringify( incident ), { headers: this.headers } )
+                .post( this.updateIncidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
                 .toPromise()
                 .then( response => {
                     return ( response.json() as boolean ) ? incident : null
