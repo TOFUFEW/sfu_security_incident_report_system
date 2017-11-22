@@ -1,12 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Config } from '../../util/config.service';
 import { Incident } from '../report/incident';
 import { Staff } from '../staff/staff';
+import { LocationComponent } from '../location/location.component';
 import { Category, SubCategory, CategoryType, CategoryDictionary } from '../category/category';
 import { IncidentService } from '../../service/incident.service';
 import { LocationService } from '../../service/location.service';
 import { map } from 'rxjs/operators/map';
-import {UserService} from "../../service/user.service";
+import { UserService } from "../../service/user.service";
+import { NewReportService } from '../../service/new-report.service';
+import { IncidentElementService } from '../../service/incident-element.service';
+import { Location } from '../location/location';
 
 @Component({
     selector: 'report-summary',
@@ -16,6 +20,7 @@ import {UserService} from "../../service/user.service";
 
 export class ReportSummaryComponent implements OnInit {
     @Input() inputReport: Incident;
+    @ViewChild(LocationComponent) locationComponent: LocationComponent;
     report: Incident;
     isAccepted : boolean = false;
 
@@ -29,8 +34,12 @@ export class ReportSummaryComponent implements OnInit {
     staffArr: Staff[] = [];
 
     editMode: boolean = false;
+    allFieldsValid: boolean = true;
+
     constructor (
         private incidentService: IncidentService,
+        private incidentElementService: IncidentElementService,
+        private newReportService: NewReportService,
         private locationService: LocationService,
         private userService: UserService        
     ) {
@@ -59,22 +68,40 @@ export class ReportSummaryComponent implements OnInit {
     }
 
     updateReport() {
-        this.report = this.report_edit;
-        this.assignToGuard();
-        console.log(this.report);
-        this.editMode = false;
-        this.incidentService.update( this.report )
-            .then( response => {
-                this.report = response;
-                this.incidentService.updateIncidentList( this.report );
-                alert("Success! Report was updated.");
-            });
+        if ( this.allFieldsValid = this.newReportService.validateReport(this.report_edit)) {
+            this.report = this.report_edit;
+            this.assignToGuard();
+            this.editMode = false;
+            this.incidentService.update( this.report )
+                .then( response => {
+                    this.report = response;
+                    this.incidentService.updateIncidentList( this.report );
+                    alert("Success! Report was updated.");
+                });
+        }
+        else
+            this.alertReportInvalid(); 
     }
 
     addIncidentElement( type: string ) {
-        if ( type == 'location' ) {
-
+        var element;
+        if ( type === 'location' ) {
+            element = this.locationComponent.newLocation;
         }
+
+        if ( this.newReportService.validateIncidentElement( element ) ) {
+            this.incidentElementService.addElementNoUpdate( this.report_edit, element );
+            this.updateReport();
+            this.flushComponents();
+        }
+        else {
+            this.alertReportInvalid();
+            this.allFieldsValid = false;
+        }
+    }
+
+    private flushComponents() {
+        this.locationComponent.newLocation = new Location();
     }
 
     assignToGuard (): void {
@@ -90,6 +117,8 @@ export class ReportSummaryComponent implements OnInit {
         this.subCategories = this.categories[index].SUBCATEGORIES;
         this.categoryTypes = [];
         this.report_edit.category.attributes.MAIN_CATEGORY = this.categories[index].MAIN_CATEGORY; // for report summary
+        this.report_edit.attributes.CATEGORY_ID = null;
+        
     }
 
     onSelectSubCategory () {
@@ -100,6 +129,9 @@ export class ReportSummaryComponent implements OnInit {
             this.report_edit.category.attributes.CATEGORY_ID = subcategories.CATEGORY_ID;
             this.report_edit.attributes.CATEGORY_ID = this.report_edit.category.attributes.CATEGORY_ID;
             this.report_edit.category.attributes.INCIDENT_TYPE = null;
+        }
+        else {
+            this.report_edit.attributes.CATEGORY_ID = null;            
         }
         this.categoryTypes = subcategories.TYPES;
     }
@@ -161,6 +193,10 @@ export class ReportSummaryComponent implements OnInit {
                 this.staffArr = staffArr;
             }
         );   
+    }
+
+    private alertReportInvalid() {
+        alert("Please fill in all required fields.");        
     }
 
     private deepCopyReport( source: Incident ): Incident {

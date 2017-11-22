@@ -50,15 +50,19 @@ export class LocationComponent implements OnInit {
 
     onSelectCampus(): void {
         this.locationMap.forEach( campus => {
-            if ( campus.CAMPUS_ID == this.newLocation.attributes.CAMPUS_ID ) 
-                this.buildings = campus.BUILDINGS;
+            if ( campus.CAMPUS_ID == this.newLocation.attributes.CAMPUS_ID ) {
+                this.buildings = campus.BUILDINGS;   
+                this.newLocation.attributes.LOCATION_ID = null;                 
+            }
         } );
     }
 
     onSelectBuilding(): void {
         this.buildings.forEach( bldg => {
-            if ( bldg.BUILDING_NAME === this.newLocation.attributes.BUILDING_NAME )
+            if ( bldg.BUILDING_NAME === this.newLocation.attributes.BUILDING_NAME ) {
                 this.rooms = bldg.ROOMS;
+                this.newLocation.attributes.LOCATION_ID = null; 
+            }
         });
     }
 

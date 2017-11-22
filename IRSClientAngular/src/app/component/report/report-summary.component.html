@@ -36,22 +36,22 @@
     <div class="tab-content">
         <div [id]="'basic-info-' + report.attributes.REPORT_ID" class="details-container tab-pane fade in active">
             <div class="details-body">
-                <div class="detail detail-lg col-12">
-                    <span class="field-title">Category: </span>
+                <div class="detail detail-lg col-sm-12">
+                    <span class="field-title">Category: <span class="required-asterisk" *ngIf="editMode">*</span> </span>
                     <span class="field-value" *ngIf="!editMode && report.category != null">{{report.category.attributes.MAIN_CATEGORY}}</span>
                     <select class="form-control" *ngIf="editMode" [(ngModel)]="report_edit.category.attributes.MAIN_CATEGORY" (change)="onSelectCategory()">
                         <option *ngFor="let category of categories" [value]="category.MAIN_CATEGORY">{{category.MAIN_CATEGORY}}</option>
                     </select>
                 </div>
-                <div class="detail detail-lg col-12">
-                    <span class="field-title">Sub Category: </span>
+                <div class="detail detail-lg col-sm-12">
+                    <span class="field-title">Sub Category: <span class="required-asterisk" *ngIf="editMode">*</span> </span>
                     <span class="field-value" *ngIf="!editMode && report.category != null">{{report.category.attributes.SUB_CATEGORY}}</span>
                     <select class="form-control" *ngIf="editMode" [(ngModel)]="report_edit.category.attributes.SUB_CATEGORY" (change)="onSelectSubCategory()">
                         <option *ngFor="let sub of subCategories" [value]="sub.SUB_CATEGORY">{{sub.SUB_CATEGORY}}</option>
                     </select>
                 </div>
-                <div class="detail detail-lg col-12">
-                    <span class="field-title">Type: </span>
+                <div class="detail detail-lg col-sm-12">
+                    <span class="field-title">Type: <span class="required-asterisk" *ngIf="editMode">*</span> </span>
                     <span class="field-value" *ngIf="!editMode && report.category != null">{{report.category.attributes.INCIDENT_TYPE}}</span>
                     <select class="form-control" *ngIf="editMode && categoryTypes != null && categoryTypes.length > 0" 
                         [(ngModel)]="report_edit.category.attributes.INCIDENT_TYPE" (change)="onSelectType()">
@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div class="details-body">
-                <div class="detail detail-lg col-12">
+                <div class="detail detail-lg col-sm-12">
                     <span class="field-title">Assigned To: </span>
                     <span class="field-value" *ngIf="!editMode && report.guard != null">{{report.guard.attributes.FIRST_NAME}} {{report.guard.attributes.LAST_NAME}}</span>
                     <select *ngIf="editMode" class="form-control" [(ngModel)]="selectedStaffId">
@@ -68,17 +68,17 @@
                         <option *ngFor="let staff of staffArr" [value]="staff.attributes.ACCOUNT_ID">{{staff.attributes.FIRST_NAME}} {{staff.attributes.LAST_NAME}}</option>
                     </select>
                 </div>
-                <div class="detail detail-lg col-12">
-                    <span class="field-title">Description: </span>
-                    <span *ngIf="!editMode" class="field-value">{{report.attributes.DESCRIPTION}}</span>
-                    <input type="text" class="form-control" placeholder="Description"
-                          *ngIf="editMode" [(ngModel)]="report_edit.attributes.DESCRIPTION" />
-                </div>
-                <div class="detail detail-lg col-12">
-                    <span class="field-title">Executive Summary: </span>
+                <div class="detail detail-lg col-sm-12">
+                    <span class="field-title">Executive Summary: <span class="required-asterisk" *ngIf="editMode">*</span> </span>
                     <span *ngIf="!editMode" class="field-value">{{report.attributes.EXECUTIVE_SUMMARY}}</span>
-                    <textarea rows="5" class="form-control" placeholder="Executive Summary"
-                        *ngIf="editMode" [(ngModel)]="report_edit.attributes.EXECUTIVE_SUMMARY"></textarea>
+                    <input type="text" class="form-control" placeholder="Executive Summary"
+                          *ngIf="editMode" [(ngModel)]="report_edit.attributes.EXECUTIVE_SUMMARY" />
+                </div>
+                <div class="detail detail-lg col-sm-12">
+                    <span class="field-title">Description: <span class="required-asterisk" *ngIf="editMode">*</span> </span>
+                    <span *ngIf="!editMode" class="field-value">{{report.attributes.DESCRIPTION}}</span>
+                    <textarea rows="5" class="form-control" placeholder="Description"
+                        *ngIf="editMode" [(ngModel)]="report_edit.attributes.DESCRIPTION"></textarea>
                 </div>
             </div>
             <span class="link" *ngIf="!editMode" (click)="toggleEditMode()">Edit</span>
@@ -88,44 +88,40 @@
 
         <div [id]="'locations-' + report.attributes.REPORT_ID" class="details-container tab-pane fade">
             <div class="details-body" *ngFor="let location of report.incidentElements['Location']">
-                <div class="detail col-12 col-sm-3">
+                <div class="detail col-sm-12">
                     <span class="field-title">Campus: </span>
                     <span class="field-value">{{location.attributes.CITY}}</span>
                 </div>
-                <div class="detail col-12 col-sm-3">
+                <div class="detail col-sm-12">
                     <span class="field-title">Building: </span>
                     <span class="field-value">{{location.attributes.BUILDING_NAME}}</span>
                 </div>
-                <div class="detail col-12 col-sm-3">
+                <div class="detail col-sm-12">
                     <span class="field-title">Room Number: </span>
                     <span class="field-value">{{location.attributes.ROOM_NUMBER}}</span>
                 </div>
-                <div class="detail col-12 col-sm-3">
+                <div class="detail col-sm-12">
                     <span class="link">Remove Location</span>
                 </div>
             </div>
-            <location-component></location-component>
-            <div class="details-body">
-                <div class="detail col-12 col-sm-3">
-                    <span class="link">Cancel </span>
-                    <span class="link">Add </span>
-                </div>
-            </div>
-            <span class="link" (click)="addIncidentElement('location')">Add Location</span>                        
+            <location-component id="location-component" *ngIf="editMode"></location-component>
+            <span class="link" *ngIf="!editMode" (click)="toggleEditMode()">Add Location</span>                                    
+            <span class="link" *ngIf="editMode" (click)="cancelUpdate()">Cancel </span>
+            <span class="link" *ngIf="editMode" (click)="addIncidentElement('location')">Add </span>
             <span class="not-found" *ngIf="report.incidentElements['Location'].length == 0"> No Locations available</span>
         </div>
 
         <div [id]="'persons-' + report.attributes.REPORT_ID" class="details-container tab-pane fade">
             <div class="details-body" *ngFor="let person of report.incidentElements['Person']">
-                <div class="detail col-12 col-sm-3">
+                <div class="detail col-sm-12">
                     <span class="field-title">First Name: </span>
                     <span class="field-value">{{person.attributes.FIRST_NAME}}</span>
                 </div>
-                <div class="detail col-12 col-sm-3">
+                <div class="detail col-sm-12">
                     <span class="field-title">Last Name: </span>
                     <span class="field-value">{{person.attributes.LAST_NAME}}</span>
                 </div>
-                <div class="detail col-12 col-sm-3">
+                <div class="detail col-sm-12">
                     <span class="field-title">Phone Number: </span>
                     <span class="field-value">{{person.attributes.PHONE_NUMBER}}</span>
                 </div>

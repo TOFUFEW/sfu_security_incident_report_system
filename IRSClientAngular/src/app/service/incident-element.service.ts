@@ -95,5 +95,9 @@ export class IncidentElementService
         incident.incidentElements[key].push ( element );
         this.incidentService.update ( incident );
     }
-    
+
+    addElementNoUpdate ( incident: Incident, element: IncidentElement ) {
+        var key = this.getElementKey( element.table );        
+        incident.incidentElements[key].push ( element );
+    }
 }
