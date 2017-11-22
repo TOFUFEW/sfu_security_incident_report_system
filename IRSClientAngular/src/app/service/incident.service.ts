@@ -52,9 +52,24 @@ export class IncidentService
               JSON.parse ( JSON.parse ( message.data ) ) as Incident
             );
 
-            var arr = this.bs_reportsInList.getValue ();
-            arr.splice (0, 0, incident );
-            this.bs_reportsInList.next ( arr );
+            var reportList = this.bs_reportsInList.getValue ();
+
+            var found = false;
+            for ( var i = 0 ; i < reportList.length ; i++ )
+            {
+                if ( reportList [ i ].attributes.REPORT_ID == incident.attributes.REPORT_ID )
+                {
+                    reportList [ i ] = incident;
+                    found = true;
+                }
+            }
+
+            if ( !found )
+            {
+              reportList.splice (0, 0, incident );
+            }
+
+            this.bs_reportsInList.next ( reportList );
         }.bind ( this );
     }
 
