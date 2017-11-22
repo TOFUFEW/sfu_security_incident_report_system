@@ -7,10 +7,10 @@ import { Incident } from '../report/incident';
 import { IncidentElement} from '../report/incident-element';
 import { IncidentService } from '../../service/incident.service';
 import { IncidentElementService } from '../../service/incident-element.service';
-import { UserService } from '../../service/user.service'; 
-import { Location } from '../location/location'; 
-import { LocationModalComponent } from '../location/location-modal.component'; 
-import { CategoryComponent } from '../category/category.component'; 
+import { UserService } from '../../service/user.service';
+import { Location } from '../location/location';
+import { LocationModalComponent } from '../location/location-modal.component';
+import { CategoryComponent } from '../category/category.component';
 import { CategoryService } from '../../service/category.service';
 import { Config } from '../../util/config.service';
 import { InlineEditComponent } from '../../component/report/inline-edit.component'
@@ -19,7 +19,7 @@ import { Output } from '@angular/core/src/metadata/directives';
 @Component({
   selector: 'guard-incident-component',
   templateUrl: './guard-incident.component.html',
-  styleUrls: ['../../../assets/css/guard-app.css'],  
+  styleUrls: ['../../../assets/css/guard-app.css'],
 })
 
 export class GuardIncidentComponent implements OnInit {     
@@ -39,19 +39,19 @@ export class GuardIncidentComponent implements OnInit {
     showAlert: boolean = false;    
     alertClass: string = "";
 
-    constructor (         
+    constructor (
         private incidentsService: IncidentService,
-        private incidentElementService: IncidentElementService,  
+        private incidentElementService: IncidentElementService,
         private categoryService: CategoryService,
-        private userService: UserService,                
-        private router: Router,         
-        private http: HttpClient,         
-        private route: ActivatedRoute  
+        private userService: UserService,
+        private router: Router,
+        private http: HttpClient,
+        private route: ActivatedRoute
     ) {
         if ( this.userService.isLoggedIn() == false ) {
             this.router.navigate([ 'login' ] );
         }
-    }; 
+    };
 
     viewAllReports() {
         this.router.navigate([ 'guard-app/reports-all' ] );
@@ -105,7 +105,7 @@ export class GuardIncidentComponent implements OnInit {
         this.incident.attributes.DESCRIPTION = this.newDescription;
         this.incident.attributes.EXECUTIVE_SUMMARY = this.newSummary;
         this.incidentsService.update ( this.incident )
-            .then( returnedIncident => {                
+            .then( returnedIncident => {
                 if ( returnedIncident != null  ) {
                     this.incidentSavedAlert ();
                 }
@@ -115,7 +115,7 @@ export class GuardIncidentComponent implements OnInit {
             } );                      
         this.toggleEditMode ( attribute );            
     }
-      
+
     public showModal() : void {
         var locationModal: HTMLElement = document.getElementById("modalLocation");
         locationModal.style.visibility = "true";
@@ -128,11 +128,11 @@ export class GuardIncidentComponent implements OnInit {
     }
 
     incidents = [{ editing:false }];
-    
+
     editContent = function ( incident ) {
         incident.editing = true;
     }
-    
+
     doneEditing = function ( incident ) {
         incident.editing = false;
     }
@@ -180,7 +180,7 @@ export class GuardIncidentComponent implements OnInit {
         }
 
         this.locationModal.locationComponent.newLocation = new Location(); // reset
-        var locationToInsert: Location = new Location();      
+        var locationToInsert: Location = new Location();
     }
 
     removeLocation() {
@@ -228,13 +228,17 @@ export class GuardIncidentComponent implements OnInit {
         this.incident.attributes.EXECUTIVE_SUMMARY = summary;
     }
 
-    ngOnInit() : void {         
-        this.route.paramMap         
-        .switchMap (( params: ParamMap ) =>             
-            this.incidentsService.getIncident ( +params.get ( 'id' )))         
-        .subscribe ( returnedIncident => {             
+    newReport() {
+        this.router.navigate( [ 'new-report' ] );
+    }
+
+    ngOnInit() : void {
+        this.route.paramMap
+        .switchMap (( params: ParamMap ) =>
+            this.incidentsService.getIncident ( +params.get ( 'id' )))
+        .subscribe ( returnedIncident => {
             this.incident = returnedIncident;
-            console.log("returned incident" , this.incident);  
+            console.log("returned incident" , this.incident);
             this.newDescription = this.incident.attributes.DESCRIPTION;
             this.newSummary = this.incident.attributes.EXECUTIVE_SUMMARY;
         });

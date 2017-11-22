@@ -12,6 +12,7 @@
         <div id="incidents-list" class="col-md-12 col-lg-12">
             <div class="incident-card" *ngFor="let incident of incidents">
                 <div class="main-content"  (dblclick)="incident.inWorkspace || addToWorkspace(incident)">
+                  <div *ngIf="incident.attributes.TEMPORARY_REPORT == 1">TEMP</div>
                     <div class="detail-row">
                         <span class="card-text-secondary">Report #{{incident.attributes.REPORT_ID}}</span>
                     </div>
@@ -72,12 +73,12 @@
                                 <option *ngFor="let staff of staffArr" [value]="staff.attributes.ACCOUNT_ID">{{staff.attributes.FIRST_NAME}} {{staff.attributes.LAST_NAME}}</option>
                             </select>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary" (click)="assignToGuard()" data-dismiss="modal">Assign</button>   
+                <button class="btn btn-primary" (click)="assignToGuard()" data-dismiss="modal">Assign</button>
             </div>
         </div>
     </div>

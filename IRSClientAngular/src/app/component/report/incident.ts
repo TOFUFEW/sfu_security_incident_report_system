@@ -16,7 +16,7 @@ export class Incident {
     guard: Staff;
 
     inWorkspace: boolean;
-    
+
     constructor() {
         this.incidentElements = new Map;
         this.attributes = new IncidentAttributes();
@@ -28,13 +28,13 @@ export class Incident {
     insertIncidentElement( element: IncidentElement ) {
         var key = "";
         var table = element.table;
-        if ( table === Config.CategoryTable ) 
+        if ( table === Config.CategoryTable )
             key = Config.IncidentCategoryKey;
-        else if ( table === Config.LocationTable ) 
+        else if ( table === Config.LocationTable )
             key = Config.LocationKey;
         else if ( table === Config.StaffTable )
             key = Config.StaffKey
-        else if ( table === Config.PersonTable ) 
+        else if ( table === Config.PersonTable )
             key = Config.PersonKey;
         else {
             console.log( "Table not found.");
@@ -56,6 +56,7 @@ export class IncidentAttributes {
     EXECUTIVE_SUMMARY: string;
     STATUS: number;
     CATEGORY_ID: number;
+    TEMPORARY_REPORT: number;
     START_TIME: number;
     END_TIME: number;
 }

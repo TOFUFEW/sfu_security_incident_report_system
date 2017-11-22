@@ -78,8 +78,9 @@ select.category-field {
   padding-left: 10%; }
 
 .flex-container {
-  display: -webkit-flex;
   display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   flex-wrap: wrap;
   margin-bottom: 4.5em;
   position: relative;
@@ -89,9 +90,17 @@ select.category-field {
 .flex-item {
   float: none;
   width: 45%;
+  max-width: 45%;
   height: 12em;
-  max-width: 200px;
   margin: 0.5em; }
+  @media (max-width: 413px) {
+    .flex-item {
+      width: 40%;
+      max-width: 40%; } }
+  @media (max-width: 300px) {
+    .flex-item {
+      width: 100%;
+      max-width: 100%; } }
 
 .panel-body {
   height: 100%;
@@ -169,5 +178,25 @@ h4.panel-title {
   margin: 0.5em !important; }
 
 /*# sourceMappingURL=guard-app.css.map */
+.no-padding {
+  padding-right: 0px;
+  padding-left: 0px; }
+
+.tab-content {
+  padding-right: 15px;
+  padding-left: 15px; }
+
+#guard-nav-tabs {
+  background-color: white;
+  padding-bottom: 0px; }
+  #guard-nav-tabs a {
+    color: #657786;
+    font-size: 14px; }
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+  background-color: white;
+  border: none;
+  color: #54585A;
+  border-bottom: 1px solid #54585A; }
 
 /*# sourceMappingURL=guard-app.css.map */

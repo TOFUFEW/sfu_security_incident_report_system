@@ -131,6 +131,9 @@
                                     </div> -->
                                 </div>
                             </div>
+                        </div>
+                        <location-modal-component #modalLocation (locationSaved)="changeLocation()"></location-modal-component>
+                    </div>
 
                             <div class="panel panel-default ml-1 mr-1">
                                 <div class="panel-heading collapsable-heading">
@@ -188,11 +191,48 @@
                                         </a>
                                     </h4>
                                 </div>
-                                <div id="collapsePersons" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                        
-                                    </div>
+                                <span *ngIf="!isEditingDesc" (click)="toggleEditMode('description')">{{incident.attributes.DESCRIPTION}}</span>
+                                <div *ngIf="isEditingDesc">
+                                    <textarea [(ngModel)]="newDescription" class="form-control" rows="5"></textarea>
+                                    <button (click)="revertChanges('description')"
+                                        class="btn btn-default btn-sm pull-right mt-2 mr-1 mb-1 ml-2">
+                                        <span class="glyphicon glyphicon-remove"></span> Cancel
+                                    </button>
+                                    <button (click)="saveReport('description')"
+                                    class="btn btn-default btn-sm pull-right mt-2 mb-1">
+                                    <span class="glyphicon glyphicon-ok"></span> Save
+                                </button>
                                 </div>
+                            </div>
+                            <!-- <div #descriptionEdit class="panel-body" *ngIf="incident">
+                                <inline-edit class="report-fields-edit"
+                                    [(ngModel)]="incident.attributes.DESCRIPTION"
+                                    [required]="true" type="text"
+                                    (textChanged)="changeDescription()">
+                                </inline-edit>
+                            </div> -->
+                            <!-- <div #editor
+                                [ngClass]="{'in': visibleAnimate}"
+                                [ngStyle]="{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}">
+                                <input "value="{{incident.attributes.DESCRIPTION}}" />
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default ml-1 mr-1">
+                        <div class="panel-heading collapsable-heading">
+                            <!-- <span class="glyphicon card-text-secondary mr-1" [ngClass]="{'glyphicon-chevron-up': openedPanel , 'glyphicon-chevron-down': !openedPanel }" aria-hidden="true" style="float: right;"></span>                             -->
+                            <h4 class="panel-title">
+                                <a  class="accordion-toggle"
+                                    data-toggle="collapse"
+                                    href="#collapsePersons">
+                                    Persons
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapsePersons" class="panel-collapse collapse">
+                            <div class="panel-body">
+
                             </div>
                         </div>
                     </div>
@@ -200,8 +240,8 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <footer class="panel">
+    <!-- <div class="row"> -->
+        <!-- <footer class="panel"> -->
             <!-- <button class="btn btn-circle guard-menu-button-right card-text-primary btn-primary" (click)="viewAllReports()">
                 <span class="glyphicon glyphicon-chevron-left"></span> 
             </button> -->
@@ -214,12 +254,12 @@
             </button>
             <a routerLink="../../reports-all">
                 <button class="button guard-menu-button card-text-primary ml-1">
-                <span class="glyphicon glyphicon-th-large"></span> 
+                <span class="glyphicon glyphicon-th-large"></span>
                 View All
                 </button>
             </a> -->
-        </footer>
-    </div>
+        <!-- </footer> -->
+    <!-- </div> -->
 </div>
 
 
