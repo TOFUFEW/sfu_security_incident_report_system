@@ -8,7 +8,7 @@
   position: relative; }
 
 .guard-container {
-  margin-top: 45px;
+  margin-top: 50px;
   padding-bottom: 4em;
   margin-bottom: 0px; }
 
@@ -122,10 +122,12 @@ footer {
   float: left; }
 
 .guard-button-navbar {
-  color: #ffffff;
   background-color: transparent !important;
-  position: fixed;
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif !important;
+  color: #ffffff;
   margin-left: 5px;
+  opacity: 100;
+  position: fixed;
   top: 0.1em;
   z-index: 101; }
 
@@ -153,6 +155,10 @@ h4.panel-title {
 .panel-heading .accordion-toggle.collapsed:after {
   /* symbol for "collapsed" panels */
   content: "\e080"; }
+
+.flex-item {
+  margin: 6px;
+  width: 46%; }
 
 .top-alert {
   font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;

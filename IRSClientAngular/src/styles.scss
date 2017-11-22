@@ -488,14 +488,20 @@ div#new-report-panel, div#new-account-panel {
 }
 
 .navbar-sm { display: none ;}
+
 @media (max-width: 768px) {
     body {
-        font-size: 125% !important;
+        font-size: 130% !important;
     }
 
-    // span.field-title {
-    //     font-size: 10px;
-    // }
+    span.field-title {
+        font-size: 110%;
+        margin-top: 0.5em;
+    }
+
+    .card-text-primary, .card-text-secondary, .card-text-tertiary, select.form-control {
+        font-size: 110% !important;
+    }
 
     nav#main-navbar.navbar {
         font-size: 100%;
