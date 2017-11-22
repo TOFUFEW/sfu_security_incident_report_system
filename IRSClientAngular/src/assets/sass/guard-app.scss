@@ -113,10 +113,10 @@
   
   .flex-item {
       float: none;
-      width: 40%;
-      height: 12em;
+    width: 45%;
+    height: 12em;
       max-width: 200px;
-      margin: 0.8em;
+      margin: 0.5em;
   }
   
   .panel-body {
@@ -193,11 +193,6 @@
     content: "\e080";
 }
 
-.flex-item {
-    margin: 6px;
-    width: 46%;
-}
-
   .top-alert {
     font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;    
     position: fixed;
@@ -208,6 +203,9 @@
     height: 50px;
   }
 
+  .btn {
+      margin: 0.5em !important;
+  }
   /*# sourceMappingURL=guard-app.css.map */
   
   

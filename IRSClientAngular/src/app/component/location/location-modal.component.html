@@ -9,9 +9,9 @@
                 <button type="button" class="close" (click)="hide()" aria-label="Close">                         
                     <span aria-hidden="true">&times;</span>                     
                 </button>                     
-                <h4 class="modal-title mt-2" *ngIf="button_id != -1">Change current location <span>                
+                <h4 class="modal-title mt-2 mr-1" *ngIf="button_id != -1">Change current location <span>                
                     <button (click)="removeLocation($event.target.id)" 
-                        class="btn btn-sm btn-secondary ml-2"
+                        class="btn btn-sm btn-secondary"
                         *ngIf="button_id != -1"
                         id="{{button_id}}">
                         <span class="glyphicon glyphicon-trash"></span> 

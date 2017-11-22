@@ -18,7 +18,7 @@ import { Config } from '../../util/config.service';
 
 export class LocationModalComponent implements OnInit {     
     @ViewChild ( LocationComponent ) locationComponent: LocationComponent   
-    @Output () locationSaved : EventEmitter<string> = new EventEmitter();     
+    @Output () locationSaved : EventEmitter<Location> = new EventEmitter();     
     @Output () triggerLocationRemove : EventEmitter<string> = new EventEmitter();    
     
     public visible = false;     
@@ -38,10 +38,10 @@ export class LocationModalComponent implements OnInit {
             console.log("target ", idAttr );                      
         }        
         else {             
-            this.button_id = -1;         
+            this.button_id = -1;       
         }   
+        this.locationComponent.updateCurrentLocation ( this.button_id );           
         this.visible = true;
-        this.locationComponent.updateCurrentLocation ( target.id );   
         setTimeout(() => this.visibleAnimate = true, 100);     
     }         
     
@@ -54,10 +54,11 @@ export class LocationModalComponent implements OnInit {
             this.hide();         
         }     
     }     
-    public submitChanges ( id ) : void {       
+    public submitChanges ( id ) : void {     
+        this.locationComponent.validateNewLocation();  
         this.locationComponent.newLocation.table = Config.LocationTable;  
         console.log(this.locationComponent.newLocation);
-        this.locationSaved.emit('complete');
+        this.locationSaved.emit(this.locationComponent.newLocation);
         this.hide();      
     }
 

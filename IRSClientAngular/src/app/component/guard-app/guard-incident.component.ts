@@ -152,7 +152,8 @@ export class GuardIncidentComponent implements OnInit {
         }
     }
 
-    changeLocation() {
+    changeLocation ( event ) {
+        console.log("event emitted ", event);
         var locationToAdd = this.locationModal.locationComponent.newLocation;
         var locationToRemove = -1;
         locationToRemove = this.locationModal.button_id;

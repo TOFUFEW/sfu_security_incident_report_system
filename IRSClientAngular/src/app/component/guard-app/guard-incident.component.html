@@ -89,7 +89,7 @@
                                     </div>
                                 </div>
                                 <location-modal-component #modalLocation 
-                                    (locationSaved)="changeLocation()"
+                                    (locationSaved)="changeLocation($event)"
                                     (triggerLocationRemove) = "removeLocation()">
                                 </location-modal-component>                                                                        
                             </div>

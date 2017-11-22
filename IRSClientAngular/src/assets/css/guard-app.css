@@ -88,10 +88,10 @@ select.category-field {
 
 .flex-item {
   float: none;
-  width: 40%;
+  width: 45%;
   height: 12em;
   max-width: 200px;
-  margin: 0.8em; }
+  margin: 0.5em; }
 
 .panel-body {
   height: 100%;
@@ -156,10 +156,6 @@ h4.panel-title {
   /* symbol for "collapsed" panels */
   content: "\e080"; }
 
-.flex-item {
-  margin: 6px;
-  width: 46%; }
-
 .top-alert {
   font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
   position: fixed;
@@ -168,6 +164,9 @@ h4.panel-title {
   z-index: 999;
   width: 100%;
   height: 50px; }
+
+.btn {
+  margin: 0.5em !important; }
 
 /*# sourceMappingURL=guard-app.css.map */
 

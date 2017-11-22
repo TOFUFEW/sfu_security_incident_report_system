@@ -27,16 +27,37 @@ export class LocationComponent implements OnInit {
     ) { 
     }
 
+    validateNewLocation() {
+        console.log("new location ", this.newLocation);
+        console.log("current location", this.currentLocation);
+
+        if ( this.newLocation.attributes.CAMPUS_ID == null && this.currentLocation.attributes.CAMPUS_ID != null ) {
+            this.newLocation.attributes.CAMPUS_ID = this.currentLocation.attributes.CAMPUS_ID;
+        }
+        if ( this.newLocation.attributes.BUILDING_NAME == null && this.currentLocation.attributes.BUILDING_NAME != null ) {
+            this.newLocation.attributes.BUILDING_NAME = this.currentLocation.attributes.BUILDING_NAME;
+        }
+        if ( this.newLocation.attributes.ROOM_NUMBER == null && this.currentLocation.attributes.ROOM_NUMBER != null ) {
+            this.newLocation.attributes.ROOM_NUMBER = this.currentLocation.attributes.ROOM_NUMBER;
+        }
+    }
+
     updateCurrentLocation ( locationID: number ) {
         if ( locationID != -1 ) {
             this.locations.forEach ( location => {
                 if ( location.attributes.LOCATION_ID == locationID ) {
-                    this.currentLocation = location;
+                    this.currentLocation.attributes.CAMPUS_ID = locationID;     
+                    this.currentLocation.attributes.CITY = location.attributes.CITY;            
+                    this.currentLocation.attributes.BUILDING_NAME = location.attributes.BUILDING_NAME;
+                    this.currentLocation.attributes.ROOM_NUMBER = location.attributes.ROOM_NUMBER;           
                 }
             });
         }
         else {
-            this.currentLocation = null;
+            this.currentLocation.attributes.CAMPUS_ID = null;     
+            this.currentLocation.attributes.CITY = "";            
+            this.currentLocation.attributes.BUILDING_NAME = "";
+            this.currentLocation.attributes.ROOM_NUMBER = "";
         }
     }
 
@@ -77,7 +98,8 @@ export class LocationComponent implements OnInit {
     }
 
     onSelectRoom(): void {
-        var index = this.locations.findIndex( loc => loc.attributes.LOCATION_ID == this.newLocation.attributes.LOCATION_ID);
+        var index = this.locations.findIndex( loc => 
+            loc.attributes.LOCATION_ID == this.newLocation.attributes.LOCATION_ID);
         this.newLocation.attributes.ROOM_NUMBER = this.locations[index].attributes.ROOM_NUMBER;
     }
 
