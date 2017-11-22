@@ -22,13 +22,14 @@ export class PersonComponent implements OnInit {
     toggleNewPersonFlag: boolean = false;
     personSelected: boolean = false;
     personExists: boolean = false;
+    personExistsInList: boolean = true;;
 
     constructor( 
         private personService: PersonService,
         private reportService: NewReportService
     ){
-        this.filterPerson.attributes.FIRST_NAME = "";
-        this.filterPerson.attributes.LAST_NAME = "";
+        // this.filterPerson.attributes.FIRST_NAME = "";
+        // this.filterPerson.attributes.LAST_NAME = "";
         this.filterList = this.personList;
     };
 
@@ -63,8 +64,6 @@ export class PersonComponent implements OnInit {
     
     selectPerson(person: Person) : void {
         Object.assign(this.newPerson, person);
-        //this.newPerson = person;
-
     
         this.filterPerson.attributes.FIRST_NAME = person.attributes.FIRST_NAME;
         this.filterPerson.attributes.LAST_NAME = person.attributes.LAST_NAME;
@@ -76,7 +75,7 @@ export class PersonComponent implements OnInit {
         this.phoneNumber2 = phoneNumber.slice(3, 6);
         this.phoneNumber3 = phoneNumber.slice(6);
 
-        this.personSelected = true; 
+        this.personSelected = true;
     }
 
     getPersons(): void {
@@ -85,7 +84,6 @@ export class PersonComponent implements OnInit {
         } )
         .then( () => {
             this.copyPersonLst();
-            //this.filterPerson = new Person();
         });   
     }
 
@@ -125,7 +123,21 @@ export class PersonComponent implements OnInit {
     findPerson(): void {
         this.personSelected = false;
 
-        this.personService.filter(this.filterList, this.personList, this.filterPerson);   
+        this.personService.filter(this.filterList, this.personList, this.filterPerson);
+        if (this.filterList.length < 1){
+            if ( this.filterPerson.attributes.FIRST_NAME != null
+                && this.filterPerson.attributes.LAST_NAME != null  
+                && this.filterPerson.attributes.PHONE_NUMBER != null
+                && this.filterPerson.attributes.PHONE_NUMBER.toString().length == 10
+            ) {
+                this.personExistsInList = false;
+                Object.assign(this.newPerson, this.filterPerson);
+            }
+        }
+        else {
+            this.personExistsInList = true;
+        };  
+        console.log(this.filterPerson);
     }
 
     updatePerson( person: Person ): void {

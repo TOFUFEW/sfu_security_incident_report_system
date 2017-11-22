@@ -64,7 +64,7 @@ export class PersonService {
         // for(var i = 0; i < personList.length; i++){
         //     filterList.push(personList[i]);
         // }
-        if (filter.attributes.FIRST_NAME != ""){
+        if (filter.attributes.FIRST_NAME != null){
             for (var i = 0; i < personList.length; i++) {
                 if( i >= filterList.length){
                     break;
@@ -75,7 +75,7 @@ export class PersonService {
                 }
             }
         }
-        if (filter.attributes.LAST_NAME != ""){
+        if (filter.attributes.LAST_NAME != null){
             for (var i = 0; i < personList.length; i++){
                 if( i >= filterList.length){
                     break;

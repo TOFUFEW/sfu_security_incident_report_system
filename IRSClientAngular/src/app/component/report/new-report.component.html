@@ -228,6 +228,7 @@
                                     Please enter a valid phone number
                             </div>
                         </div>
+                        <!-- <div class="alertText" *ngIf="!personExists"> Please add the person before continuing</div> -->
                     </div>
                 </div>
                 <div id="assignGuardPreviewDiv" class="details-container">
@@ -244,7 +245,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="cancelReview()">Cancel</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button class="btn btn-primary" (click)="createReport(); files.upload();" *ngIf="reportReady">Create Report</button>
             </div>
         </div>
