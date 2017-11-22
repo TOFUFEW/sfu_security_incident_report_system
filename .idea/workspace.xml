@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3258f34-4357-46e7-a275-cc0acbced47a" name="Default" comment="Merge remote-tracking branch 'remotes/origin/master' into 62-web-sockets&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;IRSClientAngular/src/app/app.module.ts&#10;#&#9;WebApiSpark/src/main/java/Controller/IncidentsController.java&#10;#&#9;WebApiSpark/src/main/java/Controller/LocationController.java">
+    <list default="true" id="c3258f34-4357-46e7-a275-cc0acbced47a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IRSClientAngular/src/app/app.module.ts" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/app.module.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IRSClientAngular/src/app/component/report/incident.component.ts" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/component/report/incident.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/WebApiSpark/target/" />
@@ -87,18 +88,28 @@
       <file leaf-file-name="dashboard.component.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/dashboard/dashboard.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="520">
-              <caret line="67" column="15" lean-forward="false" selection-start-line="67" selection-start-column="15" selection-end-line="67" selection-end-column="15" />
+            <state relative-caret-position="340">
+              <caret line="20" column="35" lean-forward="false" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="incident.component.ts" pinned="false" current-in-tab="false">
+      <file leaf-file-name="incidents.component.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/report/incidents.component.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="incident.component.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/report/incident.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+            <state relative-caret-position="231">
+              <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -107,17 +118,17 @@
       <file leaf-file-name="incident.service.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-313">
-              <caret line="37" column="5" lean-forward="false" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
+            <state relative-caret-position="597">
+              <caret line="83" column="0" lean-forward="true" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.module.ts" pinned="false" current-in-tab="true">
+      <file leaf-file-name="app.module.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/app.module.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
+            <state relative-caret-position="391">
               <caret line="72" column="0" lean-forward="true" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
               <folding />
             </state>
@@ -154,13 +165,17 @@
       <find>ACCOUNT_TYPE</find>
       <find>attach</find>
       <find>wss</find>
-      <find>incidents</find>
       <find>getIncident</find>
       <find>getGuardIncidents</find>
       <find>initIncidents</find>
       <find>getIncidents</find>
       <find>add</find>
       <find>console</find>
+      <find>reportsInWorkspace</find>
+      <find>*ngFor</find>
+      <find>report</find>
+      <find>bs_reportsToStore</find>
+      <find>incidents</find>
     </findStrings>
     <replaceStrings>
       <replace>Location</replace>
@@ -366,11 +381,11 @@
         <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/IncidentsController.java" />
         <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/App/Application.java" />
         <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/WebSocketHandlers/IncidentsWebSocketHandler.java" />
-        <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/dashboard/dashboard.component.ts" />
-        <option value="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" />
-        <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/report/incident.component.ts" />
         <option value="$PROJECT_DIR$/WebApiSpark/src/test/curl commands.txt" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/app.module.ts" />
+        <option value="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" />
+        <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/dashboard/dashboard.component.ts" />
+        <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/report/incident.component.ts" />
       </list>
     </option>
   </component>
@@ -386,8 +401,8 @@
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1096" />
+    <option name="width" value="1378" />
+    <option name="height" value="780" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -926,7 +941,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511071666027</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Fix error missing comma">
+      <created>1511337707803</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1511337707803</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1077,7 +1099,8 @@
     <MESSAGE value="Merge branch 'master' into 49-encryption" />
     <MESSAGE value="Add Web Socket Handlers and Log In broadcaster" />
     <MESSAGE value="Add Web Socket to broadcast new and updated Incidents to all sessions." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Web Socket to broadcast new and updated Incidents to all sessions." />
+    <MESSAGE value="Fix error missing comma" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix error missing comma" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1086,18 +1109,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/util/data-helper.service.ts" />
     <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/dashboard/dashboard.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1315,14 +1330,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/dashboard/dashboard.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="67" column="15" lean-forward="false" selection-start-line="67" selection-start-column="15" selection-end-line="67" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/App/Application.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1372,14 +1379,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-313">
-          <caret line="37" column="5" lean-forward="false" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/assets/css/inline-edit.component.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1415,18 +1414,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/report/incident.component.ts">
+    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/app.module.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+        <state relative-caret-position="391">
+          <caret line="72" column="0" lean-forward="true" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/app.module.ts">
+    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/dashboard/dashboard.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-483">
+          <caret line="24" column="68" lean-forward="true" selection-start-line="24" selection-start-column="68" selection-end-line="24" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/dashboard/dashboard.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
-          <caret line="72" column="0" lean-forward="true" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
+          <caret line="20" column="35" lean-forward="false" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/report/incidents.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="597">
+          <caret line="83" column="0" lean-forward="true" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/report/incident.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
           <folding />
         </state>
       </provider>

@@ -24,6 +24,9 @@ export class IncidentService
     private userService = new UserService;
     tableName = "";
 
+    private bs_reportsInList = new BehaviorSubject < Incident [] > ( [] );
+    reportsInList = this.bs_reportsInList.asObservable ();
+
     private bs_reportsToAddToWorkspace = new BehaviorSubject<Incident[]>( [] );
     reportsToAddToWorkspace = this.bs_reportsToAddToWorkspace.asObservable();
 
@@ -35,6 +38,28 @@ export class IncidentService
         this.staffService.getStaffs().then( returnedArr => {
             this.staffArr = returnedArr;
         });
+
+        // Web socket
+        var wss = new WebSocket ( Config.IncidentsWebSocketURI );
+        wss.onopen = function ()
+        {
+            console.log ( "IncidentUpdate Socket has been opened!" );
+        };
+
+        wss.onmessage = function ( message )
+        {
+            var incident = this.initializeIncident (
+              JSON.parse ( JSON.parse ( message.data ) ) as Incident
+            );
+            this.onIncidentWebSocketMessage ( incident );
+        }.bind ( this );
+    }
+
+    onIncidentWebSocketMessage ( incident : Incident ): void
+    {
+      var arr = this.bs_reportsInList.getValue ();
+      arr.splice (0, 0, incident );
+      this.bs_reportsInList.next ( arr );
     }
 
     addToWorkspace( incident: Incident ): void {
@@ -54,10 +79,21 @@ export class IncidentService
     getIncidents(): Promise<Incident[]> {
         var incidents = this.http.get( this.incidentsUrl )
             .toPromise()
-            .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
+            .then( response => this.bs_reportsInList.next ( this.initIncidents( response.json() as Incident[] ) as Incident[] ) )
             .catch( this.handleError );
+
         return Promise.resolve( incidents );
     };
+
+
+
+    // getIncidents(): Promise<Incident[]> {
+    //  var incidents = this.http.get( this.incidentsUrl )
+    //      .toPromise()
+    //      .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
+    //      .catch( this.handleError );
+    //      return Promise.resolve( incidents );
+    //};
 
     getGuardIncidents(): Promise<Incident[]> {
         var user = this.userService.getCurrentUser();
