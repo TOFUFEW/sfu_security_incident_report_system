@@ -182,6 +182,27 @@ export class GuardIncidentComponent implements OnInit {
         var locationToInsert: Location = new Location();      
     }
 
+    removeLocation() {
+        var locationToRemove = -1;
+        locationToRemove = this.locationModal.button_id;
+
+        var incident = this.incidentElementService.removeElement ( this.incident, locationToRemove, Config.LocationTable )
+                .then ( incident => {
+                    return incident;
+                });
+
+
+        if ( Promise.resolve ( incident ) == null ) {
+            this.incidentSavedErrorAlert ();            
+        }
+        else {
+            this.incidentSavedAlert ();            
+        }
+
+        this.locationModal.locationComponent.newLocation = new Location(); // reset
+        var locationToInsert: Location = new Location();
+    }
+
     changeCategory ( newCategoryID ) {
         this.incident.attributes.CATEGORY_ID = newCategoryID;
         var incident = this.categoryService.changeIncidentCategory ( this.incident, newCategoryID, this.categoryModal.selectedCategory )

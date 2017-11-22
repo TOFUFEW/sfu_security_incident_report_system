@@ -104,4 +104,18 @@ export class IncidentElementService
         return Promise.resolve(promise);
     }
     
+    removeElement ( incident: Incident, idToRemove: number, table: string ) : Promise<Incident> {
+        var key = this.getElementKey( table );                
+        var index = -1;
+        index = this.getElementIndexByID ( incident, idToRemove, table );
+    
+        if ( incident.incidentElements[key] != null && index != -1 ) {
+            incident.incidentElements[key].splice( index, 1 );
+            var promise = this.incidentService.update ( incident )
+                .then ( incident => {
+                    return incident;
+                });            
+        }
+        return Promise.resolve(promise);
+    }
 }

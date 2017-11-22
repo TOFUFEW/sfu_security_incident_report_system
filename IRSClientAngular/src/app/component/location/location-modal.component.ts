@@ -18,8 +18,8 @@ import { Config } from '../../util/config.service';
 
 export class LocationModalComponent implements OnInit {     
     @ViewChild ( LocationComponent ) locationComponent: LocationComponent   
-    @Output ()     
-    locationSaved:EventEmitter<string> = new EventEmitter();         
+    @Output () locationSaved : EventEmitter<string> = new EventEmitter();     
+    @Output () triggerLocationRemove : EventEmitter<string> = new EventEmitter();    
     
     public visible = false;     
     public button_id;     
@@ -54,12 +54,18 @@ export class LocationModalComponent implements OnInit {
             this.hide();         
         }     
     }     
-    public submitChanges(id): void {       
+    public submitChanges ( id ) : void {       
         this.locationComponent.newLocation.table = Config.LocationTable;  
         console.log(this.locationComponent.newLocation);
         this.locationSaved.emit('complete');
         this.hide();      
-    }   
+    }
+
+    public removeLocation ( id ) : void {
+        console.log("id ", id);
+        this.triggerLocationRemove.emit(id);
+        this.hide();   
+    }
 
     ngOnInit() {         
         document.getElementById("removeLocation").style.visibility = "hidden";     

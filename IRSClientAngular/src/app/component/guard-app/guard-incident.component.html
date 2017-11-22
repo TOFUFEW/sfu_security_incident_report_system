@@ -89,7 +89,8 @@
                                     </div>
                                 </div>
                                 <location-modal-component #modalLocation 
-                                    (locationSaved)="changeLocation()">
+                                    (locationSaved)="changeLocation()"
+                                    (triggerLocationRemove) = "removeLocation()">
                                 </location-modal-component>                                                                        
                             </div>
                             
@@ -111,11 +112,11 @@
                                         <div *ngIf="isEditingSummary">
                                             <textarea [(ngModel)]="newSummary" class="form-control" rows="5"></textarea>
                                             <button (click)="revertChanges('summary')" 
-                                                    class="btn btn-default btn-sm pull-right mt-2 mr-1 mb-1 ml-2">
+                                                    class="btn btn-sm btn-secondary pull-right mt-2 mr-1 mb-1 ml-2">
                                                 <span class="glyphicon glyphicon-remove"></span> Cancel
                                             </button>
                                             <button (click)="saveReport('summary')" 
-                                                    class="btn btn-default btn-sm pull-right mt-2 mb-1">
+                                                    class="btn btn-sm btn-primary pull-right mt-2 mb-1">
                                                 <span class="glyphicon glyphicon-ok"></span> Save
                                             </button>
                                         </div>
