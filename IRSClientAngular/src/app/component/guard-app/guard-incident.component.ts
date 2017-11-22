@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule, ActivatedRoute, ParamMap, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
@@ -22,11 +22,11 @@ import { Output } from '@angular/core/src/metadata/directives';
   styleUrls: ['../../../assets/css/guard-app.css'],
 })
 
-export class GuardIncidentComponent implements OnInit {
-    @ViewChild(LocationModalComponent) locationModal: LocationModalComponent
-    @ViewChild(CategoryComponent) categoryModal: CategoryComponent
-    @ViewChild(InlineEditComponent) inlineEdit: InlineEditComponent
-    title = 'SFU Incident Reporting System';
+export class GuardIncidentComponent implements OnInit {     
+    @ViewChild ( LocationModalComponent ) locationModal: LocationModalComponent     
+    @ViewChild ( CategoryComponent ) categoryModal: CategoryComponent  
+    @ViewChild ( InlineEditComponent ) inlineEdit: InlineEditComponent
+    title = 'SFU Incident Reporting System';     
     incident: Incident = new Incident();
     locationModalStr = "location-modal";
 
@@ -36,7 +36,7 @@ export class GuardIncidentComponent implements OnInit {
     newSummary: string = "";
     alertMessage: string = "";
     showAlertDescription: boolean = false;
-    showAlertSummary: boolean = false;
+    showAlert: boolean = false;    
     alertClass: string = "";
 
     constructor (
@@ -52,6 +52,10 @@ export class GuardIncidentComponent implements OnInit {
             this.router.navigate([ 'login' ] );
         }
     };
+
+    viewAllReports() {
+        this.router.navigate([ 'guard-app/reports-all' ] );
+    }
 
     toggleEditMode( attribute: string ) {
         if ( attribute == null ) return;
@@ -71,13 +75,30 @@ export class GuardIncidentComponent implements OnInit {
         this.toggleEditMode( attribute );
     }
 
-    toggleSuccessMessage( attribute: string ) {
-        if ( attribute == "description" ) {
-            this.showAlertDescription = !this.showAlertDescription;
-        }
-        else if ( attribute == "summary" ) {
-            this.showAlertSummary = !this.showAlertSummary;
-        }
+    toggleSuccessMessage() {
+        this.showAlert = !this.showAlert;
+    }
+
+    incidentSavedAlert () {
+        this.toggleSuccessMessage ();   
+        this.alertMessage = "Successfully saved";
+        this.alertClass = "alert alert-success top-alert";
+        setTimeout ( () => {
+            this.toggleSuccessMessage(); 
+        }, 
+            1800 
+        );                        
+    }
+
+    incidentSavedErrorAlert () {
+        this.toggleSuccessMessage ();                                                            
+        this.alertMessage = "Edit failed" ;
+        this.alertClass = "alert alert-danger top-alert";
+        setTimeout ( () => {
+            this.toggleSuccessMessage (); 
+        }, 
+            1800 
+        );                        
     }
 
     saveReport ( attribute: string ): void {
@@ -86,22 +107,13 @@ export class GuardIncidentComponent implements OnInit {
         this.incidentsService.update ( this.incident )
             .then( returnedIncident => {
                 if ( returnedIncident != null  ) {
-                    this.toggleSuccessMessage ( attribute );
-                    this.alertMessage = "Successfully saved";
-                    this.alertClass = "alert alert-success topAlert";
+                    this.incidentSavedAlert ();
                 }
                 else {
-                    this.alertMessage = "Edit failed" ;
-                    this.alertClass = "alert alert-danger topAlert";
-                    this.toggleSuccessMessage ( attribute );
+                    this.incidentSavedErrorAlert ();
                 }
-            } );
-        setTimeout ( () => {
-            this.toggleSuccessMessage ( attribute );
-        },
-            1500
-        );
-        this.toggleEditMode ( attribute );
+            } );                      
+        this.toggleEditMode ( attribute );            
     }
 
     public showModal() : void {
@@ -140,18 +152,52 @@ export class GuardIncidentComponent implements OnInit {
         }
     }
 
-    changeLocation() {
+    changeLocation ( event ) {
+        console.log("event emitted ", event);
         var locationToAdd = this.locationModal.locationComponent.newLocation;
         var locationToRemove = -1;
         locationToRemove = this.locationModal.button_id;
 
         if ( locationToRemove == -1 ) {
-            // Add new location
-            this.incidentElementService.addElement ( this.incident, locationToAdd );
+            // Add new location 
+            var incident = this.incidentElementService.addElement ( this.incident, locationToAdd )
+                .then ( incident => {
+                    return incident;
+                });
         }
         else {
             // Change existing location
-            this.incidentElementService.changeElement ( this.incident, locationToRemove, locationToAdd );
+            var incident = this.incidentElementService.changeElement ( this.incident, locationToRemove, locationToAdd )
+                .then ( incident => {
+                    return incident;
+                });
+            }
+        if ( Promise.resolve ( incident ) == null ) {
+            this.incidentSavedErrorAlert ();            
+        }
+        else {
+            this.incidentSavedAlert ();            
+        }
+
+        this.locationModal.locationComponent.newLocation = new Location(); // reset
+        var locationToInsert: Location = new Location();
+    }
+
+    removeLocation() {
+        var locationToRemove = -1;
+        locationToRemove = this.locationModal.button_id;
+
+        var incident = this.incidentElementService.removeElement ( this.incident, locationToRemove, Config.LocationTable )
+                .then ( incident => {
+                    return incident;
+                });
+
+
+        if ( Promise.resolve ( incident ) == null ) {
+            this.incidentSavedErrorAlert ();            
+        }
+        else {
+            this.incidentSavedAlert ();            
         }
 
         this.locationModal.locationComponent.newLocation = new Location(); // reset
@@ -160,7 +206,16 @@ export class GuardIncidentComponent implements OnInit {
 
     changeCategory ( newCategoryID ) {
         this.incident.attributes.CATEGORY_ID = newCategoryID;
-        this.categoryService.changeIncidentCategory ( this.incident, newCategoryID, this.categoryModal.selectedCategory );
+        var incident = this.categoryService.changeIncidentCategory ( this.incident, newCategoryID, this.categoryModal.selectedCategory )
+            .then ( incident => {
+                return incident;
+            });
+        if ( Promise.resolve(incident) == null ) {
+            this.incidentSavedErrorAlert ();            
+        }
+        else {
+            this.incidentSavedAlert ();  
+        }
     }
 
     changeDescription() {
@@ -190,16 +245,4 @@ export class GuardIncidentComponent implements OnInit {
     }
 }
 
-//   addIncident(): void {
-//     this.incidentsService.create( this.newIncident )
-//         .then( returnedIncident => {
-//             if ( returnedIncident != null  ) {
-//               this.incidents.push( returnedIncident );
-//               alert( "Incident successfully added!" );
-//             }
-//             else alert( "Add failed." );
-//         } );
-//     delete this.newIncident;
-//     this.newIncident = new Incident();
-//   }
-
+    
