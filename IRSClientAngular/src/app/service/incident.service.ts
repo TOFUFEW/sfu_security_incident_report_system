@@ -51,15 +51,11 @@ export class IncidentService
             var incident = this.initializeIncident (
               JSON.parse ( JSON.parse ( message.data ) ) as Incident
             );
-            this.onIncidentWebSocketMessage ( incident );
-        }.bind ( this );
-    }
 
-    onIncidentWebSocketMessage ( incident : Incident ): void
-    {
-      var arr = this.bs_reportsInList.getValue ();
-      arr.splice (0, 0, incident );
-      this.bs_reportsInList.next ( arr );
+            var arr = this.bs_reportsInList.getValue ();
+            arr.splice (0, 0, incident );
+            this.bs_reportsInList.next ( arr );
+        }.bind ( this );
     }
 
     addToWorkspace( incident: Incident ): void {
@@ -81,19 +77,8 @@ export class IncidentService
             .toPromise()
             .then( response => this.bs_reportsInList.next ( this.initIncidents( response.json() as Incident[] ) as Incident[] ) )
             .catch( this.handleError );
-
-        return Promise.resolve( incidents );
+        return Promise.resolve( this.bs_reportsInList.getValue () );
     };
-
-
-
-    // getIncidents(): Promise<Incident[]> {
-    //  var incidents = this.http.get( this.incidentsUrl )
-    //      .toPromise()
-    //      .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
-    //      .catch( this.handleError );
-    //      return Promise.resolve( incidents );
-    //};
 
     getGuardIncidents(): Promise<Incident[]> {
         var user = this.userService.getCurrentUser();

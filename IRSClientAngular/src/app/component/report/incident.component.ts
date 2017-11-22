@@ -32,26 +32,12 @@ export class IncidentComponent implements OnInit {
         });
         this.incidentService.lastRemovedId
             .subscribe( value => this.removeFromWorkspace( value ) );
-
-        // Web socket
-        //var wss = new WebSocket ( Config.IncidentsWebSocketURI );
-        //wss.onopen = function ()
-        //{
-        //    console.log ( "IncidentUpdate Socket has been opened!" );
-        //};
-
-        //wss.onmessage = function ( message )
-        //{
-        //    var incident = this.incidentService.initializeIncident (
-        //      JSON.parse ( JSON.parse ( message.data ) ) as Incident
-        //    );
-        //}.bind ( this );
-
     };
 
     getIncidents(): void {
         this.incidentService.getIncidents().then( returnedIncidents => {
             this.incidents = returnedIncidents;
+            console.log ( "HERE this.incidents.length = " + this.incidents.length );
         } );
     }
 
@@ -142,13 +128,13 @@ export class IncidentComponent implements OnInit {
     }
 
     ngOnInit() : void {
-        //this.getIncidents();
+        this.getIncidents();
         this.getStaffList();
 
         this.incidentService.reportsInList
           .subscribe( reports => {
               this.incidents = reports as Incident[];
-              console.log ( "this.incidents.length = " + this.incidents.length );
+              console.log ( "reports.length = " + reports.length );
         });
     }
 }
