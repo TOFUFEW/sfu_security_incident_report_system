@@ -1,5 +1,5 @@
 /* Contains general css rules for the entire app */
-span, a, button {
+span, a, button, textarea {
   font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif; }
 
 body {
@@ -30,7 +30,7 @@ body {
   #main-navbar a, #main-navbar .link, #main-navbar .glyphicon-menu-hamburger {
     color: #ffffff; }
   #main-navbar .navbar-nav > li > a {
-    font-size: 13px; }
+    font-size: 12px; }
     #main-navbar .navbar-nav > li > a:hover {
       background-color: #A6192E !important; }
   #main-navbar .navbar-brand {
@@ -110,7 +110,7 @@ body {
 .field-value {
   display: inline-block;
   width: auto;
-  font-size: 14px;
+  font-size: 12px;
   margin-bottom: 8px; }
 
 .card-text-primary {
@@ -238,9 +238,9 @@ body {
   height: 3em;
   border-radius: 99px;
   bottom: 1em;
-  margin-right: 1.5em;
+  margin-right: 1em;
   text-align: center;
-  padding: 1px 0;
+  padding: 1px;
   line-height: 1.42; }
 
 span.required-asterisk {
@@ -497,6 +497,29 @@ div#new-report-panel, div#new-account-panel {
   display: none; }
 
 @media (max-width: 768px) {
+  body {
+    font-size: 130% !important; }
+
+  span.field-title {
+    font-size: 110%;
+    margin-top: 0.5em; }
+
+  .card-text-primary, .card-text-secondary, .card-text-tertiary, select.form-control {
+    font-size: 110% !important; }
+
+  nav#main-navbar.navbar {
+    font-size: 100%;
+    position: fixed;
+    width: 100%;
+    z-index: 100; }
+
+  .guard-container {
+    margin-top: 50px; }
+
+  .navbar-brand {
+    float: right;
+    z-index: 101; }
+
   #logout-link {
     display: flex !important; }
 
