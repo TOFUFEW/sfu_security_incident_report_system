@@ -13,6 +13,7 @@
           <span class="report-id">Report ID: {{report.attributes.REPORT_ID}}</span>
         </div>
     </div>
+
     <ul class="nav nav-tabs">
         <li class="active">
             <a data-toggle="tab" [href]="'#basic-info-' + report.attributes.REPORT_ID">
@@ -49,10 +50,11 @@
                         <option *ngFor="let sub of subCategories" [value]="sub.SUB_CATEGORY">{{sub.SUB_CATEGORY}}</option>
                     </select>
                 </div>
-                <div class="detail detail-lg col-12" *ngIf="categoryTypes != null && categoryTypes.length > 0">
+                <div class="detail detail-lg col-12">
                     <span class="field-title">Type: </span>
                     <span class="field-value" *ngIf="!editMode && report.category != null">{{report.category.attributes.INCIDENT_TYPE}}</span>
-                    <select class="form-control" *ngIf="editMode" [(ngModel)]="report_edit.category.attributes.CATEGORY_TYPE" (change)="onSelectType()">
+                    <select class="form-control" *ngIf="editMode && categoryTypes != null && categoryTypes.length > 0" 
+                        [(ngModel)]="report_edit.category.attributes.INCIDENT_TYPE" (change)="onSelectType()">
                         <option *ngFor="let type of categoryTypes" [value]="type.INCIDENT_TYPE">{{type.INCIDENT_TYPE}}</option>
                     </select>
                 </div>
@@ -61,8 +63,9 @@
                 <div class="detail detail-lg col-12">
                     <span class="field-title">Assigned To: </span>
                     <span class="field-value" *ngIf="!editMode && report.guard != null">{{report.guard.attributes.FIRST_NAME}} {{report.guard.attributes.LAST_NAME}}</span>
-                    <select class="form-control" *ngIf="editMode">
-                        <option></option>
+                    <select *ngIf="editMode" class="form-control" [(ngModel)]="selectedStaffId">
+                        <option value="-1"> </option>
+                        <option *ngFor="let staff of staffArr" [value]="staff.attributes.ACCOUNT_ID">{{staff.attributes.FIRST_NAME}} {{staff.attributes.LAST_NAME}}</option>
                     </select>
                 </div>
                 <div class="detail detail-lg col-12">

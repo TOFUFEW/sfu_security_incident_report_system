@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Config } from '../../util/config.service';
 import { Incident } from '../report/incident';
+import { Staff } from '../staff/staff';
 import { Category, SubCategory, CategoryType, CategoryDictionary } from '../category/category';
 import { IncidentService } from '../../service/incident.service';
 import { LocationService } from '../../service/location.service';
@@ -24,6 +25,9 @@ export class ReportSummaryComponent implements OnInit {
     subCategories: SubCategory[] = [];
     categoryTypes: CategoryType[] = [];   
 
+    selectedStaffId: number = -1;
+    staffArr: Staff[] = [];
+
     editMode: boolean = false;
     constructor (
         private incidentService: IncidentService,
@@ -40,6 +44,12 @@ export class ReportSummaryComponent implements OnInit {
 
     toggleEditMode(){
         this.editMode = !this.editMode;
+        if ( this.editMode ) {
+            console.log(this.report_edit);
+            this.onSelectCategory();
+            this.onSelectSubCategory();
+            this.onSelectType();
+        }
     }
 
     cancelUpdate() {
@@ -50,6 +60,8 @@ export class ReportSummaryComponent implements OnInit {
 
     updateReport() {
         this.report = this.report_edit;
+        this.assignToGuard();
+        console.log(this.report);
         this.editMode = false;
         this.incidentService.update( this.report )
             .then( response => {
@@ -63,6 +75,12 @@ export class ReportSummaryComponent implements OnInit {
         if ( type == 'location' ) {
 
         }
+    }
+
+    assignToGuard (): void {
+        this.report = this.incidentService.updateAssignedStaff( this.report, this.selectedStaffId );
+        if ( this.report.guard != null )
+            this.selectedStaffId = this.report.guard.attributes.ACCOUNT_ID;
     }
 
     //filter subcategory and type lists according to selection of previous dropdown
@@ -82,7 +100,6 @@ export class ReportSummaryComponent implements OnInit {
             this.report_edit.category.attributes.CATEGORY_ID = subcategories.CATEGORY_ID;
             this.report_edit.attributes.CATEGORY_ID = this.report_edit.category.attributes.CATEGORY_ID;
             this.report_edit.category.attributes.INCIDENT_TYPE = null;
-            this.report_edit.insertIncidentElement( this.report_edit.category );
         }
         this.categoryTypes = subcategories.TYPES;
     }
@@ -90,13 +107,12 @@ export class ReportSummaryComponent implements OnInit {
     onSelectType() {        
         if ( this.report_edit.category.attributes.INCIDENT_TYPE != null ) {
             var index = this.categoryTypes.findIndex( item => item.INCIDENT_TYPE ===this.report_edit.category.attributes.INCIDENT_TYPE );
-
+            
             if ( index >= 0 ) {
                 var type = this.categoryTypes[index];
                 this.report_edit.category.attributes.CATEGORY_ID = type.CATEGORY_ID;
                 this.report_edit.category.attributes.INCIDENT_TYPE = type.INCIDENT_TYPE; // for report summary                
                 this.report_edit.attributes.CATEGORY_ID = this.report_edit.category.attributes.CATEGORY_ID;
-                this.report_edit.insertIncidentElement( this.report_edit.category );
             }
         }
     }
@@ -131,13 +147,20 @@ export class ReportSummaryComponent implements OnInit {
         if ( this.inputReport != null) {
             this.report = this.inputReport;
             this.report_edit = this.deepCopyReport(this.report);
+            if ( this.report.guard != null )
+                this.selectedStaffId = this.report.guard.attributes.ACCOUNT_ID; 
         } 
         this.incidentService.categoryDictionary.subscribe(
             categories => {
                 this.categories = categories;
                 console.log( this.categories );
             }
-        );        
+        );    
+        this.incidentService.staffArr.subscribe(
+            staffArr => {
+                this.staffArr = staffArr;
+            }
+        );   
     }
 
     private deepCopyReport( source: Incident ): Incident {

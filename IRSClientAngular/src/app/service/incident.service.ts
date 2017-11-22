@@ -41,7 +41,9 @@ export class IncidentService
     private bs_editedReport = new BehaviorSubject<Incident>(null);
     editedReport = this.bs_editedReport.asObservable();
 
-    staffArr: Staff[] = [];
+    private bs_staffArr = new BehaviorSubject<Staff[]>([]);
+    staffArr = this.bs_staffArr.asObservable();
+
     campusArr: Campus[] = [];
     
     constructor( private http: Http, 
@@ -49,7 +51,7 @@ export class IncidentService
         private locationService: LocationService,
         private categoryService: CategoryService) {
         this.staffService.getStaffs().then( returnedArr => {
-            this.staffArr = returnedArr;
+            this.bs_staffArr.next( returnedArr as Staff[] );
         });
         this.locationService.getCampus().then( response => {
             this.campusArr = response as Campus[];
@@ -142,8 +144,9 @@ export class IncidentService
     create( incident: Incident ): Promise<Incident> {
         // TEMPORARY
         if ( incident.attributes.ACCOUNT_ID == null ) {
-            if ( this.staffArr.length > 0 )
-                incident.attributes.ACCOUNT_ID = this.staffArr[0].attributes.ACCOUNT_ID;
+            var staffs = this.bs_staffArr.getValue();
+            if ( staffs.length > 0 )
+                incident.attributes.ACCOUNT_ID = staffs[0].attributes.ACCOUNT_ID;
         }
 
         incident.table = Config.IncidentTable;
@@ -181,6 +184,36 @@ export class IncidentService
                 .catch( this.handleError );
         return Promise.resolve( promise );
     };
+
+    updateAssignedStaff( incidentToAssign: Incident, selectedStaffId: number ) : Incident {
+        var staffArr = this.bs_staffArr.getValue();
+        var index = staffArr.findIndex( x => x.attributes.ACCOUNT_ID == selectedStaffId );
+        
+        var existingStaffIndex = incidentToAssign.incidentElements[Config.StaffKey]
+            .findIndex( e => e.table === Config.StaffTable );
+            
+        var staff = null;
+        if ( index >= 0 ) {
+            staff = staffArr[ index ];
+        }
+
+        if ( existingStaffIndex >= 0 ) {
+            if ( staff == null ) { // de-assign
+                incidentToAssign.incidentElements[Config.StaffKey].splice( existingStaffIndex, 1 );
+            }
+            else { // replace
+                incidentToAssign.incidentElements[Config.StaffKey].splice( existingStaffIndex, 1, staff);
+            }
+        }
+        else {
+            if ( staff != null ) { // assign
+                incidentToAssign.incidentElements[Config.StaffKey].push( staff );
+            }
+        }
+
+        incidentToAssign.guard = staff;
+        return incidentToAssign;
+    }
 
     private handleError( error: any ) : Promise<any>
     {

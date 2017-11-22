@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { IncidentService } from '../../service/incident.service';
 import { DomService } from '../../util/dom.service';
 import { NewReportService } from '../../service/new-report.service';
@@ -20,6 +20,7 @@ import {Router} from "@angular/router";
 
 @Component(
   {
+    selector: 'new-report-component',
     templateUrl: './new-report.component.html',
     styleUrls: ['../../../assets/css/new-report.component.css'],
   }
@@ -56,7 +57,7 @@ export class NewReportComponent implements OnInit {
           } );
     }
 
-    ngOnInit() {
+    ngOnInit() {       
         this.newReportService.currentLocations
             .subscribe( locations =>  {
                 this.newIncident.incidentElements[Config.LocationKey] = locations;
@@ -161,18 +162,6 @@ export class NewReportComponent implements OnInit {
             alert("Please fill in the required fields");
         }
     }
-
-    // formatPhoneNumber( number: string ) {
-    //     var str = "(";
-    //     for (var i = 0 ; i < number.length ; i += 1) {
-    //         str += number.charAt( i ) + "" ;
-    //         if ( i == 2 )
-    //             str += ")" + "" ;
-    //         if ( i < 6 && (i+1) % 3 == 0 )
-    //             str += " - " + "";
-    //     }
-    //     return str;
-    // }
 
     addComponent( componentName: string ) {
         //if ( this.dynamicTest == 'Vehicle' )
