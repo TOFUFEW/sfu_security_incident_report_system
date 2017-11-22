@@ -105,15 +105,19 @@ export class NewReportService {
 
     private validateIncidentElements( incidentElements: Map<String, IncidentElement[]> ): boolean {
         var isValid = true;
-        incidentElements.forEach( map => {
-            map.forEach( elem => {
-                var table = elem.table;
-                if ( table.toLowerCase() === Config.LocationTable.toLowerCase() )
-                    isValid = this.validateLocation( elem as Location ) && isValid ;
-                else if ( table.toLowerCase() === Config.PersonTable.toLowerCase() )
-                    isValid = this.validatePerson( elem.attributes as Person ) && isValid ;
+
+        // Iteriate through hash map and check if its valid input
+        incidentElements.forEach((value: IncidentElement[], key: String) => {
+            var elementArray = value;
+            elementArray.forEach(element => {
+                if (element.table.toLowerCase() === Config.LocationTable.toLowerCase()) {
+                    isValid = this.validateLocation( element as Location ) && isValid ;
+                } else if (element.table.toLowerCase() === Config.PersonTable.toLowerCase()) {
+                    isValid = this.validatePerson( element as Person ) && isValid ;
+                }
             });
         });
+        
         return isValid;
     }
 

@@ -27,6 +27,11 @@ export class LocationComponent implements OnInit {
     }
 
     addLocationToReport(): void {
+        // REMOVE THIS HACK WHEN WE HAVE SOMETHING BETTER
+        if (this.newLocation.attributes.DEPARTMENT == null || undefined) {
+            this.newLocation.attributes.DEPARTMENT = "CMPT";
+        }
+        // END OF REMOVE
         this.reportService.addIncidentElement ( this.newLocation );
     }
 
@@ -52,6 +57,7 @@ export class LocationComponent implements OnInit {
         this.locationMap.forEach( campus => {
             if ( campus.CAMPUS_ID == this.newLocation.attributes.CAMPUS_ID ) 
                 this.buildings = campus.BUILDINGS;
+                this.newLocation.attributes.CITY = campus.CITY;
         } );
     }
 

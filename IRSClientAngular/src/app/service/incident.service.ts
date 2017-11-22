@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Incident } from '../component/report/incident';
+import { IncidentElement } from '../component/report/incident-element';
 import { Category } from '../component/category/category';
 import { Location } from '../component/location/location';
 import { Campus } from '../component/location/campus';
@@ -24,7 +25,6 @@ export class IncidentService
     updateIncidentsUrl = Config.UpdateIncidentsURI;
     guardIncidentsUrl = Config.GuardIncidentsURI;
     private userService = new UserService;
-    tableName = "";
 
     private bs_reportsToAddToWorkspace = new BehaviorSubject<Incident[]>( [] );
     reportsToAddToWorkspace = this.bs_reportsToAddToWorkspace.asObservable();
@@ -37,7 +37,8 @@ export class IncidentService
 
     constructor( private http: Http, 
         private staffService: StaffService,
-        private locationService: LocationService) {
+        private locationService: LocationService) 
+    {
         this.staffService.getStaffs().then( returnedArr => {
             this.staffArr = returnedArr;
         });
@@ -117,16 +118,18 @@ export class IncidentService
             if ( this.staffArr.length > 0 ) 
                 incident.attributes.ACCOUNT_ID = this.staffArr[0].attributes.ACCOUNT_ID;
         }
-
+        this.toSearchString(incident);
         incident.table = Config.IncidentTable;
+        /*
         var promise = this.http
-                .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
+                .post( this.incidentsUrl, JSON.stringify(incident), { headers: this.headers } )
                 .toPromise()
                 .then( response => {
                     return ( response.json() as boolean ) ? incident : null
                 })
                 .catch( this.handleError );
-        return Promise.resolve( promise );
+                */
+        return Promise.resolve( null );
     }
 
     update( incident: Incident ): Promise<Incident> {        
@@ -159,5 +162,27 @@ export class IncidentService
         alert( "An error occurred." );
         console.error( 'An error occurred' , error ); // for demo purposes only
         return Promise.reject( error.message || error );
+    }
+
+    // SEARCH TEXT FOR SEARCHING IN THE DATABASE
+    private toSearchString(incident: Incident) {
+        incident.searchString = incident.attributes.REPORT_ID
+        + " " + incident.attributes.DESCRIPTION 
+        + " " + incident.attributes.EXECUTIVE_SUMMARY;
+
+        var map = incident.incidentElements;
+
+        // iterate through each incident element and add them to the search string
+        map.forEach((value: IncidentElement[], key: String) => {
+            var elementArray = value;
+            elementArray.forEach(element => {
+                console.log("This element's search string is: " + element.toSearchString());
+                incident.searchString = incident.searchString + " " + element.toSearchString();
+            });
+        });
+
+        debugger;
+        incident.attributes.SEARCH_TEXT = incident.searchString;
+        console.log(incident.attributes.SEARCH_TEXT);
     }
 }

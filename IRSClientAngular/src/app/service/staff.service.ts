@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
 // import { IncidentElementService } from '../service/incident-element.service';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs';
 import { Staff } from '../component/staff/staff';
 import { IncidentElement } from '../component/report/incident-element';
+import { plainToClass } from "class-transformer";
 
 @Injectable()
 export class StaffService {
@@ -14,14 +17,25 @@ export class StaffService {
     tableName = Config.StaffTable;
     constructor(private http: Http ) {}
 
+    
     getStaffs(): Promise<Staff[]> {
         var staffList = this.http.get( this.staffUrl )
             .toPromise()
-            .then( response => response.json() as Staff[] )
+            .then( response => plainToClass(Staff, response.json()) )
             .catch( this.handleError );
         return Promise.resolve( staffList );
     };
-
+    
+    /*
+    getStaffsObs(): Observable<Staff[]> {
+        let options = new RequestOptions( {headers: this.headers} );
+        
+        return this.http
+            .get(this.staffUrl, options)
+            .map((response: Response) =>
+            staffList = plainToClass(Staff, response.json() ));
+    }
+    */
 
 
     update( staff: Staff ) : Promise<Staff> {

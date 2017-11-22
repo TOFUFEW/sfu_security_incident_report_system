@@ -4,6 +4,7 @@ CREATE PROCEDURE [dbo].[insertIncident]
 	@category_id INT,
 	@description TEXT,
 	@executive_summary TEXT,
+	@search_text TEXT,
 	@result BIT = 1 OUTPUT
 AS
 BEGIN
@@ -16,18 +17,19 @@ BEGIN
 			ACCOUNT_ID,
 			CATEGORY_ID,
 			DESCRIPTION,
-<<<<<<< HEAD
 			EXECUTIVE_SUMMARY,
-=======
-			EXECUTIVE_SUMMARY
->>>>>>> 7fb8869fef9082f529c3a3716b38cce6c51b41a3
+			SEARCH_TEXT
 		) VALUES (
 			@creator_id,
 			@category_id,
 			@description,
-			@executive_summary
+			@executive_summary,
+			@search_text
 		);
 		SELECT @result = 1;
 	END
-	SELECT @result = 0;
+	ELSE
+	BEGIN
+		SELECT @result = 0;
+	END
 END;

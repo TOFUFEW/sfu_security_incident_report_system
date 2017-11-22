@@ -16,7 +16,7 @@ public class DBHelper
     */
     private static final String USERNAME = "sa";
     private static final String PASSWORD = "CMPT373Alpha";
-    private static final String URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=master;";
+    private static final String URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=hibernatedb;";
     private static Connection connection = null;
 
     /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; REFACTORED methods ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
@@ -187,33 +187,48 @@ public class DBHelper
             }
         }
 
+        if (incident.getAttributeValue ( DatabaseValues.Column.SEARCH_TEXT ) == null)
+        {
+            return false;
+        }
+
         try {
             initDB ();
-            String query = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? ) } ";
+            String query = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? , ? ) } ";
             CallableStatement stmt = connection.prepareCall ( query );
             System.out.println (incident.getAttributeValue(DatabaseValues.Column.ACCOUNT_ID));
             System.out.println (incident.getAttributeValue(DatabaseValues.Column.CATEGORY_ID));
             System.out.println (incident.getAttributeValue(DatabaseValues.Column.DESCRIPTION));
             System.out.println (incident.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY));
+            System.out.println (incident.getAttributeValue(DatabaseValues.Column.SEARCH_TEXT));
+
             stmt.setString (
                     1,
                     incident.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID )
             );
+
             stmt.setString (
                     2,
                     incident.getAttributeValue ( DatabaseValues.Column.CATEGORY_ID )
             );
+
             stmt.setString (
                     3,
                     incident.getAttributeValue ( DatabaseValues.Column.DESCRIPTION )
             );
+
             stmt.setString (
                     4,
                     incident.getAttributeValue ( DatabaseValues.Column.EXECUTIVE_SUMMARY )
             );
 
-            stmt.registerOutParameter (
+            stmt.setString (
                     5,
+                    incident.getAttributeValue ( DatabaseValues.Column.SEARCH_TEXT )
+            );
+
+            stmt.registerOutParameter (
+                    6,
                     Types.INTEGER
             );
 
@@ -239,7 +254,7 @@ public class DBHelper
                 }
             } while ( lastIncidentId != null && lastIncidentId.equals( before_lastIncidentId ) );
 
-            int output = stmt.getInt ( 5 );
+            int output = stmt.getInt ( 6 );
 
             String relationSQL = "{ call dbo.insertRelation ( ? , ? , ? ) }";
             for ( Map.Entry < String , ArrayList < IncidentElement > > entry : incident.getIncidentElements().entrySet() ) {
@@ -283,6 +298,7 @@ public class DBHelper
         }
         return false;
     }
+
 
     public static boolean insertIncidentRefactor ( Incident incident ) {
         if ( !allFieldsValid( incident ) ) {
@@ -411,6 +427,7 @@ public class DBHelper
         return false;
     }
 
+
     private static String getPersonIdFromDb( IncidentElement incidentElement ) {
         try {
             String first = incidentElement.getAttributeValue( DatabaseValues.Column.FIRST_NAME );
@@ -465,6 +482,12 @@ public class DBHelper
         if ( incident.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY) == null ||
                 incident.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY).isEmpty() )
             System.out.println("*** WARNING: Executive Summary is empty...");
+
+        String searchText = incident.getAttributeValue( DatabaseValues.Column.SEARCH_TEXT ) ;
+        if ( searchText == null || searchText.isEmpty() ) {
+            System.out.println( "*** WARNING: SEARCH_TEXT cannot be null.");
+            return false;
+        }
 
         String categoryId = incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) ;
         if ( categoryId == null || categoryId.isEmpty() ) {
@@ -723,6 +746,7 @@ public class DBHelper
         }
     }
 
+
     public static boolean updateIncidentRefactor ( Incident incident ) {
         if ( !allFieldsValid( incident ) ) {
             System.out.println( "Attempting to find IncidentCategory in incidentElements array...");
@@ -821,6 +845,7 @@ public class DBHelper
         }
         return false;
     }
+
 
     public static boolean updateIncident ( Incident incident ) {
         if ( !allFieldsValid( incident ) ) {

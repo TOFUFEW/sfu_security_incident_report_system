@@ -13,6 +13,15 @@ export class Category implements IncidentElement {
         this.attributes.SUB_CATEGORY = subCategory;
         this.attributes.INCIDENT_TYPE = type;
     }
+
+    toSearchString(): string {
+        if (this.attributes.INCIDENT_TYPE == null || undefined) {
+            this.attributes.INCIDENT_TYPE = "";
+        }
+        return this.attributes.MAIN_CATEGORY 
+        + " " + this.attributes.SUB_CATEGORY 
+        + " " + this.attributes.INCIDENT_TYPE
+    };
 }
 
 export class CategoryAttributes {

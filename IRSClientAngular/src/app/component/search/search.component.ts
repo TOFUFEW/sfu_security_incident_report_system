@@ -25,12 +25,12 @@ export class SearchComponent implements OnInit {
       ngOnInit(): void {
         this.incidentService.getIncidents().then(returnedIncidents => {
             this.incidents = returnedIncidents;
-            this.reconstructElements();
+            //this.reconstructElements();
             console.log(this.incidents);
         }); 
     }
 
-    /* TEMP CODE */
+    /*
     private reconstructElements() {
         this.incidents.forEach(incident => {
             this.toSearchStrings(incident);
@@ -50,6 +50,7 @@ export class SearchComponent implements OnInit {
         this.setSearchString(incident);
     }
 
+    
     setSearchString(incident: Incident) {
         incident.searchString = 
         incident.attributes.REPORT_ID 
@@ -70,5 +71,5 @@ export class SearchComponent implements OnInit {
         + " " + loc.attributes.ROOM_NUMBER 
         + " " + loc.attributes.DEPARTMENT;
     }
-    /* END OF TEMP CODE */
+    */
 }
