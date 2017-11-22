@@ -25,6 +25,7 @@ export class IncidentService
     updateIncidentsUrl = Config.UpdateIncidentURI;
     guardIncidentsUrl = Config.GetIncidentsURI;
     incidentsUrl = Config.IncidentsURI;
+    createdByIncidentsUrl = Config.CreatedIncidentsURI;
 
     private userService = new UserService;
     tableName = "";
