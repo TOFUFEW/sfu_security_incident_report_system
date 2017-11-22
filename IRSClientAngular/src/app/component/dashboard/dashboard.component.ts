@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
             this.router.navigate( [ 'login' ] );
         } else {
             if ( this.userService.isGuard() ) {
-                this.router.navigate( [ 'guard-app/reports-all' ] );
+              this.router.navigate( [ 'guard-app/dashboard' ] );
             }
         }
     }

@@ -15,7 +15,7 @@ import { IncidentComponent } from './component/report/incident.component';
 import { LoginComponent } from './component/login/login.component';
 import { NewReportComponent } from './component/report/new-report.component';
 import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
-import { GuardAllReportsComponent } from './component/guard-app/guard-all-reports.component';
+import { GuardDashboardComponent } from './component/guard-app/guard-dashboard';
 import { VehicleComponent } from './component/vehicle/vehicle.component';
 import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
@@ -53,7 +53,7 @@ import { NewAccountComponent } from './component/login/new-account-component';
   declarations: [
     AppComponent,
     AttachmentComponent,
-    
+
     DashboardComponent,
     LocationComponent,
     LocationModalComponent,
@@ -61,7 +61,7 @@ import { NewAccountComponent } from './component/login/new-account-component';
     IncidentComponent,
     LoginComponent,
     GuardIncidentComponent,
-    GuardAllReportsComponent,
+    GuardDashboardComponent,
     CategoryComponent,
     NewReportComponent,
     VehicleComponent,
@@ -73,12 +73,12 @@ import { NewAccountComponent } from './component/login/new-account-component';
     NewAccountComponent,
     InlineEditComponent
   ],
-  
+
   providers: [
-    UserService, 
-    LoginService, 
-    DomService, 
-    LocationService, 
+    UserService,
+    LoginService,
+    DomService,
+    LocationService,
     IncidentService,
     IncidentElementService,
     StaffService,

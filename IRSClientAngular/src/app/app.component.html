@@ -1,6 +1,6 @@
 
 <nav id="main-navbar" class="navbar">
-    <div class="container-fluid">
+    <div id="navbar-container" class="container-fluid">
         <div class="navbar-header navbar-left-items">
             <a class="navbar-brand navbar-sm">SFU IRS</a>
             <a class="navbar-brand navbar-lg">SFU Incident Reporting System</a>
@@ -9,7 +9,7 @@
             <li *ngIf="isAdmin" (click)="redirect('dashboard')"><a class="link">Dashboard</a></li>
             <li *ngIf="isAdmin" (click)="redirect('search')"><a class="link">Search</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right" *ngIf="user!=null">
+        <ul id="navbar-right-items" class="nav navbar-nav navbar-right navbar-lg" *ngIf="user!=null">
             <li class="dropdown">
                 <span class="glyphicon glyphicon-menu-hamburger navbar-right-button pull-left  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>    
                 <ul class="dropdown-menu">
@@ -20,6 +20,8 @@
             </li>
         </ul>
     </div>
+    <span id="logout-link" class="link navbar-right navbar-sm" (click)="onLogout()">Logout</span>
+    
 </nav>
 
 
