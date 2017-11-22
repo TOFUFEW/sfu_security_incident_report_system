@@ -7,12 +7,14 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Incident } from '../component/report/incident';
 import { Category } from '../component/category/category';
 import { Location } from '../component/location/location';
+import { Campus } from '../component/location/campus';
 import { Person } from '../component/person/person';
 import 'rxjs/add/operator/toPromise';
 import { User } from "../component/login/user";
 import { UserService } from "./user.service";
 import { Staff } from '../component/staff/staff';
 import { StaffService } from '../service/staff.service';
+import { LocationService } from '../service/location.service';
 
 @Injectable()
 export class IncidentService
@@ -23,6 +25,7 @@ export class IncidentService
     updateIncidentsUrl = Config.UpdateIncidentURI;
     guardIncidentsUrl = Config.GetIncidentsURI;
     incidentsUrl = Config.IncidentsURI;
+
     private userService = new UserService;
     tableName = "";
 
@@ -33,9 +36,16 @@ export class IncidentService
     lastRemovedId = this.bs_lastRemovedId.asObservable();
 
     staffArr: Staff[] = [];
-    constructor( private http: Http, private staffService: StaffService ) {
+    campusArr: Campus[] = [];
+
+    constructor( private http: Http,
+        private staffService: StaffService,
+        private locationService: LocationService) {
         this.staffService.getStaffs().then( returnedArr => {
             this.staffArr = returnedArr;
+        });
+        this.locationService.getCampus().then( response => {
+            this.campusArr = response as Campus[];
         });
     }
 
@@ -61,6 +71,27 @@ export class IncidentService
       return Promise.resolve( incidents );
     };
 
+    getGuardIncidents(): Promise<Incident[]> {
+        var user = this.userService.getCurrentUser();
+        // var _user = IncidentElementService.toIncidentElement ( Config.AccountTable, user );
+        var incidents = this.http
+            .post( this.guardIncidentsUrl, JSON.stringify( user ), { headers: this.headers } )
+            .toPromise()
+            .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
+            .catch( this.handleError );
+        return Promise.resolve( incidents );
+    }
+
+    getCreatedByIncidents(): Promise<Incident[]> {
+        var user = this.userService.getCurrentUser();
+        var incidents = this.http
+            .post( this.createdByIncidentsUrl, JSON.stringify( user ), { headers: this.headers } )
+            .toPromise()
+            .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
+            .catch( this.handleError );
+        return Promise.resolve( incidents );
+    }
+
     getIncident( id: number ): Promise<Incident> {
         var incidentToGet = new Incident();
         incidentToGet.attributes.REPORT_ID = id ;
@@ -82,6 +113,14 @@ export class IncidentService
     private initializeIncident( incident: Incident ): Incident {
         incident.category = incident.incidentElements[Config.IncidentCategoryKey][0] as Category;
         incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
+        incident.incidentElements[Config.LocationKey]
+            .forEach( element => {
+                var index = this.campusArr.findIndex(
+                    c => c.attributes.CAMPUS_ID == (element as Location).attributes.CAMPUS_ID
+                );
+                if ( index >= 0 )
+                    (element as Location).attributes.CITY = this.campusArr[index].attributes.CITY;
+            });
         return incident;
     }
 

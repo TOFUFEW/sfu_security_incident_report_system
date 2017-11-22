@@ -26,13 +26,12 @@ export class DashboardComponent implements OnInit {
         private userService: UserService,
         private incidentService: IncidentService,
     ) {
-
-        if ( this.userService.isLoggedIn() == false ) {
+        if ( !this.userService.isLoggedIn() ) {
             this.router.navigate( [ 'login' ] );
         } else {
-          if ( this.userService.isGuard() ) {
-            this.router.navigate( [ 'guard-app/reports-all' ] );
-          }
+            if ( this.userService.isGuard() ) {
+              this.router.navigate( [ 'guard-app/dashboard' ] );
+            }
         }
     }
 
