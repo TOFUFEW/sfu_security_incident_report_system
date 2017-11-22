@@ -67,9 +67,10 @@ export class NewReportComponent implements OnInit {
                 this.newIncident.incidentElements[Config.PersonKey] = persons;
             } );
 
-        this.categoryService.getCategories().then ( returnedCategories => {
-            this.categories = this.categoryService.toCategoryDictionary( returnedCategories );
-        });
+        this.categoryService.categoryDictionary
+            .subscribe( categories => {
+                this.categories = categories;
+            });
 
         if( this.userService.isGuard() ) {
             var assignDiv = document.getElementById("assignGuardDiv");

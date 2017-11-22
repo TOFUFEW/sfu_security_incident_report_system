@@ -3,6 +3,8 @@ import { Category, CategoryDictionary, SubCategory, CategoryType } from '../comp
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Incident } from '../component/report/incident';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -11,8 +13,17 @@ export class CategoryService
 {
     private headers = new Headers({ 'Content-Type': 'application/json' });
     categoriesUrl = Config.CategoriesURI;
+
+    private bs_categories = new BehaviorSubject<CategoryDictionary[]>([]);
+    categoryDictionary = this.bs_categories.asObservable();
+
     constructor ( 
-        private http: Http ){}
+        private http: Http ){
+            this.getCategories().then( response => {
+                var cat = this.toCategoryDictionary( response );
+                this.bs_categories.next(cat);
+            } );
+    }
 
     getCategories(): Promise < Category[] > {
         var categories = this.http.get( this.categoriesUrl )
@@ -40,6 +51,23 @@ export class CategoryService
             }
         });
         return categoryMap;
+    }
+
+    //filter subcategory and type lists according to selection of previous dropdown
+    getSubCategories ( mainCategory: string ) {
+        var categories = this.bs_categories.getValue();
+        var index = categories.findIndex( item => item.MAIN_CATEGORY === mainCategory );
+        if ( index < 0 ) return ;
+        var subCategories = categories[index].SUBCATEGORIES;
+        return subCategories;
+    }
+
+    getIncidentTypes( mainCategory: string, subCategory: string ) {
+        var subCategories = this.getSubCategories( mainCategory );
+        var index = subCategories.findIndex( item => item.SUB_CATEGORY == subCategory );
+        if ( index < 0 ) return ;
+        var subcategory = subCategories[index];
+        return subcategory.TYPES;
     }
 
     private getMainCategory( mainCategory: string, categories: Category[] ): CategoryDictionary {

@@ -6,6 +6,7 @@ import { LocationComponent } from '../location/location.component';
 import { Category, SubCategory, CategoryType, CategoryDictionary } from '../category/category';
 import { IncidentService } from '../../service/incident.service';
 import { LocationService } from '../../service/location.service';
+import { CategoryService } from '../../service/category.service';
 import { map } from 'rxjs/operators/map';
 import { UserService } from "../../service/user.service";
 import { NewReportService } from '../../service/new-report.service';
@@ -33,12 +34,14 @@ export class ReportSummaryComponent implements OnInit {
     selectedStaffId: number = -1;
     staffArr: Staff[] = [];
 
+    locationIdToRemove: number = -1; 
     editMode: boolean = false;
     allFieldsValid: boolean = true;
 
     constructor (
         private incidentService: IncidentService,
         private incidentElementService: IncidentElementService,
+        private categoryService: CategoryService,
         private newReportService: NewReportService,
         private locationService: LocationService,
         private userService: UserService        
@@ -68,7 +71,9 @@ export class ReportSummaryComponent implements OnInit {
     }
 
     updateReport() {
-        if ( this.allFieldsValid = this.newReportService.validateReport(this.report_edit)) {
+        this.allFieldsValid = this.newReportService.validateReport(this.report_edit);
+        console.log(this.report_edit);
+        if ( this.allFieldsValid ) {
             this.report = this.report_edit;
             this.assignToGuard();
             this.editMode = false;
@@ -81,6 +86,7 @@ export class ReportSummaryComponent implements OnInit {
         }
         else
             this.alertReportInvalid(); 
+        console.log(this.report_edit);
     }
 
     addIncidentElement( type: string ) {
@@ -100,6 +106,20 @@ export class ReportSummaryComponent implements OnInit {
         }
     }
 
+    removeIncidentElement( type: string ) {
+        if ( type === 'location' ) {
+            this.incidentElementService
+                .removeElementNoUpdate( this.report_edit, Config.LocationTable, this.locationIdToRemove );
+            this.updateReport();
+            this.locationIdToRemove = -1 ;                
+        }
+
+    }
+
+    setLocationIdToRemove( id: number ) {
+        this.locationIdToRemove = id;
+    }
+
     private flushComponents() {
         this.locationComponent.newLocation = new Location();
     }
@@ -112,39 +132,45 @@ export class ReportSummaryComponent implements OnInit {
 
     //filter subcategory and type lists according to selection of previous dropdown
     onSelectCategory () {
-        var index = this.categories.findIndex( item => item.MAIN_CATEGORY === this.report_edit.category.attributes.MAIN_CATEGORY );
-        if ( index < 0 ) return ;
-        this.subCategories = this.categories[index].SUBCATEGORIES;
+        this.subCategories = this.categoryService
+            .getSubCategories( this.report_edit.category.attributes.MAIN_CATEGORY );
         this.categoryTypes = [];
-        this.report_edit.category.attributes.MAIN_CATEGORY = this.categories[index].MAIN_CATEGORY; // for report summary
         this.report_edit.attributes.CATEGORY_ID = null;
-        
     }
 
     onSelectSubCategory () {
         var index = this.subCategories.findIndex( item => item.SUB_CATEGORY == this.report_edit.category.attributes.SUB_CATEGORY );
         if ( index < 0 ) return ;
-        var subcategories = this.subCategories[index];
-        if ( subcategories.TYPES.length == 0 ) {
-            this.report_edit.category.attributes.CATEGORY_ID = subcategories.CATEGORY_ID;
+        var subcategory = this.subCategories[index];
+
+        if ( subcategory.TYPES.length == 0 ) {
+            this.report_edit.category.attributes.CATEGORY_ID = subcategory.CATEGORY_ID;
             this.report_edit.attributes.CATEGORY_ID = this.report_edit.category.attributes.CATEGORY_ID;
             this.report_edit.category.attributes.INCIDENT_TYPE = null;
+        }
+        else if ( subcategory.TYPES.length == 1 ) {
+            var type = subcategory.TYPES[0];
+            this.report_edit.category.attributes.INCIDENT_TYPE = type.INCIDENT_TYPE;
+            this.report_edit.attributes.CATEGORY_ID = type.CATEGORY_ID;
         }
         else {
             this.report_edit.attributes.CATEGORY_ID = null;            
         }
-        this.categoryTypes = subcategories.TYPES;
+        this.categoryTypes = subcategory.TYPES;
     }
 
-    onSelectType() {        
+    onSelectType() {      
         if ( this.report_edit.category.attributes.INCIDENT_TYPE != null ) {
             var index = this.categoryTypes.findIndex( item => item.INCIDENT_TYPE ===this.report_edit.category.attributes.INCIDENT_TYPE );
             
             if ( index >= 0 ) {
                 var type = this.categoryTypes[index];
+                this.report_edit.attributes.CATEGORY_ID = type.CATEGORY_ID;
                 this.report_edit.category.attributes.CATEGORY_ID = type.CATEGORY_ID;
                 this.report_edit.category.attributes.INCIDENT_TYPE = type.INCIDENT_TYPE; // for report summary                
-                this.report_edit.attributes.CATEGORY_ID = this.report_edit.category.attributes.CATEGORY_ID;
+                console.log(this.report_edit);
+                console.log( type.CATEGORY_ID);
+                console.log(this.report_edit.attributes.CATEGORY_ID);
             }
         }
     }
@@ -182,7 +208,7 @@ export class ReportSummaryComponent implements OnInit {
             if ( this.report.guard != null )
                 this.selectedStaffId = this.report.guard.attributes.ACCOUNT_ID; 
         } 
-        this.incidentService.categoryDictionary.subscribe(
+        this.categoryService.categoryDictionary.subscribe(
             categories => {
                 this.categories = categories;
                 console.log( this.categories );

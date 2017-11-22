@@ -101,14 +101,15 @@
                     <span class="field-value">{{location.attributes.ROOM_NUMBER}}</span>
                 </div>
                 <div class="detail col-sm-12">
-                    <span class="link">Remove Location</span>
+                    <span class="link" data-toggle="modal" data-target="#removeLocationModal"
+                         (click)="setLocationIdToRemove(location.attributes.LOCATION_ID)">Remove Location</span>
                 </div>
             </div>
             <location-component id="location-component" *ngIf="editMode"></location-component>
             <span class="link" *ngIf="!editMode" (click)="toggleEditMode()">Add Location</span>                                    
             <span class="link" *ngIf="editMode" (click)="cancelUpdate()">Cancel </span>
             <span class="link" *ngIf="editMode" (click)="addIncidentElement('location')">Add </span>
-            <span class="not-found" *ngIf="report.incidentElements['Location'].length == 0"> No Locations available</span>
+            <span class="not-found" *ngIf="!editMode && report.incidentElements['Location'].length == 0"> No Locations available</span>
         </div>
 
         <div [id]="'persons-' + report.attributes.REPORT_ID" class="details-container tab-pane fade">
@@ -132,8 +133,23 @@
     <div *ngIf="report.attributes.TEMPORARY_REPORT == 1" style="text-align:center">
       <button class="btn-default btn" (click)="acceptTemp()">Accept TEMP</button>
     </div>
+</div>
 
-
-
-
+<!-- Modal -->
+<div id="removeLocationModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="glyphicon glyphicon-remove glyphicon-heading"></span>
+                <span class="panel-header">Confirm Remove Location</span>
+            </div>
+            <div class="modal-body">
+                <span class="field-value">Are you sure you want to remove this location?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="cancelReview()">Cancel</button>
+                <button class="btn btn-primary" data-dismiss="modal" (click)="removeIncidentElement('location')">Remove</button>
+            </div>
+        </div>
+    </div>
 </div>
