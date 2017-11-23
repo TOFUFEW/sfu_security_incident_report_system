@@ -27,7 +27,7 @@ public class IncidentsController
         post ("/incidents" , ( request, response ) ->
         {
             Incident newIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
-            return DBHelper.insertIncidentRefactor ( newIncident );
+            return DBHelper.insertIncident ( newIncident );
         } );
 
         post ( "/created-incidents" , (request, response) -> {
