@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
 import { IncidentElementService } from '../service/incident-element.service';
 import 'rxjs/add/operator/toPromise';
+import { retry } from 'rxjs/operator/retry';
 
 @Injectable()
 export class PersonService {
@@ -31,7 +32,7 @@ export class PersonService {
     }
 
     create( person: Person ) : Promise<Person> {
-        var promise = this.http
+        var promise : Promise<Person>= this.http
                 .put( this.personUrl, JSON.stringify( person ), { headers: this.headers } )
                 .toPromise()
                 .then( response => response.json() as Person )
@@ -47,6 +48,21 @@ export class PersonService {
             .catch( this.handleError );
         return Promise.resolve( promise );
     };
+
+    personExists( person : Person) : boolean {
+        var exists = this.getPersons().then(returnedPersons => {
+            returnedPersons.forEach(returnedPerson => {
+                if (returnedPerson.attributes.FIRST_NAME == person.attributes.FIRST_NAME
+                    && returnedPerson.attributes.LAST_NAME == person.attributes.LAST_NAME
+                    && returnedPerson.attributes.PHONE_NUMBER == person.attributes.PHONE_NUMBER)
+                    {
+                        return true;
+                    }
+                    return false;
+            })
+        })
+        return false;
+    }
     
     delete( id: number ) : Promise<boolean> {
         var url = `${this.personUrl}/${id}`;
@@ -58,44 +74,48 @@ export class PersonService {
         return Promise.resolve( promise );
     };
 
-    searchList( type : string, personList : Person[]) : void {
-        var input, filter, ul, li;
-        ul = document.getElementById("peopleDisplay");
-        li = ul.getElementsByTagName('li');
-        
-        // Loop through all list items, and hide those who don't match the search query
-        if ( type == "first" ) {
-            input = document.getElementById('personInputFirst');
-            filter = input.value.toUpperCase();
-            for (var i = 0; i < personList.length; i++ ){
-                if (personList[i].attributes.FIRST_NAME.toUpperCase().indexOf(filter) > -1 ){
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
-                }
-            }   
-        } else if ( type == "last" ) {
-            input = document.getElementById('personInputLast');
-            filter = input.value.toUpperCase();
-            for (var i = 0; i < personList.length; i++ ){
-                if (personList[i].attributes.LAST_NAME.toUpperCase().indexOf(filter) > -1 ){
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
-                }
-            }   
-        } else if ( type == "number" ) {
-            input = document.getElementById('personInputPhone');
-            filter = input.value.toString();
-            for (var i = 0; i < personList.length; i++ ){
-                if (personList[i].attributes.PHONE_NUMBER.toString().indexOf(filter) > -1 ){
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
+    filter(filterList: Person[], personList : Person[], filter : Person) : void {
+
+        Object.assign(filterList , personList);
+        // for(var i = 0; i < personList.length; i++){
+        //     filterList.push(personList[i]);
+        // }
+        if (filter.attributes.FIRST_NAME != null){
+            for (var i = 0; i < personList.length; i++) {
+                if( i >= filterList.length){
+                    break;
+                } 
+                if (!filterList[i].attributes.FIRST_NAME.toUpperCase().includes(filter.attributes.FIRST_NAME.toUpperCase())){
+                    filterList.splice(i, 1);
+                    i--;                    
                 }
             }
-        }   
+        }
+        if (filter.attributes.LAST_NAME != null){
+            for (var i = 0; i < personList.length; i++){
+                if( i >= filterList.length){
+                    break;
+                } 
+                if (!filterList[i].attributes.LAST_NAME.toUpperCase().includes(filter.attributes.LAST_NAME.toUpperCase())){
+                    filterList.splice(i, 1);
+                    i--;                    
+                }
+            }
+        }
+        if(filter.attributes.PHONE_NUMBER != null){
+            for (var i = 0; i < personList.length; i++){
+                if( i >= filterList.length){
+                    break;
+                } 
+                if (!filterList[i].attributes.PHONE_NUMBER.toString().includes(filter.attributes.PHONE_NUMBER.toString())){
+                    filterList.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+        //return filterList;
     }
+
 
     private handleError(error: any): Promise<any> {
         alert( "An error occurred." );
