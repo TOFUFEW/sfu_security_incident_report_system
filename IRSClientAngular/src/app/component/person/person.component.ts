@@ -107,6 +107,7 @@ export class PersonComponent implements OnInit {
                 .then(returnedPerson => {
                     if (returnedPerson != null) {
                         //this.personList.push(returnedPerson as Person);
+                        this.personExistsInList = true;
                         alert("Person successfully added!");
                         this.personList.push(this.newPerson);
                     }
@@ -138,7 +139,6 @@ export class PersonComponent implements OnInit {
         else {
             this.personExistsInList = true;
         };  
-        console.log(this.filterPerson);
     }
 
     updatePerson( person: Person ): void {
