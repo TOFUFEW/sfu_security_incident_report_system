@@ -1,64 +1,133 @@
-<!-- <div class="panel-body">
-
-  <h4>Search</h4>
-
-  <input type="text" id="personInputFirst" (keyup)="findPerson('first')" placeholder="First Name">
-  <input type="text" id="personInputLast" (keyup)="findPerson('last')" placeholder="Last Name">
-  <input type="text" id="personInputPhone" (keyup)="findPerson('number')" placeholder="Phone Number">
-
-  <br><br>
-  <div class="panel panel-default test-panel" style="overflow-y:scroll; height:200px; width: 500px;">
-    <ul id="peopleDisplay">
-      <li *ngFor="let person of personList">
-          {{person.FIRST_NAME}},
-          {{person.LAST_NAME}},
-          {{person.PHONE_NUMBER}}   
-          <button class=" glyphicon glyphicon-plus" (click)="selectPerson();"></button> 
-      </li>
-    </ul>
-  </div>
-
-  <h4>Add a Person</h4>
-  
-  <span class="field-title">First Name</span>
-  <input type="text" [(ngModel)]="newPerson.FIRST_NAME" /> <br>
-  <span class="field-title">Last Name</span>
-  <input type="text" [(ngModel)]="newPerson.LAST_NAME" /> <br>
-  <span class="field-title">Phone Number</span>
-  <input type="text" [(ngModel)]="newPerson.PHONE_NUMBER" /> <br>
-  <button class="btn btn-primary" (click)="addPerson();">
-      Submit
-  </button>
-
-
-</div> -->
-
-<div class="details-body">
+<div class="panel-body">
     <div class="x-container">
         <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removePersonFromReport()"></span>        
     </div>
+
+    <h4>Search</h4>
     <div class="detail col-12 col-sm-3">
-        <span class="field-title">First Name <span class="required-asterisk">*</span></span>
-        <input class="form-control" type="text" [(ngModel)]="newPerson.attributes.FIRST_NAME" />
-    </div>
-    <div class="detail col-12 col-sm-3">
-        <span class="field-title">Last Name <span class="required-asterisk">*</span></span>
-        <input class="form-control" type="text" [(ngModel)]="newPerson.attributes.LAST_NAME" />
-    </div>
-    <div class="detail col-12 col-sm-3">
-        <span class="field-title">Phone Number <span class="required-asterisk">*</span></span>
-        <div class="phone-input">
-            <input type="text" maxlength="3" class="form-control phone-3" [(ngModel)]="phoneNumber1" (change)="onChangePhoneNumber()"
-                onkeypress='return (event.charCode >= 48 && event.charCode <= 57) 
-                || event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46'/> 
-             <span>-</span>  
-             <input type="text" maxlength="3" class="form-control phone-3" [(ngModel)]="phoneNumber2" (change)="onChangePhoneNumber()"
-                onkeypress='return (event.charCode >= 48 && event.charCode <= 57) 
-                || event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46'/>  
-             <span>-</span>  
-             <input type="text" maxlength="4" class="form-control phone-4" [(ngModel)]="phoneNumber3" (change)="onChangePhoneNumber()"
-                onkeypress='return (event.charCode >= 48 && event.charCode <= 57) 
-                || event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46'/>            
+            <span class="field-title">First Name <span class="required-asterisk">*</span></span>
+            <input class="form-control" id="personInputFirst" type="text" (change)="findPerson()" [(ngModel)]="filterPerson.attributes.FIRST_NAME"/>
         </div>
-    </div> 
-</div> 
+        <div class="detail col-12 col-sm-3">
+            <span class="field-title">Last Name <span class="required-asterisk">*</span></span>
+            <input class="form-control" id="personInputLast" type="text" (change)="findPerson()" [(ngModel)]="filterPerson.attributes.LAST_NAME"/>
+        </div>
+        <div class="detail col-12 col-sm-3">
+            <span class="field-title">Phone Number <span class="required-asterisk">*</span></span>
+            <div class="phone-input">
+                <input type="text" maxlength="3" class="form-control phone-3" [(ngModel)]="phoneNumber1" (change)="onChangeSearchPhoneNumber(); findPerson()"
+                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57) 
+                    || event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46'/> 
+                <span>-</span>  
+                <input type="text" maxlength="3" class="form-control phone-3" [(ngModel)]="phoneNumber2" (change)="onChangeSearchPhoneNumber(); findPerson()"
+                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57) 
+                    || event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46'/>  
+                <span>-</span>  
+                <input type="text" maxlength="4" class="form-control phone-4" [(ngModel)]="phoneNumber3" (keyup)="onChangeSearchPhoneNumber(); findPerson()"
+                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57) 
+                    || event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46'/>            
+            </div>  
+
+            <div *ngIf="!personExistsInList">
+                <span class="detail row">Person does not exist, add person?</span>
+                <button class="btn btn-primary" (click)="addPerson()">Add person</button>
+            </div>
+
+
+
+    <!-- <div class="panel panel-default test-panel" style="overflow-y:scroll; height:90px" *ngIf="!personSelected">
+        <ul id="peopleDisplay">
+        <li *ngFor="let person of filterList">
+            {{person.attributes.FIRST_NAME}}, 
+            {{person.attributes.LAST_NAME}}, 
+            {{person.attributes.PHONE_NUMBER}}   
+            <button class=" glyphicon glyphicon-plus" (click)="selectPerson(person);"></button> 
+        </li>
+        </ul>-->
+
+
+    </div>
+
+
+    <!-- <button *ngIf="!personSelected" class="btn btn-primary" (click)="toggleNewPerson();">
+            New Person
+    </button>
+
+    <div *ngIf="toggleNewPersonFlag">
+        <div class="detail col-12 col-sm-3">
+            <span class="field-title">First Name <span class="required-asterisk">*</span></span>
+            <input class="form-control" type="text" [(ngModel)]="newPerson.attributes.FIRST_NAME" />
+        </div>
+        <div class="detail col-12 col-sm-3">
+            <span class="field-title">Last Name <span class="required-asterisk">*</span></span>
+            <input class="form-control" type="text" [(ngModel)]="newPerson.attributes.LAST_NAME" />
+        </div>
+        <div class="detail col-12 col-sm-3">
+            <span class="field-title">Phone Number <span class="required-asterisk">*</span></span>
+            <div class="phone-input">
+                <input type="text" maxlength="3" class="form-control phone-3" [(ngModel)]="phoneNumber1" (change)="onChangePhoneNumber()"
+                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57) 
+                    || event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46'/> 
+                <span>-</span>  
+                <input type="text" maxlength="3" class="form-control phone-3" [(ngModel)]="phoneNumber2" (change)="onChangePhoneNumber()"
+                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57) 
+                    || event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46'/>  
+                <span>-</span>  
+                <input type="text" maxlength="4" class="form-control phone-4" [(ngModel)]="phoneNumber3" (change)="onChangePhoneNumber()"
+                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57) 
+                    || event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46'/>            
+            </div>
+        </div>
+        <button class="btn btn-primary" (click)="addPerson()">Add person</button>
+    </div>
+
+</div> -->
+
+<!-- <div class="details-body">
+    <div class="x-container">
+        <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removePersonFromReport()"></span>        
+    </div>
+    <div class="detail col-12 col-sm-3" id="personSearch">
+        <span class="field-title">Name </span>
+        <input class="form-control" list="personSearchList">
+        <span class="field-title">Phone Number </span>
+        <input class="form-control" list="personSearchList">
+        <datalist id="personSearchList">
+            <option *ngFor="let person of personList" value ="{{person.attributes.FIRST_NAME}}, {{person.attributes.LAST_NAME}}, {{person.attributes.PHONE_NUMBER}}">
+        </datalist>
+    </div>
+
+    <div>
+        <button class="btn btn-primary" (click)="toggleNewPerson();">
+                New Person
+        </button>
+    </div>
+
+    <div *ngIf="toggleNewPersonFlag">
+        <div class="detail col-12 col-sm-3">
+            <span class="field-title">First Name <span class="required-asterisk">*</span></span>
+            <input class="form-control" type="text" [(ngModel)]="newPerson.attributes.FIRST_NAME" />
+        </div>
+        <div class="detail col-12 col-sm-3">
+            <span class="field-title">Last Name <span class="required-asterisk">*</span></span>
+            <input class="form-control" type="text" [(ngModel)]="newPerson.attributes.LAST_NAME" />
+        </div>
+        <div class="detail col-12 col-sm-3">
+            <span class="field-title">Phone Number <span class="required-asterisk">*</span></span>
+            <div class="phone-input">
+                <input type="text" maxlength="3" class="form-control phone-3" [(ngModel)]="phoneNumber1" (change)="onChangePhoneNumber()"
+                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57) 
+                    || event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46'/> 
+                <span>-</span>  
+                <input type="text" maxlength="3" class="form-control phone-3" [(ngModel)]="phoneNumber2" (change)="onChangePhoneNumber()"
+                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57) 
+                    || event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46'/>  
+                <span>-</span>  
+                <input type="text" maxlength="4" class="form-control phone-4" [(ngModel)]="phoneNumber3" (change)="onChangePhoneNumber()"
+                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57) 
+                    || event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46'/>            
+            </div>
+        </div>
+        <button (click)="addPerson()">add person</button>
+    </div>
+</div>  -->
