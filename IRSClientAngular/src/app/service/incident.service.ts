@@ -152,7 +152,9 @@ export class IncidentService
                 .post( this.updateIncidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
                 .toPromise()
                 .then( response => {
-                    return ( response.json() as boolean ) ? incident : null
+                    var _incident = ( response.json() as boolean ) ? incident : null;
+                    _incident.incidentElements [ Config.LocationKey ] = this.locationService.initLocations ( _incident.incidentElements[Config.LocationKey] );
+                    return _incident;
                 })
                 .catch( this.handleError );
         return Promise.resolve( promise );

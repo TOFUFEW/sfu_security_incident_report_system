@@ -30,6 +30,7 @@ export class LocationModalComponent implements OnInit {
     ) {}     
     
     public show ( event ): void {         
+        this.locationComponent.resetLists();
         var target = event.target || event.srcElement || event.currentTarget;         
         if ( target.id ) {
             console.log("target ", target );          
@@ -40,7 +41,7 @@ export class LocationModalComponent implements OnInit {
         else {             
             this.button_id = -1;       
         }   
-        this.locationComponent.updateCurrentLocation ( this.button_id );           
+        this.locationComponent.updateCurrentLocation ( this.button_id );       
         this.visible = true;
         setTimeout(() => this.visibleAnimate = true, 100);     
     }         

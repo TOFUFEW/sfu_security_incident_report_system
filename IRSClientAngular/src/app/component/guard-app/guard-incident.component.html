@@ -78,8 +78,8 @@
                                         <span *ngFor="let location of incident.incidentElements['Location']" 
                                             [id]="location.attributes.LOCATION_ID"
                                             (click)="this.modalLocation.show($event)">
-                                            {{location.attributes.CAMPUS_ID}},                                            
-                                            {{location.attributes.BUILDING_NAME}},    
+                                            {{location.attributes.CITY}},                                            
+                                            {{location.attributes.BUILDING_NAME}}<span *ngIf='location.attributes.ROOM_NUMBER != ""'>,</span>
                                             {{location.attributes.ROOM_NUMBER}}    
                                             <!-- {{location.attributes.DEPARTMENT}}  -->
                                             <br>
@@ -117,7 +117,7 @@
                                             </button>
                                             <button (click)="saveReport('summary')" 
                                                     class="btn btn-sm btn-primary pull-right mt-2 mb-1">
-                                                <span class="glyphicon glyphicon-ok"></span> Save
+                                                <span class="glyphicon glyphicon-floppy-disk"></span> Save
                                             </button>
                                         </div>
                                     </div>
@@ -145,7 +145,7 @@
                                             </button>
                                             <button (click)="saveReport('description')"
                                             class="btn btn-sm btn-primary pull-right mt-2 mb-1">
-                                            <span class="glyphicon glyphicon-ok"></span> Save
+                                            <span class="glyphicon glyphicon-floppy-disk"></span> Save
                                         </button>
                                         </div>
                                     </div>
