@@ -246,7 +246,6 @@ public class StorageObject
             DatabaseValues.Column column,
             String value
     ) {
-
         if ( !validColumn ( column ) )
         {
             return false;
@@ -343,6 +342,7 @@ public class StorageObject
         DatabaseValues.Column column,
         String input
     ) {
+
         if ( input == null || input.isEmpty () )
         {
             return input;

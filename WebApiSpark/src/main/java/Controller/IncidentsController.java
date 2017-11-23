@@ -36,12 +36,15 @@ public class IncidentsController
 
             if ( reportID != null )
             {
-                newIncident.updateAttributeValue (
+                Incident messageIncident = new Incident ( newIncident );
+                messageIncident.updateAttributeValue (
                         DatabaseValues.Column.REPORT_ID,
                         reportID
                 );
-                System.out.println ( "reportID = " + newIncident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) );
-                incidentsWebSocketObservable.sendMessage ( JsonUtil.toJson ( newIncident ) );
+
+                System.out.println ( "rid = " + messageIncident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) );
+
+                incidentsWebSocketObservable.sendMessage ( JsonUtil.toJson ( messageIncident ) );
                 return true;
             }
 
