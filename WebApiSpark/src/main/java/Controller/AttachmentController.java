@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import static spark.Spark.get;
 import static spark.Spark.post;
 
 public class AttachmentController {
@@ -54,6 +55,19 @@ public class AttachmentController {
             }
             return false;
         });
+
+        get("/upload/:filename", (request, response) -> {
+            System.out.println(request.params("filename"));
+            Path currentPath = Paths.get("").toAbsolutePath();
+
+            final File file = new File(
+                    currentPath +
+                            "/src/main/resources/public/uploads" +
+                            request.params("filename")
+            );
+
+            return file;
+        } );
 
     }
 

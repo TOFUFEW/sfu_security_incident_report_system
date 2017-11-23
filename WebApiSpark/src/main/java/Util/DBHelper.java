@@ -78,7 +78,14 @@ public class DBHelper
             {
                 Incident incident = new Incident ();
                 incident.extractFromCurrentRow ( set );
-                ArrayList < IncidentElement > incidentElementsList = getIncidentElements ( Integer.parseInt (incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) ) );
+                ArrayList < IncidentElement > incidentElementsList =
+                        getIncidentElements (
+                            Integer.parseInt (
+                                incident.getAttributeValue (
+                                    DatabaseValues.Column.REPORT_ID
+                                )
+                            )
+                        );
                 incident.changeIncidentElementList ( incidentElementsList );
                 list.add ( incident );
             }

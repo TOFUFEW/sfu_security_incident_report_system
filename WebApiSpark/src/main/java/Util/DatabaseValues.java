@@ -17,7 +17,8 @@ public class DatabaseValues
         INVOLVES ( "dbo.Involves" ),
         LOCATION ( "dbo.Location" ),
         PERSON ( "dbo.Person" ),
-        STAFF ( "dbo.Staff" );
+        STAFF ( "dbo.Staff" ),
+        ATTACHMENT ( "dbo.Attachment" );
 
         private String table;
 
@@ -249,6 +250,12 @@ public class DatabaseValues
         // Associated Tables: Account
         USERNAME (
                 "USERNAME" ,
+                "VARCHAR(" + 30 + ")",
+                DEFAULT_STRING_VALUE,
+                null
+        ),
+        FILE_NAME (
+                "FILE_NAME" ,
                 "VARCHAR(" + 30 + ")",
                 DEFAULT_STRING_VALUE,
                 null
