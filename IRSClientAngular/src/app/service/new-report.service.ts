@@ -121,8 +121,8 @@ export class NewReportService {
         var table = element.table;
         if ( table.toLowerCase() === Config.LocationTable.toLowerCase() )
             isValid = this.validateLocation( element as Location ) && isValid ;
-        else if ( table.toLowerCase() === Config.PersonTable.toLowerCase() )
-            isValid = this.validatePerson( element.attributes as Person ) && isValid ;
+        else if ( table.toLowerCase() === Config.PersonTable.toLowerCase() ) 
+            isValid = this.validatePerson( element as Person ) && isValid ;
         else if (table.toLowerCase() === Config.CategoryTable.toLowerCase()) {
             
         }
@@ -144,6 +144,8 @@ export class NewReportService {
 
     validatePerson( person: Person ): boolean {
         var isValid = true ; 
+        if ( person == null || person.attributes == null ) 
+            return false;
         if ( person.attributes.FIRST_NAME == null || person.attributes.FIRST_NAME.length == 0 ) {
             this.debug_printErrorMsg( "FIRST_NAME");
             isValid = false;

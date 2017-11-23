@@ -5,12 +5,15 @@ import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Incident } from '../component/report/incident';
+import { IncidentService } from '../service/incident.service';
+import { IncidentElementService } from '../service/incident-element.service';
 
 import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CategoryService 
-{
+{    
     private headers = new Headers({ 'Content-Type': 'application/json' });
     categoriesUrl = Config.CategoriesURI;
 

@@ -1,9 +1,13 @@
+<button class="btn btn-circle guard-button-navbar card-text-primary" (click)="newReport()">                     
+    <span class="glyphicon glyphicon-plus ml-1"></span>   
+    New              
+</button> 
 <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-sm-12
                       col-lg-6 col-lg-offset-3 col-lg-offset-right-3
                       no-padding">
-                <ul id="guard-nav-tabs" class="nav nav-tabs">
+                <ul id="guard-nav-tabs" class="nav nav-tabs guard-container">
                   <li class="active"><a data-toggle="pill" href="#assignedReports">Assigned</a></li>
                   <li><a data-toggle="pill" href="#tempReports">Created</a></li>
                 </ul>
@@ -44,11 +48,11 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <footer class="panel panel-default guard-app-menu">
                 <button class="btn btn-circle guard-menu-button card-text-primary btn-primary" (click)="newReport();">
                     <span class="glyphicon glyphicon-plus"></span>
                 </button>
             </footer>
-        </div>
+        </div> -->
     </div>

@@ -7,6 +7,11 @@
 .outer-container {
   position: relative; }
 
+.guard-container {
+  margin-top: 50px;
+  padding-bottom: 4em;
+  margin-bottom: 0px; }
+
 .m-1 {
   margin: 1em !important; }
 
@@ -17,10 +22,10 @@
   margin-bottom: 2em !important; }
 
 .ml-1 {
-  margin-left: 1em; }
+  margin-left: 1em !important; }
 
 .ml-2 {
-  margin-left: 2em; }
+  margin-left: 2em !important; }
 
 .ml-3 {
   margin-left: 3em; }
@@ -87,11 +92,7 @@ select.category-field {
   width: 45%;
   max-width: 45%;
   height: 12em;
-  margin: 0.8em; }
-  @media (max-width: 413px) {
-    .flex-item {
-      width: 40%;
-      max-width: 40%; } }
+  margin: 0.5em; }
   @media (max-width: 300px) {
     .flex-item {
       width: 100%;
@@ -99,7 +100,6 @@ select.category-field {
 
 .panel-body {
   height: 100%;
-  padding-bottom: 1em;
   word-break: break-word; }
 
 ul {
@@ -112,14 +112,35 @@ footer {
   background-color: transparent;
   bottom: 0;
   margin-bottom: 0;
-  height: 4em;
+  height: 3em;
   width: 100%;
-  position: fixed;
-  text-align: right; }
+  position: fixed; }
 
-.guard-menu-button {
+.guard-menu-button-right {
   position: relative;
-  color: #f5f5f5; }
+  color: #f5f5f5;
+  float: right; }
+
+.guard-menu-button-left {
+  position: relative;
+  color: #f5f5f5;
+  float: left; }
+
+.guard-button-navbar {
+  background-color: transparent !important;
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif !important;
+  color: #ffffff;
+  margin-left: 5px;
+  opacity: 100;
+  margin-top: 2px !important;
+  position: fixed;
+  top: 0.1em;
+  z-index: 101; }
+
+.btn-close-report {
+  size: 2em;
+  text-align: right;
+  width: 100%; }
 
 .collapsable-heading {
   padding-top: 1em !important;
@@ -130,10 +151,6 @@ h4.panel-title {
   font-weight: 400;
   font-size: 115%; }
 
-.panel-heading .accordion-toggle.collapsed:after {
-  /* symbol for "collapsed" panels */
-  content: "\e080"; }
-
 .panel-heading .accordion-toggle:after {
   /* symbol for "opening" panels */
   font-family: 'Glyphicons Halflings';
@@ -141,7 +158,12 @@ h4.panel-title {
   float: right;
   color: grey; }
 
-.topAlert {
+.panel-heading .accordion-toggle.collapsed:after {
+  /* symbol for "collapsed" panels */
+  content: "\e080"; }
+
+.top-alert {
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
   position: fixed;
   top: 0;
   left: 0;
@@ -149,6 +171,10 @@ h4.panel-title {
   width: 100%;
   height: 50px; }
 
+.btn {
+  margin: 0.5em; }
+
+/*# sourceMappingURL=guard-app.css.map */
 .no-padding {
   padding-right: 0px;
   padding-left: 0px; }

@@ -1,16 +1,16 @@
 export class Config {
+
     static LocationsURI: string = "https://localhost:4567/locations";
     static IncidentsURI: string = "https://localhost:4567/incidents";
     static StaffURI: string = "https://localhost:4567/staff";
     static LoginURI: string = "https://localhost:4567/login";
     static PersonURI: string = "https://localhost:4567/person";
-    static GuardIncidentsURI: string = "https://localhost:4567/guard-incidents";
+
+    static GetIncidentsURI: string = "https://localhost:4567/get-incidents";
     static GetIncidentURI: string = "https://localhost:4567/get-incident";
     static CreatedIncidentsURI: string = "https://localhost:4567/created-incidents";
     static CategoriesURI: string = "https://localhost:4567/categories";
-    static UpdateIncidentsURI: string = "https://localhost:4567/update-incident";
     static UpdateIncidentURI: string = "https://localhost:4567/update-incident";
-    static AssignIncidentURI: string = "https://localhost:4567/assign-incident";
     static UploadURI: string = "https://localhost:4567/upload";
     static NewAccountURI: string = "https://localhost:4567/create-account";
     static GetAccountTypesURI: string = "https://localhost:4567/get-account-types";

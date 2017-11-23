@@ -130,6 +130,10 @@ export class NewReportComponent implements OnInit {
         }
     }
 
+    cancelReview() {
+
+    }
+
     prepareReport(): void {
         console.log(this.newIncident);
         this.reportReady = this.isReportValid();
@@ -139,13 +143,10 @@ export class NewReportComponent implements OnInit {
         if( this.reportReady ){
             var currentID = this.userService.getAccountID();
             this.newIncident.attributes.ACCOUNT_ID = currentID;
-            this.newIncident.attributes.TEMPORARY_REPORT = 0;
-            for( var i = 0; i < this.staffList.length; i++) {
-                if( this.staffList[i].attributes.ACCOUNT_ID == currentID ) {
-                    this.selectedStaff = this.staffList[ i ];
-                    this.newIncident.insertIncidentElement( this.selectedStaff );
-                }
-            }
+
+            if ( this.userService.isGuard() )
+                this.convertToTempReport();
+
             this.incidentService.create( this.newIncident )
                 .then( returnedIncident => {
                     if ( returnedIncident != null  ) {
@@ -161,6 +162,15 @@ export class NewReportComponent implements OnInit {
             this.newIncident = new Incident();
         } else {
             alert("Please fill in the required fields");
+        }
+    }
+
+    private convertToTempReport() {
+        this.newIncident.attributes.TEMPORARY_REPORT = 0;
+        if ( this.selectedStaffId < 0 ) {
+            var self = new Staff();
+            self.attributes.ACCOUNT_ID = this.userService.getAccountID();
+            this.newIncident.insertIncidentElement( self );                    
         }
     }
 
