@@ -275,6 +275,9 @@ span.glyphicon-fire {
 .nav-tabs > li.active > a {
   font-weight: 700; }
 
+.nav-tabs > li > a:hover {
+  background-color: #f9f9f9; }
+
 .form-group {
   margin-bottom: 20px !important; }
 

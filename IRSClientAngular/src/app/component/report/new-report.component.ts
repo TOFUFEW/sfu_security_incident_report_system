@@ -135,7 +135,6 @@ export class NewReportComponent implements OnInit {
     }
 
     prepareReport(): void {
-        console.log(this.newIncident);
         this.reportReady = this.isReportValid();
     }
 

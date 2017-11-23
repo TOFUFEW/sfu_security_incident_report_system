@@ -361,6 +361,10 @@ span.glyphicon-fire {
     font-weight: 700;
 }
 
+.nav-tabs > li > a:hover {
+    background-color: $grey-default;
+}
+
 .form-group {
     margin-bottom: $padding-lg !important;
 }
