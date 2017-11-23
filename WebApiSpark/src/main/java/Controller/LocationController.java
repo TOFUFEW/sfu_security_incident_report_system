@@ -1,13 +1,11 @@
 package Controller;
 
+import Model.IncidentElement;
 import Model.Location;
 import Util.DBHelper;
 import Util.DatabaseValues;
 import Util.JsonUtil;
 
-import java.sql.ResultSet;
-
-import static Util.JsonUtil.json;
 import static spark.Spark.*;
 
 public class LocationController {
@@ -57,5 +55,10 @@ public class LocationController {
             );
             return DBHelper.selectIncidentElement ( location );
         } );
+
+        get( "/campus", (request, response) -> {
+            IncidentElement[] arr = DBHelper.getIncidentElements( DatabaseValues.Table.CAMPUS );
+            return JsonUtil.toJson( arr );
+        });
     }
 }

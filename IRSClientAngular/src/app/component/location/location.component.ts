@@ -27,7 +27,7 @@ export class LocationComponent implements OnInit {
     }
 
     addLocationToReport(): void {
-        this.reportService.addIncidentElement( this.newLocation, Config.LocationTable );
+        this.reportService.addIncidentElement ( this.newLocation );
     }
 
     removeLocationFromReport(): void {
@@ -37,12 +37,12 @@ export class LocationComponent implements OnInit {
         }
             
         //if ( this.newLocation != null && this.newLocation.attributes.LOCATION_ID > 0 ) 
-        this.reportService.removeIncidentElement( this.newLocation, Config.LocationTable );
+        this.reportService.removeIncidentElement ( this.newLocation, Config.LocationTable );
         this.reference.destroy();
     }
 
     getLocations(): void {
-        this.locationService.getLocations().then(returnedLocations => {
+        this.locationService.getLocations().then ( returnedLocations => {
             this.locations = returnedLocations;
             this.locationMap = this.locationService.toLocationMapping( this.locations );
         });

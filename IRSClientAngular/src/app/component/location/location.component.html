@@ -1,11 +1,11 @@
 <div class="details-body">
-    <div class="x-container">
+    <div class="x-container" id="removeLocation">
         <span class="glyphicon glyphicon-remove glyphicon-btn" (click)="removeLocationFromReport()"></span>        
     </div>
     <div class="detail col-12 col-sm-3">
         <span class="field-title">Campus <span class="required-asterisk">*</span></span>
         <select class="form-control" name="" id="" [(ngModel)]="newLocation.attributes.CAMPUS_ID" (change)="onSelectCampus()">
-            <option *ngFor="let campus of locationMap" [value]="campus.CAMPUS_ID">{{campus.CAMPUS_ID}}</option>
+            <option *ngFor="let campus of locationMap" [value]="campus.CAMPUS_ID">{{campus.CITY}}</option>
         </select>
     </div>
     <div class="detail col-12 col-sm-3">

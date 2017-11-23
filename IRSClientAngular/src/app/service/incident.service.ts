@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DataHelperService } from '../util/data-helper.service';
+// import { IncidentElementService } from '../service/incident-element.service';
 import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
@@ -7,19 +7,26 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Incident } from '../component/report/incident';
 import { Category } from '../component/category/category';
 import { Location } from '../component/location/location';
-import { Person } from '../component/person/person'; 
+import { Campus } from '../component/location/campus';
+import { Person } from '../component/person/person';
 import 'rxjs/add/operator/toPromise';
 import { User } from "../component/login/user";
 import { UserService } from "./user.service";
 import { Staff } from '../component/staff/staff';
 import { StaffService } from '../service/staff.service';
+import { LocationService } from '../service/location.service';
 
 @Injectable()
 export class IncidentService
 {
     private headers = new Headers({'Content-Type': 'application/json'});
+    getIncidentsUrl = Config.GetIncidentsURI;
+    insertIncidentUrl = Config.IncidentsURI;
+    updateIncidentsUrl = Config.UpdateIncidentURI;
+    guardIncidentsUrl = Config.GetIncidentsURI;
     incidentsUrl = Config.IncidentsURI;
-    guardIncidentsUrl = Config.GuardIncidentsURI;
+    createdByIncidentsUrl = Config.CreatedIncidentsURI;
+
     private userService = new UserService;
     tableName = "";
 
@@ -30,9 +37,16 @@ export class IncidentService
     lastRemovedId = this.bs_lastRemovedId.asObservable();
 
     staffArr: Staff[] = [];
-    constructor( private http: Http, private staffService: StaffService ) {
+    campusArr: Campus[] = [];
+
+    constructor( private http: Http,
+        private staffService: StaffService,
+        private locationService: LocationService) {
         this.staffService.getStaffs().then( returnedArr => {
             this.staffArr = returnedArr;
+        });
+        this.locationService.getCampus().then( response => {
+            this.campusArr = response as Campus[];
         });
     }
 
@@ -49,87 +63,78 @@ export class IncidentService
         arr.splice( index, 1 );
         this.bs_reportsToAddToWorkspace.next( arr );
     }
-    
+
     getIncidents(): Promise<Incident[]> {
-        var incidents = this.http.get( this.incidentsUrl )
+      var incidents = this.http.get( this.incidentsUrl )
+        .toPromise()
+        .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
+        .catch( this.handleError );
+      return Promise.resolve( incidents );
+    };
+
+    getGuardIncidents(): Promise<Incident[]> {
+        var user = this.userService.getCurrentUser();
+        // var _user = IncidentElementService.toIncidentElement ( Config.AccountTable, user );
+        var incidents = this.http
+            .post( this.guardIncidentsUrl, JSON.stringify( user ), { headers: this.headers } )
             .toPromise()
             .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
             .catch( this.handleError );
         return Promise.resolve( incidents );
-    };
-
-    private initIncidents( incidents: Incident[] ): Incident[] {
-        incidents.forEach(i => {
-            var index = this.staffArr.findIndex( x => x.attributes.ACCOUNT_ID == i.attributes.ACCOUNT_ID );
-            if ( index >= 0 ) {
-                i.guard = this.staffArr[ index ];
-            }
-
-            this.initArrays(i);
-            i.locationList = [];
-            i.personList = [];
-            i.staffList = [];
-            i.incidentElements.forEach( e => {
-                if ( e.table === Config.CategoryTable ) {
-                    i.category = e.attributes as Category;
-                }
-                else if ( e.table === Config.LocationTable ) {
-                    i.locationList.push( e as Location );
-                }
-                else if ( e.table === Config.PersonTable ) {
-                    i.personList.push ( e.attributes as Person );
-                }
-            });
-        });
-        console.log (incidents);
-        return incidents;
     }
 
-    private initArrays(incident: Incident) {
-        
-        if (incident.locationList === undefined) {
-            incident.locationList = new Array;
-        }
-
-        if (incident.staffList === undefined) {
-            incident.staffList = new Array;
-        }
-
-        if (incident.personList === undefined) {
-            incident.personList = new Array;
-        }
-    }
-
-    getGuardIncidents(): Promise<Incident[]> {
+    getCreatedByIncidents(): Promise<Incident[]> {
         var user = this.userService.getCurrentUser();
-        var _user = DataHelperService.toIncidentElement ( Config.AccountTable, user );
         var incidents = this.http
-            .post( this.guardIncidentsUrl, JSON.stringify( _user ), { headers: this.headers } )
+            .post( this.createdByIncidentsUrl, JSON.stringify( user ), { headers: this.headers } )
             .toPromise()
-            .then( response => response.json() as Incident[] )
+            .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
             .catch( this.handleError );
         return Promise.resolve( incidents );
     }
 
     getIncident( id: number ): Promise<Incident> {
-        var incident = new Incident();
-        incident.attributes.REPORT_ID = id ;
-        var returnIncident = this.http
-            .post( Config.GetIncidentURI, JSON.stringify( incident ), { headers: this.headers } )
+        var incidentToGet = new Incident();
+        incidentToGet.attributes.REPORT_ID = id ;
+        var returnedIncident = this.http
+            .post( Config.GetIncidentURI, JSON.stringify( incidentToGet ), { headers: this.headers } )
             .toPromise()
-            .then( response => response.json() as Incident )
+            .then( response => this.initializeIncident( response.json() as Incident ) as Incident )
             .catch( this.handleError );
-        return Promise.resolve( returnIncident );
+        return Promise.resolve( returnedIncident );
+    }
+
+    private initIncidents( incidents: Incident[] ): Incident[] {
+        incidents.forEach(i => {
+            this.initializeIncident(i);
+        });
+        return incidents;
+    }
+
+    private initializeIncident( incident: Incident ): Incident {
+        incident.category = incident.incidentElements[Config.IncidentCategoryKey][0] as Category;
+        incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
+        incident.incidentElements[Config.LocationKey]
+            .forEach( element => {
+                var index = this.campusArr.findIndex(
+                    c => c.attributes.CAMPUS_ID == (element as Location).attributes.CAMPUS_ID
+                );
+                if ( index >= 0 )
+                    (element as Location).attributes.CITY = this.campusArr[index].attributes.CITY;
+            });
+        return incident;
     }
 
     create( incident: Incident ): Promise<Incident> {
+        // TEMPORARY
         if ( incident.attributes.ACCOUNT_ID == null ) {
-            incident.attributes.ACCOUNT_ID = 7;
+            if ( this.staffArr.length > 0 )
+                incident.attributes.ACCOUNT_ID = this.staffArr[0].attributes.ACCOUNT_ID;
         }
 
         incident.table = Config.IncidentTable;
         var promise = this.http
-                .post( this.incidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
+                .post( this.insertIncidentUrl, JSON.stringify( incident ), { headers: this.headers } )
                 .toPromise()
                 .then( response => {
                     return ( response.json() as boolean ) ? incident : null
@@ -140,31 +145,13 @@ export class IncidentService
 
     update( incident: Incident ): Promise<Incident> {
         if ( incident.attributes.ACCOUNT_ID == null ) {
-            incident.attributes.ACCOUNT_ID = 7;
+            incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().attributes.ACCOUNT_ID;
         }
-
         incident.table = Config.IncidentTable;
         var promise = this.http
-                .post( Config.UpdateIncidentURI, JSON.stringify( incident ), { headers: this.headers } )
+                .post( this.updateIncidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
                 .toPromise()
                 .then( response => {
-                    return ( response.json() as boolean ) ? incident : null
-                })
-                .catch( this.handleError );
-        return Promise.resolve( promise );
-    }
-
-    assignToStaff( incident: Incident ): Promise<Incident> {
-        if ( incident.attributes.ACCOUNT_ID == null ) {
-            incident.attributes.ACCOUNT_ID = 7;
-        }
-
-        incident.table = Config.IncidentTable;
-        var promise = this.http
-                .post( Config.AssignIncidentURI, JSON.stringify( incident ), { headers: this.headers } )
-                .toPromise()
-                .then( response => {
-                    console.log (response.json());
                     return ( response.json() as boolean ) ? incident : null
                 })
                 .catch( this.handleError );

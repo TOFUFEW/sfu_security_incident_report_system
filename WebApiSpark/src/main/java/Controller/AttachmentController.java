@@ -22,12 +22,14 @@ public class AttachmentController {
     private void setupEndPoints() {
         post("/upload", "multipart/form-data", ( request , response ) -> {
             try {
+                System.out.println("uploading...");
                 Path currentPath = Paths.get("").toAbsolutePath();
 
                 final File upload = new File(
                         currentPath +
-                        "/src/main/resources/public/uploads"
+                        "/uploads"
                 );
+                System.out.println(upload);
 
                 if ( !upload.exists() && !upload.mkdirs() ) {
                     throw new RuntimeException("Failed to create directory " + upload.getAbsolutePath());

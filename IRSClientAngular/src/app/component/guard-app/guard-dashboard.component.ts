@@ -26,7 +26,7 @@ export class GuardDashboardComponent implements OnInit {
 
   getIncidents(): void {
     this.user = this.userService.getCurrentUser();
-    this.incidentsService.getGuardIncidents( ).then( returnedIncidents => {
+    this.incidentsService.getIncidents( ).then( returnedIncidents => {
       this.incidents = returnedIncidents;
     } );
   }

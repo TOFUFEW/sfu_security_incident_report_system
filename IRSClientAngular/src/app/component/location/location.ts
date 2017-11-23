@@ -1,4 +1,7 @@
-export class Location {
+import { Config } from '../../util/config.service';
+import { IncidentElement } from '../report/incident-element';
+
+export class Location implements IncidentElement {
     
     table: string;
     attributes: LocationAttributes;
@@ -6,6 +9,7 @@ export class Location {
 
     constructor() {
         this.attributes = new LocationAttributes();
+        this.table = Config.LocationTable;
     }
 
     setSearchString() {
@@ -24,12 +28,13 @@ export class LocationAttributes {
     BUILDING_NAME: string;
     ROOM_NUMBER: string;
     DEPARTMENT: string;
-        // CITY: string;
-    // ADDRESS: string;
+        
+    CITY: string;
 }
 
 export class LocationMapping {
     CAMPUS_ID: number;
+    CITY: string;
     BUILDINGS: Building[];
 
     constructor() {

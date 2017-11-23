@@ -1,10 +1,18 @@
 package Util;
 
+import java.sql.Timestamp;
+import Model.IncidentElement;
+
+import javax.xml.crypto.dsig.keyinfo.KeyValue;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class DatabaseValues
 {
     private static final String DEFAULT_STRING_VALUE = "null";
     private static final String DEFAULT_INT_VALUE = "-1";
     private static final String DEFAULT_BIT_VALUE = "0";
+    private static final String DEFAULT_DATETIME_VALUE = null;
 
     public enum Table
     {
@@ -105,14 +113,6 @@ public class DatabaseValues
                 null
         ),
 
-        // Associated Tables: Incident
-        CLOSED (
-                "CLOSED" ,
-                "BIT",
-                DEFAULT_BIT_VALUE,
-                null
-        ),
-
         // Associated Tables: Location
         DEPARTMENT (
                 "DEPARTMENT",
@@ -126,6 +126,14 @@ public class DatabaseValues
                 "DESCRIPTION" ,
                 "TEXT",
                 DEFAULT_STRING_VALUE,
+                null
+        ),
+
+        // Associated Tables: Incident
+        END_TIME (
+                "END_TIME",
+                "DATETIME",
+                DEFAULT_DATETIME_VALUE,
                 null
         ),
 
@@ -197,6 +205,14 @@ public class DatabaseValues
                 null
         ),
 
+        // Associated Tables: IncidentCategory
+        PERMISSION_LEVEL (
+                "PERMISSION_LEVEL",
+                "INT",
+                DEFAULT_INT_VALUE,
+                null
+        ),
+
         // Associated Tables: Involves, Person
         PERSON_ID (
                 "PERSON_ID" ,
@@ -239,11 +255,48 @@ public class DatabaseValues
                 null
         ),
 
+        // Associated Tables: Incident
+        START_TIME (
+                "START_TIME",
+                "DATETIME",
+                DEFAULT_DATETIME_VALUE,
+                null
+        ),
+
+        // Associated Tables: Incident
+        STATUS (
+                "STATUS" ,
+                "INT",
+                DEFAULT_INT_VALUE,
+                null
+        ),
+
         // Associated Tables: IncidentCategory
         SUB_CATEGORY (
                 "SUB_CATEGORY" ,
                 "VARCHAR(" + 20 + ")",
                 DEFAULT_STRING_VALUE,
+                null
+        ),
+
+        TEMPORARY_REPORT (
+                "TEMPORARY_REPORT" ,
+                "BIT" ,
+                DEFAULT_BIT_VALUE ,
+                null
+        ),
+
+        TIMER_END (
+                "TIMER_START" ,
+                "INT" ,
+                DEFAULT_INT_VALUE ,
+                null
+        ),
+
+        TIMER_START (
+                "TIMER_START" ,
+                "INT" ,
+                DEFAULT_INT_VALUE ,
                 null
         ),
 
@@ -309,6 +362,81 @@ public class DatabaseValues
                 }
             }
             return false;
+        }
+    }
+
+    public enum IncidentElementKey
+    {
+        INCIDENT_CATEGORY ( "IncidentCategory" ),
+        LOCATION ( "Location" ),
+        PERSON ( "Person" ),
+        STAFF ( "Staff" );
+
+        private String key;
+
+        IncidentElementKey(String key)
+        {
+            this.key = key;
+        }
+
+        @Override
+        public String toString ()
+        {
+            return key;
+        }
+
+        public static boolean contains( String key ) {
+
+            for ( IncidentElementKey k : IncidentElementKey.values() ) {
+                if ( k.toString().equals( key ) ) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+
+    public enum AccountType
+    {
+        GUARD ("1"),
+        ADMIN ("2");
+
+        private String type;
+        private class Type {
+            private AccountType id;
+            private String name;
+            private Type( AccountType id, String name ) {
+                this.id = id;
+                this.name = name;
+            }
+        }
+
+        AccountType(String type)
+        {
+            this.type = type;
+        }
+
+        @Override
+        public String toString ()
+        {
+            return type;
+        }
+
+        public static ArrayList<HashMap<String, String>> getTypes() {
+            ArrayList<HashMap<String, String>> types = new ArrayList<>();
+
+            HashMap<String, String> map1 = new HashMap<>();
+            map1.put("id", ADMIN.type );
+            map1.put("name", "admin" );
+            types.add( map1 );
+
+            HashMap<String, String> map2 = new HashMap<>();
+            map2.put("id", GUARD.type );
+            map2.put("name", "guard" );
+            types.add( map2 );
+
+            return types;
         }
     }
 

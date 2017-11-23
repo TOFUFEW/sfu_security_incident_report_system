@@ -6,7 +6,6 @@ import { IncidentService } from '../../service/incident.service';
 import { StaffService } from '../../service/staff.service';
 import { UserService } from '../../service/user.service';
 import { Config } from '../../util/config.service';
-import { DataHelperService } from '../../util/data-helper.service';
 import { Staff } from '../staff/staff';
 
 
@@ -27,9 +26,12 @@ export class DashboardComponent implements OnInit {
         private userService: UserService,
         private incidentService: IncidentService,
     ) {
-
-        if ( this.userService.isLoggedIn() == false ) {
+        if ( !this.userService.isLoggedIn() ) {
             this.router.navigate( [ 'login' ] );
+        } else {
+            if ( this.userService.isGuard() ) {
+              this.router.navigate( [ 'guard-app/dashboard' ] );
+            }
         }
     }
 
@@ -41,7 +43,6 @@ export class DashboardComponent implements OnInit {
         this.incidentService.reportsToAddToWorkspace
             .subscribe( reports => {
                 this.reportsInWorkspace = reports as Incident[];
-                console.log(this.reportsInWorkspace);
             });
     }
 }

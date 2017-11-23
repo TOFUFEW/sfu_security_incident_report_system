@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Incident } from '../component/report/incident';
-
+import { Config } from '../util/config.service';
 @Pipe({
   name: 'filter'
 })
@@ -23,8 +23,8 @@ export class FilterPipe implements PipeTransform {
             }
 
             // Staff
-            for (var i = 0; i < incident.staffList.length; i++) {
-                if (incident.staffList[i].searchString
+            for (var i = 0; i < incident.incidentElements[Config.StaffKey].length; i++) {
+                if (incident.incidentElements[Config.StaffKey][i].searchString
                     .toLowerCase()
                     .includes(searchText.toLowerCase())) {
                     return incident;
@@ -32,8 +32,8 @@ export class FilterPipe implements PipeTransform {
             }
 
             // Location
-            for (var i = 0; i < incident.locationList.length; i++) {
-                if (incident.locationList[i].searchString
+            for (var i = 0; i < incident.incidentElements[Config.LocationKey].length; i++) {
+                if (incident.incidentElements[Config.LocationKey][i].searchString
                     .toLowerCase()
                     .includes(searchText.toLowerCase())) {
                     return incident;

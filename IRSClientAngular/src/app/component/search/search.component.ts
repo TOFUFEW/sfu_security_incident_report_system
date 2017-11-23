@@ -39,11 +39,11 @@ export class SearchComponent implements OnInit {
 
     private toSearchStrings(incident: Incident) {
 
-        incident.locationList.forEach(loc => {
+        incident.incidentElements[Config.LocationKey].forEach(loc => {
             this.setLocationSearchString(loc);
         })
 
-        incident.staffList.forEach(staff => {
+        incident.incidentElements[Config.StaffKey].forEach(staff => {
             this.setStaffSearchString(staff);
         })
 
@@ -55,7 +55,7 @@ export class SearchComponent implements OnInit {
         incident.attributes.REPORT_ID 
         + " " + incident.attributes.DESCRIPTION 
         + " " + incident.attributes.EXECUTIVE_SUMMARY
-        + " " + incident.attributes.CLOSED;
+        + " " + incident.attributes.STATUS;
     };
 
     setStaffSearchString(staff: Staff) {

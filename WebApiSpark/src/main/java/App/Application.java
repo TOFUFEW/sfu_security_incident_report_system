@@ -3,6 +3,12 @@ package App;
 
 import Controller.*;
 
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import static spark.Spark.*;
 
 // Class that initializes each controller at start - up
@@ -11,9 +17,56 @@ public class Application
 
     public static void main ( String [] args )
     {
-        // STARTUP METHODS
-        staticFileLocation("/public");
+        // SETUP PORT
+        port ( 4567 );
 
+        // SETUP ENCRYPTION
+        Path currentPath = Paths.get ( "" ).toAbsolutePath ();
+
+        File keyStoreFile = new File (
+                currentPath +
+                        "/src/main/resources/public/self_signed_certificate/keystore.jks"
+        );
+        String keyStorePassword = "changeit";
+
+        File trustStoreFile = new File (
+                currentPath +
+                        "/src/main/resources/public/self_signed_certificate/cacerts.jks"
+        );
+        String trustoreStorePassword = "changeit";
+
+        secure (
+                keyStoreFile.getPath (),
+                keyStorePassword,
+                trustStoreFile.getPath (),
+                trustoreStorePassword
+        );
+
+        // SETUP STATIC FILE HOSTING FOR ANGULAR
+        staticFiles.location("/public");
+
+        notFound ( ( request , response ) ->
+        {
+            final File indexHTML = new File(
+                    Paths.get ( "" ).toAbsolutePath () +
+                            "/src/main/resources/public/index.html"
+            );
+
+            Path path = Paths.get ( indexHTML.toURI () );
+            byte [] encoded = Files.readAllBytes ( path );
+
+            response.type ( "text/html" );
+            response.body (
+                    new String (
+                            encoded,
+                            StandardCharsets.UTF_8
+                    )
+            );
+
+            return response.body ();
+        } );
+
+        // STARTUP METHODS
         enableCORS (
                 "*",
                 "GET, " + "POST, PUT, DELETE, OPTIONS, HEAD",
@@ -27,7 +80,6 @@ public class Application
         PersonController personController = new PersonController();
         IncidentCategoryController categoryController = new IncidentCategoryController();
         AttachmentController attachmentController = new AttachmentController();
-        GuardIncidentsController guardIncidentsController = new GuardIncidentsController();
     }
 
     // CORS Filter

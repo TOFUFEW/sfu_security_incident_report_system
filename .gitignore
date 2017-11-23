@@ -10,6 +10,9 @@
 .idea/**/tasks.xml
 .idea/dictionaries
 
+# JDBC
+.WebApiSpark/.idea/libraries/mssql_jdbc_6_2_1_jre8.xml
+
 # Sensitive or high-churn files:
 .idea/**/dataSources/
 .idea/**/dataSources.ids

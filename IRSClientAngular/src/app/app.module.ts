@@ -14,16 +14,16 @@ import { StaffComponent } from './component/staff/staff.component';
 import { IncidentComponent } from './component/report/incident.component';
 import { LoginComponent } from './component/login/login.component';
 import { NewReportComponent } from './component/report/new-report.component';
+import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
+import { GuardDashboardComponent } from './component/guard-app/guard-dashboard';
 import { VehicleComponent } from './component/vehicle/vehicle.component';
 import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
 import { AttachmentComponent } from './component/attachment/attachment.component';
-
-import { GuardDashboardComponent } from './component/guard-app/guard-dashboard.component';
-import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
-import { GuardTestViewReportComponent } from "./component/guard-app/guard-test-view-report.component";
+import { LocationModalComponent } from './component/location/location-modal.component';
 import { CategoryComponent } from './component/category/category.component'
 import { ReportSummaryComponent } from './component/report/report-summary.component';
+import { InlineEditComponent } from './component/report/inline-edit.component';
 
 /* Services */
 import { UserService } from './service/user.service';
@@ -32,12 +32,12 @@ import { CategoryService } from './service/category.service';
 import { DomService } from './util/dom.service';
 import { LocationService } from './service/location.service'
 import { IncidentService } from './service/incident.service'
+import { IncidentElementService } from './service/incident-element.service';
 import { StaffService } from './service/staff.service'
 import { PersonService } from './service/person.service';
 import { NewReportService } from './service/new-report.service';
-import { DataHelperService } from './util/data-helper.service';
-
 import { FilterPipe } from './util/filter.pipe';
+import { NewAccountComponent } from './component/login/new-account-component';
 
 @NgModule({
   imports: [
@@ -51,13 +51,15 @@ import { FilterPipe } from './util/filter.pipe';
   declarations: [
     AppComponent,
     AttachmentComponent,
+
     DashboardComponent,
     LocationComponent,
+    LocationModalComponent,
     StaffComponent,
     IncidentComponent,
     LoginComponent,
-    GuardDashboardComponent,
     GuardIncidentComponent,
+    GuardDashboardComponent,
     CategoryComponent,
     NewReportComponent,
     VehicleComponent,
@@ -65,27 +67,25 @@ import { FilterPipe } from './util/filter.pipe';
     PersonComponent,
     FilterPipe,
     ReportSummaryComponent,
-    GuardTestViewReportComponent
+    NewAccountComponent,
+    InlineEditComponent
   ],
 
   providers: [
     UserService,
     LoginService,
     DomService,
-    DataHelperService,
     LocationService,
     IncidentService,
+    IncidentElementService,
     StaffService,
     PersonService,
     NewReportService,
     CategoryService],
-
   bootstrap: [AppComponent],
+  entryComponents: [ LocationComponent, VehicleComponent,
+    PersonComponent ]
 
-  entryComponents: [
-    LocationComponent,
-    VehicleComponent,
-    PersonComponent, ]
 })
 
 export class AppModule { }
