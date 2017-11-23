@@ -121,7 +121,7 @@
                 </div>
                 <div class="detail col-sm-2 col-sm-offset-10">
                     <span class="link alertText" data-toggle="modal" data-target="#removeLocationModal"
-                         (click)="setLocationIdToRemove(location.attributes.LOCATION_ID)">Remove</span>
+                        (click)="setLocationIdToRemove(location.attributes.LOCATION_ID)">Remove</span>
                 </div>
             </div>
             <location-component id="location-component" *ngIf="editMode"></location-component>
@@ -147,6 +147,17 @@
                     <span class="field-title">Phone Number: </span>
                     <span class="field-value">{{person.attributes.PHONE_NUMBER}}</span>
                 </div>
+                <div class="detail col-sm-2 col-sm-offset-10">
+                    <span class="link alertText" data-toggle="modal" data-target="#removePersonModal"
+                        (click)="setPersonIdToRemove(person.attributes.PERSON_ID)">Remove</span>
+                </div>
+            </div>
+            <person-component id="person-component" *ngIf="editMode"
+                (personAdded)="onAddPerson($event)"></person-component>
+            <div class="bottom-links">
+                <span class="link" *ngIf="!editMode" (click)="toggleEditMode()">Add Person</span>                                    
+                <span class="link" *ngIf="editMode" (click)="cancelUpdate()">Cancel </span>
+                <span class="link" *ngIf="editMode && isPersonAdded" (click)="addIncidentElement('person')">Add </span>
             </div>
             <span class="not-found" *ngIf="report.incidentElements['Person'].length == 0"> No Involvements available</span>
         </div>
@@ -171,3 +182,23 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div id="removePersonModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="glyphicon glyphicon-remove glyphicon-heading"></span>
+                    <span class="panel-header">Confirm Remove Person</span>
+                </div>
+                <div class="modal-body">
+                    <span class="field-value">Are you sure you want to remove this person from this report?</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="cancelReview()">Cancel</button>
+                    <button class="btn btn-primary" data-dismiss="modal" (click)="removeIncidentElement('person')">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    

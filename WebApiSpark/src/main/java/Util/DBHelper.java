@@ -741,7 +741,7 @@ public class DBHelper
         return true;
     }
 
-    public static boolean selectIncidentElement ( IncidentElement incidentElement)
+    public static boolean selectIncidentElement ( IncidentElement incidentElement )
     {
         String sql = incidentElement.toSelectSQL ();
 
@@ -890,6 +890,27 @@ public class DBHelper
         }
 
         System.out.println( msg );
+    }
+
+    public static boolean personExists( Person person ){
+        try
+        {
+            String query = "SELECT * FROM " + DatabaseValues.Table.PERSON.toString() +
+                    " WHERE FIRST_NAME = '" + person.getAttributeValue( DatabaseValues.Column.FIRST_NAME ) + "' AND "
+                    + "LAST_NAME = '" + person.getAttributeValue( DatabaseValues.Column.LAST_NAME ) + "' AND "
+                    + "PHONE_NUMBER = '" + person.getAttributeValue( DatabaseValues.Column.PHONE_NUMBER ) + "';";
+            ResultSet resultSet = executeQuery ( query );
+
+            if ( resultSet.next () )
+            {
+                return true;
+            }
+        }
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+        return false;
     }
 
     public static Person [] getPersons ()

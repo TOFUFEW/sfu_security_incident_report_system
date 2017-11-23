@@ -49,19 +49,13 @@ export class PersonService {
         return Promise.resolve( promise );
     };
 
-    personExists( person : Person) : boolean {
-        var exists = this.getPersons().then(returnedPersons => {
-            returnedPersons.forEach(returnedPerson => {
-                if (returnedPerson.attributes.FIRST_NAME == person.attributes.FIRST_NAME
-                    && returnedPerson.attributes.LAST_NAME == person.attributes.LAST_NAME
-                    && returnedPerson.attributes.PHONE_NUMBER == person.attributes.PHONE_NUMBER)
-                    {
-                        return true;
-                    }
-                    return false;
-            })
-        })
-        return false;
+    personExists( person : Person ) : Promise<boolean> {
+        var promise = this.http
+            .post( Config.PersonExistsURI, JSON.stringify( person ), { headers: this.headers } )
+            .toPromise()
+            .then( response => response.json() as boolean )
+            .catch( this.handleError );
+        return Promise.resolve( promise );
     }
     
     delete( id: number ) : Promise<boolean> {

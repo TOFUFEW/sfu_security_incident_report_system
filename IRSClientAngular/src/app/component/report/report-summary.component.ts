@@ -2,7 +2,10 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Config } from '../../util/config.service';
 import { Incident } from '../report/incident';
 import { Staff } from '../staff/staff';
+import { Location } from '../location/location';
+import { Person } from '../person/person';
 import { LocationComponent } from '../location/location.component';
+import { PersonComponent } from '../person/person.component';
 import { Category, SubCategory, CategoryType, CategoryDictionary } from '../category/category';
 import { IncidentService } from '../../service/incident.service';
 import { LocationService } from '../../service/location.service';
@@ -11,7 +14,6 @@ import { map } from 'rxjs/operators/map';
 import { UserService } from "../../service/user.service";
 import { NewReportService } from '../../service/new-report.service';
 import { IncidentElementService } from '../../service/incident-element.service';
-import { Location } from '../location/location';
 
 @Component({
     selector: 'report-summary',
@@ -22,6 +24,7 @@ import { Location } from '../location/location';
 export class ReportSummaryComponent implements OnInit {
     @Input() inputReport: Incident;
     @ViewChild(LocationComponent) locationComponent: LocationComponent;
+    @ViewChild(PersonComponent) personComponent: PersonComponent;
     report: Incident;
     isAccepted : boolean = false;
 
@@ -35,6 +38,9 @@ export class ReportSummaryComponent implements OnInit {
     staffArr: Staff[] = [];
 
     locationIdToRemove: number = -1; 
+    personIdToRemove: number = -1;   
+    
+    isPersonAdded: boolean = true;
     editMode: boolean = false;
     allFieldsValid: boolean = true;
 
@@ -57,7 +63,7 @@ export class ReportSummaryComponent implements OnInit {
     toggleEditMode(){
         this.editMode = !this.editMode;
         if ( this.editMode ) {
-            console.log(this.report_edit);
+            this.isPersonAdded = false;
             this.onSelectCategory();
             this.onSelectSubCategory();
             this.onSelectType();
@@ -72,7 +78,6 @@ export class ReportSummaryComponent implements OnInit {
 
     updateReport() {
         this.allFieldsValid = this.newReportService.validateReport(this.report_edit);
-        console.log(this.report_edit);
         if ( this.allFieldsValid ) {
             this.report = this.report_edit;
             this.assignToGuard();
@@ -86,13 +91,16 @@ export class ReportSummaryComponent implements OnInit {
         }
         else
             this.alertReportInvalid(); 
-        console.log(this.report_edit);
     }
 
     addIncidentElement( type: string ) {
         var element;
         if ( type === 'location' ) {
             element = this.locationComponent.newLocation;
+        }
+        else if ( type === 'person' ) {
+            element = this.personComponent.newPerson;
+            console.log(element);
         }
 
         if ( this.newReportService.validateIncidentElement( element ) ) {
@@ -110,18 +118,31 @@ export class ReportSummaryComponent implements OnInit {
         if ( type === 'location' ) {
             this.incidentElementService
                 .removeElementNoUpdate( this.report_edit, Config.LocationTable, this.locationIdToRemove );
-            this.updateReport();
             this.locationIdToRemove = -1 ;                
         }
-
+        else if ( type === 'person' ) {
+            this.incidentElementService
+                .removeElementNoUpdate( this.report_edit, Config.PersonTable, this.personIdToRemove );
+            this.personIdToRemove = -1 ;  
+        }
+        this.updateReport();
     }
 
     setLocationIdToRemove( id: number ) {
         this.locationIdToRemove = id;
     }
 
+    setPersonIdToRemove( id: number ) {
+        this.personIdToRemove = id;
+    }
+
     private flushComponents() {
         this.locationComponent.newLocation = new Location();
+        this.personComponent.newPerson = new Person();
+    }
+
+    onAddPerson( event ) {
+        this.isPersonAdded = event;
     }
 
     assignToGuard (): void {

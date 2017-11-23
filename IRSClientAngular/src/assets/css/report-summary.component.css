@@ -11,14 +11,6 @@ div.report-header {
   opacity: 0.8;
   color: #333; }
 
-.bottom-links {
-  display: flex;
-  justify-content: flex-end;
-  padding-top: 8px;
-  padding-bottom: 8px; }
-  .bottom-links span {
-    margin: 8px; }
-
 #accept-temp {
   display: flex;
   justify-content: center;
