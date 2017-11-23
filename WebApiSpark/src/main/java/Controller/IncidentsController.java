@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Incident;
 import Util.DBHelper;
+import Util.DatabaseValues;
 import Util.JsonUtil;
 import WebSocketHandlers.Observable;
 
@@ -31,27 +32,44 @@ public class IncidentsController
         {
             Incident newIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
 
-            incidentsWebSocketObservable.sendMessage ( JsonUtil.toJson ( newIncident ) );
+            String reportID = DBHelper.insertIncident ( newIncident );
 
-            return DBHelper.insertIncident ( newIncident );
+            if ( reportID != null )
+            {
+                newIncident.updateAttributeValue (
+                        DatabaseValues.Column.REPORT_ID,
+                        reportID
+                );
+                System.out.println ( "reportID = " + newIncident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) );
+                incidentsWebSocketObservable.sendMessage ( JsonUtil.toJson ( newIncident ) );
+                return true;
+            }
+
+            return false;
         } );
 
         post ("/update-incident" , ( request, response ) ->
         {
             Incident updatedIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
 
-            incidentsWebSocketObservable.sendMessage ( JsonUtil.toJson ( updatedIncident ) );
-
-            return DBHelper.updateIncident ( updatedIncident );
+            if ( DBHelper.updateIncident ( updatedIncident ) )
+            {
+                incidentsWebSocketObservable.sendMessage ( JsonUtil.toJson ( updatedIncident ) );
+                return true;
+            }
+            return false;
         } );
 
         post ( "/assign-incident", ( request, response ) ->
         {
             Incident updatedIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
 
-            incidentsWebSocketObservable.sendMessage ( JsonUtil.toJson ( updatedIncident ) );
-
-            return DBHelper.updateIncident ( updatedIncident );
+            if ( DBHelper.updateIncident ( updatedIncident ) )
+            {
+                incidentsWebSocketObservable.sendMessage ( JsonUtil.toJson ( updatedIncident ) );
+                return true;
+            }
+            return false;
         } );
     }
 }

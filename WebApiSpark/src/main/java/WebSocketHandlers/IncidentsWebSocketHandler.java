@@ -21,21 +21,6 @@ public class IncidentsWebSocketHandler
     public void connected ( Session session )
     {
         sessions.add ( session );
-//        String message = "Connected to Incident Web Socket";
-//        System.out.println ( message );
-//
-//        try
-//        {
-//            message (
-//                    session,
-//                    message
-//            );
-//        }
-//
-//        catch ( IOException e )
-//        {
-//            e.printStackTrace ();
-//        }
     }
 
     @OnWebSocketClose

@@ -155,7 +155,8 @@ public class DBHelper
         return false ;
     }
 
-    public static boolean insertIncident ( Incident incident ) {
+    public static String insertIncident ( Incident incident ) {
+        String reportID = null;
         if ( !allFieldsValid( incident ) ) {
             if ( incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) == null ) {
                 System.out.println( "Attempting to find IncidentCategory in incidentElements array...");
@@ -179,11 +180,11 @@ public class DBHelper
 
                 if ( incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) == null ) {
                     System.out.println("***** ERROR: IncidentCategory not found. Exiting...");
-                    return false;
+                    return null;
                 }
             }
             if ( incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ) == null ) {
-                return false;
+                return null;
             }
         }
 
@@ -235,10 +236,11 @@ public class DBHelper
                     System.out.println( "ERROR: Incident insert failed" );
 
                 if ( tries >= maxTries ) {
-                    return false;
+                    return null;
                 }
             } while ( lastIncidentId != null && lastIncidentId.equals( before_lastIncidentId ) );
 
+            reportID = debug_getLastIncidentId ();
             int output = stmt.getInt ( 5 );
 
             String relationSQL = "{ call dbo.insertRelation ( ? , ? , ? ) }";
@@ -275,13 +277,13 @@ public class DBHelper
 
             if ( output != 0 )
             {
-                return true;
+                return reportID;
             }
         } catch ( Exception e )
         {
             e.printStackTrace ();
         }
-        return false;
+        return null;
     }
 
     public static boolean insertIncidentRefactor ( Incident incident ) {

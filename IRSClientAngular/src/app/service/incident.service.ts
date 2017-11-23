@@ -53,24 +53,30 @@ export class IncidentService
             );
 
             var reportList = this.bs_reportsInList.getValue ();
-
-            var found = false;
-            for ( var i = 0 ; i < reportList.length ; i++ )
+            var reportListIndex = reportList.findIndex( i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID );
+            if ( reportListIndex != -1 )
             {
-                if ( reportList [ i ].attributes.REPORT_ID == incident.attributes.REPORT_ID )
-                {
-                    reportList [ i ] = incident;
-                    found = true;
-                }
+                reportList [ reportListIndex ] = incident;
+                this.updateInWorkspace ( incident );
             }
 
-            if ( !found )
+            else
             {
-              reportList.splice (0, 0, incident );
+              reportList.splice ( 0 , 0 , incident );
             }
 
             this.bs_reportsInList.next ( reportList );
         }.bind ( this );
+    }
+
+     updateInWorkspace( incident: Incident ): void {
+        var workspaceReportList = this.bs_reportsToAddToWorkspace.getValue ();
+        var workspaceReportListIndex = workspaceReportList.findIndex (
+          i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID );
+        if ( workspaceReportListIndex != -1 )
+        {
+          workspaceReportList [ workspaceReportListIndex ] = incident;
+        }
     }
 
     addToWorkspace( incident: Incident ): void {
