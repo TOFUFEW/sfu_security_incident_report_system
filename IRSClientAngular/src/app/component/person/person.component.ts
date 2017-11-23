@@ -106,8 +106,9 @@ export class PersonComponent implements OnInit {
             this.personService.create(this.newPerson)
                 .then(returnedPerson => {
                     if (returnedPerson != null) {
-                        this.personList.push(returnedPerson as Person);
+                        //this.personList.push(returnedPerson as Person);
                         alert("Person successfully added!");
+                        this.personList.push(this.newPerson);
                     }
                     else alert("Add failed.");
                 });
