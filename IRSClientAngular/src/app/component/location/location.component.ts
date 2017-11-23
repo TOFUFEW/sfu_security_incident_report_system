@@ -30,33 +30,41 @@ export class LocationComponent implements OnInit {
     ) { 
     }
 
-    validateNewLocation() {
+    validateNewLocation(): boolean {
         console.log("new location ", this.newLocation);
         console.log("current location", this.currentLocation);
 
-        if ( this.newLocation.attributes.CAMPUS_ID == null && this.currentLocation.attributes.CAMPUS_ID != null ) {
-            this.newLocation.attributes.CAMPUS_ID = this.currentLocation.attributes.CAMPUS_ID;
-        }
-        if ( this.newLocation.attributes.CITY == null ) {
-            if ( this.currentLocation.attributes.CITY != null || this.currentLocation.attributes.CITY != "") {
-                this.newLocation.attributes.CITY = this.currentLocation.attributes.CITY;                
+        if ( this.newLocation.attributes.CAMPUS_ID == null ) {
+            if ( this.currentLocation.attributes.CAMPUS_ID != null ) {
+                this.newLocation.attributes.CAMPUS_ID = this.currentLocation.attributes.CAMPUS_ID;
             }
             else {
                 console.log("no campus");
                 this.showCampusAlert = true;
+                return false;
             }
         }
-        if ( this.newLocation.attributes.BUILDING_NAME == null ) {
-            if ( this.currentLocation.attributes.BUILDING_NAME != null  || this.currentLocation.attributes.BUILDING_NAME != "") {
+        if ( this.newLocation.attributes.CITY == null || this.newLocation.attributes.CITY == "" ) {
+            if ( this.currentLocation.attributes.CITY != "") {
+                this.newLocation.attributes.CITY = this.currentLocation.attributes.CITY;                
+            }
+        }
+        if ( this.newLocation.attributes.BUILDING_NAME == null || this.newLocation.attributes.BUILDING_NAME == "" ) {
+            if ( this.currentLocation.attributes.BUILDING_NAME != "") {
+                console.log("changing building");                
+                
                 this.newLocation.attributes.BUILDING_NAME = this.currentLocation.attributes.BUILDING_NAME;
             }
             else {
+                console.log("no building");
                 this.showBuildingAlert = true;
+                return false;
             }
         }
-        if ( this.newLocation.attributes.ROOM_NUMBER == null && this.currentLocation.attributes.ROOM_NUMBER != null ) {
+        if ( this.newLocation.attributes.ROOM_NUMBER == null && this.currentLocation.attributes.ROOM_NUMBER != "" ) {
             this.newLocation.attributes.ROOM_NUMBER = this.currentLocation.attributes.ROOM_NUMBER;
         }
+        return true;
     }
 
     updateCurrentLocation ( locationID: number ) {
@@ -81,6 +89,8 @@ export class LocationComponent implements OnInit {
     resetLists() {
         this.buildings = [];
         this.rooms = [];                
+        this.showCampusAlert = false;  
+        this.showBuildingAlert = false;
     }
 
     addLocationToReport(): void {
@@ -106,7 +116,8 @@ export class LocationComponent implements OnInit {
     }
 
     onSelectCampus(): void {
-        this.showCampusAlert = false;          
+        this.showCampusAlert = false;   
+        this.currentLocation.attributes.BUILDING_NAME = "";       
         this.locationMap.forEach( campus => {
             if ( campus.CAMPUS_ID == this.newLocation.attributes.CAMPUS_ID ) 
                 this.buildings = campus.BUILDINGS;
@@ -115,6 +126,7 @@ export class LocationComponent implements OnInit {
 
     onSelectBuilding(): void {
         this.showBuildingAlert = false;  
+        this.currentLocation.attributes.ROOM_NUMBER = "";
         this.buildings.forEach( bldg => {
             if ( bldg.BUILDING_NAME === this.newLocation.attributes.BUILDING_NAME )
                 this.rooms = bldg.ROOMS;

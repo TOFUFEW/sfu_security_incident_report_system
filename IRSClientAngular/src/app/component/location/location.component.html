@@ -3,7 +3,7 @@
         <span class="glyphicon glyphicon-remove glyphicon-btn" (click)="removeLocationFromReport()"></span>        
     </div>
     <div class="detail col-12 col-sm-3">
-        <div class="alertText modal-field-title" *ngIf="showBuildingAlert">
+        <div class="alertText modal-field-title mt-1" *ngIf="showCampusAlert">
             Please select a campus
         </div>
         <span class="field-title">Campus <span class="required-asterisk">*</span></span>
@@ -23,7 +23,7 @@
         </select>
     </div>
     <div class="detail col-12 col-sm-3">
-        <div class="alertText modal-field-title" *ngIf="showBuildingAlert">
+        <div class="alertText modal-field-title mt-1" *ngIf="showBuildingAlert">
             Please select a building
         </div>
         <span class="field-title">Building <span class="required-asterisk">*</span></span>

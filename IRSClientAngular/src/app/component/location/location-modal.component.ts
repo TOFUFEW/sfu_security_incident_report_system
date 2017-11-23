@@ -56,11 +56,13 @@ export class LocationModalComponent implements OnInit {
         }     
     }     
     public submitChanges ( id ) : void {     
-        this.locationComponent.validateNewLocation();  
-        this.locationComponent.newLocation.table = Config.LocationTable;  
-        console.log(this.locationComponent.newLocation);
-        this.locationSaved.emit(this.locationComponent.newLocation);
-        this.hide();      
+        var locationValid = this.locationComponent.validateNewLocation();
+        if ( locationValid ) {
+            this.locationComponent.newLocation.table = Config.LocationTable;  
+            console.log(this.locationComponent.newLocation);
+            this.locationSaved.emit(this.locationComponent.newLocation);
+            this.hide();      
+        }
     }
 
     public removeLocation ( id ) : void {
