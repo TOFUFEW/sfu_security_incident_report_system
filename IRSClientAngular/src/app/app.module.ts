@@ -24,6 +24,8 @@ import { LocationModalComponent } from './component/location/location-modal.comp
 import { CategoryComponent } from './component/category/category.component'
 import { ReportSummaryComponent } from './component/report/report-summary.component';
 import { InlineEditComponent } from './component/report/inline-edit.component';
+import { NewAccountComponent } from './component/login/new-account-component';
+import { SpinnerComponent } from './component/loading-spinner/spinner.component';
 
 /* Services */
 import { UserService } from './service/user.service';
@@ -36,8 +38,9 @@ import { IncidentElementService } from './service/incident-element.service';
 import { StaffService } from './service/staff.service'
 import { PersonService } from './service/person.service';
 import { NewReportService } from './service/new-report.service';
+import { SearchService } from './service/search.service';
 import { FilterPipe } from './util/filter.pipe';
-import { NewAccountComponent } from './component/login/new-account-component';
+
 
 @NgModule({
   imports: [
@@ -68,7 +71,8 @@ import { NewAccountComponent } from './component/login/new-account-component';
     FilterPipe,
     ReportSummaryComponent,
     NewAccountComponent,
-    InlineEditComponent
+    InlineEditComponent,
+    SpinnerComponent
   ],
   
   providers: [
@@ -81,7 +85,8 @@ import { NewAccountComponent } from './component/login/new-account-component';
     StaffService,
     PersonService,
     NewReportService,
-    CategoryService],
+    CategoryService,
+    SearchService],
   bootstrap: [AppComponent],
   entryComponents: [ LocationComponent, VehicleComponent,
     PersonComponent ]

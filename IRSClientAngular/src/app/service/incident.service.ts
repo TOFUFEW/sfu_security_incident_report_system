@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-// import { IncidentElementService } from '../service/incident-element.service';
-import { Http, Headers } from '@angular/http';
+import { plainToClass } from "class-transformer";
+import { Observable } from 'rxjs';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../util/config.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -11,6 +12,7 @@ import { Location } from '../component/location/location';
 import { Campus } from '../component/location/campus';
 import { Person } from '../component/person/person';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
 import { User } from "../component/login/user";
 import { UserService } from "./user.service";
 import { Staff } from '../component/staff/staff';
@@ -61,12 +63,24 @@ export class IncidentService
         this.bs_reportsToAddToWorkspace.next( arr );
     }
 
+    /*
     getIncidents(): Promise<Incident[]> {
         var incidents = this.http.get( this.incidentsUrl )
             .toPromise()
             .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
             .catch( this.handleError );
         return Promise.resolve( incidents );
+    };
+    */
+
+    getIncidents(): Observable<Incident[]> {
+        let options = new RequestOptions({headers: this.headers});
+        
+        return this.http
+            .get(this.incidentsUrl, options)
+            .map((response: Response) => 
+            this.initIncidents(plainToClass(Incident, response.json()))
+        )
     };
 
     getGuardIncidents(): Promise<Incident[]> {
@@ -89,27 +103,6 @@ export class IncidentService
             .then( response => this.initializeIncident( response.json() as Incident ) as Incident )
             .catch( this.handleError );
         return Promise.resolve( returnedIncident );
-    }
-    
-    private initIncidents( incidents: Incident[] ): Incident[] {
-        incidents.forEach(i => {
-            this.initializeIncident(i);
-        });
-        return incidents;
-    }
-
-    private initializeIncident( incident: Incident ): Incident {
-        incident.category = incident.incidentElements[Config.IncidentCategoryKey][0] as Category;
-        incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
-        incident.incidentElements[Config.LocationKey]
-            .forEach( element => {
-                var index = this.campusArr.findIndex( 
-                    c => c.attributes.CAMPUS_ID == (element as Location).attributes.CAMPUS_ID 
-                );
-                if ( index >= 0 )
-                    (element as Location).attributes.CITY = this.campusArr[index].attributes.CITY;
-            });
-        return incident;
     }
 
     create( incident: Incident ): Promise<Incident> {
@@ -156,6 +149,27 @@ export class IncidentService
                 .catch( this.handleError );
         return Promise.resolve( promise );
     };
+
+    private initIncidents( incidents: Incident[] ): Incident[] {
+        incidents.forEach(i => {
+            this.initializeIncident(i);
+        });
+        return incidents;
+    }
+
+    private initializeIncident( incident: Incident ): Incident {
+        incident.category = incident.incidentElements[Config.IncidentCategoryKey][0] as Category;
+        incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
+        incident.incidentElements[Config.LocationKey]
+            .forEach( element => {
+                var index = this.campusArr.findIndex( 
+                    c => c.attributes.CAMPUS_ID == (element as Location).attributes.CAMPUS_ID 
+                );
+                if ( index >= 0 )
+                    (element as Location).attributes.CITY = this.campusArr[index].attributes.CITY;
+            });
+        return incident;
+    }
 
     private handleError( error: any ) : Promise<any>
     {

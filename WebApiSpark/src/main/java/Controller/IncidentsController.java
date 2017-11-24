@@ -18,19 +18,25 @@ public class IncidentsController
     {
         get ("/incidents" , ( request , response ) ->
         {
-            Incident []  incidents = DBHelper.getIncidents ();
+            Incident[] incidents = DBHelper.getIncidents ();
+            return JsonUtil.toJson ( incidents );
+        } );
+
+        post ("/search-incident" , ( request , response ) ->
+        {
+            Incident[] incidents = DBHelper.searchIncidents ( request.body() );
             return JsonUtil.toJson ( incidents );
         } );
 
         post ("/incidents" , ( request, response ) ->
         {
-            Incident newIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
+            Incident newIncident = ( Incident ) JsonUtil.fromJson ( request.body() , Incident.class );
             return DBHelper.insertIncident ( newIncident );
         } );
 
         post ("/update-incident" , ( request, response ) ->
         {
-            Incident updatedIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
+            Incident updatedIncident = ( Incident ) JsonUtil.fromJson ( request.body() , Incident.class );
             return DBHelper.updateIncident ( updatedIncident );
         } );
 

@@ -14,7 +14,6 @@ import { Validation } from '../util/validation.service';
 @Injectable()
 export class LoginService {
     private headers = new Headers( { 'Content-Type': 'application/json' } );
-    loginUrl = Config.LoginURI;
 
     constructor( private http: Http ) { }
 
@@ -27,7 +26,7 @@ export class LoginService {
 
         // HTTP RESPONSE
         return this.http
-            .post(this.loginUrl, JSON.stringify( user ), options)
+            .post(Config.LoginURI, JSON.stringify( user ), options)
             .map ( response => response.json() as User );
     }
 

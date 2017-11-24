@@ -7,6 +7,7 @@ import { IncidentElement } from '../report/incident-element';
 import { Incident } from '../report/incident';
 import { Location, LocationAttributes } from '../location/location';
 import { Staff, StaffAttributes } from '../staff/staff';
+import { SpinnerComponent } from '../loading-spinner/spinner.component';
 
 @Component({
     templateUrl: './search.component.html',
@@ -16,18 +17,29 @@ export class SearchComponent implements OnInit {
     
     constructor(
         private incidentService: IncidentService,
-    ) {
-    };
+    ) {};
 
-    incidents : Incident[];
-    searchText : any;
+    showSpinner: boolean = true;
+    queryString: string;
+    incidents: Incident[];
 
-      ngOnInit(): void {
-        this.incidentService.getIncidents().then(returnedIncidents => {
-            this.incidents = returnedIncidents;
-            //this.reconstructElements();
-            console.log(this.incidents);
-        }); 
+
+    ngOnInit(): void {
+        this.incidentService.getIncidents()
+            .subscribe(
+                (responseData) => {
+                    setTimeout( () => {
+                        this.incidents = responseData;
+                        this.showSpinner = false;
+                     } , 4000);
+                },
+                (errors) => {
+                    alert(Config.FailedToRetrieveMsg);
+                },
+                () => {
+                    console.log("Done before data is finished");
+                }
+        )
     }
 
     /*

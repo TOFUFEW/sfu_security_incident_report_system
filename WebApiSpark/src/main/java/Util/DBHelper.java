@@ -21,13 +21,32 @@ public class DBHelper
 
     /* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; REFACTORED methods ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
 
-    public static Incident [] getIncidents () {
+    public static Incident[] getIncidents () {
         ArrayList < Incident > incidentList = new ArrayList <> ();
 
         try
         {
             ResultSet incidentResultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.INCIDENT.toString() + " ORDER BY REPORT_ID DESC");
 
+            fillListWithIncidentsFromResultSet ( incidentList , incidentResultSet );
+        }
+
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+
+        return incidentList.toArray ( new Incident [ incidentList.size () ] );
+    }
+
+    public static Incident[] searchIncidents (String searchString) {
+        ArrayList < Incident > incidentList = new ArrayList <> ();
+
+        try
+        {
+            ResultSet incidentResultSet = executeQuery (
+                    "SELECT * FROM " + DatabaseValues.Table.INCIDENT.toString() +
+                    "WHERE FREETEXT (SEARCH_TEXT, '" + searchString + "')");
             fillListWithIncidentsFromResultSet ( incidentList , incidentResultSet );
         }
 

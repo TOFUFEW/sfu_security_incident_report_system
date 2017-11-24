@@ -1,16 +1,16 @@
-<h1>Search will be live soon...!</h1>
+<spinner-component *ngIf="showSpinner"></spinner-component>
 
 <div>
     <form>
         <label>Search: </label>
-        <input type="text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"/>
+        <input type="text" [(ngModel)]="queryString" [ngModelOptions]="{standalone: true}"/>
         <span>[Advanced Filters]</span>
         <br>
         <br>
     </form>
 
     <div>
-        <div *ngFor="let incident of incidents | filter: searchText">
+        <div *ngFor="let incident of incidents">
 
             <h4>[Report Summary]</h4>
             <span>

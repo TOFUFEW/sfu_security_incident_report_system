@@ -35,9 +35,18 @@ export class IncidentComponent implements OnInit {
     };
 
     getIncidents(): void {
-        this.incidentService.getIncidents().then( returnedIncidents => {
-            this.incidents = returnedIncidents;
-        } );
+        this.incidentService.getIncidents()
+            .subscribe(
+                (responseData) => {
+                    this.incidents = responseData;
+                },
+                (errors) => {
+                    alert(Config.FailedToRetrieveMsg);
+                },
+                () => {
+                    // On complete do something
+                }
+            )
     }
 
     getStaffList() {
