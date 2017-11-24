@@ -1,51 +1,51 @@
 <spinner-component *ngIf="showSpinner"></spinner-component>
 
-<h1>Dynamic Search</h1>
-<div>
-    <form>
-        <label>Search: </label>
-        <input type="text" [(ngModel)]="queryString" [ngModelOptions]="{standalone: true}"/>
-        <button (click)="onSearch()">Search</button>
-        <br>
-        <br>
-    </form>
+<div class="container-fluid">
+    <div class="row">
+        <div class="content-container col-12 col-sm-10 col-sm-offset-1 col-sm-offset-right-1
+                    col-lg-6 col-lg-offset-3 col-lg-offset-right-3">
+            <form id="search-form">
+                <input type="text" class="form-control search-element" id="search-input"
+                    [(ngModel)]="queryString" [ngModelOptions]="{standalone: true}"/>
+                <button id="search-btn" class="btn btn-primary search-element" (click)="onSearch()">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </form>
 
-    <div>
-        <div *ngFor="let incident of incidents">
-
-            <h4>[Report Summary]</h4>
-            <span>
-                <b>Report ID:</b> {{incident.attributes.REPORT_ID}},
-                <b>Author ID:</b> {{incident.attributes.ACCOUNT_ID}},
-                <b>Description:</b> {{incident.attributes.DESCRIPTION}},
-                <b>Summary:</b> {{incident.attributes.EXECUTIVE_SUMMARY}},
-                <b>Status:</b> {{incident.attributes.STATUS}}
-                <br>
-            </span>
-
-            <h4>[Report Type]</h4>
-
-            <h4>[Location Details]</h4>
-            <span *ngFor="let loc of incident.incidentElements['Location']">
-                <b>Location ID:</b> {{loc.attributes.LOCATION_ID}},
-                <b>Campus ID:</b> {{loc.attributes.CAMPUS_ID}},
-                <b>Building Name:</b> {{loc.attributes.BUILDING_NAME}},
-                <b>Room Number:</b> {{loc.attributes.ROOM_NUMBER}},
-                <b>Department:</b> {{loc.attributes.DEPARTMENT}}
-                <br>
-            </span>
-
-            <h4>[Assigned Staff]</h4>
-            <span *ngFor="let staff of incident.incidentElements['Staff']">
-                <b>Account ID:</b> {{staff.attributes.ACCOUNT_ID}},
-                <b>Campus ID:</b> {{staff.attributes.CAMPUS_ID}},
-                <b>First Name:</b> {{staff.attributes.FIRST_NAME}},
-                <b>Last Name:</b> {{staff.attributes.LAST_NAME}}
-                <br>
-            </span>
-
-            <br>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="result-container" *ngFor="let incident of incidents">
+                        <h4>[Report Summary]</h4>
+                        <span>
+                            <b>Report ID:</b> {{incident.attributes.REPORT_ID}},
+                            <b>Author ID:</b> {{incident.attributes.ACCOUNT_ID}},
+                            <b>Description:</b> {{incident.attributes.DESCRIPTION}},
+                            <b>Summary:</b> {{incident.attributes.EXECUTIVE_SUMMARY}},
+                            <b>Status:</b> {{incident.attributes.STATUS}}
+                        </span>
+            
+                        <!-- <h4>[Report Type]</h4>
+            
+                        <h4>[Location Details]</h4>
+                        <span *ngFor="let loc of incident.incidentElements['Location']">
+                            <b>Location ID:</b> {{loc.attributes.LOCATION_ID}},
+                            <b>Campus ID:</b> {{loc.attributes.CAMPUS_ID}},
+                            <b>Building Name:</b> {{loc.attributes.BUILDING_NAME}},
+                            <b>Room Number:</b> {{loc.attributes.ROOM_NUMBER}},
+                            <b>Department:</b> {{loc.attributes.DEPARTMENT}}
+                        </span>
+            
+                        <h4>[Assigned Staff]</h4>
+                        <span *ngFor="let staff of incident.incidentElements['Staff']">
+                            <b>Account ID:</b> {{staff.attributes.ACCOUNT_ID}},
+                            <b>Campus ID:</b> {{staff.attributes.CAMPUS_ID}},
+                            <b>First Name:</b> {{staff.attributes.FIRST_NAME}},
+                            <b>Last Name:</b> {{staff.attributes.LAST_NAME}}
+                            <br>
+                        </span> -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>

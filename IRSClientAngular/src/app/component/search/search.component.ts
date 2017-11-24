@@ -11,6 +11,7 @@ import { SpinnerComponent } from '../loading-spinner/spinner.component';
 
 @Component({
     templateUrl: './search.component.html',
+    styleUrls: ['../../../assets/css/search.component.css']
 })
 
 export class SearchComponent implements OnInit {

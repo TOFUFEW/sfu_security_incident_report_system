@@ -323,6 +323,9 @@ div.phone-input {
 div#new-report-panel, div#new-account-panel {
   margin-top: 16px; }
 
+.content-container {
+  padding-top: 20px; }
+
 /****************************/
 /*  Guard app styles
 /****************************/
