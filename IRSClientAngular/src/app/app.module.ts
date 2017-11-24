@@ -25,6 +25,7 @@ import { LocationModalComponent } from './component/location/location-modal.comp
 import { CategoryComponent } from './component/category/category.component'
 import { ReportSummaryComponent } from './component/report/report-summary.component';
 import { InlineEditComponent } from './component/report/inline-edit.component';
+import { NewAccountComponent } from './component/login/new-account-component';
 
 /* Services */
 import { UserService } from './service/user.service';
@@ -39,7 +40,6 @@ import { PersonService } from './service/person.service';
 import { NewReportService } from './service/new-report.service';
 import { TimerService } from './service/timer.service';
 import { FilterPipe } from './util/filter.pipe';
-import { NewAccountComponent } from './component/login/new-account-component';
 
 @NgModule({
   imports: [

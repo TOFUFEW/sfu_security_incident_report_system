@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="row">
+    <div class="row guard-container">
         <div class="col-12 col-sm-10 col-sm-offset-1 col-sm-offset-right-1
                     col-lg-6 col-lg-offset-3 col-lg-offset-right-3">
             <div id="new-report-panel" class="panel panel-default">
@@ -36,12 +36,12 @@
                                 </select>
                             </div>
                             <div class="detail col-12 col-sm-10">
-                                <span class="field-title">Description <span class="required-asterisk">*</span></span>
-                                <textarea class="form-control" cols="50" rows="1" [(ngModel)]="newIncident.attributes.DESCRIPTION"></textarea>
+                                <span class="field-title">Executive Summary <span class="required-asterisk">*</span></span>
+                                <textarea class="form-control" cols="50" rows="1" [(ngModel)]="newIncident.attributes.EXECUTIVE_SUMMARY"></textarea>
                             </div>
                             <div class="detail col-12 col-sm-10">
-                                <span class="field-title">Executive Summary <span class="required-asterisk">*</span></span>
-                                <textarea class="form-control" cols="50" rows="8" [(ngModel)]="newIncident.attributes.EXECUTIVE_SUMMARY"></textarea>
+                                <span class="field-title">Description <span class="required-asterisk">*</span></span>
+                                <textarea class="form-control" cols="50" rows="8" [(ngModel)]="newIncident.attributes.DESCRIPTION"></textarea>
                             </div>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                             <span class="field-title">Location</span>
                         </div>
                         <div id="locations">
-                            <location-component></location-component>
+                            <location-component id="first-element"></location-component>
                         </div>
                     </div>
 
@@ -273,6 +273,7 @@
                                     Please enter a valid phone number
                             </div>
                         </div>
+                        <!-- <div class="alertText" *ngIf="!personExists"> Please add the person before continuing</div> -->
                     </div>
                 </div>
                 <div id="assignGuardPreviewDiv" class="details-container">
@@ -289,7 +290,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="cancelReview()">Cancel</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button class="btn btn-primary" (click)="createReport(); files.upload();" *ngIf="reportReady">Create Report</button>
             </div>
         </div>

@@ -30,9 +30,19 @@ export class Incident {
     insertIncidentElement( element: IncidentElement ) {
         var key = "";
         var table = element.table;
-        if ( table === Config.CategoryTable )
+        if ( table === Config.CategoryTable )  {
             key = Config.IncidentCategoryKey;
-        else if ( table === Config.LocationTable )
+            if ( this.incidentElements[key] != null ) {
+                console.log(this.incidentElements[key]);
+                // Remove existing category
+                var i = this.incidentElements[key]
+                    .indexOf( x => x.attributes.CATEGORY_ID == (element as Category).attributes.CATEGORY_ID );
+                if ( i >= 0 ) {
+                    this.incidentElements[key].splice(i, 1);
+                }
+            }            
+        }
+        else if ( table === Config.LocationTable ) 
             key = Config.LocationKey;
         else if ( table === Config.StaffTable )
             key = Config.StaffKey
