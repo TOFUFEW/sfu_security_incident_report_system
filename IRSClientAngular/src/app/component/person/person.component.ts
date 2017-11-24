@@ -1,16 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { IncidentElement } from '../report/incident-element';
 import { Person } from '../person/person';
 import { PersonService } from '../../service/person.service';
 import { Router, RouterModule } from '@angular/router';
 import { NewReportService } from '../../service/new-report.service';
 import { Config } from '../../util/config.service';
+
 @Component({
     selector: 'person-component',
     templateUrl: './person.component.html'
 })
 
 export class PersonComponent implements OnInit {
+    @Output () personAdded : EventEmitter<boolean> = new EventEmitter();     
+    
     private reference: any;
     personList: Person[] = [];
     filterList: Person[] = [];
@@ -21,8 +24,9 @@ export class PersonComponent implements OnInit {
     phoneNumber3: string = "";
     toggleNewPersonFlag: boolean = false;
     personSelected: boolean = false;
-    personExists: boolean = false;
-    personExistsInList: boolean = true;;
+    personExists: boolean = true;
+    personExistsInList: boolean = true;
+
 
     constructor( 
         private personService: PersonService,
@@ -39,7 +43,6 @@ export class PersonComponent implements OnInit {
 
     removePersonFromReport(): void {
         if ( this.reference == null ) {
-            console.log("must have a person involved!");
             return;
         }
             
@@ -78,17 +81,63 @@ export class PersonComponent implements OnInit {
         this.personSelected = true;
     }
 
-    getPersons(): void {
-        this.personService.getPersons().then( returnedPersons => {
-            this.personList = returnedPersons;
-        } )
-        .then( () => {
-            this.copyPersonLst();
-        });   
-    }
+    // getPersons(): void {
+    //     this.personService.getPersons().then( returnedPersons => {
+    //         this.personList = returnedPersons;
+    //     } )
+    //     .then( () => {
+    //         this.copyPersonLst();
+    //     });   
+    // }
 
     copyPersonLst() : void {
         Object.assign(this.filterList , this.personList);
+    }
+
+    findPerson(): void {
+        this.onChangePhoneNumber();
+        if ( this.allFieldsValid( this.newPerson ) ) {
+            this.personService.personExists( this.newPerson )
+                .then( exists => {
+                    this.personExists = exists;
+                    this.personAdded.emit( this.personExists );                    
+                });
+        }
+        else {
+            this.personExists = true;
+            this.personAdded.emit( false );                                
+        }
+                        
+        // this.personSelected = false;
+
+        // this.personService.filter(this.filterList, this.personList, this.filterPerson);
+        // if (this.filterList.length < 1){
+        //     if ( this.filterPerson.attributes.FIRST_NAME != null
+        //         && this.filterPerson.attributes.LAST_NAME != null  
+        //         && this.filterPerson.attributes.PHONE_NUMBER != null
+        //         && this.filterPerson.attributes.PHONE_NUMBER.toString().length == 10
+        //     ) {
+        //         this.personExistsInList = false;
+        //         Object.assign(this.newPerson, this.filterPerson);
+        //     }
+        // }
+        // else {
+        //     this.personExistsInList = true;
+        // };  
+    }
+
+    addPersonToDatabase(): void {
+        if ( this.allFieldsValid( this.newPerson ) ) {
+            this.personService.create( this.newPerson )
+                .then(returnedPerson => {
+                    if ( returnedPerson != null ) {
+                        alert("Person successfully added!");
+                        this.personExists = true;
+                        this.personAdded.emit( this.personExists );                                        
+                    }
+                    else alert("Add failed. Try again.");
+                });
+        }
     }
 
     addPerson(): void {
@@ -122,25 +171,6 @@ export class PersonComponent implements OnInit {
         this.personExists = false;
     }
 
-    findPerson(): void {
-        this.personSelected = false;
-
-        this.personService.filter(this.filterList, this.personList, this.filterPerson);
-        if (this.filterList.length < 1){
-            if ( this.filterPerson.attributes.FIRST_NAME != null
-                && this.filterPerson.attributes.LAST_NAME != null  
-                && this.filterPerson.attributes.PHONE_NUMBER != null
-                && this.filterPerson.attributes.PHONE_NUMBER.toString().length == 10
-            ) {
-                this.personExistsInList = false;
-                Object.assign(this.newPerson, this.filterPerson);
-            }
-        }
-        else {
-            this.personExistsInList = true;
-        };  
-    }
-
     updatePerson( person: Person ): void {
       this.personService.update( person )
           .then( returnedPerson => {
@@ -164,8 +194,17 @@ export class PersonComponent implements OnInit {
         });
     }
 
+    private allFieldsValid( person: Person ) {
+        if ( person == null )
+            return false;
+        return person.attributes != null &&
+            person.attributes.LAST_NAME != null && person.attributes.LAST_NAME.length > 0 &&
+            person.attributes.FIRST_NAME != null && person.attributes.FIRST_NAME.length > 0 &&
+            person.attributes.PHONE_NUMBER != null && person.attributes.PHONE_NUMBER.length == 10;
+    }
+
     ngOnInit(): void {
-        this.getPersons();
+        //this.getPersons();
         this.addPersonToReport();
     }
 }

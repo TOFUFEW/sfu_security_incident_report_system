@@ -289,7 +289,8 @@ body {
 
     .detail {
         min-width: 250px;
-        padding: 10px 10px;
+        margin-bottom: 8px;
+        //padding: 10px 10px;
     }
 
     .detail-lg {
@@ -359,6 +360,10 @@ span.glyphicon-fire {
 .nav-tabs > li.active > a {
     //border: none !important;
     font-weight: 700;
+}
+
+.nav-tabs > li > a:hover {
+    background-color: $grey-default;
 }
 
 .form-group {
@@ -533,4 +538,25 @@ div#new-report-panel, div#new-account-panel {
     #logout-link { display: flex !important; }
     .navbar-sm { display: block; }
     .navbar-lg { display: none; }
+}
+
+.bottom-links {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    
+    span {
+        margin: 8px;
+    }
+}
+
+.flex-column {
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+
+.italic {
+    font-style: italic;
 }

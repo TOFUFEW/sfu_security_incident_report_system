@@ -206,7 +206,7 @@ export class GuardIncidentComponent implements OnInit {
 
     changeCategory ( newCategoryID ) {
         this.incident.attributes.CATEGORY_ID = newCategoryID;
-        var incident = this.categoryService.changeIncidentCategory ( this.incident, newCategoryID, this.categoryModal.selectedCategory )
+        var incident = this.incidentsService.changeIncidentCategory ( this.incident, newCategoryID, this.categoryModal.selectedCategory )
             .then ( incident => {
                 return incident;
             });
@@ -228,6 +228,18 @@ export class GuardIncidentComponent implements OnInit {
         this.incident.attributes.EXECUTIVE_SUMMARY = summary;
     }
 
+    changeIncidentCategory ( incident, newCategoryID, selectedCategory ) {
+        incident.category.CATEGORY_ID = newCategoryID;
+        incident.attributes.CATEGORY_ID = newCategoryID;
+        incident.category.attributes.MAIN_CATEGORY = selectedCategory.attributes.MAIN_CATEGORY;
+        incident.category.attributes.SUB_CATEGORY = selectedCategory.attributes.SUB_CATEGORY;
+        incident.category.attributes.INCIDENT_TYPE = selectedCategory.attributes.INCIDENT_TYPE;      
+        incident.incidentElements[Config.IncidentCategoryKey]
+            .splice(0, incident.incidentElements[Config.IncidentCategoryKey].length,
+                    incident.category);
+        this.incidentsService.update ( incident );            
+    }
+       
     newReport() {
         this.router.navigate( [ 'new-report' ] );
     }
