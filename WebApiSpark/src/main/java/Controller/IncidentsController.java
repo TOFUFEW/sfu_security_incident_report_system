@@ -24,6 +24,7 @@ public class IncidentsController
 
         post ("/search-incident" , ( request , response ) ->
         {
+            System.out.println(request.body());
             Incident[] incidents = DBHelper.searchIncidents ( request.body() );
             return JsonUtil.toJson ( incidents );
         } );

@@ -23,22 +23,44 @@ export class SearchComponent implements OnInit {
     queryString: string;
     incidents: Incident[];
 
-
-    ngOnInit(): void {
-        this.incidentService.getIncidents()
+    onSearch() {
+        if (this.queryString == "" || undefined) {
+            alert ("You must enter something!");
+            return;
+        } else {
+            this.showSpinner = true;
+            this.incidentService.doSearch(this.queryString)
             .subscribe(
                 (responseData) => {
-                    setTimeout( () => {
-                        this.incidents = responseData;
-                        this.showSpinner = false;
-                     } , 4000);
+                    this.incidents = responseData;
                 },
                 (errors) => {
-                    alert(Config.FailedToRetrieveMsg);
+                    alert("Search failed");
+                    this.showSpinner = false;
                 },
                 () => {
-                    console.log("Done before data is finished");
+                    alert("Found " + this.incidents.length + " records.");
+                    this.showSpinner = false;
                 }
+            )
+        }
+    }
+
+    ngOnInit() {
+        this.incidentService.getIncidents()
+        .subscribe(
+            (responseData) => {
+                setTimeout( () => {
+                    this.incidents = responseData;
+                    this.showSpinner = false;
+                    } , 4000);
+            },
+            (errors) => {
+                alert(Config.FailedToRetrieveMsg);
+            },
+            () => {
+                console.log("Done before data is finished");
+            }
         )
     }
 

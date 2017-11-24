@@ -81,7 +81,17 @@ export class IncidentService
             .map((response: Response) => 
             this.initIncidents(plainToClass(Incident, response.json()))
         )
-    };
+    }
+
+    doSearch(query: String): Observable<Incident[]> {
+        let options = new RequestOptions({headers: this.headers});
+
+        return this.http
+            .post(Config.SearchIncidentsURI, query, options)
+            .map((response: Response) => 
+            this.initIncidents(plainToClass(Incident, response.json()))
+        )
+    }
 
     getGuardIncidents(): Promise<Incident[]> {
         var user = this.userService.getCurrentUser();

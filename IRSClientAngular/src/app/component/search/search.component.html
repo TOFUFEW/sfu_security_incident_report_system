@@ -1,10 +1,11 @@
 <spinner-component *ngIf="showSpinner"></spinner-component>
 
+<h1>Dynamic Search</h1>
 <div>
     <form>
         <label>Search: </label>
         <input type="text" [(ngModel)]="queryString" [ngModelOptions]="{standalone: true}"/>
-        <span>[Advanced Filters]</span>
+        <button (click)="onSearch()">Search</button>
         <br>
         <br>
     </form>

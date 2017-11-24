@@ -39,20 +39,21 @@ public class DBHelper
         return incidentList.toArray ( new Incident [ incidentList.size () ] );
     }
 
-    public static Incident[] searchIncidents (String searchString) {
+    public static Incident[] searchIncidents (String searchString) throws SQLException {
         ArrayList < Incident > incidentList = new ArrayList <> ();
 
         try
         {
+            //String query =  "SELECT * FROM " + DatabaseValues.Table.INCIDENT.toString() +
+                    //" WHERE FREETEXT (SEARCH_TEXT, '" + searchString + "')";
             ResultSet incidentResultSet = executeQuery (
                     "SELECT * FROM " + DatabaseValues.Table.INCIDENT.toString() +
-                    "WHERE FREETEXT (SEARCH_TEXT, '" + searchString + "')");
+                    " WHERE FREETEXT (SEARCH_TEXT, '" + searchString + "')");
             fillListWithIncidentsFromResultSet ( incidentList , incidentResultSet );
         }
-
         catch ( Exception e )
         {
-            e.printStackTrace ();
+            e.printStackTrace();
         }
 
         return incidentList.toArray ( new Incident [ incidentList.size () ] );

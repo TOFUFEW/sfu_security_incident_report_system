@@ -38,7 +38,6 @@ import { IncidentElementService } from './service/incident-element.service';
 import { StaffService } from './service/staff.service'
 import { PersonService } from './service/person.service';
 import { NewReportService } from './service/new-report.service';
-import { SearchService } from './service/search.service';
 import { FilterPipe } from './util/filter.pipe';
 
 
@@ -85,8 +84,7 @@ import { FilterPipe } from './util/filter.pipe';
     StaffService,
     PersonService,
     NewReportService,
-    CategoryService,
-    SearchService],
+    CategoryService],
   bootstrap: [AppComponent],
   entryComponents: [ LocationComponent, VehicleComponent,
     PersonComponent ]
