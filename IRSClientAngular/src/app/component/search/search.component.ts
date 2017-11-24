@@ -16,13 +16,14 @@ import { SpinnerComponent } from '../loading-spinner/spinner.component';
 
 export class SearchComponent implements OnInit {
     
-    constructor(
-        private incidentService: IncidentService,
-    ) {};
-
     showSpinner: boolean = true;
     queryString: string;
     incidents: Incident[];
+
+    constructor(
+        private incidentService: IncidentService,
+    ) {
+    };
 
     onSearch() {
         if (this.queryString == "" || undefined) {
@@ -47,14 +48,23 @@ export class SearchComponent implements OnInit {
         }
     }
 
+    addToWorkspace( incident: Incident ): void {
+        this.incidentService.addToWorkspace( incident );
+    }
+
+    removeFromWorkspace( id: number ): void {
+        if ( id > 0 )
+            this.incidentService.removeFromWorkspace( id );
+    }
+
     ngOnInit() {
-        this.incidentService.getIncidents()
+        this.incidentService.allReports
         .subscribe(
             (responseData) => {
                 setTimeout( () => {
                     this.incidents = responseData;
                     this.showSpinner = false;
-                    } , 4000);
+                    } , 1000);
             },
             (errors) => {
                 alert(Config.FailedToRetrieveMsg);
@@ -62,7 +72,7 @@ export class SearchComponent implements OnInit {
             () => {
                 console.log("Done before data is finished");
             }
-        )
+        );
     }
 
     /*

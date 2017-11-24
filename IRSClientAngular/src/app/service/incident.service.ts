@@ -28,11 +28,11 @@ export class IncidentService
     guardIncidentsUrl = Config.GuardIncidentsURI;
     private userService = new UserService;
 
+    private bs_allReports = new BehaviorSubject<Incident[]>([]);
+    allReports = this.bs_allReports.asObservable();
+
     private bs_reportsToAddToWorkspace = new BehaviorSubject<Incident[]>( [] );
     reportsToAddToWorkspace = this.bs_reportsToAddToWorkspace.asObservable();
-
-    private bs_lastRemovedId = new BehaviorSubject<number>( 0 );
-    lastRemovedId = this.bs_lastRemovedId.asObservable();
 
     staffArr: Staff[] = [];
     campusArr: Campus[] = [];
@@ -41,6 +41,9 @@ export class IncidentService
         private staffService: StaffService,
         private locationService: LocationService) 
     {
+        this.getIncidents().then( returnedArr => {
+            this.bs_allReports.next(returnedArr);
+        });
         this.staffService.getStaffs().then( returnedArr => {
             this.staffArr = returnedArr;
         });
@@ -50,38 +53,53 @@ export class IncidentService
     }
 
     addToWorkspace( incident: Incident ): void {
+        if ( incident == null )
+            return;
         var arr = this.bs_reportsToAddToWorkspace.getValue();
-        arr.splice(0, 0, incident );
+        if ( !this.reportInWorkspace( incident.attributes.REPORT_ID ) ) {
+            incident.inWorkspace = true;
+            arr.splice(0, 0, incident );            
+        }
+        console.log(arr);
         this.bs_reportsToAddToWorkspace.next( arr );
     }
 
     removeFromWorkspace( id: number ) : void {
-        this.bs_lastRemovedId.next( id );
+        if ( id <= 0 )
+            return;
         var arr = this.bs_reportsToAddToWorkspace.getValue();
         var index = arr.findIndex( i => i.attributes.REPORT_ID == id );
-        arr.splice( index, 1 );
-        this.bs_reportsToAddToWorkspace.next( arr );
+        if ( index >= 0 ) {
+            arr[ index ].inWorkspace = false;             
+            arr.splice( index, 1 );
+            this.bs_reportsToAddToWorkspace.next( arr );            
+        }
     }
 
-    /*
-    getIncidents(): Promise<Incident[]> {
+    private reportInWorkspace( id: number ) {
+        var arr = this.bs_reportsToAddToWorkspace.getValue();
+        var index = arr.findIndex( i => i.attributes.REPORT_ID == id );
+        return index >= 0;
+    }
+    
+    private getIncidents(): Promise<Incident[]> {
         var incidents = this.http.get( this.incidentsUrl )
             .toPromise()
-            .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
+            .then( response => this.initIncidents( plainToClass(Incident, response.json()) ) /*as Incident[]*/ )
             .catch( this.handleError );
         return Promise.resolve( incidents );
     };
-    */
+    
 
-    getIncidents(): Observable<Incident[]> {
-        let options = new RequestOptions({headers: this.headers});
+    // getIncidents(): Observable<Incident[]> {
+    //     let options = new RequestOptions({headers: this.headers});
         
-        return this.http
-            .get(this.incidentsUrl, options)
-            .map((response: Response) => 
-            this.initIncidents(plainToClass(Incident, response.json()))
-        )
-    }
+    //     return this.http
+    //         .get(this.incidentsUrl, options)
+    //         .map((response: Response) => 
+    //         this.initIncidents(plainToClass(Incident, response.json()))
+    //     )
+    // }
 
     doSearch(query: String): Observable<Incident[]> {
         let options = new RequestOptions({headers: this.headers});

@@ -24,6 +24,15 @@
                             <b>Status:</b> {{incident.attributes.STATUS}}
                         </span>
             
+                        <button class="btn btn-default" *ngIf="incident.inWorkspace"
+                            (click)="removeFromWorkspace(incident.attributes.REPORT_ID)">
+                            Remove From Workspace
+                        </button>
+
+                        <button class="btn btn-primary" *ngIf="!incident.inWorkspace"
+                            (click)="addToWorkspace(incident)">
+                            Add To Workspace
+                        </button>
                         <!-- <h4>[Report Type]</h4>
             
                         <h4>[Location Details]</h4>

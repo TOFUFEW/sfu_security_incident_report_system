@@ -30,23 +30,23 @@ export class IncidentComponent implements OnInit {
         this.staffService.getStaffs().then( returnedArr => {
             this.staffArr = returnedArr;
         });
-        this.incidentService.lastRemovedId
-            .subscribe( value => this.removeFromWorkspace( value ) );
     };
 
     getIncidents(): void {
-        this.incidentService.getIncidents()
-            .subscribe(
-                (responseData) => {
+        this.incidentService.allReports
+        .subscribe(
+            (responseData) => {
+                setTimeout( () => {
                     this.incidents = responseData;
-                },
-                (errors) => {
-                    alert(Config.FailedToRetrieveMsg);
-                },
-                () => {
-                    // On complete do something
-                }
-            )
+                    } , 1000);
+            },
+            (errors) => {
+                alert(Config.FailedToRetrieveMsg);
+            },
+            () => {
+                console.log("Done before data is finished");
+            }
+        );
     }
 
     getStaffList() {
@@ -54,18 +54,11 @@ export class IncidentComponent implements OnInit {
     }
 
     addToWorkspace( incident: Incident ): void {
-        incident.inWorkspace = true ;
-        console.log("adding to workspace...");
-        console.log(incident);
         this.incidentService.addToWorkspace( incident );
     }
 
     removeFromWorkspace( id: number ): void {
-        if ( this.incidents == null || this.incidents.length == 0 ) return;
-        console.log(" removing " + id);
-        var index = this.incidents.findIndex( i => i.attributes.REPORT_ID == id );
-        console.log( "index: " + index );
-        this.incidents[ index ].inWorkspace = false;
+        this.incidentService.removeFromWorkspace( id );
     }
 
     setIncidentToAssign( id: number ) {
