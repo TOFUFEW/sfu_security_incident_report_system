@@ -74,7 +74,7 @@
                                     </h4>
                                 </div>       
                                 <div id="collapseLocation" class="panel-collapse collapse in">
-                                    <div class="panel-body lh-1" *ngIf="incident">
+                                    <div class="panel-body details-body lh-1" *ngIf="incident">
                                         <span *ngFor="let location of incident.incidentElements['Location']" 
                                             [id]="location.attributes.LOCATION_ID"
                                             (click)="this.modalLocation.show($event)">

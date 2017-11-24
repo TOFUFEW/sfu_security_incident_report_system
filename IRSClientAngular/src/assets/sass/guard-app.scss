@@ -61,6 +61,14 @@
       padding: 0 !important;
   }
   
+  .p-sm {
+      padding: 0.5em;
+  }
+
+  .p-1 {
+      padding: 1em;
+  }
+
   .pb-sm {
       padding-bottom: 0.5em !important;
   }
@@ -116,7 +124,7 @@
     float: none;
     width: 45%;
     max-width: 45%;      
-    height: 12em;
+    height: 25em;
     margin: 0.5em;
 
     @media (max-width: 300px) {
@@ -181,12 +189,36 @@
       padding-bottom: 1em !important;
       background-color: #f5f5f5;
   }
+
+  .reports-body {
+    background-color: $grey-default;    
+  }
   
   h4.panel-title {
       font-weight: 400;
       font-size: 115%;
   }
+
+  #accordion.panel-group .panel-default {
+    border: none;
+  }
+
+  .collapsable-heading {
+    background-color: #ffffff; 
+    border: 1px solid rgb(221,221,221);  
+  }
   
+  .panel-collapse .panel-body, .reports-body .panel-body {
+      background-color: $grey-default;
+      border: none;
+      margin-top: 0.5em;      
+      margin-bottom: 1em;
+  }
+
+  #assignedReports .panel-title {
+      border-bottom: 1px solid rgb(221,221,221); 
+  }
+
   .panel-heading .accordion-toggle:after {
       /* symbol for "opening" panels */
       font-family: 'Glyphicons Halflings';
