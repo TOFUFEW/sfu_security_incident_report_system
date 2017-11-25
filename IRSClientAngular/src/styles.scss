@@ -26,6 +26,10 @@ body {
     border-radius: 0px !important;
     margin: 0px;
     @include flex (space-between, center);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
 
     #navbar-container {
         width: 100%;
@@ -47,10 +51,6 @@ body {
 
     .navbar-brand {
         font-weight: 700;
-    }
-
-    .navbar-guard {
-        margin-left: 25% !important;
     }
 
     .navbar-right {
@@ -97,6 +97,7 @@ body {
     height: 100%;
     display: flex;
     flex-wrap: wrap;
+    margin-top: 50px;
     //flex-direction: column;
     overflow-x: auto;
 }
@@ -425,10 +426,6 @@ div#new-report-panel, div#new-account-panel {
     margin-top: $padding-md;
 }
     
-/****************************/
-/*  Guard app styles
-/****************************/
-
 .animate-show-hide.ng-hide {
     opacity: 0;
 }
@@ -501,12 +498,20 @@ div#new-report-panel, div#new-account-panel {
     .col-lg-offset-right-0 { margin-right: 0; }
 }
 
-.navbar-guard {
-    margin-left: 120px !important;
-}
-
 #logout-link { display: none !important ;}
 .navbar-sm { display: none ;}
+
+/****************************/
+/*  Guard app styles
+/****************************/
+
+.guard-container {
+    margin-top: 50px;
+}
+
+.navbar-guard {
+    margin-left: 30% !important;
+}
 
 @media (max-width: 768px) {
     body {
@@ -520,17 +525,6 @@ div#new-report-panel, div#new-account-panel {
 
     .card-text-primary, .card-text-secondary, .card-text-tertiary, select.form-control {
         font-size: 110% !important;
-    }
-
-    nav#main-navbar.navbar {
-        font-size: 100%;
-        position: fixed;
-        width: 100%;
-        z-index: 100;
-    }
-
-    .guard-container {
-        margin-top: 50px;
     }
 
     .navbar-brand {

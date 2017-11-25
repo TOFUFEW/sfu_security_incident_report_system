@@ -177,6 +177,13 @@
     top: 0.1em;
     z-index: 101;
 }
+
+
+@media (min-width: 769px) {
+    .guard-button-navbar {
+        margin-left: 20%;
+    }
+}
   
 .btn-close-report {
     size: 2em;

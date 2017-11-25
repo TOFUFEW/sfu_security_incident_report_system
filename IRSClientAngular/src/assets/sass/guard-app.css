@@ -1,0 +1,227 @@
+.container > .row {
+  clear: both; }
+
+.centre-container {
+  margin: 0 auto; }
+
+.outer-container {
+  position: relative; }
+
+.guard-container {
+  margin-top: 50px;
+  padding-bottom: 4em;
+  margin-bottom: 0px; }
+
+.m-1 {
+  margin: 1em !important; }
+
+.mb-1 {
+  margin-bottom: 1em !important; }
+
+.mb-2 {
+  margin-bottom: 2em !important; }
+
+.ml-1 {
+  margin-left: 1em !important; }
+
+.ml-2 {
+  margin-left: 2em !important; }
+
+.ml-3 {
+  margin-left: 3em; }
+
+.mr-1 {
+  margin-right: 1em; }
+
+.mt-sm {
+  margin-top: 0.5em !important; }
+
+.mt-1 {
+  margin-top: 1em !important; }
+
+.mt-2 {
+  margin-top: 2em !important; }
+
+.p-0, ul.p-0 {
+  padding: 0 !important; }
+
+.p-sm {
+  padding: 0.5em; }
+
+.p-1 {
+  padding: 1em; }
+
+.pb-sm {
+  padding-bottom: 0.5em !important; }
+
+.pb-1 {
+  padding-bottom: 1em !important; }
+
+.pt-1 {
+  padding-top: 1em !important; }
+
+.pt-2 {
+  padding-top: 2em !important; }
+
+.lh-1 {
+  line-height: 2em !important; }
+
+.modal-body {
+  text-align: left; }
+
+.modal-header {
+  padding: 1em !important; }
+
+.modal-title {
+  margin-top: 1em !important; }
+
+select.category-field {
+  padding: 0.5em;
+  margin: 0 auto;
+  width: 80%; }
+
+.modal-field-title {
+  padding-left: 10%; }
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 4.5em;
+  position: relative;
+  min-height: 100%;
+  width: 100%; }
+
+.flex-item {
+  float: none;
+  width: 45%;
+  max-width: 45%;
+  height: 25em;
+  margin: 0.5em; }
+  @media (max-width: 300px) {
+    .flex-item {
+      width: 100%;
+      max-width: 100%; } }
+
+.panel-body {
+  height: 100%;
+  word-break: break-word; }
+
+ul {
+  height: 100%;
+  padding-bottom: 1em;
+  overflow: scroll;
+  text-overflow: ellipsis; }
+
+footer {
+  background-color: transparent;
+  bottom: 0;
+  margin-bottom: 0;
+  height: 3em;
+  width: 100%;
+  position: fixed; }
+
+.guard-menu-button-right {
+  position: relative;
+  color: #f5f5f5;
+  float: right; }
+
+.guard-menu-button-left {
+  position: relative;
+  color: #f5f5f5;
+  float: left; }
+
+.guard-button-navbar {
+  background-color: transparent !important;
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif !important;
+  color: #ffffff;
+  margin-left: 5px;
+  opacity: 100;
+  margin-top: 2px !important;
+  position: fixed;
+  top: 0.1em;
+  z-index: 101; }
+
+@media (min-width: 769px) {
+  .guard-button-navbar {
+    margin-left: 20%; } }
+.btn-close-report {
+  size: 2em;
+  text-align: right;
+  width: 100%; }
+
+.collapsable-heading {
+  padding-top: 1em !important;
+  padding-bottom: 1em !important;
+  background-color: #f5f5f5; }
+
+.reports-body {
+  background-color: #f9f9f9; }
+
+h4.panel-title {
+  font-weight: 400;
+  font-size: 115%; }
+
+#accordion.panel-group .panel-default {
+  border: none; }
+
+.collapsable-heading {
+  background-color: #ffffff;
+  border: 1px solid #dddddd; }
+
+.panel-collapse .panel-body, .reports-body .panel-body {
+  background-color: #f9f9f9;
+  border: none;
+  margin-top: 0.5em;
+  margin-bottom: 1em; }
+
+#assignedReports .panel-title {
+  border-bottom: 1px solid #dddddd; }
+
+.panel-heading .accordion-toggle:after {
+  /* symbol for "opening" panels */
+  font-family: 'Glyphicons Halflings';
+  content: "\e114";
+  float: right;
+  color: grey; }
+
+.panel-heading .accordion-toggle.collapsed:after {
+  /* symbol for "collapsed" panels */
+  content: "\e080"; }
+
+.top-alert {
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 50px; }
+
+.btn {
+  margin: 0.5em; }
+
+/*# sourceMappingURL=guard-app.css.map */
+.no-padding {
+  padding-right: 0px;
+  padding-left: 0px; }
+
+.tab-content {
+  padding-right: 15px;
+  padding-left: 15px; }
+
+#guard-nav-tabs {
+  background-color: white;
+  padding-bottom: 0px; }
+  #guard-nav-tabs a {
+    color: #657786;
+    font-size: 14px; }
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+  background-color: white;
+  border: none;
+  color: #54585A;
+  border-bottom: 1px solid #54585A; }
+
+/*# sourceMappingURL=guard-app.css.map */
