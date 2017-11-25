@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Timer } from './timer';
 import { TimerService } from '../../service/timer.service';
+import { IncidentService } from '../../service/incident.service';
 
 
 
@@ -17,7 +18,18 @@ export class TimerComponent implements OnInit {
     newTimer: Timer = new Timer;
 
 
-    constructor(private timerService: TimerService){
+    constructor(private timerService: TimerService, private incidentService: IncidentService){
+        this.incidentService.editedReport
+        .subscribe( value => {
+            if ( value != null && this.timerList!= null && this.timerList.length > 0 && value.attributes.START_TIME != null && value.attributes.END_TIME != null) {
+                var index = this.timerList.findIndex( i => i.incident.attributes.REPORT_ID == value.attributes.REPORT_ID );
+                if ( index >= 0 && value.attributes ) {
+                    this.timerList.splice(index, 1, this.timerService.createTimerInt(value, value.attributes.START_TIME, value.attributes.END_TIME));
+                } else {
+                    this.timerList.push(this.timerService.createTimerInt(value, value.attributes.START_TIME, value.attributes.END_TIME));
+                }
+            }
+        });
 
         //TEST TIMERS
         var nowDate = new Date (Date.now());
