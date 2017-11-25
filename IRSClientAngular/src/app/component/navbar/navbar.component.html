@@ -2,7 +2,7 @@
         <div id="navbar-container" class="container-fluid">
             <div class="navbar-header navbar-left-items" *ngIf="!isGuardApp">
                 <a class="navbar-brand navbar-lg">SFU Incident Reporting System</a>
-            </div>
+            </div>                        
             <div class="navbar-header navbar-guard" *ngIf="isGuardApp">
                 <a class="navbar-brand navbar-sm">SFU IRS</a>
                 <a class="navbar-brand navbar-lg">SFU Incident Reporting Systems</a>
@@ -11,17 +11,18 @@
                 <li *ngIf="isAdmin" (click)="redirect('dashboard')"><a class="link">Dashboard</a></li>
                 <li *ngIf="isAdmin" (click)="redirect('search')"><a class="link">Search</a></li>
             </ul>
-            <ul id="navbar-right-items" class="nav navbar-nav navbar-right navbar-lg" *ngIf="user!=null">
+            <ul id="navbar-right-items" class="nav navbar-right" *ngIf="user!=null">
                 <li class="dropdown">
-                    <span class="glyphicon glyphicon-menu-hamburger navbar-right-button pull-left  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>    
-                    <ul class="dropdown-menu">
+                    <span class="glyphicon glyphicon-menu-hamburger navbar-right-button dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>    
+                    <ul class="dropdown-menu dropdown-menu-right">
                         <li (click)="redirect('new-account')" *ngIf="isAdmin"><span class="link">Create Account</span></li>
-                        <li id="separator" *ngIf="isAdmin"><span class="link" (click)="onLogout()">Logout</span></li>
-                        <li *ngIf="!isAdmin"><span class="link" (click)="onLogout()">Logout</span></li>
+                        <li id="separator" *ngIf="isAdmin"></li>
+                        <li><span class="link" (click)="onLogout()">Logout</span></li>
+                        <!-- <li *ngIf="!isAdmin"><span class="link" (click)="onLogout()">Logout</span></li> -->
                     </ul>
                 </li>
             </ul>
         </div>
-        <span id="logout-link" class="link navbar-right navbar-sm" (click)="onLogout()">Logout</span>
+        <!-- <span id="logout-link" class="link navbar-right navbar-sm" (click)="onLogout()">Logout</span> -->
         
     </nav>
