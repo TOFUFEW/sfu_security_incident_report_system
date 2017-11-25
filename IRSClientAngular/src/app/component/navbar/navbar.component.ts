@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from './service/user.service';
+import { UserService } from '../../service/user.service';
 import { Router, RouterModule } from '@angular/router';
-import { User } from '../app/component/login/user';
+import { User } from '../../../app/component/login/user';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
+    selector: 'navbar-component',
+    templateUrl: './navbar.component.html'
 })
 
-export class AppComponent implements OnInit {
+export class NavbarComponent implements OnInit {
    
     user: User;
     userAccType: number;
@@ -39,5 +39,9 @@ export class AppComponent implements OnInit {
             }
             this.isAdmin = this.userAccType == this.userService.ADMIN;         
         });
+        if ( this.router.url.includes ( 'guard-app' ) ) {
+            this.isGuardApp = true;
+            console.log("this is a guard app", this.isGuardApp);            
+        }
     }
 }

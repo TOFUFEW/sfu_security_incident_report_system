@@ -1,3 +1,4 @@
+<navbar-component></navbar-component>
 <button class="btn btn-circle guard-button-navbar card-text-primary" (click)="newReport()">                     
     <span class="glyphicon glyphicon-plus ml-1"></span>   
     New              
@@ -23,7 +24,7 @@
                                 <div class="mt-1">
                                     <span>{{incident.category.attributes.MAIN_CATEGORY}}</span><span *ngIf='incident.category.attributes.SUB_CATEGORY != ""'>, {{incident.category.attributes.SUB_CATEGORY}}</span><span *ngIf='incident.category.attributes.INCIDENT_TYPE != ""'>, {{incident.category.attributes.INCIDENT_TYPE}}</span>
                                 </div>
-                                <div class="mt-1">
+                                <div class="mt-1" *ngIf="incident.incidentElements['Location'][0]">
                                     <span>{{incident.incidentElements['Location'][0].attributes.CITY}}</span><span *ngIf="incident.incidentElements['Location'][0].attributes.BUILDING_NAME != ''">, {{incident.incidentElements['Location'][0].attributes.BUILDING_NAME}}</span><span *ngIf="incident.incidentElements['Location'][0].attributes.ROOM_NUMBER != ''">, {{incident.incidentElements['Location'][0].attributes.ROOM_NUMBER}}</span>
                                 </div>                       
                             </div>                    

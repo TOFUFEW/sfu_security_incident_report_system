@@ -49,6 +49,10 @@ body {
         font-weight: 700;
     }
 
+    .navbar-guard {
+        margin-left: 25% !important;
+    }
+
     .navbar-right {
         @include flex(flex-start, center);
         height: $navbar-height;
@@ -495,6 +499,10 @@ div#new-report-panel, div#new-account-panel {
     .col-lg-offset-right-2 { margin-right: 16.66666667%; }
     .col-lg-offset-right-1 { margin-right: 8.33333333%; }
     .col-lg-offset-right-0 { margin-right: 0; }
+}
+
+.navbar-guard {
+    margin-left: 120px !important;
 }
 
 #logout-link { display: none !important ;}

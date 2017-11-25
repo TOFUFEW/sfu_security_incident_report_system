@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
 
+import { NavbarComponent } from "../navbar/navbar.component";
 import { IncidentService } from "../../service/incident.service";
 import { UserService } from "../../service/user.service";
 import { Incident } from "../report/incident";

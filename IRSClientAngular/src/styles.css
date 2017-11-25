@@ -35,6 +35,8 @@ body {
       background-color: #A6192E !important; }
   #main-navbar .navbar-brand {
     font-weight: 700; }
+  #main-navbar .navbar-guard {
+    margin-left: 25% !important; }
   #main-navbar .navbar-right {
     display: flex;
     justify-content: flex-start;
@@ -490,6 +492,9 @@ div#new-report-panel, div#new-account-panel {
 
   .col-lg-offset-right-0 {
     margin-right: 0; } }
+.navbar-guard {
+  margin-left: 120px !important; }
+
 #logout-link {
   display: none !important; }
 
