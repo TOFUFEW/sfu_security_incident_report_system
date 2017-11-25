@@ -71,7 +71,8 @@ public class DBHelper
         {
             ResultSet incidentResultSet = executeQuery ( "SELECT *\n" +
                     "FROM Incident\n" +
-                    "WHERE ACCOUNT_ID = " + accountID + " AND TEMPORARY_REPORT = 1;" );
+                    "WHERE ACCOUNT_ID = " + accountID + " AND TEMPORARY_REPORT = 1 AND STATUS !=4\n" +
+                    "ORDER BY REPORT_ID DESC;" );
             fillListWithIncidentsFromResultSet ( incidentList, incidentResultSet );
         }
         catch ( Exception e)
