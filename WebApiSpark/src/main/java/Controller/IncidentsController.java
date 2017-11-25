@@ -42,8 +42,6 @@ public class IncidentsController
                         reportID
                 );
 
-                System.out.println ( "rid = " + messageIncident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) );
-
                 incidentsWebSocketObservable.sendMessage ( JsonUtil.toJson ( messageIncident ) );
                 return true;
             }
