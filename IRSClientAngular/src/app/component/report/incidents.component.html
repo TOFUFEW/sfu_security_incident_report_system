@@ -12,12 +12,13 @@
         <div id="incidents-list" class="col-md-12 col-lg-12">
             <div class="incident-card" *ngFor="let incident of incidents">
                 <div class="main-content"  (dblclick)="incident.inWorkspace || addToWorkspace(incident)">
+                  <div *ngIf="incident.attributes.TEMPORARY_REPORT == 1">TEMP</div>
                     <div class="detail-row">
                         <span class="card-text-secondary">Report #{{incident.attributes.REPORT_ID}}</span>
                     </div>
                     <div class="detail-row description">
                         <span class="card-text-primary">
-                            {{incident.attributes.DESCRIPTION}}
+                            {{incident.attributes.EXECUTIVE_SUMMARY}}
                         </span>
                     </div>
                     <div class="detail-row">
@@ -30,9 +31,9 @@
                             Assigned To: {{incident.guard.attributes.FIRST_NAME}} {{incident.guard.attributes.LAST_NAME}}
                         </span>
                     </div>
-                    <div class="detail-row tertiary">
+                    <div class="detail-row tertiary" *ngIf="incident.incidentElements['Location'] != null && incident.incidentElements['Location'].length > 0">
                         <span class="card-text-tertiary">
-                            Burnaby AQ 3150
+                           {{incident.incidentElements['Location'][0].attributes.BUILDING_NAME}} {{incident.incidentElements['Location'][0].attributes.ROOM_NUMBER}}
                         </span>
                         <span class="card-text-tertiary">08/15/2017 4:44</span>
                     </div>
@@ -72,12 +73,12 @@
                                 <option *ngFor="let staff of staffArr" [value]="staff.attributes.ACCOUNT_ID">{{staff.attributes.FIRST_NAME}} {{staff.attributes.LAST_NAME}}</option>
                             </select>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary" (click)="assignToGuard()" data-dismiss="modal">Assign</button>   
+                <button class="btn btn-primary" (click)="assignToGuard()" data-dismiss="modal">Assign</button>
             </div>
         </div>
     </div>

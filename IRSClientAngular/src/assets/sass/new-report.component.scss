@@ -1,5 +1,10 @@
-@import "settings";
-
 div#new-report-panel {
-    margin-top: $padding-md;
+    margin-top: 16px; 
+}
+
+
+#first-element {
+    .x-container {
+        display:none;
+    }
 }

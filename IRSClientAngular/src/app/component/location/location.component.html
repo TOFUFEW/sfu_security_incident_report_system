@@ -4,20 +4,52 @@
     </div>
     <div class="detail col-12 col-sm-3">
         <span class="field-title">Campus <span class="required-asterisk">*</span></span>
-        <select class="form-control" name="" id="" [(ngModel)]="newLocation.attributes.CAMPUS_ID" (change)="onSelectCampus()">
-            <option *ngFor="let campus of locationMap" [value]="campus.CAMPUS_ID">{{campus.CAMPUS_ID}}</option>
+        <select class="form-control" name="" id="" 
+                [(ngModel)]="newLocation.attributes.CAMPUS_ID" 
+                (change)="onSelectCampus()">
+            <option disabled 
+                    [selected]="currentLocation.attributes.CAMPUS_ID"
+                    *ngIf="currentLocation.attributes.CAMPUS_ID">
+                {{currentLocation.attributes.CITY}}
+            </option>
+            <option disabled *ngIf="currentLocation.attributes.CAMPUS_ID">──────────</option>            
+            <option *ngFor="let campus of locationMap" 
+                    [value]="campus.CAMPUS_ID">
+                {{campus.CITY}}
+            </option>
         </select>
     </div>
     <div class="detail col-12 col-sm-3">
         <span class="field-title">Building <span class="required-asterisk">*</span></span>
-        <select class="form-control" name="" id="" [(ngModel)]="newLocation.attributes.BUILDING_NAME" (change)="onSelectBuilding()">
-            <option *ngFor="let building of buildings" [value]="building.BUILDING_NAME">{{building.BUILDING_NAME}}</option>
+        <select class="form-control" name="" id="" 
+                [(ngModel)]="newLocation.attributes.BUILDING_NAME" 
+                (change)="onSelectBuilding()">
+            <option disabled 
+                    [selected] = "currentLocation.attributes.BUILDING_NAME"
+                    *ngIf="currentLocation.attributes.BUILDING_NAME">
+                {{currentLocation.attributes.BUILDING_NAME}}
+            </option>
+            <option disabled *ngIf="currentLocation.attributes.BUILDING_NAME">──────────</option>            
+            <option *ngFor="let building of buildings" 
+                    [value]="building.BUILDING_NAME">
+                {{building.BUILDING_NAME}}
+            </option>
         </select>
     </div>
     <div class="detail col-12 col-sm-3">
         <span class="field-title">Room Number <span class="required-asterisk">*</span></span>
-        <select class="form-control" name="" id="" [(ngModel)]="newLocation.attributes.LOCATION_ID" (change)="onSelectRoom()">
-            <option *ngFor="let room of rooms" [value]="room.LOCATION_ID">{{room.ROOM_NUMBER}}</option>                    
+        <select class="form-control" name="" id="" 
+                [(ngModel)]="newLocation.attributes.LOCATION_ID" 
+                (change)="onSelectRoom()">
+            <option disabled 
+                    [selected]="currentLocation.attributes.ROOM_NUMBER"
+                    *ngIf="currentLocation.attributes.ROOM_NUMBER">
+                {{currentLocation.attributes.ROOM_NUMBER}}
+            </option>
+            <option disabled *ngIf="currentLocation.attributes.ROOM_NUMBER">──────────</option>            
+            <option *ngFor="let room of rooms" 
+                    [value]="room.LOCATION_ID">
+                    {{room.ROOM_NUMBER}}</option>                    
         </select>
     </div> 
 </div> 

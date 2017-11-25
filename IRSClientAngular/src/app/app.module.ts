@@ -15,7 +15,7 @@ import { IncidentComponent } from './component/report/incident.component';
 import { LoginComponent } from './component/login/login.component';
 import { NewReportComponent } from './component/report/new-report.component';
 import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
-import { GuardAllReportsComponent } from './component/guard-app/guard-all-reports.component';
+import { GuardDashboardComponent } from './component/guard-app/guard-dashboard';
 import { VehicleComponent } from './component/vehicle/vehicle.component';
 import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
@@ -25,6 +25,7 @@ import { CategoryComponent } from './component/category/category.component';
 import { ReportSummaryComponent } from './component/report/report-summary.component';
 import { InlineEditComponent } from './component/report/inline-edit.component';
 import { StatusComponent } from './component/status/status.component';
+import { NewAccountComponent } from './component/login/new-account-component';
 
 /* Services */
 import { UserService } from './service/user.service';
@@ -59,7 +60,7 @@ import { FilterPipe } from './util/filter.pipe';
     IncidentComponent,
     LoginComponent,
     GuardIncidentComponent,
-    GuardAllReportsComponent,
+    GuardDashboardComponent,
     CategoryComponent,
     NewReportComponent,
     VehicleComponent,
@@ -67,6 +68,7 @@ import { FilterPipe } from './util/filter.pipe';
     PersonComponent,
     FilterPipe,
     ReportSummaryComponent,
+    NewAccountComponent,
     InlineEditComponent
   ],
 

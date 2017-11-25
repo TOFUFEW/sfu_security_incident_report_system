@@ -1,0 +1,58 @@
+<button class="btn btn-circle guard-button-navbar card-text-primary" (click)="newReport()">                     
+    <span class="glyphicon glyphicon-plus ml-1"></span>   
+    New              
+</button> 
+<div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-12
+                      col-lg-6 col-lg-offset-3 col-lg-offset-right-3
+                      no-padding">
+                <ul id="guard-nav-tabs" class="nav nav-tabs guard-container">
+                  <li class="active"><a data-toggle="pill" href="#assignedReports">ASSIGNED</a></li>
+                  <li><a data-toggle="pill" href="#tempReports">CREATED</a></li>
+                </ul>
+
+                <div class="tab-content">
+                  <div id="assignedReports" class="tab-pane fade in active">
+                    <div class="flex-container">
+                        <div class="flex-item panel panel-default" *ngFor="let incident of assignedIncidents" (click)="viewReport(incident)">
+                          <div class="panel-body">
+                            <ul class="p-0">
+                              <li class="card-text-primary">
+                                #{{incident.attributes.REPORT_ID}}
+                              </li>
+                              <li class="card-text-secondary mt-sm">
+                                {{incident.attributes.DESCRIPTION}}
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div id="tempReports" class="tab-pane fade">
+                    <div class="flex-container">
+                        <div class="flex-item panel panel-default" *ngFor="let incident of createdIncidents" (click)="viewReport(incident)">
+                          <div class="panel-body">
+                            <ul class="p-0">
+                              <li class="card-text-primary">
+                                #{{incident.attributes.REPORT_ID}}
+                              </li>
+                              <li class="card-text-secondary mt-sm">
+                                {{incident.attributes.DESCRIPTION}}
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row">
+            <footer class="panel panel-default guard-app-menu">
+                <button class="btn btn-circle guard-menu-button card-text-primary btn-primary" (click)="newReport();">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </footer>
+        </div> -->
+    </div>

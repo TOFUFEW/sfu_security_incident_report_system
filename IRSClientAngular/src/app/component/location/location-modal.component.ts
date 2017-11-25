@@ -17,11 +17,10 @@ import { Config } from '../../util/config.service';
 })
 
 export class LocationModalComponent implements OnInit {
-    @ViewChild(LocationComponent) locationComponent: LocationComponent;
-    @Output()
-    locationSaved: EventEmitter<string> = new EventEmitter();
+    @ViewChild ( LocationComponent ) locationComponent: LocationComponent
+    @Output () locationSaved : EventEmitter<Location> = new EventEmitter();
+    @Output () triggerLocationRemove : EventEmitter<string> = new EventEmitter();
 
-    private currentLocationID: number;
     public visible = false;
     public button_id;
     private visibleAnimate = false;
@@ -30,17 +29,18 @@ export class LocationModalComponent implements OnInit {
         private reportService: NewReportService,
     ) {}
 
-    public show( event ): void {
-        let target = event.target || event.srcElement || event.currentTarget;
+    public show ( event ): void {
+        var target = event.target || event.srcElement || event.currentTarget;
         if ( target.id ) {
-            console.log('target ', target );
-            let idAttr = target.id;
+            console.log("target ", target );
+            var idAttr = target.id;
             this.button_id = idAttr;
-            console.log('target ', idAttr );
+            console.log("target ", idAttr );
         }
         else {
             this.button_id = -1;
         }
+        this.locationComponent.updateCurrentLocation ( this.button_id );
         this.visible = true;
         setTimeout(() => this.visibleAnimate = true, 100);
     }
@@ -54,10 +54,17 @@ export class LocationModalComponent implements OnInit {
             this.hide();
         }
     }
-    public submitChanges(id): void {
+    public submitChanges ( id ) : void {
+        this.locationComponent.validateNewLocation();
         this.locationComponent.newLocation.table = Config.LocationTable;
         console.log(this.locationComponent.newLocation);
-        this.locationSaved.emit('complete');
+        this.locationSaved.emit(this.locationComponent.newLocation);
+        this.hide();
+    }
+
+    public removeLocation ( id ) : void {
+        console.log("id ", id);
+        this.triggerLocationRemove.emit(id);
         this.hide();
     }
 

@@ -11,4 +11,9 @@ div.report-header {
   opacity: 0.8;
   color: #333; }
 
+#accept-temp {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px; }
+
 /*# sourceMappingURL=report-summary.component.css.map */

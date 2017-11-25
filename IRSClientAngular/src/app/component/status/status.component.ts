@@ -41,7 +41,7 @@ export class StatusComponent implements OnInit {
 
 
     submitStatus () {
-        console.log ( 'submitting category' );
+        console.log ( 'submitting status' );
         if ( this.newStatus == -1 ) {
            console.log('Please select a status');
         }

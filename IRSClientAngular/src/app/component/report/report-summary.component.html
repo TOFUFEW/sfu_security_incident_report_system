@@ -1,26 +1,43 @@
 <div *ngIf="report">
 
     <div class="x-container">
-        <span class="glyphicon glyphicon-remove glyphicon-btn" (click)="removeFromWorkspace( report.attributes.REPORT_ID )"></span>        
+        <span class="glyphicon glyphicon-remove glyphicon-btn" (click)="removeFromWorkspace( report.attributes.REPORT_ID )"></span>
     </div>
-    <div class="report-header">
-        <span class="report-id">Report ID: {{report.attributes.REPORT_ID}}</span>
+    <div *ngIf="report.attributes.TEMPORARY_REPORT == 1">
+        <div class="report-header">
+            <span class="report-id alertText"> TEMP Report ID: {{report.attributes.REPORT_ID}}</span>
+        </div>
+        <div id="accept-temp" class="row">
+            <button class="btn-default btn" (click)="acceptTemp()">Approve Temp Report</button>                
+        </div>
     </div>
+    <div *ngIf="report.attributes.TEMPORARY_REPORT == 0">
+        <div class="report-header">
+          <span class="report-id">Report ID: {{report.attributes.REPORT_ID}}</span>
+        </div>
+    </div>
+
     <ul class="nav nav-tabs">
         <li class="active">
             <a data-toggle="tab" [href]="'#basic-info-' + report.attributes.REPORT_ID">
-                <span class="glyphicon glyphicon-info-sign"></span>
+                <!-- <span class="glyphicon glyphicon-info-sign"></span> -->
                 Summary
             </a>
         </li>
         <li>
+            <a data-toggle="tab" [href]="'#assignments-' + report.attributes.REPORT_ID">
+                <!-- <span class="glyphicon glyphicon-tag"></span> -->
+                Assignments
+            </a>
+        </li>
+        <li>
             <a data-toggle="tab" [href]="'#locations-' + report.attributes.REPORT_ID">
-                <span class="glyphicon glyphicon-map-marker"></span>
+                <!-- <span class="glyphicon glyphicon-map-marker"></span> -->
                 Locations
             </a>
         </li>
         <li><a data-toggle="tab" [href]="'#persons-' + report.attributes.REPORT_ID">
-                <span class="glyphicon glyphicon-user"></span>
+                <!-- <span class="glyphicon glyphicon-user"></span> -->
                 Involvements
             </a>
         </li>
@@ -28,71 +45,160 @@
     <div class="tab-content">
         <div [id]="'basic-info-' + report.attributes.REPORT_ID" class="details-container tab-pane fade in active">
             <div class="details-body">
-                <div class="detail detail-lg col-12">
-                    <span class="field-title">Category: </span>
-                    <span class="field-value" *ngIf="report.category != null">{{report.category.attributes.MAIN_CATEGORY}}</span>
+                <div class="detail detail-lg col-sm-12">
+                    <span class="field-title">Category: <span class="required-asterisk" *ngIf="editMode">*</span> </span>
+                    <span class="field-value" *ngIf="!editMode && report.category != null">{{report.category.attributes.MAIN_CATEGORY}}</span>
+                    <select class="form-control" *ngIf="editMode" [(ngModel)]="report_edit.category.attributes.MAIN_CATEGORY" (change)="onSelectCategory()">
+                        <option *ngFor="let category of categories" [value]="category.MAIN_CATEGORY">{{category.MAIN_CATEGORY}}</option>
+                    </select>
                 </div>
-                <div class="detail detail-lg col-12">
-                    <span class="field-title">Sub Category: </span>
-                    <span class="field-value" *ngIf="report.category != null">{{report.category.attributes.SUB_CATEGORY}}</span>
+                <div class="detail detail-lg col-sm-12">
+                    <span class="field-title">Sub Category: <span class="required-asterisk" *ngIf="editMode">*</span> </span>
+                    <span class="field-value" *ngIf="!editMode && report.category != null">{{report.category.attributes.SUB_CATEGORY}}</span>
+                    <select class="form-control" *ngIf="editMode" [(ngModel)]="report_edit.category.attributes.SUB_CATEGORY" (change)="onSelectSubCategory()">
+                        <option *ngFor="let sub of subCategories" [value]="sub.SUB_CATEGORY">{{sub.SUB_CATEGORY}}</option>
+                    </select>
                 </div>
-                <div class="detail detail-lg col-12">
-                    <span class="field-title">Type: </span>
-                    <span class="field-value" *ngIf="report.category != null">{{report.category.attributes.INCIDENT_TYPE}}</span>
-                </div>
-                <div class="detail detail-lg col-12">
-                    <span class="field-title">Assigned To: </span>
-                    <span class="field-value" *ngIf="report.guard != null">{{report.guard.attributes.FIRST_NAME}} {{report.guard.attributes.LAST_NAME}}</span>
-                </div>
-                <div class="detail detail-lg col-12">
-                    <span class="field-title">Description: </span>
-                    <span class="field-value">{{report.attributes.DESCRIPTION}}</span>
-                </div>
-                <div class="detail detail-lg col-12">
-                    <span class="field-title">Executive Summary: </span>
-                    <span class="field-value">{{report.attributes.EXECUTIVE_SUMMARY}}</span>
+                <div class="detail detail-lg col-sm-12">
+                    <span class="field-title">Type: <span class="required-asterisk" *ngIf="editMode">*</span> </span>
+                    <span class="field-value" *ngIf="!editMode && report.category != null">{{report.category.attributes.INCIDENT_TYPE}}</span>
+                    <select class="form-control" *ngIf="editMode && categoryTypes != null && categoryTypes.length > 0" 
+                        [(ngModel)]="report_edit.category.attributes.INCIDENT_TYPE" (change)="onSelectType()">
+                        <option *ngFor="let type of categoryTypes" [value]="type.INCIDENT_TYPE">{{type.INCIDENT_TYPE}}</option>
+                    </select>
                 </div>
             </div>
+            <div class="details-body">
+                <div class="detail detail-lg col-sm-12">
+                    <span class="field-title">Executive Summary: <span class="required-asterisk" *ngIf="editMode">*</span> </span>
+                    <span *ngIf="!editMode" class="field-value">{{report.attributes.EXECUTIVE_SUMMARY}}</span>
+                    <input type="text" class="form-control" placeholder="Executive Summary"
+                          *ngIf="editMode" [(ngModel)]="report_edit.attributes.EXECUTIVE_SUMMARY" />
+                </div>
+                <div class="detail detail-lg col-sm-12">
+                    <span class="field-title">Description: <span class="required-asterisk" *ngIf="editMode">*</span> </span>
+                    <span *ngIf="!editMode" class="field-value">{{report.attributes.DESCRIPTION}}</span>
+                    <textarea rows="5" class="form-control" placeholder="Description"
+                        *ngIf="editMode" [(ngModel)]="report_edit.attributes.DESCRIPTION"></textarea>
+                </div>
+            </div>
+            <div class="bottom-links">
+                <span class="link" *ngIf="!editMode" (click)="toggleEditMode()">Edit</span>
+                <span class="link" *ngIf="editMode" (click)="cancelUpdate()">Cancel</span>
+                <span class="link" *ngIf="editMode" (click)="updateReport()">Save</span>     
+            </div>
         </div>
-
+        <div [id]="'assignments-' + report.attributes.REPORT_ID" class="details-container tab-pane fade">
+            <div class="details-body">
+                <div class="detail detail-lg col-sm-12">
+                    <span class="field-title">Assigned To: </span>
+                    <span class="field-value" *ngIf="!editMode && report.guard != null">{{report.guard.attributes.FIRST_NAME}} {{report.guard.attributes.LAST_NAME}}</span>
+                    <select *ngIf="editMode" class="form-control" [(ngModel)]="selectedStaffId">
+                        <option value="-1"> </option>
+                        <option *ngFor="let staff of staffArr" [value]="staff.attributes.ACCOUNT_ID">{{staff.attributes.FIRST_NAME}} {{staff.attributes.LAST_NAME}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="bottom-links">
+                <span class="link" *ngIf="!editMode" (click)="toggleEditMode()">Edit</span>
+                <span class="link" *ngIf="editMode" (click)="cancelUpdate()">Cancel</span>
+                <span class="link" *ngIf="editMode" (click)="updateReport()">Save</span>     
+            </div>
+        </div>            
         <div [id]="'locations-' + report.attributes.REPORT_ID" class="details-container tab-pane fade">
             <div class="details-body" *ngFor="let location of report.incidentElements['Location']">
-                <div class="detail col-12 col-sm-3">
+                <div class="detail col-sm-12">
                     <span class="field-title">Campus: </span>
-                    <span class="field-value">{{location.attributes.CAMPUS_ID}}</span>
+                    <span class="field-value">{{location.attributes.CITY}}</span>
                 </div>
-                <div class="detail col-12 col-sm-3">
+                <div class="detail col-sm-12">
                     <span class="field-title">Building: </span>
                     <span class="field-value">{{location.attributes.BUILDING_NAME}}</span>
                 </div>
-                <div class="detail col-12 col-sm-3">
+                <div class="detail col-sm-12">
                     <span class="field-title">Room Number: </span>
                     <span class="field-value">{{location.attributes.ROOM_NUMBER}}</span>
                 </div>
+                <div class="detail col-sm-2 col-sm-offset-10">
+                    <span class="link alertText" data-toggle="modal" data-target="#removeLocationModal"
+                        (click)="setLocationIdToRemove(location.attributes.LOCATION_ID)">Remove</span>
+                </div>
             </div>
-            <span class="not-found" *ngIf="report.incidentElements['Location'].length == 0"> No Locations available</span>
+            <location-component id="location-component" *ngIf="editMode"></location-component>
+            <div class="bottom-links">
+                <span class="link" *ngIf="!editMode" (click)="toggleEditMode()">Add Location</span>                                    
+                <span class="link" *ngIf="editMode" (click)="cancelUpdate()">Cancel </span>
+                <span class="link" *ngIf="editMode" (click)="addIncidentElement('location')">Add </span>
+            </div>
+            <span class="not-found" *ngIf="!editMode && report.incidentElements['Location'].length == 0"> No Locations available</span>
         </div>
-            
+
         <div [id]="'persons-' + report.attributes.REPORT_ID" class="details-container tab-pane fade">
             <div class="details-body" *ngFor="let person of report.incidentElements['Person']">
-                <div class="detail col-12 col-sm-3">
+                <div class="detail col-sm-12">
                     <span class="field-title">First Name: </span>
                     <span class="field-value">{{person.attributes.FIRST_NAME}}</span>
                 </div>
-                <div class="detail col-12 col-sm-3">
+                <div class="detail col-sm-12">
                     <span class="field-title">Last Name: </span>
                     <span class="field-value">{{person.attributes.LAST_NAME}}</span>
                 </div>
-                <div class="detail col-12 col-sm-3">
+                <div class="detail col-sm-12">
                     <span class="field-title">Phone Number: </span>
                     <span class="field-value">{{person.attributes.PHONE_NUMBER}}</span>
                 </div>
+                <div class="detail col-sm-2 col-sm-offset-10">
+                    <span class="link alertText" data-toggle="modal" data-target="#removePersonModal"
+                        (click)="setPersonIdToRemove(person.attributes.PERSON_ID)">Remove</span>
+                </div>
+            </div>
+            <person-component id="person-component" *ngIf="editMode"
+                (personAdded)="onAddPerson($event)"></person-component>
+            <div class="bottom-links">
+                <span class="link" *ngIf="!editMode" (click)="toggleEditMode()">Add Person</span>                                    
+                <span class="link" *ngIf="editMode" (click)="cancelUpdate()">Cancel </span>
+                <span class="link" *ngIf="editMode && isPersonAdded" (click)="addIncidentElement('person')">Add </span>
             </div>
             <span class="not-found" *ngIf="report.incidentElements['Person'].length == 0"> No Involvements available</span>
         </div>
     </div>
-    
-    
-    
-    
 </div>
+
+<!-- Modal -->
+<div id="removeLocationModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="glyphicon glyphicon-remove glyphicon-heading"></span>
+                <span class="panel-header">Confirm Remove Location</span>
+            </div>
+            <div class="modal-body">
+                <span class="field-value">Are you sure you want to remove this location?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="cancelReview()">Cancel</button>
+                <button class="btn btn-primary" data-dismiss="modal" (click)="removeIncidentElement('location')">Remove</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="removePersonModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="glyphicon glyphicon-remove glyphicon-heading"></span>
+                    <span class="panel-header">Confirm Remove Person</span>
+                </div>
+                <div class="modal-body">
+                    <span class="field-value">Are you sure you want to remove this person from this report?</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="cancelReview()">Cancel</button>
+                    <button class="btn btn-primary" data-dismiss="modal" (click)="removeIncidentElement('person')">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
