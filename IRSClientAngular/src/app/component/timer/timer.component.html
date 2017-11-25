@@ -1,17 +1,20 @@
-<div class="panel panel-default" id="timer-list-panel">
+<div id="staff-list-panel" class="panel panel-default">
     <div class="panel-heading">
-        <span class="glyphicon glyphicon-alert glyphicon-heading"></span>
-        <span class="panel-header">Watchlist</span>
+        <div class="toolbar">
+            <div class="flex">
+                <span class="glyphicon glyphicon-alert glyphicon-heading"></span>
+                <span class="panel-header">WatchList</span>
+            </div>
+        </div>
     </div>
     <div class="panel-body">
         <div id="timer-card" class="col-md-12 col-lg-12">
-
             <div class="main-content">
                 <div class="staff-card" *ngFor="let timer of timerList">
                     <div class="x-container">
                         <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removeTimer()"></span>        
                     </div>
-                    <!-- <div>
+                    <!-- <div class="card-text-primary">
                         <span class="detail-row">Report: {{timer.incident.attributes.REPORT_ID}}</span>
                     </div> -->
                     <div class="detail-row">
@@ -22,6 +25,12 @@
                     </div>
                     <div class="detail-row">
                         <span class="detail-row">Time Remaining: {{durationToString(timer.TIME_REMAINING)}}</span>
+                    </div>
+                    <button id="modifyBtn" class="btn" (click)="timer.modify = !timer.modify">Modify</button>
+                    <div *ngIf="timer.modify">
+                        <input type="time" [(ngModel)] = "tempStart">
+                        <input type="time" [(ngModel)] = "tempEnd">
+                        <button class="btn" (click)="modifyTimer(timer)">Confirm</button>
                     </div>
                     <br>
                 </div>
