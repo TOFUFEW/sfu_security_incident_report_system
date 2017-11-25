@@ -286,7 +286,7 @@ public class DatabaseValues
         ),
 
         TIMER_END (
-                "TIMER_START" ,
+                "TIMER_END" ,
                 "INT" ,
                 DEFAULT_INT_VALUE ,
                 null
