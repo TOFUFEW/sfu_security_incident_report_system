@@ -25,7 +25,6 @@ export class IncidentService
     getIncidentsUrl = Config.GetIncidentsURI;
     insertIncidentUrl = Config.IncidentsURI;
     updateIncidentsUrl = Config.UpdateIncidentURI;
-    guardIncidentsUrl = Config.GetIncidentsURI;
     incidentsUrl = Config.IncidentsURI;
     createdByIncidentsUrl = Config.CreatedIncidentsURI;
 
@@ -48,8 +47,8 @@ export class IncidentService
     staffArr = this.bs_staffArr.asObservable();
 
     campusArr: Campus[] = [];
-    
-    constructor( private http: Http, 
+
+    constructor( private http: Http,
         private staffService: StaffService,
         private locationService: LocationService,
         private categoryService: CategoryService ) {
@@ -84,23 +83,13 @@ export class IncidentService
     }
 
     getIncidents(): Promise<Incident[]> {
-      var incidents = this.http.get( this.incidentsUrl )
-        .toPromise()
-        .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
-        .catch( this.handleError );
-      return Promise.resolve( incidents );
-    };
-
-    getGuardIncidents(): Promise<Incident[]> {
         var user = this.userService.getCurrentUser();
-        // var _user = IncidentElementService.toIncidentElement ( Config.AccountTable, user );
-        var incidents = this.http
-            .post( this.guardIncidentsUrl, JSON.stringify( user ), { headers: this.headers } )
+          var incidents = this.http.post( this.getIncidentsUrl, JSON.stringify( user ), { headers: this.headers } )
             .toPromise()
             .then( response => this.initIncidents( response.json() as Incident[] ) as Incident[] )
             .catch( this.handleError );
-        return Promise.resolve( incidents );
-    }
+          return Promise.resolve( incidents );
+    };
 
     getCreatedByIncidents(): Promise<Incident[]> {
         var user = this.userService.getCurrentUser();
@@ -189,10 +178,10 @@ export class IncidentService
     updateAssignedStaff( incidentToAssign: Incident, selectedStaffId: number ) : Incident {
         var staffArr = this.bs_staffArr.getValue();
         var index = staffArr.findIndex( x => x.attributes.ACCOUNT_ID == selectedStaffId );
-        
+
         var existingStaffIndex = incidentToAssign.incidentElements[Config.StaffKey]
             .findIndex( e => e.table === Config.StaffTable );
-            
+
         var staff = null;
         if ( index >= 0 ) {
             staff = staffArr[ index ];
@@ -221,7 +210,7 @@ export class IncidentService
         incident.attributes.CATEGORY_ID = newCategoryID;
         incident.category.attributes.MAIN_CATEGORY = selectedCategory.attributes.MAIN_CATEGORY;
         incident.category.attributes.SUB_CATEGORY = selectedCategory.attributes.SUB_CATEGORY;
-        incident.category.attributes.INCIDENT_TYPE = selectedCategory.attributes.INCIDENT_TYPE;      
+        incident.category.attributes.INCIDENT_TYPE = selectedCategory.attributes.INCIDENT_TYPE;
         incident.incidentElements[Config.IncidentCategoryKey]
             .splice(0, incident.incidentElements[Config.IncidentCategoryKey].length,
                     incident.category);
@@ -230,7 +219,7 @@ export class IncidentService
                 console.log("inserted incident", incident);
                 return incident;
             })
-        return Promise.resolve(promise);            
+        return Promise.resolve(promise);
     }
 
     private handleError( error: any ) : Promise<any>
