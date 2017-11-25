@@ -9,7 +9,7 @@ BEGIN
 	BEGIN
 		SELECT * 
 		FROM Incident
-		WHERE STATUS != 4
+		WHERE STATUS <= 4
 		ORDER BY REPORT_ID
 		DESC;
 	END
@@ -17,7 +17,7 @@ BEGIN
 	BEGIN
 		SELECT Incident.*
 		FROM Incident INNER JOIN AssignedTo ON Incident.REPORT_ID =	AssignedTo.REPORT_ID
-		WHERE AssignedTo.ACCOUNT_ID = @user_id and Incident.STATUS != 4 and Incident.TEMPORARY_REPORT = 0
+		WHERE AssignedTo.ACCOUNT_ID = @user_id and Incident.STATUS <= 3 and Incident.TEMPORARY_REPORT = 0
 		ORDER BY REPORT_ID
 		DESC;
 	END
