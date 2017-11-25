@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="c3258f34-4357-46e7-a275-cc0acbced47a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseScripts/CREATE PROCEDURE getIncidents.sql" afterPath="$PROJECT_DIR$/DatabaseScripts/CREATE PROCEDURE getIncidents.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IRSClientAngular/src/app/component/report/report-summary.component.ts" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/component/report/report-summary.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-dashboard.component.ts" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-dashboard.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-dashboard.html" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-dashboard.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/WebApiSpark/target/" />
@@ -40,9 +42,21 @@
       <file leaf-file-name="TestLocation.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WebApiSpark/src/test/java/UnitTests/TestLocation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
+            <state relative-caret-position="-204">
               <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="guard-dashboard.component.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-dashboard.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="31" column="55" lean-forward="true" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
+              <folding>
+                <element signature="e#0#50#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -67,6 +81,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="HtmlEngine.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Util/HtmlEngine.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="new-report.component.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/report/new-report.component.ts">
           <provider selected="true" editor-type-id="text-editor">
@@ -80,24 +104,24 @@
       <file leaf-file-name="DBHelper.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="41" column="30" lean-forward="false" selection-start-line="41" selection-start-column="30" selection-end-line="41" selection-end-column="30" />
+            <state relative-caret-position="255">
+              <caret line="74" column="49" lean-forward="true" selection-start-line="74" selection-start-column="49" selection-end-line="74" selection-end-column="49" />
               <folding>
-                <marker date="1511582036686" expanded="true" signature="4802:4966" ph="SELECT Locat... HappensAt" />
-                <marker date="1511582036686" expanded="true" signature="5017:5173" ph="SELECT Staff... AssignedTo" />
-                <marker date="1511582036686" expanded="true" signature="5224:5374" ph="SELECT Perso... Involves" />
-                <marker date="1511582036686" expanded="true" signature="5425:5610" ph="SELECT Incid... Incident" />
-                <marker date="1511582036686" expanded="true" signature="33731:33738" ph="{...}" />
+                <marker date="1511598905234" expanded="true" signature="4803:4967" ph="SELECT Locat... HappensAt" />
+                <marker date="1511598905234" expanded="true" signature="5018:5174" ph="SELECT Staff... AssignedTo" />
+                <marker date="1511598905234" expanded="true" signature="5225:5375" ph="SELECT Perso... Involves" />
+                <marker date="1511598905234" expanded="true" signature="5426:5611" ph="SELECT Incid... Incident" />
+                <marker date="1511598905234" expanded="true" signature="33732:33739" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IncidentsController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/IncidentsController.java">
+      <file leaf-file-name="incident.service.ts" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="45" column="54" lean-forward="false" selection-start-line="45" selection-start-column="54" selection-end-line="45" selection-end-column="54" />
+            <state relative-caret-position="408">
+              <caret line="175" column="6" lean-forward="true" selection-start-line="175" selection-start-column="6" selection-end-line="175" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -106,34 +130,24 @@
       <file leaf-file-name="guard-dashboard.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-dashboard.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-143">
-              <caret line="4" column="29" lean-forward="true" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
+            <state relative-caret-position="986">
+              <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
               <folding>
-                <marker date="1511595124674" expanded="true" signature="2776:2786" ph="..." />
+                <marker date="1511598782852" expanded="true" signature="2785:2795" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="report-summary.component.ts" pinned="false" current-in-tab="true">
+      <file leaf-file-name="report-summary.component.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/report/report-summary.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
+            <state relative-caret-position="-188">
               <caret line="202" column="41" lean-forward="false" selection-start-line="202" selection-start-column="41" selection-end-line="202" selection-end-column="41" />
               <folding>
                 <element signature="e#0#68#0" expanded="true" />
                 <element signature="e#768#825#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.module.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/app.module.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-191">
-              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -216,7 +230,6 @@
         <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/LocationController.java" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/report/report-summary.component.html" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/util/config.service.ts" />
-        <option value="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-all-reports.component.ts" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-all-reports.component.html" />
         <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/IncidentsController.java" />
@@ -226,11 +239,13 @@
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/report/new-report.component.ts" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/dashboard/dashboard.component.ts" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-incident.component.ts" />
-        <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-incident.component.html" />
-        <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-dashboard.html" />
         <option value="$PROJECT_DIR$/DatabaseScripts/CREATE PROCEDURE getIncidents.sql" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/report/report-summary.component.ts" />
+        <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-dashboard.component.ts" />
+        <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-dashboard.html" />
+        <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java" />
+        <option value="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" />
       </list>
     </option>
   </component>
@@ -726,7 +741,7 @@
       <workItem from="1511072290296" duration="278000" />
       <workItem from="1511234170186" duration="3180000" />
       <workItem from="1511575561640" duration="7046000" />
-      <workItem from="1511593468254" duration="4133000" />
+      <workItem from="1511593468254" duration="5336000" />
     </task>
     <task id="LOCAL-00001" summary="fix bug">
       <created>1507001776636</created>
@@ -931,7 +946,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511595186408</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="change updating temp to 5 (sealed), and dispatcher view only under 5">
+      <created>1511598039326</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1511598039326</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -967,7 +989,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45410000" />
+    <option name="totallyTimeSpent" value="46613000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1046,7 +1068,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Modify StorageObject getIDColumn to throw error if not overloaded.&#10;Improve selectIncidentElement test." />
     <MESSAGE value="Remove old Location and Incident functions from DBHelper" />
     <MESSAGE value="Merge master into branch" />
     <MESSAGE value="Merge branch 'master' of csil-git1.cs.surrey.sfu.ca:tarsenea/CMPT373Alpha into 18-separating-dispatched-and-guard-views&#10;&#10;# Conflicts:&#10;#&#9;IRSClientAngular/src/app/component/login.component.ts&#10;#&#9;IRSClientAngular/src/app/model/user.ts&#10;#&#9;IRSClientAngular/src/app/service/login.service.ts" />
@@ -1071,7 +1092,8 @@
     <MESSAGE value="made accepting temp close the temp report" />
     <MESSAGE value="change get procedure&#10;&#10;changed dispatch to only receive non closed reports" />
     <MESSAGE value="refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor" />
+    <MESSAGE value="change updating temp to 5 (sealed), and dispatcher view only under 5" />
+    <option name="LAST_COMMIT_MESSAGE" value="change updating temp to 5 (sealed), and dispatcher view only under 5" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1080,7 +1102,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/util/data-helper.service.ts" />
     <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -1276,14 +1297,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1054">
-          <caret line="78" column="49" lean-forward="true" selection-start-line="78" selection-start-column="49" selection-end-line="78" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-incident.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2158">
@@ -1310,16 +1323,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-dashboard.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="17" column="34" lean-forward="false" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-all-reports.component.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -1341,16 +1344,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-dashboard.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-143">
-          <caret line="4" column="29" lean-forward="true" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-          <folding>
-            <marker date="1511595124674" expanded="true" signature="2776:2786" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1394,36 +1387,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/test/java/UnitTests/TestLocation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="41" column="30" lean-forward="false" selection-start-line="41" selection-start-column="30" selection-end-line="41" selection-end-column="30" />
-          <folding>
-            <marker date="1511582036686" expanded="true" signature="4802:4966" ph="SELECT Locat... HappensAt" />
-            <marker date="1511582036686" expanded="true" signature="5017:5173" ph="SELECT Staff... AssignedTo" />
-            <marker date="1511582036686" expanded="true" signature="5224:5374" ph="SELECT Perso... Involves" />
-            <marker date="1511582036686" expanded="true" signature="5425:5610" ph="SELECT Incid... Incident" />
-            <marker date="1511582036686" expanded="true" signature="33731:33738" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-incident.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-136">
-          <caret line="4" column="9" lean-forward="true" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/report/new-report.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1442,12 +1405,78 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/report/report-summary.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
+        <state relative-caret-position="-188">
           <caret line="202" column="41" lean-forward="false" selection-start-line="202" selection-start-column="41" selection-end-line="202" selection-end-column="41" />
           <folding>
             <element signature="e#0#68#0" expanded="true" />
             <element signature="e#768#825#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="986">
+          <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding>
+            <marker date="1511598782852" expanded="true" signature="2785:2795" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-dashboard.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="31" column="55" lean-forward="true" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-incident.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-136">
+          <caret line="4" column="9" lean-forward="true" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Util/HtmlEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="74" column="49" lean-forward="true" selection-start-line="74" selection-start-column="49" selection-end-line="74" selection-end-column="49" />
+          <folding>
+            <marker date="1511598905234" expanded="true" signature="4803:4967" ph="SELECT Locat... HappensAt" />
+            <marker date="1511598905234" expanded="true" signature="5018:5174" ph="SELECT Staff... AssignedTo" />
+            <marker date="1511598905234" expanded="true" signature="5225:5375" ph="SELECT Perso... Involves" />
+            <marker date="1511598905234" expanded="true" signature="5426:5611" ph="SELECT Incid... Incident" />
+            <marker date="1511598905234" expanded="true" signature="33732:33739" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/test/java/UnitTests/TestLocation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-204">
+          <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="175" column="6" lean-forward="true" selection-start-line="175" selection-start-column="6" selection-end-line="175" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
