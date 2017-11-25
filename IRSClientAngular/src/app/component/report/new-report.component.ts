@@ -157,8 +157,8 @@ export class NewReportComponent implements OnInit {
                     }
                     else alert( "Add failed." );
                 } );
-            delete this.newIncident;
-            this.newIncident = new Incident();
+            // delete this.newIncident;
+            // this.newIncident = new Incident();
         } else {
             alert("Please fill in the required fields");
         }

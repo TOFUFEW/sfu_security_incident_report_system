@@ -285,7 +285,7 @@ public class DBHelper
         try {
             String query = "select * from account where ACCOUNT_ID = " + accountId ;
             ResultSet result = executeQuery( query );
-            while (result.next()) {
+            if (result.next()) {
                 String accountType = result.getString( "ACCOUNT_TYPE" );
                 if ( accountType.equals( DatabaseValues.AccountType.ADMIN.toString() ) )
                     return DatabaseValues.AccountType.ADMIN;
@@ -505,102 +505,6 @@ public class DBHelper
             stmt.execute ();
 
             int output = stmt.getInt ( 3 );
-
-            if ( output != 0 )
-            {
-                return true;
-            }
-        }
-        catch ( Exception e )
-        {
-            e.printStackTrace ();
-        }
-        return false;
-    }
-
-    private static boolean insertIncidentRelation (
-            String query,
-            IncidentElement incidentElement,
-            String reportID
-    ) {
-        try {
-            initDB ();
-            CallableStatement stmt = connection.prepareCall ( query );
-            String tableName = incidentElement.getTable ().toString ().substring (4);
-            System.out.println (tableName);
-            if ( tableName.compareTo ( "Staff" ) == 0 )
-            {
-                stmt.setString (
-                        1,
-                        reportID
-                );
-                stmt.setString (
-                        2,
-                        tableName
-
-                );
-                stmt.setString (
-                        3,
-                        incidentElement.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID )
-                );
-            }
-            else if ( tableName.compareTo ( "Location" ) == 0 )
-            {
-                stmt.setString (
-                        1,
-                        reportID
-                );
-                stmt.setString (
-                        2,
-                        tableName
-
-                );
-                stmt.setString (
-                        3,
-                        incidentElement.getAttributeValue ( DatabaseValues.Column.LOCATION_ID )
-                );
-            }
-            else if ( tableName.compareTo ( "Person" ) == 0 )
-            {
-                stmt.setString (
-                        1,
-                        reportID
-                );
-                stmt.setString (
-                        2,
-                        tableName
-
-                );
-                stmt.setString (
-                        3,
-                        incidentElement.getAttributeValue ( DatabaseValues.Column.PERSON_ID )
-                );
-            }
-            else if ( tableName.compareTo ( "IncidentCategory" ) == 0 )
-            {
-                System.out.println ("TRUE");
-                return true;
-//                stmt.setString (
-//                        1,
-//                        reportID
-//                );
-//                stmt.setString (
-//                        2,
-//                        tableName
-//
-//                );
-//                stmt.setString (
-//                        3,
-//                        incidentElement.getAttributeValue ( DatabaseValues.Column.CATEGORY_ID )
-//                );
-            }
-            stmt.registerOutParameter (
-                    4,
-                    Types.INTEGER
-            );
-            stmt.execute ();
-
-            int output = stmt.getInt ( 4 );
 
             if ( output != 0 )
             {
