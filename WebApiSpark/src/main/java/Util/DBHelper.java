@@ -192,12 +192,9 @@ public class DBHelper
         if ( creatorID == null )
             return false;
 
-        if ( getAccountType( creatorID ) == DatabaseValues.AccountType.GUARD )
-            incident.updateAttributeValue( DatabaseValues.Column.TEMPORARY_REPORT, "0" );
-
         try {
             initDB();
-            String incidentString = "{ call dbo.insertIncidentRefactor ( ? , ? , ? , ? , ? ) } ";
+            String incidentString = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? , ? , ? ) } ";
             CallableStatement stmt = connection.prepareCall(incidentString);
             stmt.setString(
                     1,
@@ -215,9 +212,17 @@ public class DBHelper
                     4,
                     incident.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY)
             );
+            stmt.setString(
+                    5,
+                    incident.getAttributeValue(DatabaseValues.Column.TIMER_START)
+            );
+            stmt.setString(
+                    6,
+                    incident.getAttributeValue(DatabaseValues.Column.TIMER_END)
+            );
 
             stmt.registerOutParameter(
-                    5,
+                    7,
                     Types.INTEGER
             );
 
@@ -280,23 +285,6 @@ public class DBHelper
                 }
             }
         }
-    }
-
-    private static DatabaseValues.AccountType getAccountType( String accountId ) {
-        try {
-            String query = "select * from account where ACCOUNT_ID = " + accountId ;
-            ResultSet result = executeQuery( query );
-            while (result.next()) {
-                String accountType = result.getString( "ACCOUNT_TYPE" );
-                if ( accountType.equals( DatabaseValues.AccountType.ADMIN.toString() ) )
-                    return DatabaseValues.AccountType.ADMIN;
-                else return DatabaseValues.AccountType.GUARD;
-            }
-        }
-        catch( Exception e ) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     private static String getCategoryId( Incident incident ) {
