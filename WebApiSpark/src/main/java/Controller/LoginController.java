@@ -8,8 +8,6 @@ import Util.DatabaseValues;
 import Util.JsonUtil;
 import WebSocketHandlers.Observable;
 
-import java.sql.ResultSet;
-
 import static Util.JsonUtil.json;
 import static Util.PathStrings.LOGIN_PATH;
 import static spark.Spark.get;
@@ -27,14 +25,17 @@ public class LoginController
 
     private void setupEndPoints()
     {    post( LOGIN_PATH, ( request, response ) ->
-        {    User user = (User) JsonUtil.fromJson( request.body(), User.class );
-            return  DBHelper.authorizeAccount( user );if ( _user != null )
+        {
+            User user = ( User ) JsonUtil.fromJson ( request.body () , User.class );
+
+            if ( user != null )
             {
                 System.out.println ( "Signed In!!!" );
-                loginWebSocketObservable.sendMessage ( JsonUtil.toJson ( _user ) );
+                loginWebSocketObservable.sendMessage ( JsonUtil.toJson ( user ) );
             }
 
-        }, json());
+            return  DBHelper.authorizeAccount( user );
+        }, json() );
 
 
         post( "/create-account", ( request, response ) -> {

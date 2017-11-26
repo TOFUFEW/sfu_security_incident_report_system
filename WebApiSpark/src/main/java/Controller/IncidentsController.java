@@ -33,11 +33,10 @@ public class IncidentsController
         {
             Incident newIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
 
-            String reportID = DBHelper.insertIncident ( newIncident );
-
-            if ( reportID != null )
+            if ( DBHelper.insertIncident ( newIncident ) )
             {
                 Incident messageIncident = new Incident ( newIncident );
+                String reportID = DBHelper.getLastInsertedIncidentID ();
                 messageIncident.updateAttributeValue (
                         DatabaseValues.Column.REPORT_ID,
                         reportID

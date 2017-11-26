@@ -19,7 +19,7 @@ export class GuardDashboardComponent implements OnInit {
     createdIncidents: Incident[];
     user: User;
 
-    constructor( private incidentsService: IncidentService,
+    constructor( private incidentService: IncidentService,
                  private userService: UserService,
                  private http: HttpClient,
                  private router: Router) {
@@ -27,14 +27,13 @@ export class GuardDashboardComponent implements OnInit {
 
     getAssignedIncidents(): void {
         this.user = this.userService.getCurrentUser();
-        this.incidentsService.getIncidents( ).then( returnedIncidents => {
+        this.incidentService.getIncidents( ).then( returnedIncidents => {
             console.log("returned incidents: ", returnedIncidents);
-            this.assignedIncidents = returnedIncidents;
         } );
     }
 
     getCreatedIncidents(): void {
-        this.incidentsService.getCreatedByIncidents().then( returnedIncidents => {
+        this.incidentService.getCreatedByIncidents().then( returnedIncidents => {
             this.createdIncidents = returnedIncidents;
         } );
     }
@@ -52,5 +51,10 @@ export class GuardDashboardComponent implements OnInit {
     ngOnInit() : void {
         this.getAssignedIncidents();
         this.getCreatedIncidents();
+
+        this.incidentService.reportsInList
+          .subscribe( reports => {
+              this.assignedIncidents = reports as Incident[];
+        });
     }
 }

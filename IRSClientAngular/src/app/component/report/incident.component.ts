@@ -118,6 +118,6 @@ export class IncidentComponent implements OnInit {
           .subscribe( reports => {
               this.incidents = reports as Incident[];
               console.log ( "reports.length = " + reports.length );
-        });
+        } );
     }
 }
