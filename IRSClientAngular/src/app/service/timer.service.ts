@@ -22,10 +22,7 @@ export class TimerService{
         })
         .then( () => {
             incidentList.forEach(incident =>{
-                console.log("searching");
-                console.log(incident.attributes.TIMER_START, incident.attributes.TIMER_END);
-                if (incident.attributes.TIMER_START != null && incident.attributes.TIMER_END != null) {
-                    console.log("timer found");
+                if (incident.attributes.TIMER_START != null && incident.attributes.TIMER_END != null && incident.attributes.TIMER_END > incident.attributes.TIMER_START) {
                     timerList.push(this.createTimerInt(incident, incident.attributes.TIMER_START, incident.attributes.TIMER_END));
                 }
             });
@@ -36,11 +33,13 @@ export class TimerService{
     }
 
     createTimer(start : string, end : string) : Timer {
+        var nowDate = new Date (Date.now());
+        var nowTime = nowDate.getHours() * 60 * 60 * 1000 + nowDate.getMinutes() * 60 * 1000;
         var timer : Timer = new Timer();
 
         timer.TIMER_START = this.stringToTime(start);
         timer.TIMER_END = this.stringToTime(end);
-        timer.TIME_REMAINING = timer.TIMER_END - timer.TIMER_START;
+        timer.TIME_REMAINING = timer.TIMER_END - nowTime;
         
         return timer;
     }
@@ -51,14 +50,12 @@ export class TimerService{
         var nowTime = nowDate.getHours() * 60 * 60 * 1000 + nowDate.getMinutes() * 60 * 1000;
         var timer : Timer = new Timer();
         
-        // if (nowTime > end){
-        //     return null;
-        // } else {
-            timer.TIMER_START = start;
-            timer.TIMER_END = end;
-            timer.TIME_REMAINING = timer.TIMER_END - timer.TIMER_START;
-            return timer;
-       // }
+        timer.incident = incident;
+
+        timer.TIMER_START = start;
+        timer.TIMER_END = end;
+        timer.TIME_REMAINING = timer.TIMER_END - nowTime;
+        return timer;
     }
 
     deleteTimer(timer : Timer) : void {

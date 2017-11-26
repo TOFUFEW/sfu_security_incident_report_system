@@ -116,9 +116,9 @@ export class TimerComponent implements OnInit {
         timer.TIMER_END = this.timerService.stringToTime(this.tempEnd);
         timer.TIME_REMAINING = timer.TIMER_END - this.timeNow;
 
-        // timer.incident.attributes.TIMER_START = timer.TIMER_START;
-        // timer.incident.attributes.TIMER_END = timer.TIMER_END;
-        // this.incidentService.update(timer.incident);
+        timer.incident.attributes.TIMER_START = timer.TIMER_START;
+        timer.incident.attributes.TIMER_END = timer.TIMER_END;
+        this.incidentService.update(timer.incident);
         this.tempStart = "";
         this.tempEnd = "";
     }
