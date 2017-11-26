@@ -6,6 +6,8 @@ import Util.DBHelper;
 import Util.DatabaseValues;
 import Util.JsonUtil;
 
+import javax.ws.rs.core.Response;
+
 import static spark.Spark.get;
 import static spark.Spark.post;
 
@@ -36,8 +38,13 @@ public class IncidentsController
         {
             String query = request.queryParams("query");
             int userId = Integer.parseInt(request.queryParams("userId"));
-            //Incident[] incidents = DBHelper.searchIncidents ( request.body() );
-            return JsonUtil.toJson ( null );
+            Incident[] incidents = null;
+            try {
+                incidents = DBHelper.CTSearchIncidents(userId, query);
+            } catch (Exception e) {
+                response.status(400);
+            }
+            return JsonUtil.toJson ( incidents );
         });
 
         post ("/incidents" , ( request, response ) ->

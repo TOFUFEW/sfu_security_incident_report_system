@@ -1,6 +1,7 @@
 package Util;
 
 import Model.*;
+import spark.Response;
 
 import javax.xml.crypto.Data;
 import java.sql.*;
@@ -64,6 +65,7 @@ public class DBHelper
         catch ( Exception e )
         {
             e.printStackTrace();
+            throw e;
         }
 
         return incidentList.toArray ( new Incident [ incidentList.size () ] );

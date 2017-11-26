@@ -129,11 +129,11 @@ export class IncidentService {
         if (isCTSearch) {
             searchURI = Config.CTSearchURI;
         }
-
         return this.http
             .post(searchURI, query, options)
-            .map((response: Response) =>
+            .map((response: Response) => 
                 this.initIncidents(plainToClass(Incident, response.json()))
+               
             )
     }
 
