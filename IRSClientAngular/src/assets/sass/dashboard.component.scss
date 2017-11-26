@@ -145,7 +145,11 @@ div.side-container {
     }
 }
 
-staff-component {
+timer-component {
+    margin-bottom: 20px;
+}
+
+staff-component, timer-component {
     height: 50%;
     width: 100%;
 }

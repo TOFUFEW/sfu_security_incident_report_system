@@ -9,6 +9,8 @@ import { IncidentService } from '../../service/incident.service';
 @Component({
     selector: 'timer-component',
     templateUrl: './timer.component.html',
+    styleUrls: ['../../../assets/css/panels.css',
+        '../../../assets/css/timer.component.css']
 })
 
 export class TimerComponent implements OnInit {

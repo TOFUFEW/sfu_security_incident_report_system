@@ -1,4 +1,4 @@
-<div id="staff-list-panel" class="panel panel-default">
+<div id="timer-list-panel" class="panel panel-default">
     <div class="panel-heading">
         <div class="toolbar">
             <div class="flex">
@@ -11,9 +11,9 @@
         <div id="timer-card" class="col-md-12 col-lg-12">
             <div class="main-content">
                 <div class="staff-card" *ngFor="let timer of timerList">
-                    <div class="x-container">
+                    <!-- <div class="x-container">
                         <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removeTimer(timer)"></span>        
-                    </div>
+                    </div> -->
                     <div class="card-text-primary">
                         <span class="detail-row">Report: {{timer.incident.attributes.DESCRIPTION}}</span>
                     </div>
@@ -26,18 +26,14 @@
                     <div class="detail-row">
                         <span class="detail-row">Time Remaining: {{durationToString(timer.TIME_REMAINING)}}</span>
                     </div>
-                    <button id="modifyBtn" class="btn" (click)="timer.modify = !timer.modify">Modify</button>
+                    <!-- <button id="modifyBtn" class="btn" (click)="timer.modify = !timer.modify">Modify</button>
                     <div *ngIf="timer.modify">
                         <input type="time" [(ngModel)] = "tempStart">
                         <input type="time" [(ngModel)] = "tempEnd">
                         <button class="btn" (click)="modifyTimer(timer)">Confirm</button>
-                    </div>
-                    <br>
+                    </div> -->
                 </div>
             </div>     
         </div>
-    </div>
-    <div class="panel-footer">
-            <input class="form-control" type="text" placeholder="Search for timer...">
     </div>
 </div>
