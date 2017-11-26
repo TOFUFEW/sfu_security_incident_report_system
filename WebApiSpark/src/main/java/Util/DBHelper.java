@@ -239,17 +239,34 @@ public class DBHelper
                     incident.getAttributeValue ( DatabaseValues.Column.SEARCH_TEXT )
             );
 
-            ResultSet incidentResultSet = stmt.executeQuery();
-            fillListWithIncidentsFromResultSet( incidentList, incidentResultSet );
+            stmt.registerOutParameter(
+                    6,
+                    Types.INTEGER
+            );
 
-            // UPDATE SEARCH_TEXT
-            if (incidentList.size() > 0) {
-                incident = incidentList.get(0);
-                String searchText = incident.getAttributeValue( DatabaseValues.Column.SEARCH_TEXT );
-                searchText = searchText + ' ' + incident.getAttributeValue( DatabaseValues.Column.REPORT_ID );
+            int output = stmt.getInt(6);
 
-                incident.updateAttributeValue( DatabaseValues.Column.SEARCH_TEXT, searchText );
+            String relationSQL = "{ call dbo.insertRelation ( ? , ? , ? ) }";
+
+            for ( Map.Entry < String , ArrayList < IncidentElement > > entry : incident.getIncidentElements().entrySet() ) {
+                ArrayList < IncidentElement > incidentElementsList = entry.getValue();
+                for ( IncidentElement incidentElement : incidentElementsList ) {
+                    System.out.println( "\nColumnSet length for table " + incidentElement.getTable().toString() + ": " + (incidentElement.getColumnSet().length ) );
+
+                    boolean hasAttributes = incidentElement.getColumnSet().length > 0;
+
+                    if ( hasAttributes ) {
+                        insertIncidentRelation(
+                                relationSQL,
+                                incidentElement
+                        );
+                    }
+                }
             }
+            if (output != 0) {
+                return true;
+            }
+
         } catch ( Exception e )
         {
             e.printStackTrace ();
@@ -355,26 +372,11 @@ public class DBHelper
 
                     boolean hasAttributes = incidentElement.getColumnSet().length > 0;
 
-                    if ( hasAttributes && !relationExists( lastIncidentId , incidentElement ) ) {
-                        debug_printInsertRelationLog( incidentElement );
-                        if ( DatabaseValues.Table.STAFF.toString().toLowerCase()
-                                .contains( incidentElement.getTable().toString().toLowerCase() ) ) {
-                            assignToGuard( lastIncidentId, incidentElement.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ));
-                        }
-                        else if (DatabaseValues.Table.PERSON.toString().toLowerCase()
-                                .contains( incidentElement.getTable().toString().toLowerCase() ) ) {
-                            String id = getPersonIdFromDb( incidentElement );
-
-                            if ( id != null ) {
-                                insertInvolvesRelation( lastIncidentId, id);
-                            }
-                        }
-                        else {
-                            insertIncidentRelation(
-                                    relationSQL,
-                                    incidentElement
-                            );
-                        }
+                    if ( hasAttributes ) {
+                        insertIncidentRelation(
+                                relationSQL,
+                                incidentElement
+                        );
                     }
                 }
             }
