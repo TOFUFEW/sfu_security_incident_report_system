@@ -1,7 +1,3 @@
-<!-- <button class="btn btn-circle guard-button-navbar card-text-primary" (click)="newReport()">                     
-    <span class="glyphicon glyphicon-plus ml-1"></span>   
-    New              
-</button>  -->
 <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-sm-12
@@ -38,16 +34,22 @@
                   <div id="tempReports" class="tab-pane fade">
                     <div class="flex-container">
                         <div class="flex-item panel panel-default" *ngFor="let incident of createdIncidents" (click)="viewReport(incident)">
-                          <div class="panel-body">
-                            <ul class="p-0">
-                              <li class="card-text-primary">
-                                #{{incident.attributes.REPORT_ID}}
-                              </li>
-                              <li class="card-text-secondary mt-sm">
-                                {{incident.attributes.DESCRIPTION}}
-                              </li>
-                            </ul>
-                          </div>
+                            <div class="panel-heading">
+                                <h4 class="panel-title pb-sm">
+                                    {{incident.attributes.REPORT_ID}}
+                                </h4>  
+                                <div class="mt-1">
+                                    <span>{{incident.category.attributes.MAIN_CATEGORY}}</span><span *ngIf='incident.category.attributes.SUB_CATEGORY != ""'>, {{incident.category.attributes.SUB_CATEGORY}}</span><span *ngIf='incident.category.attributes.INCIDENT_TYPE != ""'>, {{incident.category.attributes.INCIDENT_TYPE}}</span>
+                                </div>
+                                <div class="mt-1" *ngIf="incident.incidentElements['Location'][0]">
+                                    <span>{{incident.incidentElements['Location'][0].attributes.CITY}}</span><span *ngIf="incident.incidentElements['Location'][0].attributes.BUILDING_NAME != ''">, {{incident.incidentElements['Location'][0].attributes.BUILDING_NAME}}</span><span *ngIf="incident.incidentElements['Location'][0].attributes.ROOM_NUMBER != ''">, {{incident.incidentElements['Location'][0].attributes.ROOM_NUMBER}}</span>
+                                </div>                       
+                            </div>                    
+                            <div class="panel-body card-text-secondary">
+                                <div class="report-content">
+                                    {{incident.attributes.EXECUTIVE_SUMMARY}}
+                                </div>
+                            </div>
                         </div>
                       </div>
                   </div>
