@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Config } from '../../util/config.service';
+import {Attachment} from './attachment'
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -13,6 +14,7 @@ export class AttachmentComponent implements OnInit {
   @Input() multiple: boolean = false;
   @ViewChild('file') inputEl: ElementRef;
   uploadURI = Config.UploadURI;
+  attachments: Attachment[] = []
 
   constructor (
     private http: Http,

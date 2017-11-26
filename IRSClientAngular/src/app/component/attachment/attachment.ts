@@ -3,7 +3,7 @@ import { IncidentElement } from '../report/incident-element';
 
 export class Attachment implements IncidentElement {
   table: string;
-  attributes: ;
+  attributes: AttachmentAttributes;
   searchString: string;
 
   constructor() {
@@ -17,6 +17,6 @@ export class Attachment implements IncidentElement {
   };
 }
 
-export class LocationAttributes {
-    FILE_NAME: number;
+export class AttachmentAttributes {
+    FILE_NAME: string;
 }
