@@ -252,7 +252,7 @@ public class DBHelper
 
         try {
             initDB();
-            String query = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? , ? ) } ";
+            String query = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? , ? , ? , ? ) } ";
             CallableStatement stmt = connection.prepareCall( query );
 
             stmt.setString( 1, incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ) );
@@ -265,10 +265,14 @@ public class DBHelper
 
             stmt.setString( 5, incident.getAttributeValue( DatabaseValues.Column.SEARCH_TEXT ) );
 
-            stmt.registerOutParameter( 6, Types.INTEGER );
+            stmt.setString( 6, incident.getAttributeValue( DatabaseValues.Column.TIMER_START ) );
+
+            stmt.setString( 7, incident.getAttributeValue( DatabaseValues.Column.TIMER_END ) );
+
+            stmt.registerOutParameter( 8, Types.INTEGER );
 
             stmt.execute();
-            int output = stmt.getInt( 6 );
+            int output = stmt.getInt( 8 );
 
 
             if ( output != 0 ) {
