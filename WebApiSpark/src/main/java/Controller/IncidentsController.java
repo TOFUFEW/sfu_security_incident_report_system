@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Incident;
+import Model.User;
 import Util.DBHelper;
 import Util.DatabaseValues;
 import Util.JsonUtil;
@@ -48,6 +49,29 @@ public class IncidentsController
 
             return false;
         } );
+
+        post ( "/created-incidents" , (request, response) -> {
+            User user = ( User ) JsonUtil.fromJson ( request.body(), User.class );
+            int accountID = Integer.parseInt ( user.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID ) );
+            Incident [] incidents = DBHelper.getCreatedByIncidents( accountID );
+            return JsonUtil.toJson ( incidents );
+        } );
+
+        post ("/get-incidents" , ( request, response ) ->
+        {
+            System.out.println(request.body());
+            User user = ( User ) JsonUtil.fromJson ( request.body(), User.class );
+            String accountID = user.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID );
+            System.out.println(accountID);
+            Incident [] incidents = DBHelper.getIncidents ( accountID );
+            return JsonUtil.toJson ( incidents );
+        } );
+
+        post ( "/get-incident", ( request, response ) ->
+        {
+            Incident incident = ( Incident ) JsonUtil.fromJson( request.body(), Incident.class );
+            return JsonUtil.toJson( DBHelper.getIncident ( incident.getAttributeValue( DatabaseValues.Column.REPORT_ID )) );
+        });
 
         post ("/update-incident" , ( request, response ) ->
         {

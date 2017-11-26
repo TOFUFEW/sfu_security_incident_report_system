@@ -29,19 +29,16 @@ export class LoginComponent {
         this.loginService.doLogin ( this.user )
         .subscribe(
             ( responseData ) => {
-                this.user = responseData;
-                this.userService.authUser( this.user );
+                this.userService.authUser( responseData );
 
                 if ( this.userService.isLoggedIn() ) {
-                    this.appComponent.showLogoutButton();
+                    //this.appComponent.showLogoutButton();
                     if( this.userService.isAdmin() ) {
                       this.router.navigate([ 'dashboard' ] );
-                      //alert( "welcome dispatcher" );
                     } else if( this.userService.isGuard() ) {
-                      this.router.navigate([ 'guard-app/reports-all' ] );
+                      this.router.navigate([ 'guard-app/dashboard' ] );
                       //alert( "welcome guard" );
                     } else {
-                      //alert( "unknown person" );
                       this.userService.logout();
                     }
         
@@ -55,7 +52,7 @@ export class LoginComponent {
 
     checkLogin() {
       if ( this.userService.isLoggedIn() ) {
-        alert("You are already logged in!");
+        console.log("You are already logged in!");
         if( this.userService.isAdmin() ) {
           this.router.navigate([ 'dashboard' ] );
         } else if( this.userService.isGuard() ) {

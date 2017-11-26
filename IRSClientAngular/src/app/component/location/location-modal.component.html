@@ -9,12 +9,30 @@
                 <button type="button" class="close" (click)="hide()" aria-label="Close">                         
                     <span aria-hidden="true">&times;</span>                     
                 </button>                     
-                <h4 class="modal-title mt-2">Change current location {{currentLocation}}</h4>             
+                <h4 class="modal-title mt-2 mr-1" *ngIf="button_id != -1">Change current location <span>                
+                    <button (click)="removeLocation($event.target.id)" 
+                        class="btn btn-sm btn-secondary"
+                        *ngIf="button_id != -1"
+                        id="{{button_id}}">
+                        <span class="glyphicon glyphicon-trash"></span> 
+                        Delete
+                        </button>
+                    </span>
+                </h4>             
+                <h4 class="modal-title mt-2" *ngIf="button_id == -1">Add location</h4>                             
             </div>             
             <location-component></location-component>                         
             <div class="modal-footer mt-2 pt-2 mb-1">                 
-                <button type="button" class="btn btn-primary" (click)="submitChanges($event.target.value)" id="{{button_id}}">Save changes</button>                 
-                <button type="button" class="btn btn-secondary ml-1" (click)="hide()">Close</button>             
+                <button class="btn btn-sm btn-primary" 
+                        (click)="submitChanges($event.target.value)" 
+                        id="{{button_id}}">
+                    <span class="glyphicon glyphicon-ok"></span>                
+                    Save
+                </button>        
+                <button type="button" class="btn btn-sm btn-secondary ml-2 mr-1" (click)="hide()">
+                    <span class="glyphicon glyphicon-remove"></span>                        
+                    Cancel
+                </button>             
 </div>         
 </div>     
 </div> 

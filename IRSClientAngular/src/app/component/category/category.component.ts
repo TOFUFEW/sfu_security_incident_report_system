@@ -12,6 +12,9 @@ import { CategoryService } from '../../service/category.service';
 )
 
 export class CategoryComponent implements OnInit {
+    @Input() currentMainCategory: string;
+    @Input() currentSubCategory: string;
+    @Input() currentType: string;
     @Output()
     categorySaved: EventEmitter<string> = new EventEmitter();
     selectedCategory: Category = new Category(null, null, null, null);      
@@ -22,6 +25,10 @@ export class CategoryComponent implements OnInit {
     filteredSubcategories: SubCategory[] = [];
     filteredTypes: CategoryType[] = [];
     categoryID: number =  -1;
+
+    showMainCategoryAlert: boolean = false;  
+    showSubcategoryAlert: boolean = false;
+    showTypeAlert: boolean = false;  
 
     public visible = false;
     private visibleAnimate = false;
@@ -39,6 +46,8 @@ export class CategoryComponent implements OnInit {
   
     public show(): void {
       this.visible = true;
+    //   this.selectedCategory = new Category(null, null, null, null);
+      this.categoryID = -1;
       setTimeout(() => this.visibleAnimate = true, 100);
     }
   
@@ -55,24 +64,30 @@ export class CategoryComponent implements OnInit {
 
     // filter subcategory and type lists according to selection of previous dropdown
     onSelectCategory ( categoryName ) {
-    console.log ( "selected category: " + categoryName );
-    this.selectedCategory.attributes.MAIN_CATEGORY = categoryName;
-    var index = this.categories.findIndex( item => 
-        item.MAIN_CATEGORY === categoryName);
-    this.filteredSubcategories = this.categories[index].SUBCATEGORIES;
-    console.log ( "list of corresponding subcategories " + this.filteredSubcategories );
+        if ( categoryName != this.selectedCategory.attributes.MAIN_CATEGORY ) {
+            this.selectedCategory.attributes.SUB_CATEGORY = null;
+            this.selectedCategory.attributes.INCIDENT_TYPE = null;
+        }
+        this.showMainCategoryAlert = false;        
+        console.log ( "selected category: " + categoryName );
+        this.currentSubCategory = "";
+        this.selectedCategory.attributes.MAIN_CATEGORY = categoryName;
+        var index = this.categories.findIndex( item => 
+            item.MAIN_CATEGORY === categoryName);
+        this.filteredSubcategories = this.categories[index].SUBCATEGORIES;
     }
 
     onSelectSubCategory ( subCategoryName ) {
+        this.showSubcategoryAlert = false;        
         this.selectedCategory.attributes.SUB_CATEGORY = subCategoryName;
+        console.log(this.filteredSubcategories);
         var index = this.filteredSubcategories.findIndex( item => 
             item.SUB_CATEGORY == subCategoryName );
         this.filteredTypes = this.filteredSubcategories[index].TYPES;
-        console.log ( "subcategory" + subCategoryName );
     }
 
     onSelectTypeCategory ( type ) {
-        console.log ( "category type " + type );
+        this.showTypeAlert = false;        
         type = type.split(",,");
         this.selectedCategory.attributes.INCIDENT_TYPE = type[0];
         this.categoryID = type[1];
@@ -80,25 +95,56 @@ export class CategoryComponent implements OnInit {
 
     submitCategory () {
         console.log ( "submitting category" );
-        if ( this.categoryID == -1 ) {
+        console.log ( this.selectedCategory );
+        if ( this.selectedCategory.attributes.MAIN_CATEGORY == null ) {
+            this.showMainCategoryAlert = true;            
+            console.log("please select a category");
+        }
+        else if ( this.selectedCategory.attributes.SUB_CATEGORY == null || this.filteredSubcategories == [] ) {
+            this.showSubcategoryAlert = true;                        
+            console.log("please select a subcategory");
+        }
+        else if ( this.categoryID == -1 || this.categoryID == null ) {
+            console.log(this.filteredTypes);
             if ( this.filteredTypes.length == 0 ) {
                 this.selectedCategory.attributes.INCIDENT_TYPE = null;
-                this.categoryID = this.filteredSubcategories[0].CATEGORY_ID;
-                console.log ( "retrieved category id: " + this.categoryID );
-                var id = this.categoryID.toString();                
-                this.categorySaved.emit(id);
-                this.hide();              
+
+                if ( this.filteredSubcategories.length > 0 ) {
+                    var index = this.filteredSubcategories.findIndex( item => 
+                        item.SUB_CATEGORY === this.selectedCategory.attributes.SUB_CATEGORY );
+                    this.categoryID = this.filteredSubcategories[index].CATEGORY_ID;
+                    console.log ( "retrieved category id: " + this.categoryID );
+                    var id = this.categoryID.toString();                
+                    this.categorySaved.emit(id);
+                    this.hide();     
+                }
+                else {
+                    this.showSubcategoryAlert = true;                                            
+                }         
             }
             else
             {
+                this.showTypeAlert = true;                            
                 console.log ( "Please select an incident type" );
             }
         }
-        if ( this.categoryID != -1 ) {
-            console.log ( "category id: " + this.categoryID );
-            var id = this.categoryID.toString();
-            this.categorySaved.emit(id);
-            this.hide();
+        else if ( this.categoryID != -1 ) {
+            if ( this.filteredTypes.length == 0 ) {
+                this.selectedCategory.attributes.INCIDENT_TYPE = null;
+                console.log ( "category id: " + this.categoryID );
+                var id = this.categoryID.toString();
+                this.categorySaved.emit(id);
+                this.hide();  
+            }
+            else if ( this.selectedCategory.attributes.INCIDENT_TYPE == null ) {
+                this.showTypeAlert = true;                                            
+            }
+            else {
+                console.log ( "category id: " + this.categoryID );
+                var id = this.categoryID.toString();
+                this.categorySaved.emit(id);
+                this.hide();
+            }
         }
     }
 

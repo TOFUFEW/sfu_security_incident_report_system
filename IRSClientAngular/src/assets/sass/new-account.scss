@@ -1,0 +1,19 @@
+@import "_settings";
+
+div#new-account-panel .details-container .detail {
+    height: 80px;
+    
+    .detail-col  {
+        height: 100%;
+        @include flex(center, flex-start);
+        flex-direction: column;
+
+        .glyphicon-ok-sign {
+            color: $color-complete;
+        }
+        
+        .validation-text {
+            opacity: 0.5;
+        }
+    }
+}

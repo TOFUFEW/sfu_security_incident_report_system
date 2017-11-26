@@ -21,7 +21,7 @@ public class Application
 
     public static void main ( String [] args )
     {
-        // INITIAL SETUP
+        // SETUP PORT
         port ( 4567 );
 
         // SETUP ENCRYPTION
@@ -47,7 +47,7 @@ public class Application
         );
 
         // SETUP STATIC FILE HOSTING FOR ANGULAR
-        staticFileLocation ( "/public" );
+        staticFiles.location("/public");
 
         notFound ( ( request , response ) ->
         {
@@ -91,14 +91,13 @@ public class Application
         );
 
         LocationController locationController = new LocationController ();
-        StaffController staffController = new StaffController ();
-        IncidentsController incidentsController = new IncidentsController ( incidentsWebSocketHandler.getObservable () );
-        LoginController loginController = new LoginController ( loginWebSocketHandler.getObservable () );
-        PersonController personController = new PersonController ();
-        IncidentCategoryController categoryController = new IncidentCategoryController ();
-        AttachmentController attachmentController = new AttachmentController ();
-        GuardIncidentsController guardIncidentsController = new GuardIncidentsController ();
-        AssignGuardController assignGuardController = new AssignGuardController ();
+        StaffController staffController = new StaffController();
+        IncidentsController incidentsController = new IncidentsController(incidentsWebSocketHandler.getObservable ());
+        LoginController loginController = new LoginController(loginWebSocketHandler.getObservable ());
+        PersonController personController = new PersonController();
+        IncidentCategoryController categoryController = new IncidentCategoryController();
+        AttachmentController attachmentController = new AttachmentController();
+
     }
 
     // CORS Filter

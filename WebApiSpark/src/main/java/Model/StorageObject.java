@@ -276,6 +276,7 @@ public class StorageObject
             String dataType = column.getDataType ();
             String value = null;
 
+
             if ( dataType.equals ( "INT" ) || dataType.equals ( "BIT" )  )
             {
                 value = "" + resultSet.getInt ( column.toString () );
