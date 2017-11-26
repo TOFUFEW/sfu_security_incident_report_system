@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { FilterPipe } from '../../util/filter.pipe';
 import { IncidentService } from '../../service/incident.service';
+import { UserService } from '../../service/user.service';
 import { Config } from '../../util/config.service';
 import { IncidentElement } from '../report/incident-element';
 import { Incident } from '../report/incident';
@@ -18,10 +19,12 @@ export class SearchComponent implements OnInit {
     
     showSpinner: boolean = true;
     queryString: string;
+    isCTSearch: boolean = false;
     incidents: Incident[];
 
     constructor(
         private incidentService: IncidentService,
+        private userService: UserService,
     ) {
     };
 
@@ -31,7 +34,7 @@ export class SearchComponent implements OnInit {
             return;
         } else {
             this.showSpinner = true;
-            this.incidentService.doSearch(this.queryString)
+            this.incidentService.doSearch(this.constructBodyRequest(), this.isCTSearch)
             .subscribe(
                 (responseData) => {
                     this.incidents = responseData;
@@ -75,46 +78,12 @@ export class SearchComponent implements OnInit {
         );
     }
 
-    /*
-    private reconstructElements() {
-        this.incidents.forEach(incident => {
-            this.toSearchStrings(incident);
-        });
+    private constructBodyRequest(): string {
+        let body = new URLSearchParams();
+        let user = this.userService.getCurrentUser();
+        body.append('query', this.queryString);
+        body.append('userId', user.attributes.ACCOUNT_ID.toString());
+        console.log(body.toString());
+        return body.toString();
     }
-
-    private toSearchStrings(incident: Incident) {
-
-        incident.incidentElements[Config.LocationKey].forEach(loc => {
-            this.setLocationSearchString(loc);
-        })
-
-        incident.incidentElements[Config.StaffKey].forEach(staff => {
-            this.setStaffSearchString(staff);
-        })
-
-        this.setSearchString(incident);
-    }
-
-    
-    setSearchString(incident: Incident) {
-        incident.searchString = 
-        incident.attributes.REPORT_ID 
-        + " " + incident.attributes.DESCRIPTION 
-        + " " + incident.attributes.EXECUTIVE_SUMMARY
-        + " " + incident.attributes.STATUS;
-    };
-
-    setStaffSearchString(staff: Staff) {
-        staff.searchString = 
-        + " " + staff.attributes.FIRST_NAME 
-        + " " + staff.attributes.LAST_NAME;
-    };
-
-    setLocationSearchString(loc: Location) {
-        loc.searchString = 
-        + " " + loc.attributes.BUILDING_NAME 
-        + " " + loc.attributes.ROOM_NUMBER 
-        + " " + loc.attributes.DEPARTMENT;
-    }
-    */
 }

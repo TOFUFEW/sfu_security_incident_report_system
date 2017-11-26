@@ -27,7 +27,6 @@ public class DBHelper
         try
         {
             ResultSet incidentResultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.INCIDENT.toString() + " ORDER BY REPORT_ID DESC");
-
             fillListWithIncidentsFromResultSet ( incidentList , incidentResultSet );
         }
 
@@ -39,7 +38,7 @@ public class DBHelper
         return incidentList.toArray ( new Incident [ incidentList.size () ] );
     }
 
-    public static Incident[] searchIncidents (String searchString) throws SQLException {
+    public static Incident[] CTSearchIncidents (String searchString) throws SQLException {
         ArrayList < Incident > incidentList = new ArrayList <> ();
 
         try
@@ -50,6 +49,37 @@ public class DBHelper
                     "SELECT * FROM " + DatabaseValues.Table.INCIDENT.toString() +
                     " WHERE FREETEXT (SEARCH_TEXT, '" + searchString + "')");
             fillListWithIncidentsFromResultSet ( incidentList , incidentResultSet );
+        }
+        catch ( Exception e )
+        {
+            e.printStackTrace();
+        }
+
+        return incidentList.toArray ( new Incident [ incidentList.size () ] );
+    }
+
+    public static Incident[] FTSearchIncidents (String searchString, int userId) throws SQLException {
+
+        ArrayList < Incident > incidentList = new ArrayList <> ();
+
+        try
+        {
+            initDB ();
+            String query = "{ call dbo.FTSearchIncidents ( ?, ? ) } ";
+            CallableStatement stmt = connection.prepareCall ( query );
+
+            stmt.setInt (
+                    1,
+                    userId
+            );
+
+            stmt.setString (
+                    2,
+                    searchString
+            );
+
+            ResultSet incidentResultSet = stmt.executeQuery();
+            fillListWithIncidentsFromResultSet( incidentList , incidentResultSet );
         }
         catch ( Exception e )
         {
@@ -176,51 +206,13 @@ public class DBHelper
     }
 
     public static boolean insertIncident ( Incident incident ) {
-        if ( !allFieldsValid( incident ) ) {
-            if ( incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) == null ) {
-                System.out.println( "Attempting to find IncidentCategory in incidentElements array...");
 
-                HashMap<String, ArrayList<IncidentElement> > map = incident.getIncidentElements();
-                ArrayList<IncidentElement> category = map.get( DatabaseValues.IncidentElementKey.INCIDENT_CATEGORY.toString() );
-                if ( category != null && !category.isEmpty() ) {
-                    IncidentElement cat = category.get(0);
-
-                    if (DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase()
-                            .contains(cat.getTable().toString().toLowerCase())) {
-                        String id = cat.getAttributeValue(DatabaseValues.Column.CATEGORY_ID);
-
-                        if (id != null && !id.isEmpty()) {
-                            incident.updateAttributeValue( DatabaseValues.Column.CATEGORY_ID , id);
-                            System.out.println("IncidentCategory FOUND! CATEGORY_ID: " + id);
-                            System.out.println (incident.getAttributeValue(DatabaseValues.Column.CATEGORY_ID));
-                        }
-                    }
-                }
-
-                if ( incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) == null ) {
-                    System.out.println("***** ERROR: IncidentCategory not found. Exiting...");
-                    return false;
-                }
-            }
-            if ( incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ) == null ) {
-                return false;
-            }
-        }
-
-        if (incident.getAttributeValue ( DatabaseValues.Column.SEARCH_TEXT ) == null)
-        {
-            return false;
-        }
+        ArrayList < Incident > incidentList = new ArrayList <> ();
 
         try {
             initDB ();
             String query = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? , ? ) } ";
             CallableStatement stmt = connection.prepareCall ( query );
-            System.out.println (incident.getAttributeValue(DatabaseValues.Column.ACCOUNT_ID));
-            System.out.println (incident.getAttributeValue(DatabaseValues.Column.CATEGORY_ID));
-            System.out.println (incident.getAttributeValue(DatabaseValues.Column.DESCRIPTION));
-            System.out.println (incident.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY));
-            System.out.println (incident.getAttributeValue(DatabaseValues.Column.SEARCH_TEXT));
 
             stmt.setString (
                     1,
@@ -247,70 +239,16 @@ public class DBHelper
                     incident.getAttributeValue ( DatabaseValues.Column.SEARCH_TEXT )
             );
 
-            stmt.registerOutParameter (
-                    6,
-                    Types.INTEGER
-            );
+            ResultSet incidentResultSet = stmt.executeQuery();
+            fillListWithIncidentsFromResultSet( incidentList, incidentResultSet );
 
-            String before_lastIncidentId = ""; // debug
-            String lastIncidentId = "";
-            int maxTries = 5;
-            int tries = 0;
-            do {
-                before_lastIncidentId = debug_getLastIncidentId();
-                System.out.println( "Last Report ID before insert: " + before_lastIncidentId );
+            // UPDATE SEARCH_TEXT
+            if (incidentList.size() > 0) {
+                incident = incidentList.get(0);
+                String searchText = incident.getAttributeValue( DatabaseValues.Column.SEARCH_TEXT );
+                searchText = searchText + ' ' + incident.getAttributeValue( DatabaseValues.Column.REPORT_ID );
 
-                stmt.execute ();
-                tries++;
-
-                lastIncidentId = debug_getLastIncidentId(); // debug
-                System.out.println( "Last Report ID after insert: " + lastIncidentId );
-
-                if ( lastIncidentId != null && lastIncidentId.equals( before_lastIncidentId ) )
-                    System.out.println( "ERROR: Incident insert failed" );
-
-                if ( tries >= maxTries ) {
-                    return false;
-                }
-            } while ( lastIncidentId != null && lastIncidentId.equals( before_lastIncidentId ) );
-
-            int output = stmt.getInt ( 6 );
-
-            String relationSQL = "{ call dbo.insertRelation ( ? , ? , ? ) }";
-            for ( Map.Entry < String , ArrayList < IncidentElement > > entry : incident.getIncidentElements().entrySet() ) {
-                ArrayList < IncidentElement > incidentElementsList = entry.getValue();
-                for ( IncidentElement incidentElement : incidentElementsList ) {
-                    System.out.println( "\nColumnSet length for table " + incidentElement.getTable().toString() + ": " + (incidentElement.getColumnSet().length ) );
-
-                    boolean hasAttributes = incidentElement.getColumnSet().length > 0;
-
-                    if ( hasAttributes && !relationExists( lastIncidentId , incidentElement ) ) {
-                        debug_printInsertRelationLog( incidentElement );
-                        if ( DatabaseValues.Table.STAFF.toString().toLowerCase()
-                                .contains( incidentElement.getTable().toString().toLowerCase() ) ) {
-                            assignToGuard( lastIncidentId, incidentElement.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ));
-                        }
-                        else if (DatabaseValues.Table.PERSON.toString().toLowerCase()
-                                .contains( incidentElement.getTable().toString().toLowerCase() ) ) {
-                            String id = getPersonIdFromDb( incidentElement );
-
-                            if ( id != null ) {
-                                insertInvolvesRelation( lastIncidentId, id);
-                            }
-                        }
-                        else {
-                            insertIncidentRelation(
-                                    relationSQL,
-                                    incidentElement
-                            );
-                        }
-                    }
-                }
-            }
-
-            if ( output != 0 )
-            {
-                return true;
+                incident.updateAttributeValue( DatabaseValues.Column.SEARCH_TEXT, searchText );
             }
         } catch ( Exception e )
         {
@@ -321,6 +259,8 @@ public class DBHelper
 
 
     public static boolean insertIncidentRefactor ( Incident incident ) {
+
+
         if ( !allFieldsValid( incident ) ) {
             if ( incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) == null ) {
                 System.out.println( "Attempting to find IncidentCategory in incidentElements array...");
@@ -868,34 +808,6 @@ public class DBHelper
 
 
     public static boolean updateIncident ( Incident incident ) {
-        if ( !allFieldsValid( incident ) ) {
-            System.out.println( "Attempting to find IncidentCategory in incidentElements array...");
-            for ( Map.Entry < String , ArrayList < IncidentElement > > entry : incident.getIncidentElements().entrySet() ) {
-                ArrayList < IncidentElement > incidentElements = entry.getValue();
-                System.out.println(entry.getKey());
-                if ( incidentElements.size() > 0 && entry.getKey().equals ( "IncidentCategory" ) ) {
-                    IncidentElement ie = incidentElements.get(0);
-
-                    if (DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase()
-                            .contains(ie.getTable().toString().toLowerCase())) {
-                        String id = ie.getAttributeValue(DatabaseValues.Column.CATEGORY_ID);
-                        if (id != null && !id.isEmpty()) {
-                            incident.updateAttributeValue( DatabaseValues.Column.CATEGORY_ID , id);
-                            System.out.println("IncidentCategory FOUND! CATEGORY_ID: " + id);
-                            System.out.println (incident.getAttributeValue(DatabaseValues.Column.CATEGORY_ID));
-                        }
-                    }
-                } else {
-                    System.out.println ( "Incident Category does not exist" );
-                }
-            }
-
-            if ( incident.getAttributeValue( DatabaseValues.Column.CATEGORY_ID ) == null ) {
-                System.out.println("***** ERROR: IncidentCategory not found. Exiting...");
-                return false;
-            }
-        }
-
         try {
             initDB ();
             String query = "{ call dbo.updateIncident ( ? , ? , ? , ? , ? , ? ) } ";

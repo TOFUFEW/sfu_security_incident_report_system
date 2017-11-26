@@ -101,11 +101,17 @@ export class IncidentService
     //     )
     // }
 
-    doSearch(query: String): Observable<Incident[]> {
-        let options = new RequestOptions({headers: this.headers});
+    doSearch(query: String, isCTSearch: boolean): Observable<Incident[]> {
+        let formHeaders = new Headers( {'Content-Type': 'application/x-www-form-urlencoded'} );
+        let options = new RequestOptions( {headers: formHeaders} );
+
+        let searchURI = Config.FTSearchURI;
+        if (isCTSearch) {
+            searchURI = Config.CTSearchURI;
+        }
 
         return this.http
-            .post(Config.SearchIncidentsURI, query, options)
+            .post(searchURI, query, options)
             .map((response: Response) => 
             this.initIncidents(plainToClass(Incident, response.json()))
         )
@@ -141,7 +147,7 @@ export class IncidentService
         }
         this.toSearchString(incident);
         incident.table = Config.IncidentTable;
-        /*
+        
         var promise = this.http
                 .post( this.incidentsUrl, JSON.stringify(incident), { headers: this.headers } )
                 .toPromise()
@@ -149,8 +155,8 @@ export class IncidentService
                     return ( response.json() as boolean ) ? incident : null
                 })
                 .catch( this.handleError );
-                */
-        return Promise.resolve( null );
+                
+        return Promise.resolve( promise );
     }
 
     update( incident: Incident ): Promise<Incident> {        
@@ -208,8 +214,7 @@ export class IncidentService
 
     // SEARCH TEXT FOR SEARCHING IN THE DATABASE
     private toSearchString(incident: Incident) {
-        incident.searchString = incident.attributes.REPORT_ID
-        + " " + incident.attributes.DESCRIPTION 
+        incident.searchString = incident.attributes.DESCRIPTION 
         + " " + incident.attributes.EXECUTIVE_SUMMARY;
 
         var map = incident.incidentElements;
@@ -224,7 +229,8 @@ export class IncidentService
         });
 
         debugger;
-        incident.attributes.SEARCH_TEXT = incident.searchString;
+        incident.attributes.SEARCH_TEXT = incident.searchString.replace('null', '');
         console.log(incident.attributes.SEARCH_TEXT);
     }
+
 }

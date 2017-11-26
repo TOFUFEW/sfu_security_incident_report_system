@@ -4,12 +4,15 @@
     <div class="row">
         <div class="content-container col-12 col-sm-10 col-sm-offset-1 col-sm-offset-right-1
                     col-lg-6 col-lg-offset-3 col-lg-offset-right-3">
-            <form id="search-form">
+
+            <form (ngSubmit)="onSearch()" id="search-form">
                 <input type="text" class="form-control search-element" id="search-input"
                     [(ngModel)]="queryString" [ngModelOptions]="{standalone: true}"/>
-                <button id="search-btn" class="btn btn-primary search-element" (click)="onSearch()">
-                    <span class="glyphicon glyphicon-search"></span>
+                <button id="search-btn" class="btn btn-primary search-element">
+                    <span class="glyphicon glyphicon-search" type="submit"></span>
                 </button>
+                <br>
+                <input type="checkbox" [(ngModel)]="isCTSearch" [ngModelOptions]="{standalone: true}">Search specific terms
             </form>
 
             <div class="panel panel-default">

@@ -13,6 +13,8 @@ BEGIN
 		WHERE CATEGORY_ID = @category_id
 	)
 	BEGIN
+		DECLARE @report_id INT = IDENT_CURRENT('Incident') + 1;
+		@search_text = @search_text + @report_id;
 		INSERT INTO Incident (
 			ACCOUNT_ID,
 			CATEGORY_ID,

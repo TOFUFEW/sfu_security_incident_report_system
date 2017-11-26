@@ -5,7 +5,6 @@ CREATE PROCEDURE [dbo].[insertIncidentRefactor]
 	@description TEXT,
 	@executive_summary TEXT,
 	@temporary_report INT,
-	@result BIT = 1 OUTPUT
 AS
 BEGIN
 	IF EXISTS ( SELECT CATEGORY_ID
@@ -28,10 +27,5 @@ BEGIN
 			@temporary_report,
 			GETDATE()
 		);
-		SELECT @result = 1;
-	END
-	ELSE
-	BEGIN
-		SELECT @result = 0;
 	END
 END;

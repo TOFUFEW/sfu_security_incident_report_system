@@ -22,12 +22,21 @@ public class IncidentsController
             return JsonUtil.toJson ( incidents );
         } );
 
-        post ("/search-incident" , ( request , response ) ->
+        post ("/ftsearch-incident" , ( request , response ) ->
         {
-            System.out.println(request.body());
-            Incident[] incidents = DBHelper.searchIncidents ( request.body() );
+            String query = request.queryParams("query");
+            int userId = Integer.parseInt(request.queryParams("userId"));
+            Incident[] incidents = DBHelper.FTSearchIncidents(query, userId);
             return JsonUtil.toJson ( incidents );
-        } );
+        });
+
+        post ("/ctsearch-incident" , ( request , response ) ->
+        {
+            String query = request.queryParams("query");
+            int userId = Integer.parseInt(request.queryParams("userId"));
+            //Incident[] incidents = DBHelper.searchIncidents ( request.body() );
+            return JsonUtil.toJson ( null );
+        });
 
         post ("/incidents" , ( request, response ) ->
         {
