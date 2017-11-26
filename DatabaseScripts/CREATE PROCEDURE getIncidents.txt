@@ -1,4 +1,3 @@
---DROP PROCEDURE [dbo].[getIncidents]
 CREATE PROCEDURE [dbo].[getIncidents]
 	@user_id INT
 AS

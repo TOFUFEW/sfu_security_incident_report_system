@@ -28,7 +28,7 @@ public class IncidentsController
         {
             String query = request.queryParams("query");
             int userId = Integer.parseInt(request.queryParams("userId"));
-            Incident[] incidents = DBHelper.FTSearchIncidents(query, userId);
+            Incident[] incidents = DBHelper.FTSearchIncidents(userId, query);
             return JsonUtil.toJson ( incidents );
         });
 
