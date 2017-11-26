@@ -37,7 +37,8 @@ export class NavbarComponent implements OnInit {
             if ( u != null ) {
                 this.userAccType = u.attributes.ACCOUNT_TYPE;   
             }
-            this.isAdmin = this.userAccType == this.userService.ADMIN;         
+            this.isAdmin = this.userAccType == this.userService.ADMIN;  
+            console.log(" admin? " + this.isAdmin);       
         });
         if ( this.router.url.includes ( 'guard-app' ) ) {
             this.isGuardApp = true;

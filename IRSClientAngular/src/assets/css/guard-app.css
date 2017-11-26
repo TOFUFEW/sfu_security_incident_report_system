@@ -8,7 +8,6 @@
   position: relative; }
 
 .guard-container {
-  margin-top: 50px;
   padding-bottom: 4em;
   margin-bottom: 0px; }
 
@@ -90,7 +89,7 @@ select.category-field {
   flex-wrap: wrap;
   margin-bottom: 4.5em;
   position: relative;
-  height: 100%;
+  min-height: 100%;
   width: 100%; }
 
 .flex-item {
@@ -143,6 +142,9 @@ footer {
   top: 0.1em;
   z-index: 101; }
 
+@media (min-width: 769px) {
+  .guard-button-navbar {
+    margin-left: 20%; } }
 .btn-close-report {
   size: 2em;
   text-align: right;
@@ -213,7 +215,14 @@ h4.panel-title {
   padding-bottom: 0px; }
   #guard-nav-tabs a {
     color: #657786;
-    font-size: 14px; }
+    font-size: 14px;
+    text-align: center;
+    width: 50%; }
+  #guard-nav-tabs li {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; }
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
   background-color: white;
