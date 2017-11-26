@@ -242,7 +242,7 @@ public class DBHelper
                 return false;
             }
 
-            int output = stmt.getInt(5);
+            int output = stmt.getInt(7);
 
             insertRelations( null, incident.getIncidentElements() );
 
