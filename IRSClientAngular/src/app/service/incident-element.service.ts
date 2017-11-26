@@ -17,7 +17,7 @@ import { StaffService } from '../service/staff.service';
 
 @Injectable()
 export class IncidentElementService
-{    
+{
     constructor ( private incidentService: IncidentService ) {}
 
     static extractAttributes( incidentElement: IncidentElement ): Object {
@@ -45,14 +45,16 @@ export class IncidentElementService
 
     getElementKey ( table: string ) {
         var key = "";
-        if ( table === Config.CategoryTable ) 
+        if ( table === Config.CategoryTable )
             key = Config.IncidentCategoryKey;
         else if ( table === Config.LocationTable )
             key = Config.LocationKey;
         else if ( table === Config.StaffTable )
             key = Config.StaffKey;
-        else if ( table === Config.PersonTable ) 
+        else if ( table === Config.PersonTable )
             key = Config.PersonKey;
+        else if ( table === Config.AttachmentTable )
+            key = Config.AttachmentKey;
         else {
             console.log( "Table not found.");
             key = table;
@@ -64,38 +66,42 @@ export class IncidentElementService
         var key = this.getElementKey ( table );
         var elementIndex = -1;
         if ( table === Config.LocationTable ) {
-            elementIndex = incident.incidentElements[key].findIndex( i => 
+            elementIndex = incident.incidentElements[key].findIndex( i =>
                 i.attributes.LOCATION_ID == idToSearch)
-        }         
+        }
         else if ( table === Config.StaffTable ) {
-            elementIndex = incident.incidentElements[key].findIndex( i => 
+            elementIndex = incident.incidentElements[key].findIndex( i =>
                 i.attributes.ACCOUNT_ID == idToSearch)
         }
         else if ( table === Config.PersonTable ) {
-            elementIndex = incident.incidentElements[key].findIndex( i => 
-                i.attributes.PERSON_ID == idToSearch)    
+            elementIndex = incident.incidentElements[key].findIndex( i =>
+                i.attributes.PERSON_ID == idToSearch)
+        }
+        else if ( table === Config.AttachmentTable ) {
+            elementIndex = incident.incidentElements[key].findIndex( i =>
+                i.attributes.FILE_NAME == idToSearch)
         }
         return elementIndex;
     }
-    
+
     changeElement( incident: Incident, idToRemove: number, element: IncidentElement ): Promise<Incident> {
-        var table = element.table;        
+        var table = element.table;
         var key = this.getElementKey ( table );
         var index = -1;
         index = this.getElementIndexByID ( incident, idToRemove, table );
-    
+
         if ( incident.incidentElements[key] != null && index != -1 ) {
             incident.incidentElements[key].splice( index, 1, element );
             var promise = this.incidentService.update ( incident )
                 .then ( incident => {
                     return incident;
-                });            
+                });
         }
         return Promise.resolve(promise);
     }
 
     addElement ( incident: Incident, element: IncidentElement ): Promise<Incident> {
-        var key = this.getElementKey( element.table );        
+        var key = this.getElementKey( element.table );
         incident.incidentElements[key].push ( element );
         var promise = this.incidentService.update ( incident )
             .then ( incident => {
@@ -106,7 +112,7 @@ export class IncidentElementService
 
     // Dont call incidentService.update()
     addElementNoUpdate ( incident: Incident, element: IncidentElement ) {
-        var key = this.getElementKey( element.table );        
+        var key = this.getElementKey( element.table );
         incident.incidentElements[key].push ( element );
     }
 
@@ -117,18 +123,18 @@ export class IncidentElementService
         if ( index >= 0 )
             incident.incidentElements[key].splice ( index, 1 );
     }
-    
+
     removeElement ( incident: Incident, idToRemove: number, table: string ) : Promise<Incident> {
-        var key = this.getElementKey( table );                
+        var key = this.getElementKey( table );
         var index = -1;
         index = this.getElementIndexByID ( incident, idToRemove, table );
-    
+
         if ( incident.incidentElements[key] != null && index != -1 ) {
             incident.incidentElements[key].splice( index, 1 );
             var promise = this.incidentService.update ( incident )
                 .then ( incident => {
                     return incident;
-                });            
+                });
         }
         return Promise.resolve(promise);
     }

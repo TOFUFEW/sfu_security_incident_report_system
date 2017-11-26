@@ -16,7 +16,7 @@ export class Config {
     static GetAccountTypesURI: string = "https://localhost:4567/get-account-types";
     static GetCampusURI: string = "https://localhost:4567/campus";
     static ValidateUsernameURI: string = "https://localhost:4567/validate-username";
-    static PersonExistsURI: string = "https://localhost:4567/person-exists";    
+    static PersonExistsURI: string = "https://localhost:4567/person-exists";
 
     static StaffTable: string = "STAFF";
     static LocationTable: string = "LOCATION";
@@ -25,10 +25,12 @@ export class Config {
     static PersonTable: string = "PERSON";
     static CategoryTable: string = "INCIDENT_CATEGORY";
     static CampusTable: string = "CAMPUS";
+    static AttachmentTable: string = "ATTACHMENT";
 
     static IncidentCategoryKey: string = "IncidentCategory" ;
     static LocationKey: string = "Location";
     static PersonKey: string = "Person";
     static StaffKey: string = "Staff";
     static CampusKey: string = "Campus";
+    static AttachmentKey: string = "Attachment";
 }
