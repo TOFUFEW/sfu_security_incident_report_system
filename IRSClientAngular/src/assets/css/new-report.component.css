@@ -1,4 +1,7 @@
 div#new-report-panel {
   margin-top: 16px; }
 
+#first-element .x-container {
+  display: none; }
+
 /*# sourceMappingURL=new-report.component.css.map */

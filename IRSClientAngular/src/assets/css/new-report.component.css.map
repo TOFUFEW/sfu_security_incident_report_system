@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "AAEA,oBAAqB;EACjB,UAAU,ECQD,IAAI",
-"sources": ["../sass/new-report.component.scss","../sass/_settings.scss"],
+"mappings": "AAAA,oBAAqB;EACjB,UAAU,EAAE,IAAI;;AAKhB,2BAAa;EACT,OAAO,EAAC,IAAI",
+"sources": ["../sass/new-report.component.scss"],
 "names": [],
 "file": "new-report.component.css"
 }
