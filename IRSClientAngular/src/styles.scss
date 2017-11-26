@@ -1,7 +1,7 @@
 /* Contains general css rules for the entire app */
 @import "assets/sass/_settings";
 
-span, a, button {
+span, a, button, textarea {
     font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
 }
 
@@ -9,7 +9,7 @@ body {
     min-height: 100vh;
     min-width: 100vw;
     margin: 0;
-    font-size: 12px !important;
+    font-size: $text-xs !important;
     background: $grey-default;
 }
 
@@ -39,7 +39,7 @@ body {
     }
 
     .navbar-nav > li > a {
-        font-size: 13px;
+        font-size: $text-xs;
         &:hover {
             background-color: $sfu-red !important;
         }
@@ -142,7 +142,7 @@ body {
     width: auto;
     //color: $field-title-color;
     font-weight: $field-title-font-weight;
-    font-size: 12px;
+    font-size: $text-xs;
     margin-bottom: $field-title-margin-bottom;
 }
 
@@ -150,18 +150,18 @@ body {
     @extend .primary-text;
     display: inline-block;
     width: auto;
-    font-size: 14px;
+    font-size: $text-xs;
     margin-bottom: $field-title-margin-bottom;
 }
 
 .card-text-primary {
     @extend .primary-text;
-    font-size: 14px;
+    font-size: $text-sm;
 }
 
 .card-text-secondary {
     @extend .secondary-text;
-    font-size: 12px;
+    font-size: $text-xs;
 }
 
 .card-text-tertiary {
@@ -289,7 +289,8 @@ body {
 
     .detail {
         min-width: 250px;
-        padding: 10px 10px;
+        margin-bottom: 8px;
+        //padding: 10px 10px;
     }
 
     .detail-lg {
@@ -316,9 +317,9 @@ body {
     height: 3em;
     border-radius: 99px;
     bottom: 1em;
-    margin-right: 1.5em;
+    margin-right: 1em;
     text-align: center;
-    padding: 1px 0;
+    padding: 1px;
     line-height: 1.42;
   }
 
@@ -359,6 +360,10 @@ span.glyphicon-fire {
 .nav-tabs > li.active > a {
     //border: none !important;
     font-weight: 700;
+}
+
+.nav-tabs > li > a:hover {
+    background-color: $grey-default;
 }
 
 .form-group {
@@ -503,8 +508,59 @@ div#new-report-panel, div#new-account-panel {
 
 #logout-link { display: none !important ;}
 .navbar-sm { display: none ;}
+
 @media (max-width: 768px) {
+    body {
+        font-size: 130% !important;
+    }
+
+    span.field-title {
+        font-size: 110%;
+        margin-top: 0.5em;
+    }
+
+    .card-text-primary, .card-text-secondary, .card-text-tertiary, select.form-control {
+        font-size: 110% !important;
+    }
+
+    nav#main-navbar.navbar {
+        font-size: 100%;
+        position: fixed;
+        width: 100%;
+        z-index: 100;
+    }
+
+    .guard-container {
+        margin-top: 50px;
+    }
+
+    .navbar-brand {
+        float: right;
+        z-index: 101;
+    }
+    
     #logout-link { display: flex !important; }
     .navbar-sm { display: block; }
     .navbar-lg { display: none; }
+}
+
+.bottom-links {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    
+    span {
+        margin: 8px;
+    }
+}
+
+.flex-column {
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+
+.italic {
+    font-style: italic;
 }

@@ -103,25 +103,36 @@ export class NewReportService {
         return isValid;
     }
 
-    private validateIncidentElements( incidentElements: Map<String, IncidentElement[]> ): boolean {
+    validateIncidentElements( incidentElements: Map<String, IncidentElement[]> ): boolean {
         var isValid = true;
+        var keys = Object.keys(incidentElements);
 
-        // Iteriate through hash map and check if its valid input
-        incidentElements.forEach((value: IncidentElement[], key: String) => {
-            var elementArray = value;
-            elementArray.forEach(element => {
-                if (element.table.toLowerCase() === Config.LocationTable.toLowerCase()) {
-                    isValid = this.validateLocation( element as Location ) && isValid ;
-                } else if (element.table.toLowerCase() === Config.PersonTable.toLowerCase()) {
-                    isValid = this.validatePerson( element as Person ) && isValid ;
-                }
+        keys.forEach( key => {
+            incidentElements[key].forEach( element => {
+                isValid = this.validateIncidentElement( element ) && isValid;
             });
         });
-        
+
         return isValid;
     }
 
-    private validateLocation( location: Location ): boolean {
+    validateIncidentElement( element: IncidentElement ): boolean {
+        var isValid = true;
+        var table = element.table;
+        if ( table.toLowerCase() === Config.LocationTable.toLowerCase() )
+            isValid = this.validateLocation( element as Location ) && isValid ;
+        else if ( table.toLowerCase() === Config.PersonTable.toLowerCase() ) 
+            isValid = this.validatePerson( element as Person ) && isValid ;
+        else if (table.toLowerCase() === Config.CategoryTable.toLowerCase()) {
+            
+        }
+        else {
+            console.log("*** WARNING: Incident Element unrecognized.");
+        }
+        return isValid;
+    }
+
+    validateLocation( location: Location ): boolean {
         var attr = location.attributes;
         if ( attr.LOCATION_ID == null ) {
             this.debug_printErrorMsg( "LOCATION_ID" );
@@ -131,8 +142,10 @@ export class NewReportService {
         return true;
     }
 
-    private validatePerson( person: Person ): boolean {
+    validatePerson( person: Person ): boolean {
         var isValid = true ; 
+        if ( person == null || person.attributes == null ) 
+            return false;
         if ( person.attributes.FIRST_NAME == null || person.attributes.FIRST_NAME.length == 0 ) {
             this.debug_printErrorMsg( "FIRST_NAME");
             isValid = false;

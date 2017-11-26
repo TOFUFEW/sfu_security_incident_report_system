@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { IncidentService } from '../../service/incident.service';
 import { DomService } from '../../util/dom.service';
 import { NewReportService } from '../../service/new-report.service';
@@ -15,9 +15,12 @@ import { VehicleComponent } from '../vehicle/vehicle.component';
 import { PersonComponent } from '../person/person.component';
 import { AttachmentComponent } from '../attachment/attachment.component';
 import { Config } from '../../util/config.service';
+import {UserService} from "../../service/user.service";
+import {Router} from "@angular/router";
 
 @Component(
   {
+    selector: 'new-report-component',
     templateUrl: './new-report.component.html',
     styleUrls: ['../../../assets/css/new-report.component.css'],
   }
@@ -27,31 +30,33 @@ export class NewReportComponent implements OnInit {
     locationStr: string = LocationComponent.name;
     personStr: string = PersonComponent.name;
     newIncident: Incident = new Incident();
-    
+
     categories: CategoryDictionary[] = [];
     subCategories: SubCategory[] = [];
-    categoryTypes: CategoryType[] = [];    
+    categoryTypes: CategoryType[] = [];
 
     personsList: Person[];
     locationList: Location[];
     staffList: Staff[];
     selectedStaff: Staff;
     selectedStaffId: number = -1;
-    reportReady: boolean = false; 
+    reportReady: boolean = false;
 
-    constructor( 
+    constructor(
       private incidentService: IncidentService,
       private domService: DomService,
       private newReportService: NewReportService,
       private categoryService: CategoryService,
-      private staffService: StaffService
+      private staffService: StaffService,
+      private userService: UserService,
+      private router: Router
     ) {
         this.staffService.getStaffs().then( returnedStaffs => {
-            this.staffList = returnedStaffs.sort( 
+            this.staffList = returnedStaffs.sort(
                 function( a, b ) {
                     return a.attributes.FIRST_NAME < b.attributes.FIRST_NAME ? -1 : 1;
                 } );
-          } ); 
+          } );
     }
 
     /*
@@ -91,9 +96,17 @@ export class NewReportComponent implements OnInit {
                 //this.newIncident.incidentElements[Config.PersonKey] = persons;
             } );
 
-        this.categoryService.getCategories().then ( returnedCategories => {
-            this.categories = this.categoryService.toCategoryDictionary( returnedCategories );
-        });
+        this.categoryService.categoryDictionary
+            .subscribe( categories => {
+                this.categories = categories;
+            });
+
+        if( this.userService.isGuard() ) {
+            var assignDiv = document.getElementById("assignGuardDiv");
+            var assignPreviewDiv = document.getElementById( "assignGuardPreviewDiv");
+            assignDiv.style.visibility = "hidden";
+            assignPreviewDiv.style.visibility = "hidden";
+        }
     }
 
     //filter subcategory and type lists according to selection of previous dropdown
@@ -125,7 +138,7 @@ export class NewReportComponent implements OnInit {
             if ( index >= 0 ) {
                 var type = this.categoryTypes[index];
                 this.newIncident.category.attributes.CATEGORY_ID = type.CATEGORY_ID;
-                this.newIncident.category.attributes.INCIDENT_TYPE = type.INCIDENT_TYPE; // for report summary                
+                this.newIncident.category.attributes.INCIDENT_TYPE = type.INCIDENT_TYPE; // for report summary
                 this.newIncident.attributes.CATEGORY_ID = this.newIncident.category.attributes.CATEGORY_ID;
                 this.newIncident.insertIncidentElement( this.newIncident.category );
             }
@@ -135,9 +148,8 @@ export class NewReportComponent implements OnInit {
     onSelectStaff(): void {
         var index = this.staffList.findIndex( x => x.attributes.ACCOUNT_ID == this.selectedStaffId );
         if ( index >= 0 ) {
-            this.selectedStaff = this.staffList[index];
-            console.log(this.selectedStaff.toConsole());
-            this.newIncident.insertIncidentElement( this.selectedStaff );        
+            this.selectedStaff = this.staffList[ index ];
+            this.newIncident.insertIncidentElement( this.selectedStaff );
         }
         else {
             this.selectedStaff = null;
@@ -146,20 +158,31 @@ export class NewReportComponent implements OnInit {
             }
         }
     }
-    
+
+    cancelReview() {
+
+    }
+
     prepareReport(): void {
-        console.log(this.newIncident);
         this.reportReady = this.isReportValid();
     }
 
     createReport(): void {
         if( this.reportReady ){
-            this.newIncident.attributes.ACCOUNT_ID = this.staffList[0].attributes.ACCOUNT_ID; // TEMP
+            var currentID = this.userService.getAccountID();
+            this.newIncident.attributes.ACCOUNT_ID = currentID;
+
+            if ( this.userService.isGuard() )
+                this.convertToTempReport();
+
             this.incidentService.create( this.newIncident )
                 .then( returnedIncident => {
                     if ( returnedIncident != null  ) {
                         alert("Report successfully created!");
                         setTimeout(function(){location.reload()}, 300);
+                        if( this.userService.isGuard() ) {
+                            this.router.navigate( [ 'guard-app/dashboard' ] );
+                        }
                     }
                     else alert( "Add failed." );
                 } );
@@ -170,17 +193,14 @@ export class NewReportComponent implements OnInit {
         }
     }
 
-    // formatPhoneNumber( number: string ) {
-    //     var str = "(";
-    //     for (var i = 0 ; i < number.length ; i += 1) {
-    //         str += number.charAt( i ) + "" ;
-    //         if ( i == 2 )
-    //             str += ")" + "" ;
-    //         if ( i < 6 && (i+1) % 3 == 0 )
-    //             str += " - " + "";
-    //     }
-    //     return str;
-    // }
+    private convertToTempReport() {
+        this.newIncident.attributes.TEMPORARY_REPORT = 0;
+        if ( this.selectedStaffId < 0 ) {
+            var self = new Staff();
+            self.attributes.ACCOUNT_ID = this.userService.getAccountID();
+            this.newIncident.insertIncidentElement( self );                    
+        }
+    }
 
     addComponent( componentName: string ) {
         //if ( this.dynamicTest == 'Vehicle' )

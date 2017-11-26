@@ -24,12 +24,23 @@ export class IncidentComponent implements OnInit {
     incidents: Incident[];
     incidentToAssign: Incident = new Incident();
     lastRemovedId: number = 0;
+    statuses: String[] = ['Created', 'En Route', 'Working', 'Closed', 'Sealed'];
 
 
     constructor( private incidentService: IncidentService, private staffService: StaffService ){
         this.staffService.getStaffs().then( returnedArr => {
             this.staffArr = returnedArr;
         });
+        this.incidentService.lastRemovedId
+            .subscribe( value => this.removeFromWorkspace( value ) );
+        this.incidentService.editedReport
+            .subscribe( value => {
+                if ( value != null && this.incidents!= null && this.incidents.length > 0 ) {
+                    var index = this.incidents.findIndex( i => i.attributes.REPORT_ID == value.attributes.REPORT_ID );
+                    if ( index >= 0 )
+                        this.incidents.splice(index, 1, value);
+                }
+            });
     };
 
     getIncidents(): void {
@@ -54,6 +65,7 @@ export class IncidentComponent implements OnInit {
     }
 
     addToWorkspace( incident: Incident ): void {
+        incident.inWorkspace = true ;
         this.incidentService.addToWorkspace( incident );
     }
 
@@ -62,7 +74,6 @@ export class IncidentComponent implements OnInit {
     }
 
     setIncidentToAssign( id: number ) {
-        console.log(id);
         if ( id == null ) return;
         var index = this.incidents.findIndex( x => x.attributes.REPORT_ID == id );
         if ( index >= 0 ) {
@@ -87,31 +98,8 @@ export class IncidentComponent implements OnInit {
     }
 
     assignToGuard (): void {
-        var index = this.staffArr.findIndex( x => x.attributes.ACCOUNT_ID == this.selectedStaffId );
-        var existingStaffIndex = this.incidentToAssign.incidentElements[Config.StaffKey]
-            .findIndex( e => e.table === Config.StaffTable );
-
-        var staff = null;
-        if ( index >= 0 ) {
-            staff = this.staffArr[ index ];
-        }
-
-        if ( existingStaffIndex >= 0 ) {
-            if ( staff == null ) { // de-assign
-                this.incidentToAssign.incidentElements[Config.StaffKey].splice( existingStaffIndex, 1 );
-            }
-            else { // replace
-                this.incidentToAssign.incidentElements[Config.StaffKey].splice( existingStaffIndex, 1, staff);
-            }
-        }
-        else {
-            if ( staff != null ) { // assign
-                this.incidentToAssign.incidentElements[Config.StaffKey].push( staff );
-            }
-        }
-
-        this.incidentToAssign.guard = staff;
-
+        this.incidentToAssign = this.incidentService.updateAssignedStaff( this.incidentToAssign, this.selectedStaffId );
+        console.log(this.incidentToAssign);
         this.incidentService.update( this.incidentToAssign ).then( returnValue => {
             if ( returnValue != null ) {
                 var incidentIndex = this.incidents.findIndex( i => i.attributes.REPORT_ID === returnValue.attributes.REPORT_ID );
@@ -129,6 +117,8 @@ export class IncidentComponent implements OnInit {
 
     ngOnInit() : void {
         this.getIncidents();
-        this.getStaffList();
+        this.incidentService.staffArr.subscribe(
+            arr => { this.staffArr = arr; }
+        );
     }
 }

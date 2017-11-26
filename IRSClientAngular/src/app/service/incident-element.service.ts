@@ -78,7 +78,7 @@ export class IncidentElementService
         return elementIndex;
     }
     
-    changeElement( incident: Incident, idToRemove: number, element: IncidentElement ) {
+    changeElement( incident: Incident, idToRemove: number, element: IncidentElement ): Promise<Incident> {
         var table = element.table;        
         var key = this.getElementKey ( table );
         var index = -1;
@@ -86,14 +86,50 @@ export class IncidentElementService
     
         if ( incident.incidentElements[key] != null && index != -1 ) {
             incident.incidentElements[key].splice( index, 1, element );
-            this.incidentService.update ( incident );            
+            var promise = this.incidentService.update ( incident )
+                .then ( incident => {
+                    return incident;
+                });            
         }
+        return Promise.resolve(promise);
     }
 
-    addElement ( incident: Incident, element: IncidentElement ) {
+    addElement ( incident: Incident, element: IncidentElement ): Promise<Incident> {
         var key = this.getElementKey( element.table );        
         incident.incidentElements[key].push ( element );
-        this.incidentService.update ( incident );
+        var promise = this.incidentService.update ( incident )
+            .then ( incident => {
+                return incident;
+            });
+        return Promise.resolve(promise);
+    }
+
+    // Dont call incidentService.update()
+    addElementNoUpdate ( incident: Incident, element: IncidentElement ) {
+        var key = this.getElementKey( element.table );        
+        incident.incidentElements[key].push ( element );
+    }
+
+    // Dont call incidentService.update()
+    removeElementNoUpdate ( incident: Incident, table: string, id: number ) {
+        var key = this.getElementKey( table );
+        var index = this.getElementIndexByID( incident, id, table );
+        if ( index >= 0 )
+            incident.incidentElements[key].splice ( index, 1 );
     }
     
+    removeElement ( incident: Incident, idToRemove: number, table: string ) : Promise<Incident> {
+        var key = this.getElementKey( table );                
+        var index = -1;
+        index = this.getElementIndexByID ( incident, idToRemove, table );
+    
+        if ( incident.incidentElements[key] != null && index != -1 ) {
+            incident.incidentElements[key].splice( index, 1 );
+            var promise = this.incidentService.update ( incident )
+                .then ( incident => {
+                    return incident;
+                });            
+        }
+        return Promise.resolve(promise);
+    }
 }
