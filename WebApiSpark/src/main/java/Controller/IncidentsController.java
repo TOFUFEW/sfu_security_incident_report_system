@@ -55,6 +55,7 @@ public class IncidentsController
 
         post ("/update-incident" , ( request, response ) ->
         {
+            System.out.println(request.body());
             Incident updatedIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
             return DBHelper.updateIncident ( updatedIncident );
         } );

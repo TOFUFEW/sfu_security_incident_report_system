@@ -1,11 +1,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<button class="btn btn-circle guard-button-navbar card-text-primary" (click)="viewAllReports()">
+<!-- <button class="btn btn-circle guard-button-navbar card-text-primary" (click)="viewAllReports()">
     <span class="glyphicon glyphicon-chevron-left ml-1 mr-sm"></span> 
     All Reports
-</button>
+</button> -->
 
 <div name="alertMessage" *ngIf="showAlert" [class]="alertClass">{{alertMessage}}
-</div>   
+</div>
 
 <div class="container-fluid main-content guard-body">
     <div class="row">
@@ -14,110 +14,131 @@
                 <div class="col-12
                             col-sm-offset-3
                             col-sm-offset-right-3
-                            col-md-offset-3 
-                            col-md-offset-right-3 
-                            col-lg-offset-3 
+                            col-md-offset-3
+                            col-md-offset-right-3
+                            col-lg-offset-3
                             col-lg-offset-right-3">
                     <div class="panel panel-default guard-container">
                         <div class="panel-heading pb-0 pt-1" *ngIf="incident">
+                          <div *ngIf="incident.attributes.TEMPORARY_REPORT == 1">
+                            <h5> TEMP Report # {{incident.attributes.REPORT_ID}}
+                            </h5>
+                          </div>
+                          <div *ngIf="incident.attributes.TEMPORARY_REPORT == 0">
                             <h5>Report # {{incident.attributes.REPORT_ID}}
                             </h5>
-    
+
                             <!-- <h5>
                                 <span class="mr-5" style="display:block" (dblclick)="modalCategory.show()">
                                     Category {{incident.category.MAIN_CATEGORY}}  -->
-                                    <!-- <button class="btn btn-default btn-xs pull-right" (dblclick)="modalCategory.show()"><span class="p-2 glyphicon glyphicon-edit"></span></button> -->
-                                    <!-- <br> 
-                                    <span class="ml-3">{{incident.category.SUB_CATEGORY}}</span><br>
-                                    <span class="ml-3">{{incident.category.INCIDENT_TYPE}}</span>  
-                                </span> -->
                             <!-- </h5> -->
+                          </div>
                         </div>
-                        <category-component #modalCategory 
+                        <category-component #modalCategory
                             currentMainCategory="{{incident.category.attributes.MAIN_CATEGORY}}"
                             currentSubCategory="{{incident.category.attributes.SUB_CATEGORY}}"
                             currentType="{{incident.category.attributes.INCIDENT_TYPE}}"
                             (categorySaved)="changeCategory($event)">
-                        </category-component>             
+                        </category-component>
                         <div class="panel-group" id="accordion">
+                            <div class="panel panel-default ml-1 mr-1">
+                                <div class="panel-heading collapsable-heading">
+                                    <h4 class="panel-title">
+                                        <a  class="accordion-toggle"
+                                            data-toggle="collapse"
+                                            href="#collapseStatus">
+                                          Status
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseStatus" class="panel-collapse collapse in">
+                                    <div class="panel-body lh-1" *ngIf="incident">
+                                        <status-component #modalStatus (statusSaved)="changeStatus($event)"></status-component>
+                                        <span [id]="statuses[incident.attributes.STATUS]"
+                                           (click)="modalStatus.show()">
+                                            {{statuses[incident.attributes.STATUS]}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="panel panel-default ml-1 mr-1">
                                     <div class="panel-heading collapsable-heading">
                                         <h4 class="panel-title">
-                                            <a  class="accordion-toggle" 
-                                                data-toggle="collapse" 
+                                            <a  class="accordion-toggle"
+                                                data-toggle="collapse"
                                                 href="#collapseCategory">
                                                 Category
                                             </a>
                                         </h4>
                                     </div>
                                     <div id="collapseCategory" class="panel-collapse collapse in">
-                                        <div class="panel-body lh-1" *ngIf="incident">                                                    
-                                            <span [id]="incident.category.CATEGORY_ID" 
+                                        <div class="panel-body lh-1" *ngIf="incident">
+                                            <span [id]="incident.category.CATEGORY_ID"
                                                 (click)="modalCategory.show()">
-                                                {{incident.category.attributes.MAIN_CATEGORY}},  
+                                                {{incident.category.attributes.MAIN_CATEGORY}},
                                                 <!-- keep the span below in line to prevent insertion of space before comma -->
                                                 {{incident.category.attributes.SUB_CATEGORY}}<span *ngIf="incident.category.attributes.INCIDENT_TYPE">,
                                                     {{incident.category.attributes.INCIDENT_TYPE}}
                                                 </span>
-                                            </span>                                                
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
                             <div class="panel panel-default ml-1 mr-1">
                                 <div class="panel-heading collapsable-heading">
                                     <h4 class="panel-title">
-                                        <a  class="accordion-toggle" 
-                                            data-toggle="collapse" 
+                                        <a  class="accordion-toggle"
+                                            data-toggle="collapse"
                                             href="#collapseLocation">
                                             Location
                                         </a>
                                     </h4>
-                                </div>       
+                                </div>
                                 <div id="collapseLocation" class="panel-collapse collapse in">
-                                    <div class="panel-body lh-1" *ngIf="incident">
+                                    <div class="panel-body details-body lh-1" *ngIf="incident">
                                         <span *ngFor="let location of incident.incidentElements['Location']" 
                                             [id]="location.attributes.LOCATION_ID"
                                             (click)="this.modalLocation.show($event)">
-                                            {{location.attributes.CAMPUS_ID}},                                            
-                                            {{location.attributes.BUILDING_NAME}},    
+                                            {{location.attributes.CITY}},                                            
+                                            {{location.attributes.BUILDING_NAME}}<span *ngIf='location.attributes.ROOM_NUMBER != ""'>,</span>
                                             {{location.attributes.ROOM_NUMBER}}    
                                             <!-- {{location.attributes.DEPARTMENT}}  -->
                                             <br>
                                         </span>
                                         <button class="btn btn-default btn-sm pull-right" (click)="modalLocation.show($event)">
-                                            <span [id]="-1" class="glyphicon glyphicon-plus"></span> 
+                                            <span [id]="-1" class="glyphicon glyphicon-plus"></span>
                                             Add Location
                                         </button>
                                     </div>
                                 </div>
-                                <location-modal-component #modalLocation 
+                                <location-modal-component #modalLocation
                                     (locationSaved)="changeLocation($event)"
                                     (triggerLocationRemove) = "removeLocation()">
-                                </location-modal-component>                                                                        
+                                </location-modal-component>
                             </div>
-                            
+
                             <div class="panel panel-default ml-1 mr-1">
                                 <div class="panel-heading collapsable-heading">
                                     <h4 class="panel-title">
-                                        <a  class="accordion-toggle" 
-                                            data-toggle="collapse" 
+                                        <a  class="accordion-toggle"
+                                            data-toggle="collapse"
                                             href="#collapseExecSummary">
-                                            Executive Summary                                                            
+                                            Executive Summary
                                         </a>
                                     </h4>
                                 </div>
                                 <div id="collapseExecSummary" class="panel-collapse collapse in">
-                                    <div class="panel-body">       
+                                    <div class="panel-body">
                                         <span *ngIf="!isEditingSummary" (click)="toggleEditMode('summary')">{{incident.attributes.EXECUTIVE_SUMMARY}}</span>
                                         <div *ngIf="isEditingSummary">
                                             <textarea [(ngModel)]="newSummary" class="form-control" rows="5"></textarea>
-                                            <button (click)="revertChanges('summary')" 
+                                            <button (click)="revertChanges('summary')"
                                                     class="btn btn-sm btn-secondary pull-right mt-2 mr-1 mb-1 ml-2">
                                                 <span class="glyphicon glyphicon-remove"></span> Cancel
                                             </button>
-                                            <button (click)="saveReport('summary')" 
+                                            <button (click)="saveReport('summary')"
                                                     class="btn btn-sm btn-primary pull-right mt-2 mb-1">
-                                                <span class="glyphicon glyphicon-ok"></span> Save
+                                                <span class="glyphicon glyphicon-floppy-disk"></span> Save
                                             </button>
                                         </div>
                                     </div>
@@ -127,8 +148,8 @@
                                 <div class="panel-heading collapsable-heading">
                                     <!-- <span class="glyphicon card-text-secondary mr-1" [ngClass]="{'glyphicon-chevron-up': openedPanel , 'glyphicon-chevron-down': !openedPanel }" aria-hidden="true" style="float: right;"></span>                             -->
                                     <h4 class="panel-title">
-                                        <a  class="accordion-toggle collapsed" 
-                                            data-toggle="collapse" 
+                                        <a  class="accordion-toggle collapsed"
+                                            data-toggle="collapse"
                                             href="#collapseDescription">
                                             Description
                                         </a>
@@ -145,7 +166,7 @@
                                             </button>
                                             <button (click)="saveReport('description')"
                                             class="btn btn-sm btn-primary pull-right mt-2 mb-1">
-                                            <span class="glyphicon glyphicon-ok"></span> Save
+                                            <span class="glyphicon glyphicon-floppy-disk"></span> Save
                                         </button>
                                         </div>
                                     </div>
@@ -175,13 +196,13 @@
     <div class="row">
         <footer class="panel">
             <!-- <button class="btn btn-circle guard-menu-button-right card-text-primary btn-primary" (click)="viewAllReports()">
-                <span class="glyphicon glyphicon-chevron-left"></span> 
+                <span class="glyphicon glyphicon-chevron-left"></span>
             </button> -->
             <!-- <button class="btn btn-circle guard-menu-button-right card-text-primary btn-primary" (click)="saveReport()">
-                <span class="glyphicon glyphicon-floppy-save"></span> 
+                <span class="glyphicon glyphicon-floppy-save"></span>
             </button> -->
             <!-- <button class="button guard-menu-button card-text-primary ml-1">
-                <span class="glyphicon glyphicon-plus"></span> 
+                <span class="glyphicon glyphicon-plus"></span>
                 New
             </button>
             <a routerLink="../../reports-all">

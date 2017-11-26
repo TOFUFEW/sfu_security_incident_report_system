@@ -1,4 +1,3 @@
-
 <div id="incidents-list-panel" class="panel panel-default">
     <div class="panel-heading">
         <div class="toolbar">
@@ -15,6 +14,9 @@
                   <div *ngIf="incident.attributes.TEMPORARY_REPORT == 1">TEMP</div>
                     <div class="detail-row">
                         <span class="card-text-secondary">Report #{{incident.attributes.REPORT_ID}}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="card-text-secondary">Status: {{statuses[incident.attributes.STATUS]}}</span>
                     </div>
                     <div class="detail-row description">
                         <span class="card-text-primary">

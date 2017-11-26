@@ -7,7 +7,7 @@ import { routes } from './app.router';
 
 /* Components */
 import { AppComponent } from './app.component';
-
+import { NavbarComponent } from './component/navbar/navbar.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { LocationComponent } from './component/location/location.component';
 import { StaffComponent } from './component/staff/staff.component';
@@ -15,15 +15,16 @@ import { IncidentComponent } from './component/report/incident.component';
 import { LoginComponent } from './component/login/login.component';
 import { NewReportComponent } from './component/report/new-report.component';
 import { GuardIncidentComponent } from './component/guard-app/guard-incident.component';
-import { GuardDashboardComponent } from './component/guard-app/guard-dashboard';
+import { GuardDashboardComponent } from './component/guard-app/guard-dashboard.component';
 import { VehicleComponent } from './component/vehicle/vehicle.component';
 import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
 import { AttachmentComponent } from './component/attachment/attachment.component';
 import { LocationModalComponent } from './component/location/location-modal.component';
-import { CategoryComponent } from './component/category/category.component'
+import { CategoryComponent } from './component/category/category.component';
 import { ReportSummaryComponent } from './component/report/report-summary.component';
 import { InlineEditComponent } from './component/report/inline-edit.component';
+import { StatusComponent } from './component/status/status.component';
 import { NewAccountComponent } from './component/login/new-account-component';
 
 /* Services */
@@ -51,7 +52,8 @@ import { FilterPipe } from './util/filter.pipe';
   declarations: [
     AppComponent,
     AttachmentComponent,
-
+    NavbarComponent,
+    StatusComponent,
     DashboardComponent,
     LocationComponent,
     LocationModalComponent,

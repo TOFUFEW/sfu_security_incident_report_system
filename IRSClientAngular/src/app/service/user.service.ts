@@ -10,15 +10,20 @@ export class UserService {
     private bs_currentUser = new BehaviorSubject<User>(null);
     user = this.bs_currentUser.asObservable();
 
+    private bs_isLoggedIn = new BehaviorSubject<boolean>(false);
+    loggedIn = this.bs_isLoggedIn.asObservable();
+
     GUARD: number = 1;
     ADMIN: number = 2;
     SUPERVISOR: number = 3;
 
     authUser(user: User) {
         if (user == null) {
+            this.bs_isLoggedIn.next(false);            
             return;
         }
         sessionStorage.setItem(this.currentUser, JSON.stringify(user));
+        this.bs_isLoggedIn.next(true);
     }
 
     isLoggedIn(): boolean {

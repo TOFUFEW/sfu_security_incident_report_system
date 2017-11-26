@@ -12,15 +12,15 @@ import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class CategoryService 
-{    
+export class CategoryService
+{
     private headers = new Headers({ 'Content-Type': 'application/json' });
     categoriesUrl = Config.CategoriesURI;
 
     private bs_categories = new BehaviorSubject<CategoryDictionary[]>([]);
     categoryDictionary = this.bs_categories.asObservable();
 
-    constructor ( 
+    constructor (
         private http: Http ){
             this.getCategories().then( response => {
                 var cat = this.toCategoryDictionary( response );
@@ -106,7 +106,7 @@ export class CategoryService
                 }
 
                 if ( types.indexOf( cat.attributes.INCIDENT_TYPE ) < 0 ) {
-                    types.push ( cat.attributes.INCIDENT_TYPE ); 
+                    types.push ( cat.attributes.INCIDENT_TYPE );
                     var type = new CategoryType();
                     type.CATEGORY_ID = cat.attributes.CATEGORY_ID;
                     type.INCIDENT_TYPE = cat.attributes.INCIDENT_TYPE;
@@ -117,8 +117,7 @@ export class CategoryService
 
         return grouping;
     }
-
-    private handleError( error: any ) : Promise<any> 
+    private handleError( error: any ) : Promise<any>
     {
         alert( "An error occurred." );
         console.error( 'An error occurred' , error ); // for demo purposes only

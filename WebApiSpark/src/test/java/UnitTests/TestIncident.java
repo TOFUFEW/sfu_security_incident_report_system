@@ -616,7 +616,6 @@ public class TestIncident
         newIncident.updateAttributeValue ( Column.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
 
         newIncident.addIncidentElement( DatabaseValues.IncidentElementKey.STAFF.toString(), assignStaff );
-
         int currentSize = getNumberOfIncidents();
 
         Assert.assertTrue( DBHelper.insertIncident( newIncident ));

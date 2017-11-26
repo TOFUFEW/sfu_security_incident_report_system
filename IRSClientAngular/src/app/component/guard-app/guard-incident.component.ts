@@ -15,6 +15,7 @@ import { CategoryService } from '../../service/category.service';
 import { Config } from '../../util/config.service';
 import { InlineEditComponent } from '../../component/report/inline-edit.component'
 import { Output } from '@angular/core/src/metadata/directives';
+import {StatusComponent} from "../status/status.component";
 
 @Component({
   selector: 'guard-incident-component',
@@ -22,21 +23,22 @@ import { Output } from '@angular/core/src/metadata/directives';
   styleUrls: ['../../../assets/css/guard-app.css'],
 })
 
-export class GuardIncidentComponent implements OnInit {     
-    @ViewChild ( LocationModalComponent ) locationModal: LocationModalComponent     
-    @ViewChild ( CategoryComponent ) categoryModal: CategoryComponent  
+export class GuardIncidentComponent implements OnInit {
+    @ViewChild ( LocationModalComponent ) locationModal: LocationModalComponent
+    @ViewChild ( CategoryComponent ) categoryModal: CategoryComponent
     @ViewChild ( InlineEditComponent ) inlineEdit: InlineEditComponent
-    title = 'SFU Incident Reporting System';     
+    @ViewChild(StatusComponent) statusModal: StatusComponent
+    title = 'SFU Incident Reporting System';
     incident: Incident = new Incident();
     locationModalStr = "location-modal";
-
+    statuses: string[] = ['Created', 'En Route', 'Working', 'Resolved', 'Closed'];
     isEditingDesc: boolean = false;
     newDescription: string = "";
     isEditingSummary: boolean = false;
     newSummary: string = "";
     alertMessage: string = "";
     showAlertDescription: boolean = false;
-    showAlert: boolean = false;    
+    showAlert: boolean = false;
     alertClass: string = "";
 
     constructor (
@@ -54,7 +56,7 @@ export class GuardIncidentComponent implements OnInit {
     };
 
     viewAllReports() {
-        this.router.navigate([ 'guard-app/reports-all' ] );
+        this.router.navigate([ 'guard-app/dashboard' ] );
     }
 
     toggleEditMode( attribute: string ) {
@@ -80,25 +82,25 @@ export class GuardIncidentComponent implements OnInit {
     }
 
     incidentSavedAlert () {
-        this.toggleSuccessMessage ();   
+        this.toggleSuccessMessage ();
         this.alertMessage = "Successfully saved";
         this.alertClass = "alert alert-success top-alert";
         setTimeout ( () => {
-            this.toggleSuccessMessage(); 
-        }, 
-            1800 
-        );                        
+            this.toggleSuccessMessage();
+        },
+            1800
+        );
     }
 
     incidentSavedErrorAlert () {
-        this.toggleSuccessMessage ();                                                            
+        this.toggleSuccessMessage ();
         this.alertMessage = "Edit failed" ;
         this.alertClass = "alert alert-danger top-alert";
         setTimeout ( () => {
-            this.toggleSuccessMessage (); 
-        }, 
-            1800 
-        );                        
+            this.toggleSuccessMessage ();
+        },
+            1800
+        );
     }
 
     saveReport ( attribute: string ): void {
@@ -112,8 +114,8 @@ export class GuardIncidentComponent implements OnInit {
                 else {
                     this.incidentSavedErrorAlert ();
                 }
-            } );                      
-        this.toggleEditMode ( attribute );            
+            } );
+        this.toggleEditMode ( attribute );
     }
 
     public showModal() : void {
@@ -159,7 +161,7 @@ export class GuardIncidentComponent implements OnInit {
         locationToRemove = this.locationModal.button_id;
 
         if ( locationToRemove == -1 ) {
-            // Add new location 
+            // Add new location
             var incident = this.incidentElementService.addElement ( this.incident, locationToAdd )
                 .then ( incident => {
                     return incident;
@@ -173,10 +175,10 @@ export class GuardIncidentComponent implements OnInit {
                 });
             }
         if ( Promise.resolve ( incident ) == null ) {
-            this.incidentSavedErrorAlert ();            
+            this.incidentSavedErrorAlert ();
         }
         else {
-            this.incidentSavedAlert ();            
+            this.incidentSavedAlert ();
         }
 
         this.locationModal.locationComponent.newLocation = new Location(); // reset
@@ -194,10 +196,10 @@ export class GuardIncidentComponent implements OnInit {
 
 
         if ( Promise.resolve ( incident ) == null ) {
-            this.incidentSavedErrorAlert ();            
+            this.incidentSavedErrorAlert ();
         }
         else {
-            this.incidentSavedAlert ();            
+            this.incidentSavedAlert ();
         }
 
         this.locationModal.locationComponent.newLocation = new Location(); // reset
@@ -211,10 +213,24 @@ export class GuardIncidentComponent implements OnInit {
                 return incident;
             });
         if ( Promise.resolve(incident) == null ) {
-            this.incidentSavedErrorAlert ();            
+            this.incidentSavedErrorAlert ();
         }
         else {
-            this.incidentSavedAlert ();  
+            this.incidentSavedAlert ();
+        }
+    }
+
+    changeStatus ( newStatus ) {
+        this.incident.attributes.STATUS = newStatus;
+        var incident = this.incidentsService.update ( this.incident )
+          .then ( incident => {
+            return incident;
+          });
+        if ( Promise.resolve(incident) == null ) {
+          this.incidentSavedErrorAlert ();
+        }
+        else {
+          this.incidentSavedAlert ();
         }
     }
 
@@ -233,13 +249,13 @@ export class GuardIncidentComponent implements OnInit {
         incident.attributes.CATEGORY_ID = newCategoryID;
         incident.category.attributes.MAIN_CATEGORY = selectedCategory.attributes.MAIN_CATEGORY;
         incident.category.attributes.SUB_CATEGORY = selectedCategory.attributes.SUB_CATEGORY;
-        incident.category.attributes.INCIDENT_TYPE = selectedCategory.attributes.INCIDENT_TYPE;      
+        incident.category.attributes.INCIDENT_TYPE = selectedCategory.attributes.INCIDENT_TYPE;
         incident.incidentElements[Config.IncidentCategoryKey]
             .splice(0, incident.incidentElements[Config.IncidentCategoryKey].length,
                     incident.category);
-        this.incidentsService.update ( incident );            
+        this.incidentsService.update ( incident );
     }
-       
+
     newReport() {
         this.router.navigate( [ 'new-report' ] );
     }
@@ -256,5 +272,3 @@ export class GuardIncidentComponent implements OnInit {
         });
     }
 }
-
-    
