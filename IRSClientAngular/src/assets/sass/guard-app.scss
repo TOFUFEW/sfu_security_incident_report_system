@@ -124,8 +124,10 @@
     float: none;
     width: 45%;
     max-width: 45%;      
-    height: 25em;
+    height: 20em;
     margin: 0.5em;
+    padding-bottom: 1em;
+    overflow: hidden;
 
     @media (max-width: 300px) {
         width: 100%;
@@ -134,11 +136,12 @@
   }
   
   .panel-body {
-      height: 100%;
-      word-break: break-word;     
+      height: 55%;
+      padding-top: 0;
+      word-break: break-word;   
   }
   
-  ul {
+  .report-content {
       height: 100%;
       padding-bottom: 1em; 
       overflow: scroll;
