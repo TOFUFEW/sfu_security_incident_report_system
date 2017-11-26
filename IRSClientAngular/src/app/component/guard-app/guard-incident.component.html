@@ -20,18 +20,19 @@
                             col-lg-offset-right-3">
                     <div class="panel panel-default guard-container">
                         <div class="panel-heading pb-0 pt-1" *ngIf="incident">
+                          <div *ngIf="incident.attributes.TEMPORARY_REPORT == 1">
+                            <h5> TEMP Report # {{incident.attributes.REPORT_ID}}
+                            </h5>
+                          </div>
+                          <div *ngIf="incident.attributes.TEMPORARY_REPORT == 0">
                             <h5>Report # {{incident.attributes.REPORT_ID}}
                             </h5>
 
                             <!-- <h5>
                                 <span class="mr-5" style="display:block" (dblclick)="modalCategory.show()">
                                     Category {{incident.category.MAIN_CATEGORY}}  -->
-                                    <!-- <button class="btn btn-default btn-xs pull-right" (dblclick)="modalCategory.show()"><span class="p-2 glyphicon glyphicon-edit"></span></button> -->
-                                    <!-- <br>
-                                    <span class="ml-3">{{incident.category.SUB_CATEGORY}}</span><br>
-                                    <span class="ml-3">{{incident.category.INCIDENT_TYPE}}</span>
-                                </span> -->
                             <!-- </h5> -->
+                          </div>
                         </div>
                         <category-component #modalCategory
                             currentMainCategory="{{incident.category.attributes.MAIN_CATEGORY}}"

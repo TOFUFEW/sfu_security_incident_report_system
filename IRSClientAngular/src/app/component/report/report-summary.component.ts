@@ -200,24 +200,25 @@ export class ReportSummaryComponent implements OnInit {
         var newIncident = new Incident();
         newIncident = this.report;
         var reportID = this.report.attributes.REPORT_ID;
-        // console.log("new incident report id = " + newIncident.attributes.REPORT_ID);
-        // console.log("new incident creator id = " + newIncident.attributes.ACCOUNT_ID);
-        if( !this.isAccepted ) {
-            // console.log("accept temp");
-            newIncident.attributes.ACCOUNT_ID = this.userService.getAccountID();
-            newIncident.attributes.REPORT_ID = null;
-            // console.log("new incident report id = " + newIncident.attributes.REPORT_ID);
-            // console.log("new incident creator id = " + newIncident.attributes.ACCOUNT_ID);
-            this.incidentService.create( newIncident )
-              .then( returnedIncident => {
-                if ( returnedIncident != null  ) {
-                  alert("Report successfully created!");
-                  setTimeout(function(){location.reload()}, 300);
+        this.report.attributes.STATUS = 5;
+        this.incidentService.update( this.report )
+            .then( returnedIncident => {
+                if( returnedIncident != null ) {
+                    alert("Report successfully updated");
+                    newIncident.attributes.ACCOUNT_ID = this.userService.getAccountID();
+                    newIncident.attributes.REPORT_ID = null;
+                    this.incidentService.create( newIncident )
+                      .then( returnedNewIncident => {
+                        if ( returnedNewIncident != null  ) {
+                          alert("Report successfully created!");
+                          setTimeout(function(){location.reload()}, 300);
+                        }
+                        else alert( "Add failed." );
+                      } );
+                } else {
+                    alert("update failed");
                 }
-                else alert( "Add failed." );
-              } );
-            this.isAccepted = true;
-        }
+            } );
         this.report.attributes.REPORT_ID = reportID;
         this.removeFromWorkspace( reportID );
     }
