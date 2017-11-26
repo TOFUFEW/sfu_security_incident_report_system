@@ -74,8 +74,12 @@ export class IncidentService
 
     addToWorkspace( incident: Incident ): void {
         var arr = this.bs_reportsToAddToWorkspace.getValue();
-        arr.splice(0, 0, incident );
-        this.bs_reportsToAddToWorkspace.next( arr );
+        var index = arr.findIndex( i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID );
+        if ( index < 0 ) {
+            incident.inWorkspace = true;
+            arr.splice( 0, 0, incident );
+            this.bs_reportsToAddToWorkspace.next( arr );
+        }
     }
 
     removeFromWorkspace( id: number ) : void {
