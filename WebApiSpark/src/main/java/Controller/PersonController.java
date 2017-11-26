@@ -51,6 +51,12 @@ public class PersonController
 
             return DBHelper.deleteIncidentElement( person );
         } );
+
+        post( "/person-exists" , ( request , response ) -> {
+            Person person = ( Person ) JsonUtil.fromJson ( request.body () , Person.class );
+
+            return DBHelper.personExists ( person ) ;
+        } );
     }
 
 
