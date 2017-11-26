@@ -131,7 +131,8 @@ public class DBHelper
                             "WHERE Involves.REPORT_ID = " + reportID + "; " +
                             "SELECT IncidentCategory.* FROM Incident INNER JOIN IncidentCategory ON (Incident.CATEGORY_ID = IncidentCategory.CATEGORY_ID) " +
                             "WHERE Incident.REPORT_ID = " + reportID + "; " +
-                            "SELECT Attachment.* FROM Attachment";
+                            "SELECT * FROM Attachment " +
+                            "WHERE Attachment.REPORT_ID = " + reportID + "; ";
 
             PreparedStatement stmt = connection.prepareStatement ( getIncidentElementsQuery );
             boolean hasResults = stmt.execute();
