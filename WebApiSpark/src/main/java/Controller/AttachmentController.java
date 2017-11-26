@@ -21,14 +21,15 @@ public class AttachmentController {
     }
 
     private void setupEndPoints() {
-        post("/upload", "multipart/form-data", ( request , response ) -> {
+        post("/upload/:reportID", "multipart/form-data", ( request , response ) -> {
             try {
                 System.out.println("uploading...");
                 Path currentPath = Paths.get("").toAbsolutePath();
 
                 final File upload = new File(
                         currentPath +
-                        "/uploads"
+                        "/uploads/" +
+                         request.params("reportID")
                 );
                 System.out.println(upload);
 

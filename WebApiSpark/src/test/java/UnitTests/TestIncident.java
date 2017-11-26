@@ -107,6 +107,7 @@ public class TestIncident
         Assert.assertTrue( DBHelper.insertIncidentRefactor( incident1 ) );
 
         Incident [] incidents = DBHelper.getIncidents ();
+        System.out.println(incidents[0]);
 
         Assert.assertTrue( currentSize < incidents.length );
 

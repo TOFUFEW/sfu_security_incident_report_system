@@ -24,7 +24,7 @@ export class AttachmentComponent implements OnInit {
 
   }
 
-  upload() {
+  upload($scope) {
       let inputEl: HTMLInputElement = this.inputEl.nativeElement;
       let fileCount: number = inputEl.files.length;
       let formData = new FormData();
@@ -36,7 +36,7 @@ export class AttachmentComponent implements OnInit {
           }
 
           var promise = this.http
-                  .post( this.uploadURI, formData )
+                  .post( this.uploadURI + "/" + $scope.IncidentAttributes.REPORT_ID, formData )
                   .toPromise()
                   .then( response => response.json() as boolean )
                   .catch( this.handleError );
