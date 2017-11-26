@@ -14,6 +14,7 @@ export class NavbarComponent implements OnInit {
     userAccType: number;
     isAdmin: boolean = false;
     isGuardApp: boolean = false;
+    isLoggedIn: boolean = false;
 
     constructor( 
         private router: Router,
@@ -39,6 +40,9 @@ export class NavbarComponent implements OnInit {
             }
             this.isAdmin = this.userAccType == this.userService.ADMIN;  
             console.log(" admin? " + this.isAdmin);       
+        });
+        this.userService.loggedIn.subscribe( loggedIn => {
+            this.isLoggedIn = loggedIn;
         });
         if ( this.router.url.includes ( 'guard-app' ) ) {
             this.isGuardApp = true;

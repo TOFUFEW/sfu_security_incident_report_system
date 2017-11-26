@@ -1,48 +1,40 @@
-<nav id="main-navbar" class="navbar navbar-default navbar-sm">
+<nav id="main-navbar" class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-right" aria-expanded="false">
+            <button type="button" class="navbar-sm navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-right" aria-expanded="false"
+                *ngIf="user!=null">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="glyphicon glyphicon-option-vertical"></span>            
             </button>
-            <button type="button" class="navbar-toggle collapsed" aria-expanded="false"
-                (click)="redirect('new-report')">
+            <button type="button" class=" navbar-sm navbar-toggle collapsed" aria-expanded="false"
+                (click)="redirect('new-report')"  *ngIf="user!=null">
                 <span class="glyphicon glyphicon-plus"></span>            
             </button>           
-            <a class="navbar-brand">SFU IRS</a>
+            <a class="navbar-sm navbar-brand">SFU IRS</a>
+            <a class="navbar-lg navbar-brand">SFU Incident Reporting System</a>            
         </div>
   
-        <div class="collapse navbar-collapse" id="collapse-right">
-            <ul class="nav navbar-nav navbar-right">
+        <div class="navbar-lg collapse navbar-collapse pull-sm-left" id="collapse-left" *ngIf="isAdmin">
+            <ul class="nav navbar-nav">
+                <li (click)="redirect('dashboard')"><a class="link">Dashboard</a></li>
+                <li (click)="redirect('search')"><a class="link">Search</a></li>
+            </ul>
+        </div>
+
+        <div class="collapse navbar-collapse" id="collapse-right" *ngIf="user!=null">
+            <ul class="navbar-sm nav navbar-nav navbar-right">
                 <li (click)="redirect('dashboard')" *ngIf="isAdmin"><a class="link">Dashboard</a></li>
                 <li (click)="redirect('search')" *ngIf="isAdmin"><a class="link">Search</a></li>
                 <li (click)="redirect('new-account')" *ngIf="isAdmin"><a class="link">Create Account</a></li>
                 <li (click)="redirect('guard-dashboard')" *ngIf="!isAdmin"><a class="link">Dashboard</a></li>
                 <li><a class="link" (click)="onLogout()">Logout</a></li>
             </ul>
-        </div>
-    </div>
-</nav>
 
-<nav id="main-navbar" class="navbar navbar-default navbar-lg">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand">SFU Incident Reporting System</a>
-        </div>
-    
-        <div class="collapse navbar-collapse pull-sm-left" id="collapse-left" *ngIf="isAdmin">
-            <ul class="nav navbar-nav">
-                <li (click)="redirect('dashboard')"><a class="link">Dashboard</a></li>
-                <li (click)="redirect('search')"><a class="link">Search</a></li>
-            </ul>
-        </div>
-    
-        <div class="collapse navbar-collapse" id="collapse-right">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="navbar-lg nav navbar-nav navbar-right" *ngIf="user!=null">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li (click)="redirect('new-account')"><a class="link">Create Account</a></li>
+                        <li (click)="redirect('new-account')" *ngIf="isAdmin"><a class="link">Create Account</a></li>
                         <li><a class="link" (click)="onLogout()">Logout</a></li>
                     </ul>
                 </li>
@@ -50,8 +42,3 @@
         </div>
     </div>
 </nav>
-
-
-
-
-
