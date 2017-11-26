@@ -17,7 +17,8 @@ export class TimerComponent implements OnInit {
     tempEnd: string;
     timerList: Timer[] = new Array<Timer>();
     newTimer: Timer = new Timer;
-    modify: boolean = false;
+    modifyValid = true;
+    
 
 
     constructor(private timerService: TimerService, private incidentService: IncidentService){
@@ -111,6 +112,14 @@ export class TimerComponent implements OnInit {
 
     }
 
+    onChangeModifyTimer() : void {
+        if (this.tempStart == null || this.tempEnd == null){
+            this.modifyValid = false;
+        } else {
+            this.modifyValid = true;
+        }
+    }
+
     modifyTimer( timer : Timer ) : void {
         timer.TIMER_START = this.timerService.stringToTime(this.tempStart);
         timer.TIMER_END = this.timerService.stringToTime(this.tempEnd);
@@ -124,7 +133,7 @@ export class TimerComponent implements OnInit {
     }
 
     timeUp(timer : Timer) : void{
-        if(confirm ("repeat timer?")){
+        if(confirm ("Time up for" + timer.incident.attributes.DESCRIPTION + ", repeat timer?")){
             var temp = timer.TIMER_END;
             timer.TIMER_END = timer.TIMER_END + (timer.TIMER_END - timer.TIMER_START);
             timer.TIMER_START = temp;

@@ -50,12 +50,15 @@ export class TimerService{
         var nowTime = nowDate.getHours() * 60 * 60 * 1000 + nowDate.getMinutes() * 60 * 1000;
         var timer : Timer = new Timer();
         
-        timer.incident = incident;
-
-        timer.TIMER_START = start;
-        timer.TIMER_END = end;
-        timer.TIME_REMAINING = timer.TIMER_END - nowTime;
-        return timer;
+        if (end < nowTime || incident.attributes.START_TIME < nowDate.getDate()){
+            return null;
+        } else {
+            timer.incident = incident;
+            timer.TIMER_START = start;
+            timer.TIMER_END = end;
+            timer.TIME_REMAINING = timer.TIMER_END - nowTime;
+            return timer;
+        }
     }
 
     deleteTimer(timer : Timer) : void {

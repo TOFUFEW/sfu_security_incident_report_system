@@ -28,9 +28,12 @@
                     </div>
                     <button id="modifyBtn" class="btn" (click)="timer.modify = !timer.modify">Modify</button>
                     <div *ngIf="timer.modify">
-                        <input type="time" [(ngModel)] = "tempStart">
-                        <input type="time" [(ngModel)] = "tempEnd">
-                        <button class="btn" (click)="modifyTimer(timer)">Confirm</button>
+                        <input type="time" [(ngModel)] = "tempStart" (change)="onChangeModifyTimer()">
+                        <input type="time" [(ngModel)] = "tempEnd" (change)="onChangeModifyTimer()">
+                        <div class="alertText" *ngIf="!modifyValid">
+                            Start/End time cannot be empty
+                        </div>
+                        <button class="btn" (click)="modifyTimer(timer)" *ngIf="modifyValid">Confirm</button>
                     </div>
                     <br>
                 </div>
