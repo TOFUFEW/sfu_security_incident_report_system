@@ -442,7 +442,7 @@ public class DBHelper
                     return true;
                 idString += "ACCOUNT_ID = '" + id + "';";
             }
-            else if ( DatabaseValues.Table.ATTACHMENT.toString().toLowerCase().contains( tableName ) ){
+            else if ( DatabaseValues.Table.ATTACHMENT == table ){
                 relationTable = "Attachment";
                 String id = incidentElement.getAttributeValue( DatabaseValues.Column.FILE_NAME );
                 if (id == null || id.equals("null"))
