@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+  import { Component, Input, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { LocationService } from '../../service/location.service';
 import { NewReportService } from '../../service/new-report.service';
@@ -24,7 +24,7 @@ export class LocationComponent implements OnInit {
     constructor (
         private locationService: LocationService,
         private reportService: NewReportService
-    ) { 
+    ) {
     }
 
     validateNewLocation() {
@@ -46,16 +46,16 @@ export class LocationComponent implements OnInit {
         if ( locationID != -1 ) {
             this.locations.forEach ( location => {
                 if ( location.attributes.LOCATION_ID == locationID ) {
-                    this.currentLocation.attributes.CAMPUS_ID = locationID;     
-                    this.currentLocation.attributes.CITY = location.attributes.CITY;            
+                    this.currentLocation.attributes.CAMPUS_ID = locationID;
+                    this.currentLocation.attributes.CITY = location.attributes.CITY;
                     this.currentLocation.attributes.BUILDING_NAME = location.attributes.BUILDING_NAME;
-                    this.currentLocation.attributes.ROOM_NUMBER = location.attributes.ROOM_NUMBER;           
+                    this.currentLocation.attributes.ROOM_NUMBER = location.attributes.ROOM_NUMBER;
                 }
             });
         }
         else {
-            this.currentLocation.attributes.CAMPUS_ID = null;     
-            this.currentLocation.attributes.CITY = "";            
+            this.currentLocation.attributes.CAMPUS_ID = null;
+            this.currentLocation.attributes.CITY = "";
             this.currentLocation.attributes.BUILDING_NAME = "";
             this.currentLocation.attributes.ROOM_NUMBER = "";
         }
@@ -70,8 +70,8 @@ export class LocationComponent implements OnInit {
             console.log("must have a location!");
             return;
         }
-            
-        //if ( this.newLocation != null && this.newLocation.attributes.LOCATION_ID > 0 ) 
+
+        //if ( this.newLocation != null && this.newLocation.attributes.LOCATION_ID > 0 )
         this.reportService.removeIncidentElement ( this.newLocation, Config.LocationTable );
         this.reference.destroy();
     }
@@ -86,8 +86,8 @@ export class LocationComponent implements OnInit {
     onSelectCampus(): void {
         this.locationMap.forEach( campus => {
             if ( campus.CAMPUS_ID == this.newLocation.attributes.CAMPUS_ID ) {
-                this.buildings = campus.BUILDINGS;   
-                this.newLocation.attributes.LOCATION_ID = null;                 
+                this.buildings = campus.BUILDINGS;
+                this.newLocation.attributes.LOCATION_ID = null;
             }
         } );
     }
@@ -96,13 +96,13 @@ export class LocationComponent implements OnInit {
         this.buildings.forEach( bldg => {
             if ( bldg.BUILDING_NAME === this.newLocation.attributes.BUILDING_NAME ) {
                 this.rooms = bldg.ROOMS;
-                this.newLocation.attributes.LOCATION_ID = null; 
+                this.newLocation.attributes.LOCATION_ID = null;
             }
         });
     }
 
     onSelectRoom(): void {
-        var index = this.locations.findIndex( loc => 
+        var index = this.locations.findIndex( loc =>
             loc.attributes.LOCATION_ID == this.newLocation.attributes.LOCATION_ID);
         this.newLocation.attributes.ROOM_NUMBER = this.locations[index].attributes.ROOM_NUMBER;
     }
