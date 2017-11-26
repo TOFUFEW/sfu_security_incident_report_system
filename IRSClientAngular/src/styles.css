@@ -1,3 +1,7 @@
+/* Contains general css rules for the entire app */
+span, a, button, textarea {
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif; }
+
 body {
   min-height: 100vh;
   min-width: 100vw;
@@ -212,7 +216,7 @@ body {
       margin-left: 12px; }
   .details-container .detail {
     min-width: 250px;
-    padding: 10px 10px; }
+    margin-bottom: 8px; }
   .details-container .detail-lg {
     min-width: 0px !important; }
 
@@ -267,6 +271,9 @@ span.glyphicon-fire {
 
 .nav-tabs > li.active > a {
   font-weight: 700; }
+
+.nav-tabs > li > a:hover {
+  background-color: #f9f9f9; }
 
 .form-group {
   margin-bottom: 20px !important; }
@@ -509,5 +516,20 @@ div#new-report-panel, div#new-account-panel {
 
   .navbar-lg {
     display: none; } }
+.bottom-links {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 8px;
+  padding-bottom: 8px; }
+  .bottom-links span {
+    margin: 8px; }
+
+.flex-column {
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start; }
+
+.italic {
+  font-style: italic; }
 
 /*# sourceMappingURL=styles.css.map */

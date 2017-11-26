@@ -5,14 +5,30 @@
             <div id="new-report-panel" class="panel panel-default">
                 <div class="panel-heading">
                     <span class="panel-header">New Report</span>
-                    <span class="date">November 24, 2017</span>
+                    <span class="date">{{date}}</span>     
                 </div>
                 <div class="panel-body">
 
                     <div class="details-container">
                         <div class="details-heading">
-                            <span class="glyphicon glyphicon-info-sign glyphicon-heading"></span>
-                            <span class="field-title">Basic Information</span>
+                            <span class="glyphicon glyphicon-map-marker glyphicon-heading"></span>
+                            <span class="field-title">Location</span>
+                        </div>
+                        <div id="locations">
+                            <location-component id="first-element"></location-component>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-2 col-sm-offset-9">
+                            <span class="link" (click)="addComponent(locationStr)"> Add Location</span>
+                        </div>
+                    </div>
+
+                    <div class="details-container">
+                        <div class="details-heading">
+                            <span class="glyphicon glyphicon-filter glyphicon-heading"></span>
+                            <span class="field-title">Category</span>
                         </div>
                         <div class="details-body">
                             <div class="detail col-12 col-sm-3">
@@ -33,6 +49,15 @@
                                     <option *ngFor="let type of categoryTypes" [value]="type.INCIDENT_TYPE">{{type.INCIDENT_TYPE}}</option>
                                 </select>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="details-container">
+                        <div class="details-heading">
+                            <span class="glyphicon glyphicon-info-sign glyphicon-heading"></span>
+                            <span class="field-title">Incident Details</span>
+                        </div>
+                        <div class="details-body">
                             <div class="detail col-12 col-sm-10">
                                 <span class="field-title">Executive Summary <span class="required-asterisk"></span></span>
                                 <textarea class="form-control" cols="50" rows="1" [(ngModel)]="newIncident.attributes.EXECUTIVE_SUMMARY"></textarea>
@@ -46,22 +71,6 @@
 
                     <div class="details-container">
                         <div class="details-heading">
-                            <span class="glyphicon glyphicon-map-marker glyphicon-heading"></span>
-                            <span class="field-title">Location</span>
-                        </div>
-                        <div id="locations">
-                            <location-component id="first-element"></location-component>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-11 col-sm-offset-1">
-                            <span class="link" (click)="addComponent(locationStr)"> Add Location</span>
-                        </div>
-                    </div>
-
-                    <div class="details-container">
-                        <div class="details-heading">
                             <span class="glyphicon glyphicon-user glyphicon-heading"></span>
                             <span class="field-title">Involved Persons</span>
                         </div>
@@ -70,7 +79,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-11 col-sm-offset-1">
+                        <div class="col-sm-2 col-sm-offset-9">
                             <span class="link" (click)="addComponent(personStr)"> Add Person</span>
                         </div>
                     </div>
@@ -121,50 +130,6 @@
                 <span class="panel-header">Review New Report</span>
             </div>
             <div class="modal-body">
-                <!-- <report-summary [inputReport]="newIncident"></report-summary> -->
-                <div class="details-container">
-                    <div class="details-heading">
-                        <span class="glyphicon glyphicon-info-sign glyphicon-heading"></span>
-                        <span class="field-title">Basic Information</span>
-                    </div>
-                    <div class="details-body">
-                        <div class="detail col-12 col-sm-3">
-                            <span class="field-title">Category: </span>
-                            <span class="field-value">{{newIncident.category.attributes.MAIN_CATEGORY}}</span>
-                            <div class="alertText" *ngIf="newIncident.category.attributes.MAIN_CATEGORY == null">
-                                Please select a category
-                            </div>
-                        </div>
-                        <div class="detail col-12 col-sm-3">
-                            <span class="field-title">Sub Category: </span>
-                            <span class="field-value">{{newIncident.category.attributes.SUB_CATEGORY}}</span>
-                            <div class="alertText" *ngIf="newIncident.category.attributes.SUB_CATEGORY == null">
-                                    Please select a sub category
-                            </div>
-                        </div>
-                        <div class="detail col-12 col-sm-3" *ngIf="this.newIncident.category.attributes.INCIDENT_TYPE != null ">
-                            <span class="field-title">Type: </span>
-                            <span class="field-value">{{newIncident.category.attributes.INCIDENT_TYPE}}</span>
-                            <div class="alertText" *ngIf="newIncident.category.attributes.INCIDENT_TYPE == null">
-                                    Please select an incident type
-                            </div>
-                        </div>
-                        <div class="detail col-12 col-sm-10">
-                            <span class="field-title">Executive Summary</span>
-                            <span class="field-value">{{newIncident.attributes.EXECUTIVE_SUMMARY}}</span>
-                            <!-- <div class="alertText" *ngIf="newIncident.attributes.EXECUTIVE_SUMMARY == null">
-                                    Please enter a summary
-                            </div> -->
-                        </div>
-                        <div class="detail col-12 col-sm-10">
-                            <span class="field-title">Description</span>
-                            <span class="field-value">{{newIncident.attributes.DESCRIPTION}}</span>
-                            <!-- <div class="alertText" *ngIf="newIncident.attributes.DESCRIPTION == null">
-                                    Please enter a description
-                            </div> -->
-                        </div>
-                    </div>
-                </div>
                 <div class="details-container">
                     <div class="details-heading">
                         <span class="glyphicon glyphicon-map-marker glyphicon-heading"></span>
@@ -190,6 +155,57 @@
                             <span class="field-value">{{location.attributes.ROOM_NUMBER}}</span>
                             <!-- <div class="alertText" *ngIf="location.attributes.ROOM_NUMBER == null">
                                     Please select a room number
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="details-container">
+                    <div class="details-heading">
+                        <span class="glyphicon glyphicon-filter glyphicon-heading"></span>
+                        <span class="field-title">Category</span>
+                    </div>
+                    <div class="details-body">
+                        <div class="detail col-12 col-sm-3">
+                            <span class="field-title">Category: </span>
+                            <span class="field-value">{{newIncident.category.attributes.MAIN_CATEGORY}}</span>
+                            <div class="alertText" *ngIf="newIncident.category.attributes.MAIN_CATEGORY == null">
+                                Please select a category
+                            </div>
+                        </div>
+                        <div class="detail col-12 col-sm-3">
+                            <span class="field-title">Sub Category: </span>
+                            <span class="field-value">{{newIncident.category.attributes.SUB_CATEGORY}}</span>
+                            <div class="alertText" *ngIf="newIncident.category.attributes.SUB_CATEGORY == null">
+                                    Please select a sub category
+                            </div>
+                        </div>
+                        <div class="detail col-12 col-sm-3" *ngIf="this.newIncident.category.attributes.INCIDENT_TYPE != null ">
+                            <span class="field-title">Type: </span>
+                            <span class="field-value">{{newIncident.category.attributes.INCIDENT_TYPE}}</span>
+                            <div class="alertText" *ngIf="newIncident.category.attributes.INCIDENT_TYPE == null">
+                                    Please select an incident type
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="details-container">
+                    <div class="details-heading">
+                        <span class="glyphicon glyphicon-info-sign glyphicon-heading"></span>
+                        <span class="field-title">Incident Details</span>
+                    </div>
+                    <div class="details-body">
+                        <div class="detail col-12 col-sm-10">
+                            <span class="field-title">Executive Summary</span>
+                            <span class="field-value">{{newIncident.attributes.EXECUTIVE_SUMMARY}}</span>
+                            <!-- <div class="alertText" *ngIf="newIncident.attributes.EXECUTIVE_SUMMARY == null">
+                                    Please enter a summary
+                            </div> -->
+                        </div>
+                        <div class="detail col-12 col-sm-10">
+                            <span class="field-title">Description</span>
+                            <span class="field-value">{{newIncident.attributes.DESCRIPTION}}</span>
+                            <!-- <div class="alertText" *ngIf="newIncident.attributes.DESCRIPTION == null">
+                                    Please enter a description
                             </div> -->
                         </div>
                     </div>

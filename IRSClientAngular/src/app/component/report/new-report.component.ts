@@ -41,6 +41,8 @@ export class NewReportComponent implements OnInit {
     selectedStaffId: number = -1;
     reportReady: boolean = false;
 
+    date = new Date();
+    
     constructor(
       private incidentService: IncidentService,
       private domService: DomService,
