@@ -1,9 +1,5 @@
 package Util;
 
-import java.sql.Timestamp;
-import Model.IncidentElement;
-
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -370,7 +366,8 @@ public class DatabaseValues
         INCIDENT_CATEGORY ( "IncidentCategory" ),
         LOCATION ( "Location" ),
         PERSON ( "Person" ),
-        STAFF ( "Staff" );
+        STAFF ( "Staff" ),
+        ATTACHMENT ( "Attachment" );
 
         private String key;
 

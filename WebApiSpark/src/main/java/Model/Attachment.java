@@ -7,15 +7,19 @@ public class Attachment extends IncidentElement
 {
     public Attachment( )
     {
-        this ("");
+        this (
+                ""
+        );
     }
 
-    public Attachment( String filename ) {
+    public Attachment(
+            String filename
+    ) {
         super (
-                DatabaseValues.Table.LOCATION,
+                DatabaseValues.Table.ATTACHMENT,
                 new DatabaseValues.Column[]
                 {
-                        DatabaseValues.Column.FILE_NAME,
+                        DatabaseValues.Column.FILE_NAME
                 }
         );
 
@@ -23,5 +27,6 @@ public class Attachment extends IncidentElement
                 DatabaseValues.Column.FILE_NAME,
                 filename
         );
+
     }
 }

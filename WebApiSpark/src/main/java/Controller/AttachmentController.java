@@ -5,6 +5,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -51,6 +52,7 @@ public class AttachmentController {
                         upload,
                         fileName
                 ));
+
                 return true;
             }catch ( Exception e ) {
                     e.printStackTrace();
@@ -60,15 +62,12 @@ public class AttachmentController {
 
         get("/upload/:filename", (request, response) -> {
             System.out.println(request.params("filename"));
-            Path currentPath = Paths.get("").toAbsolutePath();
+            Path from = Paths.get("/uploads/" + request.params("filename")).toAbsolutePath();
+            Path to = Paths.get("/src/main/resources/public/uploads/" + request.params("filename")).toAbsolutePath();
 
-            final File file = new File(
-                    currentPath +
-                            "/src/main/resources/public/uploads" +
-                            request.params("filename")
-            );
+            Files.copy(from, to.resolve(to.getFileName()));
 
-            return file;
+            return to;
         } );
 
     }

@@ -130,7 +130,8 @@ public class DBHelper
                             "SELECT Person.* FROM Involves INNER JOIN Person ON (Involves.PERSON_ID = Person.PERSON_ID)" +
                             "WHERE Involves.REPORT_ID = " + reportID + "; " +
                             "SELECT IncidentCategory.* FROM Incident INNER JOIN IncidentCategory ON (Incident.CATEGORY_ID = IncidentCategory.CATEGORY_ID) " +
-                            "WHERE Incident.REPORT_ID = " + reportID + "; ";
+                            "WHERE Incident.REPORT_ID = " + reportID + "; " +
+                            "SELECT Attachment.* FROM Attachment";
 
             PreparedStatement stmt = connection.prepareStatement ( getIncidentElementsQuery );
             boolean hasResults = stmt.execute();
@@ -429,6 +430,9 @@ public class DBHelper
                             if ( id != null ) {
                                 insertInvolvesRelation( lastIncidentId, id);
                             }
+                        } else if ( DatabaseValues.Table.ATTACHMENT.toString().toLowerCase()
+                                .contains( incidentElement.getTable().toString().toLowerCase() ) ) {
+                            insertAttachment( lastIncidentId, incidentElement.getAttributeValue( DatabaseValues.Column.FILE_NAME ));
                         }
                         else {
                             insertIncidentRelation(
@@ -493,6 +497,18 @@ public class DBHelper
         return false;
     }
 
+    private static boolean insertAttachment(String reportId, String filename) {
+        System.out.println("Inserting Attachment: " + filename);
+        try {
+            String query = "insert into Attachment (REPORT_ID, FILE_NAME) values ('" + reportId + "', '" + filename + "');";
+            return execute(query);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     /* Validate incidents attributes */
     private static boolean allFieldsValid( Incident incident ) {
         if ( incident.getAttributeValue(DatabaseValues.Column.DESCRIPTION ) == null ||
@@ -552,6 +568,13 @@ public class DBHelper
                 if (id == null || id.equals("null"))
                     return true;
                 idString += "ACCOUNT_ID = '" + id + "';";
+            }
+            else if ( DatabaseValues.Table.ATTACHMENT.toString().toLowerCase().contains( tableName ) ){
+                relationTable = "Attachment";
+                String id = incidentElement.getAttributeValue( DatabaseValues.Column.FILE_NAME );
+                if (id == null || id.equals("null"))
+                    return true;
+                idString += "FILE_NAME = '" + id + "';";
             }
             else
                 return false;
@@ -627,6 +650,17 @@ public class DBHelper
 //                        2,
 //                        incidentElement.getAttributeValue ( DatabaseValues.Column.CATEGORY_ID )
 //                );
+            }
+            else if ( tableName.compareTo ( "Attachment" ) == 0 )
+            {
+                stmt.setString (
+                        1,
+                        tableName
+                );
+                stmt.setString (
+                        2,
+                        incidentElement.getAttributeValue ( DatabaseValues.Column.FILE_NAME )
+                );
             }
             stmt.registerOutParameter (
                     3,
@@ -1046,6 +1080,10 @@ public class DBHelper
                 {
                     incidentElement = new Campus();
                 }
+                else if ( table == DatabaseValues.Table.ATTACHMENT )
+                {
+                    incidentElement = new Attachment();
+                }
                 else
                 {
                     throw new IllegalStateException ( table.toString () + " does not have its Model implemented yet" );
@@ -1117,7 +1155,6 @@ public class DBHelper
         if ( incidentElement == null ) return;
 
         String tableName = incidentElement.getTable().name().toLowerCase();
-        System.out.println(DatabaseValues.Table.INCIDENT_CATEGORY.toString().toLowerCase());
         String msg = "Inserting relation for " + tableName ;
         if ( DatabaseValues.Table.PERSON.toString().toLowerCase().contains( tableName ) ) {
             msg += " where FIRST_NAME = " + incidentElement.getAttributeValue( DatabaseValues.Column.FIRST_NAME ) +
