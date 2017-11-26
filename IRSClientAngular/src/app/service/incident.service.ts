@@ -57,6 +57,9 @@ export class IncidentService
         private staffService: StaffService,
         private locationService: LocationService,
         private categoryService: CategoryService ) {
+        this.getIncidents().then( response => {
+            this.bs_allReports.next(response);
+        });
         this.staffService.getStaffs().then( returnedArr => {
             this.bs_staffArr.next( returnedArr as Staff[] );
         });
