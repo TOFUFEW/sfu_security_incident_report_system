@@ -244,6 +244,7 @@ public class DBHelper
                     Types.INTEGER
             );
 
+            stmt.execute();
             int output = stmt.getInt(6);
 
             String relationSQL = "{ call dbo.insertRelation ( ? , ? , ? ) }";
