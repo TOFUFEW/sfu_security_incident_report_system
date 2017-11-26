@@ -55,7 +55,7 @@
                                     <div class="panel-body lh-1" *ngIf="incident">
                                         <status-component #modalStatus (statusSaved)="changeStatus($event)"></status-component>
                                         <span [id]="statuses[incident.attributes.STATUS]"
-                                           (dblclick)="modalStatus.show()">
+                                           (click)="modalStatus.show()">
                                             {{statuses[incident.attributes.STATUS]}}
                                         </span>
                                     </div>
