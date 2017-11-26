@@ -24,6 +24,7 @@ export class IncidentComponent implements OnInit {
     incidents: Incident[];
     incidentToAssign: Incident = new Incident();
     lastRemovedId: number = 0;
+    statuses: String[] = ['Created', 'En Route', 'Working', 'Closed', 'Sealed'];
 
 
     constructor( private incidentService: IncidentService, private staffService: StaffService ){

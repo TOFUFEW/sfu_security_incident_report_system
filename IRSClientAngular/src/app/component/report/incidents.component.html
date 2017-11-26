@@ -16,6 +16,9 @@
                     <div class="detail-row">
                         <span class="card-text-secondary">Report #{{incident.attributes.REPORT_ID}}</span>
                     </div>
+                    <div class="detail-row">
+                        <span class="card-text-secondary">Status: {{statuses[incident.attributes.STATUS]}}</span>
+                    </div>
                     <div class="detail-row description">
                         <span class="card-text-primary">
                             {{incident.attributes.EXECUTIVE_SUMMARY}}

@@ -10,7 +10,7 @@ import { Category, SubCategory, CategoryType, CategoryDictionary } from '../cate
 import { IncidentService } from '../../service/incident.service';
 import { LocationService } from '../../service/location.service';
 import { CategoryService } from '../../service/category.service';
-//import { map } from 'rxjs/operators/map';
+// import { map } from 'rxjs/operators/map';
 import { UserService } from "../../service/user.service";
 import { NewReportService } from '../../service/new-report.service';
 import { IncidentElementService } from '../../service/incident-element.service';

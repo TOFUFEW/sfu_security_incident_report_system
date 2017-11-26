@@ -2,6 +2,7 @@ package Util;
 
 import Model.*;
 
+import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -243,7 +244,7 @@ public class DBHelper
 
             int output = stmt.getInt(5);
 
-            insertRelations( lastIncidentId, incident.getIncidentElements() );
+            insertRelations( null, incident.getIncidentElements() );
 
             if (output != 0) {
                 return true;
@@ -254,34 +255,43 @@ public class DBHelper
         return false;
     }
 
-    private static void insertRelations( String incidentId, HashMap<String, ArrayList<IncidentElement>> incidentElements ) {
-        String relationSQL = "{ call dbo.insertRelation ( ? , ? , ? ) }";
+    private static void insertRelations( String reportID, HashMap<String, ArrayList<IncidentElement>> incidentElements ) {
+        if (reportID == null) {
+            String relationSQL = "{ call dbo.insertRelation ( ? , ? , ? ) }";
 
-        for ( Map.Entry < String , ArrayList < IncidentElement > > entry : incidentElements.entrySet() ) {
-            ArrayList < IncidentElement > incidentElementsList = entry.getValue();
+            for ( Map.Entry < String , ArrayList < IncidentElement > > entry : incidentElements.entrySet() ) {
+                ArrayList < IncidentElement > incidentElementsList = entry.getValue();
 
-            for ( IncidentElement incidentElement : incidentElementsList ) {
-                boolean hasAttributes = incidentElement.getColumnSet().length > 0;
+                for ( IncidentElement incidentElement : incidentElementsList ) {
+                    boolean hasAttributes = incidentElement.getColumnSet().length > 0;
 
-                if ( hasAttributes && !relationExists( incidentId , incidentElement ) ) {
-                    debug_printInsertRelationLog( incidentElement );
-
-                    if ( DatabaseValues.Table.STAFF == incidentElement.getTable() ) {
-                        assignToGuard( incidentId, incidentElement.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ));
-                    }
-                    else if (DatabaseValues.Table.PERSON == incidentElement.getTable() ) {
-                        String id = getPersonIdFromDb( incidentElement );
-
-                        if ( id != null )
-                            insertInvolvesRelation( incidentId, id);
-                    }
-                    else {
+                    if ( hasAttributes ) {
+                        debug_printInsertRelationLog( incidentElement );
                         insertIncidentRelation(
                                 relationSQL,
                                 incidentElement
                         );
                     }
+                }
+            }
+        } else {
 
+            String relationSQL = "{ call dbo.insertRelationWithTableName ( ? , ? , ? , ? ) }";
+
+            for ( Map.Entry < String , ArrayList < IncidentElement > > entry : incidentElements.entrySet() ) {
+                ArrayList < IncidentElement > incidentElementsList = entry.getValue();
+
+                for ( IncidentElement incidentElement : incidentElementsList ) {
+                    boolean hasAttributes = incidentElement.getColumnSet().length > 0;
+
+                    if ( hasAttributes && !relationExists( reportID , incidentElement ) ) {
+                        debug_printInsertRelationLog( incidentElement );
+                        insertIncidentRelation(
+                                relationSQL,
+                                incidentElement,
+                                reportID
+                        );
+                    }
                 }
             }
         }
@@ -383,6 +393,8 @@ public class DBHelper
         try {
             initDB();
             DatabaseValues.Table table = incidentElement.getTable() ;
+            System.out.println(table.toString());
+            System.out.println(DatabaseValues.Table.LOCATION.toString());
             String query = "select * from ";
 
             String relationTable = "";
@@ -443,6 +455,7 @@ public class DBHelper
             String tableName = incidentElement.getTable ().toString ().substring (4);
             if ( tableName.compareTo ( "Staff" ) == 0 )
             {
+                System.out.println(incidentElement.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID ));
                 stmt.setString (
                         1,
                         tableName
@@ -516,7 +529,6 @@ public class DBHelper
             initDB ();
             CallableStatement stmt = connection.prepareCall ( query );
             String tableName = incidentElement.getTable ().toString ().substring (4);
-            System.out.println (tableName);
             if ( tableName.compareTo ( "Staff" ) == 0 )
             {
                 stmt.setString (
@@ -857,7 +869,6 @@ public class DBHelper
         if ( incidentElement == null ) return;
 
         DatabaseValues.Table table = incidentElement.getTable();
-        System.out.println(DatabaseValues.Table.INCIDENT_CATEGORY.toString());
         String msg = "Inserting relation for " + table.toString() ;
         if ( DatabaseValues.Table.PERSON == table) {
             msg += " where FIRST_NAME = " + incidentElement.getAttributeValue( DatabaseValues.Column.FIRST_NAME ) +
