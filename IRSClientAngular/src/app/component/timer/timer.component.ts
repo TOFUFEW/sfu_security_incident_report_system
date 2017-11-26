@@ -16,7 +16,7 @@ export class TimerComponent implements OnInit {
     tempStart: string;
     tempEnd: string;
     timerList: Timer[] = new Array<Timer>();
-    newTimer: Timer = new Timer;
+    newTimer: Timer = new Timer();
     modifyValid = true;
     
 
@@ -63,26 +63,25 @@ export class TimerComponent implements OnInit {
        }).then(()=> {this.sortTimers()});
     }
 
-    checkInput() : void{
-        if(this.tempStart > this.tempEnd){
-            alert("End time cannot be before start time");
-        } else {
-            this.addTimer();
-        }
-    }
+    // checkInput() : void{
+    //     if(this.tempStart > this.tempEnd){
+    //         alert("End time cannot be before start time");
+    //     } else {
+    //         this.addTimer();
+    //     }
+    // }
 
-    addTimer(): void {
+    // addTimer(): void {
+    //     this.newTimer.TIMER_START = this.timerService.stringToTime(this.tempStart);
+    //     this.newTimer.TIMER_END = this.timerService.stringToTime(this.tempEnd);
 
-        this.newTimer.TIMER_START = this.timerService.stringToTime(this.tempStart);
-        this.newTimer.TIMER_END = this.timerService.stringToTime(this.tempEnd);
+    //     this.tempStart = "";
+    //     this.tempEnd = "";
 
-        this.tempStart = "";
-        this.tempEnd = "";
+    //     this.newTimer.TIME_REMAINING = this.newTimer.TIMER_END - this.timeNow;
 
-        this.newTimer.TIME_REMAINING = this.newTimer.TIMER_END - this.timeNow;
-
-        this.timerList.push(this.newTimer);        
-    }
+    //     this.timerList.push(this.newTimer);        
+    // }
 
     sortTimers() : void {
         this.timerList.sort( (a , b) => {

@@ -151,6 +151,8 @@ export class NewReportComponent implements OnInit {
         if( this.reportReady ){
             var currentID = this.userService.getAccountID();
             this.newIncident.attributes.ACCOUNT_ID = currentID;
+            this.newIncident.attributes.TIMER_START = this.timerService.stringToTime(this.tempTimerStart);
+            this.newIncident.attributes.TIMER_END = this.timerService.stringToTime(this.tempTimerEnd);
 
             if ( this.userService.isGuard() )
                 this.convertToTempReport();
@@ -166,9 +168,8 @@ export class NewReportComponent implements OnInit {
                     }
                     else alert( "Add failed." );
                 } );
-            this.newIncident.attributes.TIMER_START = this.timerService.stringToTime(this.tempTimerStart);
-            this.newIncident.attributes.TIMER_END = this.timerService.stringToTime(this.tempTimerEnd);
-            this.timerService.createTimer(this.tempTimerStart, this.tempTimerEnd);
+
+
             this.tempTimerStart = null;
             this.tempTimerEnd = null;
             delete this.newIncident;

@@ -5,6 +5,10 @@ export class Timer{
     TIMER_START: number;
     TIMER_END: number;
     TIME_REMAINING: number;
-    modify: boolean = false;
+    modify: boolean;
     // interval: NodeJS.Timer;
+
+    constructor(){
+        this.modify = false;
+    }
 }

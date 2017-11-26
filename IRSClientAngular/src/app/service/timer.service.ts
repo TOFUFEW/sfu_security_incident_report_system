@@ -16,13 +16,16 @@ export class TimerService{
     getTimers() : Promise<Timer[]> {
         var incidentList : Incident [];
         var timerList : Array<Timer> = new Array<Timer>();
-
+        var nowDate = new Date (Date.now());
+        var nowTime = nowDate.getHours() * 60 * 60 * 1000 + nowDate.getMinutes() * 60 * 1000;
+        
         this.incidentService.getIncidents().then( returnedIncidents => {
             incidentList = returnedIncidents;
         })
         .then( () => {
             incidentList.forEach(incident =>{
-                if (incident.attributes.TIMER_START != null && incident.attributes.TIMER_END != null && incident.attributes.TIMER_END > incident.attributes.TIMER_START) {
+                if (incident.attributes.TIMER_START != null && incident.attributes.TIMER_END != null 
+                    && incident.attributes.TIMER_END > incident.attributes.TIMER_START && incident.attributes.TIMER_END > nowTime) {
                     timerList.push(this.createTimerInt(incident, incident.attributes.TIMER_START, incident.attributes.TIMER_END));
                 }
             });
@@ -46,19 +49,16 @@ export class TimerService{
 
 
     createTimerInt(incident: Incident, start : number, end : number) : Timer {
+        var timer : Timer = new Timer();
         var nowDate = new Date (Date.now());
         var nowTime = nowDate.getHours() * 60 * 60 * 1000 + nowDate.getMinutes() * 60 * 1000;
-        var timer : Timer = new Timer();
-        
-        if (end < nowTime || incident.attributes.START_TIME < nowDate.getDate()){
-            return null;
-        } else {
-            timer.incident = incident;
-            timer.TIMER_START = start;
-            timer.TIMER_END = end;
-            timer.TIME_REMAINING = timer.TIMER_END - nowTime;
-            return timer;
-        }
+ 
+        timer.incident = incident;
+        timer.TIMER_START = start;
+        timer.TIMER_END = end;
+        timer.TIME_REMAINING = timer.TIMER_END - nowTime;
+
+        return timer;
     }
 
     deleteTimer(timer : Timer) : void {
