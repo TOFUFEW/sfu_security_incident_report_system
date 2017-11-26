@@ -6,6 +6,7 @@ import { LoginService } from '../../service/login.service';
 import { Incident } from '../report/incident';
 import { User } from './user';
 import {AppComponent} from "../../app.component";
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
     templateUrl: './login.component.html',
