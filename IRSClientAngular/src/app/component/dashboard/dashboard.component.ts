@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
+import { NavbarComponent } from '../navbar/navbar.component';
 import { Incident } from '../report/incident';
 import { IncidentService } from '../../service/incident.service';
 import { StaffService } from '../../service/staff.service';

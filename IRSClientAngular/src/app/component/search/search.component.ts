@@ -29,8 +29,8 @@ export class SearchComponent implements OnInit {
     };
 
     onSearch() {
-        if (this.queryString == "" || undefined) {
-            alert ("You must enter something!");
+        if (this.queryString == "" || this.queryString == undefined) {
+            this.getAllReports();
             return;
         } else {
             this.showSpinner = true;
@@ -40,7 +40,9 @@ export class SearchComponent implements OnInit {
                     this.incidents = responseData;
                 },
                 (errors) => {
-                    alert("Search failed");
+                    if (errors.status == 400) {
+                        alert("Search failed, Reason: bad format");
+                    }
                     this.showSpinner = false;
                 },
                 () => {
@@ -61,21 +63,7 @@ export class SearchComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.incidentService.allReports
-        .subscribe(
-            (responseData) => {
-                setTimeout( () => {
-                    this.incidents = responseData;
-                    this.showSpinner = false;
-                    } , 1000);
-            },
-            (errors) => {
-                alert(Config.FailedToRetrieveMsg);
-            },
-            () => {
-                console.log("Done before data is finished");
-            }
-        );
+        this.getAllReports();
     }
 
     private constructBodyRequest(): string {
@@ -85,5 +73,21 @@ export class SearchComponent implements OnInit {
         body.append('userId', user.attributes.ACCOUNT_ID.toString());
         console.log(body.toString());
         return body.toString();
+    }
+
+    private getAllReports() {
+        this.incidentService.allReports
+        .subscribe(
+            (responseData) => {
+                this.incidents = responseData;
+                this.showSpinner = false;
+            },
+            (errors) => {
+                alert(Config.FailedToRetrieveMsg);
+            },
+            () => {
+                
+            }
+        );
     }
 }

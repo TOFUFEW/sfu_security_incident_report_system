@@ -1,10 +1,13 @@
-
-<nav id="main-navbar" class="navbar">
+<navbar-component></navbar-component>
+<!-- <nav id="main-navbar" class="navbar">
     <div id="navbar-container" class="container-fluid">
-        <div class="navbar-header navbar-left-items">
-            <a class="navbar-brand navbar-sm">SFU IRS</a>
+        <div class="navbar-header navbar-left-items" *ngIf="!isGuardApp">
             <a class="navbar-brand navbar-lg">SFU Incident Reporting System</a>
         </div>
+        <div class="navbar-header" *ngIf="isGuardApp">
+            <a class="navbar-brand navbar-sm">SFU IRS</a>
+            <a class="navbar-brand navbar-lg navbar-guard">SFU Incident Reporting Systemssss</a>
+        </div>            
         <ul class="nav navbar-nav">
             <li *ngIf="isAdmin" (click)="redirect('dashboard')"><a class="link">Dashboard</a></li>
             <li *ngIf="isAdmin" (click)="redirect('search')"><a class="link">Search</a></li>
@@ -22,7 +25,7 @@
     </div>
     <span id="logout-link" class="link navbar-right navbar-sm" (click)="onLogout()">Logout</span>
     
-</nav>
+</nav> -->
 
 
 <router-outlet></router-outlet>
