@@ -10,7 +10,7 @@ import { Category, SubCategory, CategoryType, CategoryDictionary } from '../cate
 import { IncidentService } from '../../service/incident.service';
 import { LocationService } from '../../service/location.service';
 import { CategoryService } from '../../service/category.service';
-import { map } from 'rxjs/operators/map';
+//import { map } from 'rxjs/operators/map';
 import { UserService } from "../../service/user.service";
 import { NewReportService } from '../../service/new-report.service';
 import { IncidentElementService } from '../../service/incident-element.service';
@@ -32,14 +32,14 @@ export class ReportSummaryComponent implements OnInit {
 
     categories: CategoryDictionary[] = [];
     subCategories: SubCategory[] = [];
-    categoryTypes: CategoryType[] = [];   
+    categoryTypes: CategoryType[] = [];
 
     selectedStaffId: number = -1;
     staffArr: Staff[] = [];
 
-    locationIdToRemove: number = -1; 
-    personIdToRemove: number = -1;   
-    
+    locationIdToRemove: number = -1;
+    personIdToRemove: number = -1;
+
     isPersonAdded: boolean = true;
     editMode: boolean = false;
     allFieldsValid: boolean = true;
@@ -50,7 +50,7 @@ export class ReportSummaryComponent implements OnInit {
         private categoryService: CategoryService,
         private newReportService: NewReportService,
         private locationService: LocationService,
-        private userService: UserService        
+        private userService: UserService
     ) {
         //this.report = new Incident();
         console.log(this.report);
@@ -90,7 +90,7 @@ export class ReportSummaryComponent implements OnInit {
                 });
         }
         else
-            this.alertReportInvalid(); 
+            this.alertReportInvalid();
     }
 
     addIncidentElement( type: string ) {
@@ -118,12 +118,12 @@ export class ReportSummaryComponent implements OnInit {
         if ( type === 'location' ) {
             this.incidentElementService
                 .removeElementNoUpdate( this.report_edit, Config.LocationTable, this.locationIdToRemove );
-            this.locationIdToRemove = -1 ;                
+            this.locationIdToRemove = -1 ;
         }
         else if ( type === 'person' ) {
             this.incidentElementService
                 .removeElementNoUpdate( this.report_edit, Config.PersonTable, this.personIdToRemove );
-            this.personIdToRemove = -1 ;  
+            this.personIdToRemove = -1 ;
         }
         this.updateReport();
     }
@@ -175,20 +175,20 @@ export class ReportSummaryComponent implements OnInit {
             this.report_edit.attributes.CATEGORY_ID = type.CATEGORY_ID;
         }
         else {
-            this.report_edit.attributes.CATEGORY_ID = null;            
+            this.report_edit.attributes.CATEGORY_ID = null;
         }
         this.categoryTypes = subcategory.TYPES;
     }
 
-    onSelectType() {      
+    onSelectType() {
         if ( this.report_edit.category.attributes.INCIDENT_TYPE != null ) {
             var index = this.categoryTypes.findIndex( item => item.INCIDENT_TYPE ===this.report_edit.category.attributes.INCIDENT_TYPE );
-            
+
             if ( index >= 0 ) {
                 var type = this.categoryTypes[index];
                 this.report_edit.attributes.CATEGORY_ID = type.CATEGORY_ID;
                 this.report_edit.category.attributes.CATEGORY_ID = type.CATEGORY_ID;
-                this.report_edit.category.attributes.INCIDENT_TYPE = type.INCIDENT_TYPE; // for report summary                
+                this.report_edit.category.attributes.INCIDENT_TYPE = type.INCIDENT_TYPE; // for report summary
                 console.log(this.report_edit);
                 console.log( type.CATEGORY_ID);
                 console.log(this.report_edit.attributes.CATEGORY_ID);
@@ -200,24 +200,25 @@ export class ReportSummaryComponent implements OnInit {
         var newIncident = new Incident();
         newIncident = this.report;
         var reportID = this.report.attributes.REPORT_ID;
-        // console.log("new incident report id = " + newIncident.attributes.REPORT_ID);
-        // console.log("new incident creator id = " + newIncident.attributes.ACCOUNT_ID);
-        if( !this.isAccepted ) {
-            // console.log("accept temp");
-            newIncident.attributes.ACCOUNT_ID = this.userService.getAccountID();
-            newIncident.attributes.REPORT_ID = null;
-            // console.log("new incident report id = " + newIncident.attributes.REPORT_ID);
-            // console.log("new incident creator id = " + newIncident.attributes.ACCOUNT_ID);
-            this.incidentService.create( newIncident )
-              .then( returnedIncident => {
-                if ( returnedIncident != null  ) {
-                  alert("Report successfully created!");
-                  setTimeout(function(){location.reload()}, 300);
+        this.report.attributes.STATUS = 5;
+        this.incidentService.update( this.report )
+            .then( returnedIncident => {
+                if( returnedIncident != null ) {
+                    alert("Report successfully updated");
+                    newIncident.attributes.ACCOUNT_ID = this.userService.getAccountID();
+                    newIncident.attributes.REPORT_ID = null;
+                    this.incidentService.create( newIncident )
+                      .then( returnedNewIncident => {
+                        if ( returnedNewIncident != null  ) {
+                          alert("Report successfully created!");
+                          setTimeout(function(){location.reload()}, 300);
+                        }
+                        else alert( "Add failed." );
+                      } );
+                } else {
+                    alert("update failed");
                 }
-                else alert( "Add failed." );
-              } );
-            this.isAccepted = true;
-        }
+            } );
         this.report.attributes.REPORT_ID = reportID;
         this.removeFromWorkspace( reportID );
     }
@@ -227,23 +228,23 @@ export class ReportSummaryComponent implements OnInit {
             this.report = this.inputReport;
             this.report_edit = this.deepCopyReport(this.report);
             if ( this.report.guard != null )
-                this.selectedStaffId = this.report.guard.attributes.ACCOUNT_ID; 
-        } 
+                this.selectedStaffId = this.report.guard.attributes.ACCOUNT_ID;
+        }
         this.categoryService.categoryDictionary.subscribe(
             categories => {
                 this.categories = categories;
                 console.log( this.categories );
             }
-        );    
+        );
         this.incidentService.staffArr.subscribe(
             staffArr => {
                 this.staffArr = staffArr;
             }
-        );   
+        );
     }
 
     private alertReportInvalid() {
-        alert("Please fill in all required fields.");        
+        alert("Please fill in all required fields.");
     }
 
     private deepCopyReport( source: Incident ): Incident {
