@@ -51,22 +51,93 @@ export class IncidentService
             var incident = this.initializeIncident (
               JSON.parse ( JSON.parse ( message.data ) ) as Incident
             );
-
+            var user = this.userService.getCurrentUser ();
             var reportList = this.bs_reportsInList.getValue ();
-            var reportListIndex = reportList.findIndex( i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID );
-            if ( reportListIndex != -1 )
+
+            // if user is a guard, then check if
+            if ( this.userService.isGuard () )
             {
-                reportList [ reportListIndex ] = incident;
-                this.updateInWorkspace ( incident );
+              this.processWebsocketIncidentForGuard ( incident );
+            }
+
+            else  if ( this.userService.isAdmin () || this.userService.isSupervisor () )
+            {
+              this.addReportToList ( incident );
             }
 
             else
             {
-              reportList.splice ( 0 , 0 , incident );
+              console.log ( "Unexpected account type: " + this.userService.getAccountType () );
             }
-
-            this.bs_reportsInList.next ( reportList );
         }.bind ( this );
+    }
+
+    processWebsocketIncidentForGuard ( incident : Incident ) : void
+    {
+      var reportList = this.bs_reportsInList.getValue ();
+      var reportListIndex = reportList.findIndex ( i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID );
+
+      var user = this.userService.getCurrentUser ();
+      var reportAssignedToThisGuard = user.attributes.ACCOUNT_ID != incident.attributes.ACCOUNT_ID;
+
+      if ( reportAssignedToThisGuard )
+      {
+        this.removeReportFromList ( incident );
+      }
+
+      else
+      {
+        this.addReportToList ( incident );
+      }
+    }
+
+    addReportToList ( incident : Incident ) : void
+    {
+      var reportList = this.bs_reportsInList.getValue ();
+      var reportListIndex = reportList.findIndex ( i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID );
+
+      if ( reportListIndex != -1 )
+      {
+          reportList [ reportListIndex ] = incident;
+          this.updateInWorkspace ( incident );
+      }
+
+      else
+      {
+        reportList.splice (
+          this.getInsertionIndex ( incident , reportList ),
+          0,
+          incident
+        );
+      }
+
+      this.bs_reportsInList.next ( reportList );
+    }
+
+    removeReportFromList ( incident : Incident ) : void
+    {
+      var reportList = this.bs_reportsInList.getValue ();
+      var reportListIndex = reportList.findIndex ( i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID );
+
+      if ( reportListIndex != -1 )
+      {
+        reportList.splice ( reportListIndex , 1 );
+
+        this.bs_reportsInList.next ( reportList );
+      }
+    }
+
+    getInsertionIndex ( incident: Incident , reportList : Incident [] ) : number
+    {
+      for ( var i = reportList.length - 1 ; i > -1 ; i-- )
+      {
+        if ( reportList [ i ].attributes.REPORT_ID < incident.attributes.REPORT_ID )
+        {
+          return i + 1;
+        }
+      }
+
+      return 0;
     }
 
      updateInWorkspace( incident: Incident ): void {
@@ -107,9 +178,9 @@ export class IncidentService
         var incidents = this.http
             .post( this.guardIncidentsUrl, JSON.stringify( user ), { headers: this.headers } )
             .toPromise()
-            .then( response => this.initIncidents( response.json() as Incident[] )as Incident[] )
+            .then( response => this.bs_reportsInList.next ( this.initIncidents( response.json() as Incident[] ) as Incident[] ) )
             .catch( this.handleError );
-        return Promise.resolve( incidents );
+        return Promise.resolve( this.bs_reportsInList.getValue () );
     }
 
     getIncident( id: number ): Promise<Incident> {

@@ -18,15 +18,15 @@ export class GuardAllReportsComponent implements OnInit {
   incidents: Incident[];
   user: User;
 
-  constructor( private incidentsService: IncidentService,
+  constructor( private incidentService: IncidentService,
                private userService: UserService,
-               private http: HttpClient,               
+               private http: HttpClient,
                private router: Router) {
   };
 
   getIncidents(): void {
     this.user = this.userService.getCurrentUser();
-    this.incidentsService.getGuardIncidents( ).then( returnedIncidents => {
+    this.incidentService.getGuardIncidents( ).then( returnedIncidents => {
         console.log("returned incidents: ", returnedIncidents);
       this.incidents = returnedIncidents;
     } );
@@ -39,5 +39,11 @@ export class GuardAllReportsComponent implements OnInit {
 
   ngOnInit() : void {
     this.getIncidents();
+
+    this.incidentService.reportsInList
+          .subscribe( reports => {
+              this.incidents = reports as Incident[];
+              console.log ( "reports.length = " + reports.length );
+    } );
   }
 }
