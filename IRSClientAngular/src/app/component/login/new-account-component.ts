@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { UserService } from '../../service/user.service';
 import { LoginService } from '../../service/login.service';
 import { LocationService } from '../../service/location.service';
+import { NavbarComponent } from '../navbar/navbar.component';
 import { StaffService } from '../../service/staff.service';
 import { NewAccount } from './new-account';
 import { Staff } from '../staff/staff';

@@ -10,13 +10,14 @@ import { Person } from '../person/person';
 import { Incident } from '../report/incident';
 import { Staff } from '../staff/staff';
 import { Category, SubCategory, CategoryType, CategoryDictionary } from '../category/category';
+import { NavbarComponent } from '../navbar/navbar.component';
 import { LocationComponent } from '../location/location.component';
 import { VehicleComponent } from '../vehicle/vehicle.component';
 import { PersonComponent } from '../person/person.component';
 import { AttachmentComponent } from '../attachment/attachment.component';
 import { Config } from '../../util/config.service';
-import {UserService} from "../../service/user.service";
-import {Router} from "@angular/router";
+import { UserService } from "../../service/user.service";
+import { Router } from "@angular/router";
 
 @Component(
   {

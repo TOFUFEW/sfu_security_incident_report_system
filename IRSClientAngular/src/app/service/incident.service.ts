@@ -205,13 +205,15 @@ export class IncidentService {
         this.toSearchString(incident);
         incident.table = Config.IncidentTable;
         var promise = this.http
-            .post(this.updateIncidentsUrl, JSON.stringify(incident), { headers: this.headers })
-            .toPromise()
-            .then(response => {
-                return (response.json() as boolean) ? incident : null
-            })
-            .catch(this.handleError);
-        return Promise.resolve(promise);
+                .post( this.updateIncidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
+                .toPromise()
+                .then( response => {
+                    var _incident = ( response.json() as boolean ) ? incident : null;
+                    _incident.incidentElements [ Config.LocationKey ] = this.locationService.initLocations ( _incident.incidentElements[Config.LocationKey] );
+                    return _incident;
+                })
+                .catch( this.handleError );
+        return Promise.resolve( promise );
     }
 
     delete(id: number): Promise<boolean> {
