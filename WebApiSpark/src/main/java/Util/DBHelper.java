@@ -260,7 +260,7 @@ public class DBHelper
                 for ( IncidentElement incidentElement : incidentElementsList ) {
                     boolean hasAttributes = incidentElement.getColumnSet().length > 0;
 
-                    if ( hasAttributes && !relationExists( reportID , incidentElement ) ) {
+                    if ( hasAttributes ) {
                         debug_printInsertRelationLog( incidentElement );
                         insertIncidentRelation(
                                 relationSQL,
@@ -467,6 +467,7 @@ public class DBHelper
             String tableName = incidentElement.getTable ().toString ().substring (4);
             if ( tableName.compareTo ( "Staff" ) == 0 )
             {
+                System.out.println(incidentElement.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID ));
                 stmt.setString (
                         1,
                         tableName
@@ -540,7 +541,6 @@ public class DBHelper
             initDB ();
             CallableStatement stmt = connection.prepareCall ( query );
             String tableName = incidentElement.getTable ().toString ().substring (4);
-            System.out.println (tableName);
             if ( tableName.compareTo ( "Staff" ) == 0 )
             {
                 stmt.setString (
