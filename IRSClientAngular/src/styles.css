@@ -1,7 +1,3 @@
-/* Contains general css rules for the entire app */
-span, a, button, textarea {
-  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif; }
-
 body {
   min-height: 100vh;
   min-width: 100vw;

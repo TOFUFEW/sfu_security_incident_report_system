@@ -1,20 +1,20 @@
-/* *  Location Modal Component: 
-*  displays the location component within a modal 
-*  to add/change locations in a report */ 
+/* *  Location Modal Component:
+*  displays the location component within a modal
+*  to add/change locations in a report */
 
-import { Component, Input, Output, OnInit, Directive, ViewChild, EventEmitter } from '@angular/core'; 
-import { Router, RouterModule } from '@angular/router'; 
-import { LocationService } from '../../service/location.service'; 
-import { LocationComponent } from './location.component'; 
-import { Location } from './location'; 
-import { NewReportService } from '../../service/new-report.service'; 
-import { Config } from '../../util/config.service'; 
+import { Component, Input, Output, OnInit, Directive, ViewChild, EventEmitter } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { LocationService } from '../../service/location.service';
+import { LocationComponent } from './location.component';
+import { Location } from './location';
+import { NewReportService } from '../../service/new-report.service';
+import { Config } from '../../util/config.service';
 
-@Component({     
-    selector: 'location-modal-component',     
-    templateUrl: './location-modal.component.html',     
-    styleUrls: ['../../../assets/css/guard-app.css']    
-}) 
+@Component({
+    selector: 'location-modal-component',
+    templateUrl: './location-modal.component.html',
+    styleUrls: ['../../../assets/css/guard-app.css']
+})
 
 export class LocationModalComponent implements OnInit {     
     @ViewChild ( LocationComponent ) locationComponent: LocationComponent   
@@ -68,10 +68,10 @@ export class LocationModalComponent implements OnInit {
     public removeLocation ( id ) : void {
         console.log("id ", id);
         this.triggerLocationRemove.emit(id);
-        this.hide();   
+        this.hide();
     }
 
-    ngOnInit() {         
-        document.getElementById("removeLocation").style.visibility = "hidden";     
-    } 
+    ngOnInit() {
+        document.getElementById('removeLocation').style.visibility = 'hidden';
+    }
 }

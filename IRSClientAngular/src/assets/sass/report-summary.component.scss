@@ -12,3 +12,9 @@ div.report-header {
     opacity: $header-opacity;
     color: #333;
 }
+
+#accept-temp {
+    display: flex;
+    justify-content: center;
+    margin-bottom: $padding-md; 
+}
