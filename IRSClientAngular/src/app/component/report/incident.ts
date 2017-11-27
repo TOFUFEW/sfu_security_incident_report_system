@@ -9,8 +9,6 @@ import { Type, plainToClass} from "class-transformer";
 
 export class Incident {
     table: string;
-    
-    @Type(() => IncidentElement)
     incidentElements: Map<String, IncidentElement[]>;
     attributes: IncidentAttributes;
     searchString: string = "";

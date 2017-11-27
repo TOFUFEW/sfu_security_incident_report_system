@@ -168,24 +168,33 @@ public class Incident extends StorageObject
     }
 
     public void updateSearchString() {
-        String searchString = this.getAttributeValue( DatabaseValues.Column.DESCRIPTION ) + " " +
-                this.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY );
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(this.getAttributeValue(DatabaseValues.Column.DESCRIPTION));
+        sb.append(" ");
+        sb.append(this.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY));
+
         for( Map.Entry< String, ArrayList< IncidentElement > > entry : this.incidentElements.entrySet() ) {
             ArrayList< IncidentElement > list = entry.getValue();
             System.out.println( entry.getKey() );
             for( IncidentElement element : list ) {
                 if( entry.getKey().equals( "Location" ) ) {
-                    searchString = searchString + " " + ( ( Location ) element ).toSearchString();
+                    sb.append(" ");
+                    sb.append(element.toSearchString());
                 } else if ( entry.getKey().equals( "IncidentCategory" ) ) {
-                    searchString = searchString + " " + ( ( IncidentCategory ) element ).toSearchString();
+                    sb.append(" ");
+                    sb.append(element.toSearchString());
                 } else if ( entry.getKey().equals( "Person" ) ) {
-                    searchString = searchString + " " + ( ( Person ) element ).toSearchString();
+                    sb.append(" ");
+                    sb.append(element.toSearchString());
                 } else if ( entry.getKey().equals( "Staff" ) ) {
-                    searchString = searchString + " " + ( ( Staff ) element ).toSearchString();
+                    sb.append(" ");
+                    sb.append(element.toSearchString());
                 }
             }
         }
-        this.updateAttributeValue( DatabaseValues.Column.SEARCH_TEXT, searchString );
+
+        this.updateAttributeValue( DatabaseValues.Column.SEARCH_TEXT, sb.toString() );
     }
 //    public String [] incidentElementsToInsertSQL ()
 //    {
