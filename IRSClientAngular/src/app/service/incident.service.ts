@@ -32,6 +32,9 @@ export class IncidentService {
 
     private userService = new UserService;
 
+    private bs_allReports = new BehaviorSubject<Incident[]>([]);
+    allReports = this.bs_allReports.asObservable()
+
     private bs_reportsInList = new BehaviorSubject < Incident [] > ( [] );
     reportsInList = this.bs_reportsInList.asObservable ();
 
@@ -69,6 +72,10 @@ export class IncidentService {
             var cat = this.categoryService.toCategoryDictionary(response);
             this.bs_categories.next(cat);
         } );
+
+        this.getIncidents().then(response => {
+            this.bs_allReports.next(response);
+        });
 
         // Web socket
         var wss = new WebSocket ( Config.IncidentsWebSocketURI );
@@ -262,15 +269,15 @@ export class IncidentService {
     };
 
 
-    // getIncidents(): Observable<Incident[]> {
-    //     let options = new RequestOptions({headers: this.headers});
-
-    //     return this.http
-    //         .get(this.incidentsUrl, options)
-    //         .map((response: Response) =>
-    //         this.initIncidents(plainToClass(Incident, response.json()))
-    //     )
-    // }
+    getIncidentsObs(): Observable<Incident[]> {
+         let options = new RequestOptions({headers: this.headers});
+        
+         return this.http
+             .get(Config.IncidentsURI, options)
+             .map((response: Response) =>
+             this.initIncidents(plainToClass(Incident, response.json()))
+         )
+     }
 
     doSearch(query: String, isCTSearch: boolean): Observable<Incident[]> {
         let formHeaders = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
