@@ -185,7 +185,13 @@
                                 </h4>
                             </div>
                             <div id="collapsePersons" class="panel-collapse collapse">
-                                <div class="panel-body">
+                                <div class="panel-body" *ngIf="incident">
+                                    <span *ngFor="let Person of incident.incidentElements['Person']">
+                                        Name: {{Person.attributes.FIRST_NAME}}
+                                        {{Person.attributes.LAST_NAME}} &nbsp;
+                                        Phone Number: {{Person.attributes.PHONE_NUMBER}}
+                                        <br>
+                                    </span>
                                 </div>
                             </div>
                         </div>
