@@ -32,10 +32,19 @@ export class GuardIncidentComponent implements OnInit {
     incident: Incident = new Incident();
     locationModalStr = "location-modal";
     statuses: string[] = ['Created', 'En Route', 'Working', 'Resolved', 'Closed'];
+
     isEditingDesc: boolean = false;
     newDescription: string = "";
+
     isEditingSummary: boolean = false;
     newSummary: string = "";
+
+    isEditingPerson: boolean = false;
+    currentPersonIndex: number; 
+    newPersonFirstName: string = "";
+    newPersonLastName: string = "";
+    newPersonTelephone: string = "";
+
     alertMessage: string = "";
     showAlertDescription: boolean = false;
     showAlert: boolean = false;
@@ -65,15 +74,23 @@ export class GuardIncidentComponent implements OnInit {
             this.isEditingDesc = !this.isEditingDesc;
         else if ( attribute.toLowerCase() === "summary" )
             this.isEditingSummary = !this.isEditingSummary;
+        else if ( attribute.toLocaleLowerCase() === "person")
+            this.isEditingPerson = !this.isEditingPerson;
     }
 
     revertChanges( attribute: string ) {
         if ( attribute == null ) return;
-        if ( attribute.toLowerCase() === "description" )
+        if ( attribute.toLowerCase() === "description" ) {
             this.newDescription = this.incident.attributes.DESCRIPTION;
-        else if ( attribute.toLowerCase() === "summary" )
+        }
+        else if ( attribute.toLowerCase() === "summary" ) {
             this.newSummary = this.incident.attributes.EXECUTIVE_SUMMARY;
-
+        }
+        else if ( attribute.toLowerCase() === "person") {
+            this.newPersonFirstName = this.incident.incidentElements['Person'][this.currentPersonIndex].attributes.FIRST_NAME;
+            this.newPersonLastName = this.incident.incidentElements['Person'][this.currentPersonIndex].attributes.LAST_NAME;
+            this.newPersonTelephone = this.incident.incidentElements['Person'][this.currentPersonIndex].attributes.PHONE_NUMBER;
+        }
         this.toggleEditMode( attribute );
     }
 

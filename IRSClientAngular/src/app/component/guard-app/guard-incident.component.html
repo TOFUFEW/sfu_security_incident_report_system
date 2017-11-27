@@ -99,7 +99,7 @@
                                         <span *ngFor="let location of incident.incidentElements['Location']" 
                                             [id]="location.attributes.LOCATION_ID"
                                             (click)="this.modalLocation.show($event)">
-                                            {{location.attributes.CITY}},                                            
+                                            {{location.attributes.CITY}}<span *ngIf='location.attributes.BUILDING_NAME != ""'>,</span>                                            
                                             {{location.attributes.BUILDING_NAME}}<span *ngIf='location.attributes.ROOM_NUMBER != ""'>,</span>
                                             {{location.attributes.ROOM_NUMBER}}    
                                             <!-- {{location.attributes.DEPARTMENT}}  -->
@@ -130,6 +130,12 @@
                                 <div id="collapseExecSummary" class="panel-collapse collapse in">
                                     <div class="panel-body">
                                         <span *ngIf="!isEditingSummary" (click)="toggleEditMode('summary')">{{incident.attributes.EXECUTIVE_SUMMARY}}</span>
+                                        <span *ngIf="incident.attributes.EXECUTIVE_SUMMARY == ''">
+                                            <button (click)="toggleEditMode('summary')"
+                                                    class="btn btn-sm btn-default pull-right mt-2 mr-1 mb-1 ml-2">
+                                                <span class="glyphicon glyphicon-plus"></span> Add Summary
+                                            </button>
+                                        </span>
                                         <div *ngIf="isEditingSummary">
                                             <textarea [(ngModel)]="newSummary" class="form-control" rows="5"></textarea>
                                             <button (click)="revertChanges('summary')"
@@ -158,6 +164,12 @@
                                 <div id="collapseDescription" ng-controller="editable" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <span *ngIf="!isEditingDesc" (click)="toggleEditMode('description')">{{incident.attributes.DESCRIPTION}}</span>
+                                        <span *ngIf="incident.attributes.DESCRIPTION == ''">
+                                            <button (click)="toggleEditMode('description')"
+                                                    class="btn btn-sm btn-default pull-right mt-2 mr-1 mb-1 ml-2">
+                                                <span class="glyphicon glyphicon-plus"></span> Add Description
+                                            </button>
+                                        </span>
                                         <div *ngIf="isEditingDesc">
                                             <textarea [(ngModel)]="newDescription" class="form-control" rows="5"></textarea>
                                             <button (click)="revertChanges('description')"
@@ -185,13 +197,30 @@
                                 </h4>
                             </div>
                             <div id="collapsePersons" class="panel-collapse collapse">
-                                <div class="panel-body" *ngIf="incident">
+                                <div class="panel-body details-body lh-1 mt-1" *ngIf="incident">
                                     <span *ngFor="let Person of incident.incidentElements['Person']">
-                                        Name: {{Person.attributes.FIRST_NAME}}
-                                        {{Person.attributes.LAST_NAME}} &nbsp;
-                                        Phone Number: {{Person.attributes.PHONE_NUMBER}}
+                                        <span *ngIf="!isEditingPerson" (click)="toggleEditMode('person')">
+                                            Name: {{Person.attributes.FIRST_NAME}}
+                                            {{Person.attributes.LAST_NAME}} &nbsp;
+                                            Phone Number: {{Person.attributes.PHONE_NUMBER}}
+                                        </span>
+                                        <div *ngIf="isEditingPerson">
+                                            <person-component></person-component>
+                                            <button (click)="revertChanges('person')"
+                                                class="btn btn-sm btn-secondary pull-right mt-2 mr-1 mb-1 ml-2">
+                                                <span class="glyphicon glyphicon-remove"></span> Cancel
+                                            </button>
+                                            <button (click)="saveReport('person')"
+                                                    class="btn btn-sm btn-primary pull-right mt-2 mb-1">
+                                                <span class="glyphicon glyphicon-floppy-disk"></span> Save
+                                            </button>
+                                        </div> 
                                         <br>
                                     </span>
+                                    <button (click)="toggleEditMode('person')"
+                                            class="btn btn-sm btn-default pull-right mt-2 mr-1 mb-1 ml-2">
+                                        <span class="glyphicon glyphicon-plus"></span> Add Person
+                                    </button>
                                 </div>
                             </div>
                         </div>
