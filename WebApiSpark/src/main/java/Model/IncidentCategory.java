@@ -52,6 +52,13 @@ public class IncidentCategory extends IncidentElement
                 incidentType
         );
     }
+
+    @Override
+    public String toSearchString() {
+        return this.getAttributeValue( DatabaseValues.Column.MAIN_CATEGORY ) + " " +
+                this.getAttributeValue( DatabaseValues.Column.SUB_CATEGORY ) + " " +
+                this.getAttributeValue( DatabaseValues.Column.INCIDENT_TYPE );
+    }
 }
 //
 //public class IncidentCategory extends IncidentElement {

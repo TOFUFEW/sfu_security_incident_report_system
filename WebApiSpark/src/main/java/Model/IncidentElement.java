@@ -13,4 +13,8 @@ public class IncidentElement extends StorageObject
                 requiredColumns
         );
     }
+
+    public String toSearchString() {
+        return "";
+    }
 }

@@ -2,7 +2,6 @@ package Model;
 
 import Util.DatabaseValues;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -166,6 +165,17 @@ public class Incident extends StorageObject
         }
 
         return total;
+    }
+
+    public void updateSearchString() {
+        String searchString = this.getAttributeValue( DatabaseValues.Column.DESCRIPTION ) + " " +
+                this.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY );
+        for( ArrayList< IncidentElement > list : this.incidentElements.values() ) {
+            for( IncidentElement element : list ) {
+                searchString = searchString + " " + element.toSearchString();
+            }
+        }
+        this.updateAttributeValue( DatabaseValues.Column.SEARCH_TEXT, searchString );
     }
 
 //    public String [] incidentElementsToInsertSQL ()

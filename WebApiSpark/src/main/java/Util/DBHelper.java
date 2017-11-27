@@ -1,9 +1,7 @@
 package Util;
 
 import Model.*;
-import spark.Response;
 
-import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -708,13 +706,16 @@ public class DBHelper
         }
 
         String creatorID = incident.getAttributeValue(DatabaseValues.Column.ACCOUNT_ID);
-        if ( creatorID == null )
+        if ( creatorID == null ) {
             return false;
+        }
+
+        incident.updateSearchString();
 
         try {
             initDB ();
-            String query = "{ call dbo.updateIncidentRefactor ( ? , ? , ? , ? , ? ," +
-                    " ? , ? , ? , ? ) } ";
+            String query = "{ call dbo.updateIncident ( ? , ? , ? , ? , ? ," +
+                    " ? , ? , ? , ? , ? ) } ";
             CallableStatement stmt = connection.prepareCall ( query );
             stmt.setString (
                     1,
@@ -742,15 +743,19 @@ public class DBHelper
             );
             stmt.setString (
                     7,
-                    incident.getAttributeValue( DatabaseValues.Column.TIMER_START )
+                    incident.getAttributeValue( DatabaseValues.Column.SEARCH_TEXT )
             );
             stmt.setString (
                     8,
+                    incident.getAttributeValue( DatabaseValues.Column.TIMER_START )
+            );
+            stmt.setString (
+                    9,
                     incident.getAttributeValue( DatabaseValues.Column.TIMER_END )
             );
 
             stmt.registerOutParameter (
-                    9,
+                    10,
                     Types.INTEGER
             );
             stmt.execute();
@@ -763,6 +768,18 @@ public class DBHelper
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static String toSearchString( Incident incident ) {
+        Map< String, ArrayList< IncidentElement > > map = incident.getIncidentElements();
+        String searchString = incident.getAttributeValue( DatabaseValues.Column.DESCRIPTION ) +
+                incident.getAttributeValue( DatabaseValues.Column.EXECUTIVE_SUMMARY );
+        for( ArrayList< IncidentElement > list : map.values() ) {
+            for(IncidentElement element : list ) {
+                searchString = searchString + element.toSearchString();
+            }
+        }
+        return searchString;
     }
 
     public static boolean insertIncidentElement ( IncidentElement incidentElement )
