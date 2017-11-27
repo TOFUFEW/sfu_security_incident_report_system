@@ -295,6 +295,9 @@ public class StorageObject
             {
                 value = resultSet.getString ( column.toString () );
             }
+            else if ( dataType.contains( "DATETIME" )) {
+                value = ("" + resultSet.getTimestamp( column.toString() )).replaceAll("[\\.][0-9]+$", "");
+            }
 
             // edit column value if present
             if ( value != null )

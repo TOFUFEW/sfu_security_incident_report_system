@@ -1,9 +1,14 @@
 @import "_settings";
 
+.header-container {
+    @include flex(center, center);
+    flex-direction: column;   
+    padding: $padding-md;    
+}
+
 div.report-header {
-    @include flex(center, flex-start);
+    @include flex(center, center);
     width: 100%;
-    padding: $padding-md;
 }
 
 .report-id {
@@ -16,5 +21,5 @@ div.report-header {
 #accept-temp {
     display: flex;
     justify-content: center;
-    margin-bottom: $padding-md; 
+    margin-top: $padding-md; 
 }

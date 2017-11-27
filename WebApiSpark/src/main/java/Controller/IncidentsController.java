@@ -58,10 +58,8 @@ public class IncidentsController
 
         post ("/get-incidents" , ( request, response ) ->
         {
-            System.out.println(request.body());
             User user = ( User ) JsonUtil.fromJson ( request.body(), User.class );
             String accountID = user.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID );
-            System.out.println(accountID);
             Incident [] incidents = DBHelper.getIncidents ( accountID );
             return JsonUtil.toJson ( incidents );
         } );
