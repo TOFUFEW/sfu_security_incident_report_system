@@ -260,6 +260,8 @@ public class DBHelper
         if ( getAccountType( creatorID ) == DatabaseValues.AccountType.GUARD )
             incident.updateAttributeValue( DatabaseValues.Column.TEMPORARY_REPORT, "0" );
 
+        incident.updateSearchString();
+
         try {
             initDB();
             String query = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? , ? , ? , ? ) } ";

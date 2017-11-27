@@ -184,7 +184,7 @@ export class IncidentService {
         if (incident.attributes.ACCOUNT_ID == null) {
             incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().attributes.ACCOUNT_ID;
         }
-        this.toSearchString(incident);
+        //this.toSearchString(incident);
         incident.table = Config.IncidentTable;
 
         var promise = this.http

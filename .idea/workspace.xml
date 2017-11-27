@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c3258f34-4357-46e7-a275-cc0acbced47a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Incident.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Incident.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/WebApiSpark/target/" />
@@ -46,6 +47,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="IncidentsController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/IncidentsController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="935">
+              <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Staff.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Staff.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -56,10 +67,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestLocation.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TestLocation.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WebApiSpark/src/test/java/UnitTests/TestLocation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-204">
+            <state relative-caret-position="102">
               <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
               <folding />
             </state>
@@ -72,6 +83,18 @@
             <state relative-caret-position="-517">
               <caret line="4" column="6" lean-forward="false" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="incident.service.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2940">
+              <caret line="186" column="10" lean-forward="false" selection-start-line="186" selection-start-column="10" selection-end-line="186" selection-end-column="10" />
+              <folding>
+                <element signature="e#0#43#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -96,33 +119,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChannelEndPoint.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-io/9.4.6.v20170531/jetty-io-9.4.6.v20170531.jar!/org/eclipse/jetty/io/ChannelEndPoint.class">
+      <file leaf-file-name="DBHelper.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="124" column="0" lean-forward="false" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Invocable.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-util/9.4.6.v20170531/jetty-util-9.4.6.v20170531.jar!/org/eclipse/jetty/util/thread/Invocable.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="113" column="0" lean-forward="false" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Slf4jLog.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-util/9.4.6.v20170531/jetty-util-9.4.6.v20170531.jar!/org/eclipse/jetty/util/log/Slf4jLog.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+            <state relative-caret-position="-91">
+              <caret line="262" column="38" lean-forward="true" selection-start-line="262" selection-start-column="38" selection-end-line="262" selection-end-column="38" />
               <folding>
-                <element signature="e#1870#1871#0" expanded="true" />
+                <marker date="1511767784071" expanded="true" signature="6588:6752" ph="SELECT Locat... HappensAt" />
+                <marker date="1511767784071" expanded="true" signature="6803:6959" ph="SELECT Staff... AssignedTo" />
+                <marker date="1511767784071" expanded="true" signature="7010:7160" ph="SELECT Perso... Involves" />
+                <marker date="1511767784071" expanded="true" signature="7211:7396" ph="SELECT Incid... Incident" />
+                <marker date="1511767784071" expanded="true" signature="36475:36482" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -157,6 +164,8 @@
       <find>map</find>
       <find>updateI</find>
       <find>updateIncidentR</find>
+      <find>create</find>
+      <find>INS</find>
     </findStrings>
     <replaceStrings>
       <replace>Location</replace>
@@ -232,9 +241,7 @@
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/report/incident.component.ts" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident-element.service.ts" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/report/incident.ts" />
-        <option value="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" />
         <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/IncidentCategory.java" />
-        <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java" />
         <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Location.java" />
         <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Person.java" />
         <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Staff.java" />
@@ -242,6 +249,8 @@
         <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/IncidentElement.java" />
         <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Campus.java" />
         <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Incident.java" />
+        <option value="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" />
+        <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java" />
       </list>
     </option>
   </component>
@@ -997,7 +1006,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511766696920</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="fix to search string">
+      <created>1511767679718</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1511767679718</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1033,7 +1049,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65634000" />
+    <option name="totallyTimeSpent" value="66092000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1135,7 +1151,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix view separation on after refactor, setup to route to different page when added&#10;&#10;able to display 2 views again for guard and admin but should be removed later when the guard page is added and will just route to that page instead upon login" />
     <MESSAGE value="Merge branch 'master' of csil-git1.cs.surrey.sfu.ca:tarsenea/CMPT373Alpha into 18-separating-dispatched-and-guard-views&#10;&#10;# Conflicts:&#10;#&#9;IRSClientAngular/src/app/component/dashboard.component.ts&#10;#&#9;IRSClientAngular/src/app/component/location.component.ts&#10;#&#9;IRSClientAngular/src/app/view/dashboard.component.html&#10;#&#9;IRSClientAngular/src/index.html&#10;#&#9;WebApiSpark/src/main/java/Controller/LoginController.java" />
     <MESSAGE value="Merge branches '18-separating-dispatched-and-guard-views' and 'master' of csil-git1.cs.surrey.sfu.ca:tarsenea/CMPT373Alpha into 18-separating-dispatched-and-guard-views&#10;&#10;# Conflicts:&#10;#&#9;IRSClientAngular/src/app/component/dashboard.component.ts&#10;#&#9;IRSClientAngular/src/app/component/location.component.ts&#10;#&#9;IRSClientAngular/src/app/component/login/login.component.ts&#10;#&#9;IRSClientAngular/src/app/service/login.service.ts&#10;#&#9;IRSClientAngular/src/app/service/user.service.ts&#10;#&#9;IRSClientAngular/src/app/util/data-helper.service.ts&#10;#&#9;IRSClientAngular/src/app/view/dashboard.component.html&#10;#&#9;IRSClientAngular/src/app/view/location.component.html" />
     <MESSAGE value="change logout button to appear on navbar" />
@@ -1160,7 +1175,8 @@
     <MESSAGE value="Merge branch 'master' of csil-git1.cs.surrey.sfu.ca:tarsenea/CMPT373Alpha into searchv2&#10;&#10;# Conflicts:&#10;#&#9;IRSClientAngular/src/.sass-cache/a62d0c040d429a95d69d162f91dd1d05f2cde9a1/styles.scssc&#10;#&#9;IRSClientAngular/src/app/component/location/location.component.ts&#10;#&#9;IRSClientAngular/src/assets/.sass-cache/635de92c80217229dc2a2ef926416ebc4820ad20/guard-app.scssc&#10;#&#9;IRSClientAngular/src/assets/.sass-cache/635de92c80217229dc2a2ef926416ebc4820ad20/report-summary.component.scssc&#10;#&#9;IRSClientAngular/src/styles.css&#10;#&#9;IRSClientAngular/src/styles.scss" />
     <MESSAGE value="WIP make back end change search string rather than front end" />
     <MESSAGE value="WIP fix to search string bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="WIP fix to search string bug" />
+    <MESSAGE value="fix to search string" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix to search string" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1331,38 +1347,6 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2414">
-          <caret line="211" column="20" lean-forward="false" selection-start-line="211" selection-start-column="20" selection-end-line="211" selection-end-column="158" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/IncidentsController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="703">
-          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-833">
-          <caret line="712" column="38" lean-forward="false" selection-start-line="712" selection-start-column="38" selection-end-line="712" selection-end-column="38" />
-          <folding>
-            <marker date="1511761326083" expanded="true" signature="6588:6752" ph="SELECT Locat... HappensAt" />
-            <marker date="1511761326083" expanded="true" signature="6803:6959" ph="SELECT Staff... AssignedTo" />
-            <marker date="1511761326083" expanded="true" signature="7010:7160" ph="SELECT Perso... Involves" />
-            <marker date="1511761326083" expanded="true" signature="7211:7396" ph="SELECT Incid... Incident" />
-            <marker date="1511761326083" expanded="true" signature="36435:36442" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1608,6 +1592,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/test/java/UnitTests/TestLocation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Incident.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="492">
@@ -1616,11 +1608,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/test/java/UnitTests/TestLocation.java">
+    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-204">
-          <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+        <state relative-caret-position="2940">
+          <caret line="186" column="10" lean-forward="false" selection-start-line="186" selection-start-column="10" selection-end-line="186" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/IncidentsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="935">
+          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-91">
+          <caret line="262" column="38" lean-forward="true" selection-start-line="262" selection-start-column="38" selection-end-line="262" selection-end-column="38" />
+          <folding>
+            <marker date="1511767784071" expanded="true" signature="6588:6752" ph="SELECT Locat... HappensAt" />
+            <marker date="1511767784071" expanded="true" signature="6803:6959" ph="SELECT Staff... AssignedTo" />
+            <marker date="1511767784071" expanded="true" signature="7010:7160" ph="SELECT Perso... Involves" />
+            <marker date="1511767784071" expanded="true" signature="7211:7396" ph="SELECT Incid... Incident" />
+            <marker date="1511767784071" expanded="true" signature="36475:36482" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
