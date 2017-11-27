@@ -3,15 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c3258f34-4357-46e7-a275-cc0acbced47a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Campus.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Campus.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Incident.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Incident.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/IncidentCategory.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/IncidentCategory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/IncidentElement.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/IncidentElement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Location.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Location.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Person.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Person.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Staff.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Staff.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java" afterPath="$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/WebApiSpark/target/" />
@@ -47,109 +41,108 @@
       <file leaf-file-name="Incident.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Incident.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="177" column="85" lean-forward="true" selection-start-line="177" selection-start-column="85" selection-end-line="177" selection-end-column="85" />
+            <state relative-caret-position="16">
+              <caret line="183" column="94" lean-forward="false" selection-start-line="183" selection-start-column="56" selection-end-line="183" selection-end-column="94" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestLocation.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebApiSpark/src/test/java/UnitTests/TestLocation.java">
+      <file leaf-file-name="HttpChannel.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/9.4.6.v20170531/jetty-server-9.4.6.v20170531.jar!/org/eclipse/jetty/server/HttpChannel.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2907">
-              <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+            <state relative-caret-position="175">
+              <caret line="236" column="0" lean-forward="false" selection-start-line="236" selection-start-column="0" selection-end-line="236" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Location.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Location.java">
+      <file leaf-file-name="HttpConnection.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/9.4.6.v20170531/jetty-server-9.4.6.v20170531.jar!/org/eclipse/jetty/server/HttpConnection.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="67" column="83" lean-forward="false" selection-start-line="67" selection-start-column="83" selection-end-line="67" selection-end-column="83" />
+            <state relative-caret-position="175">
+              <caret line="194" column="0" lean-forward="false" selection-start-line="194" selection-start-column="0" selection-end-line="194" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Person.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Person.java">
+      <file leaf-file-name="AbstractConnection.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-io/9.4.6.v20170531/jetty-io-9.4.6.v20170531.jar!/org/eclipse/jetty/io/AbstractConnection.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
-              <caret line="55" column="81" lean-forward="false" selection-start-line="55" selection-start-column="81" selection-end-line="55" selection-end-column="81" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Staff.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Staff.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="458">
-              <caret line="58" column="81" lean-forward="false" selection-start-line="58" selection-start-column="81" selection-end-line="58" selection-end-column="81" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="incident.service.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2414">
-              <caret line="211" column="20" lean-forward="true" selection-start-line="211" selection-start-column="20" selection-end-line="211" selection-end-column="158" />
+            <state relative-caret-position="272">
+              <caret line="208" column="0" lean-forward="false" selection-start-line="208" selection-start-column="0" selection-end-line="208" selection-end-column="0" />
               <folding>
-                <element signature="e#0#43#0" expanded="true" />
+                <element signature="e#5485#5486#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IncidentCategory.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/IncidentCategory.java">
+      <file leaf-file-name="FillInterest.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-io/9.4.6.v20170531/jetty-io-9.4.6.v20170531.jar!/org/eclipse/jetty/io/FillInterest.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="58" column="84" lean-forward="false" selection-start-line="58" selection-start-column="84" selection-end-line="58" selection-end-column="84" />
+            <state relative-caret-position="260">
+              <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java">
+      <file leaf-file-name="ChannelEndPoint.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-io/9.4.6.v20170531/jetty-io-9.4.6.v20170531.jar!/org/eclipse/jetty/io/ChannelEndPoint.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="712" column="38" lean-forward="true" selection-start-line="712" selection-start-column="38" selection-end-line="712" selection-end-column="38" />
+            <state relative-caret-position="175">
+              <caret line="124" column="0" lean-forward="false" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Invocable.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-util/9.4.6.v20170531/jetty-util-9.4.6.v20170531.jar!/org/eclipse/jetty/util/thread/Invocable.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="159">
+              <caret line="113" column="0" lean-forward="false" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Slf4jLog.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-util/9.4.6.v20170531/jetty-util-9.4.6.v20170531.jar!/org/eclipse/jetty/util/log/Slf4jLog.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="175">
+              <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
               <folding>
-                <marker date="1511761326083" expanded="true" signature="6588:6752" ph="SELECT Locat... HappensAt" />
-                <marker date="1511761326083" expanded="true" signature="6803:6959" ph="SELECT Staff... AssignedTo" />
-                <marker date="1511761326083" expanded="true" signature="7010:7160" ph="SELECT Perso... Involves" />
-                <marker date="1511761326083" expanded="true" signature="7211:7396" ph="SELECT Incid... Incident" />
-                <marker date="1511761326083" expanded="true" signature="36435:36442" ph="{...}" />
+                <element signature="e#1870#1871#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IncidentsController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/IncidentsController.java">
+      <file leaf-file-name="SimpleLogger.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-simple/1.7.25/slf4j-simple-1.7.25.jar!/org/slf4j/impl/SimpleLogger.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="703">
-              <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="159">
+              <caret line="180" column="0" lean-forward="false" selection-start-line="180" selection-start-column="0" selection-end-line="180" selection-end-column="0" />
+              <folding>
+                <element signature="e#6732#6733#0" expanded="true" />
+                <element signature="e#7391#7392#0" expanded="true" />
+                <element signature="e#7437#7438#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Campus.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Campus.java">
+      <file leaf-file-name="SslConnection.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-io/9.4.6.v20170531/jetty-io-9.4.6.v20170531.jar!/org/eclipse/jetty/io/ssl/SslConnection.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="49" column="68" lean-forward="false" selection-start-line="49" selection-start-column="68" selection-end-line="49" selection-end-column="68" />
+            <state relative-caret-position="159">
+              <caret line="73" column="0" lean-forward="false" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
               <folding>
-                <element signature="e#1069#1070#0" expanded="true" />
-                <element signature="e#1144#1145#0" expanded="true" />
+                <element signature="e#2993#2994#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -207,7 +200,6 @@
         <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/StorageObject.java" />
         <option value="$PROJECT_DIR$/WebApiSpark/src/test/java/UnitTests/TestIncident.java" />
         <option value="$PROJECT_DIR$/WebApiSpark/src/test/java/UnitTests/TestIncidentElement.java" />
-        <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/User.java" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/service/location.service.ts" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/model/user.ts" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/util/data-helper.service.ts" />
@@ -246,14 +238,15 @@
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/report/incident.component.ts" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident-element.service.ts" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/report/incident.ts" />
-        <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/IncidentElement.java" />
-        <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Campus.java" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" />
-        <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Location.java" />
         <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/IncidentCategory.java" />
+        <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java" />
+        <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Location.java" />
         <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Person.java" />
         <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Staff.java" />
-        <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java" />
+        <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/User.java" />
+        <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/IncidentElement.java" />
+        <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Campus.java" />
         <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Incident.java" />
       </list>
     </option>
@@ -996,7 +989,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511741510570</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="WIP make back end change search string rather than front end">
+      <created>1511761404268</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1511761404268</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1032,7 +1032,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59333000" />
+    <option name="totallyTimeSpent" value="64646000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1062,12 +1062,13 @@
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20833333" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39935064" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1095,7 +1096,6 @@
       <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32683983" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20833333" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
@@ -1134,7 +1134,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Merge master into branch" />
     <MESSAGE value="Merge branch 'master' of csil-git1.cs.surrey.sfu.ca:tarsenea/CMPT373Alpha into 18-separating-dispatched-and-guard-views&#10;&#10;# Conflicts:&#10;#&#9;IRSClientAngular/src/app/component/login.component.ts&#10;#&#9;IRSClientAngular/src/app/model/user.ts&#10;#&#9;IRSClientAngular/src/app/service/login.service.ts" />
     <MESSAGE value="fix view separation on after refactor, setup to route to different page when added&#10;&#10;able to display 2 views again for guard and admin but should be removed later when the guard page is added and will just route to that page instead upon login" />
     <MESSAGE value="Merge branch 'master' of csil-git1.cs.surrey.sfu.ca:tarsenea/CMPT373Alpha into 18-separating-dispatched-and-guard-views&#10;&#10;# Conflicts:&#10;#&#9;IRSClientAngular/src/app/component/dashboard.component.ts&#10;#&#9;IRSClientAngular/src/app/component/location.component.ts&#10;#&#9;IRSClientAngular/src/app/view/dashboard.component.html&#10;#&#9;IRSClientAngular/src/index.html&#10;#&#9;WebApiSpark/src/main/java/Controller/LoginController.java" />
@@ -1159,157 +1158,36 @@
     <MESSAGE value="refactor" />
     <MESSAGE value="change updating temp to 5 (sealed), and dispatcher view only under 5" />
     <MESSAGE value="Merge branch 'master' of csil-git1.cs.surrey.sfu.ca:tarsenea/CMPT373Alpha into searchv2&#10;&#10;# Conflicts:&#10;#&#9;IRSClientAngular/src/.sass-cache/a62d0c040d429a95d69d162f91dd1d05f2cde9a1/styles.scssc&#10;#&#9;IRSClientAngular/src/app/component/location/location.component.ts&#10;#&#9;IRSClientAngular/src/assets/.sass-cache/635de92c80217229dc2a2ef926416ebc4820ad20/guard-app.scssc&#10;#&#9;IRSClientAngular/src/assets/.sass-cache/635de92c80217229dc2a2ef926416ebc4820ad20/report-summary.component.scssc&#10;#&#9;IRSClientAngular/src/styles.css&#10;#&#9;IRSClientAngular/src/styles.scss" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of csil-git1.cs.surrey.sfu.ca:tarsenea/CMPT373Alpha into searchv2&#10;&#10;# Conflicts:&#10;#&#9;IRSClientAngular/src/.sass-cache/a62d0c040d429a95d69d162f91dd1d05f2cde9a1/styles.scssc&#10;#&#9;IRSClientAngular/src/app/component/location/location.component.ts&#10;#&#9;IRSClientAngular/src/assets/.sass-cache/635de92c80217229dc2a2ef926416ebc4820ad20/guard-app.scssc&#10;#&#9;IRSClientAngular/src/assets/.sass-cache/635de92c80217229dc2a2ef926416ebc4820ad20/report-summary.component.scssc&#10;#&#9;IRSClientAngular/src/styles.css&#10;#&#9;IRSClientAngular/src/styles.scss" />
+    <MESSAGE value="WIP make back end change search string rather than front end" />
+    <option name="LAST_COMMIT_MESSAGE" value="WIP make back end change search string rather than front end" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="4" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Incident.java</url>
+          <line>175</line>
+          <properties />
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Incident.java</url>
+          <line>176</line>
+          <properties />
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Incident.java</url>
+          <line>178</line>
+          <properties />
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="16" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/StorageObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4539">
-          <caret line="281" column="0" lean-forward="false" selection-start-line="281" selection-start-column="0" selection-end-line="281" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/dashboard/dashboard.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1511739478912" expanded="true" signature="688:939" ph="..." />
-            <marker date="1511739478912" expanded="true" signature="784:908" ph="..." />
-            <marker date="1511739478912" expanded="true" signature="1094:1746" ph="..." />
-            <marker date="1511739478912" expanded="true" signature="1140:1683" ph="..." />
-            <marker date="1511739478912" expanded="true" signature="1184:1357" ph="..." />
-            <marker date="1511739478912" expanded="true" signature="1398:1577" ph="..." />
-            <marker date="1511739478912" expanded="true" signature="1462:1554" ph="..." />
-            <marker date="1511739478912" expanded="true" signature="1620:1664" ph="..." />
-            <marker date="1511739478912" expanded="true" signature="1817:3130" ph="..." />
-            <marker date="1511739478912" expanded="true" signature="1863:2152" ph="..." />
-            <marker date="1511739478912" expanded="true" signature="1907:2086" ph="..." />
-            <marker date="1511739478912" expanded="true" signature="2198:2522" ph="..." />
-            <marker date="1511739478912" expanded="true" signature="2246:2427" ph="..." />
-            <marker date="1511739478912" expanded="true" signature="2472:2499" ph="..." />
-            <marker date="1511739478912" expanded="true" signature="2568:3115" ph="..." />
-            <marker date="1511739478912" expanded="true" signature="2612:2784" ph="..." />
-            <marker date="1511739478912" expanded="true" signature="2871:3073" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/login/login.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="61" lean-forward="true" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/assign-guard.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/PersonController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-153">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/StaffController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-102">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/GuardIncidentsController.java" />
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/login/login.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="36" column="61" lean-forward="false" selection-start-line="36" selection-start-column="61" selection-end-line="36" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/app.router.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="27" column="2" lean-forward="false" selection-start-line="27" selection-start-column="2" selection-end-line="27" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/dashboard/dashboard.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/util/validation.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/LocationController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/util/config.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="80" lean-forward="true" selection-start-line="18" selection-start-column="80" selection-end-line="18" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-all-reports.component.ts" />
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-dashboard.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-153">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#50#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-all-reports.component.html" />
-    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/LoginController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/app.module.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-191">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DatabaseScripts/CREATE PROCEDURE insertIncidentRefactor.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DatabaseScripts/CREATE PROCEDURE insertIncident.sql" />
     <entry file="file://$PROJECT_DIR$/DatabaseScripts/CREATE PROCEDURE getIncidents.sql" />
     <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-dashboard.html" />
     <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-dashboard.component.ts">
@@ -1339,14 +1217,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/App/Application.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-840">
-          <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1474,25 +1344,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/IncidentElement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-          <folding>
-            <element signature="e#354#355#0" expanded="true" />
-            <element signature="e#379#380#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DatabaseValues.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3298">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/location/location.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-102">
@@ -1506,7 +1357,7 @@
     <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2414">
-          <caret line="211" column="20" lean-forward="true" selection-start-line="211" selection-start-column="20" selection-end-line="211" selection-end-column="158" />
+          <caret line="211" column="20" lean-forward="false" selection-start-line="211" selection-start-column="20" selection-end-line="211" selection-end-column="158" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
           </folding>
@@ -1521,25 +1372,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/test/java/UnitTests/TestLocation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2907">
-          <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Campus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="49" column="68" lean-forward="false" selection-start-line="49" selection-start-column="68" selection-end-line="49" selection-end-column="68" />
-          <folding>
-            <element signature="e#1069#1070#0" expanded="true" />
-            <element signature="e#1144#1145#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/IncidentCategory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="384">
@@ -1548,34 +1380,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Location.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="67" column="83" lean-forward="false" selection-start-line="67" selection-start-column="83" selection-end-line="67" selection-end-column="83" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Person.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="55" column="81" lean-forward="false" selection-start-line="55" selection-start-column="81" selection-end-line="55" selection-end-column="81" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Staff.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="458">
-          <caret line="58" column="81" lean-forward="false" selection-start-line="58" selection-start-column="81" selection-end-line="58" selection-end-column="81" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="712" column="38" lean-forward="true" selection-start-line="712" selection-start-column="38" selection-end-line="712" selection-end-column="38" />
+        <state relative-caret-position="-833">
+          <caret line="712" column="38" lean-forward="false" selection-start-line="712" selection-start-column="38" selection-end-line="712" selection-end-column="38" />
           <folding>
             <marker date="1511761326083" expanded="true" signature="6588:6752" ph="SELECT Locat... HappensAt" />
             <marker date="1511761326083" expanded="true" signature="6803:6959" ph="SELECT Staff... AssignedTo" />
@@ -1586,10 +1394,251 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DatabaseValues.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-340">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/App/Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Location.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Person.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="6" lean-forward="false" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Staff.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="6" lean-forward="false" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="7" lean-forward="false" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/IncidentElement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="19" lean-forward="false" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+          <folding>
+            <element signature="e#352#353#0" expanded="true" />
+            <element signature="e#378#379#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Campus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/StorageObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="314" column="0" lean-forward="false" selection-start-line="314" selection-start-column="0" selection-end-line="314" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/src.zip!/java/lang/Enum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="142" column="0" lean-forward="false" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
+          <folding>
+            <element signature="e#4391#4392#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebApiSpark/src/test/java/UnitTests/TestLocation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/sparkjava/spark-core/2.7.0/spark-core-2.7.0.jar!/spark/ExceptionMapper.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding>
+            <element signature="e#1693#1694#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/sparkjava/spark-core/2.7.0/spark-core-2.7.0.jar!/spark/http/matching/GeneralError.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/sparkjava/spark-core/2.7.0/spark-core-2.7.0.jar!/spark/http/matching/MatcherFilter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/sparkjava/spark-core/2.7.0/spark-core-2.7.0.jar!/spark/embeddedserver/jetty/JettyHandler.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/9.4.6.v20170531/jetty-server-9.4.6.v20170531.jar!/org/eclipse/jetty/server/session/SessionHandler.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="817" column="0" lean-forward="false" selection-start-line="817" selection-start-column="0" selection-end-line="817" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/9.4.6.v20170531/jetty-server-9.4.6.v20170531.jar!/org/eclipse/jetty/server/handler/ScopedHandler.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/9.4.6.v20170531/jetty-server-9.4.6.v20170531.jar!/org/eclipse/jetty/server/handler/HandlerWrapper.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="79" column="0" lean-forward="false" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/9.4.6.v20170531/jetty-server-9.4.6.v20170531.jar!/org/eclipse/jetty/server/Server.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="460" column="0" lean-forward="false" selection-start-line="460" selection-start-column="0" selection-end-line="460" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/9.4.6.v20170531/jetty-server-9.4.6.v20170531.jar!/org/eclipse/jetty/server/HttpChannel.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="236" column="0" lean-forward="false" selection-start-line="236" selection-start-column="0" selection-end-line="236" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/9.4.6.v20170531/jetty-server-9.4.6.v20170531.jar!/org/eclipse/jetty/server/HttpConnection.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="194" column="0" lean-forward="false" selection-start-line="194" selection-start-column="0" selection-end-line="194" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-io/9.4.6.v20170531/jetty-io-9.4.6.v20170531.jar!/org/eclipse/jetty/io/AbstractConnection.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="208" column="0" lean-forward="false" selection-start-line="208" selection-start-column="0" selection-end-line="208" selection-end-column="0" />
+          <folding>
+            <element signature="e#5485#5486#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-io/9.4.6.v20170531/jetty-io-9.4.6.v20170531.jar!/org/eclipse/jetty/io/ssl/SslConnection.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="73" column="0" lean-forward="false" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+          <folding>
+            <element signature="e#2993#2994#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-io/9.4.6.v20170531/jetty-io-9.4.6.v20170531.jar!/org/eclipse/jetty/io/FillInterest.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-io/9.4.6.v20170531/jetty-io-9.4.6.v20170531.jar!/org/eclipse/jetty/io/ChannelEndPoint.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="124" column="0" lean-forward="false" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-util/9.4.6.v20170531/jetty-util-9.4.6.v20170531.jar!/org/eclipse/jetty/util/thread/Invocable.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="113" column="0" lean-forward="false" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-util/9.4.6.v20170531/jetty-util-9.4.6.v20170531.jar!/org/eclipse/jetty/util/log/Slf4jLog.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+          <folding>
+            <element signature="e#1870#1871#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-simple/1.7.25/slf4j-simple-1.7.25.jar!/org/slf4j/impl/SimpleLogger.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="180" column="0" lean-forward="false" selection-start-line="180" selection-start-column="0" selection-end-line="180" selection-end-column="0" />
+          <folding>
+            <element signature="e#6732#6733#0" expanded="true" />
+            <element signature="e#7391#7392#0" expanded="true" />
+            <element signature="e#7437#7438#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Model/Incident.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="177" column="85" lean-forward="true" selection-start-line="177" selection-start-column="85" selection-end-line="177" selection-end-column="85" />
+        <state relative-caret-position="16">
+          <caret line="183" column="94" lean-forward="false" selection-start-line="183" selection-start-column="56" selection-end-line="183" selection-end-column="94" />
           <folding />
         </state>
       </provider>
