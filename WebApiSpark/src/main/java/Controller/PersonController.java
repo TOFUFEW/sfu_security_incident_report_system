@@ -54,7 +54,6 @@ public class PersonController
 
         post( "/person-exists" , ( request , response ) -> {
             Person person = ( Person ) JsonUtil.fromJson ( request.body () , Person.class );
-
             return DBHelper.personExists ( person ) ;
         } );
     }
