@@ -2,7 +2,6 @@ package Util;
 
 import Model.*;
 
-import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,11 +9,6 @@ import java.util.Map;
 
 public class DBHelper
 {
-    /*
-    private static final String USERNAME = "cmpt373alpha";
-    private static final String PASSWORD = "cmpt373alpha";
-    private static final String URL = "jdbc:sqlserver://sfuirsdb.czoee5rkbxlk.us-west-1.rds.amazonaws.com:1433;DatabaseName=IRS;";
-    */
     private static final String USERNAME = "sa";
     private static final String PASSWORD = "CMPT373Alpha";
     private static final String URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=master;";
@@ -224,12 +218,12 @@ public class DBHelper
 
             String before_lastIncidentId = "";
             String lastIncidentId = "";
-            before_lastIncidentId = debug_getLastIncidentId();
+            before_lastIncidentId = getLastInsertedIncidentID();
             System.out.println("Last Report ID before insert: " + before_lastIncidentId);
 
             stmt.execute();
 
-            lastIncidentId = debug_getLastIncidentId();
+            lastIncidentId = getLastInsertedIncidentID();
             System.out.println("Last Report ID after insert: " + lastIncidentId);
 
             if (lastIncidentId != null && lastIncidentId.equals(before_lastIncidentId)) {
@@ -859,9 +853,8 @@ public class DBHelper
         return locationList.toArray ( new Location [ locationList.size () ] );
     }
 
-
-    /* DEBUG CODE */
-    private static String debug_getLastIncidentId() {
+    public static String getLastInsertedIncidentID ()
+    {
         try {
             initDB();
             String query = "select top (1) * from Incident order by report_id desc;";
@@ -877,6 +870,7 @@ public class DBHelper
         return null;
     }
 
+    /* DEBUG CODE */
     private static void debug_printInsertRelationLog( IncidentElement incidentElement ) {
         if ( incidentElement == null ) return;
 
