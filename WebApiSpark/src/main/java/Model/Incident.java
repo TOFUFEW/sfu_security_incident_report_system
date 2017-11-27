@@ -168,8 +168,28 @@ public class Incident extends StorageObject
     }
 
     public void updateSearchString() {
+
         StringBuilder sb = new StringBuilder();
 
+        String[] statusCodes = {
+                "Created",
+                "En Route",
+                "Working",
+                "Closed",
+                "Sealed"
+        };
+
+        String statusCode;
+        int index;
+        if (this.getAttributeValue(DatabaseValues.Column.STATUS) == null) {
+            statusCode = "Created";
+        } else {
+            index = Integer.parseInt(this.getAttributeValue(DatabaseValues.Column.STATUS));
+            statusCode = statusCodes[index];
+        }
+
+        sb.append(statusCode);
+        sb.append(" ");
         sb.append(this.getAttributeValue(DatabaseValues.Column.DESCRIPTION));
         sb.append(" ");
         sb.append(this.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY));
@@ -180,6 +200,7 @@ public class Incident extends StorageObject
             for( IncidentElement element : list ) {
                 if( entry.getKey().equals( "Location" ) ) {
                     Location location = new Location();
+                    location.updateAttributeValue( DatabaseValues.Column.CAMPUS_ID, element.getAttributeValue( DatabaseValues.Column.CAMPUS_ID) );
                     location.updateAttributeValue( DatabaseValues.Column.BUILDING_NAME, element.getAttributeValue( DatabaseValues.Column.BUILDING_NAME) );
                     location.updateAttributeValue( DatabaseValues.Column.ROOM_NUMBER, element.getAttributeValue( DatabaseValues.Column.ROOM_NUMBER ) );
                     location.updateAttributeValue( DatabaseValues.Column.DEPARTMENT, element.getAttributeValue( DatabaseValues.Column.DEPARTMENT ) );
@@ -209,8 +230,8 @@ public class Incident extends StorageObject
             }
         }
 
-
-        this.updateAttributeValue( DatabaseValues.Column.SEARCH_TEXT, sb.toString() );
+        String searchString = sb.toString().replace( "null", "" );
+        this.updateAttributeValue( DatabaseValues.Column.SEARCH_TEXT, searchString );
     }
 //    public String [] incidentElementsToInsertSQL ()
 //    {
