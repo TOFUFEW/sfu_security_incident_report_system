@@ -936,6 +936,32 @@ public class DBHelper
         return locationList.toArray ( new Location [ locationList.size () ] );
     }
 
+    public static Campus[] getCampus ()
+    {
+        ArrayList < Campus > campusList = new ArrayList <> ();
+
+        try
+        {
+            ResultSet resultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.CAMPUS.toString () );
+
+            while ( resultSet.next () )
+            {
+                Campus campus = new Campus ();
+
+                campus.extractFromCurrentRow ( resultSet );
+
+                campusList.add ( campus );
+            }
+        }
+
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+
+        return campusList.toArray ( new Campus [ campusList.size () ] );
+    }
+
 
     /* DEBUG CODE */
     private static String debug_getLastIncidentId() {
