@@ -124,12 +124,17 @@ export class IncidentService
         incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
         incident.incidentElements[Config.LocationKey]
             .forEach( element => {
+                var location = element as Location;
                 var index = this.campusArr.findIndex(
-                    c => c.attributes.CAMPUS_ID == (element as Location).attributes.CAMPUS_ID
+                    c => c.attributes.CAMPUS_ID == location.attributes.CAMPUS_ID
                 );
                 if ( index >= 0 )
-                    (element as Location).attributes.CITY = this.campusArr[index].attributes.CITY;
+                    location.attributes.CITY = this.campusArr[index].attributes.CITY;
+                if ( location.attributes.ROOM_NUMBER === '0' )
+                    location.attributes.ROOM_NUMBER = "";
             });
+
+            console.log(incident);
         return incident;
     }
 

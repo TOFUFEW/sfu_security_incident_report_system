@@ -77,6 +77,29 @@ export class IncidentElementService
         }
         return elementIndex;
     }
+
+    getElementIndex( incident: Incident, element: IncidentElement ) {
+        var table = element.table;
+        var key = this.getElementKey ( table );
+        var elementIndex = -1;
+        if ( table === Config.LocationTable ) {
+            elementIndex = incident.incidentElements[key].findIndex( i => 
+                i.attributes.LOCATION_ID == (element as Location).attributes.LOCATION_ID)
+        }         
+        else if ( table === Config.StaffTable ) {
+            elementIndex = incident.incidentElements[key].findIndex( i => 
+                i.attributes.ACCOUNT_ID == (element as Staff).attributes.ACCOUNT_ID)
+        }
+        else if ( table === Config.PersonTable ) {
+            var elem = element as Person;
+            var arr = incident.incidentElements[key] as Person[];
+            elementIndex = arr.findIndex( i => 
+                i.attributes.FIRST_NAME === elem.attributes.FIRST_NAME &&
+                i.attributes.LAST_NAME === elem.attributes.LAST_NAME &&
+                i.attributes.PHONE_NUMBER === elem.attributes.PHONE_NUMBER )    
+        }
+        return elementIndex;
+    }
     
     changeElement( incident: Incident, idToRemove: number, element: IncidentElement ): Promise<Incident> {
         var table = element.table;        
@@ -106,8 +129,13 @@ export class IncidentElementService
 
     // Dont call incidentService.update()
     addElementNoUpdate ( incident: Incident, element: IncidentElement ) {
-        var key = this.getElementKey( element.table );        
-        incident.incidentElements[key].push ( element );
+        var key = this.getElementKey( element.table );      
+        var index = this.getElementIndex( incident, element );
+        if ( index < 0 )
+            incident.incidentElements[key].push ( element );
+        else {
+            console.log("Element already exists in array");
+        }
     }
 
     // Dont call incidentService.update()

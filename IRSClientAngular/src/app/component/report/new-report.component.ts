@@ -41,6 +41,8 @@ export class NewReportComponent implements OnInit {
     selectedStaffId: number = -1;
     reportReady: boolean = false;
 
+    date = new Date();
+    
     constructor(
       private incidentService: IncidentService,
       private domService: DomService,
@@ -158,8 +160,8 @@ export class NewReportComponent implements OnInit {
                     }
                     else alert( "Add failed." );
                 } );
-            delete this.newIncident;
-            this.newIncident = new Incident();
+            // delete this.newIncident;
+            // this.newIncident = new Incident();
         } else {
             alert("Please fill in the required fields");
         }
