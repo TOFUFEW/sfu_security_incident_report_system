@@ -180,6 +180,7 @@ export class IncidentService {
     }
 
     create(incident: Incident): Promise<Incident> {
+        debugger;
         console.log(incident);
         if (incident.attributes.ACCOUNT_ID == null) {
             incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().attributes.ACCOUNT_ID;

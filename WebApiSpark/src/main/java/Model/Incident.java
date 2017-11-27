@@ -209,6 +209,7 @@ public class Incident extends StorageObject
             }
         }
 
+
         this.updateAttributeValue( DatabaseValues.Column.SEARCH_TEXT, sb.toString() );
     }
 //    public String [] incidentElementsToInsertSQL ()

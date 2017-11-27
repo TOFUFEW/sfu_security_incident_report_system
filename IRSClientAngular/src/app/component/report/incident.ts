@@ -52,12 +52,19 @@ export class Incident {
             key = table;
         }
 
+
+        if ( this.incidentElements[key] == null ) {
+            this.incidentElements[key] = new Array;
+        }
+        this.incidentElements[key].push( element );
+        /*
         if ( this.incidentElements[key] == null || undefined) {
             this.incidentElements.set(key, new Array);
         }
 
         var elementArray = this.incidentElements.get(key);
         elementArray.push(element);
+        */
     }
 }
 
