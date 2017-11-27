@@ -123,18 +123,14 @@ export class IncidentService
       var user = this.userService.getCurrentUser ();
       var assignedStaff = incident.incidentElements [ Config.StaffKey ] as Staff [];
 
-      console.log ( "user.attributes.ACCOUNT_ID = " + user.attributes.ACCOUNT_ID );
-
       for ( var i = 0 ; i < assignedStaff.length ; i++ )
       {
          if ( Number ( user.attributes.ACCOUNT_ID ) == Number ( assignedStaff [ i ].attributes.ACCOUNT_ID ) )
         {
-          console.log ( "true" );
           return true;
         }
       }
 
-      console.log ( "false" );
       return false;
     }
 

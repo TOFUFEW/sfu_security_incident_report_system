@@ -35,14 +35,10 @@ public class IncidentsController
 
             if ( DBHelper.insertIncident ( newIncident ) )
             {
-                Incident messageIncident = new Incident ( newIncident );
                 String reportID = DBHelper.getLastInsertedIncidentID ();
-                messageIncident.updateAttributeValue (
-                        DatabaseValues.Column.REPORT_ID,
-                        reportID
-                );
+                Incident insertedIncident = DBHelper.getIncident ( reportID );
 
-                incidentsWebSocketObservable.sendMessage ( JsonUtil.toJson ( messageIncident ) );
+                incidentsWebSocketObservable.sendMessage ( JsonUtil.toJson ( insertedIncident ) );
                 return true;
             }
 
