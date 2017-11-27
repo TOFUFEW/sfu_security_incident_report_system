@@ -12,11 +12,11 @@
             <div class="timer-card" *ngFor="let timer of timerList">
                 <div class="main-content">
                     <div class="detail-row">
-                        <span class="card-text-secondary">Report #</span>
+                        <span class="card-text-secondary">Report #{{timer.incident.attributes.REPORT_ID}}</span>
                     </div>
                     <div class="detail-row">
                         <span class="card-text-secondary">Category SubCategory Type</span>                            
-                        <!-- <span class="card-text-primary">{{incident.category.attributes.MAIN_CATEGORY}} {{incident.category.attributes.SUB_CATEGORY}} {{incident.category.attributes.INCIDENT_TYPE}}</span> -->
+                        <span class="card-text-primary"><br>{{timer.incident.category.attributes.MAIN_CATEGORY}}  {{timer.incident.category.attributes.SUB_CATEGORY}}  {{timer.incident.category.attributes.INCIDENT_TYPE}}</span>
                     </div>
                     <!-- <div class="detail-row">
                         <span class="card-text-secondary">Start: {{timeToString(timer.TIMER_START)}}</span>
@@ -27,14 +27,17 @@
                 </div>
                 <div class="timer-container">
                     <span class="card-text-primary time-remaining" (click)="timer.modify = !timer.modify">{{durationToString(timer.TIME_REMAINING)}}</span>     
-                    <div *ngIf="timer.modify">
+                    <!-- <div *ngIf="timer.modify">
                         <input type="time" [(ngModel)] = "tempStart" (change)="onChangeModifyTimer()">
                         <input type="time" [(ngModel)] = "tempEnd" (change)="onChangeModifyTimer()">
                         <div class="alertText" *ngIf="!modifyValid">
                             Start/End time cannot be empty
                         </div>
-                        <button class="btn" (click)="modifyTimer(timer)" *ngIf="modifyValid">Confirm</button>
-                    </div>                   
+                        <div class="alertText" *ngIf="!validTime">
+                            Start time cannot be after end time
+                        </div>
+                        <button class="btn" (click)="modifyTimer(timer)" *ngIf="modifyValid && validTime">Confirm</button>
+                    </div>                    -->
                 </div>
                 <!-- <div class="x-container">
                     <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removeTimer(timer)"></span>        
@@ -42,7 +45,7 @@
                 
 
 
-                <!-- <button id="modifyBtn" class="btn" (click)="timer.modify = !timer.modify">Modify</button> -->
+                <button id="modifyBtn" class="btn" (click)="timer.modify = !timer.modify">Modify</button>
 
             </div>
         </div>
