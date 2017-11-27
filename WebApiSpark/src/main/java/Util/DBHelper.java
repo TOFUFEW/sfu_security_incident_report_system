@@ -328,7 +328,7 @@ public class DBHelper
 
                 for ( IncidentElement incidentElement : incidentElementsList ) {
                     boolean hasAttributes = incidentElement.getColumnSet().length > 0;
-
+                        System.out.println(incidentElement);
                     if ( hasAttributes && !relationExists( reportID , incidentElement ) ) {
                         debug_printInsertRelationLog( incidentElement );
                         insertIncidentRelation(
@@ -631,6 +631,7 @@ public class DBHelper
             }
             else if ( tableName.compareTo ( "Person" ) == 0 )
             {
+                System.out.println( incidentElement.getAttributeValue ( DatabaseValues.Column.PERSON_ID ));
                 stmt.setString (
                         1,
                         reportID
