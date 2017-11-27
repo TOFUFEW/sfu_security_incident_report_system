@@ -12,13 +12,14 @@ import { Incident } from '../report/incident';
 import { Staff } from '../staff/staff';
 import { Timer } from '../timer/timer';
 import { Category, SubCategory, CategoryType, CategoryDictionary } from '../category/category';
+import { NavbarComponent } from '../navbar/navbar.component';
 import { LocationComponent } from '../location/location.component';
 import { VehicleComponent } from '../vehicle/vehicle.component';
 import { PersonComponent } from '../person/person.component';
 import { AttachmentComponent } from '../attachment/attachment.component';
 import { Config } from '../../util/config.service';
-import {UserService} from "../../service/user.service";
-import {Router} from "@angular/router";
+import { UserService } from "../../service/user.service";
+import { Router } from "@angular/router";
 
 @Component(
   {
@@ -151,6 +152,8 @@ export class NewReportComponent implements OnInit {
         if( this.reportReady ){
             var currentID = this.userService.getAccountID();
             this.newIncident.attributes.ACCOUNT_ID = currentID;
+            this.newIncident.attributes.TIMER_START = this.timerService.stringToTime(this.tempTimerStart);
+            this.newIncident.attributes.TIMER_END = this.timerService.stringToTime(this.tempTimerEnd);
 
             if ( this.userService.isGuard() )
                 this.convertToTempReport();
@@ -166,9 +169,8 @@ export class NewReportComponent implements OnInit {
                     }
                     else alert( "Add failed." );
                 } );
-            this.newIncident.attributes.TIMER_START = this.timerService.stringToTime(this.tempTimerStart);
-            this.newIncident.attributes.TIMER_END = this.timerService.stringToTime(this.tempTimerEnd);
-            this.timerService.createTimer(this.tempTimerStart, this.tempTimerEnd);
+
+
             this.tempTimerStart = null;
             this.tempTimerEnd = null;
             delete this.newIncident;

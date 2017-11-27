@@ -16,50 +16,53 @@ import { Config } from '../../util/config.service';
     styleUrls: ['../../../assets/css/guard-app.css']
 })
 
-export class LocationModalComponent implements OnInit {
-    @ViewChild ( LocationComponent ) locationComponent: LocationComponent
-    @Output () locationSaved : EventEmitter<Location> = new EventEmitter();
-    @Output () triggerLocationRemove : EventEmitter<string> = new EventEmitter();
-
-    public visible = false;
-    public button_id;
-    private visibleAnimate = false;
-
-    constructor (
-        private reportService: NewReportService,
-    ) {}
-
-    public show ( event ): void {
-        var target = event.target || event.srcElement || event.currentTarget;
+export class LocationModalComponent implements OnInit {     
+    @ViewChild ( LocationComponent ) locationComponent: LocationComponent   
+    @Output () locationSaved : EventEmitter<Location> = new EventEmitter();     
+    @Output () triggerLocationRemove : EventEmitter<string> = new EventEmitter();    
+    
+    public visible = false;     
+    public button_id;     
+    private visibleAnimate = false;     
+    
+    constructor (         
+        private reportService: NewReportService,     
+    ) {}     
+    
+    public show ( event ): void {         
+        this.locationComponent.resetLists();
+        var target = event.target || event.srcElement || event.currentTarget;         
         if ( target.id ) {
-            console.log("target ", target );
-            var idAttr = target.id;
-            this.button_id = idAttr;
-            console.log("target ", idAttr );
-        }
-        else {
-            this.button_id = -1;
-        }
-        this.locationComponent.updateCurrentLocation ( this.button_id );
+            console.log("target ", target );          
+            var idAttr = target.id;             
+            this.button_id = idAttr;      
+            console.log("target ", idAttr );                      
+        }        
+        else {             
+            this.button_id = -1;       
+        }   
+        this.locationComponent.updateCurrentLocation ( this.button_id );       
         this.visible = true;
-        setTimeout(() => this.visibleAnimate = true, 100);
-    }
-
-    public hide(): void {
-        this.visibleAnimate = false;
-        setTimeout(() => this.visible = false, 300);
-    }
-    public onContainerClicked(event: MouseEvent): void {
-        if ((<HTMLElement>event.target).classList.contains('modal')) {
-            this.hide();
+        setTimeout(() => this.visibleAnimate = true, 100);     
+    }         
+    
+    public hide(): void {         
+        this.visibleAnimate = false;         
+        setTimeout(() => this.visible = false, 300);     
+    }         
+    public onContainerClicked(event: MouseEvent): void {         
+        if ((<HTMLElement>event.target).classList.contains('modal')) {           
+            this.hide();         
+        }     
+    }     
+    public submitChanges ( id ) : void {     
+        var locationValid = this.locationComponent.validateNewLocation();
+        if ( locationValid ) {
+            this.locationComponent.newLocation.table = Config.LocationTable;  
+            console.log(this.locationComponent.newLocation);
+            this.locationSaved.emit(this.locationComponent.newLocation);
+            this.hide();      
         }
-    }
-    public submitChanges ( id ) : void {
-        this.locationComponent.validateNewLocation();
-        this.locationComponent.newLocation.table = Config.LocationTable;
-        console.log(this.locationComponent.newLocation);
-        this.locationSaved.emit(this.locationComponent.newLocation);
-        this.hide();
     }
 
     public removeLocation ( id ) : void {

@@ -9,7 +9,7 @@ import { User } from "../login/user";
 
 @Component({
   selector: 'guard-dashboard',
-  templateUrl: './guard-dashboard.html',
+  templateUrl: './guard-dashboard.component.html',
   styleUrls: ['../../../assets/css/guard-app.css'],
   providers: [ IncidentService ]
 })
