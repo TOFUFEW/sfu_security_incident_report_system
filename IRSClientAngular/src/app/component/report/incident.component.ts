@@ -121,5 +121,11 @@ export class IncidentComponent implements OnInit {
         this.incidentService.staffArr.subscribe(
             arr => { this.staffArr = arr; }
         );
+
+        this.incidentService.reportsInList
+          .subscribe( reports => {
+              this.incidents = reports as Incident[];
+              console.log ( "reports.length = " + reports.length );
+        } );
     }
 }

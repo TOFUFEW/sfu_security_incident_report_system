@@ -1,15 +1,11 @@
 package Controller;
 
-import Model.IncidentCategory;
 import Util.DBHelper;
 import Util.DatabaseValues;
-import Util.JsonUtil;
 
-import java.util.ArrayList;
-
-import java.sql.ResultSet;
 import static Util.JsonUtil.json;
-import static spark.Spark.*;
+import static Util.PathStrings.CATEGORIES_PATH;
+import static spark.Spark.get;
 
 public class IncidentCategoryController {
 
@@ -18,9 +14,10 @@ public class IncidentCategoryController {
     }
 
     private void setUpEndPoints() {
-        get("/categories", (request, response) -> {
-            return DBHelper.getIncidentElements( DatabaseValues.Table.INCIDENT_CATEGORY );
-        }, json());
+        get ( CATEGORIES_PATH, ( request , response ) ->
+        {
+            return DBHelper.getIncidentElements ( DatabaseValues.Table.INCIDENT_CATEGORY );
+        }, json () );
 
 
     }

@@ -6,21 +6,26 @@ import Util.DBHelper;
 import Util.DatabaseValues;
 import Util.JsonUtil;
 
+import static Util.PathStrings.LOCATIONS_ID_PATH;
+import static Util.PathStrings.LOCATIONS_PATH;
 import static spark.Spark.*;
 
-public class LocationController {
+public class LocationController
+{
 
     public LocationController ()
     {
-        setupEndPoints();
+        setupEndPoints ();
     }
 
     private void setupEndPoints() {
-        get ( "/locations" , ( request , response ) -> {
-            return JsonUtil.toJson( DBHelper.getLocations () );
+        get ( LOCATIONS_PATH , ( request , response ) ->
+        {
+            return JsonUtil.toJson(  DBHelper.getLocations () );
         } );
 
-        post( "/locations" , ( request , response ) -> {
+        post( LOCATIONS_PATH , ( request , response ) ->
+        {
             Location location = ( Location ) JsonUtil.fromJson ( request.body () , Location.class );
 
             if ( !DBHelper.selectIncidentElement ( location ) )
@@ -31,7 +36,8 @@ public class LocationController {
             return DBHelper.updateIncidentElement( location );
         } );
 
-        put ( "/locations" , ( request , response ) -> {
+        put ( LOCATIONS_PATH , ( request , response ) ->
+        {
             Location location = ( Location ) JsonUtil.fromJson ( request.body () , Location.class );
 
             if ( !DBHelper.selectIncidentElement ( location ) )
@@ -41,14 +47,16 @@ public class LocationController {
             return DBHelper.updateIncidentElement ( location );
         } );
 
-        delete ( "/locations/:id", ( request , response ) -> {
+        delete ( LOCATIONS_ID_PATH , ( request , response ) ->
+        {
             Location location = ( Location ) JsonUtil.fromJson ( request.body () , Location.class );
 
             return DBHelper.deleteIncidentElement ( location );
         } );
 
-        get ( "/location/:id",  (request, response) -> {
-            Location location = new Location();
+        get ( LOCATIONS_ID_PATH ,  (request, response) ->
+        {
+            Location location = new Location ();
             location.updateAttributeValue(
                     DatabaseValues.Column.LOCATION_ID,
                     request.params ( ":id" )

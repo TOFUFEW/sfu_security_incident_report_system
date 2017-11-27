@@ -2,7 +2,6 @@ package Model;
 
 import Util.DatabaseValues;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -27,6 +26,21 @@ public class Incident extends StorageObject
                 "",
                 ""
         );
+    }
+
+    public Incident ( Incident incident )
+    {
+        this ();
+
+        for ( DatabaseValues.Column column : incident.getColumnSet () )
+        {
+            updateAttributeValue (
+                    column,
+                    incident.getAttributeValue ( column )
+            );
+        }
+
+        incidentElements = incident.getIncidentElements ();
     }
 
     public Incident (

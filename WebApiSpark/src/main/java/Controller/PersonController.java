@@ -4,21 +4,26 @@ import Util.DBHelper;
 import Util.DatabaseValues;
 import Util.JsonUtil;
 
+import static Util.PathStrings.PERSON_PATH;
 import static spark.Spark.*;
 
 public class PersonController
 {
 
-    public PersonController () {
+    public PersonController ()
+    {
         setupEndPoints ();
     }
 
-    private void setupEndPoints (){
-        get ("/person", ( request, response ) -> {
-            return JsonUtil.toJson(DBHelper.getPersons());
-        });
+    private void setupEndPoints ()
+    {
+        get ( PERSON_PATH , ( request , response ) ->
+        {
+            return JsonUtil.toJson ( DBHelper.getPersons () );
+        } );
 
-        post( "/person" , ( request , response ) -> {
+        post( PERSON_PATH , ( request , response ) ->
+        {
             Person person = ( Person ) JsonUtil.fromJson ( request.body () , Person.class );
 
             if ( !DBHelper.selectIncidentElement ( person ) )
@@ -29,7 +34,8 @@ public class PersonController
             return false;
         } );
 
-        put( "/person" , ( request , response ) -> {
+        put ( PERSON_PATH , ( request , response ) ->
+        {
             Person person = ( Person ) JsonUtil.fromJson ( request.body () , Person.class );
 
             if ( !DBHelper.selectIncidentElement ( person ) )
@@ -40,7 +46,8 @@ public class PersonController
             return DBHelper.updateIncidentElement( person );
         } );
 
-        delete( "/person" , ( request , response) ->{
+        delete ( PERSON_PATH , ( request , response) ->
+        {
 
             String id = request.params(":id");
             Person person = new Person();

@@ -17,7 +17,11 @@ export class Config {
     static GetAccountTypesURI: string = "https://localhost:4567/get-account-types";
     static GetCampusURI: string = "https://localhost:4567/campus";
     static ValidateUsernameURI: string = "https://localhost:4567/validate-username";
-    static PersonExistsURI: string = "https://localhost:4567/person-exists";    
+    static PersonExistsURI: string = "https://localhost:4567/person-exists";
+    static WSURI: string = "ws://localhost:4567/ws";
+
+    static IncidentsWebSocketURI: string = "wss://localhost:4567/incidentsWebSocket";
+    static LogInWebSocketURI: string = "wss://localhost:4567/loginWebSocket";
 
     static StaffTable: string = "STAFF";
     static LocationTable: string = "LOCATION";
