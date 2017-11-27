@@ -34,27 +34,35 @@ export class GuardDashboardComponent implements OnInit {
 
     getCreatedIncidents(): void {
         this.incidentService.getCreatedByIncidents().then( returnedIncidents => {
-            this.createdIncidents = returnedIncidents;
+            var userAccountID = this.userService.getAccountID ();
+            this.createdIncidents = returnedIncidents.filter ( i => i.attributes.REPORT_ID == userAccountID ) as Incident [];
         } );
     }
 
-    viewReport( incident: Incident ) : void {
+
+
+    viewReport ( incident: Incident ) : void {
         console.log("view report id = " + incident.attributes.REPORT_ID );
         this.router.navigate([ 'guard-app/report', incident.attributes.REPORT_ID ] );
     }
 
     newReport(): void {
-        console.log("new report");
-        this.router.navigate([ 'new-report' ] );
+        console.log ( "new report" );
+        this.router.navigate ( [ 'new-report' ] );
     }
 
     ngOnInit() : void {
-        this.getAssignedIncidents();
-        this.getCreatedIncidents();
+        this.getAssignedIncidents ();
+        this.getCreatedIncidents ();
 
         this.incidentService.reportsInList
-          .subscribe( reports => {
-              this.assignedIncidents = reports as Incident[];
-        });
+          .subscribe ( reports => {
+
+              this.createdIncidents = ( reports as Incident [] )
+                .filter ( i => this.incidentService.userCreatedReport ( i ) );
+
+              this.assignedIncidents = ( reports as Incident [] )
+                .filter ( i => this.incidentService.reportAssignedToThisUserTest ( i as Incident ) ) as Incident [];
+        } );
     }
 }

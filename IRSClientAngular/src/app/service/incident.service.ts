@@ -101,21 +101,63 @@ export class IncidentService
 
     processWebsocketIncidentForGuard ( incident : Incident ) : void
     {
+      console.log ( "--------------------------------------" );
+      console.log ( "incident websocket guard update!" );
+
       var reportList = this.bs_reportsInList.getValue ();
       var reportListIndex = reportList.findIndex ( i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID );
 
-      var user = this.userService.getCurrentUser ();
-      var reportAssignedToThisGuard = user.attributes.ACCOUNT_ID != incident.attributes.ACCOUNT_ID;
-
-      if ( reportAssignedToThisGuard )
+      if ( this.reportAssignedToThisUser ( incident ) || this.userCreatedReport ( incident ) )
       {
-        this.removeReportFromList ( incident );
+        this.addReportToList ( incident );
       }
 
       else
       {
-        this.addReportToList ( incident );
+        this.removeReportFromList ( incident );
       }
+    }
+
+    reportAssignedToThisUser ( incident : Incident ) : boolean
+    {
+      var user = this.userService.getCurrentUser ();
+      var assignedStaff = incident.incidentElements [ Config.StaffKey ] as Staff [];
+
+      console.log ( "user.attributes.ACCOUNT_ID = " + user.attributes.ACCOUNT_ID );
+
+      for ( var i = 0 ; i < assignedStaff.length ; i++ )
+      {
+         if ( Number ( user.attributes.ACCOUNT_ID ) == Number ( assignedStaff [ i ].attributes.ACCOUNT_ID ) )
+        {
+          console.log ( "true" );
+          return true;
+        }
+      }
+
+      console.log ( "false" );
+      return false;
+    }
+
+    reportAssignedToThisUserTest ( incident : Incident ) : boolean
+    {
+      var user = this.userService.getCurrentUser ();
+      var assignedStaff = incident.incidentElements [ Config.StaffKey ] as Staff [];
+
+      for ( var i = 0 ; i < assignedStaff.length ; i++ )
+      {
+        if ( Number ( user.attributes.ACCOUNT_ID ) == Number ( assignedStaff [ i ].attributes.ACCOUNT_ID ) )
+        {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    userCreatedReport ( incident : Incident ) : boolean
+    {
+      var user = this.userService.getCurrentUser ();
+      return user.attributes.ACCOUNT_ID == incident.attributes.ACCOUNT_ID;
     }
 
     addReportToList ( incident : Incident ) : void
@@ -156,15 +198,18 @@ export class IncidentService
 
     getInsertionIndex ( incident: Incident , reportList : Incident [] ) : number
     {
-      for ( var i = reportList.length - 1 ; i > -1 ; i-- )
+      var newReportID = incident.attributes.REPORT_ID as number;
+      for ( var i = 0 ; i < reportList.length ; i++ )
       {
-        if ( reportList [ i ].attributes.REPORT_ID < incident.attributes.REPORT_ID )
+        var existingReportID = reportList [ i ].attributes.REPORT_ID as number;
+
+        if ( Number ( newReportID ) >  Number ( existingReportID ) )
         {
-          return i + 1;
+          return i;
         }
       }
 
-      return 0;
+      return reportList.length;
     }
 
      updateInWorkspace( incident: Incident ): void {
@@ -198,7 +243,7 @@ export class IncidentService
     getIncidents(): Promise<Incident[]> {
         var user = this.userService.getCurrentUser();
           var incidents = this.http.post( this.getIncidentsUrl, JSON.stringify( user ), { headers: this.headers } )
-            .toPromise()
+            .toPromise ()
             .then( response => this.bs_reportsInList.next ( this.initIncidents( response.json() as Incident[] ) as Incident[] ) )
             .catch( this.handleError );
           return Promise.resolve( this.bs_reportsInList.getValue () );
@@ -209,7 +254,10 @@ export class IncidentService
         var incidents = this.http
             .post( this.createdByIncidentsUrl, JSON.stringify( user ), { headers: this.headers } )
             .toPromise()
-            .then( response => this.bs_reportsInList.next ( this.initIncidents( response.json() as Incident[] ) as Incident[] ) )
+            .then ( response => {
+              var createdReports = this.initIncidents ( response.json() as Incident [] ) as Incident [];
+              createdReports.map ( i => this.addReportToList ( i ) );
+            } )
             .catch( this.handleError );
         return Promise.resolve( this.bs_reportsInList.getValue () );
     }
@@ -220,12 +268,16 @@ export class IncidentService
         var returnedIncident = this.http
             .post( Config.GetIncidentURI, JSON.stringify( incidentToGet ), { headers: this.headers } )
             .toPromise()
-            .then( response => this.initializeIncident( response.json() as Incident ) as Incident )
+            .then( response => {
+              var reports = this.initIncidents ( response.json() as Incident [] ) as Incident [];
+              reports.map ( i => this.addReportToList ( i ) );
+            } )
             .catch( this.handleError );
         return Promise.resolve( returnedIncident );
     }
 
     private initIncidents( incidents: Incident[] ): Incident[] {
+        console.log ( "incidents.length = " + incidents.length );
         incidents.forEach(i => {
             this.initializeIncident(i);
         });
