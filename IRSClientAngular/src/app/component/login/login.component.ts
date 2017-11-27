@@ -7,7 +7,6 @@ import { Incident } from '../report/incident';
 import { User } from './user';
 import {AppComponent} from "../../app.component";
 import { NavbarComponent } from '../navbar/navbar.component';
-import { AppComponent } from "../../app.component";
 import { Config } from "../../util/config.service";
 
 @Component({
