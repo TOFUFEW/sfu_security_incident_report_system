@@ -100,12 +100,13 @@ export class PersonComponent implements OnInit {
             this.personService.personExists( this.newPerson )
                 .then( exists => {
                     if ( exists == null ) {
-                        console.log('NULL');
                         this.personExists = false;
                     } else {
-                        console.log('PASS');
                         this.personExists = true;
                         this.newPerson = exists;
+                        this.reportService.removeIncidentElement(this.newPerson, Config.PersonTable);
+                        this.addPersonToReport();
+                        console.log(this.reportService.incidentElements);
                     }
                     this.personAdded.emit( this.personExists );
                 });
