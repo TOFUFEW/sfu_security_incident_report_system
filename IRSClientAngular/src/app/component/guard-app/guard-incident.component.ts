@@ -56,7 +56,7 @@ export class GuardIncidentComponent implements OnInit {
     };
 
     viewAllReports() {
-        this.router.navigate([ 'guard-app/reports-all' ] );
+        this.router.navigate([ 'guard-app/dashboard' ] );
     }
 
     toggleEditMode( attribute: string ) {

@@ -1,6 +1,7 @@
 package Util;
 
 import Model.*;
+import spark.Response;
 
 import javax.xml.crypto.Data;
 import java.sql.*;
@@ -39,27 +40,38 @@ public class DBHelper
         return incidentList.toArray ( new Incident [ incidentList.size () ] );
     }
 
-    public static Incident[] CTSearchIncidents (String searchString) throws SQLException {
+    public static Incident[] CTSearchIncidents (int userId, String searchString) throws SQLException {
         ArrayList < Incident > incidentList = new ArrayList <> ();
 
         try
         {
-            //String query =  "SELECT * FROM " + DatabaseValues.Table.INCIDENT.toString() +
-                    //" WHERE FREETEXT (SEARCH_TEXT, '" + searchString + "')";
-            ResultSet incidentResultSet = executeQuery (
-                    "SELECT * FROM " + DatabaseValues.Table.INCIDENT.toString() +
-                    " WHERE FREETEXT (SEARCH_TEXT, '" + searchString + "')");
-            fillListWithIncidentsFromResultSet ( incidentList , incidentResultSet );
+            initDB ();
+            String query = "{ call dbo.CTSearchIncidents ( ?, ? ) } ";
+            CallableStatement stmt = connection.prepareCall ( query );
+
+            stmt.setInt (
+                    1,
+                    userId
+            );
+
+            stmt.setString (
+                    2,
+                    searchString
+            );
+
+            ResultSet incidentResultSet = stmt.executeQuery();
+            fillListWithIncidentsFromResultSet( incidentList , incidentResultSet );
         }
         catch ( Exception e )
         {
             e.printStackTrace();
+            throw e;
         }
 
         return incidentList.toArray ( new Incident [ incidentList.size () ] );
     }
 
-    public static Incident[] FTSearchIncidents (String searchString, int userId) throws SQLException {
+    public static Incident[] FTSearchIncidents (int userId, String searchString) throws SQLException {
 
         ArrayList < Incident > incidentList = new ArrayList <> ();
 
