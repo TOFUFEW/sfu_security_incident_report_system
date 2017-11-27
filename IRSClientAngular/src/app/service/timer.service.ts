@@ -24,6 +24,7 @@ export class TimerService{
         })
         .then( () => {
             incidentList.forEach( incident =>{
+                console.log(incident);
                 if ( incident.attributes.TIMER_START != null && incident.attributes.TIMER_END != null 
                     && incident.attributes.TIMER_END > incident.attributes.TIMER_START && incident.attributes.TIMER_END > nowTime ) {
                     timerList.push( this.createTimerInt( incident, incident.attributes.TIMER_START, incident.attributes.TIMER_END ));

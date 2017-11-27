@@ -1,4 +1,4 @@
-<div id="staff-list-panel" class="panel panel-default">
+<div id="timer-list-panel" class="panel panel-default">
     <div class="panel-heading">
         <div class="toolbar">
             <div class="flex">
@@ -8,25 +8,25 @@
         </div>
     </div>
     <div class="panel-body">
-        <div id="timer-card" class="col-md-12 col-lg-12">
-            <div class="main-content">
-                <div class="staff-card" *ngFor="let timer of timerList">
-                    <div class="x-container">
-                        <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removeTimer(timer)"></span>        
-                    </div>
-                    <div class="card-text-primary">
-                        <span class="detail-row">Report: {{timer.incident.attributes.EXECUTIVE_SUMMARY}}</span>
+        <div class="col-sm-12">
+            <div class="timer-card" *ngFor="let timer of timerList">
+                <div class="main-content">
+                    <div class="detail-row">
+                        <span class="card-text-secondary">Report #</span>
                     </div>
                     <div class="detail-row">
-                        <span class="detail-row">Start Time: {{timeToString(timer.TIMER_START)}}</span>
+                        <span class="card-text-secondary">Category SubCategory Type</span>                            
+                        <!-- <span class="card-text-primary">{{incident.category.attributes.MAIN_CATEGORY}} {{incident.category.attributes.SUB_CATEGORY}} {{incident.category.attributes.INCIDENT_TYPE}}</span> -->
+                    </div>
+                    <!-- <div class="detail-row">
+                        <span class="card-text-secondary">Start: {{timeToString(timer.TIMER_START)}}</span>
                     </div>
                     <div class="detail-row">
-                       <span class="detail-row">End Time: {{timeToString(timer.TIMER_END)}}</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-row">Time Remaining: {{durationToString(timer.TIME_REMAINING)}}</span>
-                    </div>
-                    <button id="modifyBtn" class="btn" (click)="timer.modify = !timer.modify">Modify</button>
+                        <span class="card-text-secondary">End: {{timeToString(timer.TIMER_END)}}</span>
+                    </div> -->
+                </div>
+                <div class="timer-container">
+                    <span class="card-text-primary time-remaining" (click)="timer.modify = !timer.modify">{{durationToString(timer.TIME_REMAINING)}}</span>     
                     <div *ngIf="timer.modify">
                         <input type="time" [(ngModel)] = "tempStart" (change)="onChangeModifyTimer()">
                         <input type="time" [(ngModel)] = "tempEnd" (change)="onChangeModifyTimer()">
@@ -34,13 +34,17 @@
                             Start/End time cannot be empty
                         </div>
                         <button class="btn" (click)="modifyTimer(timer)" *ngIf="modifyValid">Confirm</button>
-                    </div>
-                    <br>
+                    </div>                   
                 </div>
-            </div>     
+                <!-- <div class="x-container">
+                    <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removeTimer(timer)"></span>        
+                </div> -->
+                
+
+
+                <!-- <button id="modifyBtn" class="btn" (click)="timer.modify = !timer.modify">Modify</button> -->
+
+            </div>
         </div>
-    </div>
-    <div class="panel-footer">
-            <input class="form-control" type="text" placeholder="Search for timer...">
     </div>
 </div>
