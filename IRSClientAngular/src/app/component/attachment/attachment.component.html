@@ -1,5 +1,5 @@
 <div class="details-body">
     <div class="detail col-12 col-sm-3">
-        <input type="file" [multiple]="multiple" #file>
+        <input type="file" (change)="upload()" #file>
     </div>
-</div> 
+</div>

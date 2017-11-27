@@ -88,7 +88,7 @@
                             <span class="field-title">Attachments</span>
                         </div>
                         <div>
-                            <attachment-component #files [multiple]="true"></attachment-component>
+                            <attachment-component></attachment-component>
                         </div>
                     </div>
 
@@ -246,7 +246,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary" (click)="createReport(); files.upload();" *ngIf="reportReady">Create Report</button>
+                <button class="btn btn-primary" (click)="createReport();" *ngIf="reportReady">Create Report</button>
             </div>
         </div>
     </div>

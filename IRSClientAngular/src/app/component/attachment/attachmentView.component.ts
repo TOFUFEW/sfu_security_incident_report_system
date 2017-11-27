@@ -22,7 +22,7 @@ export class AttachmentViewComponent implements OnInit {
   };
 
   getAttachments(): Promise<String[]> {
-      var attachments = this.http.get( this.uploadURI )
+      var attachments = this.http.get( this.uploadURI  )
           .toPromise()
           .then( response => response.json() as String[] )
           .catch( this.handleError );

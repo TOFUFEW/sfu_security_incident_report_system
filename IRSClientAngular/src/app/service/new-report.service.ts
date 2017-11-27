@@ -4,6 +4,7 @@ import { IncidentElementService } from '../service/incident-element.service';
 import { Config } from '../util/config.service';
 import { Location, LocationAttributes } from '../component/location/location';
 import { Person } from '../component/person/person';
+import { Attachment } from '../component/attachment/attachment';
 import { Category } from '../component/category/category';
 import { Incident } from '../component/report/incident';
 import { IncidentElement } from '../component/report/incident-element';
@@ -11,12 +12,15 @@ import { IncidentElement } from '../component/report/incident-element';
 @Injectable()
 export class NewReportService {
     incidentElements: Map<String, IncidentElement[]>;
-    
+
     private locations = new BehaviorSubject<Location[]>([]);
     currentLocations = this.locations.asObservable();
-    
+
     private persons = new BehaviorSubject<Person[]> ([]);
     currentPersons = this.persons.asObservable();
+
+    private attachments = new BehaviorSubject<Attachment[]> ([]);
+    currentAttachments = this.attachments.asObservable();
 
     constructor() {
         this.incidentElements = new Map<String, IncidentElement[]>();
@@ -39,9 +43,15 @@ export class NewReportService {
             arr = behaviorSubject.getValue() as Person[];
             // obj = IncidentElementService.toIncidentElement( table, obj );
         }
+        else if ( obj.table === Config.AttachmentTable ) {
+            behaviorSubject = this.attachments;
+            arr = behaviorSubject.getValue() as Attachment[];
+        }
 
         arr.push( obj );
         behaviorSubject.next( arr );
+        console.log("addIncidentElement");
+        console.log(behaviorSubject);
     }
 
     removeIncidentElement( obj: any, table: string) {
@@ -64,7 +74,7 @@ export class NewReportService {
             arr = behaviorSubject.getValue() as Person[];
             var person = obj as Person;
             index = arr.findIndex( x => x.attributes.FIRST_NAME === person.attributes.FIRST_NAME
-                                        && x.attributes.LAST_NAME === person.attributes.LAST_NAME 
+                                        && x.attributes.LAST_NAME === person.attributes.LAST_NAME
                                         && x.attributes.PHONE_NUMBER === person.attributes.PHONE_NUMBER ) ;
         }
 
@@ -121,10 +131,10 @@ export class NewReportService {
         var table = element.table;
         if ( table.toLowerCase() === Config.LocationTable.toLowerCase() )
             isValid = this.validateLocation( element as Location ) && isValid ;
-        else if ( table.toLowerCase() === Config.PersonTable.toLowerCase() ) 
+        else if ( table.toLowerCase() === Config.PersonTable.toLowerCase() )
             isValid = this.validatePerson( element as Person ) && isValid ;
         else if (table.toLowerCase() === Config.CategoryTable.toLowerCase()) {
-            
+
         }
         else {
             console.log("*** WARNING: Incident Element unrecognized.");
@@ -143,8 +153,8 @@ export class NewReportService {
     }
 
     validatePerson( person: Person ): boolean {
-        var isValid = true ; 
-        if ( person == null || person.attributes == null ) 
+        var isValid = true ;
+        if ( person == null || person.attributes == null )
             return false;
         if ( person.attributes.FIRST_NAME == null || person.attributes.FIRST_NAME.length == 0 ) {
             this.debug_printErrorMsg( "FIRST_NAME");
@@ -162,6 +172,6 @@ export class NewReportService {
     }
 
     private debug_printErrorMsg( field: String ) {
-        console.log( "***** REPORT INVALID ERROR: " + field + " cannot be null or empty " );        
+        console.log( "***** REPORT INVALID ERROR: " + field + " cannot be null or empty " );
     }
 }

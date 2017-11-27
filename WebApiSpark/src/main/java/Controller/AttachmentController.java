@@ -63,12 +63,17 @@ public class AttachmentController {
 
         get("/upload/:filename", (request, response) -> {
             System.out.println(request.params("filename"));
-            Path from = Paths.get("/uploads/" + request.params("filename")).toAbsolutePath();
-            Path to = Paths.get("/src/main/resources/public/uploads/" + request.params("filename")).toAbsolutePath();
+            try {
+                Path from = Paths.get("/uploads/" + request.params("filename")).toAbsolutePath();
+                Path to = Paths.get("/src/main/resources/public/uploads/" + request.params("filename")).toAbsolutePath();
 
-            Files.copy(from, to.resolve(to.getFileName()));
+                Files.copy(from, to.resolve(to.getFileName()));
 
-            return to;
+                return to;
+            } catch ( Exception e ) {
+                e.printStackTrace();
+            }
+            return null;
         } );
 
     }
