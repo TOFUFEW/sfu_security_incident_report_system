@@ -5,12 +5,15 @@ import { IncidentElement} from './incident-element';
 import { Category } from '../category/category';
 import { Observable } from 'rxjs/Observable';
 import { Config } from '../../util/config.service';
+import { Type, plainToClass} from "class-transformer";
 
 export class Incident {
     table: string;
+    
+    @Type(() => IncidentElement)
     incidentElements: Map<String, IncidentElement[]>;
     attributes: IncidentAttributes;
-    searchString: string;
+    searchString: string = "";
 
     category: Category;
     guard: Staff;
@@ -51,21 +54,23 @@ export class Incident {
             key = table;
         }
 
-        if ( this.incidentElements[key] == null ) {
-            this.incidentElements[key] = new Array;
+        if ( this.incidentElements[key] == null || undefined) {
+            this.incidentElements.set(key, new Array);
         }
 
-        this.incidentElements[key].push( element );
+        var elementArray = this.incidentElements.get(key);
+        elementArray.push(element);
     }
 }
 
 export class IncidentAttributes {
     REPORT_ID: number;
     ACCOUNT_ID: number;
+    CATEGORY_ID: number;
     DESCRIPTION: string;
     EXECUTIVE_SUMMARY: string;
+    SEARCH_TEXT: string;
     STATUS: number;
-    CATEGORY_ID: number;
     TEMPORARY_REPORT: number;
     START_TIME: number;
     END_TIME: number;

@@ -36,8 +36,10 @@ export class NewReportComponent implements OnInit {
     subCategories: SubCategory[] = [];
     categoryTypes: CategoryType[] = [];
 
-    staffList: Staff[] = [];
-    selectedStaff: Staff = null;
+    personsList: Person[];
+    locationList: Location[];
+    staffList: Staff[];
+    selectedStaff: Staff;
     selectedStaffId: number = -1;
     reportReady: boolean = false;
 
@@ -58,14 +60,41 @@ export class NewReportComponent implements OnInit {
           } );
     }
 
-    ngOnInit() {       
+    /*
+    getAllStaff() {
+        this.staffService.getStaffsObs()
+            .subscribe(
+                (responseData) => {
+                    debugger;
+                    this.staffList = responseData;
+                },
+                (error) => {
+                    alert("failed to retrieve staff list");
+                },
+                () => {
+                   // sort it
+                }
+            )
+    }
+    */
+
+    ngOnInit() {
+        // Locations and Persons as incident as incident elements
         this.newReportService.currentLocations
-            .subscribe( locations =>  {
-                this.newIncident.incidentElements[Config.LocationKey] = locations;
+            .subscribe( locations =>  { 
+                locations.forEach(element => {
+                    this.newIncident.insertIncidentElement(element);
+                });
+                this.locationList = locations;
+                //this.newIncident.incidentElements[Config.LocationKey] = locations;
              });
         this.newReportService.currentPersons
-            .subscribe( persons =>  {
-                this.newIncident.incidentElements[Config.PersonKey] = persons;
+            .subscribe( persons =>  { 
+                persons.forEach(element => {
+                    this.newIncident.insertIncidentElement(element);
+                });
+                this.personsList = persons;
+                //this.newIncident.incidentElements[Config.PersonKey] = persons;
             } );
 
         this.categoryService.categoryDictionary

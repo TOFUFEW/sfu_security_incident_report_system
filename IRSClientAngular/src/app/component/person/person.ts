@@ -9,6 +9,12 @@ export class Person implements IncidentElement {
         this.attributes = new PersonAttributes();
         this.table = Config.PersonTable;
     }
+
+    toSearchString(): string {
+        return this.attributes.FIRST_NAME 
+        + " " + this.attributes.LAST_NAME 
+        + " " + this.attributes.PHONE_NUMBER
+    };
 }
 
 export class PersonAttributes {

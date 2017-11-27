@@ -6,6 +6,8 @@ import Util.DBHelper;
 import Util.DatabaseValues;
 import Util.JsonUtil;
 
+import javax.ws.rs.core.Response;
+
 import static spark.Spark.get;
 import static spark.Spark.post;
 
@@ -20,13 +22,34 @@ public class IncidentsController
     {
         get ("/incidents" , ( request , response ) ->
         {
-            Incident []  incidents = DBHelper.getIncidents ();
+            Incident[] incidents = DBHelper.getIncidents ();
             return JsonUtil.toJson ( incidents );
         } );
 
+        post ("/ftsearch-incident" , ( request , response ) ->
+        {
+            String query = request.queryParams("query");
+            int userId = Integer.parseInt(request.queryParams("userId"));
+            Incident[] incidents = DBHelper.FTSearchIncidents(userId, query);
+            return JsonUtil.toJson ( incidents );
+        });
+
+        post ("/ctsearch-incident" , ( request , response ) ->
+        {
+            String query = request.queryParams("query");
+            int userId = Integer.parseInt(request.queryParams("userId"));
+            Incident[] incidents = null;
+            try {
+                incidents = DBHelper.CTSearchIncidents(userId, query);
+            } catch (Exception e) {
+                response.status(400);
+            }
+            return JsonUtil.toJson ( incidents );
+        });
+
         post ("/incidents" , ( request, response ) ->
         {
-            Incident newIncident = ( Incident ) JsonUtil.fromJson ( request.body () , Incident.class );
+            Incident newIncident = ( Incident ) JsonUtil.fromJson ( request.body() , Incident.class );
             return DBHelper.insertIncident ( newIncident );
         } );
 

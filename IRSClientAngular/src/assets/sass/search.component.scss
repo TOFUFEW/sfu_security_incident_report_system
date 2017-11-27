@@ -1,0 +1,24 @@
+@import "settings";
+
+#search-form {
+    @include flex(flex-start, flex-start);
+    height: $navbar-height;
+    margin-bottom: $padding-lg;
+
+    .search-element {
+        height: 100% !important;
+        //box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+        
+    }
+
+    #search-input {
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    #search-btn {
+        width: $navbar-height;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+}

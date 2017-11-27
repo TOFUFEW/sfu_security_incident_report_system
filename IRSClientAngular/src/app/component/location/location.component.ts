@@ -21,9 +21,9 @@ export class LocationComponent implements OnInit {
     newLocation: Location = new Location();
     currentLocation: Location = new Location();
 
-    showCampusAlert: boolean = false;  
+    showCampusAlert: boolean = false;
     showBuildingAlert: boolean = false;
-    
+
     constructor (
         private locationService: LocationService,
         private reportService: NewReportService
@@ -46,13 +46,13 @@ export class LocationComponent implements OnInit {
         }
         if ( this.newLocation.attributes.CITY == null || this.newLocation.attributes.CITY == "" ) {
             if ( this.currentLocation.attributes.CITY != "") {
-                this.newLocation.attributes.CITY = this.currentLocation.attributes.CITY;                
+                this.newLocation.attributes.CITY = this.currentLocation.attributes.CITY;
             }
         }
         if ( this.newLocation.attributes.BUILDING_NAME == null || this.newLocation.attributes.BUILDING_NAME == "" ) {
             if ( this.currentLocation.attributes.BUILDING_NAME != "") {
-                console.log("changing building");                
-                
+                console.log("changing building");
+
                 this.newLocation.attributes.BUILDING_NAME = this.currentLocation.attributes.BUILDING_NAME;
             }
             else {
@@ -88,12 +88,17 @@ export class LocationComponent implements OnInit {
 
     resetLists() {
         this.buildings = [];
-        this.rooms = [];                
-        this.showCampusAlert = false;  
+        this.rooms = [];
+        this.showCampusAlert = false;
         this.showBuildingAlert = false;
     }
 
     addLocationToReport(): void {
+        // REMOVE THIS HACK WHEN WE HAVE SOMETHING BETTER
+        if (this.newLocation.attributes.DEPARTMENT == null || undefined) {
+            this.newLocation.attributes.DEPARTMENT = "CMPT";
+        }
+        // END OF REMOVE
         this.reportService.addIncidentElement ( this.newLocation );
     }
 
@@ -116,18 +121,19 @@ export class LocationComponent implements OnInit {
     }
 
     onSelectCampus(): void {
-        this.showCampusAlert = false;   
-        this.currentLocation.attributes.BUILDING_NAME = "";       
+        this.showCampusAlert = false;
+        this.currentLocation.attributes.BUILDING_NAME = "";
         this.locationMap.forEach( campus => {
             if ( campus.CAMPUS_ID == this.newLocation.attributes.CAMPUS_ID ) {
                 this.buildings = campus.BUILDINGS;
+                this.newLocation.attributes.CITY = campus.CITY;
                 this.newLocation.attributes.LOCATION_ID = null;
             }
         } );
     }
 
     onSelectBuilding(): void {
-        this.showBuildingAlert = false;  
+        this.showBuildingAlert = false;
         this.currentLocation.attributes.ROOM_NUMBER = "";
         this.buildings.forEach( bldg => {
             if ( bldg.BUILDING_NAME === this.newLocation.attributes.BUILDING_NAME ) {

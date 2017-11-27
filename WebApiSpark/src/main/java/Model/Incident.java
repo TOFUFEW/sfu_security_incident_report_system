@@ -25,6 +25,7 @@ public class Incident extends StorageObject
                 "",
                 "",
                 "",
+                "",
                 ""
         );
     }
@@ -35,6 +36,7 @@ public class Incident extends StorageObject
             String categoryID,
             String description,
             String executiveSummary,
+            String searchText,
             String status,
             String startTime,
             String endTime,
@@ -51,6 +53,7 @@ public class Incident extends StorageObject
                         DatabaseValues.Column.CATEGORY_ID,
                         DatabaseValues.Column.DESCRIPTION,
                         DatabaseValues.Column.EXECUTIVE_SUMMARY,
+                        DatabaseValues.Column.SEARCH_TEXT,
                         DatabaseValues.Column.STATUS,
                         DatabaseValues.Column.START_TIME,
                         DatabaseValues.Column.END_TIME,
@@ -84,6 +87,11 @@ public class Incident extends StorageObject
         updateAttributeValue(
                 DatabaseValues.Column.EXECUTIVE_SUMMARY,
                 executiveSummary
+        );
+
+        updateAttributeValue(
+                DatabaseValues.Column.SEARCH_TEXT,
+                searchText
         );
 
         updateAttributeValue(
