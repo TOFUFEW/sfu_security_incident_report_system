@@ -116,7 +116,7 @@ export class IncidentService {
 
     //     return this.http
     //         .get(this.incidentsUrl, options)
-    //         .map((response: Response) => 
+    //         .map((response: Response) =>
     //         this.initIncidents(plainToClass(Incident, response.json()))
     //     )
     // }
@@ -131,9 +131,9 @@ export class IncidentService {
         }
         return this.http
             .post(searchURI, query, options)
-            .map((response: Response) => 
+            .map((response: Response) =>
                 this.initIncidents(plainToClass(Incident, response.json()))
-               
+
             )
     }
 
@@ -202,7 +202,7 @@ export class IncidentService {
         if (incident.attributes.ACCOUNT_ID == null) {
             incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().attributes.ACCOUNT_ID;
         }
-        this.toSearchString(incident);
+        //this.toSearchString(incident);
         incident.table = Config.IncidentTable;
         var promise = this.http
                 .post( this.updateIncidentsUrl, JSON.stringify( incident ), { headers: this.headers } )

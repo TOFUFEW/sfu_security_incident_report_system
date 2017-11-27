@@ -61,4 +61,11 @@ public class Location extends IncidentElement
                 department
         );
     }
+
+    @Override
+    public String toSearchString() {
+        return this.getAttributeValue( DatabaseValues.Column.BUILDING_NAME ) + " " +
+                this.getAttributeValue( DatabaseValues.Column.ROOM_NUMBER ) + " " +
+                this.getAttributeValue( DatabaseValues.Column.DEPARTMENT );
+    }
 }

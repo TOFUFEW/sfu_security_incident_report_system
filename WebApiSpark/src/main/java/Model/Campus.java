@@ -44,4 +44,9 @@ public class Campus extends IncidentElement
                 address
         );
     }
+
+    @Override
+    public String toSearchString() {
+        return this.getAttributeValue( DatabaseValues.Column.CITY );
+    }
 }
