@@ -9,14 +9,6 @@ export class Staff implements IncidentElement {
         this.attributes = new StaffAttributes();
         this.table = Config.StaffTable;
     }
-
-    toConsole(): string {
-        return "hi i'm working!";
-    }
-    toSearchString(): string {
-        return this.attributes.FIRST_NAME 
-        + " " + this.attributes.LAST_NAME 
-    };
 }
 
 export class StaffAttributes {

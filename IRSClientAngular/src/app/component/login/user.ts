@@ -9,10 +9,6 @@ export class User implements IncidentElement {
         this.attributes = new UserAttributes();
         this.table = Config.AccountTable;
     }
-
-    toSearchString(): string {
-        return "";
-    };
 }
 
 export class UserAttributes {

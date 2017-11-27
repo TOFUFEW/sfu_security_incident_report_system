@@ -32,21 +32,18 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log("initializing app");
         this.userService.user.subscribe( u => {
             this.user = u;
             if ( u != null ) {
                 this.userAccType = u.attributes.ACCOUNT_TYPE;   
             }
-            this.isAdmin = this.userAccType == this.userService.ADMIN;  
-            console.log(" admin? " + this.isAdmin);       
+            this.isAdmin = this.userAccType == this.userService.ADMIN;      
         });
         this.userService.loggedIn.subscribe( loggedIn => {
             this.isLoggedIn = loggedIn;
         });
         if ( this.router.url.includes ( 'guard-app' ) ) {
-            this.isGuardApp = true;
-            console.log("this is a guard app", this.isGuardApp);            
+            this.isGuardApp = true;           
         }
     }
 }

@@ -10,13 +10,6 @@ export class Location implements IncidentElement {
         this.attributes = new LocationAttributes();
         this.table = Config.LocationTable;
     }
-
-    toSearchString(): string {
-        return this.attributes.BUILDING_NAME 
-        + " " + this.attributes.ROOM_NUMBER 
-        + " " + this.attributes.DEPARTMENT
-        + " " + this.attributes.CITY
-    };
 }
 
 export class LocationAttributes {

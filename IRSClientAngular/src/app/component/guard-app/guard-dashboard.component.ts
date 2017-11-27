@@ -28,7 +28,6 @@ export class GuardDashboardComponent implements OnInit {
     getAssignedIncidents(): void {
         this.user = this.userService.getCurrentUser();
         this.incidentsService.getIncidents( ).then( returnedIncidents => {
-            console.log("returned incidents: ", returnedIncidents);
             this.assignedIncidents = returnedIncidents;
         } );
     }
@@ -40,12 +39,10 @@ export class GuardDashboardComponent implements OnInit {
     }
 
     viewReport( incident: Incident ) : void {
-        console.log("view report id = " + incident.attributes.REPORT_ID );
         this.router.navigate([ 'guard-app/report', incident.attributes.REPORT_ID ] );
     }
 
     newReport(): void {
-        console.log("new report");
         this.router.navigate([ 'new-report' ] );
     }
 

@@ -203,7 +203,6 @@ export class IncidentService {
         if (incident.attributes.ACCOUNT_ID == null) {
             incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().attributes.ACCOUNT_ID;
         }
-        //this.toSearchString(incident);
         incident.table = Config.IncidentTable;
         var promise = this.http
                 .post( this.updateIncidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
@@ -276,36 +275,12 @@ export class IncidentService {
 
     private handleError(error: any): Promise<any> {
         alert("An error occurred.");
-        console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
     }
 
     // SEARCH TEXT FOR SEARCHING IN THE DATABASE
     private toSearchString(incident: Incident) {
-        /*
-        incident.searchString = incident.attributes.DESCRIPTION
-            + " " + incident.attributes.EXECUTIVE_SUMMARY;
-
-        var map = incident.incidentElements;
-
-        // iterate through each incident element and add them to the search string
-        map.forEach((value: IncidentElement[], key: String) => {
-            var elementArray = value;
-            elementArray.forEach(element => {
-                console.log("This element's search string is: " + element.toSearchString());
-                incident.searchString = incident.searchString + " " + element.toSearchString();
-            });
-        });
-
-
-        debugger;
-        if (incident.attributes.REPORT_ID != undefined && incident.attributes.REPORT_ID != null) {
-            incident.searchString = incident.searchString + " " + incident.attributes.REPORT_ID;
-        }
-        */
-
         incident.attributes.SEARCH_TEXT = "";
-        console.log(incident.attributes.SEARCH_TEXT);
     }
 
 }
