@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Incident extends StorageObject
 {
-    private HashMap < String , ArrayList < IncidentElement > > incidentElements = new HashMap <> ();
+    private HashMap<String, ArrayList<IncidentElement>> incidentElements = new HashMap <> ();
 
     public Incident ( )
     {
@@ -170,14 +170,23 @@ public class Incident extends StorageObject
     public void updateSearchString() {
         String searchString = this.getAttributeValue( DatabaseValues.Column.DESCRIPTION ) + " " +
                 this.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY );
-        for( ArrayList< IncidentElement > list : this.incidentElements.values() ) {
+        for( Map.Entry< String, ArrayList< IncidentElement > > entry : this.incidentElements.entrySet() ) {
+            ArrayList< IncidentElement > list = entry.getValue();
+            System.out.println( entry.getKey() );
             for( IncidentElement element : list ) {
-                searchString = searchString + " " + element.toSearchString();
+                if( entry.getKey().equals( "Location" ) ) {
+                    searchString = searchString + " " + ( ( Location ) element ).toSearchString();
+                } else if ( entry.getKey().equals( "IncidentCategory" ) ) {
+                    searchString = searchString + " " + ( ( IncidentCategory ) element ).toSearchString();
+                } else if ( entry.getKey().equals( "Person" ) ) {
+                    searchString = searchString + " " + ( ( Person ) element ).toSearchString();
+                } else if ( entry.getKey().equals( "Staff" ) ) {
+                    searchString = searchString + " " + ( ( Staff ) element ).toSearchString();
+                }
             }
         }
         this.updateAttributeValue( DatabaseValues.Column.SEARCH_TEXT, searchString );
     }
-
 //    public String [] incidentElementsToInsertSQL ()
 //    {
 //        ArrayList < String > sqlStatements = new ArrayList ();

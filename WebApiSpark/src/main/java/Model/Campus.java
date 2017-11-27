@@ -45,8 +45,4 @@ public class Campus extends IncidentElement
         );
     }
 
-    @Override
-    public String toSearchString() {
-        return this.getAttributeValue( DatabaseValues.Column.CITY );
-    }
 }
