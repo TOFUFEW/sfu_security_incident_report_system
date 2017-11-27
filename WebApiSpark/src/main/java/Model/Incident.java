@@ -29,6 +29,21 @@ public class Incident extends StorageObject
         );
     }
 
+    public Incident ( Incident incident )
+    {
+        this ();
+
+        for ( DatabaseValues.Column column : incident.getColumnSet () )
+        {
+            updateAttributeValue (
+                    column,
+                    incident.getAttributeValue ( column )
+            );
+        }
+
+        incidentElements = incident.getIncidentElements ();
+    }
+
     public Incident (
             String reportID,
             String accountID,

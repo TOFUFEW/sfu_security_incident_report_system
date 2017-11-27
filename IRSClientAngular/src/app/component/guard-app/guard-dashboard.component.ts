@@ -19,7 +19,7 @@ export class GuardDashboardComponent implements OnInit {
     createdIncidents: Incident[];
     user: User;
 
-    constructor( private incidentsService: IncidentService,
+    constructor( private incidentService: IncidentService,
                  private userService: UserService,
                  private http: HttpClient,
                  private router: Router) {
@@ -27,27 +27,42 @@ export class GuardDashboardComponent implements OnInit {
 
     getAssignedIncidents(): void {
         this.user = this.userService.getCurrentUser();
-        this.incidentsService.getIncidents( ).then( returnedIncidents => {
-            this.assignedIncidents = returnedIncidents;
+        this.incidentService.getIncidents( ).then( returnedIncidents => {
+            console.log("returned incidents: ", returnedIncidents);
         } );
     }
 
     getCreatedIncidents(): void {
-        this.incidentsService.getCreatedByIncidents().then( returnedIncidents => {
-            this.createdIncidents = returnedIncidents;
+        this.incidentService.getCreatedByIncidents().then( returnedIncidents => {
+            var userAccountID = this.userService.getAccountID ();
+            this.createdIncidents = returnedIncidents.filter ( i => i.attributes.REPORT_ID == userAccountID ) as Incident [];
         } );
     }
 
-    viewReport( incident: Incident ) : void {
+
+
+    viewReport ( incident: Incident ) : void {
+        console.log("view report id = " + incident.attributes.REPORT_ID );
         this.router.navigate([ 'guard-app/report', incident.attributes.REPORT_ID ] );
     }
 
     newReport(): void {
-        this.router.navigate([ 'new-report' ] );
+        console.log ( "new report" );
+        this.router.navigate ( [ 'new-report' ] );
     }
 
     ngOnInit() : void {
-        this.getAssignedIncidents();
-        this.getCreatedIncidents();
+        this.getAssignedIncidents ();
+        this.getCreatedIncidents ();
+
+        this.incidentService.reportsInList
+          .subscribe ( reports => {
+
+              this.createdIncidents = ( reports as Incident [] )
+                .filter ( i => this.incidentService.userCreatedReport ( i ) );
+
+              this.assignedIncidents = ( reports as Incident [] )
+                .filter ( i => this.incidentService.reportAssignedToThisUserTest ( i as Incident ) ) as Incident [];
+        } );
     }
 }

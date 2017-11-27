@@ -19,7 +19,7 @@ export class Incident {
     inWorkspace: boolean;
 
     constructor() {
-        this.incidentElements = new Map;
+        this.incidentElements = new Map();
         this.attributes = new IncidentAttributes();
         this.category = new Category(null, null, null, null);
         this.inWorkspace = false;
@@ -39,9 +39,9 @@ export class Incident {
                 if ( i >= 0 ) {
                     this.incidentElements[key].splice(i, 1);
                 }
-            }            
+            }
         }
-        else if ( table === Config.LocationTable ) 
+        else if ( table === Config.LocationTable )
             key = Config.LocationKey;
         else if ( table === Config.StaffTable )
             key = Config.StaffKey

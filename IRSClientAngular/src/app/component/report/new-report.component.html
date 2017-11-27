@@ -4,17 +4,31 @@
                     col-lg-6 col-lg-offset-3 col-lg-offset-right-3">
             <div id="new-report-panel" class="panel panel-default">
                 <div class="panel-heading">
-                    <div>
-                        <span class="glyphicon glyphicon-dashboard glyphicon-heading"></span>
-                        <span class="panel-header">New Report</span>
-                    </div>
+                    <span class="panel-header">New Report</span>
+                    <span class="date">{{date}}</span>     
                 </div>
                 <div class="panel-body">
 
                     <div class="details-container">
                         <div class="details-heading">
-                            <span class="glyphicon glyphicon-info-sign glyphicon-heading"></span>
-                            <span class="field-title">Basic Information</span>
+                            <span class="glyphicon glyphicon-map-marker glyphicon-heading"></span>
+                            <span class="field-title">Location</span>
+                        </div>
+                        <div id="locations">
+                            <location-component id="first-element"></location-component>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-2 col-sm-offset-9">
+                            <span class="link" (click)="addComponent(locationStr)"> Add Location</span>
+                        </div>
+                    </div>
+
+                    <div class="details-container">
+                        <div class="details-heading">
+                            <span class="glyphicon glyphicon-filter glyphicon-heading"></span>
+                            <span class="field-title">Category</span>
                         </div>
                         <div class="details-body">
                             <div class="detail col-12 col-sm-3">
@@ -35,32 +49,23 @@
                                     <option *ngFor="let type of categoryTypes" [value]="type.INCIDENT_TYPE">{{type.INCIDENT_TYPE}}</option>
                                 </select>
                             </div>
-                            <div class="detail col-12 col-sm-10">
-                                <span class="field-title">Executive Summary <span class="required-asterisk">*</span></span>
-                                <textarea class="form-control" cols="50" rows="1" [(ngModel)]="newIncident.attributes.EXECUTIVE_SUMMARY"></textarea>
-                            </div>
-                            <div class="detail col-12 col-sm-10">
-                                <span class="field-title">Description <span class="required-asterisk">*</span></span>
-                                <textarea class="form-control" cols="50" rows="8" [(ngModel)]="newIncident.attributes.DESCRIPTION"></textarea>
-                            </div>
                         </div>
                     </div>
 
                     <div class="details-container">
                         <div class="details-heading">
-                            <span class="glyphicon glyphicon-map-marker glyphicon-heading"></span>
-                            <span class="field-title">Location</span>
+                            <span class="glyphicon glyphicon-info-sign glyphicon-heading"></span>
+                            <span class="field-title">Incident Details</span>
                         </div>
-                        <div id="locations">
-                            <location-component id="first-element"></location-component>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-3 col-sm-offset-8 col-sm-offset-right-1
-                                    col-lg-3 col-lg-offset-9">
-                            <button class="btn btn-default" (click)="addComponent(locationStr)">
-                                <span class="glyphicon glyphicon-plus"></span> Add Location</button>
+                        <div class="details-body">
+                            <div class="detail col-12 col-sm-10">
+                                <span class="field-title">Executive Summary <span class="required-asterisk"></span></span>
+                                <input class="form-control" [(ngModel)]="newIncident.attributes.EXECUTIVE_SUMMARY"/>
+                            </div>
+                            <div class="detail col-12 col-sm-10">
+                                <span class="field-title">Description <span class="required-asterisk"></span></span>
+                                <textarea class="form-control" cols="50" rows="8" [(ngModel)]="newIncident.attributes.DESCRIPTION"></textarea>
+                            </div>
                         </div>
                     </div>
 
@@ -70,15 +75,12 @@
                             <span class="field-title">Involved Persons</span>
                         </div>
                         <div id="persons">
-                            <person-component></person-component>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-3 col-sm-offset-8 col-sm-offset-right-1
-                                    col-lg-3 col-lg-offset-9">
-                            <button class="btn btn-default" (click)="addComponent(personStr)">
-                                <span class="glyphicon glyphicon-plus"></span> Add Person</button>
+                        <div class="col-sm-2 col-sm-offset-9">
+                            <span class="link" (click)="addComponent(personStr)"> Add Person</span>
                         </div>
                     </div>
 
@@ -128,11 +130,39 @@
                 <span class="panel-header">Review New Report</span>
             </div>
             <div class="modal-body">
-                <!-- <report-summary [inputReport]="newIncident"></report-summary> -->
                 <div class="details-container">
                     <div class="details-heading">
-                        <span class="glyphicon glyphicon-info-sign glyphicon-heading"></span>
-                        <span class="field-title">Basic Information</span>
+                        <span class="glyphicon glyphicon-map-marker glyphicon-heading"></span>
+                        <span class="field-title">Location</span>
+                    </div>
+                    <div class="details-body" *ngFor="let location of newIncident.incidentElements['Location']">
+                        <div class="detail col-12 col-sm-3">
+                            <span class="field-title">Campus: </span>
+                            <span class="field-value">{{location.attributes.CITY}}</span>
+                            <div class="alertText" *ngIf="location.attributes.CAMPUS_ID == null">
+                                    Please select a campus
+                            </div>
+                        </div>
+                        <div class="detail col-12 col-sm-3">
+                            <span class="field-title">Building: </span>
+                            <span class="field-value">{{location.attributes.BUILDING_NAME}}</span>
+                            <!-- <div class="alertText" *ngIf="location.attributes.BUILDING_NAME == null">
+                                    Please select a building
+                            </div> -->
+                        </div>
+                        <div class="detail col-12 col-sm-3">
+                            <span class="field-title">Room Number: </span>
+                            <span class="field-value">{{location.attributes.ROOM_NUMBER}}</span>
+                            <!-- <div class="alertText" *ngIf="location.attributes.ROOM_NUMBER == null">
+                                    Please select a room number
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="details-container">
+                    <div class="details-heading">
+                        <span class="glyphicon glyphicon-filter glyphicon-heading"></span>
+                        <span class="field-title">Category</span>
                     </div>
                     <div class="details-body">
                         <div class="detail col-12 col-sm-3">
@@ -156,48 +186,27 @@
                                     Please select an incident type
                             </div>
                         </div>
-                        <div class="detail col-12 col-sm-10">
-                            <span class="field-title">Description</span>
-                            <span class="field-value">{{newIncident.attributes.DESCRIPTION}}</span>
-                            <div class="alertText" *ngIf="newIncident.attributes.DESCRIPTION == null">
-                                    Please enter a description
-                            </div>
-                        </div>
-                        <div class="detail col-12 col-sm-10">
-                            <span class="field-title">Executive Summary</span>
-                            <span class="field-value">{{newIncident.attributes.EXECUTIVE_SUMMARY}}</span>
-                            <div class="alertText" *ngIf="newIncident.attributes.EXECUTIVE_SUMMARY == null">
-                                    Please enter a summary
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="details-container">
                     <div class="details-heading">
-                        <span class="glyphicon glyphicon-map-marker glyphicon-heading"></span>
-                        <span class="field-title">Location</span>
+                        <span class="glyphicon glyphicon-info-sign glyphicon-heading"></span>
+                        <span class="field-title">Incident Details</span>
                     </div>
-                    <div class="details-body" *ngFor="let location of locationList">
-                        <div class="detail col-12 col-sm-3">
-                            <span class="field-title">Campus: </span>
-                            <span class="field-value">{{location.attributes.CAMPUS_ID}}</span>
-                            <div class="alertText" *ngIf="location.attributes.CAMPUS_ID == null">
-                                    Please select a campus
-                            </div>
+                    <div class="details-body">
+                        <div class="detail col-12 col-sm-10">
+                            <span class="field-title">Executive Summary</span>
+                            <span class="field-value">{{newIncident.attributes.EXECUTIVE_SUMMARY}}</span>
+                            <!-- <div class="alertText" *ngIf="newIncident.attributes.EXECUTIVE_SUMMARY == null">
+                                    Please enter a summary
+                            </div> -->
                         </div>
-                        <div class="detail col-12 col-sm-3">
-                            <span class="field-title">Building: </span>
-                            <span class="field-value">{{location.attributes.BUILDING_NAME}}</span>
-                            <div class="alertText" *ngIf="location.attributes.BUILDING_NAME == null">
-                                    Please select a building
-                            </div>
-                        </div>
-                        <div class="detail col-12 col-sm-3">
-                            <span class="field-title">Room Number: </span>
-                            <span class="field-value">{{location.attributes.ROOM_NUMBER}}</span>
-                            <div class="alertText" *ngIf="location.attributes.ROOM_NUMBER == null">
-                                    Please select a room number
-                            </div>
+                        <div class="detail col-12 col-sm-10">
+                            <span class="field-title">Description</span>
+                            <span class="field-value">{{newIncident.attributes.DESCRIPTION}}</span>
+                            <!-- <div class="alertText" *ngIf="newIncident.attributes.DESCRIPTION == null">
+                                    Please enter a description
+                            </div> -->
                         </div>
                     </div>
                 </div>

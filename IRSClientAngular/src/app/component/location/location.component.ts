@@ -101,9 +101,11 @@ export class LocationComponent implements OnInit {
     }
 
     getLocations(): void {
-        this.locationService.getLocations().then ( returnedLocations => {
-            this.locations = returnedLocations;
-            this.locationMap = this.locationService.toLocationMapping( this.locations );
+        this.locationService.locations.subscribe( locations => {
+            this.locations = locations;
+        });
+        this.locationService.locationMap.subscribe( map => {
+            this.locationMap = map;
         });
     }
 
@@ -112,9 +114,11 @@ export class LocationComponent implements OnInit {
         this.currentLocation.attributes.BUILDING_NAME = "";
         this.locationMap.forEach( campus => {
             if ( campus.CAMPUS_ID == this.newLocation.attributes.CAMPUS_ID ) {
-                this.buildings = campus.BUILDINGS;
+                this.buildings = campus.BUILDINGS;   
                 this.newLocation.attributes.CITY = campus.CITY;
-                this.newLocation.attributes.LOCATION_ID = null;
+                this.newLocation.attributes.LOCATION_ID = null;       
+                this.newLocation.attributes.BUILDING_NAME = "";
+                this.newLocation.attributes.ROOM_NUMBER = "";          
             }
         } );
     }
@@ -125,7 +129,8 @@ export class LocationComponent implements OnInit {
         this.buildings.forEach( bldg => {
             if ( bldg.BUILDING_NAME === this.newLocation.attributes.BUILDING_NAME ) {
                 this.rooms = bldg.ROOMS;
-                this.newLocation.attributes.LOCATION_ID = null;
+                this.newLocation.attributes.LOCATION_ID = null; 
+                this.newLocation.attributes.ROOM_NUMBER = "";
             }
         });
     }

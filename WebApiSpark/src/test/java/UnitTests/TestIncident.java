@@ -209,7 +209,7 @@ public class TestIncident
         elementCount++;
 
         int currentSize = getNumberOfIncidents ();
-        Assert.assertTrue( DBHelper.insertIncident( incident1 ) );
+        Assert.assertTrue( DBHelper.insertIncident ( incident1 ) );
 
         Incident [] incidents = DBHelper.getIncidents ();
 
@@ -298,7 +298,7 @@ public class TestIncident
         Assert.assertTrue( incident1.numIncidentElements() > 0 );
 
         int currentSize = getNumberOfIncidents ();
-        Assert.assertTrue ( DBHelper.insertIncident( incident1 ) );
+        Assert.assertTrue ( DBHelper.insertIncident ( incident1 ) );
 
         Incident [] incidents = DBHelper.getIncidents ();
 
@@ -618,7 +618,7 @@ public class TestIncident
         newIncident.addIncidentElement( DatabaseValues.IncidentElementKey.STAFF.toString(), assignStaff );
         int currentSize = getNumberOfIncidents();
 
-        Assert.assertTrue( DBHelper.insertIncident( newIncident ));
+        Assert.assertTrue( DBHelper.insertIncident ( newIncident ) );
         Assert.assertTrue( currentSize < getNumberOfIncidents() );
 
         Incident newlyInsertedIncident = getLastIncident();
@@ -677,7 +677,7 @@ public class TestIncident
         incident1.updateAttributeValue ( Column.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
         incident1.updateAttributeValue ( Column.STATUS, "0" );
 
-        Assert.assertFalse( DBHelper.insertIncident( incident1 ) );
+        Assert.assertFalse( DBHelper.insertIncident ( incident1 ) );
     }
 
     @Test

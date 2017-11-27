@@ -246,7 +246,6 @@ public class StorageObject
             DatabaseValues.Column column,
             String value
     ) {
-
         if ( !validColumn ( column ) )
         {
             return false;
@@ -296,6 +295,9 @@ public class StorageObject
             {
                 value = resultSet.getString ( column.toString () );
             }
+            else if ( dataType.contains( "DATETIME" )) {
+                value = ("" + resultSet.getTimestamp( column.toString() )).replaceAll("[\\.][0-9]+$", "");
+            }
 
             // edit column value if present
             if ( value != null )
@@ -344,6 +346,7 @@ public class StorageObject
         DatabaseValues.Column column,
         String input
     ) {
+
         if ( input == null || input.isEmpty () )
         {
             return input;

@@ -551,6 +551,7 @@ module.exports = "<div class=\"main-container\">\r\n    <div id=\"main-content\"
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__service_incident_service__ = __webpack_require__("../../../../../src/app/service/incident.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__service_user_service__ = __webpack_require__("../../../../../src/app/service/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__util_config_service__ = __webpack_require__("../../../../../src/app/util/config.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -560,6 +561,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -575,7 +577,39 @@ var DashboardComponent = (function () {
         if (this.userService.isLoggedIn() == false) {
             this.router.navigate(['login']);
         }
+        // Web socket
+        var wss = new WebSocket(__WEBPACK_IMPORTED_MODULE_5__util_config_service__["a" /* Config */].LogInWebSocketURI);
+        wss.onopen = function () {
+            console.log("Socket has been opened!");
+        };
+        wss.onmessage = function (message) {
+            var messageObj = JSON.parse(message.data);
+            console.log("Received data from websocket: ", messageObj);
+        };
     }
+    DashboardComponent.prototype.sendRequest = function (request) {
+        //var defer = $q.defer ();
+        //var callbackId = getCallbackId ();
+        //callbacks [ callbackId ] = {
+        //  time: new Date (),
+        //  cb:defer
+        //};
+        //request.callback_id = callbackId;
+        //console.log('Sending request', request);
+        //ws.send(JSON.stringify(request));
+        //return defer.promise;
+    };
+    DashboardComponent.prototype.listener = function (data) {
+        var messageObj = data;
+        console.log("Received data from websocket: ", messageObj);
+        // If an object exists with callback_id in our callbacks object, resolve it
+        //if(callbacks.hasOwnProperty(messageObj.callback_id)) {
+        //  console.log(callbacks[messageObj.callback_id]);
+        //  $rootScope.$apply(callbacks[messageObj.callback_id].cb.resolve(messageObj.data));
+        // delete callbacks[messageObj.callbackID];
+        //}
+        //ngOnInit ();
+    };
     DashboardComponent.prototype.newReport = function () {
         window.open("new-report", "_blank");
     };
@@ -1205,6 +1239,17 @@ var LoginComponent = (function () {
             }
         }
     };
+    LoginComponent.prototype.listener = function (data) {
+        var messageObj = data;
+        console.log("Received data from websocket: ", messageObj);
+        // If an object exists with callback_id in our callbacks object, resolve it
+        //if(callbacks.hasOwnProperty(messageObj.callback_id)) {
+        //  console.log(callbacks[messageObj.callback_id]);
+        //  $rootScope.$apply(callbacks[messageObj.callback_id].cb.resolve(messageObj.data));
+        // delete callbacks[messageObj.callbackID];
+        //}
+        //ngOnInit ();
+    };
     return LoginComponent;
 }());
 LoginComponent = __decorate([
@@ -1431,6 +1476,27 @@ var IncidentComponent = (function () {
         });
         this.incidentService.lastRemovedId
             .subscribe(function (value) { return _this.removeFromWorkspace(value); });
+        // Web socket
+        /*
+        var wss = new WebSocket ( Config.IncidentsWebSocketURI );
+        wss.onopen = function ()
+        {
+            console.log ( "Socket has been opened!" );
+        };
+        
+        wss.onmessage = function ( message )
+        {
+            console.log ( "Called" );
+            //var incident = JSON.parse ( message.data ) as Incident;
+            //var id = incident.attributes.REPORT_ID;
+            //console.log ( "Received data from websocket: " + id );
+
+            //this.addToWorkspace( incident );
+
+            //console.log ( "this = " + this );
+
+        }.bind ( this );
+        */
     }
     ;
     IncidentComponent.prototype.getIncidents = function () {
@@ -1450,6 +1516,7 @@ var IncidentComponent = (function () {
         this.incidentService.addToWorkspace(incident);
     };
     IncidentComponent.prototype.removeFromWorkspace = function (id) {
+        console.log("remove method here");
         if (this.incidents == null || this.incidents.length == 0)
             return;
         console.log(" removing " + id);
@@ -1595,7 +1662,7 @@ var IncidentAttributes = (function () {
 /***/ "../../../../../src/app/component/report/incidents.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div id=\"incidents-list-panel\" class=\"panel panel-default\">\n    <div class=\"panel-heading\">\n        <div class=\"toolbar\">\n            <div class=\"flex\">\n                <span class=\"glyphicon glyphicon-list-alt glyphicon-heading\"></span>\n                <span class=\"panel-header\">Reports</span>\n            </div>\n        </div>\n    </div>\n    <div class=\"panel-body\">\n        <div id=\"incidents-list\" class=\"col-md-12 col-lg-12\">\n            <div class=\"incident-card\" *ngFor=\"let incident of incidents\">\n                <div class=\"main-content\"  (dblclick)=\"incident.inWorkspace || addToWorkspace(incident)\">\n                    <div class=\"detail-row\">\n                        <span class=\"card-text-secondary\">Report #{{incident.attributes.REPORT_ID}}</span>\n                    </div>\n                    <div class=\"detail-row description\">\n                        <span class=\"card-text-primary\">\n                            {{incident.attributes.DESCRIPTION}}\n                        </span>\n                    </div>\n                    <div class=\"detail-row\">\n                        <span class=\"card-text-secondary\">\n                            Category: {{incident.category.attributes.MAIN_CATEGORY}} - {{incident.category.attributes.SUB_CATEGORY}} {{incident.category.attributes.INCIDENT_TYPE}}\n                        </span>\n                    </div>\n                    <div class=\"detail-row\" *ngIf=\"incident.guard != null && incident.guard.attributes.FIRST_NAME != null\">\n                        <span class=\"card-text-secondary\">\n                            Assigned To: {{incident.guard.attributes.FIRST_NAME}} {{incident.guard.attributes.LAST_NAME}}\n                        </span>\n                    </div>\n                    <div class=\"detail-row tertiary\">\n                        <span class=\"card-text-tertiary\">\n                            Burnaby AQ 3150\n                        </span>\n                        <span class=\"card-text-tertiary\">08/15/2017 4:44</span>\n                    </div>\n                </div>\n                <div class=\"bottom\">\n                    <div class=\"action\">\n                        <span class=\"glyphicon glyphicon-new-window glyphicon-btn\" data-toggle=\"tooltip\" title=\"Add to Workspace\"\n                                 [ngClass]=\"{'transparent': incident.inWorkspace}\" (click)=\"incident.inWorkspace || addToWorkspace(incident)\"></span>\n                        <span class=\"glyphicon glyphicon-tag glyphicon-btn\" data-toggle=\"modal\" data-target=\"#dispatchModal\" (click)=\"setIncidentToAssign(incident.attributes.REPORT_ID)\" title=\"Assign to Guard\"></span>\n\n                    </div>\n\n                </div>\n\n            </div>\n        </div>\n    </div>\n    <div class=\"panel-footer\">\n        <input class=\"form-control\" type=\"text\" placeholder=\"Search for reports...\">\n    </div>\n</div>\n\n<!-- Modal -->\n<div id=\"dispatchModal\" class=\"modal fade\" role=\"dialog\" *ngIf=\"incidentToAssign.attributes.REPORT_ID != null\">\n    <div class=\"modal-dialog\">\n        <div class=\"modal-content\">\n            <div class=\"modal-header\">\n                <span class=\"glyphicon glyphicon-tag glyphicon-heading\"></span>\n                <span class=\"panel-header\">Assign To Guard - Report #{{incidentToAssign.attributes.REPORT_ID}}</span>\n            </div>\n            <div class=\"modal-body\">\n                <div class=\"details-container\">\n                    <div class=\"details-body\">\n                        <div class=\"detail col-12 col-sm-3\">\n                            <select class=\"form-control\" name=\"\" id=\"\" [(ngModel)]=\"selectedStaffId\">\n                                <option value=\"-1\"> </option>\n                                <option *ngFor=\"let staff of staffArr\" [value]=\"staff.attributes.ACCOUNT_ID\">{{staff.attributes.FIRST_NAME}} {{staff.attributes.LAST_NAME}}</option>\n                            </select>\n                        </div>\n                    </div> \n                </div>\n            </div>\n            <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cancel</button>\n                <button class=\"btn btn-primary\" (click)=\"assignToGuard()\" data-dismiss=\"modal\">Assign</button>   \n            </div>\n        </div>\n    </div>\n</div>"
+module.exports = "\r\n<div id=\"incidents-list-panel\" class=\"panel panel-default\">\r\n    <div class=\"panel-heading\">\r\n        <div class=\"toolbar\">\r\n            <div class=\"flex\">\r\n                <span class=\"glyphicon glyphicon-list-alt glyphicon-heading\"></span>\r\n                <span class=\"panel-header\">Reports</span>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"panel-body\">\r\n        <div id=\"incidents-list\" class=\"col-md-12 col-lg-12\">\r\n            <div class=\"incident-card\" *ngFor=\"let incident of incidents\">\r\n                <div class=\"main-content\"  (dblclick)=\"incident.inWorkspace || addToWorkspace(incident)\">\r\n                    <div class=\"detail-row\">\r\n                        <span class=\"card-text-secondary\">Report #{{incident.attributes.REPORT_ID}}</span>\r\n                    </div>\r\n                    <div class=\"detail-row description\">\r\n                        <span class=\"card-text-primary\">\r\n                            {{incident.attributes.DESCRIPTION}}\r\n                        </span>\r\n                    </div>\r\n                    <div class=\"detail-row\">\r\n                        <span class=\"card-text-secondary\">\r\n                            Category: {{incident.category.attributes.MAIN_CATEGORY}} - {{incident.category.attributes.SUB_CATEGORY}} {{incident.category.attributes.INCIDENT_TYPE}}\r\n                        </span>\r\n                    </div>\r\n                    <div class=\"detail-row\" *ngIf=\"incident.guard != null && incident.guard.attributes.FIRST_NAME != null\">\r\n                        <span class=\"card-text-secondary\">\r\n                            Assigned To: {{incident.guard.attributes.FIRST_NAME}} {{incident.guard.attributes.LAST_NAME}}\r\n                        </span>\r\n                    </div>\r\n                    <div class=\"detail-row tertiary\">\r\n                        <span class=\"card-text-tertiary\">\r\n                            Burnaby AQ 3150\r\n                        </span>\r\n                        <span class=\"card-text-tertiary\">08/15/2017 4:44</span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"bottom\">\r\n                    <div class=\"action\">\r\n                        <span class=\"glyphicon glyphicon-new-window glyphicon-btn\" data-toggle=\"tooltip\" title=\"Add to Workspace\"\r\n                                 [ngClass]=\"{'transparent': incident.inWorkspace}\" (click)=\"incident.inWorkspace || addToWorkspace(incident)\"></span>\r\n                        <span class=\"glyphicon glyphicon-tag glyphicon-btn\" data-toggle=\"modal\" data-target=\"#dispatchModal\" (click)=\"setIncidentToAssign(incident.attributes.REPORT_ID)\" title=\"Assign to Guard\"></span>\r\n\r\n                    </div>\r\n\r\n                </div>\r\n\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"panel-footer\">\r\n        <input class=\"form-control\" type=\"text\" placeholder=\"Search for reports...\">\r\n    </div>\r\n</div>\r\n\r\n<!-- Modal -->\r\n<div id=\"dispatchModal\" class=\"modal fade\" role=\"dialog\" *ngIf=\"incidentToAssign.attributes.REPORT_ID != null\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <span class=\"glyphicon glyphicon-tag glyphicon-heading\"></span>\r\n                <span class=\"panel-header\">Assign To Guard - Report #{{incidentToAssign.attributes.REPORT_ID}}</span>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <div class=\"details-container\">\r\n                    <div class=\"details-body\">\r\n                        <div class=\"detail col-12 col-sm-3\">\r\n                            <select class=\"form-control\" name=\"\" id=\"\" [(ngModel)]=\"selectedStaffId\">\r\n                                <option value=\"-1\"> </option>\r\n                                <option *ngFor=\"let staff of staffArr\" [value]=\"staff.attributes.ACCOUNT_ID\">{{staff.attributes.FIRST_NAME}} {{staff.attributes.LAST_NAME}}</option>\r\n                            </select>\r\n                        </div>\r\n                    </div> \r\n                </div>\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cancel</button>\r\n                <button class=\"btn btn-primary\" (click)=\"assignToGuard()\" data-dismiss=\"modal\">Assign</button>   \r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -3117,6 +3184,8 @@ Config.UpdateIncidentsURI = "https://localhost:4567/update-incident";
 Config.UpdateIncidentURI = "https://localhost:4567/update-incident";
 Config.AssignIncidentURI = "https://localhost:4567/update-incident";
 Config.UploadURI = "https://localhost:4567/upload";
+Config.IncidentsWebSocketURI = "wss://localhost:4567/incidentsWebSocket";
+Config.LogInWebSocketURI = "wss://localhost:4567/loginWebSocket";
 Config.StaffTable = "STAFF";
 Config.LocationTable = "LOCATION";
 Config.AccountTable = "ACCOUNT";

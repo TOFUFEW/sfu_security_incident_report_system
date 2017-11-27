@@ -9,11 +9,6 @@ import java.util.Map;
 
 public class DBHelper
 {
-    /*
-    private static final String USERNAME = "cmpt373alpha";
-    private static final String PASSWORD = "cmpt373alpha";
-    private static final String URL = "jdbc:sqlserver://sfuirsdb.czoee5rkbxlk.us-west-1.rds.amazonaws.com:1433;DatabaseName=IRS;";
-    */
     private static final String USERNAME = "sa";
     private static final String PASSWORD = "CMPT373Alpha";
     private static final String URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=hibernatedb;";
@@ -148,7 +143,7 @@ public class DBHelper
     public static Incident getIncident( String reportId ) {
         ArrayList < Incident > incidentList = new ArrayList <> ();
         try {
-            String query = "select top 1 * from Incident where REPORT_ID = '" + reportId + "';";
+            String query = "select * from Incident where REPORT_ID = '" + reportId + "';";
             ResultSet result = executeQuery( query );
             fillListWithIncidentsFromResultSet( incidentList, result );
             return incidentList.get(0);
@@ -346,7 +341,7 @@ public class DBHelper
         try {
             String query = "select * from account where ACCOUNT_ID = " + accountId ;
             ResultSet result = executeQuery( query );
-            while (result.next()) {
+            if (result.next()) {
                 String accountType = result.getString( "ACCOUNT_TYPE" );
                 if ( accountType.equals( DatabaseValues.AccountType.ADMIN.toString() ) )
                     return DatabaseValues.AccountType.ADMIN;
@@ -962,9 +957,7 @@ public class DBHelper
         return campusList.toArray ( new Campus [ campusList.size () ] );
     }
 
-
-    /* DEBUG CODE */
-    private static String debug_getLastIncidentId() {
+    public static String getLastInsertedIncidentID() {
         try {
             initDB();
             String query = "select top (1) * from Incident order by report_id desc;";
@@ -980,6 +973,7 @@ public class DBHelper
         return null;
     }
 
+    /* DEBUG CODE */
     private static void debug_printInsertRelationLog( IncidentElement incidentElement ) {
         if ( incidentElement == null ) return;
 

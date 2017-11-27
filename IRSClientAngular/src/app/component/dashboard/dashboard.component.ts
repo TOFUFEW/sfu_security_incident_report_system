@@ -34,6 +34,27 @@ export class DashboardComponent implements OnInit {
               this.router.navigate( [ 'guard-app/dashboard' ] );
             }
         }
+
+        // Web socket
+        var wss = new WebSocket ( Config.LogInWebSocketURI );
+        wss.onopen = function ()
+        {
+            console.log ( "Socket has been opened!" );
+        };
+
+        wss.onmessage = function ( message )
+        {
+            var messageObj = JSON.parse ( message.data );
+            console.log("Received data from websocket: ", messageObj);
+        };
+
+    }
+
+
+
+    listener(data): void {
+      var messageObj = data;
+      console.log("Received data from websocket: ", messageObj);
     }
 
     newReport(): void {

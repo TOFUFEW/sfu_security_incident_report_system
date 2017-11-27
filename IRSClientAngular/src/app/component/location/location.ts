@@ -24,6 +24,7 @@ export class LocationAttributes {
 
 export class LocationMapping {
     CAMPUS_ID: number;
+    LOCATION_ID: number;    
     CITY: string;
     BUILDINGS: Building[];
 
@@ -33,6 +34,7 @@ export class LocationMapping {
 }
 
 export class Building {
+    LOCATION_ID: number;    
     BUILDING_NAME: string;
     ROOMS: Room[];
 
