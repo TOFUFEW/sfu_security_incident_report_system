@@ -168,7 +168,11 @@ export class IncidentService
       if ( reportListIndex != -1 )
       {
           reportList [ reportListIndex ] = incident;
-          this.updateInWorkspace ( incident );
+
+          if ( !this.userService.isGuard () )
+          {
+            this.updateInWorkspace ( incident );
+          }
       }
 
       else
@@ -268,19 +272,19 @@ export class IncidentService
         var returnedIncident = this.http
             .post( Config.GetIncidentURI, JSON.stringify( incidentToGet ), { headers: this.headers } )
             .toPromise()
-            .then( response => {
-              var reports = this.initIncidents ( response.json() as Incident [] ) as Incident [];
-              reports.map ( i => this.addReportToList ( i ) );
-            } )
+            .then( response => this.initializeIncident( response.json() as Incident ) as Incident )
             .catch( this.handleError );
         return Promise.resolve( returnedIncident );
     }
 
     private initIncidents( incidents: Incident[] ): Incident[] {
         console.log ( "incidents.length = " + incidents.length );
-        incidents.forEach(i => {
-            this.initializeIncident(i);
-        });
+
+        for ( var i = 0 ; i < incidents.length ; i++ )
+        {
+          incidents [ i ] = this.initializeIncident ( incidents [ i ] );
+        }
+
         return incidents;
     }
 
