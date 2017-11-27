@@ -3,17 +3,17 @@
         <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removePersonFromReport()"></span>        
     </div>
 
-    <div class="detail col-12 col-sm-3">
+    <div class="detail col-12 col-md-3 col-sm-6">
         <span class="field-title">First Name <span class="required-asterisk">*</span></span>
         <input class="form-control" id="personInputFirst" type="text" 
             (change)="findPerson()" [(ngModel)]="newPerson.attributes.FIRST_NAME"/>
     </div>
-    <div class="detail col-12 col-sm-3">
+    <div class="detail col-12 col-md-3 col-sm-6">
         <span class="field-title">Last Name <span class="required-asterisk">*</span></span>
         <input class="form-control" id="personInputLast" type="text" 
             (change)="findPerson()" [(ngModel)]="newPerson.attributes.LAST_NAME"/>
     </div>
-    <div class="detail col-12 col-sm-3">
+    <div class="detail col-12 col-md-3 col-sm-6">
         <span class="field-title">Phone Number <span class="required-asterisk">*</span></span>
         <div class="phone-input">
             <input type="text" maxlength="3" class="form-control phone-3" [(ngModel)]="phoneNumber1" 

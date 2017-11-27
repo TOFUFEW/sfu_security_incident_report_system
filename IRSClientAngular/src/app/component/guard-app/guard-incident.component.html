@@ -198,25 +198,27 @@
                             </div>
                             <div id="collapsePersons" class="panel-collapse collapse">
                                 <div class="panel-body details-body lh-1 mt-1" *ngIf="incident">
-                                    <span *ngFor="let Person of incident.incidentElements['Person']">
+                                    <span *ngFor="let person of incident.incidentElements['Person']">
                                         <span *ngIf="!isEditingPerson" (click)="toggleEditMode('person')">
-                                            Name: {{Person.attributes.FIRST_NAME}}
-                                            {{Person.attributes.LAST_NAME}} &nbsp;
-                                            Phone Number: {{Person.attributes.PHONE_NUMBER}}
+                                            Name: {{person.attributes.FIRST_NAME}}
+                                            {{person.attributes.LAST_NAME}} &nbsp;
+                                            Phone Number: {{person.attributes.PHONE_NUMBER}}
                                         </span>
-                                        <div *ngIf="isEditingPerson">
-                                            <person-component></person-component>
-                                            <button (click)="revertChanges('person')"
-                                                class="btn btn-sm btn-secondary pull-right mt-2 mr-1 mb-1 ml-2">
-                                                <span class="glyphicon glyphicon-remove"></span> Cancel
-                                            </button>
-                                            <button (click)="saveReport('person')"
-                                                    class="btn btn-sm btn-primary pull-right mt-2 mb-1">
-                                                <span class="glyphicon glyphicon-floppy-disk"></span> Save
-                                            </button>
-                                        </div> 
-                                        <br>
                                     </span>
+                                    <div *ngIf="isEditingPerson">
+                                        <div class="clear-float"></div>
+                                            <person-component class="guard-person-component"></person-component>
+                                        <div class="clear-float"></div>                                              
+                                        <button (click)="revertChanges('person')"
+                                            class="btn btn-sm btn-secondary pull-right mt-2 mr-1 mb-1 ml-2">
+                                            <span class="glyphicon glyphicon-remove"></span> Cancel
+                                        </button>
+                                        <button (click)="saveReport('person')"
+                                                class="btn btn-sm btn-primary pull-right mt-2 mb-1">
+                                            <span class="glyphicon glyphicon-floppy-disk"></span> Save
+                                        </button>
+                                    </div> 
+                                    <div class="clear-float"></div>                                    
                                     <button (click)="toggleEditMode('person')"
                                             class="btn btn-sm btn-default pull-right mt-2 mr-1 mb-1 ml-2">
                                         <span class="glyphicon glyphicon-plus"></span> Add Person

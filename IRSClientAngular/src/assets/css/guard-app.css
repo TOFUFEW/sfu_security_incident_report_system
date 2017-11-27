@@ -161,6 +161,9 @@ footer {
 .reports-body {
   background-color: #f9f9f9; }
 
+.guard-person-component {
+  width: 100%; }
+
 h4.panel-title {
   font-weight: 400;
   font-size: 115%; }
