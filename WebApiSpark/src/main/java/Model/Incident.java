@@ -175,13 +175,28 @@ public class Incident extends StorageObject
             System.out.println( entry.getKey() );
             for( IncidentElement element : list ) {
                 if( entry.getKey().equals( "Location" ) ) {
-                    searchString = searchString + " " + ( ( Location ) element ).toSearchString();
+                    Location location = new Location();
+                    location.updateAttributeValue( DatabaseValues.Column.BUILDING_NAME, element.getAttributeValue( DatabaseValues.Column.BUILDING_NAME) );
+                    location.updateAttributeValue( DatabaseValues.Column.ROOM_NUMBER, element.getAttributeValue( DatabaseValues.Column.BUILDING_NAME ) );
+                    location.updateAttributeValue( DatabaseValues.Column.DEPARTMENT, element.getAttributeValue( DatabaseValues.Column.DEPARTMENT ) );
+                    searchString = searchString + " " + location.toSearchString();
                 } else if ( entry.getKey().equals( "IncidentCategory" ) ) {
-                    searchString = searchString + " " + ( ( IncidentCategory ) element ).toSearchString();
+                    IncidentCategory category = new IncidentCategory();
+                    category.updateAttributeValue( DatabaseValues.Column.MAIN_CATEGORY, element.getAttributeValue( DatabaseValues.Column.MAIN_CATEGORY) );
+                    category.updateAttributeValue( DatabaseValues.Column.SUB_CATEGORY, element.getAttributeValue( DatabaseValues.Column.SUB_CATEGORY ) );
+                    category.updateAttributeValue( DatabaseValues.Column.INCIDENT_TYPE, element.getAttributeValue( DatabaseValues.Column.INCIDENT_TYPE ) );
+                    searchString = searchString + " " + category.toSearchString();
                 } else if ( entry.getKey().equals( "Person" ) ) {
-                    searchString = searchString + " " + ( ( Person ) element ).toSearchString();
+                    Person person = new Person();
+                    person.updateAttributeValue( DatabaseValues.Column.FIRST_NAME, element.getAttributeValue( DatabaseValues.Column.FIRST_NAME ) );
+                    person.updateAttributeValue( DatabaseValues.Column.LAST_NAME, element.getAttributeValue( DatabaseValues.Column.LAST_NAME ) );
+                    person.updateAttributeValue( DatabaseValues.Column.PHONE_NUMBER, element.getAttributeValue( DatabaseValues.Column.PHONE_NUMBER ) );
+                    searchString = searchString + " " + person.toSearchString();
                 } else if ( entry.getKey().equals( "Staff" ) ) {
-                    searchString = searchString + " " + ( ( Staff ) element ).toSearchString();
+                    Staff staff = new Staff();
+                    staff.updateAttributeValue( DatabaseValues.Column.FIRST_NAME, element.getAttributeValue( DatabaseValues.Column.FIRST_NAME ) );
+                    staff.updateAttributeValue( DatabaseValues.Column.LAST_NAME, element.getAttributeValue( DatabaseValues.Column.LAST_NAME ) );
+                    searchString = searchString + " " + staff.toSearchString();
                 }
             }
         }
