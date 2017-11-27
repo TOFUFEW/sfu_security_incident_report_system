@@ -3,20 +3,16 @@
     <div class="x-container">
         <span class="glyphicon glyphicon-remove glyphicon-btn" (click)="removeFromWorkspace( report.attributes.REPORT_ID )"></span>
     </div>
-    <div *ngIf="report.attributes.TEMPORARY_REPORT == 1">
+    <div class="header-container">
         <div class="report-header">
-            <span class="report-id alertText"> TEMP Report ID: {{report.attributes.REPORT_ID}}</span>
+            <span class="report-id">Report ID: {{report.attributes.REPORT_ID}} </span>
+            <span class="alertText" *ngIf="report.attributes.TEMPORARY_REPORT == 1"> &mdash; Pending Approval</span>            
         </div>
-        <div id="accept-temp" class="row">
-            <button class="btn-default btn" (click)="acceptTemp()">Approve Temp Report</button>                
+        <span class="card-text-secondary" *ngIf="report.attributes.START_TIME != null">{{report.attributes.START_TIME}}</span>
+        <div id="accept-temp" class="row"  *ngIf="report.attributes.TEMPORARY_REPORT == 1">
+            <button class="btn-default btn" (click)="acceptTemp()">Approve Report</button>                
         </div>
     </div>
-    <div *ngIf="report.attributes.TEMPORARY_REPORT == 0">
-        <div class="report-header">
-          <span class="report-id">Report ID: {{report.attributes.REPORT_ID}}</span>
-        </div>
-    </div>
-
     <ul class="nav nav-tabs">
         <li class="active">
             <a data-toggle="tab" [href]="'#basic-info-' + report.attributes.REPORT_ID">

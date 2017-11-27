@@ -7,6 +7,7 @@ import { Person } from '../component/person/person';
 import { Category } from '../component/category/category';
 import { Incident } from '../component/report/incident';
 import { IncidentElement } from '../component/report/incident-element';
+import { LocationService } from '../service/location.service';
 
 @Injectable()
 export class NewReportService {
@@ -18,7 +19,7 @@ export class NewReportService {
     private persons = new BehaviorSubject<Person[]> ([]);
     currentPersons = this.persons.asObservable();
 
-    constructor() {
+    constructor(private locationService: LocationService) {
         this.incidentElements = new Map<String, IncidentElement[]>();
     }
 
@@ -93,14 +94,14 @@ export class NewReportService {
             this.debug_printErrorMsg( "CATEGORY_ID" );
             isValid = false;
         }
-        if ( report.attributes.DESCRIPTION == null || report.attributes.DESCRIPTION.length == 0 ) {
-            this.debug_printErrorMsg( "DESCRIPTION" );
-            isValid = false;
-        }
-        if ( report.attributes.EXECUTIVE_SUMMARY == null || report.attributes.EXECUTIVE_SUMMARY.length == 0 ) {
-            this.debug_printErrorMsg( "EXECUTIVE_SUMMARY" );
-            isValid = false;
-        }
+        // if ( report.attributes.DESCRIPTION == null || report.attributes.DESCRIPTION.length == 0 ) {
+        //     this.debug_printErrorMsg( "DESCRIPTION" );
+        //     isValid = false;
+        // }
+        // if ( report.attributes.EXECUTIVE_SUMMARY == null || report.attributes.EXECUTIVE_SUMMARY.length == 0 ) {
+        //     this.debug_printErrorMsg( "EXECUTIVE_SUMMARY" );
+        //     isValid = false;
+        // }
         return isValid;
     }
 
@@ -134,9 +135,13 @@ export class NewReportService {
 
     validateLocation( location: Location ): boolean {
         var attr = location.attributes;
-        if ( attr.LOCATION_ID == null ) {
-            this.debug_printErrorMsg( "LOCATION_ID" );
-            return false;
+        if ( attr.LOCATION_ID == null || attr.LOCATION_ID <= 0 ) {
+            location.attributes.LOCATION_ID = this.locationService.findLocationId( location );
+            if (location.attributes.LOCATION_ID == null || location.attributes.LOCATION_ID <= 0) {
+                this.debug_printErrorMsg( "LOCATION_ID" );
+                return false;
+            }
+            
         }
 
         return true;

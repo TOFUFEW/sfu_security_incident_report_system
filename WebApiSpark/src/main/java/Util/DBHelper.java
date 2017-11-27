@@ -86,7 +86,7 @@ public class DBHelper
     public static Incident getIncident( String reportId ) {
         ArrayList < Incident > incidentList = new ArrayList <> ();
         try {
-            String query = "select top 1 * from Incident where REPORT_ID = '" + reportId + "';";
+            String query = "select * from Incident where REPORT_ID = '" + reportId + "';";
             ResultSet result = executeQuery( query );
             fillListWithIncidentsFromResultSet( incidentList, result );
             return incidentList.get(0);
@@ -295,6 +295,23 @@ public class DBHelper
                 }
             }
         }
+    }
+    
+    private static DatabaseValues.AccountType getAccountType( String accountId ) {
+        try {
+            String query = "select * from account where ACCOUNT_ID = " + accountId ;
+            ResultSet result = executeQuery( query );
+            if (result.next()) {
+                String accountType = result.getString( "ACCOUNT_TYPE" );
+                if ( accountType.equals( DatabaseValues.AccountType.ADMIN.toString() ) )
+                    return DatabaseValues.AccountType.ADMIN;
+                else return DatabaseValues.AccountType.GUARD;
+            }
+        }
+        catch( Exception e ) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static String getCategoryId( Incident incident ) {

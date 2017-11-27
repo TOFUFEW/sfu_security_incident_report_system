@@ -1,5 +1,9 @@
 div#new-report-panel {
   margin-top: 16px; }
+  div#new-report-panel .panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
 
 #first-element .x-container {
   display: none; }

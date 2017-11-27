@@ -45,8 +45,10 @@ export class NewReportComponent implements OnInit {
 
     tempTimerStart: string;
     tempTimerEnd: string;
-
-    constructor( 
+    
+    date = new Date();
+    
+    constructor(
       private incidentService: IncidentService,
       private domService: DomService,
       private newReportService: NewReportService,
@@ -173,8 +175,8 @@ export class NewReportComponent implements OnInit {
 
             this.tempTimerStart = null;
             this.tempTimerEnd = null;
-            delete this.newIncident;
-            this.newIncident = new Incident();
+            // delete this.newIncident;
+            // this.newIncident = new Incident();
         } else {
             alert("Please fill in the required fields");
         }
