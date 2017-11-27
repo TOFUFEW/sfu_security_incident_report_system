@@ -12,7 +12,7 @@
   }
 
   .guard-container {
-      margin-top: 50px;
+      //margin-top: 50px;
       padding-bottom: 4em;
       margin-bottom: 0px;
   }
@@ -61,6 +61,14 @@
       padding: 0 !important;
   }
   
+  .p-sm {
+      padding: 0.5em;
+  }
+
+  .p-1 {
+      padding: 1em;
+  }
+
   .pb-sm {
       padding-bottom: 0.5em !important;
   }
@@ -116,8 +124,10 @@
     float: none;
     width: 45%;
     max-width: 45%;      
-    height: 12em;
+    height: 20em;
     margin: 0.5em;
+    padding-bottom: 1em;
+    overflow: hidden;
 
     @media (max-width: 300px) {
         width: 100%;
@@ -126,11 +136,12 @@
   }
   
   .panel-body {
-      height: 100%;
-      word-break: break-word;     
+      height: 55%;
+      padding-top: 0;
+      word-break: break-word;   
   }
   
-  ul {
+  .report-content {
       height: 100%;
       padding-bottom: 1em; 
       overflow: scroll;
@@ -169,6 +180,13 @@
     top: 0.1em;
     z-index: 101;
 }
+
+
+@media (min-width: 769px) {
+    .guard-button-navbar {
+        margin-left: 20%;
+    }
+}
   
 .btn-close-report {
     size: 2em;
@@ -181,12 +199,36 @@
       padding-bottom: 1em !important;
       background-color: #f5f5f5;
   }
+
+  .reports-body {
+    background-color: $grey-default;    
+  }
   
   h4.panel-title {
       font-weight: 400;
       font-size: 115%;
   }
+
+  #accordion.panel-group .panel-default {
+    border: none;
+  }
+
+  .collapsable-heading {
+    background-color: #ffffff; 
+    border: 1px solid rgb(221,221,221);  
+  }
   
+  .panel-collapse .panel-body, .reports-body .panel-body {
+      background-color: $grey-default;
+      border: none;
+      margin-top: 0.5em;      
+      margin-bottom: 1em;
+  }
+
+  #assignedReports .panel-title {
+      border-bottom: 1px solid rgb(221,221,221); 
+  }
+
   .panel-heading .accordion-toggle:after {
       /* symbol for "opening" panels */
       font-family: 'Glyphicons Halflings';
@@ -232,6 +274,13 @@
     a {
         color: $field-title-color;
         font-size: $text-sm;
+        text-align: center;
+        width: 50%;
+    }
+
+    li {
+        width: 100%;
+        @include flex(center, flex-start);
     }
 }
 

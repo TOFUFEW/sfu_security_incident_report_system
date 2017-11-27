@@ -7,7 +7,7 @@ import { routes } from './app.router';
 
 /* Components */
 import { AppComponent } from './app.component';
-
+import { NavbarComponent } from './component/navbar/navbar.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { LocationComponent } from './component/location/location.component';
 import { StaffComponent } from './component/staff/staff.component';
@@ -52,6 +52,7 @@ import { FilterPipe } from './util/filter.pipe';
   declarations: [
     AppComponent,
     AttachmentComponent,
+    NavbarComponent,
     StatusComponent,
     DashboardComponent,
     LocationComponent,

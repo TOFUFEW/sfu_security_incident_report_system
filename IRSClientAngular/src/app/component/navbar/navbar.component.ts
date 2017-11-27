@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from './service/user.service';
+import { UserService } from '../../service/user.service';
 import { Router, RouterModule } from '@angular/router';
-import { User } from '../app/component/login/user';
+import { User } from '../../../app/component/login/user';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
+    selector: 'navbar-component',
+    templateUrl: './navbar.component.html'
 })
 
-export class AppComponent implements OnInit {
+export class NavbarComponent implements OnInit {
    
     user: User;
     userAccType: number;
     isAdmin: boolean = false;
     isGuardApp: boolean = false;
+    isLoggedIn: boolean = false;
 
     constructor( 
         private router: Router,
@@ -37,7 +38,15 @@ export class AppComponent implements OnInit {
             if ( u != null ) {
                 this.userAccType = u.attributes.ACCOUNT_TYPE;   
             }
-            this.isAdmin = this.userAccType == this.userService.ADMIN;         
+            this.isAdmin = this.userAccType == this.userService.ADMIN;  
+            console.log(" admin? " + this.isAdmin);       
         });
+        this.userService.loggedIn.subscribe( loggedIn => {
+            this.isLoggedIn = loggedIn;
+        });
+        if ( this.router.url.includes ( 'guard-app' ) ) {
+            this.isGuardApp = true;
+            console.log("this is a guard app", this.isGuardApp);            
+        }
     }
 }

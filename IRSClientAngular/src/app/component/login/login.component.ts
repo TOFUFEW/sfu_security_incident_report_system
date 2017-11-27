@@ -5,6 +5,8 @@ import { UserService } from '../../service/user.service';
 import { LoginService } from '../../service/login.service';
 import { Incident } from '../report/incident';
 import { User } from './user';
+import {AppComponent} from "../../app.component";
+import { NavbarComponent } from '../navbar/navbar.component';
 import { AppComponent } from "../../app.component";
 import { Config } from "../../util/config.service";
 
@@ -41,7 +43,6 @@ export class LoginComponent {
                     } else {
                       this.userService.logout();
                     }
-        
                 } else {
                     alert("Invalid login credentials!");
                     console.log("Invalid login credentials!");
@@ -61,7 +62,7 @@ export class LoginComponent {
       }
     }
 
-    listener ( data ): void 
+    listener ( data ): void
     {
       var messageObj = data;
       console.log ( "Received data from websocket: " , messageObj) ;
