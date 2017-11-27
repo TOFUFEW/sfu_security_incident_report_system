@@ -284,6 +284,7 @@ public class DBHelper
             stmt.registerOutParameter( 8, Types.INTEGER );
 
             stmt.execute();
+            insertRelations(null, incident.getIncidentElements());
             int output = stmt.getInt( 8 );
 
 

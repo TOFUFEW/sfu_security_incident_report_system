@@ -181,7 +181,7 @@ public class Incident extends StorageObject
                 if( entry.getKey().equals( "Location" ) ) {
                     Location location = new Location();
                     location.updateAttributeValue( DatabaseValues.Column.BUILDING_NAME, element.getAttributeValue( DatabaseValues.Column.BUILDING_NAME) );
-                    location.updateAttributeValue( DatabaseValues.Column.ROOM_NUMBER, element.getAttributeValue( DatabaseValues.Column.BUILDING_NAME ) );
+                    location.updateAttributeValue( DatabaseValues.Column.ROOM_NUMBER, element.getAttributeValue( DatabaseValues.Column.ROOM_NUMBER ) );
                     location.updateAttributeValue( DatabaseValues.Column.DEPARTMENT, element.getAttributeValue( DatabaseValues.Column.DEPARTMENT ) );
                     sb.append(" ");
                     sb.append(location.toSearchString());

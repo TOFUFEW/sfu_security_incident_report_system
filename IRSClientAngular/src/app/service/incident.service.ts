@@ -185,7 +185,7 @@ export class IncidentService {
         if (incident.attributes.ACCOUNT_ID == null) {
             incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().attributes.ACCOUNT_ID;
         }
-        //this.toSearchString(incident);
+        this.toSearchString(incident);
         incident.table = Config.IncidentTable;
 
         var promise = this.http
@@ -282,6 +282,7 @@ export class IncidentService {
 
     // SEARCH TEXT FOR SEARCHING IN THE DATABASE
     private toSearchString(incident: Incident) {
+        /*
         incident.searchString = incident.attributes.DESCRIPTION
             + " " + incident.attributes.EXECUTIVE_SUMMARY;
 
@@ -301,8 +302,9 @@ export class IncidentService {
         if (incident.attributes.REPORT_ID != undefined && incident.attributes.REPORT_ID != null) {
             incident.searchString = incident.searchString + " " + incident.attributes.REPORT_ID;
         }
+        */
 
-        incident.attributes.SEARCH_TEXT = incident.searchString.replace('null', '');
+        incident.attributes.SEARCH_TEXT = "";
         console.log(incident.attributes.SEARCH_TEXT);
     }
 
