@@ -8,7 +8,7 @@
             <span class="report-id alertText"> TEMP Report ID: {{report.attributes.REPORT_ID}}</span>
         </div>
         <div id="accept-temp" class="row">
-            <button class="btn-default btn" (click)="acceptTemp()">Approve Temp Report</button>                
+            <button class="btn-default btn" (click)="acceptTemp()">Approve Temp Report</button>
         </div>
     </div>
     <div *ngIf="report.attributes.TEMPORARY_REPORT == 0">
@@ -62,11 +62,12 @@
                 <div class="detail detail-lg col-sm-12">
                     <span class="field-title">Type: <span class="required-asterisk" *ngIf="editMode">*</span> </span>
                     <span class="field-value" *ngIf="!editMode && report.category != null">{{report.category.attributes.INCIDENT_TYPE}}</span>
-                    <select class="form-control" *ngIf="editMode && categoryTypes != null && categoryTypes.length > 0" 
+                    <select class="form-control" *ngIf="editMode && categoryTypes != null && categoryTypes.length > 0"
                         [(ngModel)]="report_edit.category.attributes.INCIDENT_TYPE" (change)="onSelectType()">
                         <option *ngFor="let type of categoryTypes" [value]="type.INCIDENT_TYPE">{{type.INCIDENT_TYPE}}</option>
                     </select>
                 </div>
+
             </div>
             <div class="details-body">
                 <div class="detail detail-lg col-sm-12">
@@ -81,11 +82,20 @@
                     <textarea rows="5" class="form-control" placeholder="Description"
                         *ngIf="editMode" [(ngModel)]="report_edit.attributes.DESCRIPTION"></textarea>
                 </div>
+                <div class="detail detail-lg col-sm-12">
+                    <span class="field-title">Attachments: </span>
+                    <div class="details-body" *ngFor="let attachment of report.incidentElements['Attachment']">
+                      <span class="field-value">{{attachment.attributes.FILE_NAME}}</span>
+                    </div>
+                </div>
+
+                <div class="details-body" *ngFor="let location of report.incidentElements['Location']">
+                </div>
             </div>
             <div class="bottom-links">
                 <span class="link" *ngIf="!editMode" (click)="toggleEditMode()">Edit</span>
                 <span class="link" *ngIf="editMode" (click)="cancelUpdate()">Cancel</span>
-                <span class="link" *ngIf="editMode" (click)="updateReport()">Save</span>     
+                <span class="link" *ngIf="editMode" (click)="updateReport()">Save</span>
             </div>
         </div>
         <div [id]="'assignments-' + report.attributes.REPORT_ID" class="details-container tab-pane fade">
@@ -102,9 +112,9 @@
             <div class="bottom-links">
                 <span class="link" *ngIf="!editMode" (click)="toggleEditMode()">Edit</span>
                 <span class="link" *ngIf="editMode" (click)="cancelUpdate()">Cancel</span>
-                <span class="link" *ngIf="editMode" (click)="updateReport()">Save</span>     
+                <span class="link" *ngIf="editMode" (click)="updateReport()">Save</span>
             </div>
-        </div>            
+        </div>
         <div [id]="'locations-' + report.attributes.REPORT_ID" class="details-container tab-pane fade">
             <div class="details-body" *ngFor="let location of report.incidentElements['Location']">
                 <div class="detail col-sm-12">
@@ -126,7 +136,7 @@
             </div>
             <location-component id="location-component" *ngIf="editMode"></location-component>
             <div class="bottom-links">
-                <span class="link" *ngIf="!editMode" (click)="toggleEditMode()">Add Location</span>                                    
+                <span class="link" *ngIf="!editMode" (click)="toggleEditMode()">Add Location</span>
                 <span class="link" *ngIf="editMode" (click)="cancelUpdate()">Cancel </span>
                 <span class="link" *ngIf="editMode" (click)="addIncidentElement('location')">Add </span>
             </div>
@@ -155,7 +165,7 @@
             <person-component id="person-component" *ngIf="editMode"
                 (personAdded)="onAddPerson($event)"></person-component>
             <div class="bottom-links">
-                <span class="link" *ngIf="!editMode" (click)="toggleEditMode()">Add Person</span>                                    
+                <span class="link" *ngIf="!editMode" (click)="toggleEditMode()">Add Person</span>
                 <span class="link" *ngIf="editMode" (click)="cancelUpdate()">Cancel </span>
                 <span class="link" *ngIf="editMode && isPersonAdded" (click)="addIncidentElement('person')">Add </span>
             </div>
@@ -201,4 +211,3 @@
             </div>
         </div>
     </div>
-    

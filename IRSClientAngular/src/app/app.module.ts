@@ -50,12 +50,12 @@ import { FilterPipe } from './util/filter.pipe';
 
   declarations: [
     AppComponent,
-    AttachmentComponent,
 
     DashboardComponent,
     LocationComponent,
     LocationModalComponent,
     StaffComponent,
+    AttachmentComponent,
     IncidentComponent,
     LoginComponent,
     GuardIncidentComponent,
@@ -84,7 +84,7 @@ import { FilterPipe } from './util/filter.pipe';
     CategoryService],
   bootstrap: [AppComponent],
   entryComponents: [ LocationComponent, VehicleComponent,
-    PersonComponent ]
+    PersonComponent, AttachmentComponent ]
 
 })
 

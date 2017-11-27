@@ -121,19 +121,20 @@ public class DBHelper
         incidentElements.put ( DatabaseValues.IncidentElementKey.LOCATION.toString(), new ArrayList < IncidentElement > () );
         incidentElements.put ( DatabaseValues.IncidentElementKey.STAFF.toString(), new ArrayList < IncidentElement > () );
         incidentElements.put ( DatabaseValues.IncidentElementKey.PERSON.toString() , new ArrayList < IncidentElement > () );
+        incidentElements.put ( DatabaseValues.IncidentElementKey.ATTACHMENT.toString() , new ArrayList < IncidentElement > () );
 
         try {
             String getIncidentElementsQuery =
                     "SELECT Location.* FROM HappensAt INNER JOIN Location ON (HappensAt.LOCATION_ID = Location.LOCATION_ID) " +
-                            "WHERE HappensAt.REPORT_ID = " + reportID + "; " +
-                            "SELECT Staff.* FROM AssignedTo INNER JOIN Staff ON (AssignedTo.ACCOUNT_ID = Staff.ACCOUNT_ID) " +
-                            "WHERE AssignedTo.REPORT_ID = " + reportID + "; " +
-                            "SELECT Person.* FROM Involves INNER JOIN Person ON (Involves.PERSON_ID = Person.PERSON_ID)" +
-                            "WHERE Involves.REPORT_ID = " + reportID + "; " +
-                            "SELECT IncidentCategory.* FROM Incident INNER JOIN IncidentCategory ON (Incident.CATEGORY_ID = IncidentCategory.CATEGORY_ID) " +
-                            "WHERE Incident.REPORT_ID = " + reportID + "; " +
-                            "SELECT * FROM Attachment " +
-                            "WHERE Attachment.REPORT_ID = " + reportID + "; ";
+                        "WHERE HappensAt.REPORT_ID = " + reportID + "; " +
+                    "SELECT Staff.* FROM AssignedTo INNER JOIN Staff ON (AssignedTo.ACCOUNT_ID = Staff.ACCOUNT_ID) " +
+                        "WHERE AssignedTo.REPORT_ID = " + reportID + "; " +
+                    "SELECT Person.* FROM Involves INNER JOIN Person ON (Involves.PERSON_ID = Person.PERSON_ID)" +
+                        "WHERE Involves.REPORT_ID = " + reportID + "; " +
+                    "SELECT IncidentCategory.* FROM Incident INNER JOIN IncidentCategory ON (Incident.CATEGORY_ID = IncidentCategory.CATEGORY_ID) " +
+                        "WHERE Incident.REPORT_ID = " + reportID + "; " +
+                    "SELECT Attachment.* FROM Attachment " +
+                        "WHERE Attachment.REPORT_ID = " + reportID + "; ";
 
             PreparedStatement stmt = connection.prepareStatement ( getIncidentElementsQuery );
             boolean hasResults = stmt.execute();
@@ -150,13 +151,17 @@ public class DBHelper
                         incidentElement = new Person();
                     } else if ( count == 3 ) {
                         incidentElement = new IncidentCategory();
+                    } else if ( count == 4 ) {
+                        incidentElement = new Attachment();
                     } else {
 //                    throw new IllegalStateException ( table.toString () + " does not have its Model implemented yet" );'
                         break;
                     }
                     if ( incidentElement != null ) {
                         incidentElement.extractFromCurrentRow( rs );
+                        //System.out.println(count + ": " + incidentElement.getTable().toString().substring (4));
                         incidentElements.get ( incidentElement.getTable().toString().substring (4) ).add ( incidentElement );
+                       //System.out.println(incidentElements.get());
                     }
                 }
                 count++;
@@ -165,6 +170,7 @@ public class DBHelper
         } catch ( SQLException e ) {
             e.printStackTrace();
         }
+        //System.out.println(incidentElements.entrySet());
         return incidentElements;
     }
 
@@ -273,11 +279,9 @@ public class DBHelper
                             insertInvolvesRelation( incidentId, id);
                     }
                     else if ( DatabaseValues.Table.ATTACHMENT == incidentElement.getTable() ) {
-                        System.out.println(
-                                insertAttachment(
-                                        incidentId,
-                                        incidentElement.getAttributeValue( DatabaseValues.Column.FILE_NAME )
-                                )
+                            insertAttachment(
+                                    incidentId,
+                                    incidentElement.getAttributeValue( DatabaseValues.Column.FILE_NAME )
                         );
                     }
                     else {
@@ -892,6 +896,32 @@ public class DBHelper
         return locationList.toArray ( new Location [ locationList.size () ] );
     }
 
+    public static Attachment [] getAttachments ()
+    {
+        ArrayList < Attachment > attachmentList = new ArrayList <> ();
+
+        try
+        {
+            ResultSet resultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.ATTACHMENT.toString () );
+
+            while ( resultSet.next () )
+            {
+               Attachment attachment = new Attachment();
+
+                attachment.extractFromCurrentRow ( resultSet );
+
+                attachmentList.add ( attachment );
+            }
+        }
+
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+
+        return attachmentList.toArray ( new Attachment [ attachmentList.size () ] );
+    }
+
 
     /* DEBUG CODE */
     private static String debug_getLastIncidentId() {
@@ -934,6 +964,10 @@ public class DBHelper
                     " , INCIDENT_TYPE = " + incidentElement.getAttributeValue( DatabaseValues.Column.INCIDENT_TYPE ) +
                     " , CATEGORY_ID = " + incidentElement.getAttributeValue(DatabaseValues.Column.CATEGORY_ID);
         }
+        else if ( DatabaseValues.Table.ATTACHMENT == table ) {
+            msg += "where FILE_NAME = " + incidentElement.getAttributeValue(DatabaseValues.Column.FILE_NAME);
+        }
+
 
         System.out.println( msg );
     }

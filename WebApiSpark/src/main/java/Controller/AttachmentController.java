@@ -1,5 +1,7 @@
 package Controller;
 
+import Util.DBHelper;
+import Util.JsonUtil;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -74,6 +76,10 @@ public class AttachmentController {
                 e.printStackTrace();
             }
             return null;
+        } );
+
+        get ( "/uploads" , ( request , response ) -> {
+            return JsonUtil.toJson( DBHelper.getAttachments () );
         } );
 
     }

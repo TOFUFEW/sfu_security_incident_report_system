@@ -14,18 +14,25 @@ import 'rxjs/add/operator/toPromise';
 export class AttachmentComponent implements OnInit {
   @ViewChild('file') inputEl: ElementRef;
   uploadURI = Config.UploadURI;
+  attachments: Attachment[];
   newAttachment: Attachment;
 
   constructor (
     private http: Http,
     private reportService: NewReportService
   ) {
-    this.newAttachment = new Attachment();
 
   };
 
   ngOnInit(): void {
+    this.newAttachment = new Attachment();
+    this.getAttachments().then ( returnedAttachments => {
+      this.attachments = returnedAttachments;
+      console.log(this.attachments);
+    });
 
+    //create a unique identifier for internal use so filenames do not have to be unique
+    this.newAttachment.attributes.ID = this.generateUUID();
   }
 
   public upload(): Promise<boolean> {
@@ -38,14 +45,14 @@ export class AttachmentComponent implements OnInit {
               console.log (inputEl.files.item(i));
               formData.append('files[]', inputEl.files.item(i));
           }
-          var directory = this.generateUUID();
-          var success = this.http.post( this.uploadURI + "/" + directory, formData )
+
+          var success = this.http.post( this.uploadURI + "/" + this.newAttachment.attributes.ID, formData )
               .toPromise()
               .then( response => response.json() as boolean )
               .catch( this.handleError );
 
           if (success) {
-            this.initAttachment( directory + "/" + inputEl.files.item(0).name  );
+            this.initAttachment( inputEl.files.item(0).name  );
           }
 
           return Promise.resolve( success );
@@ -54,14 +61,30 @@ export class AttachmentComponent implements OnInit {
       }
   }
 
-  private initAttachment(path: string): void{
-      this.newAttachment.attributes.FILE_NAME = path;
+  private initAttachment(filename: string): void{
+      this.newAttachment.attributes.FILE_NAME = this.newAttachment.attributes.ID + filename;
       this.addAttachmentToReport();
   }
 
   private addAttachmentToReport(): void {
     this.reportService.addIncidentElement(this.newAttachment);
   }
+
+  public getFile(): Promise<String> {
+      var fileAddress = this.http.get( this.uploadURI + '/' + this.newAttachment.attributes.ID + '/' + this.newAttachment.attributes.FILE_NAME )
+          .toPromise()
+          .then( response => response.json() as String )
+          .catch( this.handleError );
+      return Promise.resolve( fileAddress );
+  };
+
+  getAttachments(): Promise<Attachment[]> {
+      var returnedAttachments = this.http.get( "https://localhost:4567/uploads" )
+          .toPromise()
+          .then( response => response.json() as Attachment[] )
+          .catch( this.handleError );
+      return Promise.resolve( returnedAttachments );
+  };
 
   private generateUUID () { // Public Domain/MIT
     var d = Date.now();

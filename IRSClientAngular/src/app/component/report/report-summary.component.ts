@@ -52,8 +52,7 @@ export class ReportSummaryComponent implements OnInit {
         private locationService: LocationService,
         private userService: UserService
     ) {
-        //this.report = new Incident();
-        console.log(this.report);
+
     }
 
     removeFromWorkspace( id: number ): void {
@@ -135,6 +134,7 @@ export class ReportSummaryComponent implements OnInit {
     setPersonIdToRemove( id: number ) {
         this.personIdToRemove = id;
     }
+
 
     private flushComponents() {
         this.locationComponent.newLocation = new Location();
@@ -241,6 +241,7 @@ export class ReportSummaryComponent implements OnInit {
                 this.staffArr = staffArr;
             }
         );
+        console.log(this.report_edit);
     }
 
     private alertReportInvalid() {

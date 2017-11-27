@@ -137,7 +137,7 @@ export class NewReportService {
 
         }
         else if (table.toLowerCase() === Config.AttachmentTable.toLowerCase()) {
-          
+          isValid = this.validateAttachment( element as Attachment) && isValid;
         }
         else {
             console.log("*** WARNING: Incident Element unrecognized.");
@@ -172,6 +172,14 @@ export class NewReportService {
             isValid = false;
         }
         return isValid;
+    }
+
+    validateAttachment( attachment: Attachment): boolean {
+      if ( attachment != null && attachment.attributes.FILE_NAME != null && attachment.attributes.FILE_NAME.length < 120) {
+        return true;
+      }
+      this.debug_printErrorMsg("file");
+      return false;
     }
 
     private debug_printErrorMsg( field: String ) {

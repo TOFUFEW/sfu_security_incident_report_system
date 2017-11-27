@@ -9,6 +9,7 @@ import { IncidentService } from '../service/incident.service';
 import { Category } from '../component/category/category';
 import { Location } from '../component/location/location';
 import { Person } from '../component/person/person';
+import { Attachment } from '../component/attachment/attachment';
 import 'rxjs/add/operator/toPromise';
 import { User } from "../component/login/user";
 import { UserService } from "./user.service";
