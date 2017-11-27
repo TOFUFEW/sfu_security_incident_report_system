@@ -1007,7 +1007,7 @@ public class DBHelper
         System.out.println( msg );
     }
 
-    public static boolean personExists( Person person ){
+    public static Person personExists( Person person ){
         try
         {
             String query = "SELECT * FROM " + DatabaseValues.Table.PERSON.toString() +
@@ -1018,14 +1018,16 @@ public class DBHelper
 
             if ( resultSet.next () )
             {
-                return true;
+                Person p = new Person();
+                p.extractFromCurrentRow( resultSet );
+                return p;
             }
         }
         catch ( Exception e )
         {
             e.printStackTrace ();
         }
-        return false;
+        return null;
     }
 
     public static Person [] getPersons ()
