@@ -292,7 +292,8 @@ span.glyphicon-fire {
   display: flex; }
 
 .alertText {
-  color: red; }
+  color: #A6192E;
+  opacity: 1 !important; }
 
 .invisible {
   visibility: none; }

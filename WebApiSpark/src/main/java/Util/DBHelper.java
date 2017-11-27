@@ -86,7 +86,7 @@ public class DBHelper
     public static Incident getIncident( String reportId ) {
         ArrayList < Incident > incidentList = new ArrayList <> ();
         try {
-            String query = "select top 1 * from Incident where REPORT_ID = '" + reportId + "';";
+            String query = "select * from Incident where REPORT_ID = '" + reportId + "';";
             ResultSet result = executeQuery( query );
             fillListWithIncidentsFromResultSet( incidentList, result );
             return incidentList.get(0);
