@@ -12,6 +12,8 @@ import { Location } from '../location/location';
 import { LocationModalComponent } from '../location/location-modal.component';
 import { CategoryComponent } from '../category/category.component';
 import { CategoryService } from '../../service/category.service';
+import { PersonComponent } from '../person/person.component';
+import { DomService } from '../../util/dom.service';
 import { Config } from '../../util/config.service';
 import { InlineEditComponent } from '../../component/report/inline-edit.component'
 import { Output } from '@angular/core/src/metadata/directives';
@@ -57,7 +59,8 @@ export class GuardIncidentComponent implements OnInit {
         private userService: UserService,
         private router: Router,
         private http: HttpClient,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private domService: DomService
     ) {
         if ( this.userService.isLoggedIn() == false ) {
             this.router.navigate([ 'login' ] );
@@ -74,8 +77,9 @@ export class GuardIncidentComponent implements OnInit {
             this.isEditingDesc = !this.isEditingDesc;
         else if ( attribute.toLowerCase() === "summary" )
             this.isEditingSummary = !this.isEditingSummary;
-        else if ( attribute.toLocaleLowerCase() === "person")
+        else if ( attribute.toLocaleLowerCase() === "person") {
             this.isEditingPerson = !this.isEditingPerson;
+        }
     }
 
     revertChanges( attribute: string ) {
@@ -156,6 +160,10 @@ export class GuardIncidentComponent implements OnInit {
         incident.editing = false;
     }
 
+    editPerson ( event ) {
+        this.toggleEditMode('person');
+        console.log(event.target.id);
+    }
 
     public hideEditContent() {
         var contentToEdit: HTMLElement = document.getElementById("contentToEdit");

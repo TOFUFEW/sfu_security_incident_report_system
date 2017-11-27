@@ -199,7 +199,9 @@
                             <div id="collapsePersons" class="panel-collapse collapse">
                                 <div class="panel-body details-body lh-1 mt-1" *ngIf="incident">
                                     <span *ngFor="let person of incident.incidentElements['Person']">
-                                        <span *ngIf="!isEditingPerson" (click)="toggleEditMode('person')">
+                                        <span *ngIf="!isEditingPerson" 
+                                                [id]="person.attributes.PERSON_ID"
+                                                (click)="editPerson($event)">
                                             Name: {{person.attributes.FIRST_NAME}}
                                             {{person.attributes.LAST_NAME}} &nbsp;
                                             Phone Number: {{person.attributes.PHONE_NUMBER}}
@@ -207,7 +209,7 @@
                                     </span>
                                     <div *ngIf="isEditingPerson">
                                         <div class="clear-float"></div>
-                                            <person-component class="guard-person-component"></person-component>
+                                        <person-component class="guard-person-component"></person-component>
                                         <div class="clear-float"></div>                                              
                                         <button (click)="revertChanges('person')"
                                             class="btn btn-sm btn-secondary pull-right mt-2 mr-1 mb-1 ml-2">
