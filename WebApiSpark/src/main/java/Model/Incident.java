@@ -179,17 +179,32 @@ public class Incident extends StorageObject
             System.out.println( entry.getKey() );
             for( IncidentElement element : list ) {
                 if( entry.getKey().equals( "Location" ) ) {
+                    Location location = new Location();
+                    location.updateAttributeValue( DatabaseValues.Column.BUILDING_NAME, element.getAttributeValue( DatabaseValues.Column.BUILDING_NAME) );
+                    location.updateAttributeValue( DatabaseValues.Column.ROOM_NUMBER, element.getAttributeValue( DatabaseValues.Column.BUILDING_NAME ) );
+                    location.updateAttributeValue( DatabaseValues.Column.DEPARTMENT, element.getAttributeValue( DatabaseValues.Column.DEPARTMENT ) );
                     sb.append(" ");
-                    sb.append(element.toSearchString());
+                    sb.append(location.toSearchString());
                 } else if ( entry.getKey().equals( "IncidentCategory" ) ) {
+                    IncidentCategory category = new IncidentCategory();
+                    category.updateAttributeValue( DatabaseValues.Column.MAIN_CATEGORY, element.getAttributeValue( DatabaseValues.Column.MAIN_CATEGORY) );
+                    category.updateAttributeValue( DatabaseValues.Column.SUB_CATEGORY, element.getAttributeValue( DatabaseValues.Column.SUB_CATEGORY ) );
+                    category.updateAttributeValue( DatabaseValues.Column.INCIDENT_TYPE, element.getAttributeValue( DatabaseValues.Column.INCIDENT_TYPE ) );
                     sb.append(" ");
-                    sb.append(element.toSearchString());
+                    sb.append(category.toSearchString());
                 } else if ( entry.getKey().equals( "Person" ) ) {
+                    Person person = new Person();
+                    person.updateAttributeValue( DatabaseValues.Column.FIRST_NAME, element.getAttributeValue( DatabaseValues.Column.FIRST_NAME ) );
+                    person.updateAttributeValue( DatabaseValues.Column.LAST_NAME, element.getAttributeValue( DatabaseValues.Column.LAST_NAME ) );
+                    person.updateAttributeValue( DatabaseValues.Column.PHONE_NUMBER, element.getAttributeValue( DatabaseValues.Column.PHONE_NUMBER ) );
                     sb.append(" ");
-                    sb.append(element.toSearchString());
+                    sb.append(person.toSearchString());
                 } else if ( entry.getKey().equals( "Staff" ) ) {
+                    Staff staff = new Staff();
+                    staff.updateAttributeValue( DatabaseValues.Column.FIRST_NAME, element.getAttributeValue( DatabaseValues.Column.FIRST_NAME ) );
+                    staff.updateAttributeValue( DatabaseValues.Column.LAST_NAME, element.getAttributeValue( DatabaseValues.Column.LAST_NAME ) );
                     sb.append(" ");
-                    sb.append(element.toSearchString());
+                    sb.append(staff.toSearchString());
                 }
             }
         }
