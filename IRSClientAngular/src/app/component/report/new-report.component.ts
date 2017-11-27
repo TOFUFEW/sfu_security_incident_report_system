@@ -29,6 +29,7 @@ import {Router} from "@angular/router";
 export class NewReportComponent implements OnInit {
     locationStr: string = LocationComponent.name;
     personStr: string = PersonComponent.name;
+    attachmentStr: string = AttachmentComponent.name;
     newIncident: Incident = new Incident();
 
     categories: CategoryDictionary[] = [];
@@ -57,7 +58,7 @@ export class NewReportComponent implements OnInit {
           } );
     }
 
-    ngOnInit() {       
+    ngOnInit() {
         this.newReportService.currentLocations
             .subscribe( locations =>  {
                 this.newIncident.incidentElements[Config.LocationKey] = locations;
@@ -65,6 +66,11 @@ export class NewReportComponent implements OnInit {
         this.newReportService.currentPersons
             .subscribe( persons =>  {
                 this.newIncident.incidentElements[Config.PersonKey] = persons;
+            } );
+
+        this.newReportService.currentAttachments
+            .subscribe( attachments =>  {
+                this.newIncident.incidentElements[Config.AttachmentKey] = attachments;
             } );
 
         this.categoryService.categoryDictionary
@@ -169,7 +175,7 @@ export class NewReportComponent implements OnInit {
         if ( this.selectedStaffId < 0 ) {
             var self = new Staff();
             self.attributes.ACCOUNT_ID = this.userService.getAccountID();
-            this.newIncident.insertIncidentElement( self );                    
+            this.newIncident.insertIncidentElement( self );
         }
     }
 
@@ -180,6 +186,8 @@ export class NewReportComponent implements OnInit {
             this.domService.addComponent( LocationComponent.name, "locations" );
         } else if ( componentName === this.personStr){
             this.domService.addComponent( PersonComponent.name, "persons" );
+        } else if ( componentName === this.attachmentStr){
+            this.domService.addComponent( AttachmentComponent.name, "attachments" );
         }
     }
 

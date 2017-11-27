@@ -136,6 +136,9 @@ export class NewReportService {
         else if (table.toLowerCase() === Config.CategoryTable.toLowerCase()) {
 
         }
+        else if (table.toLowerCase() === Config.AttachmentTable.toLowerCase()) {
+          
+        }
         else {
             console.log("*** WARNING: Incident Element unrecognized.");
         }

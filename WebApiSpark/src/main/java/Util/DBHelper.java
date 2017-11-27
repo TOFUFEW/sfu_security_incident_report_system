@@ -272,9 +272,13 @@ public class DBHelper
                         if ( id != null )
                             insertInvolvesRelation( incidentId, id);
                     }
-                    else if ( DatabaseValues.Table.ATTACHMENT.toString().toLowerCase()
-                            .contains( incidentElement.getTable().toString().toLowerCase() ) ) {
-                        insertAttachment( incidentId, incidentElement.getAttributeValue( DatabaseValues.Column.FILE_NAME ));
+                    else if ( DatabaseValues.Table.ATTACHMENT == incidentElement.getTable() ) {
+                        System.out.println(
+                                insertAttachment(
+                                        incidentId,
+                                        incidentElement.getAttributeValue( DatabaseValues.Column.FILE_NAME )
+                                )
+                        );
                     }
                     else {
                         insertIncidentRelation(
@@ -377,8 +381,9 @@ public class DBHelper
     private static boolean insertAttachment(String reportId, String filename) {
         System.out.println("Inserting Attachment: " + filename);
         try {
-            String query = "insert into Attachment (REPORT_ID, FILE_NAME) values ('" + reportId + "', '" + filename + "');";
-            return execute(query);
+            String query = "insert into Attachment (REPORT_ID, FILE_NAME) values ('" +
+                    reportId + "', '" + filename + "');";
+            return executeUpdate(query) > 0;
         }
         catch(Exception e) {
             e.printStackTrace();

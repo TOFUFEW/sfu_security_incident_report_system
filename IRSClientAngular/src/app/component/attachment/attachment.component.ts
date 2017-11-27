@@ -45,7 +45,7 @@ export class AttachmentComponent implements OnInit {
               .catch( this.handleError );
 
           if (success) {
-            this.initAttachment( inputEl.files.item(0).name );
+            this.initAttachment( directory + "/" + inputEl.files.item(0).name  );
           }
 
           return Promise.resolve( success );
