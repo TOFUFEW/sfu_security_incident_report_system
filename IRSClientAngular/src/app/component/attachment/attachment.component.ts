@@ -32,7 +32,7 @@ export class AttachmentComponent implements OnInit {
     });
 
     //create a unique identifier for internal use so filenames do not have to be unique
-    this.newAttachment.attributes.ID = this.generateUUID();
+    this.newAttachment.attributes.FILE_ID = this.generateUUID();
   }
 
   public upload(): Promise<boolean> {
@@ -46,7 +46,7 @@ export class AttachmentComponent implements OnInit {
               formData.append('files[]', inputEl.files.item(i));
           }
 
-          var success = this.http.post( this.uploadURI + "/" + this.newAttachment.attributes.ID, formData )
+          var success = this.http.post( this.uploadURI + "/" + this.newAttachment.attributes.FILE_ID, formData )
               .toPromise()
               .then( response => response.json() as boolean )
               .catch( this.handleError );
@@ -69,11 +69,12 @@ export class AttachmentComponent implements OnInit {
   }
 
   private addAttachmentToReport(): void {
+    console.log("addAttachmentToReport");
     this.reportService.addIncidentElement(this.newAttachment);
   }
 
   public getFile(): Promise<String> {
-      var fileAddress = this.http.get( this.uploadURI + '/' + this.newAttachment.attributes.ID + '/' + this.newAttachment.attributes.FILE_NAME )
+      var fileAddress = this.http.get( this.uploadURI + '/' + this.newAttachment.attributes.FILE_ID + '/' + this.newAttachment.attributes.FILE_NAME )
           .toPromise()
           .then( response => response.json() as String )
           .catch( this.handleError );
