@@ -47,6 +47,8 @@ export class TimerService{
 
     //html time input is string "hh:mm" convert to time format
     stringToTime ( input : string ) : number {
+        if ( input == null )
+            return null;
         var str: string[] = input.split(":");
 
         return parseInt( str[0] ) * 60 * 60 * 1000 + parseInt( str[1] ) * 60 * 1000;

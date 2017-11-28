@@ -139,6 +139,21 @@
                         </div>
                     </div>
 
+                    <div class="details-container">
+                        <div class="details-heading">
+                            <span class="glyphicon glyphicon-question-sign glyphicon-heading"></span>
+                            <span class="field-title">Other Items</span>
+                        </div>
+                        <div id="generic-elements">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-2 col-sm-offset-9">
+                            <span class="link" (click)="addComponent(genericStr)"> Add Item</span>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="panel-footer">
@@ -296,6 +311,26 @@
                         <div class="detail col-12 col-sm-3">
                             <span class="field-title">Name: </span>
                             <span class="field-value" *ngIf="selectedStaff != null">{{selectedStaff.attributes.FIRST_NAME}} {{selectedStaff.attributes.LAST_NAME}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details-container">
+                    <div class="details-heading">
+                        <span class="glyphicon glyphicon-question-mark glyphicon-heading"></span>
+                        <span class="field-title">Other Items</span>
+                    </div>
+                    <div class="details-body" *ngFor="let item of newIncident.incidentElements['GenericElement']">
+                        <div class="detail col-12 col-sm-3">
+                            <span class="field-title">Item Type</span>
+                            <span class="field-value">{{item.attributes.TYPE}}</span>
+                            <div class="alertText" *ngIf="item.attributes.TYPE == null || item.attributes.TYPE.length == 0">
+                                    Please enter the item type.
+                            </div>
+                        </div>
+                        <div class="detail col-12 col-sm-3">
+                            <span class="field-title">Description</span>
+                            <span class="field-value">{{item.attributes.DESCRIPTION}}</span>
                         </div>
                     </div>
                 </div>

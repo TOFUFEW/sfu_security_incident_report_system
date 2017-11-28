@@ -233,7 +233,8 @@ export class IncidentService {
           i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID );
         if ( workspaceReportListIndex != -1 )
         {
-          workspaceReportList [ workspaceReportListIndex ] = incident;
+          workspaceReportList.splice( workspaceReportListIndex, 1, incident );
+          this.bs_reportsToAddToWorkspace.next(workspaceReportList);          
         }
     }
 
@@ -241,6 +242,7 @@ export class IncidentService {
         var arr = this.bs_reportsToAddToWorkspace.getValue();
         var index = arr.findIndex(i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID);
         if (index < 0) {
+            console.log(incident)            
             incident.inWorkspace = true;
             arr.splice(0, 0, incident);
             this.bs_reportsToAddToWorkspace.next(arr);
@@ -335,6 +337,7 @@ export class IncidentService {
     private initializeIncident(incident: Incident): Incident {
         incident.category = incident.incidentElements[Config.IncidentCategoryKey][0] as Category;
         incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
+        incident.createdBy = this.getReportCreator(incident.attributes.ACCOUNT_ID);
         incident.incidentElements[Config.LocationKey]
             .forEach( element => {
                 var location = element as Location;
@@ -346,11 +349,19 @@ export class IncidentService {
                 if ( location.attributes.ROOM_NUMBER === '0' )
                     location.attributes.ROOM_NUMBER = "";
             });
-
         return incident;
     }
 
-    create(incident: Incident): Promise<Incident> {
+    private getReportCreator( id: number ): Staff {
+        var staff = this.bs_staffArr.getValue();
+        var index = staff.findIndex( x => x.attributes.ACCOUNT_ID == id );
+        if ( index >=0 ) {
+            return staff[index];
+        }
+        return null;
+    }
+
+    create( incident: Incident ): Promise<Incident> {
         if ( incident.attributes.ACCOUNT_ID == null ) {
 
                 incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().attributes.ACCOUNT_ID;
@@ -397,6 +408,7 @@ export class IncidentService {
     };
 
     updateAssignedStaff(incidentToAssign: Incident, selectedStaffId: number): Incident {
+        console.log( incidentToAssign );
         var staffArr = this.bs_staffArr.getValue();
         var index = staffArr.findIndex(x => x.attributes.ACCOUNT_ID == selectedStaffId);
 
@@ -434,9 +446,9 @@ export class IncidentService {
         incident.category.attributes.INCIDENT_TYPE = selectedCategory.attributes.INCIDENT_TYPE;
         incident.incidentElements[Config.IncidentCategoryKey]
             .splice(0, incident.incidentElements[Config.IncidentCategoryKey].length,
-            incident.category);
-        var promise = this.update(incident)
-            .then(incident => {
+                    incident.category);
+        var promise = this.update ( incident )
+            .then( incident => {
                 return incident;
             })
         return Promise.resolve(promise);

@@ -1,9 +1,6 @@
 package UnitTests;
 
-import Model.Incident;
-import Model.IncidentElement;
-import Model.Location;
-import Model.Person;
+import Model.*;
 import Util.DBHelper;
 import Util.DatabaseValues;
 import Util.DatabaseValues.Column;
@@ -97,6 +94,14 @@ public class TestIncident
         incident1.addIncidentElement( DatabaseValues.IncidentElementKey.PERSON.toString(), newPerson1 );
         elementCount++;
         incident1.addIncidentElement( DatabaseValues.IncidentElementKey.PERSON.toString(), newPerson2 );
+        elementCount++;
+
+        /* Generic Element */
+        GenericElement vehicle1 = new GenericElement();
+        vehicle1.updateAttributeValue( Column.GENERIC_ELEMENT_ID, null );
+        vehicle1.updateAttributeValue( Column.TYPE, "Vehicle" );
+        vehicle1.updateAttributeValue( Column.DESCRIPTION, "White BMW 3 Series" );
+        incident1.addIncidentElement( DatabaseValues.IncidentElementKey.GENERIC_ELEMENT.toString(), vehicle1 );
         elementCount++;
 
         int currentSize = getNumberOfIncidents ();
