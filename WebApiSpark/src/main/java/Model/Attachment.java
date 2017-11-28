@@ -8,24 +8,32 @@ public class Attachment extends IncidentElement
     public Attachment( )
     {
         this (
+                "",
                 ""
         );
     }
 
     public Attachment(
-            String filename
+            String fileName,
+            String fileId
     ) {
         super (
                 DatabaseValues.Table.ATTACHMENT,
                 new DatabaseValues.Column[]
                 {
-                        DatabaseValues.Column.FILE_NAME
+                        DatabaseValues.Column.FILE_NAME,
+                        DatabaseValues.Column.FILE_ID
                 }
         );
 
         updateAttributeValue(
                 DatabaseValues.Column.FILE_NAME,
-                filename
+                fileName
+        );
+
+        updateAttributeValue(
+                DatabaseValues.Column.FILE_ID,
+                fileId
         );
 
     }

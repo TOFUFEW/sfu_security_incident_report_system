@@ -62,7 +62,9 @@ export class AttachmentComponent implements OnInit {
   }
 
   private initAttachment(filename: string): void{
-      this.newAttachment.attributes.FILE_NAME = this.newAttachment.attributes.ID + filename;
+      this.newAttachment.attributes.FILE_NAME = filename;
+      console.log("initAttachment");
+      console.log(this.newAttachment.attributes.FILE_NAME);
       this.addAttachmentToReport();
   }
 

@@ -44,11 +44,8 @@ public class IncidentsController
             String accountID = user.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID );
             System.out.println(accountID);
             Incident [] incidents = DBHelper.getIncidents ( accountID );
-            System.out.println("attachments");
-            for (Incident incident : incidents) {
-                    System.out.println(incident.getIncidentElements().entrySet());
-            }
-            System.out.println("end");
+
+            //System.out.println(JsonUtil.toJson ( incidents ));
             return JsonUtil.toJson ( incidents );
         } );
 

@@ -32,7 +32,7 @@ public class TestIncident
 
         IncidentElement staff = staffList[ rand.nextInt( staffList.length ) ];
 
-        IncidentElement attachment = new Attachment("test");
+        IncidentElement attachment = new Attachment("test", "123456");
 
         Incident incident1 = new Incident();
         incident1.updateAttributeValue ( Column.REPORT_ID, null );

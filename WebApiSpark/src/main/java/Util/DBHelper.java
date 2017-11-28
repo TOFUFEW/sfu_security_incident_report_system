@@ -159,6 +159,9 @@ public class DBHelper
                     }
                     if ( incidentElement != null ) {
                         incidentElement.extractFromCurrentRow( rs );
+                        if (incidentElement instanceof  Attachment ){
+                            System.out.println(incidentElement.toJson());
+                        }
                         //System.out.println(count + ": " + incidentElement.getTable().toString().substring (4));
                         incidentElements.get ( incidentElement.getTable().toString().substring (4) ).add ( incidentElement );
                        //System.out.println(incidentElements.get());
@@ -281,7 +284,8 @@ public class DBHelper
                     else if ( DatabaseValues.Table.ATTACHMENT == incidentElement.getTable() ) {
                             insertAttachment(
                                     incidentId,
-                                    incidentElement.getAttributeValue( DatabaseValues.Column.FILE_NAME )
+                                    incidentElement.getAttributeValue( DatabaseValues.Column.FILE_NAME ),
+                                    incidentElement.getAttributeValue( DatabaseValues.Column.FILE_ID )
                         );
                     }
                     else {
@@ -382,11 +386,11 @@ public class DBHelper
         return false;
     }
 
-    private static boolean insertAttachment(String reportId, String filename) {
-        System.out.println("Inserting Attachment: " + filename);
+    private static boolean insertAttachment(String reportId, String fileName, String fileId) {
+        System.out.println("Inserting Attachment: " + fileName);
         try {
-            String query = "insert into Attachment (REPORT_ID, FILE_NAME) values ('" +
-                    reportId + "', '" + filename + "');";
+            String query = "insert into Attachment (REPORT_ID, FILE_NAME, FILE_ID) values ('" +
+                    reportId + "', '" + fileName + "', '" + fileId + "');";
             return executeUpdate(query) > 0;
         }
         catch(Exception e) {
@@ -453,10 +457,10 @@ public class DBHelper
             }
             else if ( DatabaseValues.Table.ATTACHMENT == table ){
                 relationTable = "Attachment";
-                String id = incidentElement.getAttributeValue( DatabaseValues.Column.FILE_NAME );
+                String id = incidentElement.getAttributeValue( DatabaseValues.Column.FILE_ID);
                 if (id == null || id.equals("null"))
                     return true;
-                idString += "FILE_NAME = '" + id + "';";
+                idString += "FILE_ID = '" + id + "';";
             }
             else
                 return false;
@@ -541,7 +545,7 @@ public class DBHelper
                 );
                 stmt.setString (
                         2,
-                        incidentElement.getAttributeValue ( DatabaseValues.Column.FILE_NAME )
+                        incidentElement.getAttributeValue ( DatabaseValues.Column.FILE_ID )
                 );
             }
             stmt.registerOutParameter (
@@ -965,7 +969,7 @@ public class DBHelper
                     " , CATEGORY_ID = " + incidentElement.getAttributeValue(DatabaseValues.Column.CATEGORY_ID);
         }
         else if ( DatabaseValues.Table.ATTACHMENT == table ) {
-            msg += "where FILE_NAME = " + incidentElement.getAttributeValue(DatabaseValues.Column.FILE_NAME);
+            msg += "where FILE_ID = " + incidentElement.getAttributeValue(DatabaseValues.Column.FILE_ID);
         }
 
 

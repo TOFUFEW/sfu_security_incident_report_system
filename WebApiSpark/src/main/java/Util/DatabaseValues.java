@@ -308,6 +308,12 @@ public class DatabaseValues
                 "VARCHAR(" + 30 + ")",
                 DEFAULT_STRING_VALUE,
                 null
+        ),
+        FILE_ID (
+                "FILE_ID" ,
+                "VARCHAR(" + 30 + ")",
+                DEFAULT_STRING_VALUE,
+                null
         );
 
         private String column;
