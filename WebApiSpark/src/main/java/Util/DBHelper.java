@@ -328,7 +328,7 @@ public class DBHelper
                         );
                     } else if ( DatabaseValues.Table.ATTACHMENT == incidentElement.getTable() ) {
                         insertAttachment(
-                                incidentId,
+                                reportID,
                                 incidentElement.getAttributeValue( DatabaseValues.Column.FILE_NAME ),
                                 incidentElement.getAttributeValue( DatabaseValues.Column.FILE_ID )
                         );

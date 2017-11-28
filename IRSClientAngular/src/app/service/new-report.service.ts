@@ -24,11 +24,11 @@ export class NewReportService {
     private bs_genericElements = new BehaviorSubject<GenericElement[]> ([]);
     currentGenericElements = this.bs_genericElements.asObservable();
 
-    constructor(private locationService: LocationService) {
     private attachments = new BehaviorSubject<Attachment[]> ([]);
     currentAttachments = this.attachments.asObservable();
 
-    constructor() {
+    constructor(private locationService: LocationService) {
+      
         this.incidentElements = new Map<String, IncidentElement[]>();
     }
 
