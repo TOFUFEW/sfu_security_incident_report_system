@@ -5,10 +5,12 @@ import { NewReportService } from '../../service/new-report.service';
 import { CategoryService } from '../../service/category.service';
 import { IncidentElementService } from '../../service/incident-element.service';
 import { StaffService } from '../../service/staff.service';
+import { TimerService } from '../../service/timer.service';
 import { Location } from '../location/location';
 import { Person } from '../person/person';
 import { Incident } from '../report/incident';
 import { Staff } from '../staff/staff';
+import { Timer } from '../timer/timer';
 import { Category, SubCategory, CategoryType, CategoryDictionary } from '../category/category';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { LocationComponent } from '../location/location.component';
@@ -43,16 +45,22 @@ export class NewReportComponent implements OnInit {
     selectedStaffId: number = -1;
     reportReady: boolean = false;
 
+    tempTimerStart: string;
+    tempTimerEnd: string;
+    timerValid: boolean;
+    timerInReport: boolean = false;
+    
     date = new Date();
     
     constructor(
-        private incidentService: IncidentService,
-        private domService: DomService,
-        private newReportService: NewReportService,
-        private categoryService: CategoryService,
-        private staffService: StaffService,
-        private userService: UserService,
-        private router: Router
+      private incidentService: IncidentService,
+      private domService: DomService,
+      private newReportService: NewReportService,
+      private categoryService: CategoryService,
+      private staffService: StaffService,
+      private timerService: TimerService,
+      private userService: UserService,
+      private router: Router
     ) {
         this.staffService.getStaffs().then(returnedStaffs => {
             this.staffList = returnedStaffs.sort(
@@ -107,6 +115,8 @@ export class NewReportComponent implements OnInit {
         this.subCategories = this.categories[index].SUBCATEGORIES;
         this.categoryTypes = [];
         this.newIncident.category.attributes.MAIN_CATEGORY = this.categories[index].MAIN_CATEGORY; // for report summary
+
+        //IF CATEGORY == SOME TIMER THEN SHOW TIMER
     }
 
     onSelectSubCategory() {
@@ -150,11 +160,43 @@ export class NewReportComponent implements OnInit {
         }
     }
 
+    onChangeTimer(): void {
+        if ( this.tempTimerStart == null ) {
+            this.newIncident.attributes.TIMER_START = null;
+        } else {
+            this.newIncident.attributes.TIMER_START = this.timerService.stringToTime( this.tempTimerStart );
+        }
+
+        if ( this.tempTimerEnd == null ) {
+            this.newIncident.attributes.TIMER_END = null;
+        } else {
+            this.newIncident.attributes.TIMER_END = this.timerService.stringToTime( this.tempTimerEnd );
+        }
+
+        if( (this.newIncident.attributes.TIMER_START && !this.newIncident.attributes.TIMER_END) ||
+            (!this.newIncident.attributes.TIMER_START && this.newIncident.attributes.TIMER_END) ||
+            (this.newIncident.attributes.TIMER_START > this.newIncident.attributes.TIMER_END)    
+        ) {
+            this.timerValid = false;
+        } else {
+            this.timerValid = true;
+        }
+    }
+
+    removeTimerFromReport() : void {
+        this.timerInReport = false;
+        this.tempTimerStart = null;
+        this.tempTimerEnd = null;
+        this.onChangeTimer();
+    }
+
+
     cancelReview() {
 
     }
 
     prepareReport(): void {
+        console.log(this.newIncident);
         this.reportReady = this.isReportValid();
     }
 
@@ -162,6 +204,11 @@ export class NewReportComponent implements OnInit {
         if (this.reportReady) {
             var currentID = this.userService.getAccountID();
             this.newIncident.attributes.ACCOUNT_ID = currentID;
+            
+            if ( this.tempTimerStart != null && this.tempTimerEnd != null ) {
+                this.newIncident.attributes.TIMER_START = this.timerService.stringToTime(this.tempTimerStart);
+                this.newIncident.attributes.TIMER_END = this.timerService.stringToTime(this.tempTimerEnd);
+            }
 
             if (this.userService.isGuard())
                 this.convertToTempReport();
@@ -177,6 +224,10 @@ export class NewReportComponent implements OnInit {
                     }
                     else alert( "Add failed." );
                 } );
+
+
+            this.tempTimerStart = null;
+            this.tempTimerEnd = null;
             // delete this.newIncident;
             // this.newIncident = new Incident();
         } else {
@@ -193,7 +244,11 @@ export class NewReportComponent implements OnInit {
         }
     }
 
-    addComponent(componentName: string) {
+    formatTime(num : number): string{
+        return this.timerService.timeToString(num);
+    }
+    
+    addComponent( componentName: string ) {
         //if ( this.dynamicTest == 'Vehicle' )
           //  this.domService.addComponent( VehicleComponent, "vehicles" );
         /*else*/ if (componentName === this.locationStr) {
@@ -204,6 +259,6 @@ export class NewReportComponent implements OnInit {
     }
 
     private isReportValid(): boolean {
-        return this.newReportService.validateReport(this.newIncident);
+        return this.newReportService.validateReport(this.newIncident) && this.timerValid;
     }
 }

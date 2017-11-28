@@ -20,6 +20,7 @@ import { VehicleComponent } from './component/vehicle/vehicle.component';
 import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
 import { AttachmentComponent } from './component/attachment/attachment.component';
+import { TimerComponent } from './component/timer/timer.component';
 import { LocationModalComponent } from './component/location/location-modal.component';
 import { CategoryComponent } from './component/category/category.component';
 import { ReportSummaryComponent } from './component/report/report-summary.component';
@@ -39,6 +40,7 @@ import { IncidentElementService } from './service/incident-element.service';
 import { StaffService } from './service/staff.service'
 import { PersonService } from './service/person.service';
 import { NewReportService } from './service/new-report.service';
+import { TimerService } from './service/timer.service';
 import { FilterPipe } from './util/filter.pipe';
 
 
@@ -71,6 +73,7 @@ import { FilterPipe } from './util/filter.pipe';
     PersonComponent,
     FilterPipe,
     ReportSummaryComponent,
+    TimerComponent,
     NewAccountComponent,
     InlineEditComponent,
     SpinnerComponent
@@ -86,7 +89,10 @@ import { FilterPipe } from './util/filter.pipe';
     StaffService,
     PersonService,
     NewReportService,
-    CategoryService,],
+    CategoryService,
+    TimerService
+  ],
+
   bootstrap: [AppComponent],
   entryComponents: [ LocationComponent, VehicleComponent,
     PersonComponent ]

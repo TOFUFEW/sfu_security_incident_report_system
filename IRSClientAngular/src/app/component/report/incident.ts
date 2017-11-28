@@ -1,7 +1,8 @@
 import { Staff } from '../staff/staff';
 import { Location } from '../location/location';
 import { Person } from '../person/person';
-import { IncidentElement} from './incident-element';
+import { Timer } from '../timer/timer';
+import { IncidentElement } from './incident-element';
 import { Category } from '../category/category';
 import { Observable } from 'rxjs/Observable';
 import { Config } from '../../util/config.service';
@@ -16,6 +17,7 @@ export class Incident {
     category: Category;
     guard: Staff;
 
+ 
     inWorkspace: boolean;
 
     constructor() {
@@ -79,4 +81,6 @@ export class IncidentAttributes {
     TEMPORARY_REPORT: number;
     START_TIME: number;
     END_TIME: number;
+    TIMER_START: number;
+    TIMER_END: number;
 }

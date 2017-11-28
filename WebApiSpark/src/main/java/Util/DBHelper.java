@@ -253,6 +253,7 @@ public class DBHelper
         String creatorID = incident.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID );
         if ( creatorID == null ) return false;
 
+
         if ( getAccountType( creatorID ) == DatabaseValues.AccountType.GUARD )
             incident.updateAttributeValue( DatabaseValues.Column.TEMPORARY_REPORT, "0" );
 
@@ -337,7 +338,7 @@ public class DBHelper
             }
         }
     }
-
+    
     private static DatabaseValues.AccountType getAccountType( String accountId ) {
         try {
             String query = "select * from account where ACCOUNT_ID = " + accountId ;

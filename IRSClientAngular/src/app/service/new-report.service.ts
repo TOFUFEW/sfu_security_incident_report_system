@@ -87,6 +87,7 @@ export class NewReportService {
         return isValid;
     }
 
+
     private validateReportAttributes( report: Incident ): boolean {
         var isValid = true;
         if ( report.attributes.CATEGORY_ID == null ) {
@@ -113,7 +114,6 @@ export class NewReportService {
                 isValid = this.validateIncidentElement( element ) && isValid;
             });
         });
-
         return isValid;
     }
 
