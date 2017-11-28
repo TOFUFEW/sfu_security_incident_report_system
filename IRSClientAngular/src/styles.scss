@@ -401,15 +401,24 @@ span.glyphicon-fire {
 }
 
 .alert {
-    z-index: 1000;
     position: fixed;
     top: 30%;
     bottom: 80%;
+    z-index: 1000;    
+}
+
+.alert .modal-dialog {
+    margin: 10%;
+    padding: 0;
+    @media (max-width: 450px) {
+        margin: 5vw;
+    }
 }
 
 .alert .modal-content {
-    padding: 15px;
+    padding: 15px 15px 0 20px;
     width: 400px;
+    max-width: 90vw;
 }
 
 .alertText {
