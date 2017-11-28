@@ -355,7 +355,6 @@ export class IncidentService {
     }
 
     create(incident: Incident): Promise<Incident> {
-        debugger;
         console.log(incident);
         if ( incident.attributes.ACCOUNT_ID == null ) {
 

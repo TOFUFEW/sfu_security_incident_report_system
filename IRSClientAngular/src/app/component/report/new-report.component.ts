@@ -67,7 +67,6 @@ export class NewReportComponent implements OnInit {
         this.staffService.getStaffsObs()
             .subscribe(
                 (responseData) => {
-                    debugger;
                     this.staffList = responseData;
                 },
                 (error) => {

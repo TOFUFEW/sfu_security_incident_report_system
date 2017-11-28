@@ -17,7 +17,6 @@ export class WSComponent {
     onClick() {
         this.wsService.GetInstanceStatus().subscribe(
             (responseData: any) => {
-                debugger;
                 console.log(responseData);
             },
             (error) => {
