@@ -155,7 +155,6 @@ export class GuardIncidentComponent implements OnInit {
     }
 
     changeLocation ( event ) {
-        console.log("event emitted ", event);
         var locationToAdd = this.locationModal.locationComponent.newLocation;
         var locationToRemove = -1;
         locationToRemove = this.locationModal.button_id;
@@ -266,7 +265,6 @@ export class GuardIncidentComponent implements OnInit {
             this.incidentsService.getIncident ( +params.get ( 'id' )))
         .subscribe ( returnedIncident => {
             this.incident = returnedIncident;
-            console.log("returned incident" , this.incident);
             this.newDescription = this.incident.attributes.DESCRIPTION;
             this.newSummary = this.incident.attributes.EXECUTIVE_SUMMARY;
         });

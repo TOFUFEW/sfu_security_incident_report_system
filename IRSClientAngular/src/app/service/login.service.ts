@@ -14,19 +14,15 @@ import { Validation } from '../util/validation.service';
 @Injectable()
 export class LoginService {
     private headers = new Headers( { 'Content-Type': 'application/json' } );
-    loginUrl = Config.LoginURI;
 
     constructor( private http: Http ) { }
 
     doLogin( user: User ): Observable<User> {
-        console.log( "user logging in", user );
         let options = new RequestOptions( { headers: this.headers } );
-        console.log (" options ", options );
-        console.log ( "user posting ", user );
         // var _user = IncidentElementService.toIncidentElement ( Config.AccountTable, user );
         // HTTP RESPONSE
         return this.http
-            .post(this.loginUrl, JSON.stringify( user ), options)
+            .post(Config.LoginURI, JSON.stringify( user ), options)
             .map ( response => response.json() as User );
     }
 
