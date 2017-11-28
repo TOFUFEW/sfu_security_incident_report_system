@@ -50,6 +50,12 @@ public class Person extends IncidentElement{
 
     }
 
+    @Override
+    public String toSearchString() {
+        return this.getAttributeValue( DatabaseValues.Column.FIRST_NAME ) + " " +
+                this.getAttributeValue( DatabaseValues.Column.LAST_NAME ) + " " +
+                this.getAttributeValue( DatabaseValues.Column.PHONE_NUMBER );
+    }
 
     public DatabaseValues.Column getIDColumn () {
         return DatabaseValues.Column.PERSON_ID ;

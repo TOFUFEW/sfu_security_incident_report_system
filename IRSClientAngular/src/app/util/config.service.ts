@@ -2,6 +2,8 @@ export class Config {
 
     static LocationsURI: string = "https://localhost:4567/locations";
     static IncidentsURI: string = "https://localhost:4567/incidents";
+    static FTSearchURI: string = "https://localhost:4567/ftsearch-incident";
+    static CTSearchURI: string = "https://localhost:4567/ctsearch-incident";
     static StaffURI: string = "https://localhost:4567/staff";
     static LoginURI: string = "https://localhost:4567/login";
     static PersonURI: string = "https://localhost:4567/person";
@@ -12,6 +14,7 @@ export class Config {
     static CategoriesURI: string = "https://localhost:4567/categories";
     static UpdateIncidentURI: string = "https://localhost:4567/update-incident";
     static UploadURI: string = "https://localhost:4567/upload";
+    static TimerURI: string = "http://localhost:4567/timer";
     static NewAccountURI: string = "https://localhost:4567/create-account";
     static GetAccountTypesURI: string = "https://localhost:4567/get-account-types";
     static GetCampusURI: string = "https://localhost:4567/campus";
@@ -28,6 +31,7 @@ export class Config {
     static IncidentTable: string = "INCIDENT";
     static PersonTable: string = "PERSON";
     static CategoryTable: string = "INCIDENT_CATEGORY";
+    static TimerTable: string = "TIMER";
     static CampusTable: string = "CAMPUS";
     static GenericElementTable: string = "GENERIC_ELEMENT";    
 
@@ -37,4 +41,6 @@ export class Config {
     static StaffKey: string = "Staff";
     static CampusKey: string = "Campus";
     static GenericElementKey: string = "GenericElement";    
+
+    static FailedToRetrieveMsg: string = "Failed to retrieve data from server";
 }

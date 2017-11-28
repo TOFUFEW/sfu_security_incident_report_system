@@ -145,6 +145,14 @@ public class DatabaseValues
                 null
         ),
 
+        // Associated Tables: Incident
+        SEARCH_TEXT (
+                "SEARCH_TEXT" ,
+                "TEXT",
+                DEFAULT_STRING_VALUE,
+                null
+        ),
+
         // Associated Tables: Person, Staff
         FIRST_NAME (
                 "FIRST_NAME" ,
@@ -297,7 +305,7 @@ public class DatabaseValues
         ),
 
         TIMER_END (
-                "TIMER_START" ,
+                "TIMER_END" ,
                 "INT" ,
                 DEFAULT_INT_VALUE ,
                 null

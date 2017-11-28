@@ -1,0 +1,24 @@
+CREATE PROCEDURE [dbo].[CTSearchIncidents]
+    @user_id INT,
+    @search_text VARCHAR(1000)
+AS
+BEGIN
+    IF (SELECT ACCOUNT_TYPE
+        FROM Account
+        WHERE ACCOUNT_ID = @user_id) = 2
+    BEGIN
+        SELECT * 
+        FROM dbo.Incident as i
+		WHERE CONTAINS (SEARCH_TEXT, @search_text) AND i.status <= 4
+		order by i.REPORT_ID desc
+    END
+	ELSE IF (SELECT ACCOUNT_TYPE
+        FROM Account
+        WHERE ACCOUNT_ID = @user_id) = 3 
+	BEGIN
+		SELECT * 
+        FROM dbo.Incident as i
+		WHERE CONTAINS (SEARCH_TEXT, @search_text)
+		order by i.REPORT_ID desc
+	END
+END;

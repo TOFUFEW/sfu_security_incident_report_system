@@ -21,13 +21,39 @@ public class IncidentsController
         setupEndPoints ();
     }
 
-    private void setupEndPoints()
-    {
-        get ( INCIDENTS_PATH , ( request , response ) ->
-        {
-            Incident []  incidents = DBHelper.getIncidents ();
-            return JsonUtil.toJson ( incidents );
+    private void setupEndPoints() {
+        get( INCIDENTS_PATH, ( request, response ) -> {
+            Incident[] incidents = DBHelper.getIncidents();
+            return JsonUtil.toJson( incidents );
         } );
+
+        post( "/ftsearch-incident", ( request, response ) -> {
+            String query = request.queryParams( "query" );
+            int userId = Integer.parseInt( request.queryParams( "userId" ) );
+            Incident[] incidents = DBHelper.FTSearchIncidents( userId, query );
+            return JsonUtil.toJson( incidents );
+        } );
+
+        post( "/ctsearch-incident", ( request, response ) -> {
+            String query = request.queryParams( "query" );
+            int userId = Integer.parseInt( request.queryParams( "userId" ) );
+            Incident[] incidents = null;
+            try {
+                incidents = DBHelper.CTSearchIncidents( userId, query );
+            } catch ( Exception e ) {
+                response.status( 400 );
+            }
+            return JsonUtil.toJson( incidents );
+        } );
+
+
+        /*
+        post ("/post-incidents" , ( request, response ) ->
+        {
+            Incident newIncident = ( Incident ) JsonUtil.fromJson ( request.body() , Incident.class );
+            return DBHelper.insertIncident ( newIncident );
+        } );
+        */
 
         post ( INCIDENTS_PATH , ( request , response ) ->
         {
@@ -41,7 +67,6 @@ public class IncidentsController
                 incidentsWebSocketObservable.sendMessage ( JsonUtil.toJson ( insertedIncident ) );
                 return true;
             }
-
             return false;
         } );
 

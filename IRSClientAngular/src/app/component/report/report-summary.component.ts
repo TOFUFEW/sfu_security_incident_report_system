@@ -15,6 +15,8 @@ import { CategoryService } from '../../service/category.service';
 import { UserService } from "../../service/user.service";
 import { NewReportService } from '../../service/new-report.service';
 import { IncidentElementService } from '../../service/incident-element.service';
+import { TimerService } from '../../service/timer.service';
+import { PACKAGE_ROOT_URL } from '@angular/core/src/application_tokens';
 
 @Component({
     selector: 'report-summary',
@@ -42,6 +44,10 @@ export class ReportSummaryComponent implements OnInit {
     itemToRemove: string = "";
     itemIdToRemove: number = -1;
 
+    tempStartTime: string;
+    tempEndTime: string;
+    validTimer: boolean = true;
+
     isPersonAdded: boolean = true;
     editMode: Map<string, boolean>;
     allFieldsValid: boolean = true;
@@ -52,7 +58,8 @@ export class ReportSummaryComponent implements OnInit {
         private categoryService: CategoryService,
         private newReportService: NewReportService,
         private locationService: LocationService,
-        private userService: UserService
+        private userService: UserService,
+        private timerService: TimerService
     ) {
         this.initializeEditableComponents();
     }
@@ -96,8 +103,21 @@ export class ReportSummaryComponent implements OnInit {
     }
 
     updateReport() {
-        this.allFieldsValid = this.newReportService.validateReport(this.report_edit);
+        this.allFieldsValid = this.newReportService.validateReport(this.report_edit) && this.validateTimer();
+
         if ( this.allFieldsValid ) {
+            if (this.tempStartTime == null ){
+                this.report_edit.attributes.TIMER_START = null;
+            } else {
+                this.report_edit.attributes.TIMER_START = this.timerService.stringToTime(this.tempStartTime); 
+            } 
+
+            if ( this.tempEndTime == null ) {
+                this.report_edit = null;
+            } else {
+                this.report_edit.attributes.TIMER_END = this.timerService.stringToTime(this.tempEndTime);
+            }
+
             this.report = this.report_edit;
             this.assignToGuard();
             this.initializeEditableComponents();
@@ -111,6 +131,23 @@ export class ReportSummaryComponent implements OnInit {
         else
             this.alertReportInvalid();
     }
+
+    validateTimer() : boolean {
+        if( this.tempStartTime != null && this.tempEndTime != null ){
+            if ( this.timerService.stringToTime(this.tempEndTime) < this.timerService.stringToTime(this.tempStartTime) ){
+                this.validTimer = false;
+                return false;
+            }
+            return true;
+        } else if ((this.tempStartTime != null && this.tempEndTime == null) || (this.tempStartTime == null && this.tempEndTime != null )){
+            this.validTimer = false;
+            return false;
+        } else {
+            this.validTimer = true;
+            return true;
+        }
+    }
+
 
     addIncidentElement( type: string ) {
         var element;
@@ -168,6 +205,19 @@ export class ReportSummaryComponent implements OnInit {
             this.locationComponent.newLocation = new Location();
         if ( this.personComponent != null )
             this.personComponent.newPerson = new Person();
+    }
+
+    timerStringToInt( str : string ) : number {
+        return this.timerService.stringToTime( str );
+    }
+
+    timerIntToString( time : number ) : string {
+        return this.timerService.timeToString( time );
+    }
+
+    clearTimer() : void {
+        this.tempStartTime = null;
+        this.tempEndTime = null;
     }
 
     onAddPerson( event ) {
@@ -229,7 +279,7 @@ export class ReportSummaryComponent implements OnInit {
         var newIncident = new Incident();
         newIncident = this.report;
         var reportID = this.report.attributes.REPORT_ID;
-        this.report.attributes.STATUS = 5;
+        this.report.attributes.STATUS = 4;
         this.incidentService.update( this.report )
             .then( returnedIncident => {
                 if( returnedIncident != null ) {

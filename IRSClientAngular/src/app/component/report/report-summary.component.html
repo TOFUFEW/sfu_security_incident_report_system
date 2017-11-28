@@ -78,6 +78,25 @@
                         *ngIf="editMode['Incident']" [(ngModel)]="report_edit.attributes.DESCRIPTION"></textarea>
                 </div>
             </div>
+
+            <div class="details-body">
+                <div class="detail detail-lg col-sm-12">
+                    <span class="field-title">Timer: </span>
+                </div>
+                <div class="x-container">
+                    <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="clearTimer() " *ngIf="editMode"></span>        
+                </div>
+                <div class="detail detail-lg col-sm-12">
+                    <span class="field-title">Start Time: </span>
+                    <span *ngIf="!editMode" class="field-value">{{timerIntToString(report.attributes.TIMER_START)}}</span>
+                    <input type="time" class="form-control" *ngIf="editMode" [(ngModel)]="tempStartTime">
+                </div>
+                <div class="detail detail-lg col-sm-12">
+                    <span class="field-title">End Time: </span>
+                    <span *ngIf="!editMode" class="field-value">{{timerIntToString(report.attributes.TIMER_END)}}</span>
+                    <input type="time" class="form-control" *ngIf="editMode" [(ngModel)]="tempEndTime">
+                </div>
+            </div>
             <div class="bottom-links">
                 <span class="link" *ngIf="!editMode['Incident']" (click)="toggleEditMode('Incident')">Edit</span>
                 <span class="link" *ngIf="editMode['Incident']" (click)="cancelUpdate('Incident')">Cancel</span>

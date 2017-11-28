@@ -9,11 +9,12 @@ import java.util.Map;
 
 public class Incident extends StorageObject
 {
-    private HashMap < String , ArrayList < IncidentElement > > incidentElements = new HashMap <> ();
+    private HashMap<String, ArrayList<IncidentElement>> incidentElements = new HashMap <> ();
 
     public Incident ( )
     {
         this (
+                "",
                 "",
                 "",
                 "",
@@ -49,6 +50,7 @@ public class Incident extends StorageObject
             String categoryID,
             String description,
             String executiveSummary,
+            String searchText,
             String status,
             String startTime,
             String endTime,
@@ -65,6 +67,7 @@ public class Incident extends StorageObject
                         DatabaseValues.Column.CATEGORY_ID,
                         DatabaseValues.Column.DESCRIPTION,
                         DatabaseValues.Column.EXECUTIVE_SUMMARY,
+                        DatabaseValues.Column.SEARCH_TEXT,
                         DatabaseValues.Column.STATUS,
                         DatabaseValues.Column.START_TIME,
                         DatabaseValues.Column.END_TIME,
@@ -98,6 +101,11 @@ public class Incident extends StorageObject
         updateAttributeValue(
                 DatabaseValues.Column.EXECUTIVE_SUMMARY,
                 executiveSummary
+        );
+
+        updateAttributeValue(
+                DatabaseValues.Column.SEARCH_TEXT,
+                searchText
         );
 
         updateAttributeValue(
@@ -174,6 +182,72 @@ public class Incident extends StorageObject
         return total;
     }
 
+    public void updateSearchString() {
+
+        StringBuilder sb = new StringBuilder();
+
+        String[] statusCodes = {
+                "Created",
+                "En Route",
+                "Working",
+                "Closed",
+                "Sealed"
+        };
+
+        String statusCode;
+        int index;
+        if (this.getAttributeValue(DatabaseValues.Column.STATUS) == null) {
+            statusCode = "Created";
+        } else {
+            index = Integer.parseInt(this.getAttributeValue(DatabaseValues.Column.STATUS));
+            statusCode = statusCodes[index];
+        }
+
+        sb.append(statusCode);
+        sb.append(" ");
+        sb.append(this.getAttributeValue(DatabaseValues.Column.DESCRIPTION));
+        sb.append(" ");
+        sb.append(this.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY));
+
+        for( Map.Entry< String, ArrayList< IncidentElement > > entry : this.incidentElements.entrySet() ) {
+            ArrayList< IncidentElement > list = entry.getValue();
+            System.out.println( entry.getKey() );
+            for( IncidentElement element : list ) {
+                if( entry.getKey().equals( "Location" ) ) {
+                    Location location = new Location();
+                    location.updateAttributeValue( DatabaseValues.Column.CAMPUS_ID, element.getAttributeValue( DatabaseValues.Column.CAMPUS_ID) );
+                    location.updateAttributeValue( DatabaseValues.Column.BUILDING_NAME, element.getAttributeValue( DatabaseValues.Column.BUILDING_NAME) );
+                    location.updateAttributeValue( DatabaseValues.Column.ROOM_NUMBER, element.getAttributeValue( DatabaseValues.Column.ROOM_NUMBER ) );
+                    location.updateAttributeValue( DatabaseValues.Column.DEPARTMENT, element.getAttributeValue( DatabaseValues.Column.DEPARTMENT ) );
+                    sb.append(" ");
+                    sb.append(location.toSearchString());
+                } else if ( entry.getKey().equals( "IncidentCategory" ) ) {
+                    IncidentCategory category = new IncidentCategory();
+                    category.updateAttributeValue( DatabaseValues.Column.MAIN_CATEGORY, element.getAttributeValue( DatabaseValues.Column.MAIN_CATEGORY) );
+                    category.updateAttributeValue( DatabaseValues.Column.SUB_CATEGORY, element.getAttributeValue( DatabaseValues.Column.SUB_CATEGORY ) );
+                    category.updateAttributeValue( DatabaseValues.Column.INCIDENT_TYPE, element.getAttributeValue( DatabaseValues.Column.INCIDENT_TYPE ) );
+                    sb.append(" ");
+                    sb.append(category.toSearchString());
+                } else if ( entry.getKey().equals( "Person" ) ) {
+                    Person person = new Person();
+                    person.updateAttributeValue( DatabaseValues.Column.FIRST_NAME, element.getAttributeValue( DatabaseValues.Column.FIRST_NAME ) );
+                    person.updateAttributeValue( DatabaseValues.Column.LAST_NAME, element.getAttributeValue( DatabaseValues.Column.LAST_NAME ) );
+                    person.updateAttributeValue( DatabaseValues.Column.PHONE_NUMBER, element.getAttributeValue( DatabaseValues.Column.PHONE_NUMBER ) );
+                    sb.append(" ");
+                    sb.append(person.toSearchString());
+                } else if ( entry.getKey().equals( "Staff" ) ) {
+                    Staff staff = new Staff();
+                    staff.updateAttributeValue( DatabaseValues.Column.FIRST_NAME, element.getAttributeValue( DatabaseValues.Column.FIRST_NAME ) );
+                    staff.updateAttributeValue( DatabaseValues.Column.LAST_NAME, element.getAttributeValue( DatabaseValues.Column.LAST_NAME ) );
+                    sb.append(" ");
+                    sb.append(staff.toSearchString());
+                }
+            }
+        }
+
+        String searchString = sb.toString().replace( "null", "" );
+        this.updateAttributeValue( DatabaseValues.Column.SEARCH_TEXT, searchString );
+    }
 //    public String [] incidentElementsToInsertSQL ()
 //    {
 //        ArrayList < String > sqlStatements = new ArrayList ();
