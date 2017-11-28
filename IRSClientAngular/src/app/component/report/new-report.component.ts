@@ -47,7 +47,7 @@ export class NewReportComponent implements OnInit {
 
     tempTimerStart: string;
     tempTimerEnd: string;
-    timerValid: boolean;
+    timerValid: boolean = true;
     timerInReport: boolean = false;
     
     date = new Date();
