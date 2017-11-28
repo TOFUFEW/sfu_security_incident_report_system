@@ -47,6 +47,8 @@ export class NewReportComponent implements OnInit {
 
     tempTimerStart: string;
     tempTimerEnd: string;
+    timerValid: boolean;
+    timerInReport: boolean = false;
     
     date = new Date();
     
@@ -158,6 +160,37 @@ export class NewReportComponent implements OnInit {
         }
     }
 
+    onChangeTimer(): void {
+        if ( this.tempTimerStart == null ) {
+            this.newIncident.attributes.TIMER_START = null;
+        } else {
+            this.newIncident.attributes.TIMER_START = this.timerService.stringToTime( this.tempTimerStart );
+        }
+
+        if ( this.tempTimerEnd == null ) {
+            this.newIncident.attributes.TIMER_END = null;
+        } else {
+            this.newIncident.attributes.TIMER_END = this.timerService.stringToTime( this.tempTimerEnd );
+        }
+
+        if( (this.newIncident.attributes.TIMER_START && !this.newIncident.attributes.TIMER_END) ||
+            (!this.newIncident.attributes.TIMER_START && this.newIncident.attributes.TIMER_END) ||
+            (this.newIncident.attributes.TIMER_START > this.newIncident.attributes.TIMER_END)    
+        ) {
+            this.timerValid = false;
+        } else {
+            this.timerValid = true;
+        }
+    }
+
+    removeTimerFromReport() : void {
+        this.timerInReport = false;
+        this.tempTimerStart = null;
+        this.tempTimerEnd = null;
+        this.onChangeTimer();
+    }
+
+
     cancelReview() {
 
     }
@@ -226,6 +259,6 @@ export class NewReportComponent implements OnInit {
     }
 
     private isReportValid(): boolean {
-        return this.newReportService.validateReport(this.newIncident);
+        return this.newReportService.validateReport(this.newIncident) && this.timerValid;
     }
 }

@@ -53,30 +53,32 @@
                     </div>
 
 
-            
-
                     <div class="details-container">
                         <div class="details-heading">
                             <span class="glyphicon glyphicon-alert glyphicon-heading"></span>
                             <span class="field-title">Timer</span>
-                            <div id="timers">
-                                <div class="details-body">
-                                    <div class="x-container">
-                                        <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removeTimerFromReport()"></span>        
-                                    </div>
-                                    <div class="detail col-12 col-sm-3">
-                                        <span class="field-title">Start Time</span>
-                                        <input class="form-control" type="time" [(ngModel)]="tempTimerStart" />
-                                    </div>
-                                    <div class="detail col-12 col-sm-3">
-                                        <span class="field-title">End Time</span>
-                                        <input class="form-control" type="time" [(ngModel)]="tempTimerEnd" />
-                                    </div>
-                                </div> 
+                        </div>
+                        <div class="row" *ngIf="!timerInReport">
+                            <div class="col-sm-2 col-sm-offset-9">
+                                <span class="link" (click)="timerInReport = true;"> Add Timer</span>
                             </div>
                         </div>
+                        <div id="timers" *ngIf="timerInReport">
+                            <div class="details-body">
+                                <div class="x-container">
+                                        <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removeTimerFromReport()"></span>        
+                                </div>
+                                <div class="detail col-12 col-sm-3">
+                                    <span class="field-title">Start Time</span>
+                                    <input class="form-control" type="time" [(ngModel)]="tempTimerStart" (change)="onChangeTimer()" />
+                                </div>
+                                <div class="detail col-12 col-sm-3">
+                                    <span class="field-title">End Time</span>
+                                    <input class="form-control" type="time" [(ngModel)]="tempTimerEnd" (change)="onChangeTimer()" />
+                                </div>
+                            </div> 
+                        </div>
                     </div>
-
 
                     <div class="details-container">
                         <div class="details-heading">
@@ -227,14 +229,9 @@
                             <div class="detail col-12 col-sm-6">
                                 <span class="field-title">End Time:</span>
                                 <span class="field-value">{{tempTimerEnd}}</span>
-                                <div class="alertText" *ngIf="newIncident.attributes.TIMER_START > newIncident.attributes.TIMER_END">
+                                <div class="alertText" *ngIf="!timerValid">
                                         Please enter a valid time period
                                 </div>
-                                <div class="alertText" *ngIf="(newIncident.attributes.TIMER_START && !newIncident.attributes.TIMER_END) ||
-                                (!newIncident.attributes.TIMER_START && newIncident.attributes.TIMER_END)">
-                                        Please enter both start and end times
-                            </div>
-
                             </div>
                         </div>
                 </div>
