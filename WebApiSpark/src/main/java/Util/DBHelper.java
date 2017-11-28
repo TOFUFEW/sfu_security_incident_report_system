@@ -314,7 +314,16 @@ public class DBHelper
                 for ( IncidentElement incidentElement : incidentElementsList ) {
                     boolean hasAttributes = incidentElement.getColumnSet().length > 0;
 
-                    if ( hasAttributes ) {
+                    if ( incidentElement.getTable() == DatabaseValues.Table.GENERIC_ELEMENT ) {
+                        String reportId = getLastInsertedIncidentID();
+                        relationSQL = "{ call dbo.insertRelationWithTableName ( ? , ? , ? , ? ) }";
+                        insertIncidentRelation(
+                                relationSQL,
+                                incidentElement,
+                                reportId
+                        );
+                    }
+                    else if ( hasAttributes ) {
                         debug_printInsertRelationLog( incidentElement );
                         insertIncidentRelation(
                                 relationSQL,
