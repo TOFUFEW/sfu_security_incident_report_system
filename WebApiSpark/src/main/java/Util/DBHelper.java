@@ -180,6 +180,8 @@ public class DBHelper
         incidentElements.put ( DatabaseValues.IncidentElementKey.LOCATION.toString(), new ArrayList < IncidentElement > () );
         incidentElements.put ( DatabaseValues.IncidentElementKey.STAFF.toString(), new ArrayList < IncidentElement > () );
         incidentElements.put ( DatabaseValues.IncidentElementKey.PERSON.toString() , new ArrayList < IncidentElement > () );
+        incidentElements.put ( DatabaseValues.IncidentElementKey.GENERIC_ELEMENT.toString() , new ArrayList < IncidentElement > () );
+
 
         try {
             String getIncidentElementsQuery =
@@ -190,7 +192,8 @@ public class DBHelper
                             "SELECT Person.* FROM Involves INNER JOIN Person ON (Involves.PERSON_ID = Person.PERSON_ID)" +
                             "WHERE Involves.REPORT_ID = " + reportID + "; " +
                             "SELECT IncidentCategory.* FROM Incident INNER JOIN IncidentCategory ON (Incident.CATEGORY_ID = IncidentCategory.CATEGORY_ID) " +
-                            "WHERE Incident.REPORT_ID = " + reportID + "; ";
+                            "WHERE Incident.REPORT_ID = " + reportID + "; " +
+                            "SELECT GenericElement.* FROM GenericElement WHERE GenericElement.REPORT_ID = " + reportID + "; ";
 
             PreparedStatement stmt = connection.prepareStatement ( getIncidentElementsQuery );
             boolean hasResults = stmt.execute();
@@ -207,7 +210,10 @@ public class DBHelper
                         incidentElement = new Person();
                     } else if ( count == 3 ) {
                         incidentElement = new IncidentCategory();
-                    } else {
+                    } else if ( count == 4 ) {
+                        incidentElement = new GenericElement();
+                    }
+                    else {
 //                    throw new IllegalStateException ( table.toString () + " does not have its Model implemented yet" );'
                         break;
                     }
@@ -281,8 +287,9 @@ public class DBHelper
             stmt.registerOutParameter( 8, Types.INTEGER );
 
             stmt.execute();
-            insertRelations(null, incident.getIncidentElements());
+            insertRelations( null, incident.getIncidentElements() );
             int output = stmt.getInt( 8 );
+
 
 
             if ( output != 0 ) {
@@ -307,7 +314,16 @@ public class DBHelper
                 for ( IncidentElement incidentElement : incidentElementsList ) {
                     boolean hasAttributes = incidentElement.getColumnSet().length > 0;
 
-                    if ( hasAttributes ) {
+                    if ( incidentElement.getTable() == DatabaseValues.Table.GENERIC_ELEMENT ) {
+                        String reportId = getLastInsertedIncidentID();
+                        relationSQL = "{ call dbo.insertRelationWithTableName ( ? , ? , ? , ? ) }";
+                        insertIncidentRelation(
+                                relationSQL,
+                                incidentElement,
+                                reportId
+                        );
+                    }
+                    else if ( hasAttributes ) {
                         debug_printInsertRelationLog( incidentElement );
                         insertIncidentRelation(
                                 relationSQL,
@@ -468,14 +484,14 @@ public class DBHelper
                 return false;
 
             if ( DatabaseValues.Table.LOCATION == table ) {
-                relationTable = "HappensAt";
+                relationTable = DatabaseValues.Table.HAPPENS_AT.toString();
                 String id = incidentElement.getAttributeValue( DatabaseValues.Column.LOCATION_ID );
                 if (id == null || id.equals("null"))
-                    return true;
+                    return true; // location not in db
                 idString += "LOCATION_ID = '" + id + "';";
             }
             else if ( DatabaseValues.Table.PERSON == table ) {
-                relationTable = "Involves";
+                relationTable = DatabaseValues.Table.INVOLVES.toString();
                 String id = incidentElement.getAttributeValue( DatabaseValues.Column.PERSON_ID );
                 if ( id == null )
                     return false;
@@ -483,11 +499,18 @@ public class DBHelper
 
             }
             else if ( DatabaseValues.Table.ACCOUNT == table ){
-                relationTable = "AssignedTo";
+                relationTable = DatabaseValues.Table.ASSIGNED_TO.toString();
                 String id = incidentElement.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID );
                 if (id == null || id.equals("null"))
-                    return true;
+                    return true; // account not in db
                 idString += "ACCOUNT_ID = '" + id + "';";
+            }
+            else if ( DatabaseValues.Table.GENERIC_ELEMENT == table ) {
+                relationTable = DatabaseValues.Table.GENERIC_ELEMENT.toString();
+                String id = incidentElement.getAttributeValue( DatabaseValues.Column.GENERIC_ELEMENT_ID );
+                if ( id == null )
+                    return false;
+                idString += "GENERIC_ELEMENT_ID = '" + id + "';";
             }
             else
                 return false;
@@ -518,6 +541,7 @@ public class DBHelper
             initDB ();
             CallableStatement stmt = connection.prepareCall ( query );
             String tableName = incidentElement.getTable ().toString ().substring (4);
+
             if ( tableName.compareTo ( "Staff" ) == 0 )
             {
                 System.out.println(incidentElement.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID ));
@@ -565,6 +589,7 @@ public class DBHelper
 //                        incidentElement.getAttributeValue ( DatabaseValues.Column.CATEGORY_ID )
 //                );
             }
+
             stmt.registerOutParameter (
                     3,
                     Types.INTEGER
@@ -594,7 +619,12 @@ public class DBHelper
             initDB ();
             CallableStatement stmt = connection.prepareCall ( query );
             String tableName = incidentElement.getTable ().toString ().substring (4);
-            if ( tableName.compareTo ( "Staff" ) == 0 )
+
+            if ( tableName.compareTo( "GenericElement")  == 0 ) {
+                insertGenericElement( incidentElement, reportID );
+                return true;
+            }
+            else if ( tableName.compareTo ( "Staff" ) == 0 )
             {
                 stmt.setString (
                         1,
@@ -681,6 +711,27 @@ public class DBHelper
         return false;
     }
 
+    // return the id
+    private static void insertGenericElement( IncidentElement element, String reportID ) {
+        if ( reportID == null || element == null ) {
+            System.out.println("*****ERROR: Cannot insert generic element.");
+            return;
+        }
+        if ( relationExists( reportID, element ) ) {
+            return;
+        }
+        try {
+            String query = "insert into GenericElement (TYPE, DESCRIPTION, REPORT_ID)"
+                    + " values ('" + element.getAttributeValue( DatabaseValues.Column.TYPE ) + "', '"
+                    + element.getAttributeValue( DatabaseValues.Column.DESCRIPTION ) + "', "
+                    + reportID + ");";
+            execute( query );
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
     private static void deleteAllRelations ( String reportID ) {
         try {
             initDB();
@@ -691,6 +742,17 @@ public class DBHelper
                     reportID
             );
             stmt.execute();
+            deleteGenericElementRelation( reportID );
+            return;
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void deleteGenericElementRelation( String reportID ) {
+        try {
+            String query = "delete from GenericElement where REPORT_ID = " + reportID + ";";
+            execute(query);
             return;
         } catch ( Exception e ) {
             e.printStackTrace();

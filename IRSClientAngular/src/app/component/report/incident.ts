@@ -16,7 +16,7 @@ export class Incident {
 
     category: Category;
     guard: Staff;
-
+    createdBy: Staff;
  
     inWorkspace: boolean;
 
@@ -26,6 +26,7 @@ export class Incident {
         this.category = new Category(null, null, null, null);
         this.inWorkspace = false;
         this.guard = new Staff();
+        this.createdBy = new Staff();
     }
 
     insertIncidentElement( element: IncidentElement ) {

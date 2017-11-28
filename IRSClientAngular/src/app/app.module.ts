@@ -26,6 +26,7 @@ import { CategoryComponent } from './component/category/category.component';
 import { ReportSummaryComponent } from './component/report/report-summary.component';
 import { InlineEditComponent } from './component/report/inline-edit.component';
 import { NewAccountComponent } from './component/login/new-account-component';
+import { GenericElementComponent } from './component/generic-element/generic-element.component';
 import { SpinnerComponent } from './component/loading-spinner/spinner.component';
 import { StatusComponent } from './component/status/status.component';
 
@@ -76,6 +77,7 @@ import { FilterPipe } from './util/filter.pipe';
     TimerComponent,
     NewAccountComponent,
     InlineEditComponent,
+    GenericElementComponent,
     SpinnerComponent
   ],
 
@@ -94,7 +96,7 @@ import { FilterPipe } from './util/filter.pipe';
   ],
 
   bootstrap: [AppComponent],
-  entryComponents: [ LocationComponent, VehicleComponent,
+  entryComponents: [ LocationComponent, VehicleComponent, GenericElementComponent,
     PersonComponent ]
 
 })

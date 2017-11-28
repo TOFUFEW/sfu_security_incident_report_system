@@ -5,6 +5,7 @@ import { Config } from '../util/config.service';
 import { Location, LocationAttributes } from '../component/location/location';
 import { Person } from '../component/person/person';
 import { Category } from '../component/category/category';
+import { GenericElement } from '../component/generic-element/generic-element';
 import { Incident } from '../component/report/incident';
 import { IncidentElement } from '../component/report/incident-element';
 import { LocationService } from '../service/location.service';
@@ -18,6 +19,9 @@ export class NewReportService {
     
     private persons = new BehaviorSubject<Person[]> ([]);
     currentPersons = this.persons.asObservable();
+
+    private bs_genericElements = new BehaviorSubject<GenericElement[]> ([]);
+    currentGenericElements = this.bs_genericElements.asObservable();
 
     constructor(private locationService: LocationService) {
         this.incidentElements = new Map<String, IncidentElement[]>();
@@ -40,13 +44,18 @@ export class NewReportService {
             arr = behaviorSubject.getValue() as Person[];
             // obj = IncidentElementService.toIncidentElement( table, obj );
         }
+        else if ( obj.table === Config.GenericElementTable ) {
+            behaviorSubject = this.bs_genericElements;
+            arr = behaviorSubject.getValue() as GenericElement[];
+        }
+        else 
+            return;
 
         arr.push( obj );
         behaviorSubject.next( arr );
     }
 
     removeIncidentElement( obj: any, table: string) {
-        console.log( "object table", obj.table );
         var behaviorSubject = null;
         var arr = [];
         var index = -1;
@@ -67,6 +76,16 @@ export class NewReportService {
             index = arr.findIndex( x => x.attributes.FIRST_NAME === person.attributes.FIRST_NAME
                                         && x.attributes.LAST_NAME === person.attributes.LAST_NAME 
                                         && x.attributes.PHONE_NUMBER === person.attributes.PHONE_NUMBER ) ;
+        }
+        else if ( table === Config.GenericElementTable ) {
+            behaviorSubject = this.bs_genericElements;
+            arr = behaviorSubject.getValue() as GenericElement[];
+            var element = obj as GenericElement;
+            index = arr.findIndex ( x => x.attributes.TYPE === element.attributes.TYPE
+                                    && x.attributes.DESCRIPTION === element.attributes.DESCRIPTION );
+        }
+        else {
+            return;
         }
 
         if ( index >= 0 ) {
@@ -94,14 +113,6 @@ export class NewReportService {
             this.debug_printErrorMsg( "CATEGORY_ID" );
             isValid = false;
         }
-        // if ( report.attributes.DESCRIPTION == null || report.attributes.DESCRIPTION.length == 0 ) {
-        //     this.debug_printErrorMsg( "DESCRIPTION" );
-        //     isValid = false;
-        // }
-        // if ( report.attributes.EXECUTIVE_SUMMARY == null || report.attributes.EXECUTIVE_SUMMARY.length == 0 ) {
-        //     this.debug_printErrorMsg( "EXECUTIVE_SUMMARY" );
-        //     isValid = false;
-        // }
         return isValid;
     }
 
@@ -120,12 +131,16 @@ export class NewReportService {
     validateIncidentElement( element: IncidentElement ): boolean {
         var isValid = true;
         var table = element.table;
-        if ( table.toLowerCase() === Config.LocationTable.toLowerCase() )
+        if ( table === Config.LocationTable )
             isValid = this.validateLocation( element as Location ) && isValid ;
-        else if ( table.toLowerCase() === Config.PersonTable.toLowerCase() ) 
+        else if ( table === Config.PersonTable ) 
             isValid = this.validatePerson( element as Person ) && isValid ;
-        else if (table.toLowerCase() === Config.CategoryTable.toLowerCase()) {
+        else if (table === Config.CategoryTable ) {
             
+        }
+        else if ( table === Config.GenericElementTable ) {
+            var elem = element as GenericElement;
+            isValid = elem.attributes.TYPE != null && elem.attributes.TYPE.length > 0 && isValid;
         }
         else {
             console.log("*** WARNING: Incident Element unrecognized.");
