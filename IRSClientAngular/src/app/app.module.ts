@@ -33,8 +33,8 @@ import { UserService } from './service/user.service';
 import { LoginService } from './service/login.service';
 import { CategoryService } from './service/category.service';
 import { DomService } from './util/dom.service';
-import { LocationService } from './service/location.service'
-import { IncidentService } from './service/incident.service'
+import { LocationService } from './service/location.service';
+import { IncidentService } from './service/incident.service';
 import { IncidentElementService } from './service/incident-element.service';
 import { StaffService } from './service/staff.service'
 import { PersonService } from './service/person.service';
@@ -86,7 +86,7 @@ import { FilterPipe } from './util/filter.pipe';
     StaffService,
     PersonService,
     NewReportService,
-    CategoryService],
+    CategoryService,],
   bootstrap: [AppComponent],
   entryComponents: [ LocationComponent, VehicleComponent,
     PersonComponent ]

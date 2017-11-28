@@ -7,11 +7,6 @@ export class Campus {
         this.table = Config.CampusTable;
         this.attributes = new CampusAttributes();
     }
-
-    toSearchString(): string {
-        return this.attributes.CITY 
-        + " " + this.attributes.ADDRESS 
-    };
 }
 
 export class CampusAttributes {

@@ -397,7 +397,8 @@ span.glyphicon-fire {
 }
 
 .alertText {
-    color:red;
+    color: $sfu-red;
+    opacity: 1 !important;
 }
 
 .invisible {

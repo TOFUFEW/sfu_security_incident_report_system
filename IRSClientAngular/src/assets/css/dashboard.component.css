@@ -59,6 +59,7 @@ div.quarter-box {
   border-radius: 4px;
   border: 1px solid #b3b3b3;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 8px;
   background-color: white; }
   @media (max-height: 900px) {

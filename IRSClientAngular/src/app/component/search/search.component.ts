@@ -76,17 +76,16 @@ export class SearchComponent implements OnInit {
     }
 
     private getAllReports() {
-        this.incidentService.allReports
+        this.incidentService.getIncidentsObs()
         .subscribe(
             (responseData) => {
-                this.incidents = responseData;                
-                this.showSpinner = false;
+                this.incidents = responseData;
             },
             (errors) => {
                 alert(Config.FailedToRetrieveMsg);
             },
             () => {
-                
+                this.showSpinner = false;
             }
         );
     }

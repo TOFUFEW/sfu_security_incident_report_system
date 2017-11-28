@@ -31,15 +31,11 @@ export class LocationComponent implements OnInit {
     }
 
     validateNewLocation(): boolean {
-        console.log("new location ", this.newLocation);
-        console.log("current location", this.currentLocation);
-
         if ( this.newLocation.attributes.CAMPUS_ID == null ) {
             if ( this.currentLocation.attributes.CAMPUS_ID != null ) {
                 this.newLocation.attributes.CAMPUS_ID = this.currentLocation.attributes.CAMPUS_ID;
             }
             else {
-                console.log("no campus");
                 this.showCampusAlert = true;
                 return false;
             }
@@ -51,12 +47,9 @@ export class LocationComponent implements OnInit {
         }
         if ( this.newLocation.attributes.BUILDING_NAME == null || this.newLocation.attributes.BUILDING_NAME == "" ) {
             if ( this.currentLocation.attributes.BUILDING_NAME != "") {
-                console.log("changing building");
-
                 this.newLocation.attributes.BUILDING_NAME = this.currentLocation.attributes.BUILDING_NAME;
             }
             else {
-                console.log("no building");
                 this.showBuildingAlert = true;
                 return false;
             }
@@ -94,17 +87,11 @@ export class LocationComponent implements OnInit {
     }
 
     addLocationToReport(): void {
-        // REMOVE THIS HACK WHEN WE HAVE SOMETHING BETTER
-        if (this.newLocation.attributes.DEPARTMENT == null || undefined) {
-            this.newLocation.attributes.DEPARTMENT = "CMPT";
-        }
-        // END OF REMOVE
         this.reportService.addIncidentElement ( this.newLocation );
     }
 
     removeLocationFromReport(): void {
         if ( this.reference == null ) {
-            console.log("must have a location!");
             return;
         }
 
@@ -114,9 +101,11 @@ export class LocationComponent implements OnInit {
     }
 
     getLocations(): void {
-        this.locationService.getLocations().then ( returnedLocations => {
-            this.locations = returnedLocations;
-            this.locationMap = this.locationService.toLocationMapping( this.locations );
+        this.locationService.locations.subscribe( locations => {
+            this.locations = locations;
+        });
+        this.locationService.locationMap.subscribe( map => {
+            this.locationMap = map;
         });
     }
 
@@ -125,9 +114,11 @@ export class LocationComponent implements OnInit {
         this.currentLocation.attributes.BUILDING_NAME = "";
         this.locationMap.forEach( campus => {
             if ( campus.CAMPUS_ID == this.newLocation.attributes.CAMPUS_ID ) {
-                this.buildings = campus.BUILDINGS;
+                this.buildings = campus.BUILDINGS;   
                 this.newLocation.attributes.CITY = campus.CITY;
-                this.newLocation.attributes.LOCATION_ID = null;
+                this.newLocation.attributes.LOCATION_ID = null;       
+                this.newLocation.attributes.BUILDING_NAME = "";
+                this.newLocation.attributes.ROOM_NUMBER = "";          
             }
         } );
     }
@@ -138,7 +129,8 @@ export class LocationComponent implements OnInit {
         this.buildings.forEach( bldg => {
             if ( bldg.BUILDING_NAME === this.newLocation.attributes.BUILDING_NAME ) {
                 this.rooms = bldg.ROOMS;
-                this.newLocation.attributes.LOCATION_ID = null;
+                this.newLocation.attributes.LOCATION_ID = null; 
+                this.newLocation.attributes.ROOM_NUMBER = "";
             }
         });
     }
@@ -190,7 +182,6 @@ export class LocationComponent implements OnInit {
             var msg = isDeleted ? "Location successfully deleted!" : "Delete failed";
             alert(msg);
             var i = this.locations.findIndex(loc => loc.attributes.LOCATION_ID === id);
-            console.log("delete successful");
             // remove 1 object at index i
             this.locations.splice(i, 1);
         });

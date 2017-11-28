@@ -7,6 +7,7 @@ import { Incident } from '../report/incident';
 import { User } from './user';
 import {AppComponent} from "../../app.component";
 import { NavbarComponent } from '../navbar/navbar.component';
+import { Config } from "../../util/config.service";
 
 @Component({
     templateUrl: './login.component.html',
@@ -58,5 +59,18 @@ export class LoginComponent {
           this.router.navigate( [ 'guard' ] );
         }
       }
+    }
+
+    listener ( data ): void
+    {
+      var messageObj = data;
+      console.log ( "Received data from websocket: " , messageObj) ;
+      // If an object exists with callback_id in our callbacks object, resolve it
+      //if(callbacks.hasOwnProperty(messageObj.callback_id)) {
+      //  console.log(callbacks[messageObj.callback_id]);
+      //  $rootScope.$apply(callbacks[messageObj.callback_id].cb.resolve(messageObj.data));
+      // delete callbacks[messageObj.callbackID];
+      //}
+      //ngOnInit ();
     }
 }

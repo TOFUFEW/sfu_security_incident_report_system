@@ -23,6 +23,7 @@
                                 <div *ngIf="incident.attributes.TEMPORARY_REPORT == 1">TEMP</div>
                                 <div class="detail-row">
                                     <span class="card-text-secondary">Report #{{incident.attributes.REPORT_ID}}</span>
+                                    <span class="card-text-tertiary" *ngIf="incident.attributes.START_TIME != null">{{incident.attributes.START_TIME}}</span>                                                                        
                                 </div>
                                 <!-- <div class="detail-row">
                                     <span class="card-text-secondary">Status: {{statuses[incident.attributes.STATUS]}}</span>
@@ -42,12 +43,30 @@
                                         Assigned To: {{incident.guard.attributes.FIRST_NAME}} {{incident.guard.attributes.LAST_NAME}}
                                     </span>
                                 </div>
-                                <div class="detail-row tertiary" *ngIf="incident.incidentElements['Location'] != null && incident.incidentElements['Location'].length > 0">
-                                    <span class="card-text-tertiary">
-                                        {{incident.incidentElements['Location'][0].attributes.BUILDING_NAME}} {{incident.incidentElements['Location'][0].attributes.ROOM_NUMBER}}
+                                <div class="detail-row" *ngIf="incident.incidentElements['Location'] != null && incident.incidentElements['Location'].length > 0">
+                                    <span class="card-text-secondary">Locations: </span>
+                                    <span class="card-text-secondary" *ngFor="let location of incident.incidentElements['Location']">
+                                        [{{location.attributes.CITY}} {{location.attributes.BUILDING_NAME}} {{location.attributes.ROOM_NUMBER}}]
                                     </span>
-                                    <span class="card-text-tertiary">08/15/2017 4:44</span>
                                 </div>
+                                <div class="detail-row" *ngIf="incident.incidentElements['Person'] != null && incident.incidentElements['Person'].length > 0">
+                                    <span class="card-text-secondary">Involved Persons: </span>
+                                    <span class="card-text-secondary" *ngFor="let person of incident.incidentElements['Person']">
+                                        [{{person.attributes.FIRST_NAME}} {{person.attributes.LAST_NAME}} {{person.attributes.PHONE_NUMBER}}]
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="actions">
+                                <button class="btn btn-default" *ngIf="incident.inWorkspace"
+                                    (click)="removeFromWorkspace(incident.attributes.REPORT_ID)">
+                                    Remove From Workspace
+                                </button>
+    
+                                <button class="btn btn-primary" *ngIf="!incident.inWorkspace"
+                                    (click)="addToWorkspace(incident)">
+                                    Add To Workspace
+                                </button>
                             </div>
                         </div>
                     </div>

@@ -22,3 +22,29 @@
         border-bottom-left-radius: 0px;
     }
 }
+
+.panel {
+    border-bottom: none;
+}
+
+.panel-body{
+    padding: 0px;
+}
+
+.incident-card {
+    @include flex(flex-start, flex-start);    
+    border-bottom: $border-default;
+    padding: 16px;
+
+    .main-content, .actions {
+        height: 100%;
+    }
+
+    .main-content {
+        width: 100%;
+    }
+
+    .actions {
+        @include flex(flex-start, center);
+    }
+}

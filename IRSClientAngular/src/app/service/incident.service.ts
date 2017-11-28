@@ -33,9 +33,12 @@ export class IncidentService {
     private userService = new UserService;
 
     private bs_allReports = new BehaviorSubject<Incident[]>([]);
-    allReports = this.bs_allReports.asObservable();
+    allReports = this.bs_allReports.asObservable()
 
-    private bs_reportsToAddToWorkspace = new BehaviorSubject<Incident[]>([]);
+    private bs_reportsInList = new BehaviorSubject < Incident [] > ( [] );
+    reportsInList = this.bs_reportsInList.asObservable ();
+
+    private bs_reportsToAddToWorkspace = new BehaviorSubject<Incident[]>( [] );
     reportsToAddToWorkspace = this.bs_reportsToAddToWorkspace.asObservable();
 
     private bs_lastRemovedId = new BehaviorSubject<number>(0);
@@ -68,11 +71,166 @@ export class IncidentService {
         this.categoryService.getCategories().then(response => {
             var cat = this.categoryService.toCategoryDictionary(response);
             this.bs_categories.next(cat);
-        });
+        } );
 
         this.getIncidents().then(response => {
             this.bs_allReports.next(response);
         });
+
+        // Web socket
+        var wss = new WebSocket ( Config.IncidentsWebSocketURI );
+        wss.onopen = function ()
+        {
+            console.log ( "IncidentUpdate Socket has been opened!" );
+        };
+
+        wss.onmessage = function ( message )
+        {
+            var incident = this.initializeIncident (
+              JSON.parse ( JSON.parse ( message.data ) ) as Incident
+            );
+            var user = this.userService.getCurrentUser ();
+            var reportList = this.bs_reportsInList.getValue ();
+
+            // if user is a guard, then check if
+            if ( this.userService.isGuard () )
+            {
+              this.processWebsocketIncidentForGuard ( incident );
+            }
+
+            else  if ( this.userService.isAdmin () || this.userService.isSupervisor () )
+            {
+              this.addReportToList ( incident );
+            }
+
+            else
+            {
+              console.log ( "Unexpected account type: " + this.userService.getAccountType () );
+            }
+        }.bind ( this );
+    }
+
+    processWebsocketIncidentForGuard ( incident : Incident ) : void
+    {
+      console.log ( "--------------------------------------" );
+      console.log ( "incident websocket guard update!" );
+
+      var reportList = this.bs_reportsInList.getValue ();
+      var reportListIndex = reportList.findIndex ( i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID );
+
+      if ( this.reportAssignedToThisUser ( incident ) || this.userCreatedReport ( incident ) )
+      {
+        this.addReportToList ( incident );
+      }
+
+      else
+      {
+        this.removeReportFromList ( incident );
+      }
+    }
+
+    reportAssignedToThisUser ( incident : Incident ) : boolean
+    {
+      var user = this.userService.getCurrentUser ();
+      var assignedStaff = incident.incidentElements [ Config.StaffKey ] as Staff [];
+
+      for ( var i = 0 ; i < assignedStaff.length ; i++ )
+      {
+         if ( Number ( user.attributes.ACCOUNT_ID ) == Number ( assignedStaff [ i ].attributes.ACCOUNT_ID ) )
+        {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    reportAssignedToThisUserTest ( incident : Incident ) : boolean
+    {
+      var user = this.userService.getCurrentUser ();
+      var assignedStaff = incident.incidentElements [ Config.StaffKey ] as Staff [];
+
+      for ( var i = 0 ; i < assignedStaff.length ; i++ )
+      {
+        if ( Number ( user.attributes.ACCOUNT_ID ) == Number ( assignedStaff [ i ].attributes.ACCOUNT_ID ) )
+        {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    userCreatedReport ( incident : Incident ) : boolean
+    {
+      var user = this.userService.getCurrentUser ();
+      return user.attributes.ACCOUNT_ID == incident.attributes.ACCOUNT_ID;
+    }
+
+    addReportToList ( incident : Incident ) : void
+    {
+      var reportList = this.bs_reportsInList.getValue ();
+      var reportListIndex = reportList.findIndex ( i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID );
+
+      if ( reportListIndex != -1 )
+      {
+          reportList [ reportListIndex ] = incident;
+
+          if ( !this.userService.isGuard () )
+          {
+            this.updateInWorkspace ( incident );
+          }
+      }
+
+      else
+      {
+        reportList.splice (
+          this.getInsertionIndex ( incident , reportList ),
+          0,
+          incident
+        );
+      }
+
+      this.bs_reportsInList.next ( reportList );
+    }
+
+    removeReportFromList ( incident : Incident ) : void
+    {
+      var reportList = this.bs_reportsInList.getValue ();
+      var reportListIndex = reportList.findIndex ( i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID );
+
+      if ( reportListIndex != -1 )
+      {
+        reportList.splice ( reportListIndex , 1 );
+
+        this.bs_reportsInList.next ( reportList );
+      }
+    }
+
+    getInsertionIndex ( incident: Incident , reportList : Incident [] ) : number
+    {
+      var newReportID = incident.attributes.REPORT_ID as number;
+      for ( var i = 0 ; i < reportList.length ; i++ )
+      {
+        var existingReportID = reportList [ i ].attributes.REPORT_ID as number;
+
+        if ( Number ( newReportID ) >  Number ( existingReportID ) )
+        {
+          return i;
+        }
+      }
+
+      return reportList.length;
+    }
+
+     updateInWorkspace( incident: Incident ): void {
+        var workspaceReportList = this.bs_reportsToAddToWorkspace.getValue ();
+        var workspaceReportListIndex = workspaceReportList.findIndex (
+          i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID );
+        if ( workspaceReportListIndex != -1 )
+        {
+          workspaceReportList [ workspaceReportListIndex ] = incident;
+        }
     }
 
     addToWorkspace(incident: Incident): void {
@@ -103,23 +261,23 @@ export class IncidentService {
 
     getIncidents(): Promise<Incident[]> {
         var user = this.userService.getCurrentUser();
-        var incidents = this.http.post(this.getIncidentsUrl, JSON.stringify(user), { headers: this.headers })
-            .toPromise()
-            .then(response => this.initIncidents(plainToClass(Incident, response.json())) /*as Incident[]*/)
-            .catch(this.handleError);
-        return Promise.resolve(incidents);
+          var incidents = this.http.post( this.getIncidentsUrl, JSON.stringify( user ), { headers: this.headers } )
+            .toPromise ()
+            .then( response => this.bs_reportsInList.next(plainToClass(Incident, response.json())) )
+            .catch( this.handleError );
+          return Promise.resolve( this.bs_reportsInList.getValue () );
     };
 
 
-    // getIncidents(): Observable<Incident[]> {
-    //     let options = new RequestOptions({headers: this.headers});
-
-    //     return this.http
-    //         .get(this.incidentsUrl, options)
-    //         .map((response: Response) => 
-    //         this.initIncidents(plainToClass(Incident, response.json()))
-    //     )
-    // }
+    getIncidentsObs(): Observable<Incident[]> {
+         let options = new RequestOptions({headers: this.headers});
+        
+         return this.http
+             .get(Config.IncidentsURI, options)
+             .map((response: Response) =>
+             this.initIncidents(plainToClass(Incident, response.json()))
+         )
+     }
 
     doSearch(query: String, isCTSearch: boolean): Observable<Incident[]> {
         let formHeaders = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
@@ -131,9 +289,9 @@ export class IncidentService {
         }
         return this.http
             .post(searchURI, query, options)
-            .map((response: Response) => 
+            .map((response: Response) =>
                 this.initIncidents(plainToClass(Incident, response.json()))
-               
+
             )
     }
 
@@ -142,9 +300,12 @@ export class IncidentService {
         var incidents = this.http
             .post(this.createdByIncidentsUrl, JSON.stringify(user), { headers: this.headers })
             .toPromise()
-            .then(response => this.initIncidents(response.json() as Incident[]) as Incident[])
-            .catch(this.handleError);
-        return Promise.resolve(incidents);
+            .then ( response => {
+              var createdReports = this.initIncidents ( response.json() as Incident [] ) as Incident [];
+              createdReports.map ( i => this.addReportToList ( i ) );
+            } )
+            .catch( this.handleError );
+        return Promise.resolve( this.bs_reportsInList.getValue () );
     }
 
     getIncident(id: number): Promise<Incident> {
@@ -158,10 +319,14 @@ export class IncidentService {
         return Promise.resolve(returnedIncident);
     }
 
-    private initIncidents(incidents: Incident[]): Incident[] {
-        incidents.forEach(i => {
-            this.initializeIncident(i);
-        });
+    private initIncidents( incidents: Incident[] ): Incident[] {
+        console.log ( "incidents.length = " + incidents.length );
+
+        for ( var i = 0 ; i < incidents.length ; i++ )
+        {
+          incidents [ i ] = this.initializeIncident ( incidents [ i ] );
+        }
+
         return incidents;
     }
 
@@ -169,20 +334,27 @@ export class IncidentService {
         incident.category = incident.incidentElements[Config.IncidentCategoryKey][0] as Category;
         incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
         incident.incidentElements[Config.LocationKey]
-            .forEach(element => {
+            .forEach( element => {
+                var location = element as Location;
                 var index = this.campusArr.findIndex(
-                    c => c.attributes.CAMPUS_ID == (element as Location).attributes.CAMPUS_ID
+                    c => c.attributes.CAMPUS_ID == location.attributes.CAMPUS_ID
                 );
-                if (index >= 0)
-                    (element as Location).attributes.CITY = this.campusArr[index].attributes.CITY;
+                if ( index >= 0 )
+                    location.attributes.CITY = this.campusArr[index].attributes.CITY;
+                if ( location.attributes.ROOM_NUMBER === '0' )
+                    location.attributes.ROOM_NUMBER = "";
             });
+
+            console.log(incident);
         return incident;
     }
 
     create(incident: Incident): Promise<Incident> {
+        debugger;
         console.log(incident);
-        if (incident.attributes.ACCOUNT_ID == null) {
-            incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().attributes.ACCOUNT_ID;
+        if ( incident.attributes.ACCOUNT_ID == null ) {
+
+                incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().attributes.ACCOUNT_ID;
         }
         this.toSearchString(incident);
         incident.table = Config.IncidentTable;
@@ -202,7 +374,6 @@ export class IncidentService {
         if (incident.attributes.ACCOUNT_ID == null) {
             incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().attributes.ACCOUNT_ID;
         }
-        this.toSearchString(incident);
         incident.table = Config.IncidentTable;
         var promise = this.http
                 .post( this.updateIncidentsUrl, JSON.stringify( incident ), { headers: this.headers } )
@@ -275,34 +446,12 @@ export class IncidentService {
 
     private handleError(error: any): Promise<any> {
         alert("An error occurred.");
-        console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
     }
 
     // SEARCH TEXT FOR SEARCHING IN THE DATABASE
     private toSearchString(incident: Incident) {
-        incident.searchString = incident.attributes.DESCRIPTION
-            + " " + incident.attributes.EXECUTIVE_SUMMARY;
-
-        var map = incident.incidentElements;
-
-        // iterate through each incident element and add them to the search string
-        map.forEach((value: IncidentElement[], key: String) => {
-            var elementArray = value;
-            elementArray.forEach(element => {
-                console.log("This element's search string is: " + element.toSearchString());
-                incident.searchString = incident.searchString + " " + element.toSearchString();
-            });
-        });
-
-
-        debugger;
-        if (incident.attributes.REPORT_ID != undefined && incident.attributes.REPORT_ID != null) {
-            incident.searchString = incident.searchString + " " + incident.attributes.REPORT_ID;
-        }
-
-        incident.attributes.SEARCH_TEXT = incident.searchString.replace('null', '');
-        console.log(incident.attributes.SEARCH_TEXT);
+        incident.attributes.SEARCH_TEXT = "";
     }
 
 }

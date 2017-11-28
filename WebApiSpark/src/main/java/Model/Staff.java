@@ -54,6 +54,12 @@ public class Staff extends IncidentElement
         );
     }
 
+    @Override
+    public String toSearchString() {
+        return this.getAttributeValue( DatabaseValues.Column.FIRST_NAME ) + " " +
+                this.getAttributeValue( DatabaseValues.Column.LAST_NAME );
+    }
+
     public DatabaseValues.Column getIDColumn () {
         return DatabaseValues.Column.ACCOUNT_ID ;
     }

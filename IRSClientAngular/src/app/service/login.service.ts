@@ -18,10 +18,7 @@ export class LoginService {
     constructor( private http: Http ) { }
 
     doLogin( user: User ): Observable<User> {
-        console.log( "user logging in", user );
         let options = new RequestOptions( { headers: this.headers } );
-        console.log (" options ", options );
-        console.log ( "user posting ", user );
         // var _user = IncidentElementService.toIncidentElement ( Config.AccountTable, user );
         // HTTP RESPONSE
         return this.http

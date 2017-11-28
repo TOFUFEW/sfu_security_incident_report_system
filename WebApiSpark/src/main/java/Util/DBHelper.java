@@ -1,9 +1,7 @@
 package Util;
 
 import Model.*;
-import spark.Response;
 
-import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,11 +9,6 @@ import java.util.Map;
 
 public class DBHelper
 {
-    /*
-    private static final String USERNAME = "cmpt373alpha";
-    private static final String PASSWORD = "cmpt373alpha";
-    private static final String URL = "jdbc:sqlserver://sfuirsdb.czoee5rkbxlk.us-west-1.rds.amazonaws.com:1433;DatabaseName=IRS;";
-    */
     private static final String USERNAME = "sa";
     private static final String PASSWORD = "CMPT373Alpha";
     private static final String URL = "jdbc:sqlserver://142.58.21.127:1433;DatabaseName=hibernatedb;";
@@ -150,7 +143,7 @@ public class DBHelper
     public static Incident getIncident( String reportId ) {
         ArrayList < Incident > incidentList = new ArrayList <> ();
         try {
-            String query = "select top 1 * from Incident where REPORT_ID = '" + reportId + "';";
+            String query = "select * from Incident where REPORT_ID = '" + reportId + "';";
             ResultSet result = executeQuery( query );
             fillListWithIncidentsFromResultSet( incidentList, result );
             return incidentList.get(0);
@@ -262,6 +255,8 @@ public class DBHelper
         if ( getAccountType( creatorID ) == DatabaseValues.AccountType.GUARD )
             incident.updateAttributeValue( DatabaseValues.Column.TEMPORARY_REPORT, "0" );
 
+        incident.updateSearchString();
+
         try {
             initDB();
             String query = "{ call dbo.insertIncident ( ? , ? , ? , ? , ? , ? , ? , ? ) } ";
@@ -284,6 +279,7 @@ public class DBHelper
             stmt.registerOutParameter( 8, Types.INTEGER );
 
             stmt.execute();
+            insertRelations(null, incident.getIncidentElements());
             int output = stmt.getInt( 8 );
 
 
@@ -327,7 +323,7 @@ public class DBHelper
 
                 for ( IncidentElement incidentElement : incidentElementsList ) {
                     boolean hasAttributes = incidentElement.getColumnSet().length > 0;
-
+                        System.out.println(incidentElement);
                     if ( hasAttributes && !relationExists( reportID , incidentElement ) ) {
                         debug_printInsertRelationLog( incidentElement );
                         insertIncidentRelation(
@@ -345,7 +341,7 @@ public class DBHelper
         try {
             String query = "select * from account where ACCOUNT_ID = " + accountId ;
             ResultSet result = executeQuery( query );
-            while (result.next()) {
+            if (result.next()) {
                 String accountType = result.getString( "ACCOUNT_TYPE" );
                 if ( accountType.equals( DatabaseValues.AccountType.ADMIN.toString() ) )
                     return DatabaseValues.AccountType.ADMIN;
@@ -630,6 +626,7 @@ public class DBHelper
             }
             else if ( tableName.compareTo ( "Person" ) == 0 )
             {
+                System.out.println( incidentElement.getAttributeValue ( DatabaseValues.Column.PERSON_ID ));
                 stmt.setString (
                         1,
                         reportID
@@ -708,13 +705,16 @@ public class DBHelper
         }
 
         String creatorID = incident.getAttributeValue(DatabaseValues.Column.ACCOUNT_ID);
-        if ( creatorID == null )
+        if ( creatorID == null ) {
             return false;
+        }
+
+        incident.updateSearchString();
 
         try {
             initDB ();
-            String query = "{ call dbo.updateIncidentRefactor ( ? , ? , ? , ? , ? ," +
-                    " ? , ? , ? , ? ) } ";
+            String query = "{ call dbo.updateIncident ( ? , ? , ? , ? , ? ," +
+                    " ? , ? , ? , ? , ? ) } ";
             CallableStatement stmt = connection.prepareCall ( query );
             stmt.setString (
                     1,
@@ -742,15 +742,19 @@ public class DBHelper
             );
             stmt.setString (
                     7,
-                    incident.getAttributeValue( DatabaseValues.Column.TIMER_START )
+                    incident.getAttributeValue( DatabaseValues.Column.SEARCH_TEXT )
             );
             stmt.setString (
                     8,
+                    incident.getAttributeValue( DatabaseValues.Column.TIMER_START )
+            );
+            stmt.setString (
+                    9,
                     incident.getAttributeValue( DatabaseValues.Column.TIMER_END )
             );
 
             stmt.registerOutParameter (
-                    9,
+                    10,
                     Types.INTEGER
             );
             stmt.execute();
@@ -763,6 +767,18 @@ public class DBHelper
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static String toSearchString( Incident incident ) {
+        Map< String, ArrayList< IncidentElement > > map = incident.getIncidentElements();
+        String searchString = incident.getAttributeValue( DatabaseValues.Column.DESCRIPTION ) +
+                incident.getAttributeValue( DatabaseValues.Column.EXECUTIVE_SUMMARY );
+        for( ArrayList< IncidentElement > list : map.values() ) {
+            for(IncidentElement element : list ) {
+                searchString = searchString + element.toSearchString();
+            }
+        }
+        return searchString;
     }
 
     public static boolean insertIncidentElement ( IncidentElement incidentElement )
@@ -915,9 +931,33 @@ public class DBHelper
         return locationList.toArray ( new Location [ locationList.size () ] );
     }
 
+    public static Campus[] getCampus ()
+    {
+        ArrayList < Campus > campusList = new ArrayList <> ();
 
-    /* DEBUG CODE */
-    private static String debug_getLastIncidentId() {
+        try
+        {
+            ResultSet resultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.CAMPUS.toString () );
+
+            while ( resultSet.next () )
+            {
+                Campus campus = new Campus ();
+
+                campus.extractFromCurrentRow ( resultSet );
+
+                campusList.add ( campus );
+            }
+        }
+
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+
+        return campusList.toArray ( new Campus [ campusList.size () ] );
+    }
+
+    public static String getLastInsertedIncidentID() {
         try {
             initDB();
             String query = "select top (1) * from Incident order by report_id desc;";
@@ -933,6 +973,7 @@ public class DBHelper
         return null;
     }
 
+    /* DEBUG CODE */
     private static void debug_printInsertRelationLog( IncidentElement incidentElement ) {
         if ( incidentElement == null ) return;
 
@@ -960,7 +1001,7 @@ public class DBHelper
         System.out.println( msg );
     }
 
-    public static boolean personExists( Person person ){
+    public static Person personExists( Person person ){
         try
         {
             String query = "SELECT * FROM " + DatabaseValues.Table.PERSON.toString() +
@@ -971,14 +1012,16 @@ public class DBHelper
 
             if ( resultSet.next () )
             {
-                return true;
+                Person p = new Person();
+                p.extractFromCurrentRow( resultSet );
+                return p;
             }
         }
         catch ( Exception e )
         {
             e.printStackTrace ();
         }
-        return false;
+        return null;
     }
 
     public static Person [] getPersons ()
