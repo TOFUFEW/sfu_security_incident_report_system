@@ -78,25 +78,31 @@ public class AttachmentController {
                 Path from = Paths.get(currentPath + "/uploads/" + filePath).toAbsolutePath();
                 File file = new File(from.toString());
 
-                ZipOutputStream zipOutputStream = new ZipOutputStream(new BufferedOutputStream(response.raw().getOutputStream()));
-                BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
 
-                ZipEntry zipEntry = new ZipEntry(file.getName());
+                response.header("Content-Disposition", "attachment; filename="+file.getName());
+                response.header("Content-Type", "application/octet-stream");
 
-                zipOutputStream.putNextEntry(zipEntry);
-                byte[] buffer = new byte[1024];
-                int len;
-                while ((len = bufferedInputStream.read(buffer)) > 0) {
-                    zipOutputStream.write(buffer,0,len);
+                try(
+                        ZipOutputStream zipOutputStream = new ZipOutputStream(new BufferedOutputStream(response.raw().getOutputStream()));
+                        BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(file))
+                )
+                {
+                    ZipEntry zipEntry = new ZipEntry(file.getName());
+
+                    zipOutputStream.putNextEntry(zipEntry);
+                    byte[] buffer = new byte[1024];
+                    int len;
+                    while ((len = bufferedInputStream.read(buffer)) > 0) {
+                        zipOutputStream.write(buffer,0,len);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                zipOutputStream.flush();
-                zipOutputStream.close();
 
             } catch (Exception e) {
-
                 e.printStackTrace();
             }
-            return response.raw();
+            return true;
         } );
 
         get ( "/uploads" , ( request , response ) -> {
