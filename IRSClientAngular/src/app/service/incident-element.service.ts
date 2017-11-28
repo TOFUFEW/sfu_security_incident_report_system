@@ -134,14 +134,16 @@ export class IncidentElementService
     }
 
     // Dont call incidentService.update()
-    addElementNoUpdate ( incident: Incident, element: IncidentElement ) {
+    addElementNoUpdate ( incident: Incident, element: IncidentElement ): boolean {
         var key = this.getElementKey( element.table );      
         var index = this.getElementIndex( incident, element );
-        if ( index < 0 )
-            incident.incidentElements[key].push ( element );
-        else {
-            console.log("Element already exists in array");
+        if ( index < 0 ) {
+            incident.incidentElements[key].push ( element );            
+            return true;
         }
+        
+        alert("This item has already been added to the report.");
+        return false;
     }
 
     // Dont call incidentService.update()

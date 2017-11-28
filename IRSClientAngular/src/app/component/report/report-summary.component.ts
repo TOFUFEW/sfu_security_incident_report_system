@@ -106,18 +106,8 @@ export class ReportSummaryComponent implements OnInit {
         this.allFieldsValid = this.newReportService.validateReport(this.report_edit) && this.validateTimer();
 
         if ( this.allFieldsValid ) {
-            if (this.tempStartTime == null ){
-                this.report_edit.attributes.TIMER_START = null;
-            } else {
-                this.report_edit.attributes.TIMER_START = this.timerService.stringToTime(this.tempStartTime); 
-            } 
-
-            if ( this.tempEndTime == null ) {
-                this.report_edit = null;
-            } else {
-                this.report_edit.attributes.TIMER_END = this.timerService.stringToTime(this.tempEndTime);
-            }
-
+            this.report_edit.attributes.TIMER_START = this.timerService.stringToTime(this.tempStartTime); 
+            this.report_edit.attributes.TIMER_END = this.timerService.stringToTime(this.tempEndTime);            
             this.report = this.report_edit;
             this.assignToGuard();
             this.initializeEditableComponents();
@@ -162,9 +152,10 @@ export class ReportSummaryComponent implements OnInit {
         }
 
         if ( this.newReportService.validateIncidentElement( element ) ) {
-            this.incidentElementService.addElementNoUpdate( this.report_edit, element );
-            this.updateReport();
-            this.flushComponents();
+            if ( this.incidentElementService.addElementNoUpdate( this.report_edit, element ) ) {
+                this.updateReport();
+                this.flushComponents();
+            }   
         }
         else {
             this.alertReportInvalid();

@@ -233,7 +233,8 @@ export class IncidentService {
           i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID );
         if ( workspaceReportListIndex != -1 )
         {
-          workspaceReportList [ workspaceReportListIndex ] = incident;
+          workspaceReportList.splice( workspaceReportListIndex, 1, incident );
+          this.bs_reportsToAddToWorkspace.next(workspaceReportList);          
         }
     }
 
@@ -337,6 +338,7 @@ export class IncidentService {
     private initializeIncident(incident: Incident): Incident {
         incident.category = incident.incidentElements[Config.IncidentCategoryKey][0] as Category;
         incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
+        incident.createdBy = this.getReportCreator(incident.attributes.ACCOUNT_ID);
         incident.incidentElements[Config.LocationKey]
             .forEach( element => {
                 var location = element as Location;
@@ -349,6 +351,15 @@ export class IncidentService {
                     location.attributes.ROOM_NUMBER = "";
             });
         return incident;
+    }
+
+    private getReportCreator( id: number ): Staff {
+        var staff = this.bs_staffArr.getValue();
+        var index = staff.findIndex( x => x.attributes.ACCOUNT_ID == id );
+        if ( index >=0 ) {
+            return staff[index];
+        }
+        return null;
     }
 
     create( incident: Incident ): Promise<Incident> {
@@ -398,6 +409,7 @@ export class IncidentService {
     };
 
     updateAssignedStaff(incidentToAssign: Incident, selectedStaffId: number): Incident {
+        console.log( incidentToAssign );
         var staffArr = this.bs_staffArr.getValue();
         var index = staffArr.findIndex(x => x.attributes.ACCOUNT_ID == selectedStaffId);
 

@@ -8,6 +8,7 @@
             <span class="report-id">Report ID: {{report.attributes.REPORT_ID}} </span>
             <span class="alertText" *ngIf="report.attributes.TEMPORARY_REPORT == 1"> &mdash; Pending Approval</span>            
         </div>
+        <span class="card-text-secondary" *ngIf="report.createdBy != null">Created By: {{report.createdBy.attributes.FIRST_NAME}} {{report.createdBy.attributes.LAST_NAME}}</span>        
         <span class="card-text-secondary" *ngIf="report.attributes.START_TIME != null">{{report.attributes.START_TIME}}</span>
         <div id="accept-temp" class="row"  *ngIf="report.attributes.TEMPORARY_REPORT == 1">
             <button class="btn-default btn" (click)="acceptTemp()">Approve Report</button>                
@@ -81,20 +82,16 @@
 
             <div class="details-body">
                 <div class="detail detail-lg col-sm-12">
-                    <span class="field-title">Timer: </span>
-                </div>
-                <div class="x-container">
-                    <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="clearTimer() " *ngIf="editMode"></span>        
-                </div>
-                <div class="detail detail-lg col-sm-12">
-                    <span class="field-title">Start Time: </span>
-                    <span *ngIf="!editMode" class="field-value">{{timerIntToString(report.attributes.TIMER_START)}}</span>
-                    <input type="time" class="form-control" *ngIf="editMode" [(ngModel)]="tempStartTime">
+                    <span class="field-title">Timer Start: </span>
+                    <span *ngIf="!editMode['Incident'] && report.attributes.TIMER_START != null 
+                        && report.attributes.TIMER_START != 0" class="field-value">{{timerIntToString(report.attributes.TIMER_START)}}</span>
+                    <input type="time" class="form-control" *ngIf="editMode['Incident']" [(ngModel)]="tempStartTime">
                 </div>
                 <div class="detail detail-lg col-sm-12">
-                    <span class="field-title">End Time: </span>
-                    <span *ngIf="!editMode" class="field-value">{{timerIntToString(report.attributes.TIMER_END)}}</span>
-                    <input type="time" class="form-control" *ngIf="editMode" [(ngModel)]="tempEndTime">
+                    <span class="field-title">Timer End: </span>
+                    <span *ngIf="!editMode['Incident'] && report.attributes.TIMER_END != null 
+                        && report.attributes.TIMER_END != 0" class="field-value">{{timerIntToString(report.attributes.TIMER_END)}}</span>
+                    <input type="time" class="form-control" *ngIf="editMode['Incident']" [(ngModel)]="tempEndTime">
                 </div>
             </div>
             <div class="bottom-links">
