@@ -327,9 +327,6 @@ div#new-report-panel, div#new-account-panel {
 .content-container {
   padding-top: 20px; }
 
-/****************************/
-/*  Guard app styles
-/****************************/
 .animate-show-hide.ng-hide {
   opacity: 0; }
 
