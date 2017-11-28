@@ -26,34 +26,47 @@ export class TimerComponent implements OnInit {
 
         this.incidentService.editedReport
         .subscribe( value => {
-            if ( value != null && this.timerList!= null && this.timerList.length > 0 && value.attributes.TIMER_START != null && value.attributes.TIMER_END!= null ) {
+            if ( value != null && this.timerList!= null && this.timerList.length > 0 && value.attributes.TIMER_START != null &&
+                 value.attributes.TIMER_END!= null && value.attributes.TIMER_END > this.timeNow ) {
                 var index = this.timerList.findIndex( i => i.incident.attributes.REPORT_ID == value.attributes.REPORT_ID );
                 if ( index >= 0 && value.attributes ) {
                     this.timerList.splice( index, 1, this.timerService.createTimerInt( value, value.attributes.TIMER_START, value.attributes.TIMER_END ) );
                 } else {
-                    this.timerList.push( this.timerService.createTimerInt( value, value.attributes.TIMER_START, value.attributes.TIMER_END ) );
+                    //this.timerList.push( this.timerService.createTimerInt( value, value.attributes.TIMER_START, value.attributes.TIMER_END ) );
                 }
-                this.sortTimers();
             }
-        });        
-    }
-
-    getTimers (): void {
-        var timerList : Array<Timer> = new Array<Timer>();
-        var nowDate = new Date ( Date.now() );
-        var nowTime = nowDate.getHours() * 60 * 60 * 1000 + nowDate.getMinutes() * 60 * 1000;
-        
+            this.sortTimers();   
+        });  
         this.incidentService.reportsInList.subscribe( incidents => {
+            var timerList = new Array<Timer>();
             incidents.forEach( incident => {
                 if ( incident.attributes.TIMER_START != null && incident.attributes.TIMER_END != null 
-                    && incident.attributes.TIMER_END > incident.attributes.TIMER_START && incident.attributes.TIMER_END > nowTime ) {
+                    && incident.attributes.TIMER_END > incident.attributes.TIMER_START && incident.attributes.TIMER_END > this.timeNow ) {
                     timerList.push( this.timerService.createTimerInt( incident, incident.attributes.TIMER_START, incident.attributes.TIMER_END ));
                 }
             });
             this.timerList = timerList;
-            this.sortTimers();
+            this.sortTimers();   
         });
+           
     }
+
+    // getTimers (): void {
+    //     var timerList : Array<Timer> = new Array<Timer>();
+    //     var nowDate = new Date ( Date.now() );
+    //     var nowTime = nowDate.getHours() * 60 * 60 * 1000 + nowDate.getMinutes() * 60 * 1000;
+       
+    //     this.incidentService.reportsInList.subscribe( incidents => {
+    //         incidents.forEach( incident => {
+    //             if ( incident.attributes.TIMER_START != null && incident.attributes.TIMER_END != null 
+    //                 && incident.attributes.TIMER_END > incident.attributes.TIMER_START && incident.attributes.TIMER_END > nowTime ) {
+    //                 timerList.push( this.timerService.createTimerInt( incident, incident.attributes.TIMER_START, incident.attributes.TIMER_END ));
+    //             }
+    //         });
+    //         this.timerList = timerList;
+    //         this.sortTimers();
+    //     });
+    // }
 
     sortTimers () : void {
         this.timerList.sort( ( a , b ) => {
@@ -142,7 +155,7 @@ export class TimerComponent implements OnInit {
 
 
     ngOnInit () {
-        this.getTimers();
+        // this.getTimers();
     }
 
     ngAfterViewInit () {
