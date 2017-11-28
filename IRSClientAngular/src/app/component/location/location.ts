@@ -5,21 +5,11 @@ export class Location implements IncidentElement {
     
     table: string;
     attributes: LocationAttributes;
-    searchString: string;
-
+    
     constructor() {
         this.attributes = new LocationAttributes();
         this.table = Config.LocationTable;
     }
-
-    setSearchString() {
-        this.searchString = 
-        this.attributes.LOCATION_ID 
-        + " " + this.attributes.CAMPUS_ID 
-        + " " + this.attributes.BUILDING_NAME 
-        + " " + this.attributes.ROOM_NUMBER 
-        + " " + this.attributes.DEPARTMENT;
-    };
 }
 
 export class LocationAttributes {
@@ -34,6 +24,7 @@ export class LocationAttributes {
 
 export class LocationMapping {
     CAMPUS_ID: number;
+    LOCATION_ID: number;    
     CITY: string;
     BUILDINGS: Building[];
 
@@ -43,6 +34,7 @@ export class LocationMapping {
 }
 
 export class Building {
+    LOCATION_ID: number;    
     BUILDING_NAME: string;
     ROOMS: Room[];
 

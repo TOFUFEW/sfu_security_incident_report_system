@@ -6,8 +6,10 @@ import { Location, LocationAttributes } from '../component/location/location';
 import { Person } from '../component/person/person';
 import { Attachment } from '../component/attachment/attachment';
 import { Category } from '../component/category/category';
+import { GenericElement } from '../component/generic-element/generic-element';
 import { Incident } from '../component/report/incident';
 import { IncidentElement } from '../component/report/incident-element';
+import { LocationService } from '../service/location.service';
 
 @Injectable()
 export class NewReportService {
@@ -19,6 +21,10 @@ export class NewReportService {
     private persons = new BehaviorSubject<Person[]> ([]);
     currentPersons = this.persons.asObservable();
 
+    private bs_genericElements = new BehaviorSubject<GenericElement[]> ([]);
+    currentGenericElements = this.bs_genericElements.asObservable();
+
+    constructor(private locationService: LocationService) {
     private attachments = new BehaviorSubject<Attachment[]> ([]);
     currentAttachments = this.attachments.asObservable();
 
@@ -47,13 +53,18 @@ export class NewReportService {
             behaviorSubject = this.attachments;
             arr = behaviorSubject.getValue() as Attachment[];
         }
+        else if ( obj.table === Config.GenericElementTable ) {
+            behaviorSubject = this.bs_genericElements;
+            arr = behaviorSubject.getValue() as GenericElement[];
+        }
+        else
+            return;
 
         arr.push( obj );
         behaviorSubject.next( arr );
     }
 
     removeIncidentElement( obj: any, table: string) {
-        console.log( "object table", obj.table );
         var behaviorSubject = null;
         var arr = [];
         var index = -1;
@@ -75,6 +86,16 @@ export class NewReportService {
                                         && x.attributes.LAST_NAME === person.attributes.LAST_NAME
                                         && x.attributes.PHONE_NUMBER === person.attributes.PHONE_NUMBER ) ;
         }
+        else if ( table === Config.GenericElementTable ) {
+            behaviorSubject = this.bs_genericElements;
+            arr = behaviorSubject.getValue() as GenericElement[];
+            var element = obj as GenericElement;
+            index = arr.findIndex ( x => x.attributes.TYPE === element.attributes.TYPE
+                                    && x.attributes.DESCRIPTION === element.attributes.DESCRIPTION );
+        }
+        else {
+            return;
+        }
 
         if ( index >= 0 ) {
             arr.splice( index, 1 );
@@ -94,18 +115,11 @@ export class NewReportService {
         return isValid;
     }
 
+
     private validateReportAttributes( report: Incident ): boolean {
         var isValid = true;
         if ( report.attributes.CATEGORY_ID == null ) {
             this.debug_printErrorMsg( "CATEGORY_ID" );
-            isValid = false;
-        }
-        if ( report.attributes.DESCRIPTION == null || report.attributes.DESCRIPTION.length == 0 ) {
-            this.debug_printErrorMsg( "DESCRIPTION" );
-            isValid = false;
-        }
-        if ( report.attributes.EXECUTIVE_SUMMARY == null || report.attributes.EXECUTIVE_SUMMARY.length == 0 ) {
-            this.debug_printErrorMsg( "EXECUTIVE_SUMMARY" );
             isValid = false;
         }
         return isValid;
@@ -120,23 +134,26 @@ export class NewReportService {
                 isValid = this.validateIncidentElement( element ) && isValid;
             });
         });
-
         return isValid;
     }
 
     validateIncidentElement( element: IncidentElement ): boolean {
         var isValid = true;
         var table = element.table;
-        if ( table.toLowerCase() === Config.LocationTable.toLowerCase() )
+        if ( table === Config.LocationTable )
             isValid = this.validateLocation( element as Location ) && isValid ;
-        else if ( table.toLowerCase() === Config.PersonTable.toLowerCase() )
+        else if ( table === Config.PersonTable )
             isValid = this.validatePerson( element as Person ) && isValid ;
-        else if (table.toLowerCase() === Config.CategoryTable.toLowerCase()) {
+        else if (table === Config.CategoryTable ) {
 
         }
-        else if (table.toLowerCase() === Config.AttachmentTable.toLowerCase()) {
-          isValid = this.validateAttachment( element as Attachment) && isValid;
+        else if ( table === Config.GenericElementTable ) {
+            var elem = element as GenericElement;
+            isValid = elem.attributes.TYPE != null && elem.attributes.TYPE.length > 0 && isValid;
         }
+        else if (table === Config.AttachmentTable) {
+                  isValid = this.validateAttachment( element as Attachment) && isValid;
+                }
         else {
             console.log("*** WARNING: Incident Element unrecognized.");
         }
@@ -145,9 +162,13 @@ export class NewReportService {
 
     validateLocation( location: Location ): boolean {
         var attr = location.attributes;
-        if ( attr.LOCATION_ID == null ) {
-            this.debug_printErrorMsg( "LOCATION_ID" );
-            return false;
+        if ( attr.LOCATION_ID == null || attr.LOCATION_ID <= 0 ) {
+            location.attributes.LOCATION_ID = this.locationService.findLocationId( location );
+            if (location.attributes.LOCATION_ID == null || location.attributes.LOCATION_ID <= 0) {
+                this.debug_printErrorMsg( "LOCATION_ID" );
+                return false;
+            }
+
         }
 
         return true;

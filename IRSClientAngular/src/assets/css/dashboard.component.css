@@ -59,6 +59,7 @@ div.quarter-box {
   border-radius: 4px;
   border: 1px solid #b3b3b3;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 8px;
   background-color: white; }
   @media (max-height: 900px) {
@@ -109,7 +110,10 @@ div.side-container {
   #button-container button {
     width: 50%; }
 
-staff-component {
+timer-component {
+  padding-bottom: 20px; }
+
+staff-component, timer-component {
   height: 50%;
   width: 100%; }
 

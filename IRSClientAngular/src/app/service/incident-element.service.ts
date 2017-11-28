@@ -30,7 +30,7 @@ export class IncidentElementService
 
     static extractAttributesArray( incidentElements: IncidentElement[] ): Object[] {
         var arr = [];
-        //debugger;
+
         incidentElements.forEach( so => {
             //console.log(so);
             arr.push( so.attributes );
@@ -56,6 +56,8 @@ export class IncidentElementService
             key = Config.PersonKey;
         else if ( table === Config.AttachmentTable )
             key = Config.AttachmentKey;
+        else if ( table === Config.GenericElementTable )
+            key = Config.GenericElementKey;
         else {
             console.log( "Table not found.");
             key = table;
@@ -81,6 +83,33 @@ export class IncidentElementService
         else if ( table === Config.AttachmentTable ) {
             elementIndex = incident.incidentElements[key].findIndex( i =>
                 i.attributes.FILE_NAME == idToSearch)
+        }
+        else if ( table === Config.GenericElementTable ) {
+            elementIndex = incident.incidentElements[key].findIndex( i =>
+                i.attributes.GENERIC_ELEMENT_ID == idToSearch)
+        }
+        return elementIndex;
+    }
+
+    getElementIndex( incident: Incident, element: IncidentElement ) {
+        var table = element.table;
+        var key = this.getElementKey ( table );
+        var elementIndex = -1;
+        if ( table === Config.LocationTable ) {
+            elementIndex = incident.incidentElements[key].findIndex( i =>
+                i.attributes.LOCATION_ID == (element as Location).attributes.LOCATION_ID)
+        }
+        else if ( table === Config.StaffTable ) {
+            elementIndex = incident.incidentElements[key].findIndex( i =>
+                i.attributes.ACCOUNT_ID == (element as Staff).attributes.ACCOUNT_ID)
+        }
+        else if ( table === Config.PersonTable ) {
+            var elem = element as Person;
+            var arr = incident.incidentElements[key] as Person[];
+            elementIndex = arr.findIndex( i =>
+                i.attributes.FIRST_NAME === elem.attributes.FIRST_NAME &&
+                i.attributes.LAST_NAME === elem.attributes.LAST_NAME &&
+                i.attributes.PHONE_NUMBER === elem.attributes.PHONE_NUMBER )
         }
         return elementIndex;
     }
@@ -112,9 +141,16 @@ export class IncidentElementService
     }
 
     // Dont call incidentService.update()
-    addElementNoUpdate ( incident: Incident, element: IncidentElement ) {
+    addElementNoUpdate ( incident: Incident, element: IncidentElement ): boolean {
         var key = this.getElementKey( element.table );
-        incident.incidentElements[key].push ( element );
+        var index = this.getElementIndex( incident, element );
+        if ( index < 0 ) {
+            incident.incidentElements[key].push ( element );
+            return true;
+        }
+
+        alert("This item has already been added to the report.");
+        return false;
     }
 
     // Dont call incidentService.update()

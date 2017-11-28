@@ -81,10 +81,126 @@ public class TestIncident
             incident1.addIncidentElement( DatabaseValues.IncidentElementKey.PERSON.toString(), duplicatePerson );
         }
 
+        Person newPerson1 = new Person();
+        newPerson1.updateAttributeValue( Column.PERSON_ID, null );
+        newPerson1.updateAttributeValue( Column.FIRST_NAME, "Ralph");
+        newPerson1.updateAttributeValue( Column.LAST_NAME, "G1");
+        newPerson1.updateAttributeValue( Column.PHONE_NUMBER, "7788899393");
+
+        Person newPerson2 = new Person();
+        newPerson2.updateAttributeValue( Column.PERSON_ID, null );
+        newPerson2.updateAttributeValue( Column.FIRST_NAME, "Ralph");
+        newPerson2.updateAttributeValue( Column.LAST_NAME, "G2");
+        newPerson2.updateAttributeValue( Column.PHONE_NUMBER, "6049989898");
+
+        incident1.addIncidentElement( DatabaseValues.IncidentElementKey.PERSON.toString(), newPerson1 );
+        elementCount++;
+        incident1.addIncidentElement( DatabaseValues.IncidentElementKey.PERSON.toString(), newPerson2 );
+        elementCount++;
+
         /***** ATTACHMENT*****/
         incident1.addIncidentElement( DatabaseValues.IncidentElementKey.ATTACHMENT.toString(), attachment );
         elementCount++;
 
+        /* Generic Element */
+        GenericElement vehicle1 = new GenericElement();
+        vehicle1.updateAttributeValue( Column.GENERIC_ELEMENT_ID, null );
+        vehicle1.updateAttributeValue( Column.TYPE, "Vehicle" );
+        vehicle1.updateAttributeValue( Column.DESCRIPTION, "White BMW 3 Series" );
+        incident1.addIncidentElement( DatabaseValues.IncidentElementKey.GENERIC_ELEMENT.toString(), vehicle1 );
+        elementCount++;
+
+        int currentSize = getNumberOfIncidents ();
+        Assert.assertTrue( DBHelper.insertIncident( incident1 ) );
+
+        Incident [] incidents = DBHelper.getIncidents ();
+
+        Assert.assertTrue( currentSize < incidents.length );
+
+        Incident newlyInsertedIncident = getLastIncident();
+
+        Assert.assertTrue( newlyInsertedIncident != null );
+
+        HashMap< String, ArrayList<IncidentElement> > newMap = newlyInsertedIncident.getIncidentElements();
+        Assert.assertTrue( !newMap.isEmpty() );
+        Assert.assertTrue( newMap.get( DatabaseValues.IncidentElementKey.INCIDENT_CATEGORY.toString() ) != null );
+        Assert.assertTrue( !newMap.get( DatabaseValues.IncidentElementKey.INCIDENT_CATEGORY.toString() ).isEmpty() );
+        IncidentElement newCategory = newMap.get( DatabaseValues.IncidentElementKey.INCIDENT_CATEGORY.toString() ).get(0);
+
+        Assert.assertTrue( incident1.getAttributeValue( Column.CATEGORY_ID )
+                .equals( newCategory.getAttributeValue( Column.CATEGORY_ID ) ));
+        Assert.assertTrue( newCategory.getAttributeValue( Column.CATEGORY_ID ).equals( selectedCategoryId ) );
+
+        Assert.assertTrue( newlyInsertedIncident.numIncidentElements() > 0 );
+
+        // incident1 has 1 extra (duplicate) location
+        if ( locations.length > 0 )
+            Assert.assertTrue( newlyInsertedIncident.numIncidentElements() < incident1.numIncidentElements() );
+    }
+
+    @Test
+    public void testInsertIncident ()
+    {
+        IncidentElement[] categories = DBHelper.getIncidentElements( DatabaseValues.Table.INCIDENT_CATEGORY );
+        IncidentElement[] staffList = DBHelper.getIncidentElements( DatabaseValues.Table.STAFF );
+        if ( categories.length == 0 || staffList.length == 0 )
+            return; // Nothing to test. Can't insert incident without CATEGORY_ID or ACCOUNT_ID
+
+        Random rand = new Random();
+
+        IncidentElement selectedCategory = categories[ rand.nextInt( categories.length ) ];
+        Assert.assertTrue( ( DatabaseValues.Table.INCIDENT_CATEGORY ).toString().contains( selectedCategory.getTable().toString() ) );
+
+        String selectedCategoryId = selectedCategory.getAttributeValue( Column.CATEGORY_ID );
+        Assert.assertTrue( !selectedCategoryId.isEmpty() );
+
+        IncidentElement staff = staffList[ rand.nextInt( staffList.length ) ];
+
+        Incident incident1 = new Incident();
+        incident1.updateAttributeValue ( Column.REPORT_ID, null );
+        incident1.updateAttributeValue ( Column.ACCOUNT_ID, staff.getAttributeValue( Column.ACCOUNT_ID ) );
+        incident1.updateAttributeValue ( Column.CATEGORY_ID, selectedCategoryId );
+        incident1.updateAttributeValue ( Column.DESCRIPTION, "TEST DESCRIPTION" );
+        incident1.updateAttributeValue ( Column.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
+        incident1.updateAttributeValue ( Column.STATUS, "0" );
+
+
+        int elementCount = 0;
+
+        incident1.addIncidentElement( DatabaseValues.IncidentElementKey.INCIDENT_CATEGORY.toString(), selectedCategory );
+        elementCount++;
+
+        /***** STAFF *****/
+        incident1.addIncidentElement( DatabaseValues.IncidentElementKey.STAFF.toString(), staff );
+        elementCount++;
+
+        /***** LOCATIONS *****/
+        Location[] locations = DBHelper.getLocations();
+        if ( locations.length > 0 ) {
+            incident1.addIncidentElement( DatabaseValues.IncidentElementKey.LOCATION.toString(), locations[ rand.nextInt( locations.length ) ] );
+            elementCount++;
+
+            Location duplicateLoc = locations[ rand.nextInt( locations.length ) ];
+            incident1.addIncidentElement( DatabaseValues.IncidentElementKey.LOCATION.toString(), duplicateLoc );
+            elementCount++;
+
+            // Add duplicate location. This should not be inserted in relation table
+            incident1.addIncidentElement( DatabaseValues.IncidentElementKey.LOCATION.toString(), duplicateLoc );
+        }
+
+        /***** PERSONS *****/
+        Person[] persons = DBHelper.getPersons();
+        if ( persons.length > 0 ) {
+            incident1.addIncidentElement( DatabaseValues.IncidentElementKey.PERSON.toString(), persons[ rand.nextInt(persons.length)] );
+            elementCount++;
+
+            Person duplicatePerson = persons[ rand.nextInt(persons.length)];
+            incident1.addIncidentElement( DatabaseValues.IncidentElementKey.PERSON.toString(), duplicatePerson );
+            elementCount++ ;
+
+            // Add duplicate person. This should not be inserted in relation table
+            incident1.addIncidentElement( DatabaseValues.IncidentElementKey.PERSON.toString(), duplicatePerson );
+        }
 
         Person newPerson1 = new Person();
         newPerson1.updateAttributeValue( Column.PERSON_ID, null );
@@ -104,7 +220,7 @@ public class TestIncident
         elementCount++;
 
         int currentSize = getNumberOfIncidents ();
-        Assert.assertTrue( DBHelper.insertIncident( incident1 ) );
+        Assert.assertTrue( DBHelper.insertIncident ( incident1 ) );
 
         Incident [] incidents = DBHelper.getIncidents ();
         System.out.println(incidents[0]);
@@ -195,7 +311,7 @@ public class TestIncident
         Assert.assertTrue( incident1.numIncidentElements() > 0 );
 
         int currentSize = getNumberOfIncidents ();
-        Assert.assertTrue ( DBHelper.insertIncident( incident1 ) );
+        Assert.assertTrue ( DBHelper.insertIncident ( incident1 ) );
 
         Incident [] incidents = DBHelper.getIncidents ();
 
@@ -513,10 +629,9 @@ public class TestIncident
         newIncident.updateAttributeValue ( Column.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
 
         newIncident.addIncidentElement( DatabaseValues.IncidentElementKey.STAFF.toString(), assignStaff );
-
         int currentSize = getNumberOfIncidents();
 
-        Assert.assertTrue( DBHelper.insertIncident( newIncident ));
+        Assert.assertTrue( DBHelper.insertIncident ( newIncident ) );
         Assert.assertTrue( currentSize < getNumberOfIncidents() );
 
         Incident newlyInsertedIncident = getLastIncident();
@@ -575,7 +690,7 @@ public class TestIncident
         incident1.updateAttributeValue ( Column.EXECUTIVE_SUMMARY, "TEST SUMMARY" );
         incident1.updateAttributeValue ( Column.STATUS, "0" );
 
-        Assert.assertFalse( DBHelper.insertIncident( incident1 ) );
+        Assert.assertFalse( DBHelper.insertIncident ( incident1 ) );
     }
 
     @Test

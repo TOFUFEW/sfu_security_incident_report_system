@@ -49,15 +49,15 @@ export class PersonService {
         return Promise.resolve( promise );
     };
 
-    personExists( person : Person ) : Promise<boolean> {
+    personExists( person : Person ) : Promise<Person> {
         var promise = this.http
             .post( Config.PersonExistsURI, JSON.stringify( person ), { headers: this.headers } )
             .toPromise()
-            .then( response => response.json() as boolean )
+            .then( response => response.json() as Person )
             .catch( this.handleError );
         return Promise.resolve( promise );
     }
-    
+
     delete( id: number ) : Promise<boolean> {
         var url = `${this.personUrl}/${id}`;
         var promise = this.http
@@ -78,10 +78,10 @@ export class PersonService {
             for (var i = 0; i < personList.length; i++) {
                 if( i >= filterList.length){
                     break;
-                } 
+                }
                 if (!filterList[i].attributes.FIRST_NAME.toUpperCase().includes(filter.attributes.FIRST_NAME.toUpperCase())){
                     filterList.splice(i, 1);
-                    i--;                    
+                    i--;
                 }
             }
         }
@@ -89,10 +89,10 @@ export class PersonService {
             for (var i = 0; i < personList.length; i++){
                 if( i >= filterList.length){
                     break;
-                } 
+                }
                 if (!filterList[i].attributes.LAST_NAME.toUpperCase().includes(filter.attributes.LAST_NAME.toUpperCase())){
                     filterList.splice(i, 1);
-                    i--;                    
+                    i--;
                 }
             }
         }
@@ -100,7 +100,7 @@ export class PersonService {
             for (var i = 0; i < personList.length; i++){
                 if( i >= filterList.length){
                     break;
-                } 
+                }
                 if (!filterList[i].attributes.PHONE_NUMBER.toString().includes(filter.attributes.PHONE_NUMBER.toString())){
                     filterList.splice(i, 1);
                     i--;

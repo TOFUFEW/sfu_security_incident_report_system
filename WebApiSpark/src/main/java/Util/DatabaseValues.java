@@ -1,5 +1,9 @@
 package Util;
 
+import java.sql.Timestamp;
+import Model.IncidentElement;
+
+import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,6 +19,7 @@ public class DatabaseValues
         ACCOUNT ( "dbo.Account" ),
         ASSIGNED_TO ( "dbo.AssignedTo" ),
         CAMPUS ( "dbo.Campus" ),
+        GENERIC_ELEMENT ( "dbo.GenericElement" ),
         HAPPENS_AT ( "dbo.HappensAt" ),
         INCIDENT ( "dbo.Incident" ),
         INCIDENT_CATEGORY ( "dbo.IncidentCategory" ),
@@ -141,12 +146,30 @@ public class DatabaseValues
                 null
         ),
 
+        // Associated Tables: Incident
+        SEARCH_TEXT (
+                "SEARCH_TEXT" ,
+                "TEXT",
+                DEFAULT_STRING_VALUE,
+                null
+        ),
+
         // Associated Tables: Person, Staff
         FIRST_NAME (
                 "FIRST_NAME" ,
                 "VARCHAR(" + 30 + ")",
                 DEFAULT_STRING_VALUE,
                 null
+        ),
+
+        GENERIC_ELEMENT_ID (
+                "GENERIC_ELEMENT_ID",
+                "INT",
+                DEFAULT_INT_VALUE,
+                new Table[]
+                        {
+                                Table.GENERIC_ELEMENT
+                        }
         ),
 
         // Associated Tables: IncidentCategory
@@ -283,9 +306,17 @@ public class DatabaseValues
         ),
 
         TIMER_END (
-                "TIMER_START" ,
+                "TIMER_END" ,
                 "INT" ,
                 DEFAULT_INT_VALUE ,
+                null
+        ),
+
+        // GenericElement
+        TYPE (
+                "TYPE",
+                "VARCHAR(" + 20 + ")",
+                DEFAULT_STRING_VALUE,
                 null
         ),
 
@@ -373,7 +404,8 @@ public class DatabaseValues
         LOCATION ( "Location" ),
         PERSON ( "Person" ),
         STAFF ( "Staff" ),
-        ATTACHMENT ( "Attachment" );
+        ATTACHMENT ( "Attachment" ),
+        GENERIC_ELEMENT ( "GenericElement" );
 
         private String key;
 

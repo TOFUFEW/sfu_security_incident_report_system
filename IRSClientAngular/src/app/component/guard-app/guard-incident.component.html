@@ -1,8 +1,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<button class="btn btn-circle guard-button-navbar card-text-primary" (click)="viewAllReports()">
-    <span class="glyphicon glyphicon-chevron-left ml-1 mr-sm"></span>
+<!-- <button class="btn btn-circle guard-button-navbar card-text-primary" (click)="viewAllReports()">
+    <span class="glyphicon glyphicon-chevron-left ml-1 mr-sm"></span> 
     All Reports
-</button>
+</button> -->
 
 <div name="alertMessage" *ngIf="showAlert" [class]="alertClass">{{alertMessage}}
 </div>
@@ -31,11 +31,6 @@
                             <!-- <h5>
                                 <span class="mr-5" style="display:block" (dblclick)="modalCategory.show()">
                                     Category {{incident.category.MAIN_CATEGORY}}  -->
-                            <!-- <button class="btn btn-default btn-xs pull-right" (dblclick)="modalCategory.show()"><span class="p-2 glyphicon glyphicon-edit"></span></button> -->
-                            <!-- <br>
-                            <span class="ml-3">{{incident.category.SUB_CATEGORY}}</span><br>
-                            <span class="ml-3">{{incident.category.INCIDENT_TYPE}}</span>
-                        </span> -->
                             <!-- </h5> -->
                           </div>
                         </div>
@@ -46,6 +41,26 @@
                             (categorySaved)="changeCategory($event)">
                         </category-component>
                         <div class="panel-group" id="accordion">
+                            <div class="panel panel-default ml-1 mr-1">
+                                <div class="panel-heading collapsable-heading">
+                                    <h4 class="panel-title">
+                                        <a  class="accordion-toggle"
+                                            data-toggle="collapse"
+                                            href="#collapseStatus">
+                                          Status
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseStatus" class="panel-collapse collapse in">
+                                    <div class="panel-body lh-1" *ngIf="incident">
+                                        <status-component #modalStatus (statusSaved)="changeStatus($event)"></status-component>
+                                        <span [id]="statuses[incident.attributes.STATUS]"
+                                           (click)="modalStatus.show()">
+                                            {{statuses[incident.attributes.STATUS]}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="panel panel-default ml-1 mr-1">
                                     <div class="panel-heading collapsable-heading">
                                         <h4 class="panel-title">
@@ -80,13 +95,13 @@
                                     </h4>
                                 </div>
                                 <div id="collapseLocation" class="panel-collapse collapse in">
-                                    <div class="panel-body lh-1" *ngIf="incident">
-                                        <span *ngFor="let location of incident.incidentElements['Location']"
+                                    <div class="panel-body details-body lh-1" *ngIf="incident">
+                                        <span *ngFor="let location of incident.incidentElements['Location']" 
                                             [id]="location.attributes.LOCATION_ID"
                                             (click)="this.modalLocation.show($event)">
-                                            {{location.attributes.CAMPUS_ID}},
-                                            {{location.attributes.BUILDING_NAME}},
-                                            {{location.attributes.ROOM_NUMBER}}
+                                            {{location.attributes.CITY}},                                            
+                                            {{location.attributes.BUILDING_NAME}}<span *ngIf='location.attributes.ROOM_NUMBER != ""'>,</span>
+                                            {{location.attributes.ROOM_NUMBER}}    
                                             <!-- {{location.attributes.DEPARTMENT}}  -->
                                             <br>
                                         </span>
@@ -123,7 +138,7 @@
                                             </button>
                                             <button (click)="saveReport('summary')"
                                                     class="btn btn-sm btn-primary pull-right mt-2 mb-1">
-                                                <span class="glyphicon glyphicon-ok"></span> Save
+                                                <span class="glyphicon glyphicon-floppy-disk"></span> Save
                                             </button>
                                         </div>
                                     </div>
@@ -151,7 +166,7 @@
                                             </button>
                                             <button (click)="saveReport('description')"
                                             class="btn btn-sm btn-primary pull-right mt-2 mb-1">
-                                            <span class="glyphicon glyphicon-ok"></span> Save
+                                            <span class="glyphicon glyphicon-floppy-disk"></span> Save
                                         </button>
                                         </div>
                                     </div>

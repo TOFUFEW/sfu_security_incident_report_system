@@ -1,0 +1,25 @@
+CREATE PROCEDURE [dbo].[FTSearchIncidents]
+    @user_id INT,
+    @search_text VARCHAR(1000)
+AS
+BEGIN
+    IF (SELECT ACCOUNT_TYPE
+        FROM Account
+        WHERE ACCOUNT_ID = @user_id) = 2
+    BEGIN
+        SELECT TOP 2 * 
+        FROM FREETEXTTABLE(dbo.Incident, SEARCH_TEXT, @search_text) as t
+			join dbo.Incident i on t.[key] = i.REPORT_ID
+		WHERE i.status <= 4
+		order by t.rank desc
+    END
+	ELSE IF (SELECT ACCOUNT_TYPE
+        FROM Account
+        WHERE ACCOUNT_ID = @user_id) = 3 
+	BEGIN
+		SELECT TOP 2 * 
+        FROM FREETEXTTABLE(dbo.Incident, SEARCH_TEXT, @search_text) as t
+			join dbo.Incident i on t.[key] = i.REPORT_ID 
+		order by t.rank desc
+	END
+END;

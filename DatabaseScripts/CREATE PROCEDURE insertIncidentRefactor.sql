@@ -4,7 +4,11 @@ CREATE PROCEDURE [dbo].[insertIncidentRefactor]
 	@category_id INT,
 	@description TEXT,
 	@executive_summary TEXT,
+<<<<<<< HEAD
+	@temporary_report INT,
+=======
 	@result BIT = 1 OUTPUT
+>>>>>>> master
 AS
 BEGIN
 	IF EXISTS ( SELECT CATEGORY_ID
@@ -12,6 +16,23 @@ BEGIN
 		WHERE CATEGORY_ID = @category_id
 	)
 	BEGIN
+<<<<<<< HEAD
+		INSERT INTO Incident (
+			ACCOUNT_ID,
+			CATEGORY_ID,
+			DESCRIPTION,
+			EXECUTIVE_SUMMARY,
+			TEMPORARY_REPORT,
+			START_TIME
+		) VALUES (
+			@creator_id,
+			@category_id,
+			@description,
+			@executive_summary,
+			@temporary_report,
+			GETDATE()
+		);
+=======
 		IF EXISTS ( SELECT ACCOUNT_ID
 			FROM Account
 			WHERE ACCOUNT_ID = @creator_id AND
@@ -58,5 +79,6 @@ BEGIN
 	ELSE
 	BEGIN
 		SELECT @result = 0;
+>>>>>>> master
 	END
 END;

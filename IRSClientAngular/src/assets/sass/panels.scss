@@ -1,6 +1,8 @@
 @import "_settings";
 
-div#incidents-list-panel, div#staff-list-panel {
+div#incidents-list-panel, 
+div#staff-list-panel,
+div#timer-list-panel {
     height: 100%;
     //border-top: 4px solid $grey-default;
     border-top-left-radius: 0px;

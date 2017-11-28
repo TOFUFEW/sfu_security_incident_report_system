@@ -4,7 +4,6 @@ import { IncidentElement } from '../report/incident-element';
 export class Staff implements IncidentElement {
     table: string;
     attributes: StaffAttributes;
-    searchString: string;
 
     constructor() {
         this.attributes = new StaffAttributes();

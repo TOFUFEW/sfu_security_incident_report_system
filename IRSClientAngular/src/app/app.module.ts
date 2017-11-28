@@ -7,7 +7,7 @@ import { routes } from './app.router';
 
 /* Components */
 import { AppComponent } from './app.component';
-
+import { NavbarComponent } from './component/navbar/navbar.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { LocationComponent } from './component/location/location.component';
 import { StaffComponent } from './component/staff/staff.component';
@@ -20,25 +20,30 @@ import { VehicleComponent } from './component/vehicle/vehicle.component';
 import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
 import { AttachmentComponent } from './component/attachment/attachment.component';
-import { AttachmentViewComponent } from './component/attachment/attachmentView.component';
+import { TimerComponent } from './component/timer/timer.component';
 import { LocationModalComponent } from './component/location/location-modal.component';
-import { CategoryComponent } from './component/category/category.component'
+import { CategoryComponent } from './component/category/category.component';
 import { ReportSummaryComponent } from './component/report/report-summary.component';
 import { InlineEditComponent } from './component/report/inline-edit.component';
 import { NewAccountComponent } from './component/login/new-account-component';
+import { GenericElementComponent } from './component/generic-element/generic-element.component';
+import { SpinnerComponent } from './component/loading-spinner/spinner.component';
+import { StatusComponent } from './component/status/status.component';
 
 /* Services */
 import { UserService } from './service/user.service';
 import { LoginService } from './service/login.service';
 import { CategoryService } from './service/category.service';
 import { DomService } from './util/dom.service';
-import { LocationService } from './service/location.service'
-import { IncidentService } from './service/incident.service'
+import { LocationService } from './service/location.service';
+import { IncidentService } from './service/incident.service';
 import { IncidentElementService } from './service/incident-element.service';
 import { StaffService } from './service/staff.service'
 import { PersonService } from './service/person.service';
 import { NewReportService } from './service/new-report.service';
+import { TimerService } from './service/timer.service';
 import { FilterPipe } from './util/filter.pipe';
+
 
 @NgModule({
   imports: [
@@ -51,13 +56,14 @@ import { FilterPipe } from './util/filter.pipe';
 
   declarations: [
     AppComponent,
-
+    AttachmentComponent,
+    AttachmentViewComponent,
+    NavbarComponent,
+    StatusComponent,
     DashboardComponent,
     LocationComponent,
     LocationModalComponent,
     StaffComponent,
-    AttachmentComponent,
-    AttachmentViewComponent,
     IncidentComponent,
     LoginComponent,
     GuardIncidentComponent,
@@ -69,8 +75,11 @@ import { FilterPipe } from './util/filter.pipe';
     PersonComponent,
     FilterPipe,
     ReportSummaryComponent,
+    TimerComponent,
     NewAccountComponent,
-    InlineEditComponent
+    InlineEditComponent,
+    GenericElementComponent,
+    SpinnerComponent
   ],
 
   providers: [
@@ -83,9 +92,12 @@ import { FilterPipe } from './util/filter.pipe';
     StaffService,
     PersonService,
     NewReportService,
-    CategoryService],
+    CategoryService,
+    TimerService
+  ],
+
   bootstrap: [AppComponent],
-  entryComponents: [ LocationComponent, VehicleComponent,
+  entryComponents: [ LocationComponent, VehicleComponent, GenericElementComponent,
     PersonComponent, AttachmentComponent ]
 
 })

@@ -9,10 +9,11 @@ import { User } from '../app/component/login/user';
 })
 
 export class AppComponent implements OnInit {
-
+   
     user: User;
     userAccType: number;
     isAdmin: boolean = false;
+    isGuardApp: boolean = false;
 
     constructor( 
         private router: Router,

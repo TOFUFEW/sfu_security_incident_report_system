@@ -12,6 +12,7 @@ import { LocationComponent } from '../component/location/location.component';
 import { VehicleComponent } from '../component/vehicle/vehicle.component';
 import { PersonComponent } from '../component/person/person.component';
 import { AttachmentComponent } from '../component/attachment/attachment.component';
+import { GenericElementComponent } from '../component/generic-element/generic-element.component';
 
 @Injectable()
 export class DomService {
@@ -65,6 +66,12 @@ export class DomService {
         else if ( componentName === AttachmentComponent.name ) {
             return this.componentFactoryResolver
             .resolveComponentFactory( AttachmentComponent )
+            .create( this.injector );
+        }
+
+        else if ( componentName === GenericElementComponent.name ) {
+            return this.componentFactoryResolver
+            .resolveComponentFactory( GenericElementComponent )
             .create( this.injector );
         }
 

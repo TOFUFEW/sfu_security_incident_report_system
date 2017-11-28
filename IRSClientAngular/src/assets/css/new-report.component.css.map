@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAAA,oBAAqB;EACjB,UAAU,EAAE,IAAI;;AAKhB,2BAAa;EACT,OAAO,EAAC,IAAI",
+"mappings": "AAAA,oBAAqB;EACjB,UAAU,EAAE,IAAI;EAEhB,mCAAe;IACX,OAAO,EAAE,IAAI;IACb,eAAe,EAAE,aAAa;IAC9B,WAAW,EAAE,MAAM;;AAMvB,2BAAa;EACT,OAAO,EAAC,IAAI",
 "sources": ["../sass/new-report.component.scss"],
 "names": [],
 "file": "new-report.component.css"
