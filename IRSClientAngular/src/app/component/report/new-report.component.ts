@@ -51,7 +51,6 @@ export class NewReportComponent implements OnInit {
     date = new Date();
     
     constructor(
-<<<<<<< HEAD
       private incidentService: IncidentService,
       private domService: DomService,
       private newReportService: NewReportService,
@@ -60,15 +59,6 @@ export class NewReportComponent implements OnInit {
       private timerService: TimerService,
       private userService: UserService,
       private router: Router
-=======
-        private incidentService: IncidentService,
-        private domService: DomService,
-        private newReportService: NewReportService,
-        private categoryService: CategoryService,
-        private staffService: StaffService,
-        private userService: UserService,
-        private router: Router
->>>>>>> f4f95d8bb29acd1e80559154e9f0146507cb4a22
     ) {
         this.staffService.getStaffs().then(returnedStaffs => {
             this.staffList = returnedStaffs.sort(
@@ -221,15 +211,11 @@ export class NewReportComponent implements OnInit {
         }
     }
 
-<<<<<<< HEAD
     formatTime(num : number): string{
         return this.timerService.timeToString(num);
     }
     
     addComponent( componentName: string ) {
-=======
-    addComponent(componentName: string) {
->>>>>>> f4f95d8bb29acd1e80559154e9f0146507cb4a22
         //if ( this.dynamicTest == 'Vehicle' )
           //  this.domService.addComponent( VehicleComponent, "vehicles" );
         /*else*/ if (componentName === this.locationStr) {
