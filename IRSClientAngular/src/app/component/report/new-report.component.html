@@ -215,7 +215,7 @@
                         <span class="glyphicon glyphicon-user glyphicon-heading"></span>
                         <span class="field-title">Involved Persons</span>
                     </div>
-                    <div class="details-body" *ngFor="let person of newIncident.incidentElements['Person']">
+                    <div class="details-body" *ngFor="let person of personsList">
                         <div class="detail col-12 col-sm-3">
                             <span class="field-title">First Name: </span>
                             <span class="field-value">{{person.attributes.FIRST_NAME}}</span>

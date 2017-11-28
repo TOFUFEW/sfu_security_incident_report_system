@@ -1,7 +1,10 @@
 package Model;
 
 
+import Util.DBHelper;
 import Util.DatabaseValues;
+
+import java.util.List;
 
 public class Location extends IncidentElement
 {
@@ -60,5 +63,19 @@ public class Location extends IncidentElement
                 DatabaseValues.Column.DEPARTMENT,
                 department
         );
+    }
+
+    @Override
+    public String toSearchString() {
+
+        // HACK
+        Campus[] campusList = DBHelper.getCampus();
+        int index = Integer.parseInt(this.getAttributeValue( DatabaseValues.Column.CAMPUS_ID));
+        String campusString = campusList[index - 1].getAttributeValue( DatabaseValues.Column.CITY);
+
+        return campusString + " " +
+                this.getAttributeValue( DatabaseValues.Column.BUILDING_NAME ) + " " +
+                this.getAttributeValue( DatabaseValues.Column.ROOM_NUMBER ) + " " +
+                this.getAttributeValue( DatabaseValues.Column.DEPARTMENT );
     }
 }

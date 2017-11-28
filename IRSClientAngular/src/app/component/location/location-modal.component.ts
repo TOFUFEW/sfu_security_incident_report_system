@@ -32,11 +32,9 @@ export class LocationModalComponent implements OnInit {
     public show ( event ): void {         
         this.locationComponent.resetLists();
         var target = event.target || event.srcElement || event.currentTarget;         
-        if ( target.id ) {
-            console.log("target ", target );          
+        if ( target.id ) {        
             var idAttr = target.id;             
-            this.button_id = idAttr;      
-            console.log("target ", idAttr );                      
+            this.button_id = idAttr;                          
         }        
         else {             
             this.button_id = -1;       

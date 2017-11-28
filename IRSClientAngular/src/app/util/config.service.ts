@@ -2,6 +2,8 @@ export class Config {
 
     static LocationsURI: string = "https://localhost:4567/locations";
     static IncidentsURI: string = "https://localhost:4567/incidents";
+    static FTSearchURI: string = "https://localhost:4567/ftsearch-incident";
+    static CTSearchURI: string = "https://localhost:4567/ctsearch-incident";
     static StaffURI: string = "https://localhost:4567/staff";
     static LoginURI: string = "https://localhost:4567/login";
     static PersonURI: string = "https://localhost:4567/person";
@@ -35,4 +37,6 @@ export class Config {
     static PersonKey: string = "Person";
     static StaffKey: string = "Staff";
     static CampusKey: string = "Campus";
+
+    static FailedToRetrieveMsg: string = "Failed to retrieve data from server";
 }

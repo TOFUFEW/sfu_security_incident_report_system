@@ -21,9 +21,9 @@ export class LocationComponent implements OnInit {
     newLocation: Location = new Location();
     currentLocation: Location = new Location();
 
-    showCampusAlert: boolean = false;  
+    showCampusAlert: boolean = false;
     showBuildingAlert: boolean = false;
-    
+
     constructor (
         private locationService: LocationService,
         private reportService: NewReportService
@@ -31,32 +31,25 @@ export class LocationComponent implements OnInit {
     }
 
     validateNewLocation(): boolean {
-        console.log("new location ", this.newLocation);
-        console.log("current location", this.currentLocation);
-
         if ( this.newLocation.attributes.CAMPUS_ID == null ) {
             if ( this.currentLocation.attributes.CAMPUS_ID != null ) {
                 this.newLocation.attributes.CAMPUS_ID = this.currentLocation.attributes.CAMPUS_ID;
             }
             else {
-                console.log("no campus");
                 this.showCampusAlert = true;
                 return false;
             }
         }
         if ( this.newLocation.attributes.CITY == null || this.newLocation.attributes.CITY == "" ) {
             if ( this.currentLocation.attributes.CITY != "") {
-                this.newLocation.attributes.CITY = this.currentLocation.attributes.CITY;                
+                this.newLocation.attributes.CITY = this.currentLocation.attributes.CITY;
             }
         }
         if ( this.newLocation.attributes.BUILDING_NAME == null || this.newLocation.attributes.BUILDING_NAME == "" ) {
             if ( this.currentLocation.attributes.BUILDING_NAME != "") {
-                console.log("changing building");                
-                
                 this.newLocation.attributes.BUILDING_NAME = this.currentLocation.attributes.BUILDING_NAME;
             }
             else {
-                console.log("no building");
                 this.showBuildingAlert = true;
                 return false;
             }
@@ -88,8 +81,8 @@ export class LocationComponent implements OnInit {
 
     resetLists() {
         this.buildings = [];
-        this.rooms = [];                
-        this.showCampusAlert = false;  
+        this.rooms = [];
+        this.showCampusAlert = false;
         this.showBuildingAlert = false;
     }
 
@@ -99,7 +92,6 @@ export class LocationComponent implements OnInit {
 
     removeLocationFromReport(): void {
         if ( this.reference == null ) {
-            console.log("must have a location!");
             return;
         }
 
@@ -118,8 +110,8 @@ export class LocationComponent implements OnInit {
     }
 
     onSelectCampus(): void {
-        this.showCampusAlert = false;   
-        this.currentLocation.attributes.BUILDING_NAME = "";       
+        this.showCampusAlert = false;
+        this.currentLocation.attributes.BUILDING_NAME = "";
         this.locationMap.forEach( campus => {
             if ( campus.CAMPUS_ID == this.newLocation.attributes.CAMPUS_ID ) {
                 this.buildings = campus.BUILDINGS;   
@@ -132,7 +124,7 @@ export class LocationComponent implements OnInit {
     }
 
     onSelectBuilding(): void {
-        this.showBuildingAlert = false;  
+        this.showBuildingAlert = false;
         this.currentLocation.attributes.ROOM_NUMBER = "";
         this.buildings.forEach( bldg => {
             if ( bldg.BUILDING_NAME === this.newLocation.attributes.BUILDING_NAME ) {
@@ -190,7 +182,6 @@ export class LocationComponent implements OnInit {
             var msg = isDeleted ? "Location successfully deleted!" : "Delete failed";
             alert(msg);
             var i = this.locations.findIndex(loc => loc.attributes.LOCATION_ID === id);
-            console.log("delete successful");
             // remove 1 object at index i
             this.locations.splice(i, 1);
         });

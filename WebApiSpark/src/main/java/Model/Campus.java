@@ -44,4 +44,5 @@ public class Campus extends IncidentElement
                 address
         );
     }
+
 }

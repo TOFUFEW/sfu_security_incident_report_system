@@ -59,11 +59,7 @@ export class IncidentComponent implements OnInit {
     }
 
     removeFromWorkspace( id: number ): void {
-        if ( this.incidents == null || this.incidents.length == 0 ) return;
-        console.log(" removing " + id);
-        var index = this.incidents.findIndex( i => i.attributes.REPORT_ID == id );
-        console.log( "index: " + index );
-        this.incidents[ index ].inWorkspace = false;
+        this.incidentService.removeFromWorkspace( id );
     }
 
     setIncidentToAssign( id: number ) {
@@ -113,7 +109,6 @@ export class IncidentComponent implements OnInit {
         this.incidentService.staffArr.subscribe(
             arr => { this.staffArr = arr; }
         );
-
         this.incidentService.reportsInList
           .subscribe( reports => {
               this.incidents = reports as Incident[];

@@ -24,8 +24,8 @@ body {
     border-radius: 0px !important;
     margin: 0px;
 
-    a, .link, .glyphicon-menu-hamburger { 
-        color: $white; 
+    a, .link, .glyphicon-menu-hamburger {
+        color: $white;
     }
 
     .navbar-collapse {
@@ -41,7 +41,7 @@ body {
         background-color: $sfu-red !important;
 
         &.active {
-            font-weight: 700;            
+            font-weight: 700;
         }
     }
 
@@ -56,7 +56,7 @@ body {
         width: 100px !important;
 
         li {
-            padding: 8px; 
+            padding: 8px;
         }
 
         li#separator {
@@ -68,7 +68,7 @@ body {
         }
 
     }
-    
+
     .navbar-toggle {
         border: none;
         span {
@@ -87,7 +87,7 @@ body {
         .pull-sm-left {
             float: left !important;
         }
-    } 
+    }
 }
 
 
@@ -256,7 +256,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+
     .form-control {
         margin-left: 20px;
     }
@@ -291,7 +291,7 @@ body {
         @include flex(flex-end, center);
         padding: 8px;
 
-        .btn { 
+        .btn {
             margin-left: 12px;
         }
     }
@@ -426,7 +426,7 @@ div.phone-input {
 
 #logout {
     background-color: transparent;
-    position: absolute; 
+    position: absolute;
     right: 0.5em;
     margin-top: 0.5em;
     color: #f9f9f9;
@@ -435,7 +435,11 @@ div.phone-input {
 div#new-report-panel, div#new-account-panel {
     margin-top: $padding-md;
 }
-    
+
+.content-container {
+    padding-top: $padding-lg;
+}
+
 .animate-show-hide.ng-hide {
     opacity: 0;
 }
@@ -537,8 +541,8 @@ div#new-report-panel, div#new-account-panel {
         font-size: 110% !important;
     }
 
-    .navbar-sm { 
-        display: block; 
+    .navbar-sm {
+        display: block;
     }
     .navbar-lg { display: none; }
 }
@@ -548,7 +552,7 @@ div#new-report-panel, div#new-account-panel {
     justify-content: flex-end;
     padding-top: 8px;
     padding-bottom: 8px;
-    
+
     span {
         margin: 8px;
     }
