@@ -44,20 +44,9 @@ export class IncidentComponent implements OnInit {
     };
 
     getIncidents(): void {
-        this.incidentService.allReports
-        .subscribe(
-            (responseData) => {
-                setTimeout( () => {
-                    this.incidents = responseData;
-                    } , 1000);
-            },
-            (errors) => {
-                alert(Config.FailedToRetrieveMsg);
-            },
-            () => {
-                console.log("Done before data is finished");
-            }
-        );
+        this.incidentService.getIncidents().then( returnedIncidents => {
+            this.incidents = returnedIncidents;
+        } );
     }
 
     getStaffList() {
@@ -120,7 +109,6 @@ export class IncidentComponent implements OnInit {
         this.incidentService.staffArr.subscribe(
             arr => { this.staffArr = arr; }
         );
-
         this.incidentService.reportsInList
           .subscribe( reports => {
               this.incidents = reports as Incident[];

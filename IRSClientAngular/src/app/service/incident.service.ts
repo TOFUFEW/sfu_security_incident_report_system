@@ -32,8 +32,10 @@ export class IncidentService {
 
     private userService = new UserService;
 
+    /*
     private bs_allReports = new BehaviorSubject<Incident[]>([]);
     allReports = this.bs_allReports.asObservable()
+    */
 
     private bs_reportsInList = new BehaviorSubject < Incident [] > ( [] );
     reportsInList = this.bs_reportsInList.asObservable ();
@@ -73,9 +75,11 @@ export class IncidentService {
             this.bs_categories.next(cat);
         } );
 
+        /*
         this.getIncidents().then(response => {
             this.bs_allReports.next(response);
         });
+        */
 
         // Web socket
         var wss = new WebSocket ( Config.IncidentsWebSocketURI );
