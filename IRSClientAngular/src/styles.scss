@@ -408,17 +408,17 @@ span.glyphicon-fire {
 }
 
 .alert .modal-dialog {
-    margin: 10%;
+    margin: 0 10%;
     padding: 0;
-    @media (max-width: 450px) {
-        margin: 5vw;
+    @media (max-width: 550px) {
+        margin: 0 1%;
     }
 }
 
 .alert .modal-content {
     padding: 15px 15px 0 20px;
     width: 400px;
-    max-width: 90vw;
+    max-width: 85vw;
 }
 
 .alertText {
