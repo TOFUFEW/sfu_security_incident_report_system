@@ -1,24 +1,27 @@
 import { Staff } from '../staff/staff';
 import { Location } from '../location/location';
 import { Person } from '../person/person';
-import { IncidentElement} from './incident-element';
+import { Timer } from '../timer/timer';
+import { IncidentElement } from './incident-element';
 import { Category } from '../category/category';
 import { Observable } from 'rxjs/Observable';
 import { Config } from '../../util/config.service';
+import { Type, plainToClass} from "class-transformer";
 
 export class Incident {
     table: string;
     incidentElements: Map<String, IncidentElement[]>;
     attributes: IncidentAttributes;
-    searchString: string;
+    searchString: string = "";
 
     category: Category;
     guard: Staff;
 
+ 
     inWorkspace: boolean;
 
     constructor() {
-        this.incidentElements = new Map;
+        this.incidentElements = new Map();
         this.attributes = new IncidentAttributes();
         this.category = new Category(null, null, null, null);
         this.inWorkspace = false;
@@ -38,9 +41,9 @@ export class Incident {
                 if ( i >= 0 ) {
                     this.incidentElements[key].splice(i, 1);
                 }
-            }            
+            }
         }
-        else if ( table === Config.LocationTable ) 
+        else if ( table === Config.LocationTable )
             key = Config.LocationKey;
         else if ( table === Config.StaffTable )
             key = Config.StaffKey
@@ -51,22 +54,33 @@ export class Incident {
             key = table;
         }
 
+
         if ( this.incidentElements[key] == null ) {
             this.incidentElements[key] = new Array;
         }
-
         this.incidentElements[key].push( element );
+        /*
+        if ( this.incidentElements[key] == null || undefined) {
+            this.incidentElements.set(key, new Array);
+        }
+
+        var elementArray = this.incidentElements.get(key);
+        elementArray.push(element);
+        */
     }
 }
 
 export class IncidentAttributes {
     REPORT_ID: number;
     ACCOUNT_ID: number;
+    CATEGORY_ID: number;
     DESCRIPTION: string;
     EXECUTIVE_SUMMARY: string;
+    SEARCH_TEXT: string;
     STATUS: number;
-    CATEGORY_ID: number;
     TEMPORARY_REPORT: number;
     START_TIME: number;
     END_TIME: number;
+    TIMER_START: number;
+    TIMER_END: number;
 }

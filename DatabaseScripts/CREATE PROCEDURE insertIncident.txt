@@ -1,0 +1,73 @@
+CREATE PROCEDURE [dbo].[insertIncident] 
+	@creator_id INT,
+	@category_id INT,
+	@description TEXT,
+	@executive_summary TEXT,
+	@search_text TEXT,
+	@timer_start INT,
+	@timer_end INT,
+	@result BIT = 1 OUTPUT
+AS
+BEGIN
+	IF EXISTS ( SELECT CATEGORY_ID
+		FROM IncidentCategory
+		WHERE CATEGORY_ID = @category_id
+	)
+	BEGIN
+		DECLARE @report_id INT = IDENT_CURRENT('Incident') + 1;
+		IF EXISTS ( SELECT ACCOUNT_ID
+			FROM Account
+			WHERE ACCOUNT_ID = @creator_id AND
+				ACCOUNT_TYPE = 1 
+		)
+		BEGIN
+			INSERT INTO Incident (
+				ACCOUNT_ID,
+				CATEGORY_ID,
+				DESCRIPTION,
+				EXECUTIVE_SUMMARY,
+				SEARCH_TEXT,
+				TEMPORARY_REPORT,
+				START_TIME
+			) VALUES (
+				@creator_id,
+				@category_id,
+				@description,
+				@executive_summary,
+				CONCAT(CONCAT(@search_text, ' '), @report_id),
+				1,
+				GETDATE()
+			);
+			SELECT @result = 1;
+		END
+		ELSE
+		BEGIN
+			INSERT INTO Incident (
+				ACCOUNT_ID,
+				CATEGORY_ID,
+				DESCRIPTION,
+				EXECUTIVE_SUMMARY,
+				SEARCH_TEXT,
+				TEMPORARY_REPORT,
+				START_TIME,
+				TIMER_START,
+				TIMER_END
+			) VALUES (
+				@creator_id,
+				@category_id,
+				@description,
+				@executive_summary,
+				CONCAT(CONCAT(@search_text, ' '), @report_id),
+				0,
+				GETDATE(),
+				@timer_start,
+				@timer_end
+			);
+			SELECT @result = 1;
+		END
+	END
+	ELSE
+	BEGIN
+		SELECT @result = 0;
+	END
+END;

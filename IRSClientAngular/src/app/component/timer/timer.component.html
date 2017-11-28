@@ -1,0 +1,55 @@
+<div id="timer-list-panel" class="panel panel-default">
+    <div class="panel-heading">
+        <div class="toolbar">
+            <div class="flex">
+                <span class="glyphicon glyphicon-alert glyphicon-heading"></span>
+                <span class="panel-header">WatchList</span>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="col-sm-12">
+            <div class="timer-card" *ngFor="let timer of timerList">
+                <div class="main-content">
+                    <div class="detail-row">
+                        <span class="card-text-secondary">Report #{{timer.incident.attributes.REPORT_ID}}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="card-text-secondary">{{timer.incident.category.attributes.MAIN_CATEGORY}}  {{timer.incident.category.attributes.SUB_CATEGORY}}  {{timer.incident.category.attributes.INCIDENT_TYPE}}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="card-text-primary">{{timer.incident.attributes.EXECUTIVE_SUMMARY}}</span>
+                    </div>
+                    <!-- <div class="detail-row">
+                        <span class="card-text-secondary">Start: {{timeToString(timer.TIMER_START)}}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="card-text-secondary">End: {{timeToString(timer.TIMER_END)}}</span>
+                    </div> -->
+                </div>
+                <div class="timer-container">
+                    <span class="card-text-primary time-remaining" (click)="timer.modify = !timer.modify">{{durationToString(timer.TIME_REMAINING)}}</span>     
+                    <!-- <div *ngIf="timer.modify">
+                        <input type="time" [(ngModel)] = "tempStart" (change)="onChangeModifyTimer()">
+                        <input type="time" [(ngModel)] = "tempEnd" (change)="onChangeModifyTimer()">
+                        <div class="alertText" *ngIf="!modifyValid">
+                            Start/End time cannot be empty
+                        </div>
+                        <div class="alertText" *ngIf="!validTime">
+                            Start time cannot be after end time
+                        </div>
+                        <button class="btn" (click)="modifyTimer(timer)" *ngIf="modifyValid && validTime">Confirm</button>
+                    </div>                    -->
+                </div>
+                <!-- <div class="x-container">
+                    <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removeTimer(timer)"></span>        
+                </div> -->
+                
+
+
+                <!-- <button id="modifyBtn" class="btn" (click)="timer.modify = !timer.modify">Modify</button> -->
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1.iml" filepath="$PROJECT_DIR$/.idea/modules/1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CMPT373Alpha.iml" filepath="$PROJECT_DIR$/.idea/modules/CMPT373Alpha.iml" />
       <module fileurl="file://$PROJECT_DIR$/WebApiSpark/WebApiSpark.iml" filepath="$PROJECT_DIR$/WebApiSpark/WebApiSpark.iml" />
     </modules>
   </component>

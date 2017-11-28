@@ -7,6 +7,7 @@ import { IncidentElement } from '../component/report/incident-element';
 import { Location, LocationMapping, Building, Room } from '../component/location/location';
 import { Campus } from '../component/location/campus';
 import 'rxjs/add/operator/toPromise';
+import { plainToClass } from "class-transformer";
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
@@ -37,7 +38,7 @@ export class LocationService {
     getLocations(): Promise<Location[]> {
         var locations = this.http.get( this.locationsUrl )
             .toPromise()
-            .then( response => this.initLocations( response.json() as Location[] ) as Location[] )
+            .then( response => this.initLocations(plainToClass(Location, response.json())) )
             .catch( this.handleError );
         return Promise.resolve( locations );
     };

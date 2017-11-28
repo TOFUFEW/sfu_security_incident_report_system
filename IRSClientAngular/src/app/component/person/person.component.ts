@@ -34,7 +34,7 @@ export class PersonComponent implements OnInit {
     public modalVisible = false;     
     
 
-    constructor( 
+    constructor(
         private personService: PersonService,
         private reportService: NewReportService,
         private router: Router
@@ -53,8 +53,8 @@ export class PersonComponent implements OnInit {
         if ( this.reference == null ) {
             return;
         }
-            
-        if ( this.newPerson != null ) 
+
+        if ( this.newPerson != null )
             this.reportService.removeIncidentElement( this.newPerson, Config.PersonTable );
         this.reference.destroy();
     }
@@ -62,24 +62,24 @@ export class PersonComponent implements OnInit {
     onChangePhoneNumber(): void {
         this.newPerson.attributes.PHONE_NUMBER = this.phoneNumber1 + this.phoneNumber2 + this.phoneNumber3;
     }
-    
+
     onChangeSearchPhoneNumber(): void {
         this.filterPerson.attributes.PHONE_NUMBER = this.phoneNumber1 + this.phoneNumber2 + this.phoneNumber3;
     }
-    
+
 
     toggleNewPerson(): void {
         this.toggleNewPersonFlag = !this.toggleNewPersonFlag;
-        console.log(this.personList); 
+        console.log(this.personList);
     }
-    
+
     selectPerson(person: Person) : void {
         Object.assign(this.newPerson, person);
         
         this.filterPerson.attributes.FIRST_NAME = person.attributes.FIRST_NAME;
         this.filterPerson.attributes.LAST_NAME = person.attributes.LAST_NAME;
         this.filterPerson.attributes.PHONE_NUMBER = person.attributes.PHONE_NUMBER;
-        
+
         var phoneNumber = person.attributes.PHONE_NUMBER.toString();
 
         this.phoneNumber1 = phoneNumber.slice(0, 3);
@@ -99,7 +99,7 @@ export class PersonComponent implements OnInit {
     //     } )
     //     .then( () => {
     //         this.copyPersonLst();
-    //     });   
+    //     });
     // }
 
     copyPersonLst() : void {
@@ -111,13 +111,21 @@ export class PersonComponent implements OnInit {
         if ( this.allFieldsValid( this.newPerson ) ) {
             this.personService.personExists( this.newPerson )
                 .then( exists => {
-                    this.personExists = exists;
-                    this.personAdded.emit( this.personExists );                  
+                    if ( exists == null ) {
+                        this.personExists = false;
+                    } else {
+                        this.personExists = true;
+                        this.newPerson = exists;
+                        this.reportService.removeIncidentElement(this.newPerson, Config.PersonTable);
+                        this.addPersonToReport();
+                        console.log(this.reportService.incidentElements);
+                    }
+                    this.personAdded.emit( this.personExists );
                 });
         }
         else {
             this.personExists = true;
-            this.personAdded.emit( false );                                
+            this.personAdded.emit( false );
         }
         this.modalVisible = true;
         
@@ -126,7 +134,7 @@ export class PersonComponent implements OnInit {
         // this.personService.filter(this.filterList, this.personList, this.filterPerson);
         // if (this.filterList.length < 1){
         //     if ( this.filterPerson.attributes.FIRST_NAME != null
-        //         && this.filterPerson.attributes.LAST_NAME != null  
+        //         && this.filterPerson.attributes.LAST_NAME != null
         //         && this.filterPerson.attributes.PHONE_NUMBER != null
         //         && this.filterPerson.attributes.PHONE_NUMBER.toString().length == 10
         //     ) {
@@ -136,7 +144,7 @@ export class PersonComponent implements OnInit {
         // }
         // else {
         //     this.personExistsInList = true;
-        // };  
+        // };
     }
 
     addPersonToDatabase(): void {
@@ -179,6 +187,7 @@ export class PersonComponent implements OnInit {
                 });
         }
         this.filterPerson = this.newPerson;
+        console.log("Filter person", this.filterPerson);
         this.personSelected = true;
         this.toggleNewPersonFlag = false;
         delete this.newPerson;
@@ -193,9 +202,9 @@ export class PersonComponent implements OnInit {
                 var i = this.personList.findIndex( person => person.attributes.PERSON_ID === returnedPerson.attributes.PERSON_ID );
                 // remove 1 object at index i, replace it with returnedPerson
                 this.personList.splice( i, 1, returnedPerson );
-                alert( "successfully edited!" );            
+                alert( "successfully edited!" );
               }
-              else alert( "Edit failed." );  
+              else alert( "Edit failed." );
           } );
     }
 
