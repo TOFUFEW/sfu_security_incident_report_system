@@ -39,9 +39,20 @@ export class TimerComponent implements OnInit {
     }
 
     getTimers (): void {
-       this.timerService.getTimers().then(returnedTimers => {
-           this.timerList = returnedTimers;
-       }).then( ()=> { this.sortTimers() });
+        var timerList : Array<Timer> = new Array<Timer>();
+        var nowDate = new Date ( Date.now() );
+        var nowTime = nowDate.getHours() * 60 * 60 * 1000 + nowDate.getMinutes() * 60 * 1000;
+        
+        this.incidentService.reportsInList.subscribe( incidents => {
+            incidents.forEach( incident => {
+                if ( incident.attributes.TIMER_START != null && incident.attributes.TIMER_END != null 
+                    && incident.attributes.TIMER_END > incident.attributes.TIMER_START && incident.attributes.TIMER_END > nowTime ) {
+                    timerList.push( this.timerService.createTimerInt( incident, incident.attributes.TIMER_START, incident.attributes.TIMER_END ));
+                }
+            });
+            this.timerList = timerList;
+            this.sortTimers();
+        });
     }
 
     sortTimers () : void {
