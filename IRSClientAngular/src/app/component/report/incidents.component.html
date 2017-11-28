@@ -95,8 +95,8 @@
                 <div class="details-container">
                     <div class="details-body">
                         <div class="detail col-12 col-sm-3">
-                            <input class="form-control" type="time" [(ngModel)] = "incidentSetTimer.attributes.TIMER_START" (change)="onChangeModifyTimer()">
-                            <input class="form-control" type="time" [(ngModel)] = "incidentSetTimer.attributes.TIMER_END" (change)="onChangeModifyTimer()">
+                            <input class="form-control" type="time" [(ngModel)] = "timerStart" (change)="onChangeTimer()">
+                            <input class="form-control" type="time" [(ngModel)] = "timerEnd" (change)="onChangeTimer()">
                         </div>
                     </div>
                 </div>

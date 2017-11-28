@@ -169,17 +169,8 @@ export class NewReportComponent implements OnInit {
     }
 
     onChangeTimer(): void {
-        if ( this.tempTimerStart == null ) {
-            this.newIncident.attributes.TIMER_START = null;
-        } else {
-            this.newIncident.attributes.TIMER_START = this.timerService.stringToTime( this.tempTimerStart );
-        }
-
-        if ( this.tempTimerEnd == null ) {
-            this.newIncident.attributes.TIMER_END = null;
-        } else {
-            this.newIncident.attributes.TIMER_END = this.timerService.stringToTime( this.tempTimerEnd );
-        }
+        this.newIncident.attributes.TIMER_START = this.timerService.stringToTime(this.tempTimerStart); 
+        this.newIncident.attributes.TIMER_END = this.timerService.stringToTime(this.tempTimerEnd); 
 
         if( (this.newIncident.attributes.TIMER_START && !this.newIncident.attributes.TIMER_END) ||
             (!this.newIncident.attributes.TIMER_START && this.newIncident.attributes.TIMER_END) ||
