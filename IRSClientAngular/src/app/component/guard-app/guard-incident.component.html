@@ -7,6 +7,26 @@
 <div name="alertMessage" *ngIf="showAlert" [class]="alertClass">{{alertMessage}}
 </div>
 
+<div id="removePersonAlert" class="alert modal-fade" *ngIf="isDeletingPerson">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button type="button" class="close" (click)="removePerson()" aria-hidden="true">×</button>
+    <!-- <div class="bottom-links flex-column" *ngIf="!personExists"> -->
+            <div class="alert-body mt-1">
+                Are you sure you want to delete this person?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-secondary pull-right mt-2 mr-1 mb-1 ml-2" (click)="removePersonAlert()">
+                    <span class="glyphicon glyphicon-remove"></span> Cancel
+                </button>                
+                <button class="btn  btn-sm btn-primary pull-right mt-2 mr-1 mb-1 ml-2" (click)="removePerson()">
+                    <span class="glyphicon glyphicon-delete"></span> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container-fluid main-content guard-body">
     <div class="row">
         <div class="container-fluid">
@@ -213,7 +233,17 @@
                                             Add a New Person
                                         </span>
                                         <span class="field-title mt-2" *ngIf="this.currentPersonIndex != -1">
-                                            <b>Edit Person:</b> {{this.currentPerson.attributes.FIRST_NAME}} {{this.currentPerson.attributes.LAST_NAME}}
+                                            <b>Edit Person:</b> 
+                                            {{this.currentPerson.attributes.FIRST_NAME}} 
+                                            {{this.currentPerson.attributes.LAST_NAME}} <span>                
+                                            <button (click)="removePersonAlert()" 
+                                                class="btn btn-sm btn-secondary"
+                                                *ngIf="button_id != -1"
+                                                id="{{button_id}}">
+                                                <span class="glyphicon glyphicon-trash"></span> 
+                                                Delete
+                                                </button>
+                                            </span>
                                         </span>
                                         <person-component 
                                             #personEditor 

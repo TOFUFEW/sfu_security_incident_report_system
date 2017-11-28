@@ -49,6 +49,7 @@ export class GuardIncidentComponent implements OnInit {
     newPersonFirstName: string = "";
     newPersonLastName: string = "";
     newPersonTelephone: string = "";
+    isDeletingPerson: boolean = false;
 
     alertMessage: string = "";
     showAlertDescription: boolean = false;
@@ -191,6 +192,19 @@ export class GuardIncidentComponent implements OnInit {
         else {
             this.incidentSavedAlert ();
         }
+        this.toggleEditMode('person');
+    }
+    removePersonAlert() {
+        this.isDeletingPerson = !this.isDeletingPerson;
+    }
+
+    removePerson() {
+        this.isDeletingPerson = false;
+        console.log("current person ", this.currentPersonIndex);
+        var incident = this.incidentElementService.removeElement ( this.incident, this.currentPersonIndex, Config.PersonTable )
+        .then ( incident => {
+            return incident;
+        });    
         this.toggleEditMode('person');
     }
 

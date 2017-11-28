@@ -400,6 +400,18 @@ span.glyphicon-fire {
     display: flex;
 }
 
+.alert {
+    z-index: 1000;
+    position: fixed;
+    top: 30%;
+    bottom: 80%;
+}
+
+.alert .modal-content {
+    padding: 15px;
+    width: 400px;
+}
+
 .alertText {
     color: $sfu-red;
     opacity: 1 !important;
