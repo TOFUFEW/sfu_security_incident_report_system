@@ -13,7 +13,9 @@ import { Config } from '../../util/config.service';
 })
 
 export class PersonComponent implements OnInit {
-    @Output () personAdded : EventEmitter<boolean> = new EventEmitter();     
+    @Output () personAdded : EventEmitter<boolean> = new EventEmitter();   
+    @Output () addPersonToGuardReport : EventEmitter<Person> = new EventEmitter();  
+    @Output() cancelEditor = new EventEmitter();
     
     private reference: any;
     personList: Person[] = [];
@@ -110,7 +112,7 @@ export class PersonComponent implements OnInit {
             this.personService.personExists( this.newPerson )
                 .then( exists => {
                     this.personExists = exists;
-                    this.personAdded.emit( this.personExists );                    
+                    this.personAdded.emit( this.personExists );                  
                 });
         }
         else {
@@ -144,7 +146,8 @@ export class PersonComponent implements OnInit {
                     if ( returnedPerson != null ) {
                         alert("Person successfully added!");
                         this.personExists = true;
-                        this.personAdded.emit( this.personExists );                                        
+                        this.personAdded.emit( this.personExists );    
+                        this.addPersonToGuardReport.emit(this.newPerson);
                     }
                     else alert("Add failed. Try again.");
                 });
@@ -214,9 +217,12 @@ export class PersonComponent implements OnInit {
             person.attributes.PHONE_NUMBER != null && person.attributes.PHONE_NUMBER.length == 10;
     }
 
-    editPerson(id: number) {
-        this.currentPerson.attributes.PERSON_ID = id;
+    savePerson() {
+        this.findPerson();
+    }
 
+    cancelPersonEdit() {
+        this.cancelEditor.emit();
     }
 
     ngOnInit(): void {

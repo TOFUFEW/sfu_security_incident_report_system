@@ -209,11 +209,15 @@
                                     </span>
                                     <div *ngIf="isEditingPerson">
                                         <div class="clear-float"></div>
-                                        <person-component #personEditor></person-component>
+                                        <person-component 
+                                            #personEditor 
+                                            (addPersonToGuardReport)="addPerson($event)">
+                                        </person-component>
                                         <div class="clear-float"></div>                                              
                                     </div> 
                                     <div class="clear-float"></div>                                    
-                                    <button (click)="toggleEditMode('person')"
+                                    <button id="-1"
+                                            (click)="editPerson($event)" 
                                             class="btn btn-sm btn-default pull-right mt-2 mr-1 mb-1 ml-2">
                                         <span class="glyphicon glyphicon-plus"></span> Add Person
                                     </button>

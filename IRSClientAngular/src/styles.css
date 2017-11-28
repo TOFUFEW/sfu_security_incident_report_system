@@ -294,8 +294,14 @@ span.glyphicon-fire {
 .flex {
   display: flex; }
 
+.alert {
+  z-index: 1000;
+  position: fixed;
+  top: 30%;
+  bottom: 80%; }
+
 .alert .modal-content {
-  padding: 20px;
+  padding: 15px;
   width: 400px; }
 
 .alertText {

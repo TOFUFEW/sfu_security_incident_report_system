@@ -164,17 +164,38 @@ export class GuardIncidentComponent implements OnInit {
 
     editPerson ( event ) {
         this.toggleEditMode('person');
-        this.personEditor.editPerson(event.target.id);
+        // this.personEditor.editPerson(event.target.id);
         this.currentPersonIndex = event.target.id;
     }
 
-    savePerson () {
-
+    addPerson (personToAdd) {
+        console.log("Person added ", personToAdd);
         // if ( this.personEditor.personExists ) {
 
         //     // this.incidentElementService.addElement();
         //     this.saveReport('person');
         // }
+        console.log("ID to remove ", this.currentPersonIndex);
+        if ( this.currentPersonIndex == -1 ) {
+            var incident = this.incidentElementService.addElement ( this.incident, personToAdd )
+            .then ( incident => {
+                return incident;
+            });    
+        }
+        else {
+            var incident = this.incidentElementService.changeElement ( this.incident, this.currentPersonIndex, personToAdd )
+                .then ( incident => {
+                    return incident;
+                });
+            console.log("returned incident ", incident);
+        }
+        if ( Promise.resolve ( incident ) == null ) {
+            this.incidentSavedErrorAlert ();
+        }
+        else {
+            this.incidentSavedAlert ();
+        }
+        this.toggleEditMode('person');
     }
 
     public hideEditContent() {

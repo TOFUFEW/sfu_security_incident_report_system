@@ -43,7 +43,7 @@
 
 <!-- For Persons in Guard App -->
         <div *ngIf="router.url.includes('guard-app')">
-            <div id="personModal" class="alert modal-fade" role="dialog" *ngIf="!personExists && modalVisible">
+            <div id="personModal" class="alert modal-fade" *ngIf="!personExists && modalVisible">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <button type="button" class="close" (click)="hide()" aria-hidden="true">×</button>
@@ -52,17 +52,22 @@
                             This person is not found in the database. Only existing persons can be added to a report.
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-default pull-right btn-sm mt-2 mr-1 mb-1 ml-2" (click)="hide()">Cancel</button>                
-                            <button class="btn btn-default pull-right btn-sm mt-2 mr-1 mb-1 ml-2" (click)="addPersonToDatabase()">Add Person</button>
+                            <button class="btn btn-sm btn-secondary pull-right mt-2 mr-1 mb-1 ml-2" (click)="hide()">
+                                <span class="glyphicon glyphicon-remove"></span> Cancel
+                            </button>                
+                            <button class="btn  btn-sm btn-primary pull-right mt-2 mr-1 mb-1 ml-2" (click)="addPersonToDatabase()">
+                                <span class="glyphicon glyphicon-floppy-disk"></span> Add Person
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <button (click)="revertChanges('person')"
+            <button (click)="cancelPersonEdit()"
                     class="btn btn-sm btn-secondary pull-right mt-2 mr-1 mb-1 ml-2">
                 <span class="glyphicon glyphicon-remove"></span> Cancel
             </button>
-            <button (click)="findPerson()"
+            <button (click)="savePerson()"
+                data-toggle="modal"
                 class="btn btn-sm btn-primary pull-right mt-2 mb-1">
                 <span class="glyphicon glyphicon-floppy-disk"></span> Save
             </button>
