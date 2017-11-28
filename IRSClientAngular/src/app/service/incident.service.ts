@@ -275,7 +275,7 @@ export class IncidentService {
 
     getIncidentsObs(): Observable<Incident[]> {
          let options = new RequestOptions({headers: this.headers});
-        
+
          return this.http
              .get(Config.IncidentsURI, options)
              .map((response: Response) =>
@@ -329,6 +329,7 @@ export class IncidentService {
         for ( var i = 0 ; i < incidents.length ; i++ )
         {
           incidents [ i ] = this.initializeIncident ( incidents [ i ] );
+          console.log("initialize report id = " + incidents[i].attributes.REPORT_ID);
         }
 
         return incidents;

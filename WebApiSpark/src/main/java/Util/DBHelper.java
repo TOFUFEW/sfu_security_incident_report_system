@@ -165,6 +165,7 @@ public class DBHelper
                 HashMap < String , ArrayList < IncidentElement > > incidentElementsList = getIncidentElements ( Integer.parseInt (incident.getAttributeValue ( DatabaseValues.Column.REPORT_ID ) ) );
                 incident.changeIncidentElements ( incidentElementsList );
                 list.add ( incident );
+                System.out.println("report id = " + incident.getAttributeValue( DatabaseValues.Column.REPORT_ID ) );
             }
         }
         catch ( Exception e )
@@ -767,18 +768,6 @@ public class DBHelper
             e.printStackTrace();
         }
         return false;
-    }
-
-    public static String toSearchString( Incident incident ) {
-        Map< String, ArrayList< IncidentElement > > map = incident.getIncidentElements();
-        String searchString = incident.getAttributeValue( DatabaseValues.Column.DESCRIPTION ) +
-                incident.getAttributeValue( DatabaseValues.Column.EXECUTIVE_SUMMARY );
-        for( ArrayList< IncidentElement > list : map.values() ) {
-            for(IncidentElement element : list ) {
-                searchString = searchString + element.toSearchString();
-            }
-        }
-        return searchString;
     }
 
     public static boolean insertIncidentElement ( IncidentElement incidentElement )
