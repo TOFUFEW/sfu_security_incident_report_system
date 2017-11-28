@@ -14,25 +14,18 @@ export class TimerService{
     constructor ( private http: Http, private incidentService : IncidentService ) {}
 
     getTimers() : Promise<Timer[]> {
-        var incidentList : Incident [];
         var timerList : Array<Timer> = new Array<Timer>();
         var nowDate = new Date ( Date.now() );
         var nowTime = nowDate.getHours() * 60 * 60 * 1000 + nowDate.getMinutes() * 60 * 1000;
         
-        this.incidentService.getIncidents().then( returnedIncidents => {
-            incidentList = returnedIncidents;
-        })
-        .then( () => {
-            incidentList.forEach( incident =>{
-                console.log(incident);
+        this.incidentService.reportsInList.subscribe( incidents => {
+            incidents.forEach( incident => {
                 if ( incident.attributes.TIMER_START != null && incident.attributes.TIMER_END != null 
                     && incident.attributes.TIMER_END > incident.attributes.TIMER_START && incident.attributes.TIMER_END > nowTime ) {
                     timerList.push( this.createTimerInt( incident, incident.attributes.TIMER_START, incident.attributes.TIMER_END ));
                 }
             });
-        })
-        .catch ( this.handleError );
-
+        });
         return Promise.resolve ( timerList );
     }
 
