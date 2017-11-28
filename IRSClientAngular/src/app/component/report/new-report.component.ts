@@ -18,6 +18,7 @@ import { AttachmentComponent } from '../attachment/attachment.component';
 import { Config } from '../../util/config.service';
 import { UserService } from "../../service/user.service";
 import { Router } from "@angular/router";
+import { GenericElementComponent } from '../generic-element/generic-element.component';
 
 @Component(
   {
@@ -30,6 +31,8 @@ import { Router } from "@angular/router";
 export class NewReportComponent implements OnInit {
     locationStr: string = LocationComponent.name;
     personStr: string = PersonComponent.name;
+    genericStr: string = GenericElementComponent.name;
+
     newIncident: Incident = new Incident();
 
     categories: CategoryDictionary[] = [];
@@ -69,6 +72,10 @@ export class NewReportComponent implements OnInit {
             .subscribe( persons =>  {
                 this.newIncident.incidentElements[Config.PersonKey] = persons;
             } );
+        this.newReportService.currentGenericElements
+            .subscribe( elements => {
+                this.newIncident.incidentElements[Config.GenericElementKey] = elements;
+            });
 
         this.categoryService.categoryDictionary
             .subscribe( categories => {
@@ -146,6 +153,7 @@ export class NewReportComponent implements OnInit {
             var currentID = this.userService.getAccountID();
             this.newIncident.attributes.ACCOUNT_ID = currentID;
 
+            console.log( this.newIncident);
             if ( this.userService.isGuard() )
                 this.convertToTempReport();
 
@@ -177,12 +185,14 @@ export class NewReportComponent implements OnInit {
     }
 
     addComponent( componentName: string ) {
-        //if ( this.dynamicTest == 'Vehicle' )
-          //  this.domService.addComponent( VehicleComponent, "vehicles" );
-        /*else*/ if ( componentName === this.locationStr ) {
+        if ( componentName === this.locationStr ) {
             this.domService.addComponent( LocationComponent.name, "locations" );
-        } else if ( componentName === this.personStr){
+        } 
+        else if ( componentName === this.personStr) {
             this.domService.addComponent( PersonComponent.name, "persons" );
+        }
+        else if ( componentName === this.genericStr ) {
+            this.domService.addComponent ( GenericElementComponent.name, "generic-elements");
         }
     }
 

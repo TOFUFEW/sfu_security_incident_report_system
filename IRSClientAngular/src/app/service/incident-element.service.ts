@@ -53,6 +53,8 @@ export class IncidentElementService
             key = Config.StaffKey;
         else if ( table === Config.PersonTable ) 
             key = Config.PersonKey;
+        else if ( table === Config.GenericElementTable )
+            key = Config.GenericElementKey;
         else {
             console.log( "Table not found.");
             key = table;
@@ -74,6 +76,10 @@ export class IncidentElementService
         else if ( table === Config.PersonTable ) {
             elementIndex = incident.incidentElements[key].findIndex( i => 
                 i.attributes.PERSON_ID == idToSearch)    
+        }
+        else if ( table === Config.GenericElementTable ) {
+            elementIndex = incident.incidentElements[key].findIndex( i => 
+                i.attributes.GENERIC_ELEMENT_ID == idToSearch)    
         }
         return elementIndex;
     }

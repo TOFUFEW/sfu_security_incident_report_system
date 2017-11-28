@@ -1,0 +1,16 @@
+<div class="details-body">
+    <div class="x-container">
+        <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removeElementFromReport()"></span>        
+    </div>
+
+    <div class="detail col-12 col-sm-3">
+        <span class="field-title">Item Type <span class="required-asterisk">*</span></span>
+        <input class="form-control" type="text" 
+            [(ngModel)]="newElement.attributes.TYPE"/>
+    </div>
+    <div class="detail col-12 col-sm-3">
+        <span class="field-title">Description <span class="required-asterisk"></span></span>
+        <input class="form-control" type="text" 
+            [(ngModel)]="newElement.attributes.DESCRIPTION"/>
+    </div>
+</div>

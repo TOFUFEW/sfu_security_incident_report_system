@@ -29,10 +29,12 @@ export class Config {
     static PersonTable: string = "PERSON";
     static CategoryTable: string = "INCIDENT_CATEGORY";
     static CampusTable: string = "CAMPUS";
+    static GenericElementTable: string = "GENERIC_ELEMENT";    
 
     static IncidentCategoryKey: string = "IncidentCategory" ;
     static LocationKey: string = "Location";
     static PersonKey: string = "Person";
     static StaffKey: string = "Staff";
     static CampusKey: string = "Campus";
+    static GenericElementKey: string = "GenericElement";    
 }

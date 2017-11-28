@@ -11,6 +11,7 @@ import { Location } from '../component/location/location';
 import { LocationComponent } from '../component/location/location.component';
 import { VehicleComponent } from '../component/vehicle/vehicle.component';
 import { PersonComponent } from '../component/person/person.component';
+import { GenericElementComponent } from '../component/generic-element/generic-element.component';
 
 @Injectable()
 export class DomService {
@@ -59,6 +60,11 @@ export class DomService {
         else if ( componentName === PersonComponent.name ) {
             return this.componentFactoryResolver
             .resolveComponentFactory( PersonComponent )
+            .create( this.injector );
+        }
+        else if ( componentName === GenericElementComponent.name ) {
+            return this.componentFactoryResolver
+            .resolveComponentFactory( GenericElementComponent )
             .create( this.injector );
         }
         

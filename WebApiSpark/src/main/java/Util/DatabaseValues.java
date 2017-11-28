@@ -19,6 +19,7 @@ public class DatabaseValues
         ACCOUNT ( "dbo.Account" ),
         ASSIGNED_TO ( "dbo.AssignedTo" ),
         CAMPUS ( "dbo.Campus" ),
+        GENERIC_ELEMENT ( "dbo.GenericElement" ),
         HAPPENS_AT ( "dbo.HappensAt" ),
         INCIDENT ( "dbo.Incident" ),
         INCIDENT_CATEGORY ( "dbo.IncidentCategory" ),
@@ -150,6 +151,16 @@ public class DatabaseValues
                 "VARCHAR(" + 30 + ")",
                 DEFAULT_STRING_VALUE,
                 null
+        ),
+
+        GENERIC_ELEMENT_ID (
+                "GENERIC_ELEMENT_ID",
+                "INT",
+                DEFAULT_INT_VALUE,
+                new Table[]
+                        {
+                                Table.GENERIC_ELEMENT
+                        }
         ),
 
         // Associated Tables: IncidentCategory
@@ -292,6 +303,14 @@ public class DatabaseValues
                 null
         ),
 
+        // GenericElement
+        TYPE (
+                "TYPE",
+                "VARCHAR(" + 20 + ")",
+                DEFAULT_STRING_VALUE,
+                null
+        ),
+
         TIMER_START (
                 "TIMER_START" ,
                 "INT" ,
@@ -363,7 +382,8 @@ public class DatabaseValues
         INCIDENT_CATEGORY ( "IncidentCategory" ),
         LOCATION ( "Location" ),
         PERSON ( "Person" ),
-        STAFF ( "Staff" );
+        STAFF ( "Staff" ),
+        GENERIC_ELEMENT ( "GenericElement" );
 
         private String key;
 

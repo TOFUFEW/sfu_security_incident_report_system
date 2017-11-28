@@ -6,6 +6,7 @@ import { Location } from '../location/location';
 import { Person } from '../person/person';
 import { LocationComponent } from '../location/location.component';
 import { PersonComponent } from '../person/person.component';
+import { GenericElementComponent } from '../generic-element/generic-element.component';
 import { Category, SubCategory, CategoryType, CategoryDictionary } from '../category/category';
 import { IncidentService } from '../../service/incident.service';
 import { LocationService } from '../../service/location.service';
@@ -25,6 +26,7 @@ export class ReportSummaryComponent implements OnInit {
     @Input() inputReport: Incident;
     @ViewChild(LocationComponent) locationComponent: LocationComponent;
     @ViewChild(PersonComponent) personComponent: PersonComponent;
+    @ViewChild(GenericElementComponent) genericElementComponent: GenericElementComponent;    
     report: Incident;
     isAccepted : boolean = false;
 
@@ -37,11 +39,11 @@ export class ReportSummaryComponent implements OnInit {
     selectedStaffId: number = -1;
     staffArr: Staff[] = [];
 
-    locationIdToRemove: number = -1;
-    personIdToRemove: number = -1;
+    itemToRemove: string = "";
+    itemIdToRemove: number = -1;
 
     isPersonAdded: boolean = true;
-    editMode: boolean = false;
+    editMode: Map<string, boolean>;
     allFieldsValid: boolean = true;
 
     constructor (
@@ -52,28 +54,45 @@ export class ReportSummaryComponent implements OnInit {
         private locationService: LocationService,
         private userService: UserService
     ) {
-        //this.report = new Incident();
-        console.log(this.report);
+        this.initializeEditableComponents();
+    }
+
+    initializeEditableComponents() {
+        this.editMode = new Map<string, boolean>();
+        this.editMode["Incident"] = false;   
+        this.editMode[Config.StaffKey] = false;          
+        this.editMode[Config.LocationKey] = false;  
+        this.editMode[Config.PersonKey] = false;  
+        this.editMode[Config.GenericElementKey] = false;  
+        console.log(this.editMode);        
     }
 
     removeFromWorkspace( id: number ): void {
         this.incidentService.removeFromWorkspace( id );
     }
 
-    toggleEditMode(){
-        this.editMode = !this.editMode;
-        if ( this.editMode ) {
-            this.isPersonAdded = false;
-            this.onSelectCategory();
-            this.onSelectSubCategory();
-            this.onSelectType();
+    toggleEditMode( type: string ){
+        console.log( type);
+        this.editMode[type] = !this.editMode[type];
+        console.log(this.editMode[type]);
+        
+        if ( this.editMode[type] ) {
+            if ( type === Config.PersonKey ) {
+                this.isPersonAdded = false;
+            }
+            else if ( type === "Incident" ) {
+                this.onSelectCategory();
+                this.onSelectSubCategory();
+                this.onSelectType();
+            }
         }
+        
     }
 
-    cancelUpdate() {
+    cancelUpdate( type: string) {
         //this.report_edit = this.copyReportUnbounded( this.report );
         this.report_edit = JSON.parse(JSON.stringify(this.report)) as Incident;
-        this.editMode = false;
+        this.editMode[type] = false;
     }
 
     updateReport() {
@@ -81,7 +100,7 @@ export class ReportSummaryComponent implements OnInit {
         if ( this.allFieldsValid ) {
             this.report = this.report_edit;
             this.assignToGuard();
-            this.editMode = false;
+            this.initializeEditableComponents();
             this.incidentService.update( this.report )
                 .then( response => {
                     this.report = response;
@@ -100,7 +119,9 @@ export class ReportSummaryComponent implements OnInit {
         }
         else if ( type === 'person' ) {
             element = this.personComponent.newPerson;
-            console.log(element);
+        }
+        else if ( type === 'generic-element' ) {
+            element = this.genericElementComponent.newElement;
         }
 
         if ( this.newReportService.validateIncidentElement( element ) ) {
@@ -114,31 +135,39 @@ export class ReportSummaryComponent implements OnInit {
         }
     }
 
-    removeIncidentElement( type: string ) {
+    removeIncidentElement() {
+        var type = this.itemToRemove;
         if ( type === 'location' ) {
             this.incidentElementService
-                .removeElementNoUpdate( this.report_edit, Config.LocationTable, this.locationIdToRemove );
-            this.locationIdToRemove = -1 ;
+                .removeElementNoUpdate( this.report_edit, Config.LocationTable, this.itemIdToRemove );
         }
         else if ( type === 'person' ) {
             this.incidentElementService
-                .removeElementNoUpdate( this.report_edit, Config.PersonTable, this.personIdToRemove );
-            this.personIdToRemove = -1 ;
+                .removeElementNoUpdate( this.report_edit, Config.PersonTable, this.itemIdToRemove );
         }
+        else if ( type === 'generic-element') {
+            this.incidentElementService
+                .removeElementNoUpdate ( this.report_edit, Config.GenericElementTable, this.itemIdToRemove );
+        }
+        else {
+            console.log("Incident element is unrecognized.");
+            return;
+        }
+        this.itemIdToRemove = -1;
+        this.itemToRemove = "";
         this.updateReport();
     }
 
-    setLocationIdToRemove( id: number ) {
-        this.locationIdToRemove = id;
-    }
-
-    setPersonIdToRemove( id: number ) {
-        this.personIdToRemove = id;
+    setItemIdToRemove( type: string, id: number ) {
+        this.itemIdToRemove = id;
+        this.itemToRemove = type;
     }
 
     private flushComponents() {
-        this.locationComponent.newLocation = new Location();
-        this.personComponent.newPerson = new Person();
+        if ( this.locationComponent != null )
+            this.locationComponent.newLocation = new Location();
+        if ( this.personComponent != null )
+            this.personComponent.newPerson = new Person();
     }
 
     onAddPerson( event ) {

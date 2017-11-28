@@ -26,6 +26,7 @@ import { ReportSummaryComponent } from './component/report/report-summary.compon
 import { InlineEditComponent } from './component/report/inline-edit.component';
 import { StatusComponent } from './component/status/status.component';
 import { NewAccountComponent } from './component/login/new-account-component';
+import { GenericElementComponent } from './component/generic-element/generic-element.component';
 
 /* Services */
 import { UserService } from './service/user.service';
@@ -70,7 +71,8 @@ import { FilterPipe } from './util/filter.pipe';
     FilterPipe,
     ReportSummaryComponent,
     NewAccountComponent,
-    InlineEditComponent
+    InlineEditComponent,
+    GenericElementComponent
   ],
 
   providers: [
@@ -85,7 +87,7 @@ import { FilterPipe } from './util/filter.pipe';
     NewReportService,
     CategoryService,],
   bootstrap: [AppComponent],
-  entryComponents: [ LocationComponent, VehicleComponent,
+  entryComponents: [ LocationComponent, VehicleComponent, GenericElementComponent,
     PersonComponent ]
 
 })

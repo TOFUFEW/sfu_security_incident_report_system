@@ -274,8 +274,6 @@ export class IncidentService
     }
 
     private initIncidents( incidents: Incident[] ): Incident[] {
-        console.log ( "incidents.length = " + incidents.length );
-
         for ( var i = 0 ; i < incidents.length ; i++ )
         {
           incidents [ i ] = this.initializeIncident ( incidents [ i ] );
@@ -299,12 +297,10 @@ export class IncidentService
                     location.attributes.ROOM_NUMBER = "";
             });
 
-            console.log(incident);
         return incident;
     }
 
     create( incident: Incident ): Promise<Incident> {
-        console.log(incident);
         if ( incident.attributes.ACCOUNT_ID == null ) {
 
                 incident.attributes.ACCOUNT_ID = this.userService.getCurrentUser().attributes.ACCOUNT_ID;
@@ -389,7 +385,6 @@ export class IncidentService
                     incident.category);
         var promise = this.update ( incident )
             .then( incident => {
-                console.log("inserted incident", incident);
                 return incident;
             })
         return Promise.resolve(promise);
