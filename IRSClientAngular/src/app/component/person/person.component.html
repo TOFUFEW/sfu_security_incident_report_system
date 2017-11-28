@@ -32,7 +32,41 @@
                 || event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46'/>            
         </div>  
 
+        <div *ngIf="!router.url.includes('guard-app')">
+            <div class="bottom-links flex-column" *ngIf="!personExists">         
+                <span class="field-title italic">
+                    This person is not found in the database. Only existing persons can be added to a report.
+                </span>         
+                <span class="link" (click)="addPersonToDatabase()">Add Person</span>     
+            </div>
+        </div>
 
+<!-- For Persons in Guard App -->
+        <div *ngIf="router.url.includes('guard-app')">
+            <div id="personModal" class="alert modal-fade" role="dialog" *ngIf="!personExists && modalVisible">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <button type="button" class="close" (click)="hide()" aria-hidden="true">×</button>
+                <!-- <div class="bottom-links flex-column" *ngIf="!personExists"> -->
+                        <div class="alert-body mt-1">
+                            This person is not found in the database. Only existing persons can be added to a report.
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default pull-right btn-sm mt-2 mr-1 mb-1 ml-2" (click)="hide()">Cancel</button>                
+                            <button class="btn btn-default pull-right btn-sm mt-2 mr-1 mb-1 ml-2" (click)="addPersonToDatabase()">Add Person</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button (click)="revertChanges('person')"
+                    class="btn btn-sm btn-secondary pull-right mt-2 mr-1 mb-1 ml-2">
+                <span class="glyphicon glyphicon-remove"></span> Cancel
+            </button>
+            <button (click)="findPerson()"
+                class="btn btn-sm btn-primary pull-right mt-2 mb-1">
+                <span class="glyphicon glyphicon-floppy-disk"></span> Save
+            </button>
+        </div>
     <!-- <div class="panel panel-default test-panel" style="overflow-y:scroll; height:90px" *ngIf="!personSelected">
         <ul id="peopleDisplay">
         <li *ngFor="let person of filterList">
@@ -44,10 +78,6 @@
         </ul>-->
 
 
-    </div>
-    <div class="bottom-links flex-column" *ngIf="!personExists">
-        <span class="field-title italic">This person is not found in the database. Only existing persons can be added to a report.</span>
-        <span class="link" (click)="addPersonToDatabase()">Add Person</span>
     </div>
 </div>
 

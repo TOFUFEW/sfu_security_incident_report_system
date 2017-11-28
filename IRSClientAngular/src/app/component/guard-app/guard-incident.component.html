@@ -209,16 +209,8 @@
                                     </span>
                                     <div *ngIf="isEditingPerson">
                                         <div class="clear-float"></div>
-                                        <person-component class="guard-person-component"></person-component>
+                                        <person-component #personEditor></person-component>
                                         <div class="clear-float"></div>                                              
-                                        <button (click)="revertChanges('person')"
-                                            class="btn btn-sm btn-secondary pull-right mt-2 mr-1 mb-1 ml-2">
-                                            <span class="glyphicon glyphicon-remove"></span> Cancel
-                                        </button>
-                                        <button (click)="saveReport('person')"
-                                                class="btn btn-sm btn-primary pull-right mt-2 mb-1">
-                                            <span class="glyphicon glyphicon-floppy-disk"></span> Save
-                                        </button>
                                     </div> 
                                     <div class="clear-float"></div>                                    
                                     <button (click)="toggleEditMode('person')"

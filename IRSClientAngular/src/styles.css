@@ -294,6 +294,10 @@ span.glyphicon-fire {
 .flex {
   display: flex; }
 
+.alert .modal-content {
+  padding: 20px;
+  width: 400px; }
+
 .alertText {
   color: #A6192E;
   opacity: 1 !important; }

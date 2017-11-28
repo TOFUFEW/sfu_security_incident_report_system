@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule, ActivatedRoute, ParamMap, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
@@ -12,6 +12,7 @@ import { Location } from '../location/location';
 import { LocationModalComponent } from '../location/location-modal.component';
 import { CategoryComponent } from '../category/category.component';
 import { CategoryService } from '../../service/category.service';
+import { Person } from '../../component/person/person';
 import { PersonComponent } from '../person/person.component';
 import { DomService } from '../../util/dom.service';
 import { Config } from '../../util/config.service';
@@ -29,7 +30,8 @@ export class GuardIncidentComponent implements OnInit {
     @ViewChild ( LocationModalComponent ) locationModal: LocationModalComponent
     @ViewChild ( CategoryComponent ) categoryModal: CategoryComponent
     @ViewChild ( InlineEditComponent ) inlineEdit: InlineEditComponent
-    @ViewChild(StatusComponent) statusModal: StatusComponent
+    @ViewChild ( StatusComponent ) statusModal: StatusComponent
+    @ViewChild ( PersonComponent ) personEditor: PersonComponent
     title = 'SFU Incident Reporting System';
     incident: Incident = new Incident();
     locationModalStr = "location-modal";
@@ -162,7 +164,17 @@ export class GuardIncidentComponent implements OnInit {
 
     editPerson ( event ) {
         this.toggleEditMode('person');
-        console.log(event.target.id);
+        this.personEditor.editPerson(event.target.id);
+        this.currentPersonIndex = event.target.id;
+    }
+
+    savePerson () {
+
+        // if ( this.personEditor.personExists ) {
+
+        //     // this.incidentElementService.addElement();
+        //     this.saveReport('person');
+        // }
     }
 
     public hideEditContent() {
