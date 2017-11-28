@@ -2,7 +2,7 @@
 
 div.timer-card {
     @include flex(flex-start, flex-start);
-    height: 88px;
+    height: auto;
     border-top: $border-default;
 
     .main-content, .timer-container {

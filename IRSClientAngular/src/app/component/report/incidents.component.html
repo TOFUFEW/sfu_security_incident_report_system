@@ -45,16 +45,13 @@
                         <span class="glyphicon glyphicon-new-window glyphicon-btn" data-toggle="tooltip" title="Add to Workspace"
                                  [ngClass]="{'transparent': incident.inWorkspace}" (click)="incident.inWorkspace || addToWorkspace(incident)"></span>
                         <span class="glyphicon glyphicon-tag glyphicon-btn" data-toggle="modal" data-target="#dispatchModal" (click)="setIncidentToAssign(incident.attributes.REPORT_ID)" title="Assign to Guard"></span>
-
+                        <span class="glyphicon glyphicon-time glyphicon-btn" data-toggle="modal" data-target="#timerModal" (click)="setIncidentToTime(incident.attributes.REPORT_ID)" title="Set Timer"></span>                        
                     </div>
 
                 </div>
 
             </div>
         </div>
-    </div>
-    <div class="panel-footer">
-        <input class="form-control" type="text" placeholder="Search for reports...">
     </div>
 </div>
 
@@ -85,3 +82,30 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div id="timerModal" class="modal fade" role="dialog" *ngIf="incidentSetTimer.attributes.REPORT_ID != null">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="glyphicon glyphicon-timer glyphicon-heading"></span>
+                <span class="panel-header">Set Timer - Report #{{incidentSetTimer.attributes.REPORT_ID}}</span>
+            </div>
+            <div class="modal-body">
+                <div class="details-container">
+                    <div class="details-body">
+                        <div class="detail col-12 col-sm-3">
+                            <input class="form-control" type="time" [(ngModel)] = "incidentSetTimer.attributes.TIMER_START" (change)="onChangeModifyTimer()">
+                            <input class="form-control" type="time" [(ngModel)] = "incidentSetTimer.attributes.TIMER_END" (change)="onChangeModifyTimer()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" (click)="setTimer()" data-dismiss="modal">Set Timer</button>
+            </div>
+        </div>
+    </div>
+</div>
+    

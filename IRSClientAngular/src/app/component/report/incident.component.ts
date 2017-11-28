@@ -23,6 +23,7 @@ export class IncidentComponent implements OnInit {
     selectedStaffId: number = -1;
     incidents: Incident[];
     incidentToAssign: Incident = new Incident();
+    incidentSetTimer: Incident = new Incident();    
     lastRemovedId: number = 0;
     statuses: String[] = ['Created', 'En Route', 'Working', 'Closed', 'Sealed'];
 
@@ -68,6 +69,19 @@ export class IncidentComponent implements OnInit {
 
     removeFromWorkspace( id: number ): void {
         this.incidentService.removeFromWorkspace( id );
+    }
+
+    setTimer() {
+        console.log(this.incidentSetTimer);
+    }
+
+    setIncidentToTime( id: number ) {
+        if ( id == null ) return;
+        var index = this.incidents.findIndex( x => x.attributes.REPORT_ID == id );
+        if ( index >= 0 ) {
+            this.incidentSetTimer = this.incidents[ index ];
+            console.log(this.incidentSetTimer);
+        }
     }
 
     setIncidentToAssign( id: number ) {
