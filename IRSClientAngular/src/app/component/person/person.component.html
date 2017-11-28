@@ -1,6 +1,6 @@
 <div class="details-body">
     <div class="x-container">
-        <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removePersonFromReport()"></span>        
+        <span *ngIf="!router.url.includes('guard-app')" class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removePersonFromReport()"></span>        
     </div>
 
     <div class="detail col-12 col-md-3 col-sm-6">

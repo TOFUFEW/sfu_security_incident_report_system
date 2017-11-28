@@ -199,24 +199,32 @@
                             <div id="collapsePersons" class="panel-collapse collapse">
                                 <div class="panel-body details-body lh-1 mt-1" *ngIf="incident">
                                     <span *ngFor="let person of incident.incidentElements['Person']">
-                                        <span *ngIf="!isEditingPerson" 
-                                                [id]="person.attributes.PERSON_ID"
-                                                (click)="editPerson($event)">
+                                        <span   [id]="person.attributes.PERSON_ID"
+                                                (click)="editPerson(person)">
                                             Name: {{person.attributes.FIRST_NAME}}
                                             {{person.attributes.LAST_NAME}} &nbsp;
                                             Phone Number: {{person.attributes.PHONE_NUMBER}}
                                         </span>
+                                        <br>
                                     </span>
                                     <div *ngIf="isEditingPerson">
                                         <div class="clear-float"></div>
+                                        <span class="field-title mt-2" *ngIf="this.currentPersonIndex == -1">
+                                            Add a New Person
+                                        </span>
+                                        <span class="field-title mt-2" *ngIf="this.currentPersonIndex != -1">
+                                            <b>Edit Person:</b> {{this.currentPerson.attributes.FIRST_NAME}} {{this.currentPerson.attributes.LAST_NAME}}
+                                        </span>
                                         <person-component 
                                             #personEditor 
-                                            (addPersonToGuardReport)="addPerson($event)">
+                                            (addPersonToGuardReport)="addPerson($event)"
+                                            (cancelEditor)="toggleEditMode('person')">
                                         </person-component>
                                         <div class="clear-float"></div>                                              
                                     </div> 
                                     <div class="clear-float"></div>                                    
-                                    <button id="-1"
+                                    <button *ngIf="!isEditingPerson"
+                                            id="-1"
                                             (click)="editPerson($event)" 
                                             class="btn btn-sm btn-default pull-right mt-2 mr-1 mb-1 ml-2">
                                         <span class="glyphicon glyphicon-plus"></span> Add Person

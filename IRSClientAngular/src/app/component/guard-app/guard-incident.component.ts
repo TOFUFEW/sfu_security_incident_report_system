@@ -44,6 +44,7 @@ export class GuardIncidentComponent implements OnInit {
     newSummary: string = "";
 
     isEditingPerson: boolean = false;
+    currentPerson: Person = new Person();
     currentPersonIndex: number; 
     newPersonFirstName: string = "";
     newPersonLastName: string = "";
@@ -162,19 +163,14 @@ export class GuardIncidentComponent implements OnInit {
         incident.editing = false;
     }
 
-    editPerson ( event ) {
+    editPerson ( person ) {
         this.toggleEditMode('person');
-        // this.personEditor.editPerson(event.target.id);
-        this.currentPersonIndex = event.target.id;
+        this.currentPerson = person;
+        this.currentPersonIndex = person.attributes.PERSON_ID;
     }
 
     addPerson (personToAdd) {
         console.log("Person added ", personToAdd);
-        // if ( this.personEditor.personExists ) {
-
-        //     // this.incidentElementService.addElement();
-        //     this.saveReport('person');
-        // }
         console.log("ID to remove ", this.currentPersonIndex);
         if ( this.currentPersonIndex == -1 ) {
             var incident = this.incidentElementService.addElement ( this.incident, personToAdd )

@@ -146,7 +146,8 @@ export class PersonComponent implements OnInit {
                     if ( returnedPerson != null ) {
                         alert("Person successfully added!");
                         this.personExists = true;
-                        this.personAdded.emit( this.personExists );    
+                        this.personAdded.emit( this.personExists );   
+                        console.log("returned person ", returnedPerson); 
                         this.addPersonToGuardReport.emit(this.newPerson);
                     }
                     else alert("Add failed. Try again.");
