@@ -85,7 +85,7 @@
                 <div class="detail detail-lg col-sm-12">
                     <span class="field-title">Attachments: </span>
                     <div class="details-body" *ngFor="let attachment of report.incidentElements['Attachment']">
-                      <span class="field-value" >{{attachment.attributes.FILE_NAME}}</span>
+                      <a class="field-value" href="upload/get/{{attachment.attributes.FILE_ID}}/{{attachment.attributes.FILE_NAME}}">{{attachment.attributes.FILE_NAME}}</a>
                     </div>
                 </div>
 

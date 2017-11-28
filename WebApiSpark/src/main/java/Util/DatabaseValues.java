@@ -305,13 +305,13 @@ public class DatabaseValues
         ),
         FILE_NAME (
                 "FILE_NAME" ,
-                "VARCHAR(" + 30 + ")",
+                "VARCHAR(" + 80 + ")",
                 DEFAULT_STRING_VALUE,
                 null
         ),
         FILE_ID (
                 "FILE_ID" ,
-                "VARCHAR(" + 30 + ")",
+                "VARCHAR(" + 80 + ")",
                 DEFAULT_STRING_VALUE,
                 null
         );

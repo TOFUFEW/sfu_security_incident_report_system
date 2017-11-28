@@ -12,6 +12,8 @@ export class Config {
     static CategoriesURI: string = "https://localhost:4567/categories";
     static UpdateIncidentURI: string = "https://localhost:4567/update-incident";
     static UploadURI: string = "https://localhost:4567/upload";
+    static UploadsURI: string = "https://localhost:4567/uploads";
+    static GetFileURI: string = "https://localhost:4567/upload/get/";
     static NewAccountURI: string = "https://localhost:4567/create-account";
     static GetAccountTypesURI: string = "https://localhost:4567/get-account-types";
     static GetCampusURI: string = "https://localhost:4567/campus";

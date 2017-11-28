@@ -6,6 +6,7 @@ import { Location } from '../location/location';
 import { Person } from '../person/person';
 import { LocationComponent } from '../location/location.component';
 import { PersonComponent } from '../person/person.component';
+import { AttachmentViewComponent } from '../attachment/attachmentView.component';
 import { Category, SubCategory, CategoryType, CategoryDictionary } from '../category/category';
 import { IncidentService } from '../../service/incident.service';
 import { LocationService } from '../../service/location.service';

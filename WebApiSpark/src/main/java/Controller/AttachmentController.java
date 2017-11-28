@@ -6,11 +6,15 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
-import java.nio.file.Files;
+import java.io.FileInputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -43,7 +47,7 @@ public class AttachmentController {
                 DiskFileItemFactory factory = new DiskFileItemFactory();
                 factory.setRepository( upload );
                 ServletFileUpload fileUpload = new ServletFileUpload( factory );
-                List<FileItem> items = fileUpload.parseRequest( request.raw() );
+                List<FileItem> items = fileUpload.parseRequest( request.raw());
 
                 // uploadField is the field name that we want to save
                 String uploadField = "files[]";
@@ -63,19 +67,36 @@ public class AttachmentController {
             return false;
         });
 
-        get("/upload/:filename", (request, response) -> {
+        get("upload/get/:id/:filename", (request, response) -> {
+            System.out.println("get file");
             System.out.println(request.params("filename"));
+
+            String filePath = request.params("id") + "/" + request.params("filename");
+
             try {
-                Path from = Paths.get("/uploads/" + request.params("filename")).toAbsolutePath();
-                Path to = Paths.get("/src/main/resources/public/uploads/" + request.params("filename")).toAbsolutePath();
+                Path currentPath = Paths.get("").toAbsolutePath();
+                Path from = Paths.get(currentPath + "/uploads/" + filePath).toAbsolutePath();
+                File file = new File(from.toString());
 
-                Files.copy(from, to.resolve(to.getFileName()));
+                ZipOutputStream zipOutputStream = new ZipOutputStream(new BufferedOutputStream(response.raw().getOutputStream()));
+                BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
 
-                return to;
-            } catch ( Exception e ) {
+                ZipEntry zipEntry = new ZipEntry(file.getName());
+
+                zipOutputStream.putNextEntry(zipEntry);
+                byte[] buffer = new byte[1024];
+                int len;
+                while ((len = bufferedInputStream.read(buffer)) > 0) {
+                    zipOutputStream.write(buffer,0,len);
+                }
+                zipOutputStream.flush();
+                zipOutputStream.close();
+
+            } catch (Exception e) {
+
                 e.printStackTrace();
             }
-            return null;
+            return response.raw();
         } );
 
         get ( "/uploads" , ( request , response ) -> {

@@ -50,8 +50,6 @@ export class NewReportService {
 
         arr.push( obj );
         behaviorSubject.next( arr );
-        console.log("addIncidentElement");
-        console.log(behaviorSubject);
     }
 
     removeIncidentElement( obj: any, table: string) {

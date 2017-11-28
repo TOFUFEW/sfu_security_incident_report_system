@@ -159,9 +159,6 @@ public class DBHelper
                     }
                     if ( incidentElement != null ) {
                         incidentElement.extractFromCurrentRow( rs );
-                        if (incidentElement instanceof  Attachment ){
-                            System.out.println(incidentElement.toJson());
-                        }
                         //System.out.println(count + ": " + incidentElement.getTable().toString().substring (4));
                         incidentElements.get ( incidentElement.getTable().toString().substring (4) ).add ( incidentElement );
                        //System.out.println(incidentElements.get());

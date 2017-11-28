@@ -73,16 +73,8 @@ export class AttachmentComponent implements OnInit {
     this.reportService.addIncidentElement(this.newAttachment);
   }
 
-  public getFile(): Promise<String> {
-      var fileAddress = this.http.get( this.uploadURI + '/' + this.newAttachment.attributes.FILE_ID + '/' + this.newAttachment.attributes.FILE_NAME )
-          .toPromise()
-          .then( response => response.json() as String )
-          .catch( this.handleError );
-      return Promise.resolve( fileAddress );
-  };
-
   getAttachments(): Promise<Attachment[]> {
-      var returnedAttachments = this.http.get( "https://localhost:4567/uploads" )
+      var returnedAttachments = this.http.get( Config.UploadsURI )
           .toPromise()
           .then( response => response.json() as Attachment[] )
           .catch( this.handleError );
