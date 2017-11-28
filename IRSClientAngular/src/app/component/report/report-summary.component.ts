@@ -44,6 +44,7 @@ export class ReportSummaryComponent implements OnInit {
 
     tempStartTime: string;
     tempEndTime: string;
+    validTimer: boolean = true;
 
     isPersonAdded: boolean = true;
     editMode: boolean = false;
@@ -83,11 +84,21 @@ export class ReportSummaryComponent implements OnInit {
     }
 
     updateReport() {
-        this.allFieldsValid = this.newReportService.validateReport(this.report_edit);
-        this.allFieldsValid = this.validateTimer();
+        this.allFieldsValid = this.newReportService.validateReport(this.report_edit) && this.validateTimer();
+
         if ( this.allFieldsValid ) {
-            this.report_edit.attributes.TIMER_START = this.timerService.stringToTime(this.tempStartTime);
-            this.report_edit.attributes.TIMER_END = this.timerService.stringToTime(this.tempEndTime);
+            if (this.tempStartTime == null ){
+                this.report_edit.attributes.TIMER_START = null;
+            } else {
+                this.report_edit.attributes.TIMER_START = this.timerService.stringToTime(this.tempStartTime); 
+            } 
+
+            if ( this.tempEndTime == null ) {
+                this.report_edit = null;
+            } else {
+                this.report_edit.attributes.TIMER_END = this.timerService.stringToTime(this.tempEndTime);
+            }
+
             this.report = this.report_edit;
             this.assignToGuard();
             this.editMode = false;
@@ -105,14 +116,15 @@ export class ReportSummaryComponent implements OnInit {
     validateTimer() : boolean {
         if( this.tempStartTime != null && this.tempEndTime != null ){
             if ( this.timerService.stringToTime(this.tempEndTime) < this.timerService.stringToTime(this.tempStartTime) ){
-                alert("End time cannot be before start time");
+                this.validTimer = false;
                 return false;
             }
             return true;
         } else if ((this.tempStartTime != null && this.tempEndTime == null) || (this.tempStartTime == null && this.tempEndTime != null )){
-            alert("invalid timer fields")
+            this.validTimer = false;
             return false;
         } else {
+            this.validTimer = true;
             return true;
         }
     }

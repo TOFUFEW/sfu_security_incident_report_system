@@ -84,8 +84,8 @@
                     <span class="field-title">Timer: </span>
                 </div>
                 <div class="x-container">
-                        <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="clearTimer()"></span>        
-                    </div>
+                    <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="clearTimer() " *ngIf="editMode"></span>        
+                </div>
                 <div class="detail detail-lg col-sm-12">
                     <span class="field-title">Start Time: </span>
                     <span *ngIf="!editMode" class="field-value">{{timerIntToString(report.attributes.TIMER_START)}}</span>
