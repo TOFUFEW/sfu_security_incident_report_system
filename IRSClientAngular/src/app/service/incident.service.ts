@@ -267,7 +267,7 @@ export class IncidentService {
         var user = this.userService.getCurrentUser();
           var incidents = this.http.post( this.getIncidentsUrl, JSON.stringify( user ), { headers: this.headers } )
             .toPromise ()
-            .then( response => this.bs_reportsInList.next(plainToClass(Incident, response.json())) )
+            .then( response => this.bs_reportsInList.next ( this.initIncidents( plainToClass(Incident, response.json()) ) as Incident[] ) )
             .catch( this.handleError );
           return Promise.resolve( this.bs_reportsInList.getValue () );
     };
