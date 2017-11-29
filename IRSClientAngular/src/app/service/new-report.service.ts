@@ -32,6 +32,11 @@ export class NewReportService {
         this.incidentElements = new Map<String, IncidentElement[]>();
     }
 
+    resetLocations() {
+        this.locations = new BehaviorSubject<Location[]>([]);
+        this.currentLocations = this.locations.asObservable();
+    }
+
     addIncidentElement( obj: IncidentElement ) {
         if ( obj == null ) {
             console.log("ERROR: " + obj.table + " is undefined and cannot be added.");

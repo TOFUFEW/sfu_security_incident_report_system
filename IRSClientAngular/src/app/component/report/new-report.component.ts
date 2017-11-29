@@ -92,6 +92,7 @@ export class NewReportComponent implements OnInit {
     */
 
     ngOnInit() {
+        this.newReportService.resetLocations();
         this.newReportService.currentLocations
             .subscribe(locations => {
                 this.newIncident.incidentElements[Config.LocationKey] = locations;
