@@ -329,7 +329,6 @@ export class IncidentService {
         for ( var i = 0 ; i < incidents.length ; i++ )
         {
           incidents [ i ] = this.initializeIncident ( incidents [ i ] );
-          console.log("initialize report id = " + incidents[i].attributes.REPORT_ID);
         }
 
         return incidents;
