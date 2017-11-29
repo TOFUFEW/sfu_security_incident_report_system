@@ -104,8 +104,9 @@
                         <span class="link alertText" *ngIf="editMode['Incident']" data-toggle="modal" data-target="#removeItemModal"
                             (click)="setItemIdToRemove('attachment', attachment.attributes.FILE_ID)">Remove</span>
                     </div>
-                    <span class="link" *ngIf="editMode['Incident']" (click)="toggleEditMode('Attachment')">Add Location</span>
                   </div>
+                  <attachment-component *ngIf="editMode['Incident']" #files></attachment-component>
+                  <span class="link" *ngIf="editMode['Incident']" (click)="addIncidentElement('attachment');">Add Attachment</span>
 
               </div>
             </div>

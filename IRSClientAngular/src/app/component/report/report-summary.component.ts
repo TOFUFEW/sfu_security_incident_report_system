@@ -4,6 +4,7 @@ import { Incident } from '../report/incident';
 import { Staff } from '../staff/staff';
 import { Location } from '../location/location';
 import { Person } from '../person/person';
+import { Attachment } from '../attachment/attachment';
 import { LocationComponent } from '../location/location.component';
 import { PersonComponent } from '../person/person.component';
 import { AttachmentViewComponent } from '../attachment/attachmentView.component';
@@ -155,6 +156,7 @@ export class ReportSummaryComponent implements OnInit {
             element = this.genericElementComponent.newElement;
         }
         else if ( type === 'attachment' ) {
+            this.attachmentComponent.upload();
             element = this.attachmentComponent.newAttachment;
         }
 
@@ -208,6 +210,8 @@ export class ReportSummaryComponent implements OnInit {
             this.locationComponent.newLocation = new Location();
         if ( this.personComponent != null )
             this.personComponent.newPerson = new Person();
+        if ( this.attachmentComponent != null )
+            this.attachmentComponent.newAttachment = new Attachment();
     }
 
     timerStringToInt( str : string ) : number {
