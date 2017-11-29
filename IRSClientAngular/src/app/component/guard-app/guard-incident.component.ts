@@ -166,8 +166,13 @@ export class GuardIncidentComponent implements OnInit {
 
     editPerson ( person ) {
         this.toggleEditMode('person');
-        this.currentPerson = person;
-        this.currentPersonIndex = person.attributes.PERSON_ID;
+        if ( person.attributes ) {
+            this.currentPerson = person;
+            this.currentPersonIndex = person.attributes.PERSON_ID;
+        }
+        else if ( person.target.id ) {
+            this.currentPersonIndex = person.target.id;
+        }
     }
 
     addPerson (personToAdd) {

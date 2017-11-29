@@ -116,9 +116,11 @@ export class PersonComponent implements OnInit {
                     } else {
                         this.personExists = true;
                         this.newPerson = exists;
-                        this.reportService.removeIncidentElement(this.newPerson, Config.PersonTable);
-                        this.addPersonToReport();
-                        console.log(this.reportService.incidentElements);
+                        if ( !this.router.url.includes('guard-app')) {
+                            this.reportService.removeIncidentElement(this.newPerson, Config.PersonTable);
+                            this.addPersonToReport();
+                            console.log(this.reportService.incidentElements);
+                        }
                     }
                     this.personAdded.emit( this.personExists );
                 });

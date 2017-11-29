@@ -55,6 +55,7 @@ body {
 
     .dropdown-menu  {
         background-color: #ffffff;
+        border-bottom: 1px white solid;
         box-shadow: rgba(0, 0, 0, 0.176) 0px 6px 12px;
         position: absolute;
         width: 100px !important;
@@ -569,6 +570,14 @@ div#new-report-panel, div#new-account-panel {
     .navbar-sm {
         display: block;
     }
+
+    .navbar-sm .link {
+        margin-left: 70%;     
+        @media (max-width: 390px) {
+            margin-left: 50%;
+        }           
+    }
+
     .navbar-lg { display: none; }
 }
 

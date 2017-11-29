@@ -37,6 +37,7 @@ body {
     font-weight: 700; }
   #main-navbar .dropdown-menu {
     background-color: #ffffff;
+    border-bottom: 1px white solid;
     box-shadow: rgba(0, 0, 0, 0.176) 0px 6px 12px;
     position: absolute;
     width: 100px !important; }
@@ -539,6 +540,13 @@ div#new-report-panel, div#new-account-panel {
   .navbar-sm {
     display: block; }
 
+  .navbar-sm .link {
+    margin-left: 70%; } }
+  @media (max-width: 767px) and (max-width: 390px) {
+    .navbar-sm .link {
+      margin-left: 50%; } }
+
+@media (max-width: 767px) {
   .navbar-lg {
     display: none; } }
 .bottom-links {
