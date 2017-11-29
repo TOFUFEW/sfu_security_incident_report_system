@@ -266,9 +266,9 @@ export class IncidentService {
 
     getIncidentsObs(): Observable<Incident[]> {
          let options = new RequestOptions({headers: this.headers});
-
+         var user = this.userService.getCurrentUser();
          return this.http
-             .get(Config.IncidentsURI, options)
+             .post(this.getIncidentsUrl, JSON.stringify( user ), options)
              .map((response: Response) =>
              this.initIncidents(plainToClass(Incident, response.json()))
          )

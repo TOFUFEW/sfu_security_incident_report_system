@@ -267,7 +267,7 @@ public class DBHelper
         if ( getAccountType( creatorID ) == DatabaseValues.AccountType.GUARD )
             incident.updateAttributeValue( DatabaseValues.Column.TEMPORARY_REPORT, "0" );
 
-        incident.updateSearchString();
+        incident.updateSearchString(true);
 
         try {
             initDB();
@@ -820,7 +820,7 @@ public class DBHelper
             return false;
         }
 
-        incident.updateSearchString();
+        incident.updateSearchString(false);
 
         try {
             initDB ();
