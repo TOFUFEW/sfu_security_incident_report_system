@@ -57,7 +57,6 @@ export class GuardDashboardComponent implements OnInit {
 
         this.incidentService.reportsInList
           .subscribe ( reports => {
-
               this.createdIncidents = ( reports as Incident [] )
                 .filter ( i => this.incidentService.userCreatedReport ( i ) );
 
