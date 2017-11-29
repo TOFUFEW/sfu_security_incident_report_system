@@ -4,8 +4,11 @@ import { Incident } from '../report/incident';
 import { Staff } from '../staff/staff';
 import { Location } from '../location/location';
 import { Person } from '../person/person';
+import { Attachment } from '../attachment/attachment';
 import { LocationComponent } from '../location/location.component';
 import { PersonComponent } from '../person/person.component';
+import { AttachmentViewComponent } from '../attachment/attachmentView.component';
+import { AttachmentComponent } from '../attachment/attachment.component';
 import { GenericElementComponent } from '../generic-element/generic-element.component';
 import { Category, SubCategory, CategoryType, CategoryDictionary } from '../category/category';
 import { IncidentService } from '../../service/incident.service';
@@ -28,7 +31,8 @@ export class ReportSummaryComponent implements OnInit {
     @Input() inputReport: Incident;
     @ViewChild(LocationComponent) locationComponent: LocationComponent;
     @ViewChild(PersonComponent) personComponent: PersonComponent;
-    @ViewChild(GenericElementComponent) genericElementComponent: GenericElementComponent;    
+    @ViewChild(GenericElementComponent) genericElementComponent: GenericElementComponent;
+    @ViewChild(AttachmentComponent) attachmentComponent: AttachmentComponent;
     report: Incident;
     isAccepted : boolean = false;
 
@@ -66,12 +70,13 @@ export class ReportSummaryComponent implements OnInit {
 
     initializeEditableComponents() {
         this.editMode = new Map<string, boolean>();
-        this.editMode["Incident"] = false;   
-        this.editMode[Config.StaffKey] = false;          
-        this.editMode[Config.LocationKey] = false;  
-        this.editMode[Config.PersonKey] = false;  
-        this.editMode[Config.GenericElementKey] = false;  
-        console.log(this.editMode);        
+        this.editMode["Incident"] = false;
+        this.editMode[Config.StaffKey] = false;
+        this.editMode[Config.LocationKey] = false;
+        this.editMode[Config.PersonKey] = false;
+        this.editMode[Config.GenericElementKey] = false;
+        this.editMode[Config.AttachmentKey] = false;
+        console.log(this.editMode);
     }
 
     removeFromWorkspace( id: number ): void {
@@ -82,7 +87,7 @@ export class ReportSummaryComponent implements OnInit {
         console.log( type);
         this.editMode[type] = !this.editMode[type];
         console.log(this.editMode[type]);
-        
+
         if ( this.editMode[type] ) {
             if ( type === Config.PersonKey ) {
                 this.isPersonAdded = false;
@@ -93,7 +98,7 @@ export class ReportSummaryComponent implements OnInit {
                 this.onSelectType();
             }
         }
-        
+
     }
 
     cancelUpdate( type: string) {
@@ -106,8 +111,8 @@ export class ReportSummaryComponent implements OnInit {
         this.allFieldsValid = this.newReportService.validateReport(this.report_edit) && this.validateTimer();
 
         if ( this.allFieldsValid ) {
-            this.report_edit.attributes.TIMER_START = this.timerService.stringToTime(this.tempStartTime); 
-            this.report_edit.attributes.TIMER_END = this.timerService.stringToTime(this.tempEndTime);            
+            this.report_edit.attributes.TIMER_START = this.timerService.stringToTime(this.tempStartTime);
+            this.report_edit.attributes.TIMER_END = this.timerService.stringToTime(this.tempEndTime);
             this.report = this.report_edit;
             this.assignToGuard();
             this.initializeEditableComponents();
@@ -150,12 +155,16 @@ export class ReportSummaryComponent implements OnInit {
         else if ( type === 'generic-element' ) {
             element = this.genericElementComponent.newElement;
         }
+        else if ( type === 'attachment' ) {
+            this.attachmentComponent.upload();
+            element = this.attachmentComponent.newAttachment;
+        }
 
         if ( this.newReportService.validateIncidentElement( element ) ) {
             if ( this.incidentElementService.addElementNoUpdate( this.report_edit, element ) ) {
                 this.updateReport();
                 this.flushComponents();
-            }   
+            }
         }
         else {
             this.alertReportInvalid();
@@ -177,6 +186,10 @@ export class ReportSummaryComponent implements OnInit {
             this.incidentElementService
                 .removeElementNoUpdate ( this.report_edit, Config.GenericElementTable, this.itemIdToRemove );
         }
+        else if ( type === 'attachment') {
+            this.incidentElementService
+                .removeElementNoUpdate ( this.report_edit, Config.AttachmentTable, this.itemIdToRemove );
+        }
         else {
             console.log("Incident element is unrecognized.");
             return;
@@ -191,11 +204,14 @@ export class ReportSummaryComponent implements OnInit {
         this.itemToRemove = type;
     }
 
+
     private flushComponents() {
         if ( this.locationComponent != null )
             this.locationComponent.newLocation = new Location();
         if ( this.personComponent != null )
             this.personComponent.newPerson = new Person();
+        if ( this.attachmentComponent != null )
+            this.attachmentComponent.newAttachment = new Attachment();
     }
 
     timerStringToInt( str : string ) : number {
@@ -311,6 +327,7 @@ export class ReportSummaryComponent implements OnInit {
                 this.staffArr = staffArr;
             }
         );
+        console.log(this.report_edit);
     }
 
     private alertReportInvalid() {

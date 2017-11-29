@@ -4,6 +4,7 @@ import { IncidentElementService } from '../service/incident-element.service';
 import { Config } from '../util/config.service';
 import { Location, LocationAttributes } from '../component/location/location';
 import { Person } from '../component/person/person';
+import { Attachment } from '../component/attachment/attachment';
 import { Category } from '../component/category/category';
 import { GenericElement } from '../component/generic-element/generic-element';
 import { Incident } from '../component/report/incident';
@@ -13,18 +14,27 @@ import { LocationService } from '../service/location.service';
 @Injectable()
 export class NewReportService {
     incidentElements: Map<String, IncidentElement[]>;
-    
+
     private locations = new BehaviorSubject<Location[]>([]);
     currentLocations = this.locations.asObservable();
-    
+
     private persons = new BehaviorSubject<Person[]> ([]);
     currentPersons = this.persons.asObservable();
 
     private bs_genericElements = new BehaviorSubject<GenericElement[]> ([]);
     currentGenericElements = this.bs_genericElements.asObservable();
 
+    private attachments = new BehaviorSubject<Attachment[]> ([]);
+    currentAttachments = this.attachments.asObservable();
+
     constructor(private locationService: LocationService) {
+
         this.incidentElements = new Map<String, IncidentElement[]>();
+    }
+
+    resetLocations() {
+        this.locations = new BehaviorSubject<Location[]>([]);
+        this.currentLocations = this.locations.asObservable();
     }
 
     addIncidentElement( obj: IncidentElement ) {
@@ -44,11 +54,15 @@ export class NewReportService {
             arr = behaviorSubject.getValue() as Person[];
             // obj = IncidentElementService.toIncidentElement( table, obj );
         }
+        else if ( obj.table === Config.AttachmentTable ) {
+            behaviorSubject = this.attachments;
+            arr = behaviorSubject.getValue() as Attachment[];
+        }
         else if ( obj.table === Config.GenericElementTable ) {
             behaviorSubject = this.bs_genericElements;
             arr = behaviorSubject.getValue() as GenericElement[];
         }
-        else 
+        else
             return;
 
         arr.push( obj );
@@ -74,7 +88,7 @@ export class NewReportService {
             arr = behaviorSubject.getValue() as Person[];
             var person = obj as Person;
             index = arr.findIndex( x => x.attributes.FIRST_NAME === person.attributes.FIRST_NAME
-                                        && x.attributes.LAST_NAME === person.attributes.LAST_NAME 
+                                        && x.attributes.LAST_NAME === person.attributes.LAST_NAME
                                         && x.attributes.PHONE_NUMBER === person.attributes.PHONE_NUMBER ) ;
         }
         else if ( table === Config.GenericElementTable ) {
@@ -133,15 +147,18 @@ export class NewReportService {
         var table = element.table;
         if ( table === Config.LocationTable )
             isValid = this.validateLocation( element as Location ) && isValid ;
-        else if ( table === Config.PersonTable ) 
+        else if ( table === Config.PersonTable )
             isValid = this.validatePerson( element as Person ) && isValid ;
         else if (table === Config.CategoryTable ) {
-            
+
         }
         else if ( table === Config.GenericElementTable ) {
             var elem = element as GenericElement;
             isValid = elem.attributes.TYPE != null && elem.attributes.TYPE.length > 0 && isValid;
         }
+        else if (table === Config.AttachmentTable) {
+                  isValid = this.validateAttachment( element as Attachment) && isValid;
+                }
         else {
             console.log("*** WARNING: Incident Element unrecognized.");
         }
@@ -156,15 +173,15 @@ export class NewReportService {
                 this.debug_printErrorMsg( "LOCATION_ID" );
                 return false;
             }
-            
+
         }
 
         return true;
     }
 
     validatePerson( person: Person ): boolean {
-        var isValid = true ; 
-        if ( person == null || person.attributes == null ) 
+        var isValid = true ;
+        if ( person == null || person.attributes == null )
             return false;
         if ( person.attributes.FIRST_NAME == null || person.attributes.FIRST_NAME.length == 0 ) {
             this.debug_printErrorMsg( "FIRST_NAME");
@@ -181,7 +198,15 @@ export class NewReportService {
         return isValid;
     }
 
+    validateAttachment( attachment: Attachment): boolean {
+      if ( attachment != null && attachment.attributes.FILE_ID != null && attachment.attributes.FILE_NAME != null) {
+        return true;
+      }
+      this.debug_printErrorMsg("file");
+      return false;
+    }
+
     private debug_printErrorMsg( field: String ) {
-        console.log( "***** REPORT INVALID ERROR: " + field + " cannot be null or empty " );        
+        console.log( "***** REPORT INVALID ERROR: " + field + " cannot be null or empty " );
     }
 }

@@ -9,6 +9,7 @@ import { LoginComponent } from './component/login/login.component';
 import { GuardDashboardComponent } from "./component/guard-app/guard-dashboard.component";
 import { GuardIncidentComponent } from "./component/guard-app/guard-incident.component";
 import { NewAccountComponent } from './component/login/new-account-component';
+import { AttachmentViewComponent } from './component/attachment/attachmentView.component';
 
 export const router: Routes = [
     // Default
@@ -23,6 +24,7 @@ export const router: Routes = [
     { path: 'new-report', component: NewReportComponent },
     { path: 'guard-app/report/:id', component: GuardIncidentComponent},
     { path: 'new-account', component: NewAccountComponent},
+    { path: 'upload/get/:id/:name', component: AttachmentViewComponent},
 
     // 404
     { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },

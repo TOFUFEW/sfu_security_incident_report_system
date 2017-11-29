@@ -10,4 +10,7 @@ BEGIN
 
 	DELETE FROM Involves
 	WHERE REPORT_ID = @report_id;
+
+	DELETE FROM Attachment
+    WHERE REPORT_ID = @report_id;
 END;

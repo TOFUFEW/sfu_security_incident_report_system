@@ -26,7 +26,8 @@ public class DatabaseValues
         INVOLVES ( "dbo.Involves" ),
         LOCATION ( "dbo.Location" ),
         PERSON ( "dbo.Person" ),
-        STAFF ( "dbo.Staff" );
+        STAFF ( "dbo.Staff" ),
+        ATTACHMENT ( "dbo.Attachment" );
 
         private String table;
 
@@ -332,6 +333,18 @@ public class DatabaseValues
                 "VARCHAR(" + 30 + ")",
                 DEFAULT_STRING_VALUE,
                 null
+        ),
+        FILE_NAME (
+                "FILE_NAME" ,
+                "VARCHAR(" + 80 + ")",
+                DEFAULT_STRING_VALUE,
+                null
+        ),
+        FILE_ID (
+                "FILE_ID" ,
+                "VARCHAR(" + 80 + ")",
+                DEFAULT_STRING_VALUE,
+                null
         );
 
         private String column;
@@ -391,6 +404,7 @@ public class DatabaseValues
         LOCATION ( "Location" ),
         PERSON ( "Person" ),
         STAFF ( "Staff" ),
+        ATTACHMENT ( "Attachment" ),
         GENERIC_ELEMENT ( "GenericElement" );
 
         private String key;

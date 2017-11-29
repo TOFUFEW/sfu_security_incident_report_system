@@ -234,7 +234,7 @@ export class IncidentService {
         if ( workspaceReportListIndex != -1 )
         {
           workspaceReportList.splice( workspaceReportListIndex, 1, incident );
-          this.bs_reportsToAddToWorkspace.next(workspaceReportList);          
+          this.bs_reportsToAddToWorkspace.next(workspaceReportList);
         }
     }
 
@@ -242,7 +242,7 @@ export class IncidentService {
         var arr = this.bs_reportsToAddToWorkspace.getValue();
         var index = arr.findIndex(i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID);
         if (index < 0) {
-            console.log(incident)            
+            console.log(incident)
             incident.inWorkspace = true;
             arr.splice(0, 0, incident);
             this.bs_reportsToAddToWorkspace.next(arr);
@@ -335,6 +335,7 @@ export class IncidentService {
     }
 
     private initializeIncident(incident: Incident): Incident {
+        console.log(incident);
         incident.category = incident.incidentElements[Config.IncidentCategoryKey][0] as Category;
         incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
         incident.createdBy = this.getReportCreator(incident.attributes.ACCOUNT_ID);

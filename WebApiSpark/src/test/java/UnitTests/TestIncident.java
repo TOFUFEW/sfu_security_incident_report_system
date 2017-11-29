@@ -32,6 +32,8 @@ public class TestIncident
 
         IncidentElement staff = staffList[ rand.nextInt( staffList.length ) ];
 
+        IncidentElement attachment = new Attachment("test", "123456");
+
         Incident incident1 = new Incident();
         incident1.updateAttributeValue ( Column.REPORT_ID, null );
         incident1.updateAttributeValue ( Column.ACCOUNT_ID, staff.getAttributeValue( Column.ACCOUNT_ID ) );
@@ -94,6 +96,10 @@ public class TestIncident
         incident1.addIncidentElement( DatabaseValues.IncidentElementKey.PERSON.toString(), newPerson1 );
         elementCount++;
         incident1.addIncidentElement( DatabaseValues.IncidentElementKey.PERSON.toString(), newPerson2 );
+        elementCount++;
+
+        /***** ATTACHMENT*****/
+        incident1.addIncidentElement( DatabaseValues.IncidentElementKey.ATTACHMENT.toString(), attachment );
         elementCount++;
 
         /* Generic Element */
@@ -217,6 +223,7 @@ public class TestIncident
         Assert.assertTrue( DBHelper.insertIncident ( incident1 ) );
 
         Incident [] incidents = DBHelper.getIncidents ();
+        System.out.println(incidents[0]);
 
         Assert.assertTrue( currentSize < incidents.length );
 
@@ -231,7 +238,7 @@ public class TestIncident
         IncidentElement newCategory = newMap.get( DatabaseValues.IncidentElementKey.INCIDENT_CATEGORY.toString() ).get(0);
 
         Assert.assertTrue( incident1.getAttributeValue( Column.CATEGORY_ID )
-                            .equals( newCategory.getAttributeValue( Column.CATEGORY_ID ) ));
+                .equals( newCategory.getAttributeValue( Column.CATEGORY_ID ) ));
         Assert.assertTrue( newCategory.getAttributeValue( Column.CATEGORY_ID ).equals( selectedCategoryId ) );
 
         Assert.assertTrue( newlyInsertedIncident.numIncidentElements() > 0 );
@@ -240,6 +247,7 @@ public class TestIncident
         if ( locations.length > 0 )
             Assert.assertTrue( newlyInsertedIncident.numIncidentElements() < incident1.numIncidentElements() );
     }
+
 
     @Test
     public void testInsertWithoutCategoryId() {
