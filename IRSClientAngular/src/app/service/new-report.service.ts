@@ -194,7 +194,7 @@ export class NewReportService {
     }
 
     validateAttachment( attachment: Attachment): boolean {
-      if ( attachment != null && attachment.attributes.FILE_ID != null) {
+      if ( attachment != null && attachment.attributes.FILE_ID != null && attachment.attributes.FILE_NAME != null) {
         return true;
       }
       this.debug_printErrorMsg("file");

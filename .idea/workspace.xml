@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c3258f34-4357-46e7-a275-cc0acbced47a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IRSClientAngular/src/app/service/new-report.service.ts" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/service/new-report.service.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/WebApiSpark/target/" />
@@ -765,7 +766,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511921072588</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Add AttachmentView component to repository">
+      <created>1511923937747</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1511923937747</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -933,7 +941,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Merge branches '18-separating-dispatched-and-guard-views' and 'master' of csil-git1.cs.surrey.sfu.ca:tarsenea/CMPT373Alpha into 18-separating-dispatched-and-guard-views&#10;&#10;# Conflicts:&#10;#&#9;IRSClientAngular/src/app/component/dashboard.component.ts&#10;#&#9;IRSClientAngular/src/app/component/location.component.ts&#10;#&#9;IRSClientAngular/src/app/component/login/login.component.ts&#10;#&#9;IRSClientAngular/src/app/service/login.service.ts&#10;#&#9;IRSClientAngular/src/app/service/user.service.ts&#10;#&#9;IRSClientAngular/src/app/util/data-helper.service.ts&#10;#&#9;IRSClientAngular/src/app/view/dashboard.component.html&#10;#&#9;IRSClientAngular/src/app/view/location.component.html" />
     <MESSAGE value="change logout button to appear on navbar" />
     <MESSAGE value="Merge branch 'master' of csil-git1.cs.surrey.sfu.ca:tarsenea/CMPT373Alpha into 18-separating-dispatched-and-guard-views&#10;&#10;# Conflicts:&#10;#&#9;IRSClientAngular/src/app/app.module.ts&#10;#&#9;IRSClientAngular/src/index.html" />
     <MESSAGE value="post merge refactor, add proper route to guard" />
@@ -958,7 +965,8 @@
     <MESSAGE value="fix get incident procedure, fix created temp bug&#10;&#10;updated incident procedure, create set status to 5 now changed to 4 to work properly" />
     <MESSAGE value="Merge Master" />
     <MESSAGE value="Add Attachment Removal" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Attachment Removal" />
+    <MESSAGE value="Add AttachmentView component to repository" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add AttachmentView component to repository" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
