@@ -26,7 +26,11 @@ export class SearchComponent implements OnInit {
     constructor(
         private incidentService: IncidentService,
         private userService: UserService,
+        private router: Router
     ) {
+        if ( !this.userService.isLoggedIn() ) {
+            this.router.navigate( [ 'login' ] );
+        } 
     };
 
     onSearch() {
