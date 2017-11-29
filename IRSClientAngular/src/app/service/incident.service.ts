@@ -32,11 +32,6 @@ export class IncidentService {
 
     private userService = new UserService;
 
-    /*
-    private bs_allReports = new BehaviorSubject<Incident[]>([]);
-    allReports = this.bs_allReports.asObservable()
-    */
-
     private bs_reportsInList = new BehaviorSubject < Incident [] > ( [] );
     reportsInList = this.bs_reportsInList.asObservable ();
 
@@ -75,12 +70,6 @@ export class IncidentService {
             this.bs_categories.next(cat);
         } );
 
-        /*
-        this.getIncidents().then(response => {
-            this.bs_allReports.next(response);
-        });
-        */
-
         // Web socket
         var wss = new WebSocket ( Config.IncidentsWebSocketURI );
         wss.onopen = function ()
@@ -116,9 +105,6 @@ export class IncidentService {
 
     processWebsocketIncidentForGuard ( incident : Incident ) : void
     {
-      console.log ( "--------------------------------------" );
-      console.log ( "incident websocket guard update!" );
-
       var reportList = this.bs_reportsInList.getValue ();
       var reportListIndex = reportList.findIndex ( i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID );
 
@@ -269,7 +255,10 @@ export class IncidentService {
         var user = this.userService.getCurrentUser();
           var incidents = this.http.post( this.getIncidentsUrl, JSON.stringify( user ), { headers: this.headers } )
             .toPromise ()
-            .then( response => this.bs_reportsInList.next ( this.initIncidents( plainToClass(Incident, response.json()) ) as Incident[] ) )
+            .then( response => {
+              var reports = this.initIncidents ( plainToClass(Incident, response.json() ) as Incident[]  ) as Incident [];
+              reports.map ( i => this.addReportToList ( i ) );
+            })
             .catch( this.handleError );
           return Promise.resolve( this.bs_reportsInList.getValue () );
     };
@@ -307,7 +296,7 @@ export class IncidentService {
             .post(this.createdByIncidentsUrl, JSON.stringify(user), { headers: this.headers })
             .toPromise()
             .then ( response => {
-              var createdReports = this.initIncidents ( response.json() as Incident [] ) as Incident [];
+              var createdReports = this.initIncidents ( plainToClass(Incident, response.json() ) as Incident[]  ) as Incident [];
               createdReports.map ( i => this.addReportToList ( i ) );
             } )
             .catch( this.handleError );
@@ -335,7 +324,6 @@ export class IncidentService {
     }
 
     private initializeIncident(incident: Incident): Incident {
-        console.log(incident);
         incident.category = incident.incidentElements[Config.IncidentCategoryKey][0] as Category;
         incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
         incident.createdBy = this.getReportCreator(incident.attributes.ACCOUNT_ID);
