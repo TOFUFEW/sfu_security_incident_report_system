@@ -2,12 +2,13 @@
 
 div.timer-card {
     @include flex(flex-start, flex-start);
-    height: auto;
+    height: 72px;
+    padding: $padding-sm;        
+    
     border-top: $border-default;
 
     .main-content, .timer-container {
         height: 100%;
-        padding: $padding-md;        
     }
 
     .main-content {
@@ -16,9 +17,9 @@ div.timer-card {
 
     .timer-container {
         @include flex(flex-end, center);
-
         .time-remaining {
-            font-size: 16px !important;
+            font-size: 24px !important;
+            margin-right: 8px;
         }
     }
 }

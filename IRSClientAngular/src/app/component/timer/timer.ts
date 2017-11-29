@@ -6,4 +6,8 @@ export class Timer {
     TIMER_END: number;
     TIME_REMAINING: number;
     modify: boolean = false;
+
+    constructor() {
+        this.incident = new Incident();
+    }
 }

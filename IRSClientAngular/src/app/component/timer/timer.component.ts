@@ -18,7 +18,7 @@ export class TimerComponent implements OnInit {
     timerList: Timer[] = new Array<Timer>();
     newTimer: Timer = new Timer();
     modifyValid = true;
-    validTime = true;
+    timerToModify = new Timer();
 
     constructor( private timerService: TimerService, private incidentService: IncidentService ) {
         var nowDate = new Date ( Date.now() );
@@ -100,15 +100,24 @@ export class TimerComponent implements OnInit {
         } else {
             this.modifyValid = true;            
             if ( this.timerService.stringToTime( this.tempStart ) > this.timerService.stringToTime( this.tempEnd ) ) {
-                this.validTime = false;
+                this.modifyValid = false;
             } else {
-                this.validTime = true;
-                console.log(this.validTime);
+                this.modifyValid = true;
             }
         }
     }
 
-    modifyTimer ( timer : Timer ) : void {
+    setTimerToModify( timer: Timer ){
+        timer.modify = !timer.modify;
+        console.log(timer);
+        this.timerToModify = timer;
+    }
+
+    resetTimerToModify() {
+        this.timerToModify = new Timer();
+    }
+    modifyTimer () : void {
+        var timer = this.timerToModify;
         timer.TIMER_START = this.timerService.stringToTime( this.tempStart );
         timer.TIMER_END = this.timerService.stringToTime( this.tempEnd );
         timer.TIME_REMAINING = timer.TIMER_END - this.timeNow;
@@ -132,9 +141,10 @@ export class TimerComponent implements OnInit {
         } 
     }
 
-    removeTimer ( timer : Timer ) : void {
+    removeTimer () : void {
         if ( confirm("delete timer?") ) {
-            this.deleteTimer( timer );
+            this.deleteTimer( this.timerToModify );
+            this.resetTimerToModify();
         }
     }
 

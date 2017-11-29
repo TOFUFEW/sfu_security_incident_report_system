@@ -86,6 +86,45 @@ div.quarter-box {
     }
 }
 
+#order-1, #order-2, #order-3{
+    padding: $padding-lg;
+}
+
+div#order-1 {
+    order: 1;
+}
+
+div#order-2 {
+    order: 2;
+}
+
+div#order-3 {
+    order: 3;
+}
+
+div#order-2 {
+    #top, #bottom {
+        padding-top: $padding-xs !important;
+        padding-bottom: $padding-xs !important;
+    }
+
+    #bottom {
+        display: flex;
+        justify-content: space-between;
+
+        #left, #right {
+            padding-left: $padding-xs !important;
+            padding-right: $padding-xs !important;
+            width: 50%;
+        }
+
+        #right .height-50 {
+            margin-bottom: 0px;
+            padding-bottom: 20px;
+        }
+    }
+}
+
 div#left-panels {
     order: 2;
 

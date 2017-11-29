@@ -12,14 +12,17 @@
             <div class="timer-card" *ngFor="let timer of timerList">
                 <div class="main-content">
                     <div class="detail-row">
+                        <span class="card-text-primary">{{timer.incident.category.attributes.MAIN_CATEGORY}} &mdash; {{timer.incident.category.attributes.SUB_CATEGORY}}  {{timer.incident.category.attributes.INCIDENT_TYPE}}</span>
+                    </div>
+                    <div class="detail-row">
                         <span class="card-text-secondary">Report #{{timer.incident.attributes.REPORT_ID}}</span>
                     </div>
-                    <div class="detail-row">
-                        <span class="card-text-secondary">{{timer.incident.category.attributes.MAIN_CATEGORY}}  {{timer.incident.category.attributes.SUB_CATEGORY}}  {{timer.incident.category.attributes.INCIDENT_TYPE}}</span>
-                    </div>
-                    <div class="detail-row">
+                    <!-- <div class="detail-row">
                         <span class="card-text-primary">{{timer.incident.attributes.EXECUTIVE_SUMMARY}}</span>
-                    </div>
+                    </div> -->
+                    <!-- <div class="detail-row">
+                        <button id="modifyBtn" class="btn" (click)="timer.modify = !timer.modify">Modify</button>
+                    </div> -->
                     <!-- <div class="detail-row">
                         <span class="card-text-secondary">Start: {{timeToString(timer.TIMER_START)}}</span>
                     </div>
@@ -28,28 +31,54 @@
                     </div> -->
                 </div>
                 <div class="timer-container">
-                    <span class="card-text-primary time-remaining" (click)="timer.modify = !timer.modify">{{durationToString(timer.TIME_REMAINING)}}</span>     
+                    <span class="card-text-primary time-remaining" data-toggle="modal" data-target="#modifyTimerModal" (click)="setTimerToModify(timer)">{{durationToString(timer.TIME_REMAINING)}}</span>     
+                    <!-- <span class="card-text-secondary glyphicon glyphicon-cog"></span> -->
                     <!-- <div *ngIf="timer.modify">
                         <input type="time" [(ngModel)] = "tempStart" (change)="onChangeModifyTimer()">
                         <input type="time" [(ngModel)] = "tempEnd" (change)="onChangeModifyTimer()">
                         <div class="alertText" *ngIf="!modifyValid">
-                            Start/End time cannot be empty
+                            Please enter a valid time period
                         </div>
-                        <div class="alertText" *ngIf="!validTime">
-                            Start time cannot be after end time
-                        </div>
-                        <button class="btn" (click)="modifyTimer(timer)" *ngIf="modifyValid && validTime">Confirm</button>
+                        <button class="btn" (click)="modifyTimer(timer)" *ngIf="modifyValid">Confirm</button>
                     </div>                    -->
                 </div>
                 <!-- <div class="x-container">
                     <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removeTimer(timer)"></span>        
                 </div> -->
-                
-
-
-                <!-- <button id="modifyBtn" class="btn" (click)="timer.modify = !timer.modify">Modify</button> -->
 
             </div>
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div id="modifyTimerModal" class="modal fade" role="dialog" *ngIf="timerToModify.incident.attributes.REPORT_ID != null">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="glyphicon glyphicon-timer glyphicon-heading"></span>
+                    <span class="panel-header">Modify Timer - Report #{{timerToModify.incident.attributes.REPORT_ID}}</span>
+                </div>
+                <div class="modal-body">
+                    <div class="details-container">
+                        <div class="details-body">
+                            <div class="detail col-12 col-sm-3">
+                                <span class="field-title">Timer Start: <span class="required-asterisk">*</span> </span>                                
+                                <input class="form-control" type="time" [(ngModel)] = "tempStart" (change)="onChangeModifyTimer()">
+                                <span class="field-title">Timer End: <span class="required-asterisk">*</span> </span>                                                            
+                                <input class="form-control" type="time" [(ngModel)] = "tempEnd" (change)="onChangeModifyTimer()">
+                            </div>
+                            <!-- <div class="alertText" *ngIf="!modifyValid">
+                                Please enter a valid time period
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="removeTimer()">Delete Timer</button>                        
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="resetTimerToModify()">Cancel</button>
+                    <button class="btn btn-primary" data-dismiss="modal" (click)="modifyTimer()" *ngIf="modifyValid">Confirm</button>                    
+                </div>
+            </div>
+        </div>
+    </div>
