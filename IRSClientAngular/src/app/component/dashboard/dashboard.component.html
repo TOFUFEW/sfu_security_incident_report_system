@@ -20,42 +20,83 @@
             </div>
         </div>
       
-
-        <div id="left-panels" class="col-sm-2 side-container">
-            <timer-component></timer-component>
-            <staff-component></staff-component>
-        </div>
-      
-        <div id="right-panels" class="col-sm-2 side-container">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <span class="glyphicon glyphicon-tasks glyphicon-heading"></span>
-                    <span class="panel-header">Workflow Prompt</span>
-                </div>
-                <div class="panel-body"></div>
+        <div id="order-2" class="col-sm-4 height-100 flex flex-column">
+            <div id="top" class="col-sm-12 height-50">
+                <timer-component></timer-component>
             </div>
+            
+            <div id="bottom" class="col-sm-12 height-50 flex">
+                <div id="left" class="height-100">
+                    <staff-component></staff-component>                
+                </div>
+                <div id="right" class="height-100">
+                    <div class="height-50">
+                        <div class="panel panel-default height-100">
+                            <div class="panel-heading">
+                                <span class="glyphicon glyphicon-tasks glyphicon-heading"></span>
+                                <span class="panel-header">Resources</span>
+                            </div>
+                            <div class="panel-body"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="height-50">
+                        <div class="panel panel-default height-100">
+                            <div class="panel-heading">
+                                <span class="glyphicon glyphicon-pencil glyphicon-heading"></span>
+                                <span class="panel-header">Notepad</span>
+                            </div>
+                            <div class="panel-body">
+                                <!-- <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#home">Resources</a></li>
+                                    <li><a data-toggle="tab" href="#menu1">Notepad</a></li>
+                                </ul> -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
 
-            <div class="panel panel-default">
+        <!-- <div class="row">
+            <div id="left-panels" class="col-sm-2 side-container">
+                <staff-component></staff-component>
+            </div>
+            <div id="right-panels" class="col-sm-2 side-container">
+                <div class="panel panel-default">
                     <div class="panel-heading">
-                        <span class="glyphicon glyphicon-stats glyphicon-heading"></span>
-                        <span class="panel-header">Stats</span>
+                        <span class="glyphicon glyphicon-tasks glyphicon-heading"></span>
+                        <span class="panel-header">Workflow Prompt</span>
+                    </div>
+                    <div class="panel-body"></div>
+                </div>
+    
+                <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span class="glyphicon glyphicon-stats glyphicon-heading"></span>
+                            <span class="panel-header">Stats</span>
+                        </div>
+                        <div class="panel-body">
+                        </div>
+                    </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-info-sign glyphicon-heading"></span>
+                        <span class="panel-header">Info</span>
                     </div>
                     <div class="panel-body">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#home">Resources</a></li>
+                            <li><a data-toggle="tab" href="#menu1">Notepad</a></li>
+                        </ul>
                     </div>
                 </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <span class="glyphicon glyphicon-info-sign glyphicon-heading"></span>
-                    <span class="panel-header">Info</span>
-                </div>
-                <div class="panel-body">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#home">Resources</a></li>
-                        <li><a data-toggle="tab" href="#menu1">Notepad</a></li>
-                    </ul>
-                </div>
             </div>
-        </div>
+        </div> -->
+      
+
       
   </div>
     

@@ -12,17 +12,17 @@
             <div class="timer-card" *ngFor="let timer of timerList">
                 <div class="main-content">
                     <div class="detail-row">
+                        <span class="card-text-primary">{{timer.incident.category.attributes.MAIN_CATEGORY}} &mdash; {{timer.incident.category.attributes.SUB_CATEGORY}}  {{timer.incident.category.attributes.INCIDENT_TYPE}}</span>
+                    </div>
+                    <div class="detail-row">
                         <span class="card-text-secondary">Report #{{timer.incident.attributes.REPORT_ID}}</span>
                     </div>
-                    <div class="detail-row">
-                        <span class="card-text-secondary">{{timer.incident.category.attributes.MAIN_CATEGORY}}  {{timer.incident.category.attributes.SUB_CATEGORY}}  {{timer.incident.category.attributes.INCIDENT_TYPE}}</span>
-                    </div>
-                    <div class="detail-row">
+                    <!-- <div class="detail-row">
                         <span class="card-text-primary">{{timer.incident.attributes.EXECUTIVE_SUMMARY}}</span>
-                    </div>
-                    <div class="detail-row">
+                    </div> -->
+                    <!-- <div class="detail-row">
                         <button id="modifyBtn" class="btn" (click)="timer.modify = !timer.modify">Modify</button>
-                    </div>
+                    </div> -->
                     <!-- <div class="detail-row">
                         <span class="card-text-secondary">Start: {{timeToString(timer.TIMER_START)}}</span>
                     </div>
@@ -41,9 +41,9 @@
                         <button class="btn" (click)="modifyTimer(timer)" *ngIf="modifyValid">Confirm</button>
                     </div>                   
                 </div>
-                <div class="x-container">
+                <!-- <div class="x-container">
                     <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removeTimer(timer)"></span>        
-                </div>
+                </div> -->
 
             </div>
         </div>

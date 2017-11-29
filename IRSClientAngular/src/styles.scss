@@ -601,3 +601,28 @@ div#new-report-panel, div#new-account-panel {
 .italic {
     font-style: italic;
 }
+
+.height-33 {
+    height: 33%;
+}
+
+.height-67 {
+    height: 67%;
+}
+
+.height-50 {
+    height: 50%;
+}
+
+.height-100{
+    height: 100%;
+}
+
+.no-margin{
+    margin: 0px !important;
+}
+
+.margin-top-bottom {
+    margin-top: $padding-sm !important;
+    margin-bottom: $padding-sm !important;
+}
