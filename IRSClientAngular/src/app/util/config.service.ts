@@ -1,8 +1,8 @@
 export class Config {
 
      private static protocol: string = "https://";
-    // private static serverURL: string = "localhost:4567/";
-    private static serverURL: string = "cmpt373-1177a.cmpt.sfu.ca:4567/";
+    private static serverURL: string = "localhost:4567/";
+    //private static serverURL: string = "cmpt373-1177a.cmpt.sfu.ca:4567/";
     
     static LocationsURI: string = Config.protocol + Config.serverURL + "locations";
     static IncidentsURI: string = Config.protocol + Config.serverURL + "incidents";

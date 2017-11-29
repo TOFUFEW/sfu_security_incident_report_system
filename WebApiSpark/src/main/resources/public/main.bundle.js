@@ -5810,8 +5810,8 @@ var Config = (function () {
 }());
 
 Config.protocol = "https://";
-// private static serverURL: string = "localhost:4567/";
-Config.serverURL = "cmpt373-1177a.cmpt.sfu.ca:4567/";
+Config.serverURL = "localhost:4567/";
+//private static serverURL: string = "cmpt373-1177a.cmpt.sfu.ca:4567/";
 Config.LocationsURI = Config.protocol + Config.serverURL + "locations";
 Config.IncidentsURI = Config.protocol + Config.serverURL + "incidents";
 Config.FTSearchURI = Config.protocol + Config.serverURL + "ftsearch-incident";
