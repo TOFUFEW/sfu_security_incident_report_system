@@ -622,6 +622,7 @@ public class DBHelper
 
             if ( tableName.compareTo( "GenericElement")  == 0 ) {
                 insertGenericElement( incidentElement, reportID );
+                return true;
             }
             else if ( tableName.compareTo ( "Staff" ) == 0 )
             {

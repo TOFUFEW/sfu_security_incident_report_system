@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule, ActivatedRoute, ParamMap, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
@@ -12,6 +12,9 @@ import { Location } from '../location/location';
 import { LocationModalComponent } from '../location/location-modal.component';
 import { CategoryComponent } from '../category/category.component';
 import { CategoryService } from '../../service/category.service';
+import { Person } from '../../component/person/person';
+import { PersonComponent } from '../person/person.component';
+import { DomService } from '../../util/dom.service';
 import { Config } from '../../util/config.service';
 import { InlineEditComponent } from '../../component/report/inline-edit.component'
 import { Output } from '@angular/core/src/metadata/directives';
@@ -27,15 +30,27 @@ export class GuardIncidentComponent implements OnInit {
     @ViewChild ( LocationModalComponent ) locationModal: LocationModalComponent
     @ViewChild ( CategoryComponent ) categoryModal: CategoryComponent
     @ViewChild ( InlineEditComponent ) inlineEdit: InlineEditComponent
-    @ViewChild(StatusComponent) statusModal: StatusComponent
+    @ViewChild ( StatusComponent ) statusModal: StatusComponent
+    @ViewChild ( PersonComponent ) personEditor: PersonComponent
     title = 'SFU Incident Reporting System';
     incident: Incident = new Incident();
     locationModalStr = "location-modal";
     statuses: string[] = ['Created', 'En Route', 'Working', 'Resolved', 'Closed'];
+
     isEditingDesc: boolean = false;
     newDescription: string = "";
+
     isEditingSummary: boolean = false;
     newSummary: string = "";
+
+    isEditingPerson: boolean = false;
+    currentPerson: Person = new Person();
+    currentPersonIndex: number; 
+    newPersonFirstName: string = "";
+    newPersonLastName: string = "";
+    newPersonTelephone: string = "";
+    isDeletingPerson: boolean = false;
+
     alertMessage: string = "";
     showAlertDescription: boolean = false;
     showAlert: boolean = false;
@@ -48,7 +63,8 @@ export class GuardIncidentComponent implements OnInit {
         private userService: UserService,
         private router: Router,
         private http: HttpClient,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private domService: DomService
     ) {
         if ( this.userService.isLoggedIn() == false ) {
             this.router.navigate([ 'login' ] );
@@ -65,15 +81,24 @@ export class GuardIncidentComponent implements OnInit {
             this.isEditingDesc = !this.isEditingDesc;
         else if ( attribute.toLowerCase() === "summary" )
             this.isEditingSummary = !this.isEditingSummary;
+        else if ( attribute.toLocaleLowerCase() === "person") {
+            this.isEditingPerson = !this.isEditingPerson;
+        }
     }
 
     revertChanges( attribute: string ) {
         if ( attribute == null ) return;
-        if ( attribute.toLowerCase() === "description" )
+        if ( attribute.toLowerCase() === "description" ) {
             this.newDescription = this.incident.attributes.DESCRIPTION;
-        else if ( attribute.toLowerCase() === "summary" )
+        }
+        else if ( attribute.toLowerCase() === "summary" ) {
             this.newSummary = this.incident.attributes.EXECUTIVE_SUMMARY;
-
+        }
+        else if ( attribute.toLowerCase() === "person") {
+            this.newPersonFirstName = this.incident.incidentElements['Person'][this.currentPersonIndex].attributes.FIRST_NAME;
+            this.newPersonLastName = this.incident.incidentElements['Person'][this.currentPersonIndex].attributes.LAST_NAME;
+            this.newPersonTelephone = this.incident.incidentElements['Person'][this.currentPersonIndex].attributes.PHONE_NUMBER;
+        }
         this.toggleEditMode( attribute );
     }
 
@@ -139,6 +164,54 @@ export class GuardIncidentComponent implements OnInit {
         incident.editing = false;
     }
 
+    editPerson ( person ) {
+        this.toggleEditMode('person');
+        if ( person.attributes ) {
+            this.currentPerson = person;
+            this.currentPersonIndex = person.attributes.PERSON_ID;
+        }
+        else if ( person.target.id ) {
+            this.currentPersonIndex = person.target.id;
+        }
+    }
+
+    addPerson (personToAdd) {
+        console.log("Person added ", personToAdd);
+        console.log("ID to remove ", this.currentPersonIndex);
+        if ( this.currentPersonIndex == -1 ) {
+            var incident = this.incidentElementService.addElement ( this.incident, personToAdd )
+            .then ( incident => {
+                return incident;
+            });    
+        }
+        else {
+            var incident = this.incidentElementService.changeElement ( this.incident, this.currentPersonIndex, personToAdd )
+                .then ( incident => {
+                    return incident;
+                });
+            console.log("returned incident ", incident);
+        }
+        if ( Promise.resolve ( incident ) == null ) {
+            this.incidentSavedErrorAlert ();
+        }
+        else {
+            this.incidentSavedAlert ();
+        }
+        this.toggleEditMode('person');
+    }
+    removePersonAlert() {
+        this.isDeletingPerson = !this.isDeletingPerson;
+    }
+
+    removePerson() {
+        this.isDeletingPerson = false;
+        console.log("current person ", this.currentPersonIndex);
+        var incident = this.incidentElementService.removeElement ( this.incident, this.currentPersonIndex, Config.PersonTable )
+        .then ( incident => {
+            return incident;
+        });    
+        this.toggleEditMode('person');
+    }
 
     public hideEditContent() {
         var contentToEdit: HTMLElement = document.getElementById("contentToEdit");

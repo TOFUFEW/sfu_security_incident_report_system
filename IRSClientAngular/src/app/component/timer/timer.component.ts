@@ -32,7 +32,7 @@ export class TimerComponent implements OnInit {
                 if ( index >= 0 && value.attributes ) {
                     this.timerList.splice( index, 1, this.timerService.createTimerInt( value, value.attributes.TIMER_START, value.attributes.TIMER_END ) );
                 } else {
-                    //this.timerList.push( this.timerService.createTimerInt( value, value.attributes.TIMER_START, value.attributes.TIMER_END ) );
+                    this.timerList.push( this.timerService.createTimerInt( value, value.attributes.TIMER_START, value.attributes.TIMER_END ) );
                 }
             }
             this.sortTimers();   

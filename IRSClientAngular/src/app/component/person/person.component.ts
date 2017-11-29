@@ -8,15 +8,19 @@ import { Config } from '../../util/config.service';
 
 @Component({
     selector: 'person-component',
-    templateUrl: './person.component.html'
+    templateUrl: './person.component.html',
+    styleUrls: ['../../../assets/css/guard-app.css']    
 })
 
 export class PersonComponent implements OnInit {
-    @Output () personAdded : EventEmitter<boolean> = new EventEmitter();
-
+    @Output () personAdded : EventEmitter<boolean> = new EventEmitter();   
+    @Output () addPersonToGuardReport : EventEmitter<Person> = new EventEmitter();  
+    @Output() cancelEditor = new EventEmitter();
+    
     private reference: any;
     personList: Person[] = [];
     filterList: Person[] = [];
+    currentPerson: Person = new Person();
     newPerson: Person = new Person();
     filterPerson: Person = new Person();
     phoneNumber1: string = "";
@@ -27,15 +31,19 @@ export class PersonComponent implements OnInit {
     personExists: boolean = true;
     personExistsInList: boolean = true;
 
+    public modalVisible = false;     
+    
 
     constructor(
         private personService: PersonService,
-        private reportService: NewReportService
+        private reportService: NewReportService,
+        private router: Router
     ){
         // this.filterPerson.attributes.FIRST_NAME = "";
         // this.filterPerson.attributes.LAST_NAME = "";
         this.filterList = this.personList;
     };
+
 
     addPersonToReport(): void {
         this.reportService.addIncidentElement( this.newPerson );
@@ -67,7 +75,7 @@ export class PersonComponent implements OnInit {
 
     selectPerson(person: Person) : void {
         Object.assign(this.newPerson, person);
-
+        
         this.filterPerson.attributes.FIRST_NAME = person.attributes.FIRST_NAME;
         this.filterPerson.attributes.LAST_NAME = person.attributes.LAST_NAME;
         this.filterPerson.attributes.PHONE_NUMBER = person.attributes.PHONE_NUMBER;
@@ -79,6 +87,10 @@ export class PersonComponent implements OnInit {
         this.phoneNumber3 = phoneNumber.slice(6);
 
         this.personSelected = true;
+    }
+
+    hide() {
+        this.modalVisible = false;
     }
 
     // getPersons(): void {
@@ -99,14 +111,18 @@ export class PersonComponent implements OnInit {
         if ( this.allFieldsValid( this.newPerson ) ) {
             this.personService.personExists( this.newPerson )
                 .then( exists => {
+                    console.log("exists", exists);
                     if ( exists == null ) {
                         this.personExists = false;
                     } else {
                         this.personExists = true;
                         this.newPerson = exists;
-                        this.reportService.removeIncidentElement(this.newPerson, Config.PersonTable);
-                        this.addPersonToReport();
-                        console.log(this.reportService.incidentElements);
+                        console.log( this.newPerson );
+                        if ( !this.router.url.includes('guard-app')) {
+                            this.reportService.removeIncidentElement(this.newPerson, Config.PersonTable);
+                            this.addPersonToReport();
+                            console.log(this.reportService.incidentElements);
+                        }
                     }
                     this.personAdded.emit( this.personExists );
                 });
@@ -115,7 +131,8 @@ export class PersonComponent implements OnInit {
             this.personExists = true;
             this.personAdded.emit( false );
         }
-
+        this.modalVisible = true;
+        
         // this.personSelected = false;
 
         // this.personService.filter(this.filterList, this.personList, this.filterPerson);
@@ -141,7 +158,18 @@ export class PersonComponent implements OnInit {
                     if ( returnedPerson != null ) {
                         alert("Person successfully added!");
                         this.personExists = true;
-                        this.personAdded.emit( this.personExists );
+                        this.personAdded.emit( this.personExists ); 
+                        this.personService.personExists( this.newPerson )
+                            .then( person => {
+                                if (person != null) {
+                                    this.newPerson = person;
+                                    // this.newPerson.attributes.PERSON_ID = person.attributes.PERSON_ID;
+                                    // this.newPerson.attributes.FIRST_NAME = person.attributes.FIRST_NAME;
+                                    // this.newPerson.attributes.LAST_NAME = person.attributes.LAST_NAME;
+                                    // this.newPerson.attributes.PHONE_NUMBER = person.attributes.PHONE_NUMBER;      
+                                    this.addPersonToGuardReport.emit(this.newPerson);
+                                }
+                            });
                     }
                     else alert("Add failed. Try again.");
                 });
@@ -172,6 +200,7 @@ export class PersonComponent implements OnInit {
                 });
         }
         this.filterPerson = this.newPerson;
+        console.log("Filter person", this.filterPerson);
         this.personSelected = true;
         this.toggleNewPersonFlag = false;
         delete this.newPerson;
@@ -209,6 +238,14 @@ export class PersonComponent implements OnInit {
             person.attributes.LAST_NAME != null && person.attributes.LAST_NAME.length > 0 &&
             person.attributes.FIRST_NAME != null && person.attributes.FIRST_NAME.length > 0 &&
             person.attributes.PHONE_NUMBER != null && person.attributes.PHONE_NUMBER.length == 10;
+    }
+
+    savePerson() {
+        this.findPerson();
+    }
+
+    cancelPersonEdit() {
+        this.cancelEditor.emit();
     }
 
     ngOnInit(): void {

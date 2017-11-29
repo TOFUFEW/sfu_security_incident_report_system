@@ -99,7 +99,7 @@
                                         <span *ngFor="let location of incident.incidentElements['Location']" 
                                             [id]="location.attributes.LOCATION_ID"
                                             (click)="this.modalLocation.show($event)">
-                                            {{location.attributes.CITY}},                                            
+                                            {{location.attributes.CITY}}<span *ngIf='location.attributes.BUILDING_NAME != ""'>,</span>                                            
                                             {{location.attributes.BUILDING_NAME}}<span *ngIf='location.attributes.ROOM_NUMBER != ""'>,</span>
                                             {{location.attributes.ROOM_NUMBER}}    
                                             <!-- {{location.attributes.DEPARTMENT}}  -->
@@ -130,6 +130,12 @@
                                 <div id="collapseExecSummary" class="panel-collapse collapse in">
                                     <div class="panel-body">
                                         <span *ngIf="!isEditingSummary" (click)="toggleEditMode('summary')">{{incident.attributes.EXECUTIVE_SUMMARY}}</span>
+                                        <span *ngIf="incident.attributes.EXECUTIVE_SUMMARY == ''">
+                                            <button (click)="toggleEditMode('summary')"
+                                                    class="btn btn-sm btn-default pull-right mt-2 mr-1 mb-1 ml-2">
+                                                <span class="glyphicon glyphicon-plus"></span> Add Summary
+                                            </button>
+                                        </span>
                                         <div *ngIf="isEditingSummary">
                                             <textarea [(ngModel)]="newSummary" class="form-control" rows="5"></textarea>
                                             <button (click)="revertChanges('summary')"
@@ -158,6 +164,12 @@
                                 <div id="collapseDescription" ng-controller="editable" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <span *ngIf="!isEditingDesc" (click)="toggleEditMode('description')">{{incident.attributes.DESCRIPTION}}</span>
+                                        <span *ngIf="incident.attributes.DESCRIPTION == ''">
+                                            <button (click)="toggleEditMode('description')"
+                                                    class="btn btn-sm btn-default pull-right mt-2 mr-1 mb-1 ml-2">
+                                                <span class="glyphicon glyphicon-plus"></span> Add Description
+                                            </button>
+                                        </span>
                                         <div *ngIf="isEditingDesc">
                                             <textarea [(ngModel)]="newDescription" class="form-control" rows="5"></textarea>
                                             <button (click)="revertChanges('description')"
@@ -173,6 +185,7 @@
                             </div>
                         </div>
 
+                        
                         <div class="panel panel-default ml-1 mr-1">
                             <div class="panel-heading collapsable-heading">
                                 <!-- <span class="glyphicon card-text-secondary mr-1" [ngClass]="{'glyphicon-chevron-up': openedPanel , 'glyphicon-chevron-down': !openedPanel }" aria-hidden="true" style="float: right;"></span>                             -->
@@ -185,10 +198,73 @@
                                 </h4>
                             </div>
                             <div id="collapsePersons" class="panel-collapse collapse">
-                                <div class="panel-body">
+                                <div class="panel-body details-body lh-1 mt-1" *ngIf="incident">
+                                    <span *ngFor="let person of incident.incidentElements['Person']">
+                                        <span   [id]="person.attributes.PERSON_ID"
+                                                (click)="editPerson(person)">
+                                            Name: {{person.attributes.FIRST_NAME}}
+                                            {{person.attributes.LAST_NAME}} &nbsp;
+                                            Phone Number: {{person.attributes.PHONE_NUMBER}}
+                                        </span>
+                                        <br>
+                                    </span>
+                                    <div *ngIf="isEditingPerson">
+                                        <div class="clear-float"></div>
+                                        <span class="field-title mt-2" *ngIf="this.currentPersonIndex == -1">
+                                            Add a New Person
+                                        </span>
+                                        <span class="field-title mt-2" *ngIf="this.currentPersonIndex != -1">
+                                            <b>Edit Person:</b> 
+                                            {{this.currentPerson.attributes.FIRST_NAME}} 
+                                            {{this.currentPerson.attributes.LAST_NAME}} 
+                                        </span>
+                                        <span class="ml-2" *ngIf="this.currentPersonIndex != -1">                
+                                            <button (click)="removePersonAlert()" 
+                                                class="btn btn-sm btn-primary"
+                                                *ngIf="button_id != -1"
+                                                id="{{button_id}}">
+                                                <span class="glyphicon glyphicon-trash"></span> 
+                                                Delete
+                                            </button>
+                                        </span>
+                                        <person-component 
+                                            #personEditor 
+                                            (addPersonToGuardReport)="addPerson($event)"
+                                            (cancelEditor)="toggleEditMode('person')">
+                                        </person-component>
+                                        <div class="clear-float"></div>                                              
+                                    </div> 
+                                    <div class="clear-float"></div>                                    
+                                    <button *ngIf="!isEditingPerson"
+                                            id="-1"
+                                            (click)="editPerson($event)" 
+                                            class="btn btn-sm btn-default pull-right mt-2 mr-1 mb-1 ml-2">
+                                        <span class="glyphicon glyphicon-plus"></span> Add Person
+                                    </button>
                                 </div>
                             </div>
                         </div>
+                        
+                        <div id="removePersonAlert" class="alert modal-fade" *ngIf="isDeletingPerson">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <button type="button" class="close" (click)="removePersonAlert()" aria-hidden="true">×</button>
+                            <!-- <div class="bottom-links flex-column" *ngIf="!personExists"> -->
+                                    <div class="alert-body mt-1">
+                                        Are you sure you want to remove this person from the report?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-sm btn-secondary pull-right mr-1 ml-2" (click)="removePersonAlert()">
+                                            <span class="glyphicon glyphicon-remove"></span> Cancel
+                                        </button>                
+                                        <button class="btn  btn-sm btn-primary pull-right mr-1 ml-2" (click)="removePerson()">
+                                            <span class="glyphicon glyphicon-trash"></span> Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
