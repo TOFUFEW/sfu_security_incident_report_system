@@ -4,6 +4,7 @@ import { IncidentElementService } from '../service/incident-element.service';
 import { Config } from '../util/config.service';
 import { Location, LocationAttributes } from '../component/location/location';
 import { Person } from '../component/person/person';
+import { Attachment } from '../component/attachment/attachment';
 import { Category } from '../component/category/category';
 import { GenericElement } from '../component/generic-element/generic-element';
 import { Incident } from '../component/report/incident';
@@ -23,7 +24,11 @@ export class NewReportService {
     private bs_genericElements = new BehaviorSubject<GenericElement[]> ([]);
     currentGenericElements = this.bs_genericElements.asObservable();
 
+    private attachments = new BehaviorSubject<Attachment[]> ([]);
+    currentAttachments = this.attachments.asObservable();
+
     constructor(private locationService: LocationService) {
+
         this.incidentElements = new Map<String, IncidentElement[]>();
     }
 
@@ -48,6 +53,10 @@ export class NewReportService {
             behaviorSubject = this.persons;
             arr = behaviorSubject.getValue() as Person[];
             // obj = IncidentElementService.toIncidentElement( table, obj );
+        }
+        else if ( obj.table === Config.AttachmentTable ) {
+            behaviorSubject = this.attachments;
+            arr = behaviorSubject.getValue() as Attachment[];
         }
         else if ( obj.table === Config.GenericElementTable ) {
             behaviorSubject = this.bs_genericElements;
@@ -147,6 +156,9 @@ export class NewReportService {
             var elem = element as GenericElement;
             isValid = elem.attributes.TYPE != null && elem.attributes.TYPE.length > 0 && isValid;
         }
+        else if (table === Config.AttachmentTable) {
+                  isValid = this.validateAttachment( element as Attachment) && isValid;
+                }
         else {
             console.log("*** WARNING: Incident Element unrecognized.");
         }
@@ -184,6 +196,14 @@ export class NewReportService {
             isValid = false;
         }
         return isValid;
+    }
+
+    validateAttachment( attachment: Attachment): boolean {
+      if ( attachment != null && attachment.attributes.FILE_ID != null && attachment.attributes.FILE_NAME != null) {
+        return true;
+      }
+      this.debug_printErrorMsg("file");
+      return false;
     }
 
     private debug_printErrorMsg( field: String ) {

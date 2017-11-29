@@ -33,6 +33,7 @@ import { GenericElementComponent } from '../generic-element/generic-element.comp
 export class NewReportComponent implements OnInit {
     locationStr: string = LocationComponent.name;
     personStr: string = PersonComponent.name;
+    attachmentStr: string = AttachmentComponent.name;
     genericStr: string = GenericElementComponent.name;
 
     newIncident: Incident = new Incident();
@@ -104,6 +105,11 @@ export class NewReportComponent implements OnInit {
             .subscribe( elements => {
                 this.newIncident.incidentElements[Config.GenericElementKey] = elements;
             });
+
+        this.newReportService.currentAttachments
+            .subscribe( attachments =>  {
+                this.newIncident.incidentElements[Config.AttachmentKey] = attachments;
+            } );
 
         this.categoryService.categoryDictionary
             .subscribe(categories => {
@@ -264,6 +270,8 @@ export class NewReportComponent implements OnInit {
         }
         else if ( componentName === this.personStr) {
             this.domService.addComponent( PersonComponent.name, "persons" );
+        } else if ( componentName === this.attachmentStr){
+            this.domService.addComponent( AttachmentComponent.name, "attachments" );
         }
         else if ( componentName === this.genericStr ) {
             this.domService.addComponent ( GenericElementComponent.name, "generic-elements");
