@@ -77,7 +77,7 @@ export class IncidentService {
 
         /*
         this.getIncidents().then(response => {
-            this.bs_allReports.next(response);
+            this.bs_reportsInList.next(response);
         });
         */
 
@@ -95,6 +95,8 @@ export class IncidentService {
             );
             var user = this.userService.getCurrentUser ();
             var reportList = this.bs_reportsInList.getValue ();
+
+            console.log ( "this.userService.isGuard () = " + this.userService.isGuard () );
 
             // if user is a guard, then check if
             if ( this.userService.isGuard () )
@@ -121,6 +123,10 @@ export class IncidentService {
 
       var reportList = this.bs_reportsInList.getValue ();
       var reportListIndex = reportList.findIndex ( i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID );
+
+      console.log ("incident.attributes.REPORT_ID =" + incident.attributes.REPORT_ID);
+      console.log ("this.reportAssignedToThisUser ( incident ) = " + this.reportAssignedToThisUser ( incident ));
+      console.log ("this.userCreatedReport ( incident ) = " + this.userCreatedReport ( incident ));
 
       if ( this.reportAssignedToThisUser ( incident ) || this.userCreatedReport ( incident ) )
       {
@@ -335,7 +341,7 @@ export class IncidentService {
     }
 
     private initializeIncident(incident: Incident): Incident {
-        console.log(incident);
+        console.log("incident.attributes.REPORT_ID = " + incident.attributes.REPORT_ID);
         incident.category = incident.incidentElements[Config.IncidentCategoryKey][0] as Category;
         incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
         incident.createdBy = this.getReportCreator(incident.attributes.ACCOUNT_ID);
