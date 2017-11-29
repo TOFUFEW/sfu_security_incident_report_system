@@ -324,6 +324,7 @@ export class IncidentService {
     }
 
     private initializeIncident(incident: Incident): Incident {
+        incident.inWorkspace = this.isInWorkspace( incident.attributes.REPORT_ID );        
         incident.category = incident.incidentElements[Config.IncidentCategoryKey][0] as Category;
         incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
         incident.createdBy = this.getReportCreator(incident.attributes.ACCOUNT_ID);
@@ -339,6 +340,12 @@ export class IncidentService {
                     location.attributes.ROOM_NUMBER = "";
             });
         return incident;
+    }
+
+    private isInWorkspace( id: number ) {
+        var arr = this.bs_reportsToAddToWorkspace.getValue();
+        var index = arr.findIndex( i => i.attributes.REPORT_ID == id );
+        return index >= 0;
     }
 
     private getReportCreator( id: number ): Staff {

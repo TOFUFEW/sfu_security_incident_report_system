@@ -30,7 +30,7 @@
                                 </div> -->
                                 <div class="detail-row description">
                                     <span class="card-text-primary">
-                                        Exceutive Summary: {{incident.attributes.EXECUTIVE_SUMMARY}}
+                                        {{incident.attributes.EXECUTIVE_SUMMARY}}
                                     </span>
                                 </div>
                                 <div class="detail-row description">
@@ -61,12 +61,14 @@
                                     </span>
                                 </div>
                                 <div class="detail-row">
-                                    <span class="card-text-secondary">Created By: </span>
-                                    [{{incident.createdBy.attributes.FIRST_NAME}} {{incident.createdBy.attributes.LAST_NAME}}]
+                                    <span class="card-text-secondary">Created By: 
+                                        [{{incident.createdBy.attributes.FIRST_NAME}} {{incident.createdBy.attributes.LAST_NAME}}]                                            
+                                    </span>
                                 </div>
                                 <div class="detail-row">
-                                    <span class="card-text-secondary">Status: </span>
-                                    [{{statuses[incident.attributes.STATUS]}}]
+                                    <span class="card-text-secondary">Status: 
+                                        [{{statuses[incident.attributes.STATUS]}}]                                            
+                                    </span>
                                 </div>
                             </div>
 
