@@ -13,6 +13,10 @@ body {
     background: $grey-default;
 }
 
+.clear-float {
+    clear: both;
+}
+
 .main-container {
     height: calc(100vh - 50px);
     width: 100%;
@@ -51,6 +55,7 @@ body {
 
     .dropdown-menu  {
         background-color: #ffffff;
+        border-bottom: 1px white solid;
         box-shadow: rgba(0, 0, 0, 0.176) 0px 6px 12px;
         position: absolute;
         width: 100px !important;
@@ -396,6 +401,27 @@ span.glyphicon-fire {
     display: flex;
 }
 
+.alert {
+    position: fixed;
+    top: 30%;
+    bottom: 80%;
+    z-index: 1000;    
+}
+
+.alert .modal-dialog {
+    margin: 0 10%;
+    padding: 0;
+    @media (max-width: 550px) {
+        margin: 0 1%;
+    }
+}
+
+.alert .modal-content {
+    padding: 15px 15px 0 20px;
+    width: 400px;
+    max-width: 85vw;
+}
+
 .alertText {
     color: $sfu-red;
     opacity: 1 !important;
@@ -544,6 +570,14 @@ div#new-report-panel, div#new-account-panel {
     .navbar-sm {
         display: block;
     }
+
+    .navbar-sm .link {
+        margin-left: 70%;     
+        @media (max-width: 390px) {
+            margin-left: 50%;
+        }           
+    }
+
     .navbar-lg { display: none; }
 }
 

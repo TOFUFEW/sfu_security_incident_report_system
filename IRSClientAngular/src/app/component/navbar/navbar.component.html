@@ -23,10 +23,18 @@
 
         <div class="collapse navbar-collapse" id="collapse-right" *ngIf="user!=null">
             <ul class="navbar-sm nav navbar-nav navbar-right">
-                <li (click)="redirect('dashboard')" *ngIf="isAdmin"><a class="link">Dashboard</a></li>
-                <li (click)="redirect('search')" *ngIf="isAdmin"><a class="link">Search</a></li>
-                <li (click)="redirect('new-account')" *ngIf="isAdmin"><a class="link">Create Account</a></li>
-                <li (click)="redirect('guard-dashboard')" *ngIf="!isAdmin"><a class="link">Current Reports</a></li>
+                <li (click)="redirect('dashboard')" *ngIf="isAdmin" data-target="#collapse-right" data-toggle="collapse">
+                    <a class="link">Dashboard</a>
+                </li>
+                <li (click)="redirect('search')" *ngIf="isAdmin" data-target="#collapse-right" data-toggle="collapse">
+                    <a class="link">Search</a>
+                </li>
+                <li (click)="redirect('new-account')" *ngIf="isAdmin"  data-target="#collapse-right" data-toggle="collapse">
+                    <a class="link">Create Account</a>
+                </li>
+                <li (click)="redirect('guard-dashboard')" *ngIf="!isAdmin " data-target="#collapse-right" data-toggle="collapse">
+                    <a class="link">Current Reports</a>
+                </li>
                 <li><a class="link" (click)="onLogout()">Logout</a></li>
             </ul>
 
