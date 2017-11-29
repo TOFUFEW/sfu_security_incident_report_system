@@ -44,7 +44,7 @@ public class Application
 
         // SETUP STATIC FILE HOSTING FOR ANGULAR
         staticFiles.location("/public");
-        notFound ( ( request , response ) ->
+        notFound( ( request , response ) ->
         {
             InputStream in = classLoader.getResourceAsStream("public/index.html");
             byte[] encoded = ByteStreams.toByteArray(in);
@@ -59,6 +59,8 @@ public class Application
 
             return response.body ();
         } );
+        //notFound("<html>AAAAHHH</html>");
+
 
         // SETUP WEB SOCKETS
         IncidentsWebSocketHandler incidentsWebSocketHandler = new IncidentsWebSocketHandler ();
@@ -88,6 +90,23 @@ public class Application
         IncidentCategoryController categoryController = new IncidentCategoryController();
         AttachmentController attachmentController = new AttachmentController();
 
+        get("*", (request, response) -> {
+            if ( !request.pathInfo().startsWith("/static")) {
+                InputStream in = classLoader.getResourceAsStream("public/index.html");
+                byte[] encoded = ByteStreams.toByteArray(in);
+
+                response.type ( "text/html" );
+                response.body (
+                        new String (
+                                encoded,
+                                StandardCharsets.UTF_8
+                        )
+                );
+
+                return response.body ();
+            }
+            return null;
+        });
     }
 
     // CORS Filter

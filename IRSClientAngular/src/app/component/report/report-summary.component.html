@@ -131,9 +131,6 @@
                 <span class="link" *ngIf="!editMode['Staff']" (click)="toggleEditMode('Staff')">Edit</span>
                 <span class="link" *ngIf="editMode['Staff']" (click)="cancelUpdate('Staff')">Cancel</span>
                 <span class="link" *ngIf="editMode['Staff']" (click)="updateReport()">Save</span>
-                <span class="link" *ngIf="!editMode" (click)="toggleEditMode()">Edit</span>
-                <span class="link" *ngIf="editMode" (click)="cancelUpdate()">Cancel</span>
-                <span class="link" *ngIf="editMode" (click)="updateReport()">Save</span>
             </div>
         </div>
         <div [id]="'locations-' + report.attributes.REPORT_ID" class="details-container tab-pane fade">
