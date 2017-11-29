@@ -28,7 +28,7 @@ export class NewReportService {
     currentAttachments = this.attachments.asObservable();
 
     constructor(private locationService: LocationService) {
-      
+
         this.incidentElements = new Map<String, IncidentElement[]>();
     }
 
@@ -194,7 +194,7 @@ export class NewReportService {
     }
 
     validateAttachment( attachment: Attachment): boolean {
-      if ( attachment != null && attachment.attributes.FILE_NAME != null && attachment.attributes.FILE_NAME.length < 120) {
+      if ( attachment != null && attachment.attributes.FILE_ID != null) {
         return true;
       }
       this.debug_printErrorMsg("file");

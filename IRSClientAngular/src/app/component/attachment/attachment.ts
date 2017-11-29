@@ -13,7 +13,7 @@ export class Attachment implements IncidentElement {
 
   setSearchString() {
       this.searchString =
-      this.attributes.FILE_ID
+      this.attributes.FILE_NAME
   };
 }
 

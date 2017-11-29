@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { plainToClass } from "class-transformer";
 import { Config } from '../../util/config.service';
 import {Attachment} from './attachment'
 import { NewReportService } from '../../service/new-report.service';
@@ -14,8 +16,10 @@ import 'rxjs/add/operator/toPromise';
 export class AttachmentComponent implements OnInit {
   @ViewChild('file') inputEl: ElementRef;
   uploadURI = Config.UploadURI;
-  attachments: Attachment[];
   newAttachment: Attachment;
+
+  private bs_attachments = new BehaviorSubject<Attachment[]>([]);
+  attachments = this.bs_attachments.asObservable();
 
   constructor (
     private http: Http,
@@ -27,8 +31,9 @@ export class AttachmentComponent implements OnInit {
   ngOnInit(): void {
     this.newAttachment = new Attachment();
     this.getAttachments().then ( returnedAttachments => {
-      this.attachments = returnedAttachments;
+      this.bs_attachments.next(returnedAttachments); 
       console.log(this.attachments);
+      this.addAttachmentToReport();
     });
 
     //create a unique identifier for internal use so filenames do not have to be unique
@@ -52,20 +57,13 @@ export class AttachmentComponent implements OnInit {
               .catch( this.handleError );
 
           if (success) {
-            this.initAttachment( inputEl.files.item(0).name  );
+            this.newAttachment.attributes.FILE_NAME =  inputEl.files.item(0).name;
           }
 
           return Promise.resolve( success );
       } else {
         console.log("error, no file retrieved")
       }
-  }
-
-  private initAttachment(filename: string): void{
-      this.newAttachment.attributes.FILE_NAME = filename;
-      console.log("initAttachment");
-      console.log(this.newAttachment.attributes.FILE_NAME);
-      this.addAttachmentToReport();
   }
 
   private addAttachmentToReport(): void {
@@ -76,7 +74,7 @@ export class AttachmentComponent implements OnInit {
   getAttachments(): Promise<Attachment[]> {
       var returnedAttachments = this.http.get( Config.UploadsURI )
           .toPromise()
-          .then( response => response.json() as Attachment[] )
+          .then( response => plainToClass(Attachment, response.json()) )
           .catch( this.handleError );
       return Promise.resolve( returnedAttachments );
   };

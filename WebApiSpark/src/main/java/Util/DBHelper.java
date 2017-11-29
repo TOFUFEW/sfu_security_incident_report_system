@@ -327,8 +327,9 @@ public class DBHelper
                                 reportId
                         );
                     } else if ( DatabaseValues.Table.ATTACHMENT == incidentElement.getTable() ) {
+                        String reportId = getLastInsertedIncidentID();
                         insertAttachment(
-                                reportID,
+                                reportId,
                                 incidentElement.getAttributeValue( DatabaseValues.Column.FILE_NAME ),
                                 incidentElement.getAttributeValue( DatabaseValues.Column.FILE_ID )
                         );
@@ -650,6 +651,13 @@ public class DBHelper
 
             if ( tableName.compareTo( "GenericElement")  == 0 ) {
                 insertGenericElement( incidentElement, reportID );
+                return true;
+            }
+            else if ( tableName.compareTo( "Attachment")  == 0 ) {
+                insertAttachment( reportID,
+                        incidentElement.getAttributeValue( DatabaseValues.Column.FILE_NAME ),
+                        incidentElement.getAttributeValue( DatabaseValues.Column.FILE_ID )
+                );
                 return true;
             }
             else if ( tableName.compareTo ( "Staff" ) == 0 )

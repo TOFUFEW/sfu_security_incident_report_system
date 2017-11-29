@@ -336,6 +336,7 @@ export class IncidentService {
     }
 
     private initializeIncident(incident: Incident): Incident {
+        console.log(incident);
         incident.category = incident.incidentElements[Config.IncidentCategoryKey][0] as Category;
         incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
         incident.createdBy = this.getReportCreator(incident.attributes.ACCOUNT_ID);

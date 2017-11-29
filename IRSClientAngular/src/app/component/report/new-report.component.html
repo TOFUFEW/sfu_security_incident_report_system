@@ -5,7 +5,7 @@
             <div id="new-report-panel" class="panel panel-default">
                 <div class="panel-heading">
                     <span class="panel-header">New Report</span>
-                    <span class="date">{{date}}</span>     
+                    <span class="date">{{date}}</span>
                 </div>
                 <div class="panel-body">
 
@@ -66,7 +66,7 @@
                         <div id="timers" *ngIf="timerInReport">
                             <div class="details-body">
                                 <div class="x-container">
-                                        <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removeTimerFromReport()"></span>        
+                                        <span class="glyphicon glyphicon-remove glyphicon-btn"  (click)="removeTimerFromReport()"></span>
                                 </div>
                                 <div class="detail col-12 col-sm-3">
                                     <span class="field-title">Start Time</span>
@@ -76,7 +76,7 @@
                                     <span class="field-title">End Time</span>
                                     <input class="form-control" type="time" [(ngModel)]="tempTimerEnd" (change)="onChangeTimer()" />
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                     </div>
 
@@ -337,7 +337,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary" (click)="createReport(); files.upload()" *ngIf="reportReady">Create Report</button>
+                <button class="btn btn-primary" (click)=" files.upload(); createReport();" *ngIf="reportReady">Create Report</button>
             </div>
         </div>
     </div>
