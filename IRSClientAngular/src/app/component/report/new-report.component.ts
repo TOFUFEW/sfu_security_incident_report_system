@@ -41,8 +41,6 @@ export class NewReportComponent implements OnInit {
     subCategories: SubCategory[] = [];
     categoryTypes: CategoryType[] = [];
 
-    personsList: Person[];
-    locationList: Location[];
     staffList: Staff[];
     selectedStaff: Staff;
     selectedStaffId: number = -1;

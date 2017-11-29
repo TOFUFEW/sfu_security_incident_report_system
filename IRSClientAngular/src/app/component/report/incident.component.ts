@@ -30,7 +30,7 @@ export class IncidentComponent implements OnInit {
 
     timerStart: string;
     timerEnd: string;
-    timerValid: boolean = true;
+    timerValid: boolean = false;
 
     constructor( private incidentService: IncidentService, 
         private staffService: StaffService,
@@ -97,6 +97,7 @@ export class IncidentComponent implements OnInit {
     resetTimer() {
         this.timerStart = "";
         this.timerEnd = "";
+        this.timerValid = false;
     }
 
     setIncidentToTime( id: number ) {
