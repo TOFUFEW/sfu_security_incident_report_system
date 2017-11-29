@@ -275,7 +275,12 @@ export class IncidentService {
         var user = this.userService.getCurrentUser();
           var incidents = this.http.post( this.getIncidentsUrl, JSON.stringify( user ), { headers: this.headers } )
             .toPromise ()
-            .then( response => this.bs_reportsInList.next ( this.initIncidents( plainToClass(Incident, response.json()) ) as Incident[] ) )
+            .then( response => {
+console.log ("------------------------------------------------getIncidents");
+              var createdReports = this.initIncidents ( response.json() as Incident [] ) as Incident [];
+              createdReports.map ( i => this.addReportToList ( i ) );
+              //this.bs_reportsInList.next ( this.initIncidents( plainToClass(Incident, response.json()) ) as Incident[] );
+            })
             .catch( this.handleError );
           return Promise.resolve( this.bs_reportsInList.getValue () );
     };
@@ -313,6 +318,7 @@ export class IncidentService {
             .post(this.createdByIncidentsUrl, JSON.stringify(user), { headers: this.headers })
             .toPromise()
             .then ( response => {
+console.log ("-------------------------------------getCreatedByIncidents");
               var createdReports = this.initIncidents ( response.json() as Incident [] ) as Incident [];
               createdReports.map ( i => this.addReportToList ( i ) );
             } )
@@ -341,7 +347,11 @@ export class IncidentService {
     }
 
     private initializeIncident(incident: Incident): Incident {
-        console.log("incident.attributes.REPORT_ID = " + incident.attributes.REPORT_ID);
+        console.log ("##############################");
+        console.log ( "incident.attributes.REPORT_ID = " + incident.attributes.REPORT_ID);
+        console.log ( "this.userCreatedReport ( incident ) = " + this.userCreatedReport ( incident ) );
+        console.log ( "this.reportAssignedToThisUserTest ( incident ) = " + this.reportAssignedToThisUserTest ( incident ) );
+
         incident.category = incident.incidentElements[Config.IncidentCategoryKey][0] as Category;
         incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
         incident.createdBy = this.getReportCreator(incident.attributes.ACCOUNT_ID);

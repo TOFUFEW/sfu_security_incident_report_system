@@ -57,14 +57,6 @@ export class GuardDashboardComponent implements OnInit {
 
         this.incidentService.reportsInList
           .subscribe ( reports => {
-              console.log ("##############################");
-              for ( var i = 0 ; i < reports.length ; i++ )
-              {
-                console.log ( "reports [ " + i + " ].attributes.REPORT_ID = " + reports [ i ].attributes.REPORT_ID);
-                console.log ( "this.incidentService.userCreatedReport ( i ) = " + this.incidentService.userCreatedReport ( reports [ i ] ) );
-                console.log ( "this.incidentService.reportAssignedToThisUserTest ( i ) = " + this.incidentService.reportAssignedToThisUserTest ( reports [ i ] ) );
-              }
-
               this.createdIncidents = ( reports as Incident [] )
                 .filter ( i => this.incidentService.userCreatedReport ( i ) );
 
