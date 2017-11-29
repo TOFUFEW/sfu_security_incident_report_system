@@ -12,6 +12,7 @@ import 'rxjs/add/operator/toPromise';
 
 export class AttachmentViewComponent implements OnInit {
   url : string[];
+  @Input('attachment') attachment: Attachment;
 
 
   constructor (
@@ -21,13 +22,12 @@ export class AttachmentViewComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.url = window.location.pathname.split('/');
-    this.getFile();
+
   }
 
   private getFile() {
     var file = this.http.get(
-      Config.GetFileURI + this.url[3] + '/' + this.url[4],
+      Config.GetFileURI + this.attachment.attributes.FILE_ID + '/' + this.attachment.attributes.FILE_NAME,
       {responseType: ResponseContentType.ArrayBuffer} )
         .toPromise()
         .then( response => this.getZipFile(response) )
@@ -47,7 +47,7 @@ export class AttachmentViewComponent implements OnInit {
     a.style = 'display: none';
     const address = window.URL.createObjectURL(blob);
     a.href = address;
-    a.download = this.url[4] + ".zip";
+    a.download = this.attachment.attributes.FILE_NAME + ".zip";
     a.click();
     window.URL.revokeObjectURL(address);
 

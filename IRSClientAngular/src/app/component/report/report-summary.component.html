@@ -99,7 +99,7 @@
               <div class="detail detail-lg col-sm-12">
                   <span class="field-title">Attachments: </span>
                   <div class="details-body" *ngFor="let attachment of report.incidentElements['Attachment']">
-                    <a class="field-value" href="upload/get/{{attachment.attributes.FILE_ID}}/{{attachment.attributes.FILE_NAME}}">{{attachment.attributes.FILE_NAME}}</a>
+                    <attachmentView-component [attachment]=attachment> </attachmentView-component>
                     <div class="detail col-sm-2 col-sm-offset-10">
                         <span class="link alertText" *ngIf="editMode['Incident']" data-toggle="modal" data-target="#removeItemModal"
                             (click)="setItemIdToRemove('attachment', attachment.attributes.FILE_ID)">Remove</span>
