@@ -216,15 +216,16 @@
                                         <span class="field-title mt-2" *ngIf="this.currentPersonIndex != -1">
                                             <b>Edit Person:</b> 
                                             {{this.currentPerson.attributes.FIRST_NAME}} 
-                                            {{this.currentPerson.attributes.LAST_NAME}} <span>                
+                                            {{this.currentPerson.attributes.LAST_NAME}} 
+                                        </span>
+                                        <span class="ml-2" *ngIf="this.currentPersonIndex != -1">                
                                             <button (click)="removePersonAlert()" 
-                                                class="btn btn-sm btn-secondary"
+                                                class="btn btn-sm btn-primary"
                                                 *ngIf="button_id != -1"
                                                 id="{{button_id}}">
                                                 <span class="glyphicon glyphicon-trash"></span> 
                                                 Delete
-                                                </button>
-                                            </span>
+                                            </button>
                                         </span>
                                         <person-component 
                                             #personEditor 
@@ -250,14 +251,14 @@
                                     <button type="button" class="close" (click)="removePersonAlert()" aria-hidden="true">×</button>
                             <!-- <div class="bottom-links flex-column" *ngIf="!personExists"> -->
                                     <div class="alert-body mt-1">
-                                        Are you sure you want to delete this person?
+                                        Are you sure you want to remove this person from the report?
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-sm btn-secondary pull-right mt-2 mr-1 mb-1 ml-2" (click)="removePersonAlert()">
+                                        <button class="btn btn-sm btn-secondary pull-right mr-1 ml-2" (click)="removePersonAlert()">
                                             <span class="glyphicon glyphicon-remove"></span> Cancel
                                         </button>                
-                                        <button class="btn  btn-sm btn-primary pull-right mt-2 mr-1 mb-1 ml-2" (click)="removePerson()">
-                                            <span class="glyphicon glyphicon-delete"></span> Delete
+                                        <button class="btn  btn-sm btn-primary pull-right mr-1 ml-2" (click)="removePerson()">
+                                            <span class="glyphicon glyphicon-trash"></span> Delete
                                         </button>
                                     </div>
                                 </div>

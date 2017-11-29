@@ -111,11 +111,13 @@ export class PersonComponent implements OnInit {
         if ( this.allFieldsValid( this.newPerson ) ) {
             this.personService.personExists( this.newPerson )
                 .then( exists => {
+                    console.log("exists", exists);
                     if ( exists == null ) {
                         this.personExists = false;
                     } else {
                         this.personExists = true;
                         this.newPerson = exists;
+                        console.log( this.newPerson );
                         if ( !this.router.url.includes('guard-app')) {
                             this.reportService.removeIncidentElement(this.newPerson, Config.PersonTable);
                             this.addPersonToReport();
@@ -156,9 +158,18 @@ export class PersonComponent implements OnInit {
                     if ( returnedPerson != null ) {
                         alert("Person successfully added!");
                         this.personExists = true;
-                        this.personAdded.emit( this.personExists );   
-                        console.log("returned person ", returnedPerson); 
-                        this.addPersonToGuardReport.emit(this.newPerson);
+                        this.personAdded.emit( this.personExists ); 
+                        this.personService.personExists( this.newPerson )
+                            .then( person => {
+                                if (person != null) {
+                                    this.newPerson = person;
+                                    // this.newPerson.attributes.PERSON_ID = person.attributes.PERSON_ID;
+                                    // this.newPerson.attributes.FIRST_NAME = person.attributes.FIRST_NAME;
+                                    // this.newPerson.attributes.LAST_NAME = person.attributes.LAST_NAME;
+                                    // this.newPerson.attributes.PHONE_NUMBER = person.attributes.PHONE_NUMBER;      
+                                    this.addPersonToGuardReport.emit(this.newPerson);
+                                }
+                            });
                     }
                     else alert("Add failed. Try again.");
                 });
