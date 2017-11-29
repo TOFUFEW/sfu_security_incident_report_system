@@ -256,8 +256,8 @@ export class IncidentService {
           var incidents = this.http.post( this.getIncidentsUrl, JSON.stringify( user ), { headers: this.headers } )
             .toPromise ()
             .then( response => {
-              var createdReports = this.initIncidents ( response.json() as Incident [] ) as Incident [];
-              createdReports.map ( i => this.addReportToList ( i ) );
+              var reports = this.initIncidents ( response.json() as Incident [] ) as Incident [];
+              reports.map ( i => this.addReportToList ( i ) );
               //this.bs_reportsInList.next ( this.initIncidents( plainToClass(Incident, response.json()) ) as Incident[] );
             })
             .catch( this.handleError );
