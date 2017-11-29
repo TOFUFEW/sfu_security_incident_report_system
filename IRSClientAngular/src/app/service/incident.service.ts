@@ -118,15 +118,8 @@ export class IncidentService {
 
     processWebsocketIncidentForGuard ( incident : Incident ) : void
     {
-      console.log ( "--------------------------------------" );
-      console.log ( "incident websocket guard update!" );
-
       var reportList = this.bs_reportsInList.getValue ();
       var reportListIndex = reportList.findIndex ( i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID );
-
-      console.log ("incident.attributes.REPORT_ID =" + incident.attributes.REPORT_ID);
-      console.log ("this.reportAssignedToThisUser ( incident ) = " + this.reportAssignedToThisUser ( incident ));
-      console.log ("this.userCreatedReport ( incident ) = " + this.userCreatedReport ( incident ));
 
       if ( this.reportAssignedToThisUser ( incident ) || this.userCreatedReport ( incident ) )
       {
@@ -276,7 +269,6 @@ export class IncidentService {
           var incidents = this.http.post( this.getIncidentsUrl, JSON.stringify( user ), { headers: this.headers } )
             .toPromise ()
             .then( response => {
-console.log ("------------------------------------------------getIncidents");
               var createdReports = this.initIncidents ( response.json() as Incident [] ) as Incident [];
               createdReports.map ( i => this.addReportToList ( i ) );
               //this.bs_reportsInList.next ( this.initIncidents( plainToClass(Incident, response.json()) ) as Incident[] );
@@ -318,7 +310,6 @@ console.log ("------------------------------------------------getIncidents");
             .post(this.createdByIncidentsUrl, JSON.stringify(user), { headers: this.headers })
             .toPromise()
             .then ( response => {
-console.log ("-------------------------------------getCreatedByIncidents");
               var createdReports = this.initIncidents ( response.json() as Incident [] ) as Incident [];
               createdReports.map ( i => this.addReportToList ( i ) );
             } )
@@ -347,11 +338,6 @@ console.log ("-------------------------------------getCreatedByIncidents");
     }
 
     private initializeIncident(incident: Incident): Incident {
-        console.log ("##############################");
-        console.log ( "incident.attributes.REPORT_ID = " + incident.attributes.REPORT_ID);
-        console.log ( "this.userCreatedReport ( incident ) = " + this.userCreatedReport ( incident ) );
-        console.log ( "this.reportAssignedToThisUserTest ( incident ) = " + this.reportAssignedToThisUserTest ( incident ) );
-
         incident.category = incident.incidentElements[Config.IncidentCategoryKey][0] as Category;
         incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
         incident.createdBy = this.getReportCreator(incident.attributes.ACCOUNT_ID);
