@@ -82,7 +82,7 @@ export class IncidentElementService
         }
         else if ( table === Config.AttachmentTable ) {
             elementIndex = incident.incidentElements[key].findIndex( i =>
-                i.attributes.FILE_NAME == idToSearch)
+                i.attributes.FILE_ID == idToSearch)
         }
         else if ( table === Config.GenericElementTable ) {
             elementIndex = incident.incidentElements[key].findIndex( i =>

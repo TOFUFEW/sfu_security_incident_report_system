@@ -779,6 +779,7 @@ public class DBHelper
             );
             stmt.execute();
             deleteGenericElementRelation( reportID );
+            deleteAttachments( reportID );
             return;
         } catch ( Exception e ) {
             e.printStackTrace();
@@ -788,6 +789,16 @@ public class DBHelper
     private static void deleteGenericElementRelation( String reportID ) {
         try {
             String query = "delete from GenericElement where REPORT_ID = " + reportID + ";";
+            execute(query);
+            return;
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void deleteAttachments( String reportID ) {
+        try {
+            String query = "delete from Attachment where REPORT_ID = " + reportID + ";";
             execute(query);
             return;
         } catch ( Exception e ) {

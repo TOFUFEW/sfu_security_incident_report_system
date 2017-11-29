@@ -94,15 +94,20 @@
                         && report.attributes.TIMER_END != 0" class="field-value">{{timerIntToString(report.attributes.TIMER_END)}}</span>
                     <input type="time" class="form-control" *ngIf="editMode['Incident']" [(ngModel)]="tempEndTime">
                 </div>
-                <div class="detail detail-lg col-sm-12">
-                    <span class="field-title">Attachments: </span>
-                    <div class="details-body" *ngFor="let attachment of report.incidentElements['Attachment']">
-                      <a class="field-value" href="upload/get/{{attachment.attributes.FILE_ID}}/{{attachment.attributes.FILE_NAME}}">{{attachment.attributes.FILE_NAME}}</a>
+            </div>
+            <div class="details-body">
+              <div class="detail detail-lg col-sm-12">
+                  <span class="field-title">Attachments: </span>
+                  <div class="details-body" *ngFor="let attachment of report.incidentElements['Attachment']">
+                    <a class="field-value" href="upload/get/{{attachment.attributes.FILE_ID}}/{{attachment.attributes.FILE_NAME}}">{{attachment.attributes.FILE_NAME}}</a>
+                    <div class="detail col-sm-2 col-sm-offset-10">
+                        <span class="link alertText" *ngIf="editMode['Incident']" data-toggle="modal" data-target="#removeItemModal"
+                            (click)="setItemIdToRemove('attachment', attachment.attributes.FILE_ID)">Remove</span>
                     </div>
-                </div>
+                    <span class="link" *ngIf="editMode['Incident']" (click)="toggleEditMode('Attachment')">Add Location</span>
+                  </div>
 
-                <div class="details-body" *ngFor="let location of report.incidentElements['Location']">
-                </div>
+              </div>
             </div>
             <div class="bottom-links">
                 <span class="link" *ngIf="!editMode['Incident']" (click)="toggleEditMode('Incident')">Edit</span>

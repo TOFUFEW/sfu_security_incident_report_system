@@ -7,6 +7,7 @@ import { Person } from '../person/person';
 import { LocationComponent } from '../location/location.component';
 import { PersonComponent } from '../person/person.component';
 import { AttachmentViewComponent } from '../attachment/attachmentView.component';
+import { AttachmentComponent } from '../attachment/attachment.component';
 import { GenericElementComponent } from '../generic-element/generic-element.component';
 import { Category, SubCategory, CategoryType, CategoryDictionary } from '../category/category';
 import { IncidentService } from '../../service/incident.service';
@@ -30,6 +31,7 @@ export class ReportSummaryComponent implements OnInit {
     @ViewChild(LocationComponent) locationComponent: LocationComponent;
     @ViewChild(PersonComponent) personComponent: PersonComponent;
     @ViewChild(GenericElementComponent) genericElementComponent: GenericElementComponent;
+    @ViewChild(AttachmentComponent) attachmentComponent: AttachmentComponent;
     report: Incident;
     isAccepted : boolean = false;
 
@@ -72,6 +74,7 @@ export class ReportSummaryComponent implements OnInit {
         this.editMode[Config.LocationKey] = false;
         this.editMode[Config.PersonKey] = false;
         this.editMode[Config.GenericElementKey] = false;
+        this.editMode[Config.AttachmentKey] = false;
         console.log(this.editMode);
     }
 
@@ -151,6 +154,9 @@ export class ReportSummaryComponent implements OnInit {
         else if ( type === 'generic-element' ) {
             element = this.genericElementComponent.newElement;
         }
+        else if ( type === 'attachment' ) {
+            element = this.attachmentComponent.newAttachment;
+        }
 
         if ( this.newReportService.validateIncidentElement( element ) ) {
             if ( this.incidentElementService.addElementNoUpdate( this.report_edit, element ) ) {
@@ -177,6 +183,10 @@ export class ReportSummaryComponent implements OnInit {
         else if ( type === 'generic-element') {
             this.incidentElementService
                 .removeElementNoUpdate ( this.report_edit, Config.GenericElementTable, this.itemIdToRemove );
+        }
+        else if ( type === 'attachment') {
+            this.incidentElementService
+                .removeElementNoUpdate ( this.report_edit, Config.AttachmentTable, this.itemIdToRemove );
         }
         else {
             console.log("Incident element is unrecognized.");
