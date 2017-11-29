@@ -18,7 +18,7 @@ export class TimerComponent implements OnInit {
     timerList: Timer[] = new Array<Timer>();
     newTimer: Timer = new Timer();
     modifyValid = true;
-    validTime = true;
+
 
     constructor( private timerService: TimerService, private incidentService: IncidentService ) {
         var nowDate = new Date ( Date.now() );
@@ -100,10 +100,9 @@ export class TimerComponent implements OnInit {
         } else {
             this.modifyValid = true;            
             if ( this.timerService.stringToTime( this.tempStart ) > this.timerService.stringToTime( this.tempEnd ) ) {
-                this.validTime = false;
+                this.modifyValid = false;
             } else {
-                this.validTime = true;
-                console.log(this.validTime);
+                this.modifyValid = true;
             }
         }
     }
