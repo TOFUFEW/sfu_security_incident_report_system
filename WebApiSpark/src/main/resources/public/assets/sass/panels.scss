@@ -1,0 +1,35 @@
+@import "_settings";
+
+div#incidents-list-panel, 
+div#staff-list-panel,
+div#timer-list-panel {
+    height: 100%;
+    //border-top: 4px solid $grey-default;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    
+    display: flex;
+    flex-direction: column;
+
+    div.panel-heading {
+        height: auto !important;
+    }
+
+    div.panel-body {
+        padding-left: 0px; 
+        padding-right: 0px;
+        overflow: auto;
+    }
+
+    div#incidents-list { 
+        height: 100%;
+        padding: 0px !important;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        //background-color: $grey-lite; 
+    }
+
+    div#incidents-list, div#staff-list {
+        overflow: auto;
+    }
+}

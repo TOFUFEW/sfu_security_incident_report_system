@@ -1,0 +1,38 @@
+#search-form {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 50px;
+  margin-bottom: 20px; }
+  #search-form .search-element {
+    height: 100% !important; }
+  #search-form #search-input {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px; }
+  #search-form #search-btn {
+    width: 50px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px; }
+
+.panel {
+  border-bottom: none; }
+
+.panel-body {
+  padding: 0px; }
+
+.incident-card {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+  padding: 16px; }
+  .incident-card .main-content, .incident-card .actions {
+    height: 100%; }
+  .incident-card .main-content {
+    width: 100%; }
+  .incident-card .actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; }
+
+/*# sourceMappingURL=search.component.css.map */

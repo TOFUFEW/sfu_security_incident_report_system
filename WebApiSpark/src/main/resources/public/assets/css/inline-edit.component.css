@@ -1,0 +1,23 @@
+div.report-fields-edit {
+  height: 100%;
+  width: auto; }
+
+textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 1px;
+  padding: 1em; }
+
+textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 1px;
+  padding: 1em; }
+
+#summaryEdit textarea {
+  height: 7em; }
+
+#descriptionEdit textarea {
+  height: 10em; }
+
+/*# sourceMappingURL=inline-edit.component.css.map */
