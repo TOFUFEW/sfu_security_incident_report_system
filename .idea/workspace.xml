@@ -89,8 +89,8 @@
       <file leaf-file-name="incident.service.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="423" column="9" lean-forward="true" selection-start-line="423" selection-start-column="9" selection-end-line="423" selection-end-column="9" />
+            <state relative-caret-position="189">
+              <caret line="32" column="42" lean-forward="false" selection-start-line="32" selection-start-column="42" selection-end-line="32" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -157,11 +157,11 @@
       <find>update</find>
       <find>removeI</find>
       <find>created</find>
-      <find>bs_allReports</find>
       <find>this.getIncidents().then</find>
       <find>getIncidentsObs</find>
       <find>initializeIncident</find>
       <find>initIncidents</find>
+      <find>bs_allReports</find>
     </findStrings>
     <replaceStrings>
       <replace>Location</replace>
@@ -967,7 +967,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511946444213</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Fix report list initialization/concurrency issue">
+      <created>1511951489908</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1511951489908</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1136,8 +1143,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Merge branch 'master' of csil-git1.cs.surrey.sfu.ca:tarsenea/CMPT373Alpha into 18-separating-dispatched-and-guard-views&#10;&#10;# Conflicts:&#10;#&#9;IRSClientAngular/src/app/component/dashboard.component.ts&#10;#&#9;IRSClientAngular/src/app/component/location.component.ts&#10;#&#9;IRSClientAngular/src/app/view/dashboard.component.html&#10;#&#9;IRSClientAngular/src/index.html&#10;#&#9;WebApiSpark/src/main/java/Controller/LoginController.java" />
-    <MESSAGE value="Merge branches '18-separating-dispatched-and-guard-views' and 'master' of csil-git1.cs.surrey.sfu.ca:tarsenea/CMPT373Alpha into 18-separating-dispatched-and-guard-views&#10;&#10;# Conflicts:&#10;#&#9;IRSClientAngular/src/app/component/dashboard.component.ts&#10;#&#9;IRSClientAngular/src/app/component/location.component.ts&#10;#&#9;IRSClientAngular/src/app/component/login/login.component.ts&#10;#&#9;IRSClientAngular/src/app/service/login.service.ts&#10;#&#9;IRSClientAngular/src/app/service/user.service.ts&#10;#&#9;IRSClientAngular/src/app/util/data-helper.service.ts&#10;#&#9;IRSClientAngular/src/app/view/dashboard.component.html&#10;#&#9;IRSClientAngular/src/app/view/location.component.html" />
     <MESSAGE value="change logout button to appear on navbar" />
     <MESSAGE value="Merge branch 'master' of csil-git1.cs.surrey.sfu.ca:tarsenea/CMPT373Alpha into 18-separating-dispatched-and-guard-views&#10;&#10;# Conflicts:&#10;#&#9;IRSClientAngular/src/app/app.module.ts&#10;#&#9;IRSClientAngular/src/index.html" />
     <MESSAGE value="post merge refactor, add proper route to guard" />
@@ -1161,7 +1166,9 @@
     <MESSAGE value="workspace fix" />
     <MESSAGE value="fix get incident procedure, fix created temp bug&#10;&#10;updated incident procedure, create set status to 5 now changed to 4 to work properly" />
     <MESSAGE value="Debug work" />
-    <option name="LAST_COMMIT_MESSAGE" value="Debug work" />
+    <MESSAGE value="Fix report list initialization/concurrency issue" />
+    <MESSAGE value="Remove commented out code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove commented out code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1498,8 +1505,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="423" column="9" lean-forward="true" selection-start-line="423" selection-start-column="9" selection-end-line="423" selection-end-column="9" />
+        <state relative-caret-position="189">
+          <caret line="32" column="42" lean-forward="false" selection-start-line="32" selection-start-column="42" selection-end-line="32" selection-end-column="42" />
           <folding />
         </state>
       </provider>
