@@ -156,7 +156,6 @@ export class ReportSummaryComponent implements OnInit {
             element = this.genericElementComponent.newElement;
         }
         else if ( type === 'attachment' ) {
-            this.attachmentComponent.upload();
             element = this.attachmentComponent.newAttachment;
         }
 

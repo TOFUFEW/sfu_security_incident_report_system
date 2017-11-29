@@ -52,6 +52,7 @@ export class NewReportComponent implements OnInit {
     timerValid: boolean = true;
     timerInReport: boolean = false;
 
+
     date = new Date();
 
     constructor(
@@ -174,8 +175,8 @@ export class NewReportComponent implements OnInit {
     }
 
     onChangeTimer(): void {
-        this.newIncident.attributes.TIMER_START = this.timerService.stringToTime(this.tempTimerStart); 
-        this.newIncident.attributes.TIMER_END = this.timerService.stringToTime(this.tempTimerEnd); 
+        this.newIncident.attributes.TIMER_START = this.timerService.stringToTime(this.tempTimerStart);
+        this.newIncident.attributes.TIMER_END = this.timerService.stringToTime(this.tempTimerEnd);
 
         if( (this.newIncident.attributes.TIMER_START && !this.newIncident.attributes.TIMER_END) ||
             (!this.newIncident.attributes.TIMER_START && this.newIncident.attributes.TIMER_END) ||

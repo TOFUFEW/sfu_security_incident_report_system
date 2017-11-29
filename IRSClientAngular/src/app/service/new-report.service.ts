@@ -24,8 +24,8 @@ export class NewReportService {
     private bs_genericElements = new BehaviorSubject<GenericElement[]> ([]);
     currentGenericElements = this.bs_genericElements.asObservable();
 
-    private attachments = new BehaviorSubject<Attachment[]> ([]);
-    currentAttachments = this.attachments.asObservable();
+    private bs_attachments = new BehaviorSubject<Attachment[]> ([]);
+    currentAttachments = this.bs_attachments.asObservable();
 
     constructor(private locationService: LocationService) {
 
@@ -55,7 +55,7 @@ export class NewReportService {
             // obj = IncidentElementService.toIncidentElement( table, obj );
         }
         else if ( obj.table === Config.AttachmentTable ) {
-            behaviorSubject = this.attachments;
+            behaviorSubject = this.bs_attachments;
             arr = behaviorSubject.getValue() as Attachment[];
         }
         else if ( obj.table === Config.GenericElementTable ) {
@@ -70,6 +70,7 @@ export class NewReportService {
     }
 
     removeIncidentElement( obj: any, table: string) {
+        console.log(table);
         var behaviorSubject = null;
         var arr = [];
         var index = -1;
@@ -97,6 +98,13 @@ export class NewReportService {
             var element = obj as GenericElement;
             index = arr.findIndex ( x => x.attributes.TYPE === element.attributes.TYPE
                                     && x.attributes.DESCRIPTION === element.attributes.DESCRIPTION );
+
+        }
+        else if ( table === Config.AttachmentTable ) {
+            behaviorSubject = this.bs_attachments;
+            arr = behaviorSubject.getValue() as Attachment[];
+            var attachment = obj as Attachment;
+            index = arr.findIndex ( x => x.attributes.FILE_ID === attachment.attributes.FILE_ID);
         }
         else {
             return;
