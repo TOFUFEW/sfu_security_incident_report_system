@@ -89,8 +89,8 @@
       <file leaf-file-name="incident.service.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="259" column="21" lean-forward="false" selection-start-line="259" selection-start-column="21" selection-end-line="259" selection-end-column="21" />
+            <state relative-caret-position="529">
+              <caret line="298" column="129" lean-forward="false" selection-start-line="298" selection-start-column="129" selection-end-line="298" selection-end-column="129" />
               <folding />
             </state>
           </provider>
@@ -162,6 +162,7 @@
       <find>initializeIncident</find>
       <find>initIncidents</find>
       <find>bs_allReports</find>
+      <find>createdReports</find>
     </findStrings>
     <replaceStrings>
       <replace>Location</replace>
@@ -988,7 +989,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511952487169</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Rename variable for clarity">
+      <created>1511952881024</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1511952881024</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1157,7 +1165,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Merge branch 'master' of csil-git1.cs.surrey.sfu.ca:tarsenea/CMPT373Alpha into 18-separating-dispatched-and-guard-views&#10;&#10;# Conflicts:&#10;#&#9;IRSClientAngular/src/app/app.module.ts&#10;#&#9;IRSClientAngular/src/index.html" />
     <MESSAGE value="post merge refactor, add proper route to guard" />
     <MESSAGE value="Merge branch 'master' of csil-git1.cs.surrey.sfu.ca:tarsenea/CMPT373Alpha into 37-guard-get-and-display-assigned-incidents&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;IRSClientAngular/src/app/app.module.ts&#10;#&#9;IRSClientAngular/src/app/app.router.ts&#10;#&#9;IRSClientAngular/src/app/component/login/login.component.ts&#10;#&#9;IRSClientAngular/src/app/service/incident.service.ts&#10;#&#9;IRSClientAngular/src/app/service/user.service.ts&#10;#&#9;IRSClientAngular/src/app/util/config.service.ts&#10;#&#9;IRSClientAngular/src/assets/css/guard-dashboard.component.css&#10;#&#9;WebApiSpark/src/main/java/App/Application.java&#10;#&#9;WebApiSpark/src/main/java/Controller/IncidentsController.java" />
     <MESSAGE value="Merge static file hosting feature branch" />
@@ -1182,7 +1189,8 @@
     <MESSAGE value="Fix report list initialization/concurrency issue" />
     <MESSAGE value="Remove commented out code" />
     <MESSAGE value="Remove debug code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove debug code" />
+    <MESSAGE value="Rename variable for clarity" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rename variable for clarity" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1519,8 +1527,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="259" column="21" lean-forward="false" selection-start-line="259" selection-start-column="21" selection-end-line="259" selection-end-column="21" />
+        <state relative-caret-position="529">
+          <caret line="298" column="129" lean-forward="false" selection-start-line="298" selection-start-column="129" selection-end-line="298" selection-end-column="129" />
           <folding />
         </state>
       </provider>
