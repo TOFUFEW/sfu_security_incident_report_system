@@ -63,8 +63,13 @@ export class SearchComponent implements OnInit {
     }
 
     removeFromWorkspace( id: number ): void {
-        if ( id > 0 )
+        if ( id > 0 ) {
             this.incidentService.removeFromWorkspace( id );
+            var index = this.incidents.findIndex( i => i.attributes.REPORT_ID == id );
+            if ( index >= 0 ) {
+                this.incidents[index].inWorkspace = false;
+            }          
+        }
     }
 
     ngOnInit() {
