@@ -52,9 +52,9 @@ export class NewReportComponent implements OnInit {
     tempTimerEnd: string;
     timerValid: boolean = true;
     timerInReport: boolean = false;
-    
+
     date = new Date();
-    
+
     constructor(
       private incidentService: IncidentService,
       private domService: DomService,
@@ -91,6 +91,7 @@ export class NewReportComponent implements OnInit {
     */
 
     ngOnInit() {
+        this.newReportService.resetLocations();
         this.newReportService.currentLocations
             .subscribe(locations => {
                 this.newIncident.incidentElements[Config.LocationKey] = locations;
@@ -183,7 +184,7 @@ export class NewReportComponent implements OnInit {
 
         if( (this.newIncident.attributes.TIMER_START && !this.newIncident.attributes.TIMER_END) ||
             (!this.newIncident.attributes.TIMER_START && this.newIncident.attributes.TIMER_END) ||
-            (this.newIncident.attributes.TIMER_START > this.newIncident.attributes.TIMER_END)    
+            (this.newIncident.attributes.TIMER_START > this.newIncident.attributes.TIMER_END)
         ) {
             this.timerValid = false;
         } else {
@@ -212,7 +213,7 @@ export class NewReportComponent implements OnInit {
         if (this.reportReady) {
             var currentID = this.userService.getAccountID();
             this.newIncident.attributes.ACCOUNT_ID = currentID;
-            
+
             if ( this.tempTimerStart != null && this.tempTimerEnd != null ) {
                 this.newIncident.attributes.TIMER_START = this.timerService.stringToTime(this.tempTimerStart);
                 this.newIncident.attributes.TIMER_END = this.timerService.stringToTime(this.tempTimerEnd);
@@ -256,11 +257,11 @@ export class NewReportComponent implements OnInit {
     formatTime(num : number): string{
         return this.timerService.timeToString(num);
     }
-    
+
     addComponent( componentName: string ) {
         if ( componentName === this.locationStr ) {
             this.domService.addComponent( LocationComponent.name, "locations" );
-        } 
+        }
         else if ( componentName === this.personStr) {
             this.domService.addComponent( PersonComponent.name, "persons" );
         }
