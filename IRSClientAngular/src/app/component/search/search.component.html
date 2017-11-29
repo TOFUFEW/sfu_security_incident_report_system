@@ -30,7 +30,12 @@
                                 </div> -->
                                 <div class="detail-row description">
                                     <span class="card-text-primary">
-                                        {{incident.attributes.EXECUTIVE_SUMMARY}}
+                                        Exceutive Summary: {{incident.attributes.EXECUTIVE_SUMMARY}}
+                                    </span>
+                                </div>
+                                <div class="detail-row description">
+                                    <span class="card-text-primary">
+                                        Description: {{incident.attributes.DESCRIPTION}}
                                     </span>
                                 </div>
                                 <div class="detail-row">
@@ -54,6 +59,14 @@
                                     <span class="card-text-secondary" *ngFor="let person of incident.incidentElements['Person']">
                                         [{{person.attributes.FIRST_NAME}} {{person.attributes.LAST_NAME}} {{person.attributes.PHONE_NUMBER}}]
                                     </span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="card-text-secondary">Created By: </span>
+                                    [{{incident.createdBy.attributes.FIRST_NAME}} {{incident.createdBy.attributes.LAST_NAME}}]
+                                </div>
+                                <div class="detail-row">
+                                    <span class="card-text-secondary">Status: </span>
+                                    [{{statuses[incident.attributes.STATUS]}}]
                                 </div>
                             </div>
 

@@ -182,7 +182,7 @@ public class Incident extends StorageObject
         return total;
     }
 
-    public void updateSearchString() {
+    public void updateSearchString(boolean beingInserted) {
 
         StringBuilder sb = new StringBuilder();
 
@@ -196,7 +196,7 @@ public class Incident extends StorageObject
 
         String statusCode;
         int index;
-        if (this.getAttributeValue(DatabaseValues.Column.STATUS) == null) {
+        if (this.getAttributeValue(DatabaseValues.Column.STATUS) == null || beingInserted ) {
             statusCode = "Created";
         } else {
             index = Integer.parseInt(this.getAttributeValue(DatabaseValues.Column.STATUS));

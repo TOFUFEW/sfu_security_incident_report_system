@@ -21,6 +21,7 @@ export class SearchComponent implements OnInit {
     queryString: string;
     isCTSearch: boolean = false;
     incidents: Incident[];
+    statuses: String[] = ['Created', 'En Route', 'Working', 'Closed', 'Sealed'];
 
     constructor(
         private incidentService: IncidentService,
@@ -29,11 +30,11 @@ export class SearchComponent implements OnInit {
     };
 
     onSearch() {
+        this.showSpinner = true;
         if (this.queryString == "" || this.queryString == undefined) {
             this.getAllReports();
             return;
         } else {
-            this.showSpinner = true;
             this.incidentService.doSearch(this.constructBodyRequest(), this.isCTSearch)
             .subscribe(
                 (responseData) => {
