@@ -8,6 +8,7 @@ import { Config } from "../../util/config.service";
 import { AssignGuardService } from "../../service/assign-guard.service";
 import { Staff } from '../staff/staff';
 import { IncidentElement } from '../report/incident-element';
+import { TimerService } from '../../service/timer.service';
 
 @Component(
     {
@@ -23,11 +24,17 @@ export class IncidentComponent implements OnInit {
     selectedStaffId: number = -1;
     incidents: Incident[];
     incidentToAssign: Incident = new Incident();
+    incidentSetTimer: Incident = new Incident();    
     lastRemovedId: number = 0;
     statuses: String[] = ['Created', 'En Route', 'Working', 'Closed', 'Sealed'];
 
+    timerStart: string;
+    timerEnd: string;
+    timerValid: boolean = false;
 
-    constructor( private incidentService: IncidentService, private staffService: StaffService ){
+    constructor( private incidentService: IncidentService, 
+        private staffService: StaffService,
+        private timerService: TimerService ){
         this.staffService.getStaffs().then( returnedArr => {
             this.staffArr = returnedArr;
         });
@@ -70,6 +77,70 @@ export class IncidentComponent implements OnInit {
         this.incidentService.removeFromWorkspace( id );
     }
 
+    setTimer() {
+        this.incidentSetTimer.attributes.TIMER_START = this.timerService.stringToTime(this.timerStart);
+        this.incidentSetTimer.attributes.TIMER_END = this.timerService.stringToTime(this.timerEnd);
+        if ( this.timerValid ) {
+            this.incidentService.update(this.incidentSetTimer)
+                .then( response => {
+                    if ( response != null ) {
+                        alert("Timer is set for Report #" + response.attributes.REPORT_ID + ".");
+                    }
+                    else {
+                        console.log("Error setting timer.");
+                    }
+                    this.resetTimer();                            
+                } );
+        }
+    }
+
+    resetTimer() {
+        this.timerStart = "";
+        this.timerEnd = "";
+        this.timerValid = false;
+    }
+
+    setIncidentToTime( id: number ) {
+        if ( id == null ) return;
+        var index = this.incidents.findIndex( x => x.attributes.REPORT_ID == id );
+        if ( index >= 0 ) {
+            this.incidentSetTimer = this.incidents[ index ];
+        }
+    }
+
+    onChangeTimer(): void {
+        this.incidentSetTimer.attributes.TIMER_START = this.timerService.stringToTime(this.timerStart); 
+        this.incidentSetTimer.attributes.TIMER_END = this.timerService.stringToTime(this.timerEnd); 
+
+        if( (this.incidentSetTimer.attributes.TIMER_START && !this.incidentSetTimer.attributes.TIMER_END) ||
+            (!this.incidentSetTimer.attributes.TIMER_START && this.incidentSetTimer.attributes.TIMER_END) ||
+            (this.incidentSetTimer.attributes.TIMER_START > this.incidentSetTimer.attributes.TIMER_END)    
+        ) {
+            this.timerValid = false;
+        } else {
+            this.timerValid = true;
+        }
+        console.log("timer valid?" + this.timerValid);
+    }
+
+    assignToGuard (): void {
+        this.incidentToAssign = this.incidentService.updateAssignedStaff( this.incidentToAssign, this.selectedStaffId );
+        console.log(this.incidentToAssign);
+        this.incidentService.update( this.incidentToAssign ).then( returnValue => {
+            if ( returnValue != null ) {
+                var incidentIndex = this.incidents.findIndex( i => i.attributes.REPORT_ID === returnValue.attributes.REPORT_ID );
+                this.incidents.splice( incidentIndex, 1, returnValue );
+                console.log (returnValue );
+                alert ( "Successful update" );
+            } else {
+                alert ( "Unsuccessful update" );
+            }
+        });
+
+        this.incidentToAssign = new Incident();
+        this.selectedStaffId = -1;
+    }
+
     setIncidentToAssign( id: number ) {
         if ( id == null ) return;
         var index = this.incidents.findIndex( x => x.attributes.REPORT_ID == id );
@@ -92,24 +163,6 @@ export class IncidentComponent implements OnInit {
             // remove 1 object at index i
             this.incidents.splice( i, 1 );
         });
-    }
-
-    assignToGuard (): void {
-        this.incidentToAssign = this.incidentService.updateAssignedStaff( this.incidentToAssign, this.selectedStaffId );
-        console.log(this.incidentToAssign);
-        this.incidentService.update( this.incidentToAssign ).then( returnValue => {
-            if ( returnValue != null ) {
-                var incidentIndex = this.incidents.findIndex( i => i.attributes.REPORT_ID === returnValue.attributes.REPORT_ID );
-                this.incidents.splice( incidentIndex, 1, returnValue );
-                console.log (returnValue );
-                alert ( "Successful update" );
-            } else {
-                alert ( "Unsuccessful update" );
-            }
-        });
-
-        this.incidentToAssign = new Incident();
-        this.selectedStaffId = -1;
     }
 
     ngOnInit() : void {

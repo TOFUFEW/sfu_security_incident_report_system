@@ -33,6 +33,7 @@ import { GenericElementComponent } from '../generic-element/generic-element.comp
 export class NewReportComponent implements OnInit {
     locationStr: string = LocationComponent.name;
     personStr: string = PersonComponent.name;
+    attachmentStr: string = AttachmentComponent.name;
     genericStr: string = GenericElementComponent.name;
 
     newIncident: Incident = new Incident();
@@ -41,8 +42,6 @@ export class NewReportComponent implements OnInit {
     subCategories: SubCategory[] = [];
     categoryTypes: CategoryType[] = [];
 
-    personsList: Person[];
-    locationList: Location[];
     staffList: Staff[];
     selectedStaff: Staff;
     selectedStaffId: number = -1;
@@ -52,9 +51,10 @@ export class NewReportComponent implements OnInit {
     tempTimerEnd: string;
     timerValid: boolean = true;
     timerInReport: boolean = false;
-    
+
+
     date = new Date();
-    
+
     constructor(
       private incidentService: IncidentService,
       private domService: DomService,
@@ -91,6 +91,7 @@ export class NewReportComponent implements OnInit {
     */
 
     ngOnInit() {
+        this.newReportService.resetLocations();
         this.newReportService.currentLocations
             .subscribe(locations => {
                 this.newIncident.incidentElements[Config.LocationKey] = locations;
@@ -103,6 +104,11 @@ export class NewReportComponent implements OnInit {
             .subscribe( elements => {
                 this.newIncident.incidentElements[Config.GenericElementKey] = elements;
             });
+
+        this.newReportService.currentAttachments
+            .subscribe( attachments =>  {
+                this.newIncident.incidentElements[Config.AttachmentKey] = attachments;
+            } );
 
         this.categoryService.categoryDictionary
             .subscribe(categories => {
@@ -169,21 +175,12 @@ export class NewReportComponent implements OnInit {
     }
 
     onChangeTimer(): void {
-        if ( this.tempTimerStart == null ) {
-            this.newIncident.attributes.TIMER_START = null;
-        } else {
-            this.newIncident.attributes.TIMER_START = this.timerService.stringToTime( this.tempTimerStart );
-        }
-
-        if ( this.tempTimerEnd == null ) {
-            this.newIncident.attributes.TIMER_END = null;
-        } else {
-            this.newIncident.attributes.TIMER_END = this.timerService.stringToTime( this.tempTimerEnd );
-        }
+        this.newIncident.attributes.TIMER_START = this.timerService.stringToTime(this.tempTimerStart);
+        this.newIncident.attributes.TIMER_END = this.timerService.stringToTime(this.tempTimerEnd);
 
         if( (this.newIncident.attributes.TIMER_START && !this.newIncident.attributes.TIMER_END) ||
             (!this.newIncident.attributes.TIMER_START && this.newIncident.attributes.TIMER_END) ||
-            (this.newIncident.attributes.TIMER_START > this.newIncident.attributes.TIMER_END)    
+            (this.newIncident.attributes.TIMER_START > this.newIncident.attributes.TIMER_END)
         ) {
             this.timerValid = false;
         } else {
@@ -212,7 +209,7 @@ export class NewReportComponent implements OnInit {
         if (this.reportReady) {
             var currentID = this.userService.getAccountID();
             this.newIncident.attributes.ACCOUNT_ID = currentID;
-            
+
             if ( this.tempTimerStart != null && this.tempTimerEnd != null ) {
                 this.newIncident.attributes.TIMER_START = this.timerService.stringToTime(this.tempTimerStart);
                 this.newIncident.attributes.TIMER_END = this.timerService.stringToTime(this.tempTimerEnd);
@@ -256,13 +253,15 @@ export class NewReportComponent implements OnInit {
     formatTime(num : number): string{
         return this.timerService.timeToString(num);
     }
-    
+
     addComponent( componentName: string ) {
         if ( componentName === this.locationStr ) {
             this.domService.addComponent( LocationComponent.name, "locations" );
-        } 
+        }
         else if ( componentName === this.personStr) {
             this.domService.addComponent( PersonComponent.name, "persons" );
+        } else if ( componentName === this.attachmentStr){
+            this.domService.addComponent( AttachmentComponent.name, "attachments" );
         }
         else if ( componentName === this.genericStr ) {
             this.domService.addComponent ( GenericElementComponent.name, "generic-elements");

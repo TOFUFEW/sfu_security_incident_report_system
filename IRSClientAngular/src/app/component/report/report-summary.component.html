@@ -6,12 +6,12 @@
     <div class="header-container">
         <div class="report-header">
             <span class="report-id">Report ID: {{report.attributes.REPORT_ID}} </span>
-            <span class="alertText" *ngIf="report.attributes.TEMPORARY_REPORT == 1"> &mdash; Pending Approval</span>            
+            <span class="alertText" *ngIf="report.attributes.TEMPORARY_REPORT == 1"> &mdash; Pending Approval</span>
         </div>
-        <span class="card-text-secondary" *ngIf="report.createdBy != null">Created By: {{report.createdBy.attributes.FIRST_NAME}} {{report.createdBy.attributes.LAST_NAME}}</span>        
+        <span class="card-text-secondary" *ngIf="report.createdBy != null">Created By: {{report.createdBy.attributes.FIRST_NAME}} {{report.createdBy.attributes.LAST_NAME}}</span>
         <span class="card-text-secondary" *ngIf="report.attributes.START_TIME != null">{{report.attributes.START_TIME}}</span>
         <div id="accept-temp" class="row"  *ngIf="report.attributes.TEMPORARY_REPORT == 1">
-            <button class="btn-default btn" (click)="acceptTemp()">Approve Report</button>                
+            <button class="btn-default btn" (click)="acceptTemp()">Approve Report</button>
         </div>
     </div>
     <ul class="nav nav-tabs">
@@ -59,11 +59,12 @@
                 <div class="detail detail-lg col-sm-12">
                     <span class="field-title">Type: <span class="required-asterisk" *ngIf="editMode['Incident']">*</span> </span>
                     <span class="field-value" *ngIf="!editMode['Incident'] && report.category != null">{{report.category.attributes.INCIDENT_TYPE}}</span>
-                    <select class="form-control" *ngIf="editMode['Incident'] && categoryTypes != null && categoryTypes.length > 0" 
+                    <select class="form-control" *ngIf="editMode['Incident'] && categoryTypes != null && categoryTypes.length > 0"
                         [(ngModel)]="report_edit.category.attributes.INCIDENT_TYPE" (change)="onSelectType()">
                         <option *ngFor="let type of categoryTypes" [value]="type.INCIDENT_TYPE">{{type.INCIDENT_TYPE}}</option>
                     </select>
                 </div>
+
             </div>
             <div class="details-body">
                 <div class="detail detail-lg col-sm-12">
@@ -83,21 +84,36 @@
             <div class="details-body">
                 <div class="detail detail-lg col-sm-12">
                     <span class="field-title">Timer Start: </span>
-                    <span *ngIf="!editMode['Incident'] && report.attributes.TIMER_START != null 
+                    <span *ngIf="!editMode['Incident'] && report.attributes.TIMER_START != null
                         && report.attributes.TIMER_START != 0" class="field-value">{{timerIntToString(report.attributes.TIMER_START)}}</span>
                     <input type="time" class="form-control" *ngIf="editMode['Incident']" [(ngModel)]="tempStartTime">
                 </div>
                 <div class="detail detail-lg col-sm-12">
                     <span class="field-title">Timer End: </span>
-                    <span *ngIf="!editMode['Incident'] && report.attributes.TIMER_END != null 
+                    <span *ngIf="!editMode['Incident'] && report.attributes.TIMER_END != null
                         && report.attributes.TIMER_END != 0" class="field-value">{{timerIntToString(report.attributes.TIMER_END)}}</span>
                     <input type="time" class="form-control" *ngIf="editMode['Incident']" [(ngModel)]="tempEndTime">
                 </div>
             </div>
+            <div class="details-body">
+              <div class="detail detail-lg col-sm-12">
+                  <span class="field-title">Attachments: </span>
+                  <div class="details-body" *ngFor="let attachment of report.incidentElements['Attachment']">
+                    <attachmentView-component [attachment]=attachment> </attachmentView-component>
+                    <div class="detail col-sm-2 col-sm-offset-10">
+                        <span class="link alertText" *ngIf="editMode['Incident']" data-toggle="modal" data-target="#removeItemModal"
+                            (click)="setItemIdToRemove('attachment', attachment.attributes.FILE_ID)">Remove</span>
+                    </div>
+                  </div>
+                  <attachment-component *ngIf="editMode['Incident']" #files></attachment-component>
+                  <span class="link" *ngIf="editMode['Incident']" (click)="addIncidentElement('attachment');">Add Attachment</span>
+
+              </div>
+            </div>
             <div class="bottom-links">
                 <span class="link" *ngIf="!editMode['Incident']" (click)="toggleEditMode('Incident')">Edit</span>
                 <span class="link" *ngIf="editMode['Incident']" (click)="cancelUpdate('Incident')">Cancel</span>
-                <span class="link" *ngIf="editMode['Incident']" (click)="updateReport()">Save</span>     
+                <span class="link" *ngIf="editMode['Incident']" (click)="updateReport()">Save</span>
             </div>
         </div>
         <div [id]="'assignments-' + report.attributes.REPORT_ID" class="details-container tab-pane fade">
@@ -114,9 +130,12 @@
             <div class="bottom-links">
                 <span class="link" *ngIf="!editMode['Staff']" (click)="toggleEditMode('Staff')">Edit</span>
                 <span class="link" *ngIf="editMode['Staff']" (click)="cancelUpdate('Staff')">Cancel</span>
-                <span class="link" *ngIf="editMode['Staff']" (click)="updateReport()">Save</span>     
+                <span class="link" *ngIf="editMode['Staff']" (click)="updateReport()">Save</span>
+                <span class="link" *ngIf="!editMode" (click)="toggleEditMode()">Edit</span>
+                <span class="link" *ngIf="editMode" (click)="cancelUpdate()">Cancel</span>
+                <span class="link" *ngIf="editMode" (click)="updateReport()">Save</span>
             </div>
-        </div>            
+        </div>
         <div [id]="'locations-' + report.attributes.REPORT_ID" class="details-container tab-pane fade">
             <div class="details-body" *ngFor="let location of report.incidentElements['Location']">
                 <div class="detail col-sm-12">
@@ -138,7 +157,7 @@
             </div>
             <location-component id="location-component" *ngIf="editMode['Location']"></location-component>
             <div class="bottom-links">
-                <span class="link" *ngIf="!editMode['Location']" (click)="toggleEditMode('Location')">Add Location</span>                                    
+                <span class="link" *ngIf="!editMode['Location']" (click)="toggleEditMode('Location')">Add Location</span>
                 <span class="link" *ngIf="editMode['Location']" (click)="cancelUpdate('Location')">Cancel </span>
                 <span class="link" *ngIf="editMode['Location']" (click)="addIncidentElement('location')">Add </span>
             </div>
@@ -168,12 +187,12 @@
             <person-component id="person-component" *ngIf="editMode['Person']"
                 (personAdded)="onAddPerson($event)"></person-component>
             <div class="bottom-links">
-                <span class="link" *ngIf="!editMode['Person']" (click)="toggleEditMode('Person')">Add Person</span>                                    
+                <span class="link" *ngIf="!editMode['Person']" (click)="toggleEditMode('Person')">Add Person</span>
                 <span class="link" *ngIf="editMode['Person']" (click)="cancelUpdate('Person')">Cancel </span>
                 <span class="link" *ngIf="editMode['Person'] && isPersonAdded" (click)="addIncidentElement('person')">Add </span>
             </div>
 
-            <span class="card-text-primary">Other Items</span>  <br>          
+            <span class="card-text-primary">Other Items</span>  <br>
             <div class="details-body" *ngFor="let item of report.incidentElements['GenericElement']">
                 <div class="detail col-sm-12">
                     <span class="field-title">Item Type: </span>
@@ -190,7 +209,7 @@
             </div>
             <generic-element-component id="generic-element-component" *ngIf="editMode['GenericElement']"></generic-element-component>
             <div class="bottom-links">
-                <span class="link" *ngIf="!editMode['GenericElement']" (click)="toggleEditMode('GenericElement')">Add Item</span>                                    
+                <span class="link" *ngIf="!editMode['GenericElement']" (click)="toggleEditMode('GenericElement')">Add Item</span>
                 <span class="link" *ngIf="editMode['GenericElement']" (click)="cancelUpdate('GenericElement')">Cancel </span>
                 <span class="link" *ngIf="editMode['GenericElement']" (click)="addIncidentElement('generic-element')">Add </span>
             </div>

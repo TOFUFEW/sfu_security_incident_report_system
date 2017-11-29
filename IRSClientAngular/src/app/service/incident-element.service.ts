@@ -9,6 +9,7 @@ import { IncidentService } from '../service/incident.service';
 import { Category } from '../component/category/category';
 import { Location } from '../component/location/location';
 import { Person } from '../component/person/person';
+import { Attachment } from '../component/attachment/attachment';
 import 'rxjs/add/operator/toPromise';
 import { User } from "../component/login/user";
 import { UserService } from "./user.service";
@@ -17,7 +18,7 @@ import { StaffService } from '../service/staff.service';
 
 @Injectable()
 export class IncidentElementService
-{    
+{
     constructor ( private incidentService: IncidentService ) {}
 
     static extractAttributes( incidentElement: IncidentElement ): Object {
@@ -29,7 +30,7 @@ export class IncidentElementService
 
     static extractAttributesArray( incidentElements: IncidentElement[] ): Object[] {
         var arr = [];
-        
+
         incidentElements.forEach( so => {
             //console.log(so);
             arr.push( so.attributes );
@@ -45,17 +46,19 @@ export class IncidentElementService
 
     getElementKey ( table: string ) {
         var key = "";
-        if ( table === Config.CategoryTable ) 
+        if ( table === Config.CategoryTable ) {
             key = Config.IncidentCategoryKey;
-        else if ( table === Config.LocationTable )
+        } else if ( table === Config.LocationTable ) {
             key = Config.LocationKey;
-        else if ( table === Config.StaffTable )
+         } else if ( table === Config.StaffTable ) {
             key = Config.StaffKey;
-        else if ( table === Config.PersonTable ) 
+        } else if ( table === Config.PersonTable ) {
             key = Config.PersonKey;
-        else if ( table === Config.GenericElementTable )
+        } else if ( table === Config.AttachmentTable ) {
+            key = Config.AttachmentKey;
+        } else if ( table === Config.GenericElementTable ) {
             key = Config.GenericElementKey;
-        else {
+        } else {
             console.log( "Table not found.");
             key = table;
         }
@@ -66,20 +69,24 @@ export class IncidentElementService
         var key = this.getElementKey ( table );
         var elementIndex = -1;
         if ( table === Config.LocationTable ) {
-            elementIndex = incident.incidentElements[key].findIndex( i => 
+            elementIndex = incident.incidentElements[key].findIndex( i =>
                 i.attributes.LOCATION_ID == idToSearch)
-        }         
+        }
         else if ( table === Config.StaffTable ) {
-            elementIndex = incident.incidentElements[key].findIndex( i => 
+            elementIndex = incident.incidentElements[key].findIndex( i =>
                 i.attributes.ACCOUNT_ID == idToSearch)
         }
         else if ( table === Config.PersonTable ) {
-            elementIndex = incident.incidentElements[key].findIndex( i => 
-                i.attributes.PERSON_ID == idToSearch)    
+            elementIndex = incident.incidentElements[key].findIndex( i =>
+                i.attributes.PERSON_ID == idToSearch)
+        }
+        else if ( table === Config.AttachmentTable ) {
+            elementIndex = incident.incidentElements[key].findIndex( i =>
+                i.attributes.FILE_ID == idToSearch)
         }
         else if ( table === Config.GenericElementTable ) {
-            elementIndex = incident.incidentElements[key].findIndex( i => 
-                i.attributes.GENERIC_ELEMENT_ID == idToSearch)    
+            elementIndex = incident.incidentElements[key].findIndex( i =>
+                i.attributes.GENERIC_ELEMENT_ID == idToSearch)
         }
         return elementIndex;
     }
@@ -89,42 +96,46 @@ export class IncidentElementService
         var key = this.getElementKey ( table );
         var elementIndex = -1;
         if ( table === Config.LocationTable ) {
-            elementIndex = incident.incidentElements[key].findIndex( i => 
+            elementIndex = incident.incidentElements[key].findIndex( i =>
                 i.attributes.LOCATION_ID == (element as Location).attributes.LOCATION_ID)
-        }         
+        }
         else if ( table === Config.StaffTable ) {
-            elementIndex = incident.incidentElements[key].findIndex( i => 
+            elementIndex = incident.incidentElements[key].findIndex( i =>
                 i.attributes.ACCOUNT_ID == (element as Staff).attributes.ACCOUNT_ID)
+        }
+        else if ( table === Config.AttachmentTable ) {
+            elementIndex = incident.incidentElements[key].findIndex( i =>
+                i.attributes.FILE_ID == (element as Attachment).attributes.FILE_ID)
         }
         else if ( table === Config.PersonTable ) {
             var elem = element as Person;
             var arr = incident.incidentElements[key] as Person[];
-            elementIndex = arr.findIndex( i => 
+            elementIndex = arr.findIndex( i =>
                 i.attributes.FIRST_NAME === elem.attributes.FIRST_NAME &&
                 i.attributes.LAST_NAME === elem.attributes.LAST_NAME &&
-                i.attributes.PHONE_NUMBER === elem.attributes.PHONE_NUMBER )    
+                i.attributes.PHONE_NUMBER === elem.attributes.PHONE_NUMBER )
         }
         return elementIndex;
     }
-    
+
     changeElement( incident: Incident, idToRemove: number, element: IncidentElement ): Promise<Incident> {
-        var table = element.table;        
+        var table = element.table;
         var key = this.getElementKey ( table );
         var index = -1;
         index = this.getElementIndexByID ( incident, idToRemove, table );
-    
+
         if ( incident.incidentElements[key] != null && index != -1 ) {
             incident.incidentElements[key].splice( index, 1, element );
             var promise = this.incidentService.update ( incident )
                 .then ( incident => {
                     return incident;
-                });            
+                });
         }
         return Promise.resolve(promise);
     }
 
     addElement ( incident: Incident, element: IncidentElement ): Promise<Incident> {
-        var key = this.getElementKey( element.table );        
+        var key = this.getElementKey( element.table );
         incident.incidentElements[key].push ( element );
         var promise = this.incidentService.update ( incident )
             .then ( incident => {
@@ -135,13 +146,13 @@ export class IncidentElementService
 
     // Dont call incidentService.update()
     addElementNoUpdate ( incident: Incident, element: IncidentElement ): boolean {
-        var key = this.getElementKey( element.table );      
+        var key = this.getElementKey( element.table );
         var index = this.getElementIndex( incident, element );
         if ( index < 0 ) {
-            incident.incidentElements[key].push ( element );            
+            incident.incidentElements[key].push ( element );
             return true;
         }
-        
+
         alert("This item has already been added to the report.");
         return false;
     }
@@ -153,18 +164,18 @@ export class IncidentElementService
         if ( index >= 0 )
             incident.incidentElements[key].splice ( index, 1 );
     }
-    
+
     removeElement ( incident: Incident, idToRemove: number, table: string ) : Promise<Incident> {
-        var key = this.getElementKey( table );                
+        var key = this.getElementKey( table );
         var index = -1;
         index = this.getElementIndexByID ( incident, idToRemove, table );
-    
+
         if ( incident.incidentElements[key] != null && index != -1 ) {
             incident.incidentElements[key].splice( index, 1 );
             var promise = this.incidentService.update ( incident )
                 .then ( incident => {
                     return incident;
-                });            
+                });
         }
         return Promise.resolve(promise);
     }

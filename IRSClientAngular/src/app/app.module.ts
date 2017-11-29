@@ -20,6 +20,7 @@ import { VehicleComponent } from './component/vehicle/vehicle.component';
 import { SearchComponent } from './component/search/search.component';
 import { PersonComponent } from './component/person/person.component';
 import { AttachmentComponent } from './component/attachment/attachment.component';
+import { AttachmentViewComponent } from './component/attachment/attachmentView.component';
 import { TimerComponent } from './component/timer/timer.component';
 import { LocationModalComponent } from './component/location/location-modal.component';
 import { CategoryComponent } from './component/category/category.component';
@@ -57,6 +58,7 @@ import { FilterPipe } from './util/filter.pipe';
   declarations: [
     AppComponent,
     AttachmentComponent,
+    AttachmentViewComponent,
     NavbarComponent,
     StatusComponent,
     DashboardComponent,
@@ -97,7 +99,7 @@ import { FilterPipe } from './util/filter.pipe';
 
   bootstrap: [AppComponent],
   entryComponents: [ LocationComponent, VehicleComponent, GenericElementComponent,
-    PersonComponent ]
+    PersonComponent, AttachmentComponent ]
 
 })
 

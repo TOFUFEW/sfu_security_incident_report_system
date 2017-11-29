@@ -82,6 +82,8 @@ public class IncidentsController
             User user = ( User ) JsonUtil.fromJson ( request.body(), User.class );
             String accountID = user.getAttributeValue ( DatabaseValues.Column.ACCOUNT_ID );
             Incident [] incidents = DBHelper.getIncidents ( accountID );
+
+            //System.out.println(JsonUtil.toJson ( incidents ));
             return JsonUtil.toJson ( incidents );
         } );
 

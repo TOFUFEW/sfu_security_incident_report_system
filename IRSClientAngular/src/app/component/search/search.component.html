@@ -20,10 +20,10 @@
                     <div class="col-sm-12">
                         <div class="incident-card" *ngFor="let incident of incidents">
                             <div class="main-content">
-                                <div *ngIf="incident.attributes.TEMPORARY_REPORT == 1">TEMP</div>
                                 <div class="detail-row">
                                     <span class="card-text-secondary">Report #{{incident.attributes.REPORT_ID}}</span>
                                     <span class="card-text-tertiary" *ngIf="incident.attributes.START_TIME != null">{{incident.attributes.START_TIME}}</span>                                                                        
+                                    <span class="card-text-secondary alertText" *ngIf="incident.attributes.TEMPORARY_REPORT == 1"> &mdash; Pending Approval</span>
                                 </div>
                                 <!-- <div class="detail-row">
                                     <span class="card-text-secondary">Status: {{statuses[incident.attributes.STATUS]}}</span>
@@ -31,6 +31,11 @@
                                 <div class="detail-row description">
                                     <span class="card-text-primary">
                                         {{incident.attributes.EXECUTIVE_SUMMARY}}
+                                    </span>
+                                </div>
+                                <div class="detail-row description">
+                                    <span class="card-text-primary">
+                                        Description: {{incident.attributes.DESCRIPTION}}
                                     </span>
                                 </div>
                                 <div class="detail-row">
@@ -55,6 +60,16 @@
                                         [{{person.attributes.FIRST_NAME}} {{person.attributes.LAST_NAME}} {{person.attributes.PHONE_NUMBER}}]
                                     </span>
                                 </div>
+                                <div class="detail-row">
+                                    <span class="card-text-secondary">Created By: 
+                                        [{{incident.createdBy.attributes.FIRST_NAME}} {{incident.createdBy.attributes.LAST_NAME}}]                                            
+                                    </span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="card-text-secondary">Status: 
+                                        [{{statuses[incident.attributes.STATUS]}}]                                            
+                                    </span>
+                                </div>
                             </div>
 
                             <div class="actions">
@@ -69,45 +84,6 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
-                    <div class="result-container" *ngFor="let incident of incidents">
-                        <h4>[Report Summary]</h4>
-                        <span>
-                            <b>Report ID:</b> {{incident.attributes.REPORT_ID}},
-                            <b>Author ID:</b> {{incident.attributes.ACCOUNT_ID}},
-                            <b>Description:</b> {{incident.attributes.DESCRIPTION}},
-                            <b>Summary:</b> {{incident.attributes.EXECUTIVE_SUMMARY}},
-                            <b>Status:</b> {{incident.attributes.STATUS}}
-                        </span>
-            
-                        <button class="btn btn-default" *ngIf="incident.inWorkspace"
-                            (click)="removeFromWorkspace(incident.attributes.REPORT_ID)">
-                            Remove From Workspace
-                        </button>
-
-                        <button class="btn btn-primary" *ngIf="!incident.inWorkspace"
-                            (click)="addToWorkspace(incident)">
-                            Add To Workspace
-                        </button>
-                        <!-- <h4>[Report Type]</h4>
-            
-                        <h4>[Location Details]</h4>
-                        <span *ngFor="let loc of incident.incidentElements['Location']">
-                            <b>Location ID:</b> {{loc.attributes.LOCATION_ID}},
-                            <b>Campus ID:</b> {{loc.attributes.CAMPUS_ID}},
-                            <b>Building Name:</b> {{loc.attributes.BUILDING_NAME}},
-                            <b>Room Number:</b> {{loc.attributes.ROOM_NUMBER}},
-                            <b>Department:</b> {{loc.attributes.DEPARTMENT}}
-                        </span>
-            
-                        <h4>[Assigned Staff]</h4>
-                        <span *ngFor="let staff of incident.incidentElements['Staff']">
-                            <b>Account ID:</b> {{staff.attributes.ACCOUNT_ID}},
-                            <b>Campus ID:</b> {{staff.attributes.CAMPUS_ID}},
-                            <b>First Name:</b> {{staff.attributes.FIRST_NAME}},
-                            <b>Last Name:</b> {{staff.attributes.LAST_NAME}}
-                            <br>
-                        </span> -->
                     </div>
                 </div>
             </div>

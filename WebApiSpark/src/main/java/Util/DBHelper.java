@@ -180,6 +180,7 @@ public class DBHelper
         incidentElements.put ( DatabaseValues.IncidentElementKey.LOCATION.toString(), new ArrayList < IncidentElement > () );
         incidentElements.put ( DatabaseValues.IncidentElementKey.STAFF.toString(), new ArrayList < IncidentElement > () );
         incidentElements.put ( DatabaseValues.IncidentElementKey.PERSON.toString() , new ArrayList < IncidentElement > () );
+        incidentElements.put ( DatabaseValues.IncidentElementKey.ATTACHMENT.toString() , new ArrayList < IncidentElement > () );
         incidentElements.put ( DatabaseValues.IncidentElementKey.GENERIC_ELEMENT.toString() , new ArrayList < IncidentElement > () );
 
 
@@ -193,7 +194,9 @@ public class DBHelper
                             "WHERE Involves.REPORT_ID = " + reportID + "; " +
                             "SELECT IncidentCategory.* FROM Incident INNER JOIN IncidentCategory ON (Incident.CATEGORY_ID = IncidentCategory.CATEGORY_ID) " +
                             "WHERE Incident.REPORT_ID = " + reportID + "; " +
-                            "SELECT GenericElement.* FROM GenericElement WHERE GenericElement.REPORT_ID = " + reportID + "; ";
+                            "SELECT GenericElement.* FROM GenericElement WHERE GenericElement.REPORT_ID = " + reportID + "; " +
+                            "SELECT Attachment.* FROM Attachment " +
+                            "WHERE Attachment.REPORT_ID = " + reportID + "; ";
 
             PreparedStatement stmt = connection.prepareStatement ( getIncidentElementsQuery );
             boolean hasResults = stmt.execute();
@@ -212,8 +215,9 @@ public class DBHelper
                         incidentElement = new IncidentCategory();
                     } else if ( count == 4 ) {
                         incidentElement = new GenericElement();
-                    }
-                    else {
+                    } else if ( count == 5 ) {
+                        incidentElement = new Attachment();
+                    } else {
 //                    throw new IllegalStateException ( table.toString () + " does not have its Model implemented yet" );'
                         break;
                     }
@@ -263,7 +267,7 @@ public class DBHelper
         if ( getAccountType( creatorID ) == DatabaseValues.AccountType.GUARD )
             incident.updateAttributeValue( DatabaseValues.Column.TEMPORARY_REPORT, "0" );
 
-        incident.updateSearchString();
+        incident.updateSearchString(true);
 
         try {
             initDB();
@@ -322,8 +326,14 @@ public class DBHelper
                                 incidentElement,
                                 reportId
                         );
-                    }
-                    else if ( hasAttributes ) {
+                    } else if ( DatabaseValues.Table.ATTACHMENT == incidentElement.getTable() ) {
+                        String reportId = getLastInsertedIncidentID();
+                        insertAttachment(
+                                reportId,
+                                incidentElement.getAttributeValue( DatabaseValues.Column.FILE_NAME ),
+                                incidentElement.getAttributeValue( DatabaseValues.Column.FILE_ID )
+                        );
+                    } else if ( hasAttributes ) {
                         debug_printInsertRelationLog( incidentElement );
                         insertIncidentRelation(
                                 relationSQL,
@@ -354,7 +364,7 @@ public class DBHelper
             }
         }
     }
-    
+
     private static DatabaseValues.AccountType getAccountType( String accountId ) {
         try {
             String query = "select * from account where ACCOUNT_ID = " + accountId ;
@@ -442,6 +452,19 @@ public class DBHelper
         return false;
     }
 
+    private static boolean insertAttachment(String reportId, String fileName, String fileId) {
+        System.out.println("Inserting Attachment: " + fileName);
+        try {
+            String query = "insert into Attachment (REPORT_ID, FILE_NAME, FILE_ID) values ('" +
+                    reportId + "', '" + fileName + "', '" + fileId + "');";
+            return executeUpdate(query) > 0;
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     /* Validate incidents attributes */
     private static void inspectFields( Incident incident ) {
         if ( incident.getAttributeValue(DatabaseValues.Column.DESCRIPTION ) == null ||
@@ -511,6 +534,13 @@ public class DBHelper
                 if ( id == null )
                     return false;
                 idString += "GENERIC_ELEMENT_ID = '" + id + "';";
+            }
+            else if ( DatabaseValues.Table.ATTACHMENT == table ){
+                relationTable = "Attachment";
+                String id = incidentElement.getAttributeValue( DatabaseValues.Column.FILE_ID);
+                if (id == null || id.equals("null"))
+                    return true;
+                idString += "FILE_ID = '" + id + "';";
             }
             else
                 return false;
@@ -589,7 +619,6 @@ public class DBHelper
 //                        incidentElement.getAttributeValue ( DatabaseValues.Column.CATEGORY_ID )
 //                );
             }
-
             stmt.registerOutParameter (
                     3,
                     Types.INTEGER
@@ -622,6 +651,13 @@ public class DBHelper
 
             if ( tableName.compareTo( "GenericElement")  == 0 ) {
                 insertGenericElement( incidentElement, reportID );
+                return true;
+            }
+            else if ( tableName.compareTo( "Attachment")  == 0 ) {
+                insertAttachment( reportID,
+                        incidentElement.getAttributeValue( DatabaseValues.Column.FILE_NAME ),
+                        incidentElement.getAttributeValue( DatabaseValues.Column.FILE_ID )
+                );
                 return true;
             }
             else if ( tableName.compareTo ( "Staff" ) == 0 )
@@ -743,6 +779,7 @@ public class DBHelper
             );
             stmt.execute();
             deleteGenericElementRelation( reportID );
+            deleteAttachments( reportID );
             return;
         } catch ( Exception e ) {
             e.printStackTrace();
@@ -752,6 +789,16 @@ public class DBHelper
     private static void deleteGenericElementRelation( String reportID ) {
         try {
             String query = "delete from GenericElement where REPORT_ID = " + reportID + ";";
+            execute(query);
+            return;
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void deleteAttachments( String reportID ) {
+        try {
+            String query = "delete from Attachment where REPORT_ID = " + reportID + ";";
             execute(query);
             return;
         } catch ( Exception e ) {
@@ -773,7 +820,7 @@ public class DBHelper
             return false;
         }
 
-        incident.updateSearchString();
+        incident.updateSearchString(false);
 
         try {
             initDB ();
@@ -934,6 +981,10 @@ public class DBHelper
                 {
                     incidentElement = new Campus();
                 }
+                else if ( table == DatabaseValues.Table.ATTACHMENT )
+                {
+                    incidentElement = new Attachment();
+                }
                 else
                 {
                     throw new IllegalStateException ( table.toString () + " does not have its Model implemented yet" );
@@ -1009,6 +1060,32 @@ public class DBHelper
         return campusList.toArray ( new Campus [ campusList.size () ] );
     }
 
+    public static Attachment [] getAttachments ()
+    {
+        ArrayList < Attachment > attachmentList = new ArrayList <> ();
+
+        try
+        {
+            ResultSet resultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.ATTACHMENT.toString () );
+
+            while ( resultSet.next () )
+            {
+                Attachment attachment = new Attachment();
+
+                attachment.extractFromCurrentRow ( resultSet );
+
+                attachmentList.add ( attachment );
+            }
+        }
+
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+
+        return attachmentList.toArray ( new Attachment [ attachmentList.size () ] );
+    }
+
     public static String getLastInsertedIncidentID() {
         try {
             initDB();
@@ -1049,6 +1126,10 @@ public class DBHelper
                     " , INCIDENT_TYPE = " + incidentElement.getAttributeValue( DatabaseValues.Column.INCIDENT_TYPE ) +
                     " , CATEGORY_ID = " + incidentElement.getAttributeValue(DatabaseValues.Column.CATEGORY_ID);
         }
+        else if ( DatabaseValues.Table.ATTACHMENT == table ) {
+            msg += "where FILE_ID = " + incidentElement.getAttributeValue(DatabaseValues.Column.FILE_ID);
+        }
+
 
         System.out.println( msg );
     }

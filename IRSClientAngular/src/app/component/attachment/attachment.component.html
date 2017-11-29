@@ -1,5 +1,9 @@
 <div class="details-body">
-    <div class="detail col-12 col-sm-3">
-        <input type="file" [multiple]="multiple" #file>
+  <div class="x-container" id="removeAttachment">
+      <span class="glyphicon glyphicon-remove glyphicon-btn" (click)="removeAttachmentFromReport()"></span>
+  </div>
+    <div class="detail col-12 col-sm-3" >
+        <span class="required-asterisk">*</span>
+        <input type="file" (change)="assignFileName(); upload();" #file>
     </div>
-</div> 
+</div>

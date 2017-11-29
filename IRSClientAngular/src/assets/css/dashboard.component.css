@@ -100,7 +100,7 @@ div.side-container {
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-width: 300px;
+  min-width: 50px;
   max-width: 400px; }
   #workspace-data incidents-component {
     height: 91%; }
