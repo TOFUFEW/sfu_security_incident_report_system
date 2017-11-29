@@ -117,8 +117,13 @@
                             <span class="glyphicon glyphicon-cloud-upload glyphicon-heading"></span>
                             <span class="field-title">Attachments</span>
                         </div>
-                        <div>
-                            <attachment-component #files></attachment-component>
+                        <div class="row" >
+                            <div class="col-sm-2 col-sm-offset-9">
+                                <span class="link" (click)="addComponent(attachmentStr)"> Add Attachment</span>
+                            </div>
+                        </div>
+                        <div id="attachments" #files>
+
                         </div>
                     </div>
 
@@ -302,6 +307,23 @@
                         <!-- <div class="alertText" *ngIf="!personExists"> Please add the person before continuing</div> -->
                     </div>
                 </div>
+
+                <div class="details-container">
+                    <div class="details-heading">
+                        <span class="glyphicon glyphicon-question-mark glyphicon-heading"></span>
+                        <span class="field-title">Attachments</span>
+                    </div>
+                    <div class="details-body" *ngFor="let attachment of newIncident.incidentElements['Attachment']">
+                        <div class="detail col-12 col-sm-3">
+                            <span class="field-title">File</span>
+                            <span class="field-value" *ngIf="attachment.attributes.FILE_NAME != null">{{attachment.attributes.FILE_NAME}}</span>
+                            <div class="alertText" *ngIf="attachment.attributes.FILE_NAME == null">
+                                    Please select a file.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="assignGuardPreviewDiv" class="details-container">
                     <div class="details-heading">
                         <span class="glyphicon glyphicon-tag glyphicon-heading"></span>
@@ -337,7 +359,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary" (click)=" files.upload(); createReport();" *ngIf="reportReady">Create Report</button>
+                <button class="btn btn-primary" (click)="createReport();" *ngIf="reportReady">Create Report</button>
             </div>
         </div>
     </div>

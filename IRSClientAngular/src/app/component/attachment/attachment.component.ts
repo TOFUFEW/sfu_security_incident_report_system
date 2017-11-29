@@ -17,6 +17,7 @@ export class AttachmentComponent implements OnInit {
   @ViewChild('file') inputEl: ElementRef;
   uploadURI = Config.UploadURI;
   newAttachment: Attachment;
+  public reference : any;
 
   private bs_attachments = new BehaviorSubject<Attachment[]>([]);
   attachments = this.bs_attachments.asObservable();
@@ -31,7 +32,7 @@ export class AttachmentComponent implements OnInit {
   ngOnInit(): void {
     this.newAttachment = new Attachment();
     this.getAttachments().then ( returnedAttachments => {
-      this.bs_attachments.next(returnedAttachments); 
+      this.bs_attachments.next(returnedAttachments);
       console.log(this.attachments);
       this.addAttachmentToReport();
     });
@@ -41,6 +42,7 @@ export class AttachmentComponent implements OnInit {
   }
 
   public upload(): Promise<boolean> {
+      console.log("upload");
       let inputEl: HTMLInputElement = this.inputEl.nativeElement;
       let fileCount: number = inputEl.files.length;
       let formData = new FormData();
@@ -55,10 +57,6 @@ export class AttachmentComponent implements OnInit {
               .toPromise()
               .then( response => response.json() as boolean )
               .catch( this.handleError );
-
-          if (success) {
-            this.newAttachment.attributes.FILE_NAME =  inputEl.files.item(0).name;
-          }
 
           return Promise.resolve( success );
       } else {
@@ -78,6 +76,16 @@ export class AttachmentComponent implements OnInit {
           .catch( this.handleError );
       return Promise.resolve( returnedAttachments );
   };
+
+  removeAttachmentFromReport() : void {
+    this.reportService.removeIncidentElement ( this.newAttachment, Config.AttachmentTable );
+    this.reference.destroy();
+  }
+
+  assignFileName(): void{
+      let inputEl: HTMLInputElement = this.inputEl.nativeElement;
+      this.newAttachment.attributes.FILE_NAME =  inputEl.files.item(0).name;
+  }
 
   private generateUUID () { // Public Domain/MIT
     var d = Date.now();
