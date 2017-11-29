@@ -70,12 +70,6 @@ export class IncidentService {
             this.bs_categories.next(cat);
         } );
 
-        /*
-        this.getIncidents().then(response => {
-            this.bs_reportsInList.next(response);
-        });
-        */
-
         // Web socket
         var wss = new WebSocket ( Config.IncidentsWebSocketURI );
         wss.onopen = function ()
@@ -90,8 +84,6 @@ export class IncidentService {
             );
             var user = this.userService.getCurrentUser ();
             var reportList = this.bs_reportsInList.getValue ();
-
-            console.log ( "this.userService.isGuard () = " + this.userService.isGuard () );
 
             // if user is a guard, then check if
             if ( this.userService.isGuard () )
