@@ -1,0 +1,25 @@
+@import "_settings";
+
+.header-container {
+    @include flex(center, center);
+    flex-direction: column;   
+    padding: $padding-md;    
+}
+
+div.report-header {
+    @include flex(center, center);
+    width: 100%;
+}
+
+.report-id {
+    font-size: 18px;
+    font-weight: $header-font-weight;
+    opacity: $header-opacity;
+    color: #333;
+}
+
+#accept-temp {
+    display: flex;
+    justify-content: center;
+    margin-top: $padding-md; 
+}

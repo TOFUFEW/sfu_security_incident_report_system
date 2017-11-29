@@ -1,27 +1,31 @@
 export class Config {
 
-    static LocationsURI: string = "https://localhost:4567/locations";
-    static IncidentsURI: string = "https://localhost:4567/incidents";
-    static FTSearchURI: string = "https://localhost:4567/ftsearch-incident";
-    static CTSearchURI: string = "https://localhost:4567/ctsearch-incident";
-    static StaffURI: string = "https://localhost:4567/staff";
-    static LoginURI: string = "https://localhost:4567/login";
-    static PersonURI: string = "https://localhost:4567/person";
+    private static serverURL: string = "https://localhost:4567/";
+    
+    //private static serverURL: string = "https://cmpt373-1177a.cmpt.sfu.ca:4567/";
+    
+    static LocationsURI: string = Config.serverURL + "locations";
+    static IncidentsURI: string = Config.serverURL + "incidents";
+    static FTSearchURI: string = Config.serverURL + "ftsearch-incident";
+    static CTSearchURI: string = Config.serverURL + "ctsearch-incident";
+    static StaffURI: string = Config.serverURL + "staff";
+    static LoginURI: string = Config.serverURL + "login";
+    static PersonURI: string = Config.serverURL + "person";
 
-    static GetIncidentsURI: string = "https://localhost:4567/get-incidents";
-    static GetIncidentURI: string = "https://localhost:4567/get-incident";
-    static CreatedIncidentsURI: string = "https://localhost:4567/created-incidents";
-    static CategoriesURI: string = "https://localhost:4567/categories";
-    static UpdateIncidentURI: string = "https://localhost:4567/update-incident";
-    static UploadURI: string = "https://localhost:4567/upload";
-    static TimerURI: string = "http://localhost:4567/timer";
-    static UploadsURI: string = "https://localhost:4567/uploads";
-    static GetFileURI: string = "https://localhost:4567/upload/get/";
-    static NewAccountURI: string = "https://localhost:4567/create-account";
-    static GetAccountTypesURI: string = "https://localhost:4567/get-account-types";
-    static GetCampusURI: string = "https://localhost:4567/campus";
-    static ValidateUsernameURI: string = "https://localhost:4567/validate-username";
-    static PersonExistsURI: string = "https://localhost:4567/person-exists";
+    static GetIncidentsURI: string = Config.serverURL + "get-incidents";
+    static GetIncidentURI: string = Config.serverURL + "get-incident";
+    static CreatedIncidentsURI: string = Config.serverURL + "created-incidents";
+    static CategoriesURI: string = Config.serverURL + "categories";
+    static UpdateIncidentURI: string = Config.serverURL + "update-incident";
+    static UploadURI: string = Config.serverURL + "upload";
+    static TimerURI: string = Config.serverURL + "timer";
+    static UploadsURI: string = Config.serverURL + "uploads";
+    static GetFileURI: string = Config.serverURL + "upload/get/";
+    static NewAccountURI: string = Config.serverURL + "create-account";
+    static GetAccountTypesURI: string = Config.serverURL + "get-account-types";
+    static GetCampusURI: string = Config.serverURL + "campus";
+    static ValidateUsernameURI: string = Config.serverURL + "validate-username";
+    static PersonExistsURI: string = Config.serverURL + "person-exists";
     static WSURI: string = "ws://localhost:4567/ws";
 
     static IncidentsWebSocketURI: string = "wss://localhost:4567/incidentsWebSocket";

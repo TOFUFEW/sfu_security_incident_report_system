@@ -1,0 +1,25 @@
+@import "settings";
+
+div.timer-card {
+    @include flex(flex-start, flex-start);
+    height: 72px;
+    padding: $padding-sm;        
+    
+    border-top: $border-default;
+
+    .main-content, .timer-container {
+        height: 100%;
+    }
+
+    .main-content {
+        flex-grow: 1;
+    }
+
+    .timer-container {
+        @include flex(flex-end, center);
+        .time-remaining {
+            font-size: 24px !important;
+            margin-right: 8px;
+        }
+    }
+}

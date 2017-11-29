@@ -4,8 +4,11 @@ package App;
 import Controller.*;
 import WebSocketHandlers.IncidentsWebSocketHandler;
 import WebSocketHandlers.LoginWebSocketHandler;
+import com.google.common.io.ByteStreams;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,39 +28,26 @@ public class Application
         port ( 4567 );
 
         // SETUP ENCRYPTION
-        Path currentPath = Paths.get ( "" ).toAbsolutePath ();
-
-        File keyStoreFile = new File (
-                currentPath +
-                        "/src/main/resources/public/self_signed_certificate/keystore.jks"
-        );
         String keyStorePassword = "changeit";
-
-        File trustStoreFile = new File (
-                currentPath +
-                        "/src/main/resources/public/self_signed_certificate/cacerts.jks"
-        );
         String trustoreStorePassword = "changeit";
 
+        ClassLoader classLoader = Application.class.getClassLoader();
+        URL keystoreURL = classLoader.getResource( "self_signed_certificate/keystore.jks");
+        URL trustoreURL = classLoader.getResource("self_signed_certificate/cacerts.jks");
+
         secure (
-                keyStoreFile.getPath (),
+                keystoreURL.toString(),
                 keyStorePassword,
-                trustStoreFile.getPath (),
+                trustoreURL.toString(),
                 trustoreStorePassword
         );
 
         // SETUP STATIC FILE HOSTING FOR ANGULAR
         staticFiles.location("/public");
-
         notFound ( ( request , response ) ->
         {
-            final File indexHTML = new File(
-                    Paths.get ( "" ).toAbsolutePath () +
-                            "/src/main/resources/public/index.html"
-            );
-
-            Path path = Paths.get ( indexHTML.toURI () );
-            byte [] encoded = Files.readAllBytes ( path );
+            InputStream in = classLoader.getResourceAsStream("public/index.html");
+            byte[] encoded = ByteStreams.toByteArray(in);
 
             response.type ( "text/html" );
             response.body (

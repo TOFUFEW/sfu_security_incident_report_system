@@ -1,0 +1,20 @@
+div.timer-card {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 72px;
+  padding: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.16); }
+  div.timer-card .main-content, div.timer-card .timer-container {
+    height: 100%; }
+  div.timer-card .main-content {
+    flex-grow: 1; }
+  div.timer-card .timer-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; }
+    div.timer-card .timer-container .time-remaining {
+      font-size: 24px !important;
+      margin-right: 8px; }
+
+/*# sourceMappingURL=timer.component.css.map */
