@@ -89,9 +89,14 @@ export class IncidentComponent implements OnInit {
                     else {
                         console.log("Error setting timer.");
                     }
+                    this.resetTimer();                            
                 } );
-
         }
+    }
+
+    resetTimer() {
+        this.timerStart = "";
+        this.timerEnd = "";
     }
 
     setIncidentToTime( id: number ) {
@@ -114,6 +119,7 @@ export class IncidentComponent implements OnInit {
         } else {
             this.timerValid = true;
         }
+        console.log("timer valid?" + this.timerValid);
     }
 
     assignToGuard (): void {

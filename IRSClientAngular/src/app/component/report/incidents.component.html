@@ -95,15 +95,18 @@
                 <div class="details-container">
                     <div class="details-body">
                         <div class="detail col-12 col-sm-3">
+                            <span class="field-title">Timer Start: <span class="required-asterisk">*</span> </span>                                
                             <input class="form-control" type="time" [(ngModel)] = "timerStart" (change)="onChangeTimer()">
+                            <span class="field-title">Timer End: <span class="required-asterisk">*</span> </span>                                                            
                             <input class="form-control" type="time" [(ngModel)] = "timerEnd" (change)="onChangeTimer()">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary" (click)="setTimer()" data-dismiss="modal">Set Timer</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="resetTimer()">Cancel</button>
+                <button class="btn btn-primary" (click)="setTimer()" data-dismiss="modal"
+                    *ngIf="timerValid">Set Timer</button>
             </div>
         </div>
     </div>
