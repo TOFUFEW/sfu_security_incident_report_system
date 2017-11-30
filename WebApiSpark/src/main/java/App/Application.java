@@ -4,12 +4,11 @@ package App;
 import Controller.*;
 import WebSocketHandlers.IncidentsWebSocketHandler;
 import WebSocketHandlers.LoginWebSocketHandler;
+import com.google.common.io.ByteStreams;
 
-import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static Util.PathStrings.INCIDENTS_WEB_SOCKET_PATH;
 import static Util.PathStrings.LOGIN_WEB_SOCKET_PATH;
@@ -25,39 +24,26 @@ public class Application
         port ( 4567 );
 
         // SETUP ENCRYPTION
-        Path currentPath = Paths.get ( "" ).toAbsolutePath ();
-
-        File keyStoreFile = new File (
-                currentPath +
-                        "/src/main/resources/public/self_signed_certificate/keystore.jks"
-        );
         String keyStorePassword = "changeit";
-
-        File trustStoreFile = new File (
-                currentPath +
-                        "/src/main/resources/public/self_signed_certificate/cacerts.jks"
-        );
         String trustoreStorePassword = "changeit";
 
+        ClassLoader classLoader = Application.class.getClassLoader();
+        URL keystoreURL = classLoader.getResource( "self_signed_certificate/keystore.jks");
+        URL trustoreURL = classLoader.getResource("self_signed_certificate/cacerts.jks");
+
         secure (
-                keyStoreFile.getPath (),
+                keystoreURL.toString(),
                 keyStorePassword,
-                trustStoreFile.getPath (),
+                trustoreURL.toString(),
                 trustoreStorePassword
         );
 
         // SETUP STATIC FILE HOSTING FOR ANGULAR
         staticFiles.location("/public");
-
-        notFound ( ( request , response ) ->
+        notFound( ( request , response ) ->
         {
-            final File indexHTML = new File(
-                    Paths.get ( "" ).toAbsolutePath () +
-                            "/src/main/resources/public/index.html"
-            );
-
-            Path path = Paths.get ( indexHTML.toURI () );
-            byte [] encoded = Files.readAllBytes ( path );
+            InputStream in = classLoader.getResourceAsStream("public/index.html");
+            byte[] encoded = ByteStreams.toByteArray(in);
 
             response.type ( "text/html" );
             response.body (
@@ -69,6 +55,8 @@ public class Application
 
             return response.body ();
         } );
+        //notFound("<html>AAAAHHH</html>");
+
 
         // SETUP WEB SOCKETS
         IncidentsWebSocketHandler incidentsWebSocketHandler = new IncidentsWebSocketHandler ();
@@ -98,6 +86,27 @@ public class Application
         IncidentCategoryController categoryController = new IncidentCategoryController();
         AttachmentController attachmentController = new AttachmentController();
 
+        get("*", (request, response) -> {
+            System.out.println ( "request.pathInfo().toString () = " + request.pathInfo().toString () );
+            if ( !request.pathInfo().startsWith("/static") &&
+                    !request.pathInfo().toString ().equals ( "/incidentsWebSocket" ) &&
+                    !request.pathInfo().toString ().equals ( "/loginWebSocket" ) )
+            {
+                InputStream in = classLoader.getResourceAsStream("public/index.html");
+                byte[] encoded = ByteStreams.toByteArray(in);
+
+                response.type ( "text/html" );
+                response.body (
+                        new String (
+                                encoded,
+                                StandardCharsets.UTF_8
+                        )
+                );
+
+                return response.body ();
+            }
+            return null;
+        });
     }
 
     // CORS Filter

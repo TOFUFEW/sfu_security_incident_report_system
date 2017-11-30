@@ -296,7 +296,6 @@ export class ReportSummaryComponent implements OnInit {
                       .then( returnedNewIncident => {
                         if ( returnedNewIncident != null  ) {
                           alert("Report successfully created!");
-                        //   setTimeout(function(){location.reload()}, 300);
                         }
                         else alert( "Add failed." );
                       } );

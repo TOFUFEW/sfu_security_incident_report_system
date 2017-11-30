@@ -82,16 +82,29 @@ export class IncidentService {
             var incident = this.initializeIncident (
               JSON.parse ( JSON.parse ( message.data ) ) as Incident
             );
+
             var user = this.userService.getCurrentUser ();
             var reportList = this.bs_reportsInList.getValue ();
 
-            // if user is a guard, then check if
-            if ( this.userService.isGuard () )
+            var incidentIsClosed = ( incident.attributes.STATUS == 4 );
+
+            if ( incidentIsClosed && !this.userService.isSupervisor () )
+            {
+              this.removeReportFromList ( incident );
+              this.removeFromWorkspace ( incident.attributes.REPORT_ID );
+            }
+
+            else if ( this.userService.isGuard () )
             {
               this.processWebsocketIncidentForGuard ( incident );
             }
 
-            else  if ( this.userService.isAdmin () || this.userService.isSupervisor () )
+            else  if ( this.userService.isAdmin () )
+            {
+              this.addReportToList ( incident );
+            }
+
+             else  if ( this.userService.isSupervisor () )
             {
               this.addReportToList ( incident );
             }
@@ -166,7 +179,7 @@ export class IncidentService {
       {
           reportList [ reportListIndex ] = incident;
 
-          if ( !this.userService.isGuard () )
+          if ( !this.userService.isGuard () && this.isInWorkspace ( incident.attributes.REPORT_ID ) )
           {
             this.updateInWorkspace ( incident );
           }
@@ -219,6 +232,7 @@ export class IncidentService {
           i => i.attributes.REPORT_ID == incident.attributes.REPORT_ID );
         if ( workspaceReportListIndex != -1 )
         {
+          this.removeFromWorkspace ( incident.attributes.REPORT_ID );
           workspaceReportList.splice( workspaceReportListIndex, 1, incident );
           this.bs_reportsToAddToWorkspace.next(workspaceReportList);
         }
@@ -323,7 +337,7 @@ export class IncidentService {
     }
 
     private initializeIncident(incident: Incident): Incident {
-        incident.inWorkspace = this.isInWorkspace( incident.attributes.REPORT_ID );        
+        incident.inWorkspace = this.isInWorkspace( incident.attributes.REPORT_ID );
         incident.category = incident.incidentElements[Config.IncidentCategoryKey][0] as Category;
         incident.guard = incident.incidentElements[Config.StaffKey][0] as Staff;
         incident.createdBy = this.getReportCreator(incident.attributes.ACCOUNT_ID);

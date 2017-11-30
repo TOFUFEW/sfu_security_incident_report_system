@@ -1,31 +1,35 @@
 export class Config {
 
-    static LocationsURI: string = "https://localhost:4567/locations";
-    static IncidentsURI: string = "https://localhost:4567/incidents";
-    static FTSearchURI: string = "https://localhost:4567/ftsearch-incident";
-    static CTSearchURI: string = "https://localhost:4567/ctsearch-incident";
-    static StaffURI: string = "https://localhost:4567/staff";
-    static LoginURI: string = "https://localhost:4567/login";
-    static PersonURI: string = "https://localhost:4567/person";
+     private static protocol: string = "https://";
+    private static serverURL: string = "localhost:4567/";
+    //private static serverURL: string = "cmpt373-1177a.cmpt.sfu.ca:4567/";
+    
+    static LocationsURI: string = Config.protocol + Config.serverURL + "locations";
+    static IncidentsURI: string = Config.protocol + Config.serverURL + "incidents";
+    static FTSearchURI: string = Config.protocol + Config.serverURL + "ftsearch-incident";
+    static CTSearchURI: string = Config.protocol + Config.serverURL + "ctsearch-incident";
+    static StaffURI: string = Config.protocol + Config.serverURL + "staff";
+    static LoginURI: string = Config.protocol + Config.serverURL + "login";
+    static PersonURI: string = Config.protocol + Config.serverURL + "person";
 
-    static GetIncidentsURI: string = "https://localhost:4567/get-incidents";
-    static GetIncidentURI: string = "https://localhost:4567/get-incident";
-    static CreatedIncidentsURI: string = "https://localhost:4567/created-incidents";
-    static CategoriesURI: string = "https://localhost:4567/categories";
-    static UpdateIncidentURI: string = "https://localhost:4567/update-incident";
-    static UploadURI: string = "https://localhost:4567/upload";
-    static TimerURI: string = "http://localhost:4567/timer";
-    static UploadsURI: string = "https://localhost:4567/uploads";
-    static GetFileURI: string = "https://localhost:4567/upload/get/";
-    static NewAccountURI: string = "https://localhost:4567/create-account";
-    static GetAccountTypesURI: string = "https://localhost:4567/get-account-types";
-    static GetCampusURI: string = "https://localhost:4567/campus";
-    static ValidateUsernameURI: string = "https://localhost:4567/validate-username";
-    static PersonExistsURI: string = "https://localhost:4567/person-exists";
-    static WSURI: string = "ws://localhost:4567/ws";
+    static GetIncidentsURI: string = Config.protocol + Config.serverURL + "get-incidents";
+    static GetIncidentURI: string = Config.protocol + Config.serverURL + "get-incident";
+    static CreatedIncidentsURI: string = Config.protocol + Config.serverURL + "created-incidents";
+    static CategoriesURI: string = Config.protocol + Config.serverURL + "categories";
+    static UpdateIncidentURI: string = Config.protocol + Config.serverURL + "update-incident";
+    static UploadURI: string = Config.protocol + Config.serverURL + "upload";
+    static TimerURI: string = Config.protocol + Config.serverURL + "timer";
+    static UploadsURI: string = Config.protocol + Config.serverURL + "uploads";
+    static GetFileURI: string = Config.protocol + Config.serverURL + "upload/get/";
+    static NewAccountURI: string = Config.protocol + Config.serverURL + "create-account";
+    static GetAccountTypesURI: string = Config.protocol + Config.serverURL + "get-account-types";
+    static GetCampusURI: string = Config.protocol + Config.serverURL + "campus";
+    static ValidateUsernameURI: string = Config.protocol + Config.serverURL + "validate-username";
+    static PersonExistsURI: string = Config.protocol + Config.serverURL + "person-exists";
+    static WSURI: string = "ws://" + Config.serverURL + "ws";
 
-    static IncidentsWebSocketURI: string = "wss://localhost:4567/incidentsWebSocket";
-    static LogInWebSocketURI: string = "wss://localhost:4567/loginWebSocket";
+    static IncidentsWebSocketURI: string = "wss://" + Config.serverURL + "incidentsWebSocket";
+    static LogInWebSocketURI: string = "wss://" + Config.serverURL + "loginWebSocket";
 
     static StaffTable: string = "STAFF";
     static LocationTable: string = "LOCATION";

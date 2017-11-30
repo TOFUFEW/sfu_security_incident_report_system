@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Class-Path: jetty-http-9.4.6.v20170531.jar gson-2.6.2.jar websocket-ap
+ i-9.4.6.v20170531.jar jsr305-1.3.9.jar slf4j-api-1.7.13.jar mail-1.4.
+ 5.jar websocket-servlet-9.4.6.v20170531.jar commons-fileupload-1.3.ja
+ r jackson-core-asl-1.9.2.jar activation-1.1.jar stax-api-1.0.1.jar ja
+ xb-api-2.2.2.jar jetty-util-9.4.6.v20170531.jar httpcore-4.3.3.jar je
+ tty-io-9.4.6.v20170531.jar jetty-client-9.4.6.v20170531.jar httpclien
+ t-4.3.6.jar javax.inject-1.jar commons-io-2.2.jar error_prone_annotat
+ ions-2.0.18.jar spark-core-2.7.0.jar jersey-core-1.13.jar jetty-webap
+ p-9.4.6.v20170531.jar jersey-client-1.13.jar javax.servlet-api-3.1.0.
+ jar commons-lang3-3.3.1.jar websocket-common-9.4.6.v20170531.jar jcip
+ -annotations-1.0.jar adal4j-1.0.0.jar commons-logging-1.1.3.jar webso
+ cket-client-9.4.6.v20170531.jar jackson-xc-1.9.2.jar oauth2-oidc-sdk-
+ 4.5.jar mssql-jdbc-6.1.0.jre8.jar stax-api-1.0-2.jar jackson-jaxrs-1.
+ 9.2.jar jetty-server-9.4.6.v20170531.jar jetty-servlet-9.4.6.v2017053
+ 1.jar jetty-security-9.4.6.v20170531.jar guava-23.3-jre.jar j2objc-an
+ notations-1.1.jar websocket-server-9.4.6.v20170531.jar animal-sniffer
+ -annotations-1.14.jar azure-core-0.9.3.jar nimbus-jose-jwt-3.1.2.jar 
+ json-smart-1.1.1.jar commons-lang-2.6.jar jackson-mapper-asl-1.9.2.ja
+ r commons-codec-1.10.jar bcprov-jdk15on-1.51.jar jetty-xml-9.4.6.v201
+ 70531.jar jersey-json-1.13.jar lang-tag-1.4.jar slf4j-simple-1.7.25.j
+ ar azure-keyvault-0.9.3.jar jaxb-impl-2.2.3-1.jar jettison-1.1.jar
+Main-Class: App.Application
+

@@ -3075,6 +3075,7 @@ var NewReportComponent = (function () {
         this.newReportService.currentGenericElements
             .subscribe(function (elements) {
             _this.newIncident.incidentElements[__WEBPACK_IMPORTED_MODULE_12__util_config_service__["a" /* Config */].GenericElementKey] = elements;
+
         });
         this.newReportService.currentAttachments
             .subscribe(function (attachments) {
@@ -3532,7 +3533,7 @@ var ReportSummaryComponent = (function () {
                     .then(function (returnedNewIncident) {
                     if (returnedNewIncident != null) {
                         alert("Report successfully created!");
-                        //   setTimeout(function(){location.reload()}, 300);
+                        setTimeout(function () { location.reload(); }, 300);
                     }
                     else
                         alert("Add failed.");
@@ -4002,6 +4003,7 @@ var TimerComponent = (function () {
                 return 0;
             }
         });
+
     };
     TimerComponent.prototype.start = function () {
         var _this = this;
@@ -4009,6 +4011,7 @@ var TimerComponent = (function () {
     };
     TimerComponent.prototype.countDown = function () {
         var _this = this;
+
         this.timerList.forEach(function (timer) {
             _this.timeNow = _this.timeNow - 1000;
             timer.TIME_REMAINING = timer.TIME_REMAINING - 1000;
@@ -5809,30 +5812,33 @@ var Config = (function () {
     return Config;
 }());
 
-Config.LocationsURI = "https://localhost:4567/locations";
-Config.IncidentsURI = "https://localhost:4567/incidents";
-Config.FTSearchURI = "https://localhost:4567/ftsearch-incident";
-Config.CTSearchURI = "https://localhost:4567/ctsearch-incident";
-Config.StaffURI = "https://localhost:4567/staff";
-Config.LoginURI = "https://localhost:4567/login";
-Config.PersonURI = "https://localhost:4567/person";
-Config.GetIncidentsURI = "https://localhost:4567/get-incidents";
-Config.GetIncidentURI = "https://localhost:4567/get-incident";
-Config.CreatedIncidentsURI = "https://localhost:4567/created-incidents";
-Config.CategoriesURI = "https://localhost:4567/categories";
-Config.UpdateIncidentURI = "https://localhost:4567/update-incident";
-Config.UploadURI = "https://localhost:4567/upload";
-Config.TimerURI = "http://localhost:4567/timer";
-Config.UploadsURI = "https://localhost:4567/uploads";
-Config.GetFileURI = "https://localhost:4567/upload/get/";
-Config.NewAccountURI = "https://localhost:4567/create-account";
-Config.GetAccountTypesURI = "https://localhost:4567/get-account-types";
-Config.GetCampusURI = "https://localhost:4567/campus";
-Config.ValidateUsernameURI = "https://localhost:4567/validate-username";
-Config.PersonExistsURI = "https://localhost:4567/person-exists";
-Config.WSURI = "ws://localhost:4567/ws";
-Config.IncidentsWebSocketURI = "wss://localhost:4567/incidentsWebSocket";
-Config.LogInWebSocketURI = "wss://localhost:4567/loginWebSocket";
+Config.protocol = "https://";
+Config.serverURL = "localhost:4567/";
+//private static serverURL: string = "cmpt373-1177a.cmpt.sfu.ca:4567/";
+Config.LocationsURI = Config.protocol + Config.serverURL + "locations";
+Config.IncidentsURI = Config.protocol + Config.serverURL + "incidents";
+Config.FTSearchURI = Config.protocol + Config.serverURL + "ftsearch-incident";
+Config.CTSearchURI = Config.protocol + Config.serverURL + "ctsearch-incident";
+Config.StaffURI = Config.protocol + Config.serverURL + "staff";
+Config.LoginURI = Config.protocol + Config.serverURL + "login";
+Config.PersonURI = Config.protocol + Config.serverURL + "person";
+Config.GetIncidentsURI = Config.protocol + Config.serverURL + "get-incidents";
+Config.GetIncidentURI = Config.protocol + Config.serverURL + "get-incident";
+Config.CreatedIncidentsURI = Config.protocol + Config.serverURL + "created-incidents";
+Config.CategoriesURI = Config.protocol + Config.serverURL + "categories";
+Config.UpdateIncidentURI = Config.protocol + Config.serverURL + "update-incident";
+Config.UploadURI = Config.protocol + Config.serverURL + "upload";
+Config.TimerURI = Config.protocol + Config.serverURL + "timer";
+Config.UploadsURI = Config.protocol + Config.serverURL + "uploads";
+Config.GetFileURI = Config.protocol + Config.serverURL + "upload/get/";
+Config.NewAccountURI = Config.protocol + Config.serverURL + "create-account";
+Config.GetAccountTypesURI = Config.protocol + Config.serverURL + "get-account-types";
+Config.GetCampusURI = Config.protocol + Config.serverURL + "campus";
+Config.ValidateUsernameURI = Config.protocol + Config.serverURL + "validate-username";
+Config.PersonExistsURI = Config.protocol + Config.serverURL + "person-exists";
+Config.WSURI = "ws://" + Config.serverURL + "ws";
+Config.IncidentsWebSocketURI = "wss://" + Config.serverURL + "incidentsWebSocket";
+Config.LogInWebSocketURI = "wss://" + Config.serverURL + "loginWebSocket";
 Config.StaffTable = "STAFF";
 Config.LocationTable = "LOCATION";
 Config.AccountTable = "ACCOUNT";
