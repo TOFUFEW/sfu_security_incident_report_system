@@ -87,7 +87,11 @@ public class Application
         AttachmentController attachmentController = new AttachmentController();
 
         get("*", (request, response) -> {
-            if ( !request.pathInfo().startsWith("/static")) {
+            System.out.println ( "request.pathInfo().toString () = " + request.pathInfo().toString () );
+            if ( !request.pathInfo().startsWith("/static") &&
+                    !request.pathInfo().toString ().equals ( "/incidentsWebSocket" ) &&
+                    !request.pathInfo().toString ().equals ( "/loginWebSocket" ) )
+            {
                 InputStream in = classLoader.getResourceAsStream("public/index.html");
                 byte[] encoded = ByteStreams.toByteArray(in);
 
