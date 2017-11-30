@@ -29,7 +29,7 @@ export class TimerService{
     createTimerInt ( incident: Incident, start : number, end : number ) : Timer {
         var timer : Timer = new Timer();
         var nowDate = new Date (Date.now());
-        var nowTime = nowDate.getHours() * 60 * 60 * 1000 + nowDate.getMinutes() * 60 * 1000;
+        var nowTime = nowDate.getHours() * 60 * 60 * 1000 + nowDate.getMinutes() * 60 * 1000 + nowDate.getSeconds() * 1000;
  
         timer.incident = incident;
         timer.TIMER_START = start;
