@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3258f34-4357-46e7-a275-cc0acbced47a" name="Default" comment="">
+    <list default="true" id="c3258f34-4357-46e7-a275-cc0acbced47a" name="Default" comment="Add static">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" afterPath="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/WebApiSpark/target/" />
@@ -36,61 +35,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="IncidentsController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/IncidentsController.java">
+      <file leaf-file-name="Application.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/App/Application.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="70" column="12" lean-forward="false" selection-start-line="70" selection-start-column="12" selection-end-line="70" selection-end-column="12" />
-              <folding>
-                <marker date="1511950847484" expanded="true" signature="2911:3286" ph="{...}" />
-                <marker date="1511950847484" expanded="true" signature="3356:3590" ph="{...}" />
-                <marker date="1511950847484" expanded="true" signature="3662:4026" ph="{...}" />
-                <marker date="1511950847484" expanded="true" signature="4099:4463" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DBHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/Util/DBHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="142" column="38" lean-forward="false" selection-start-line="142" selection-start-column="38" selection-end-line="142" selection-end-column="38" />
-              <folding>
-                <marker date="1511950847493" expanded="true" signature="42025:42067" ph="{...}" />
-                <marker date="1511950847493" expanded="true" signature="42123:42942" ph="{...}" />
-                <marker date="1511950847493" expanded="true" signature="42990:43566" ph="{...}" />
-                <marker date="1511950847493" expanded="true" signature="43635:44711" ph="{...}" />
-                <marker date="1511950847493" expanded="true" signature="44786:45472" ph="{...}" />
-                <marker date="1511950847493" expanded="true" signature="45546:46778" ph="{...}" />
-                <marker date="1511950847493" expanded="true" signature="46834:47214" ph="{...}" />
-                <marker date="1511950847493" expanded="true" signature="47290:47558" ph="{...}" />
-                <marker date="1511950847493" expanded="true" signature="47614:48675" ph="{...}" />
-                <marker date="1511950847493" expanded="true" signature="48752:48873" ph="{...}" />
-                <marker date="1511950847493" expanded="true" signature="48952:49079" ph="{...}" />
-                <marker date="1511950847493" expanded="true" signature="49163:49289" ph="{...}" />
-                <marker date="1511950847493" expanded="true" signature="49368:50276" ph="{...}" />
-                <marker date="1511950847493" expanded="true" signature="50316:50778" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="guard-dashboard.component.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-dashboard.component.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="507">
-              <caret line="65" column="5" lean-forward="false" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
+            <state relative-caret-position="561">
+              <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="incident.service.ts" pinned="false" current-in-tab="true">
+      <file leaf-file-name="incident.service.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="529">
-              <caret line="298" column="129" lean-forward="false" selection-start-line="298" selection-start-column="129" selection-end-line="298" selection-end-column="129" />
+            <state relative-caret-position="1088">
+              <caret line="64" column="44" lean-forward="false" selection-start-line="64" selection-start-column="44" selection-end-line="64" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -99,7 +58,7 @@
       <file leaf-file-name="new-report.component.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/report/new-report.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-323">
+            <state relative-caret-position="1598">
               <caret line="94" column="46" lean-forward="false" selection-start-line="94" selection-start-column="46" selection-end-line="94" selection-end-column="46" />
               <folding />
             </state>
@@ -109,7 +68,7 @@
       <file leaf-file-name="new-report.service.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/new-report.service.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="822">
+            <state relative-caret-position="3315">
               <caret line="195" column="24" lean-forward="false" selection-start-line="195" selection-start-column="24" selection-end-line="195" selection-end-column="24" />
               <folding />
             </state>
@@ -119,8 +78,8 @@
       <file leaf-file-name="config.service.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/util/config.service.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="76" lean-forward="false" selection-start-line="23" selection-start-column="76" selection-end-line="23" selection-end-column="76" />
+            <state relative-caret-position="459">
+              <caret line="27" column="76" lean-forward="false" selection-start-line="27" selection-start-column="76" selection-end-line="27" selection-end-column="76" />
               <folding />
             </state>
           </provider>
@@ -180,7 +139,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="iteration-3-b" />
       </map>
     </option>
   </component>
@@ -224,7 +183,6 @@
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/app.module.ts" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/assets/css/guard-dashboard.component.css" />
         <option value="$PROJECT_DIR$/WebApiSpark/pom.xml" />
-        <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/App/Application.java" />
         <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/Controller/LocationController.java" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/report/report-summary.component.html" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/util/config.service.ts" />
@@ -246,6 +204,7 @@
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/report/new-report.component.ts" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/component/guard-app/guard-dashboard.component.ts" />
         <option value="$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts" />
+        <option value="$PROJECT_DIR$/WebApiSpark/src/main/java/App/Application.java" />
       </list>
     </option>
   </component>
@@ -280,107 +239,36 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="classes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CMPT373Alpha" type="462c0819:PsiDirectoryNode" />
+              <item name="CMPT373Alpha" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
               <item name="classes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CMPT373Alpha" type="462c0819:PsiDirectoryNode" />
-              <item name="IRSClientAngular" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="classes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CMPT373Alpha" type="462c0819:PsiDirectoryNode" />
-              <item name="IRSClientAngular" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="classes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CMPT373Alpha" type="462c0819:PsiDirectoryNode" />
-              <item name="IRSClientAngular" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="classes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CMPT373Alpha" type="462c0819:PsiDirectoryNode" />
-              <item name="IRSClientAngular" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="component" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="classes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CMPT373Alpha" type="462c0819:PsiDirectoryNode" />
-              <item name="IRSClientAngular" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="component" type="462c0819:PsiDirectoryNode" />
-              <item name="guard-app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="classes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CMPT373Alpha" type="462c0819:PsiDirectoryNode" />
-              <item name="IRSClientAngular" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="component" type="462c0819:PsiDirectoryNode" />
-              <item name="login" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="classes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CMPT373Alpha" type="462c0819:PsiDirectoryNode" />
-              <item name="IRSClientAngular" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="component" type="462c0819:PsiDirectoryNode" />
-              <item name="report" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="classes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CMPT373Alpha" type="462c0819:PsiDirectoryNode" />
-              <item name="IRSClientAngular" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="classes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CMPT373Alpha" type="462c0819:PsiDirectoryNode" />
-              <item name="IRSClientAngular" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="classes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CMPT373Alpha" type="462c0819:PsiDirectoryNode" />
+              <item name="CMPT373Alpha" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="WebApiSpark" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="classes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CMPT373Alpha" type="462c0819:PsiDirectoryNode" />
+              <item name="CMPT373Alpha" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="WebApiSpark" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="classes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CMPT373Alpha" type="462c0819:PsiDirectoryNode" />
+              <item name="CMPT373Alpha" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="WebApiSpark" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="classes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CMPT373Alpha" type="462c0819:PsiDirectoryNode" />
+              <item name="CMPT373Alpha" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="WebApiSpark" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
@@ -388,35 +276,36 @@
             </path>
             <path>
               <item name="classes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CMPT373Alpha" type="462c0819:PsiDirectoryNode" />
+              <item name="CMPT373Alpha" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="WebApiSpark" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="Controller" type="462c0819:PsiDirectoryNode" />
+              <item name="App" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="classes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CMPT373Alpha" type="462c0819:PsiDirectoryNode" />
+              <item name="CMPT373Alpha" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="WebApiSpark" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="Model" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="classes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CMPT373Alpha" type="462c0819:PsiDirectoryNode" />
+              <item name="CMPT373Alpha" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="WebApiSpark" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="Util" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1049,25 +938,24 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27597404" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25233644" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32606438" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25324675" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21055438" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14765458" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1090,8 +978,8 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32683983" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25324675" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32683983" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20833333" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1303,8 +1191,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/WebApiSpark/src/main/java/App/Application.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+        <state relative-caret-position="561">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1334,7 +1223,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-153">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1429,8 +1317,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/util/config.service.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="76" lean-forward="false" selection-start-line="23" selection-start-column="76" selection-end-line="23" selection-end-column="76" />
+        <state relative-caret-position="459">
+          <caret line="27" column="76" lean-forward="false" selection-start-line="27" selection-start-column="76" selection-end-line="27" selection-end-column="76" />
           <folding />
         </state>
       </provider>
@@ -1439,7 +1327,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="417">
           <caret line="202" column="0" lean-forward="false" selection-start-line="202" selection-start-column="0" selection-end-line="202" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1467,7 +1354,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/new-report.service.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="822">
+        <state relative-caret-position="3315">
           <caret line="195" column="24" lean-forward="false" selection-start-line="195" selection-start-column="24" selection-end-line="195" selection-end-column="24" />
           <folding />
         </state>
@@ -1475,7 +1362,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/component/report/new-report.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-323">
+        <state relative-caret-position="1598">
           <caret line="94" column="46" lean-forward="false" selection-start-line="94" selection-start-column="46" selection-end-line="94" selection-end-column="46" />
           <folding />
         </state>
@@ -1485,22 +1372,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="142" column="38" lean-forward="false" selection-start-line="142" selection-start-column="38" selection-end-line="142" selection-end-column="38" />
-          <folding>
-            <marker date="1511950847493" expanded="true" signature="42025:42067" ph="{...}" />
-            <marker date="1511950847493" expanded="true" signature="42123:42942" ph="{...}" />
-            <marker date="1511950847493" expanded="true" signature="42990:43566" ph="{...}" />
-            <marker date="1511950847493" expanded="true" signature="43635:44711" ph="{...}" />
-            <marker date="1511950847493" expanded="true" signature="44786:45472" ph="{...}" />
-            <marker date="1511950847493" expanded="true" signature="45546:46778" ph="{...}" />
-            <marker date="1511950847493" expanded="true" signature="46834:47214" ph="{...}" />
-            <marker date="1511950847493" expanded="true" signature="47290:47558" ph="{...}" />
-            <marker date="1511950847493" expanded="true" signature="47614:48675" ph="{...}" />
-            <marker date="1511950847493" expanded="true" signature="48752:48873" ph="{...}" />
-            <marker date="1511950847493" expanded="true" signature="48952:49079" ph="{...}" />
-            <marker date="1511950847493" expanded="true" signature="49163:49289" ph="{...}" />
-            <marker date="1511950847493" expanded="true" signature="49368:50276" ph="{...}" />
-            <marker date="1511950847493" expanded="true" signature="50316:50778" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1508,12 +1379,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="70" column="12" lean-forward="false" selection-start-line="70" selection-start-column="12" selection-end-line="70" selection-end-column="12" />
-          <folding>
-            <marker date="1511950847484" expanded="true" signature="2911:3286" ph="{...}" />
-            <marker date="1511950847484" expanded="true" signature="3356:3590" ph="{...}" />
-            <marker date="1511950847484" expanded="true" signature="3662:4026" ph="{...}" />
-            <marker date="1511950847484" expanded="true" signature="4099:4463" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1521,14 +1386,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="507">
           <caret line="65" column="5" lean-forward="false" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/IRSClientAngular/src/app/service/incident.service.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="298" column="129" lean-forward="false" selection-start-line="298" selection-start-column="129" selection-end-line="298" selection-end-column="129" />
+        <state relative-caret-position="1088">
+          <caret line="64" column="44" lean-forward="false" selection-start-line="64" selection-start-column="44" selection-end-line="64" selection-end-column="44" />
           <folding />
         </state>
       </provider>
