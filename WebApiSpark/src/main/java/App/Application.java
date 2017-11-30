@@ -6,13 +6,9 @@ import WebSocketHandlers.IncidentsWebSocketHandler;
 import WebSocketHandlers.LoginWebSocketHandler;
 import com.google.common.io.ByteStreams;
 
-import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static Util.PathStrings.INCIDENTS_WEB_SOCKET_PATH;
 import static Util.PathStrings.LOGIN_WEB_SOCKET_PATH;
