@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,cAAe;EC4BX,OAAO,EAAE,IAAI;EACb,eAAe,ED5BD,UAAU;EC6BxB,WAAW,ED7Be,UAAU;EACpC,MAAM,EAAE,IAAI;EACZ,OAAO,ECME,IAAI;EDJb,UAAU,ECkBG,6BAA0B;EDhBvC,6DAAgC;IAC5B,MAAM,EAAE,IAAI;EAGhB,4BAAc;IACV,SAAS,EAAE,CAAC;EAGhB,+BAAiB;ICajB,OAAO,EAAE,IAAI;IACb,eAAe,EDbG,QAAQ;ICc1B,WAAW,EDdiB,MAAM;IAC9B,+CAAgB;MACZ,SAAS,EAAE,eAAe;MAC1B,YAAY,EAAE,GAAG",
+"sources": ["../sass/timer.component.scss","../sass/_settings.scss"],
+"names": [],
+"file": "timer.component.css"
+}

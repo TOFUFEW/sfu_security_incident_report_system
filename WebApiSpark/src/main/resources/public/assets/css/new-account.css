@@ -1,0 +1,14 @@
+div#new-account-panel .details-container .detail {
+  height: 80px; }
+  div#new-account-panel .details-container .detail .detail-col {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column; }
+    div#new-account-panel .details-container .detail .detail-col .glyphicon-ok-sign {
+      color: green; }
+    div#new-account-panel .details-container .detail .detail-col .validation-text {
+      opacity: 0.5; }
+
+/*# sourceMappingURL=new-account.css.map */

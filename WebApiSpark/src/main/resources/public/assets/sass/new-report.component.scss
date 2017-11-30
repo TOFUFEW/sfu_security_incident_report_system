@@ -1,0 +1,16 @@
+div#new-report-panel {
+    margin-top: 16px; 
+
+    .panel-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+
+#first-element {
+    .x-container {
+        display:none;
+    }
+}
