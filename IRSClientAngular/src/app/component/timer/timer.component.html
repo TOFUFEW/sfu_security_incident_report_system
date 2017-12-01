@@ -12,14 +12,15 @@
             <div class="timer-card" *ngFor="let timer of timerList">
                 <div class="main-content">
                     <div class="detail-row">
-                        <span class="card-text-primary">{{timer.incident.category.attributes.MAIN_CATEGORY}} &mdash; {{timer.incident.category.attributes.SUB_CATEGORY}}  {{timer.incident.category.attributes.INCIDENT_TYPE}}</span>
+                        <span class="card-text-primary">{{timer.incident.attributes.EXECUTIVE_SUMMARY}}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="card-text-secondary">{{timer.incident.category.attributes.MAIN_CATEGORY}} &mdash; {{timer.incident.category.attributes.SUB_CATEGORY}}  {{timer.incident.category.attributes.INCIDENT_TYPE}}</span>
                     </div>
                     <div class="detail-row">
                         <span class="card-text-secondary">Report #{{timer.incident.attributes.REPORT_ID}}</span>
                     </div>
-                    <!-- <div class="detail-row">
-                        <span class="card-text-primary">{{timer.incident.attributes.EXECUTIVE_SUMMARY}}</span>
-                    </div> -->
+
                     <!-- <div class="detail-row">
                         <button id="modifyBtn" class="btn" (click)="timer.modify = !timer.modify">Modify</button>
                     </div> -->

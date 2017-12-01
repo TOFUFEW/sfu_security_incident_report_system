@@ -22,7 +22,7 @@ export class TimerComponent implements OnInit {
 
     constructor( private timerService: TimerService, private incidentService: IncidentService ) {
         var nowDate = new Date ( Date.now() );
-        this.timeNow = nowDate.getHours() * 60 * 60 * 1000 + nowDate.getMinutes() * 60 * 1000;
+        this.timeNow = nowDate.getHours() * 60 * 60 * 1000 + nowDate.getMinutes() * 60 * 1000 + nowDate.getSeconds() * 1000;
 
         this.incidentService.editedReport
         .subscribe( value => {
@@ -86,7 +86,8 @@ export class TimerComponent implements OnInit {
 
     countDown  () : void {
         this.timerList.forEach( timer => {
-            this.timeNow = this.timeNow - 1000;
+            var nowDate = new Date ( Date.now() );
+            this.timeNow = nowDate.getHours() * 60 * 60 * 1000 + nowDate.getMinutes() * 60 * 1000 + nowDate.getSeconds() * 1000;
             timer.TIME_REMAINING= timer.TIME_REMAINING - 1000 ;
             if ( timer.TIME_REMAINING <= 0 ) {
                 this.timeUp( timer );
@@ -116,6 +117,7 @@ export class TimerComponent implements OnInit {
     resetTimerToModify() {
         this.timerToModify = new Timer();
     }
+
     modifyTimer () : void {
         var timer = this.timerToModify;
         timer.TIMER_START = this.timerService.stringToTime( this.tempStart );
@@ -130,12 +132,13 @@ export class TimerComponent implements OnInit {
     }
 
     timeUp ( timer : Timer ) : void {
-        if(confirm ( "Time up for" + timer.incident.attributes.EXECUTIVE_SUMMARY + ", repeat timer?" )) {
-            var temp = timer.TIMER_END;
-            timer.TIMER_END = timer.TIMER_END + ( timer.TIMER_END - timer.TIMER_START );
-            timer.TIMER_START = temp;
-            timer.TIME_REMAINING = timer.TIMER_END - timer.TIMER_START;
-            timer.TIMER_END - timer.TIMER_START;
+        if(confirm ( "Time up for " + timer.incident.attributes.EXECUTIVE_SUMMARY + ", repeat timer?" )) {
+            timer.incident.attributes.TIMER_END = Number (timer.TIMER_END) + Number ( timer.TIMER_END - timer.TIMER_START );
+            timer.incident.attributes.TIMER_START = timer.TIMER_END;
+            //timer.TIME_REMAINING = timer.TIMER_END - timer.TIMER_START;
+            console.log(timer);
+            this.incidentService.update( timer.incident);
+            timer.TIME_REMAINING = 10000;
         } else {
             this.deleteTimer( timer );
         } 

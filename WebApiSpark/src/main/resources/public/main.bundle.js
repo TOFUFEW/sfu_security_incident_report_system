@@ -3075,6 +3075,7 @@ var NewReportComponent = (function () {
         this.newReportService.currentGenericElements
             .subscribe(function (elements) {
             _this.newIncident.incidentElements[__WEBPACK_IMPORTED_MODULE_12__util_config_service__["a" /* Config */].GenericElementKey] = elements;
+
         });
         this.newReportService.currentAttachments
             .subscribe(function (attachments) {
@@ -4002,6 +4003,7 @@ var TimerComponent = (function () {
                 return 0;
             }
         });
+
     };
     TimerComponent.prototype.start = function () {
         var _this = this;
@@ -4009,6 +4011,7 @@ var TimerComponent = (function () {
     };
     TimerComponent.prototype.countDown = function () {
         var _this = this;
+
         this.timerList.forEach(function (timer) {
             _this.timeNow = _this.timeNow - 1000;
             timer.TIME_REMAINING = timer.TIME_REMAINING - 1000;
