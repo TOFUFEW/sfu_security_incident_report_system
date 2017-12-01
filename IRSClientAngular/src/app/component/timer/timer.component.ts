@@ -133,7 +133,7 @@ export class TimerComponent implements OnInit {
 
     timeUp ( timer : Timer ) : void {
         if(confirm ( "Time up for " + timer.incident.attributes.EXECUTIVE_SUMMARY + ", repeat timer?" )) {
-            timer.incident.attributes.TIMER_END = timer.TIMER_END + ( timer.TIMER_END - timer.TIMER_START );
+            timer.incident.attributes.TIMER_END = Number (timer.TIMER_END) + Number ( timer.TIMER_END - timer.TIMER_START );
             timer.incident.attributes.TIMER_START = timer.TIMER_END;
             //timer.TIME_REMAINING = timer.TIMER_END - timer.TIMER_START;
             console.log(timer);
