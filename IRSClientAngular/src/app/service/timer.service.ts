@@ -15,7 +15,7 @@ export class TimerService{
 
     createTimer ( start : string, end : string ) : Timer {
         var nowDate = new Date (Date.now());
-        var nowTime = nowDate.getHours() * 60 * 60 * 1000 + nowDate.getMinutes() * 60 * 1000;
+        var nowTime = nowDate.getHours() * 60 * 60 * 1000 + nowDate.getMinutes() * 60 * 1000 + nowDate.getSeconds() * 1000;
         var timer : Timer = new Timer();
 
         timer.TIMER_START = this.stringToTime( start );
