@@ -1,5 +1,6 @@
 package Model;
 
+import Util.DBHelper;
 import Util.DatabaseValues;
 
 import java.util.ArrayList;
@@ -190,6 +191,7 @@ public class Incident extends StorageObject
                 "Created",
                 "En Route",
                 "Working",
+                "Resolved",
                 "Closed",
                 "Sealed"
         };
@@ -205,6 +207,14 @@ public class Incident extends StorageObject
 
         sb.append(statusCode);
         sb.append(" ");
+
+        Staff author = DBHelper.getStaffbyId( this.getAttributeValue( DatabaseValues.Column.ACCOUNT_ID ) );
+        sb.append( author.getAttributeValue( DatabaseValues.Column.FIRST_NAME ) );
+        sb.append(" ");
+        sb.append( author.getAttributeValue( DatabaseValues.Column.LAST_NAME ) );
+        sb.append(" ");
+
+
         sb.append(this.getAttributeValue(DatabaseValues.Column.DESCRIPTION));
         sb.append(" ");
         sb.append(this.getAttributeValue(DatabaseValues.Column.EXECUTIVE_SUMMARY));
