@@ -1060,6 +1060,28 @@ public class DBHelper
         return campusList.toArray ( new Campus [ campusList.size () ] );
     }
 
+    public static Staff getStaffbyId (String accountId)
+    {
+        Staff staff = new Staff();
+
+        try
+        {
+            ResultSet resultSet = executeQuery ( "SELECT * FROM " + DatabaseValues.Table.STAFF.toString () + " Where ACCOUNT_ID = " + accountId );
+
+            while ( resultSet.next () )
+            {
+                staff.extractFromCurrentRow( resultSet );
+            }
+        }
+
+        catch ( Exception e )
+        {
+            e.printStackTrace ();
+        }
+
+        return staff;
+    }
+
     public static Attachment [] getAttachments ()
     {
         ArrayList < Attachment > attachmentList = new ArrayList <> ();

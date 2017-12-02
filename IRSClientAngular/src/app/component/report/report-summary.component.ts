@@ -285,7 +285,7 @@ export class ReportSummaryComponent implements OnInit {
         var newIncident = new Incident();
         newIncident = this.report;
         var reportID = this.report.attributes.REPORT_ID;
-        this.report.attributes.STATUS = 4;
+        this.report.attributes.STATUS = 5;
         this.incidentService.update( this.report )
             .then( returnedIncident => {
                 if( returnedIncident != null ) {

@@ -21,7 +21,7 @@ export class SearchComponent implements OnInit {
     queryString: string;
     isCTSearch: boolean = false;
     incidents: Incident[];
-    statuses: String[] = ['Created', 'En Route', 'Working', 'Closed', 'Sealed'];
+    statuses: String[] = ['Created', 'En Route', 'Working', 'Resolved', 'Closed', 'Sealed'];
 
     constructor(
         private incidentService: IncidentService,
@@ -46,7 +46,11 @@ export class SearchComponent implements OnInit {
                 },
                 (errors) => {
                     if (errors.status == 400) {
-                        alert("Search failed, Reason: bad format");
+                        var formatString: String = "Search failed, Reason: bad format; " 
+                        + "\nFormat should be: \"Search Term\" AND/OR \"Search Term\" " 
+                        + "\nExample: \"Vancouver\" AND \"En Route\" "
+                        + "\nNotes: Bracket are allowed for prioritizing of search terms";
+                        alert(formatString);
                     }
                     this.showSpinner = false;
                 },

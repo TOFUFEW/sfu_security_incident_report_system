@@ -1,0 +1,8 @@
+DELETE FROM Involves
+DELETE FROM HappensAt
+DELETE FROM AssignedTo
+DELETE FROM GenericElement
+DELETE FROM ChangeLog
+DELETE FROM Attachment
+
+DELETE FROM Incident
