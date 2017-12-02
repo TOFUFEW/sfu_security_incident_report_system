@@ -87,8 +87,15 @@ export class IncidentService {
             var reportList = this.bs_reportsInList.getValue ();
 
             var incidentIsClosed = ( incident.attributes.STATUS == 4 );
+            var incidentIsSealed = ( incident.attributes.STATUS == 5 );
 
-            if ( incidentIsClosed && !this.userService.isSupervisor () )
+            if ( incidentIsSealed && !this.userService.isAdmin () )
+            {
+              this.removeReportFromList ( incident );
+              this.removeFromWorkspace ( incident.attributes.REPORT_ID );
+            }
+
+            else if ( incidentIsClosed && this.userService.isGuard () )
             {
               this.removeReportFromList ( incident );
               this.removeFromWorkspace ( incident.attributes.REPORT_ID );
