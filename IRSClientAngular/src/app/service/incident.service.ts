@@ -87,8 +87,9 @@ export class IncidentService {
             var reportList = this.bs_reportsInList.getValue ();
 
             var incidentIsClosed = ( incident.attributes.STATUS == 4 );
+            var incidentIsSealed = ( incident.attributes.STATUS == 5 );
 
-            if ( incidentIsClosed && !this.userService.isSupervisor () )
+            if ( incidentIsClosed || incidentIsSealed )
             {
               this.removeReportFromList ( incident );
               this.removeFromWorkspace ( incident.attributes.REPORT_ID );
@@ -99,12 +100,12 @@ export class IncidentService {
               this.processWebsocketIncidentForGuard ( incident );
             }
 
-            else  if ( this.userService.isAdmin () )
+            else if ( this.userService.isSupervisor () )
             {
               this.addReportToList ( incident );
             }
 
-             else  if ( this.userService.isSupervisor () )
+            else  if ( this.userService.isAdmin () )
             {
               this.addReportToList ( incident );
             }
