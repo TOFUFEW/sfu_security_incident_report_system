@@ -1,6 +1,7 @@
-
 The SFU Incident Reporting System is a system for reporting, communicating, and archiving security reports.
 
+LICENSE:
+    -License
 
 DEPENDENCIES:
 
