@@ -4,6 +4,10 @@ LICENSE:
 
     -License
 
+VIRTUAL MACHINE:
+
+    -https://cmpt373-1177a.cmpt.sfu.ca:4567/login
+
 DEPENDENCIES:
 
     -Node.js 6.11.3
